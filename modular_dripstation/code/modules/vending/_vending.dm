@@ -4,6 +4,14 @@
 	/// How long vendor takes to vend one item.
 	var/vend_delay = 12
 
+/obj/machinery/vending/update_overlays()
+	. = ..()
+	if(light_mask && !(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, light_mask, src)
+	if(panel_open)
+		. += mutable_appearance(icon, panel_type)
+		. += emissive_blocker(icon, panel_type, src, alpha = src.alpha)
+
 /obj/machinery/vending/cart
 	icon_vend = "cart-vend"
 	req_access = list(ACCESS_HOP)
@@ -26,7 +34,7 @@
 
 /obj/machinery/vending/wallhypo
 	req_access = list(ACCESS_MEDICAL)
-	light_mask = "med-light-mask"
+	light_mask = "wallmed-light-mask"
 
 /obj/machinery/vending/hydroseeds
 	icon_vend = "seeds-vend"

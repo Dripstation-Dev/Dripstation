@@ -24,7 +24,9 @@
 	default_price = 25
 	extra_price = 100
 	payment_department = ACCOUNT_MED
+	/* dripstation edit
 	light_mask = "wall-light-mask"
+	*/
 
 /obj/item/vending_refill/wallgene
 	machine_name = "NanoGene"

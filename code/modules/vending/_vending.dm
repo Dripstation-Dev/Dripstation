@@ -232,6 +232,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 		build_inventory(premium, coin_records)
 
 	vend_reply = "Thank you for shopping with [src]!" //dripstation edit
+	panel_type = "[initial(icon_state)]-panel"
 
 	slogan_list = splittext(product_slogans, ";")
 	small_ads = splittext(product_ads, ";")
@@ -298,12 +299,14 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	icon_state = "[initial(icon_state)][powered() ? null : "-off"]"
 	return ..()
 
+/* Dripstation edit
 /obj/machinery/vending/update_overlays()
 	. = ..()
 	if(panel_open)
 		. += panel_type
 	if(light_mask && !(stat & BROKEN) && powered())
 		. += emissive_appearance(icon, light_mask, src)
+*/
 
 /obj/machinery/vending/obj_break(damage_flag)
 	. = ..()
@@ -449,7 +452,14 @@ GLOBAL_LIST_EMPTY(vending_products)
 		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 		cut_overlays()
 		if(panel_open)
+			/* //dripstation edit
 			add_overlay("[initial(icon_state)]-panel")
+			*/
+		//dripstation ADDITION START
+			update_appearance(UPDATE_OVERLAYS)
+		else
+			update_appearance(UPDATE_OVERLAYS)
+		//dripstation ADDITION END
 		updateUsrDialog()
 	else
 		to_chat(user, span_warning("You must first secure [src]."))

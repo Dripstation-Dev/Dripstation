@@ -96,7 +96,7 @@
 			. += "[icon_keyboard]_off"
 		else
 			. += icon_keyboard
-
+			. += emissive_appearance(icon, icon_keyboard, src) //Dripstation edit
 	if(stat & BROKEN)
 		. += mutable_appearance(icon, "[icon_state]_broken")
 		return // If we don't do this broken computers glow in the dark.

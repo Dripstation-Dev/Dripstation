@@ -245,9 +245,9 @@
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, O))
 		if(panel_open)
-			update_overlays()
+			update_appearance(UPDATE_OVERLAYS) //dripstation edit
 		else
-			update_overlays()
+			update_appearance(UPDATE_OVERLAYS) //dripstation edit
 		updateUsrDialog()
 		return
 

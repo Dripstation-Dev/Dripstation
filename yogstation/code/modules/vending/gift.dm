@@ -95,4 +95,6 @@
 	default_price = 50
 	extra_price = 75
 	payment_department = ACCOUNT_SRV
+	/* dripstation edit
 	light_mask = "gifts-light-mask"
+	*/

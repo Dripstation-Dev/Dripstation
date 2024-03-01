@@ -30,7 +30,9 @@
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallhypo
 	payment_department = ACCOUNT_MED
+	/* dripstation edit
 	light_mask = "wall-light-mask"
+	*/
 
 /obj/item/vending_refill/wallhypo
 	machine_name = "HypoMed"
