@@ -1,3 +1,4 @@
+#include "code\datums\status_effects\debuffs\speech_debuffs.dm"
 #include "code\modules\antagonists\_common\antag_spawner.dm"
 #include "code\game\gamemodes\nuclear\nuclear.dm"
 #include "code\modules\antagonists\nukeop\nukeop.dm"
@@ -178,6 +179,7 @@
 #include "code\game\machinery\newscaster.dm"
 #include "code\game\machinery\computer\_computer.dm"
 #include "code\game\machinery\computer\security.dm"
+#include "code\game\machinery\computer\gulag_teleporter.dm"
 #include "code\game\machinery\embedded_controller\access_controller.dm"
 #include "code\game\machinery\embedded_controller\simple_vent_controller.dm"
 #include "code\game\machinery\embedded_controller\airlock_controller.dm"
