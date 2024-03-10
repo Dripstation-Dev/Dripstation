@@ -48,7 +48,10 @@
 	if(!clockwork)
 		clockwork = TRUE
 		icon_screen = "ratvar[rand(1, 4)]"
+		/* //Dripstation edit
 		icon_keyboard = "ratvar_key[rand(1, 6)]"
+		*/
+		icon_keyboard = "ratvar_key[rand(1, 2)]" //Dripstation edit
 		icon_state = "ratvarcomputer[rand(1, 4)]"
 		update_appearance()
 

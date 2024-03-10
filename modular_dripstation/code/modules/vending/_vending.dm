@@ -82,7 +82,7 @@
 	icon_vend = "cargodrobe-vend"
 	icon_deny = "cargodrobe-deny"
 	req_access = list(ACCESS_CARGO)
-	light_color = COLOR_VIVID_YELLOW
+	light_color = COLOR_TANGERINE_YELLOW
 
 /obj/machinery/vending/wardrobe/robo_wardrobe
 	icon_vend = "robodrobe-vend"
@@ -203,6 +203,7 @@
 
 /obj/machinery/vending/modularpc
 	icon_vend = "modularpc-vend"
+	light_color = COLOR_WHITE
 
 /obj/machinery/vending/magivend
 	icon_deny = "magivend-deny"
@@ -299,3 +300,6 @@
 /obj/machinery/vending/gifts
 	icon_vend = "gifts-vend"
 	light_color = LIGHT_COLOR_HOLY_MAGIC
+
+/obj/machinery/lapvend
+	// light_mask = "robotics-light-mask"
