@@ -690,7 +690,7 @@
 	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 
-	drop_part(firstaid_item, Tsec)
+	drop_part(firstaid_item, Tsec) //Dripstation edit
 	new /obj/item/assembly/prox_sensor(Tsec)
 	drop_part(healthanalyzer, Tsec)
 
