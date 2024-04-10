@@ -5,20 +5,12 @@
 	pixel_x = 32
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "b" = (
 /obj/structure/rack,
 /obj/item/toy/plush/beeplushie,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "c" = (
 /obj/machinery/door/window/southleft{
@@ -30,27 +22,19 @@
 /obj/machinery/door/poddoor/shutters{
 	id = "giftshop"
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/clerk)
 "d" = (
 /obj/structure/chair,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/clerk)
 "e" = (
 /obj/structure/sign/poster/contraband/random{
@@ -59,17 +43,15 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
 /area/clerk)
 "f" = (
 /obj/machinery/button/door{
@@ -87,45 +69,33 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/clerk)
 "g" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/clerk)
 "h" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
+/turf/open/floor/plasteel{
+	icon_state = "redyellowfull"
 	},
-/turf/open/floor/plasteel,
 /area/clerk)
 "i" = (
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
 /area/clerk)
 "j" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -134,25 +104,17 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/clerk)
 "k" = (
 /obj/machinery/vending/gifts,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "l" = (
-/obj/effect/spawner/structure/window,
+/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "giftshop_ext"
 	},
@@ -161,11 +123,7 @@
 "m" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/gloves,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "n" = (
 /obj/structure/table,
@@ -186,11 +144,7 @@
 	pixel_x = 8;
 	pixel_y = -7
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "o" = (
 /turf/template_noop,
@@ -220,32 +174,16 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
-/area/clerk)
-"q" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/clerk)
 "r" = (
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
 /area/clerk)
 "s" = (
 /obj/structure/rack,
@@ -254,11 +192,7 @@
 	c_tag = "Clerk's office";
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "t" = (
 /obj/machinery/door/poddoor/shutters{
@@ -268,40 +202,24 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/clerk)
 "v" = (
 /obj/structure/rack,
 /obj/item/book/random,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "w" = (
 /obj/machinery/vending/autodrobe,
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "x" = (
 /obj/structure/rack,
 /obj/item/a_gift,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "y" = (
 /obj/effect/landmark/event_spawn,
@@ -312,18 +230,12 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "z" = (
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
+/turf/open/floor/plasteel{
+	icon_state = "redyellowfull"
 	},
-/turf/open/floor/plasteel,
 /area/clerk)
 "A" = (
 /obj/machinery/door/airlock{
@@ -342,20 +254,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "B" = (
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
-	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -363,7 +267,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/clerk)
 "C" = (
 /obj/item/instrument/piano_synth{
@@ -383,14 +287,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/clerk)
 "D" = (
 /obj/structure/rack,
@@ -398,11 +298,7 @@
 	pixel_y = 24
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "E" = (
 /obj/machinery/door/firedoor/border_only{
@@ -412,31 +308,19 @@
 	id = "giftshop"
 	},
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/clerk)
 "F" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /mob/living/simple_animal/spiffles,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "G" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "H" = (
 /obj/structure/rack,
@@ -444,11 +328,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "J" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -457,11 +337,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "L" = (
 /obj/machinery/door/airlock/glass_large{
@@ -475,22 +351,14 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "giftshop_ext"
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "M" = (
 /obj/machinery/vending/games,
 /obj/machinery/airalarm{
 	pixel_y = 24
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "N" = (
 /obj/structure/table,
@@ -506,11 +374,7 @@
 	pixel_x = 16;
 	pixel_y = 4
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "O" = (
 /obj/machinery/door/firedoor/border_only,
@@ -520,11 +384,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "giftshop_ext"
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "Q" = (
 /obj/machinery/door/airlock{
@@ -540,11 +400,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "R" = (
 /obj/machinery/paystand/register{
@@ -557,46 +413,34 @@
 	id = "giftshop"
 	},
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/clerk)
 "S" = (
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/clerk)
 "T" = (
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
 /area/clerk)
 "U" = (
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
 /area/clerk)
 "V" = (
 /obj/structure/table,
@@ -610,32 +454,22 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "W" = (
 /obj/structure/rack,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/clerk)
 "X" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow/opposingcorners,
-/obj/effect/turf_decal/tile/green/opposingcorners{
-	dir = 1
+/turf/open/floor/plasteel{
+	icon_state = "redyellowfull"
 	},
-/turf/open/floor/plasteel,
 /area/clerk)
 "Y" = (
 /turf/closed/wall,
@@ -703,7 +537,7 @@ A
 Y
 Y
 W
-q
+i
 z
 O
 "}
@@ -714,7 +548,7 @@ J
 V
 Y
 H
-q
+i
 m
 l
 "}
