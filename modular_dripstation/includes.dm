@@ -11,6 +11,7 @@
 #include "code\datums\reagent\chemoverride.dm"
 #include "code\datums\component\mood.dm"
 #include "code\datums\component\shielded.dm"
+#include "code\datums\component\tackle.dm"
 #include "code\datums\reagent\leadacetate.dm"
 #include "code\datums\reagent\restore_nanites.dm"
 #include "code\datums\strong_pull.dm"
