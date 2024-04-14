@@ -13417,8 +13417,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 5
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
 "dNf" = (
@@ -16174,8 +16173,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 5
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
 "eDN" = (
@@ -25336,8 +25334,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 5
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
 "hcH" = (
@@ -36724,34 +36721,6 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/port/fore)
-"khL" = (
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "hop";
-	name = "privacy shutters"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft{
-	dir = 2;
-	name = "Reception Window"
-	},
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Head of Personnel's Desk";
-	req_access_txt = "57"
-	},
-/obj/item/deskbell/preset/hop{
-	pixel_x = 7;
-	pixel_y = -3
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/heads/hop)
 "khQ" = (
 /obj/structure/sink{
 	dir = 4;
@@ -40529,8 +40498,7 @@
 	dir = 10
 	},
 /turf/open/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 5
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness/recreation)
 "lle" = (
@@ -41789,8 +41757,7 @@
 /area/library)
 "lEH" = (
 /turf/open/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 5
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
 "lEU" = (
@@ -49899,6 +49866,34 @@
 	dir = 1
 	},
 /area/hallway/primary/port)
+"nKq" = (
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "hop";
+	name = "privacy shutters"
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northleft{
+	dir = 2;
+	name = "Reception Window"
+	},
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Head of Personnel's Desk";
+	req_access_txt = "57"
+	},
+/obj/item/deskbell/preset/hop{
+	pixel_x = 7;
+	pixel_y = -3
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/heads/hop)
 "nKy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -51714,8 +51709,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 5
+	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/dorms)
 "ohk" = (
@@ -244429,7 +244423,7 @@ mTR
 ibB
 qEA
 jJb
-khL
+nKq
 bjk
 eUW
 kvD
