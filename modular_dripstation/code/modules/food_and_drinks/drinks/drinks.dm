@@ -30,6 +30,7 @@
 	name = "\improper bluespace shaker"
 	desc = "A bluespace shaker to mix drinks in, can fit enough hooch to kill a goliath."
 	icon_state = "bluespaceshaker"
+	icon = 'modular_dripstation/icons/obj/drinks.dmi'
 	materials = list(/datum/material/glass = 5000, /datum/material/plasma = 3000, /datum/material/diamond = 1000, /datum/material/bluespace = 1000)
 	amount_per_transfer_from_this = 10
 	volume = 300
