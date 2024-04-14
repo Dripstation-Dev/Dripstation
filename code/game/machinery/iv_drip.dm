@@ -22,6 +22,7 @@
 
 /obj/machinery/iv_drip/Destroy()
 	attached = null
+	update_beam() //Dripstation edit
 	QDEL_NULL(beaker)
 	return ..()
 
@@ -78,6 +79,7 @@
 		visible_message(span_warning("[attached] is detached from [src]."))
 		attached = null
 		update_appearance(UPDATE_ICON)
+		update_beam() //Dripstation edit
 		return
 
 	if(!target.has_dna())
@@ -90,6 +92,7 @@
 			log_combat(usr, target, "attached", src, "containing: [beaker.name] - ([beaker.reagents.log_list()])")
 			add_fingerprint(usr)
 			attached = target
+			update_beam() //Dripstation edit
 			START_PROCESSING(SSmachines, src)
 			update_appearance(UPDATE_ICON)
 		else
@@ -132,6 +135,7 @@
 		to_chat(attached, span_userdanger("The IV drip needle is ripped out of you!"))
 		attached.apply_damage(3, BRUTE, pick(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM))
 		attached = null
+		update_beam() //Dripstation edit
 		update_appearance(UPDATE_ICON)
 		return PROCESS_KILL
 
@@ -174,6 +178,7 @@
 	if(attached)
 		visible_message("[attached] is detached from [src].")
 		attached = null
+		update_beam() //Dripstation edit
 		update_appearance(UPDATE_ICON)
 		return
 	else if(beaker)
@@ -202,6 +207,7 @@
 	if(attached)
 		visible_message("[attached] is detached from [src].")
 		attached = null
+		update_beam() //Dripstation edit
 
 	update_appearance(UPDATE_ICON)
 
