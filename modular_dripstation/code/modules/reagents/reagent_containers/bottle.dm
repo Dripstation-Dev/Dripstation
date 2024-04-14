@@ -175,6 +175,7 @@
 	lid_state = TRUE
 
 /obj/item/reagent_containers/glass/bottle/salglu_solution
+	icon_state = "bottle-4"
 	label_state = TRUE
 	lid_state = TRUE
 
