@@ -8831,8 +8831,7 @@
 	},
 /obj/effect/landmark/start/janitor,
 /turf/open/floor/plasteel{
-	icon_state = "textured_corner";
-	dir = 5
+	icon_state = "textured_corner"
 	},
 /area/janitor)
 "cAa" = (
@@ -19011,8 +19010,7 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel{
-	icon_state = "textured_corner";
-	dir = 5
+	icon_state = "textured_corner"
 	},
 /area/science/storage)
 "fwR" = (
@@ -34727,7 +34725,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "jHZ" = (
 /obj/structure/closet/emcloset,
@@ -49866,34 +49864,6 @@
 	dir = 1
 	},
 /area/hallway/primary/port)
-"nKq" = (
-/obj/structure/cable/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id = "hop";
-	name = "privacy shutters"
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/northleft{
-	dir = 2;
-	name = "Reception Window"
-	},
-/obj/machinery/door/window/brigdoor{
-	base_state = "rightsecure";
-	dir = 1;
-	icon_state = "rightsecure";
-	name = "Head of Personnel's Desk";
-	req_access_txt = "57"
-	},
-/obj/item/deskbell/preset/hop{
-	pixel_x = 7;
-	pixel_y = -3
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/heads/hop)
 "nKy" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -63111,6 +63081,34 @@
 	dir = 1
 	},
 /area/crew_quarters/dorms)
+"rwB" = (
+/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id = "hop";
+	name = "privacy shutters"
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/northleft{
+	dir = 2;
+	name = "Reception Window"
+	},
+/obj/machinery/door/window/brigdoor{
+	base_state = "rightsecure";
+	dir = 1;
+	icon_state = "rightsecure";
+	name = "Head of Personnel's Desk";
+	req_access_txt = "57"
+	},
+/obj/item/deskbell/preset/hop{
+	pixel_x = 7;
+	pixel_y = -3
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/heads/hop)
 "rwC" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	name = "Waste to Filters";
@@ -64948,7 +64946,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "rXD" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -71783,7 +71781,7 @@
 "tQH" = (
 /turf/open/floor/plasteel{
 	icon_state = "textured_edge";
-	dir = 5
+	dir = 2
 	},
 /area/quartermaster/office)
 "tQJ" = (
@@ -87017,7 +87015,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "xNS" = (
 /obj/structure/disposalpipe/segment,
@@ -244423,7 +244421,7 @@ mTR
 ibB
 qEA
 jJb
-nKq
+rwB
 bjk
 eUW
 kvD
