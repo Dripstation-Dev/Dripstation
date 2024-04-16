@@ -1,6 +1,3 @@
-/obj/item/reagent_containers/food/drinks/shaker
-	disp_icon = "disp_shaker"
-
 /obj/item/reagent_containers/food/drinks/flask
 	disp_icon = "disp_flask"
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/food/drinks_lefthand.dmi'
@@ -25,6 +22,7 @@
 /obj/item/reagent_containers/food/drinks/shaker
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/food/drinks_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/food/drinks_righthand.dmi'
+	disp_icon = "disp_shaker"
 
 /obj/item/reagent_containers/food/drinks/shaker/bluespace
 	name = "\improper bluespace shaker"

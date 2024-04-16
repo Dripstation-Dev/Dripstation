@@ -334,6 +334,7 @@
 #include "code\modules\research\techweb\all_nodes.dm"
 #include "code\modules\shuttle\emergency.dm"
 #include "code\modules\surgery\_bodyparts.dm"
+#include "code\modules\surgery\anasthesia_machine.dm"
 #include "code\modules\surgery\surgery_step.dm"
 #include "code\modules\surgery\tools.dm"
 #include "code\modules\uplink\uplink_devices.dm"

@@ -49,7 +49,10 @@
 		. += "beakeridle"
 	if(!beaker.reagents.total_volume)
 		return
+	/* Dripstation edit
 	var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/iv_drip.dmi', "reagent")
+	*/
+	var/mutable_appearance/filling_overlay = mutable_appearance('modular_dripstation/icons/obj/iv_drip.dmi', "reagent") //Dripstation edit
 	var/percent = round((beaker.reagents.total_volume / beaker.volume) * 100)
 	switch(percent)
 		if(0 to 9)
@@ -134,6 +137,7 @@
 	if(!(get_dist(src, attached) <= 1 && isturf(attached.loc)))
 		to_chat(attached, span_userdanger("The IV drip needle is ripped out of you!"))
 		attached.apply_damage(3, BRUTE, pick(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM))
+		attached.emote("scream")  //Dripstation edit
 		attached = null
 		update_beam() //Dripstation edit
 		update_appearance(UPDATE_ICON)
