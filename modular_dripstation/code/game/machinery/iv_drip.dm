@@ -1,7 +1,7 @@
 /obj/machinery/iv_drip
 	icon = 'modular_dripstation/icons/obj/iv_drip.dmi'
 	var/datum/beam/current_beam
-	base_pixel_x = 10
+	base_pixel_x = 9
 
 /obj/machinery/iv_drip/proc/update_beam()
 	if(current_beam && !attached)
