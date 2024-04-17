@@ -23,6 +23,8 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/food/drinks_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/food/drinks_righthand.dmi'
 	disp_icon = "disp_shaker"
+	drop_sound = 'modular_dripstation/sound/drop/axe.ogg'
+	pickup_sound = 'modular_dripstation/sound/pickup/axe.ogg'
 
 /obj/item/reagent_containers/food/drinks/shaker/bluespace
 	name = "\improper bluespace shaker"

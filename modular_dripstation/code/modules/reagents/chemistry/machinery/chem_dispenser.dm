@@ -38,3 +38,9 @@
 	if(!(stat & (BROKEN|NOPOWER)))
 		. += mutable_appearance(icon, "[icon_state]_lights")
 		. += emissive_appearance(icon, "[icon_state]_lights", src)
+
+/obj/machinery/chem_dispenser/mutagen/display_beaker()
+	var/mutable_appearance/beaker_overlay = mutable_appearance(icon, beaker.disp_icon)
+	beaker_overlay.pixel_y = 8
+	beaker_overlay.pixel_x = rand(-8, 8)
+	return beaker_overlay

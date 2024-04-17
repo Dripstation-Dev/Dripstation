@@ -31,3 +31,6 @@
 		else
 			stat |= NOPOWER
 			set_light(0)
+
+/obj/machinery/chem_master/condimaster
+	icon_state = "condimaster"
