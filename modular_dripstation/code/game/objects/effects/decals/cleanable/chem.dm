@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(chempiles)
 	else
 		qdel(src)
 
+/*
 /obj/effect/decal/cleanable/chempile/Crossed(mob/mover)
 	. = ..()
 	if(isliving(mover))
@@ -50,19 +51,18 @@ GLOBAL_LIST_EMPTY(chempiles)
 		for(var/obj/item/I in M.get_equipped_items())
 			if(I.body_parts_covered & FEET)
 				return
-/* снизу коммент куска кода отвещающий за попадание реагента в тело
+// снизу коммент куска кода отвещающий за попадание реагента в тело
 // кусок кода сверху тоже кусок говна, он должен проверять на био армор, передать бы всё это
 // в идеале оно должно пропускать реагент в тело в количестве 0.2, если нет био армора 60 и выше
-
 		if(reagents?.total_volume >= 1)	//No transfer if there's less than 1u total
 			reagents.trans_to(M, 2)
 			CHECK_TICK
 			for(var/datum/reagent/R in reagents)
 				if(R.volume < 0.2)
 					reagents.remove_reagent(R)	//Should remove most stray cases of microdosages that may get through without compromising chempiles with lots of mixes in them
-*/
 		else 
 			qdel(src)
+*/
 
 /obj/effect/decal/cleanable/chempile/fire_act(exposed_temperature, exposed_volume)
 	if(reagents && reagents.chem_temp)
