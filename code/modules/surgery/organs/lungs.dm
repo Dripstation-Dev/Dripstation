@@ -424,6 +424,8 @@
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
 				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
+			if(!H.internal && breath.return_pressure() > HAZARD_LOW_PRESSURE)	//dripstation edit
+				new /obj/effect/frosty_breath(loc, H)	//dripstation edit
 
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
 		var/heat_modifier = H.dna.species.heatmod
