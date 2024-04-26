@@ -1,6 +1,7 @@
 /datum/controller/subsystem/ticker
 	var/selected_lobby_music
 
+/*
 /datum/controller/subsystem/ticker/proc/choose_lobby_music()
 	//Add/remove songs from this list individually, rather than multiple at once. This makes it easier to judge PRs that change the list, since PRs that change it up heavily are less likely to meet broad support
 	//Add a comment after the song link in the format [Artist - Name]
@@ -106,3 +107,4 @@
 		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
 		return
 	return stdout
+*/
