@@ -49,6 +49,8 @@
 	..()
 	if(surgery_target)
 		target = surgery_target
+		if(is_synth(target))
+			ignore_clothes = TRUE
 		target.surgeries += src
 		if(surgery_location)
 			location = surgery_location
@@ -126,7 +128,7 @@
 		return TRUE
 
 	var/try_to_fail = FALSE
-	if(intent == INTENT_DISARM)
+	if(intent == INTENT_DISARM || HAS_TRAIT(user, TRAIT_NOSURGERY))	//dripstation edit
 		try_to_fail = TRUE
 
 	var/datum/surgery_step/S = get_surgery_step()
