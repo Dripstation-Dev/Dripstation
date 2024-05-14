@@ -64,3 +64,12 @@
 /obj/item/reagent_containers/glass/bottle/killer
 	label_state = TRUE
 	lid_state = TRUE
+
+/obj/item/scythe
+	icon = 'modular_dripstation/icons/obj/hydroponics/equipment.dmi'
+
+/obj/item/cultivator
+	icon = 'modular_dripstation/icons/obj/hydroponics/equipment.dmi'
+
+/obj/item/shovel/spade
+	icon = 'modular_dripstation/icons/obj/hydroponics/equipment.dmi'

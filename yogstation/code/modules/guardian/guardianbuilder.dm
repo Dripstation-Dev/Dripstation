@@ -244,7 +244,9 @@
 /obj/item/guardiancreator
 	name = "deck of tarot cards"
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power."
+/* //Dripstation edit
 	icon = 'icons/obj/toy.dmi'
+*/
 	icon_state = "deck_syndicate_full"
 	var/datum/guardianbuilder/builder
 	var/use_message = span_holoparasite("You shuffle the deck...")
