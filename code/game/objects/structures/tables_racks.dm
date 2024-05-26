@@ -111,12 +111,24 @@
 			if(pushed_mob.buckled)
 				to_chat(user, span_warning("[pushed_mob] is buckled to [pushed_mob.buckled]!"))
 				return
+			/*	dripstation edit start
 			if(user.a_intent == INTENT_GRAB)
 				if(user.grab_state < GRAB_AGGRESSIVE)
+			*/
+			if(user.a_intent != INTENT_HELP)
+				if(user.grab_state == GRAB_PASSIVE)
 					to_chat(user, span_warning("You need a better grip to do that!"))
 					return
+				/*
 				if(do_after(user, 3.5 SECONDS, pushed_mob))
+				*/
+				if(user.grab_state == GRAB_AGGRESSIVE)
 					tablepush(user, pushed_mob)
+				if(user.grab_state == GRAB_NECK || user.grab_state == GRAB_KILL)
+					if(user.a_intent == INTENT_DISARM)
+						tablelimbsmash(user, pushed_mob, FALSE)
+					else
+						tablelimbsmash(user, pushed_mob, TRUE)			//dripstation edit end
 			if(user.a_intent == INTENT_HELP)
 				pushed_mob.visible_message(span_notice("[user] begins to place [pushed_mob] onto [src]..."), \
 									span_userdanger("[user] begins to place [pushed_mob] onto [src]..."))
@@ -177,7 +189,9 @@
 		pushed_mob.pass_flags &= ~PASSTABLE
 	if(pushed_mob.loc != loc) //Something prevented the tabling
 		return
+	/*
 	pushed_mob.Paralyze(40)
+	*/
 	pushed_mob.visible_message(span_danger("[user] pushes [pushed_mob] onto [src]."), \
 								span_userdanger("[user] pushes [pushed_mob] onto [src]."))
 	log_combat(user, pushed_mob, "tabled", null, "onto [src]")
@@ -185,6 +199,7 @@
 		return
 	var/mob/living/carbon/human/H = pushed_mob
 	SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
+	H.Knockdown(SHOVE_KNOCKDOWN_HUMAN*2)
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rsf)) // Stops RSF from placing itself instead of glasses
