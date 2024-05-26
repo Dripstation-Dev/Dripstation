@@ -2,8 +2,8 @@
 /obj/item/clothing/under/rank/chief_medical_officer
 	icon_state = "cmo"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/medical/cmo.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/cmo.dmi'
-	mutantrace_variation = MUTANTRACE_VARIATION	
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/cmo.dmi'
+	mutantrace_variation = DIGITIGRADE_VARIATION	
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	icon_state = "cmo_skirt"
@@ -12,7 +12,7 @@
 /obj/item/clothing/under/rank/chief_medical_officer/alt
 	icon_state = "cmo_alt"
 	can_adjust = TRUE
-	mutantrace_variation = MUTANTRACE_VARIATION	
+	mutantrace_variation = DIGITIGRADE_VARIATION	
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt/alt
 	icon_state = "cmo_alt_skirt"
@@ -21,24 +21,24 @@
 /obj/item/clothing/under/rank/chief_medical_officer/turtleneck
 	icon_state = "cmoturtle"
 	can_adjust = TRUE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION	
+	mutantrace_variation = NONE	
 
 /obj/item/clothing/under/rank/chief_medical_officer/turtleneck/alt
 	icon_state = "cmoturtle_blue"
 	can_adjust = TRUE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION	
+	mutantrace_variation = NONE	
 
 /obj/item/clothing/head/beret/cmo
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	icon_state = "beretcmowhite"
 
 /obj/item/clothing/suit/hooded/wintercoat/medical/cmo
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'		
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 /obj/item/clothing/head/hooded/winterhood/medical/cmo
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 
 /obj/item/clothing/suit/hooded/wintercoat/medical/cmo/long
@@ -59,14 +59,14 @@
 /obj/item/clothing/under/rank/medical/paramedic
 	can_adjust = TRUE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/medical/paramedic.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/paramedic.dmi'
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/paramedic.dmi'
+	mutantrace_variation = NONE
 
 /obj/item/clothing/under/rank/medical/paramedic/skirt
 	name = "paramedic jumpskirt"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a dark blue cross on the chest denoting that the wearer is a trained paramedic."
 	icon_state = "paramed_skirt"
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/rank/medical/paramedic/emt
@@ -79,12 +79,12 @@
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a dark blue cross on the chest denoting that the wearer is a trained emergency medical technician."
 	icon_state = "emt_skirt"
 	fitted = FEMALE_UNIFORM_TOP
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 
 /obj/item/clothing/under/rank/medical/paramedic/recovery
 	name = "emergency medical technician's recovery undersuit"
 	desc = "A verstile blue and white uniform honored to hard working recovery medics in hazardous environments. It has minor protection against biohazards."
-	mutantrace_variation = MUTANTRACE_VARIATION
+	mutantrace_variation = DIGITIGRADE_VARIATION
 
 /obj/machinery/vending/wardrobe/para_wardrobe
 	name = "\improper ParaDrobe"
@@ -124,7 +124,7 @@
 // ###### Genecist ######
 /obj/item/clothing/under/rank/geneticist
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/medical/genetics.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/genetics.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/genetics.dmi'
 
 /obj/item/clothing/under/rank/geneticist/skirt
 	can_adjust = TRUE
@@ -132,7 +132,7 @@
 // ###### Virology ######
 /obj/item/clothing/under/rank/virologist
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/medical/virology.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/virology.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/virology.dmi'
 
 /obj/item/clothing/under/rank/virologist/skirt
 	can_adjust = TRUE
@@ -143,7 +143,7 @@
 /obj/item/clothing/under/rank/chemist
 	icon_state = "chemistry"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/medical/chemistry.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/chemistry.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/chemistry.dmi'
 
 /obj/item/clothing/under/rank/chemist/skirt
 	icon_state = "chem_skirt"
@@ -179,38 +179,38 @@
 
 /obj/item/clothing/under/rank/medical
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/medical/medical.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/medical.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/medical/medical.dmi'
 
 /obj/item/clothing/under/rank/medical/blue
 	icon = 'icons/obj/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/uniform/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
 
 /obj/item/clothing/under/rank/medical/green
 	icon = 'icons/obj/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/uniform/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
 
 /obj/item/clothing/under/rank/medical/purple
 	icon = 'icons/obj/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/uniform/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
 
 /obj/item/clothing/under/rank/medical/black
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in black."
 	icon_state = "scrubsblack"
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 
 /obj/item/clothing/under/rank/medical/scrcmo
 	name = "medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in CMO colors."
 	icon_state = "scrubscmo"
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 
 /obj/item/clothing/under/rank/medical/skirt
 	can_adjust = TRUE
 
 /obj/item/clothing/under/rank/psych
 	icon = 'icons/obj/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/uniform/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
 
 /obj/machinery/vending/wardrobe/medi_wardrobe
 	extra_price = 150

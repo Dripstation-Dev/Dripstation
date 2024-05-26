@@ -1,5 +1,5 @@
 /obj/item/storage/backpack
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'	
 

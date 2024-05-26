@@ -4,7 +4,7 @@
 	icon_state = "helm-spaceold"
 	//item_state = "helm-spaceold"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/helmets.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/helmets.dmi'
 
 
 /obj/item/clothing/suit/space
@@ -13,7 +13,7 @@
 	//item_state = "spaceold"
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/suits.dmi'
 
 //////STANDART NT//////
 /obj/item/clothing/head/helmet/space/eva
@@ -246,8 +246,8 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/suit/space/eva/plasmaman
 	icon = 'icons/obj/clothing/suits/suits.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/suit/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'

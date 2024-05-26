@@ -1,7 +1,7 @@
 // ###### hazard vests ######
 /obj/item/clothing/suit/hazardvest
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	//lefthand_file = 'modular_dripstation/icons/mob/inhands/suits_lefthand.dmi'
 	//righthand_file = 'modular_dripstation/icons/mob/inhands/suits_righthand.dmi'
 
@@ -24,7 +24,7 @@
 // ###### Engineer ######
 /obj/item/clothing/under/rank/engineer
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/engineering/engineer.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/engineer.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/engineer.dmi'
 
 /obj/item/clothing/under/rank/engineer/skirt
 	can_adjust = TRUE
@@ -34,12 +34,12 @@
 	desc = "Gorka undersuit for hard work."
 	icon_state = "engine_gorka"
 	can_adjust = FALSE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 
 // ###### Atmostech ######
 /obj/item/clothing/under/rank/atmospheric_technician
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/engineering/atmos.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/atmos.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/atmos.dmi'
 
 /obj/item/clothing/under/rank/atmospheric_technician/skirt
 	can_adjust = TRUE
@@ -49,12 +49,12 @@
 	desc = "Gorka undersuit for hard work."
 	icon_state = "atmos_gorka"
 	can_adjust = FALSE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 
 // ######  Signaltech ######
 /obj/item/clothing/under/yogs/rank/network_admin
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/engineering/signaltech.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/signaltech.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/signaltech.dmi'
 
 /obj/item/clothing/under/rank/network_admin/skirt
 	can_adjust = TRUE
@@ -64,18 +64,18 @@
 	desc = "Gorka undersuit for hard work."
 	icon_state = "signaltech_gorka"
 	can_adjust = FALSE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/engineering/signaltech.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/signaltech.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/signaltech.dmi'
 
 /obj/item/clothing/suit/hooded/wintercoat/engineering/tcomms
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 // ###### Chief Engineer ######
 /obj/item/clothing/under/rank/chief_engineer
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/engineering/chief.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/chief.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/chief.dmi'
 
 /obj/item/clothing/under/rank/chief_engineer/skirt
 	can_adjust = TRUE
@@ -88,7 +88,7 @@
 	desc = "Gorka undersuit for hard work."
 	icon_state = "chiefengineer_gorka"
 	can_adjust = FALSE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 
 /obj/item/clothing/under/rank/chief_engineer/formal
 	name = "chief engineer's official uniform"
@@ -112,7 +112,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
 					/obj/item/clothing/under/rank/engineer = 3,
 					/obj/item/clothing/under/rank/engineer/skirt = 3,
-					/obj/item/clothing/under/rank/engineer/hazard = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/hazard = 3,
 					/obj/item/clothing/under/rank/engineer/gorka = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,

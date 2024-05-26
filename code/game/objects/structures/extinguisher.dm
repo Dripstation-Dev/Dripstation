@@ -2,7 +2,7 @@
 	name = "extinguisher cabinet"
 	desc = "A small wall mounted cabinet designed to hold a fire extinguisher."
 	icon = 'icons/obj/wallmounts.dmi'
-	icon_state = "extinguisher_closed"
+	icon_state = "extinguisher"
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 200
@@ -17,9 +17,10 @@
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -27 : 27)
 		pixel_y = (dir & 3)? (dir ==1 ? -30 : 30) : 0
 		opened = TRUE
-		icon_state = "extinguisher_empty"
 	else
 		stored_extinguisher = new /obj/item/extinguisher(src)
+
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/extinguisher_cabinet/examine(mob/user)
 	. = ..()
@@ -44,7 +45,7 @@
 /obj/structure/extinguisher_cabinet/handle_atom_del(atom/A)
 	if(A == stored_extinguisher)
 		stored_extinguisher = null
-		update_appearance(UPDATE_ICON)
+		update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/extinguisher_cabinet/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && !stored_extinguisher)
@@ -64,7 +65,7 @@
 				return
 			stored_extinguisher = I
 			to_chat(user, span_notice("You place [I] in [src]."))
-			update_appearance(UPDATE_ICON)
+			update_appearance(UPDATE_OVERLAYS)
 			return TRUE
 		else
 			toggle_cabinet(user)
@@ -87,7 +88,7 @@
 		if(!opened)
 			opened = 1
 			playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
-		update_appearance(UPDATE_ICON)
+		update_appearance(UPDATE_OVERLAYS)
 	else
 		toggle_cabinet(user)
 
@@ -99,7 +100,7 @@
 		stored_extinguisher = null
 		opened = 1
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
-		update_appearance(UPDATE_ICON)
+		update_appearance(UPDATE_OVERLAYS)
 	else
 		toggle_cabinet(user)
 
@@ -118,20 +119,22 @@
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 		opened = !opened
-		update_appearance(UPDATE_ICON)
+		update_appearance(UPDATE_OVERLAYS)
 
-/obj/structure/extinguisher_cabinet/update_icon_state()
+/obj/structure/extinguisher_cabinet/update_overlays()
 	. = ..()
-	if(!opened)
-		icon_state = "extinguisher_closed"
-		return
+	if(opened)
+		. += "extinguisher_door_open"
+	else
+		. += mutable_appearance(icon, "extinguisher_door", LOW_ITEM_LAYER)
+
 	if(stored_extinguisher)
 		if(istype(stored_extinguisher, /obj/item/extinguisher/mini))
-			icon_state = "extinguisher_mini"
+			. += "extinguisher_mini"
+		if(istype(stored_extinguisher, /obj/item/extinguisher/advanced))
+			. += "extinguisher_advanced"
 		else
-			icon_state = "extinguisher_full"
-	else
-		icon_state = "extinguisher_empty"
+			. += "extinguisher_default"
 
 /obj/structure/extinguisher_cabinet/atom_break(damage_flag)
 	. = ..()
@@ -141,7 +144,7 @@
 		if(stored_extinguisher)
 			stored_extinguisher.forceMove(loc)
 			stored_extinguisher = null
-		update_appearance(UPDATE_ICON)
+		update_appearance(UPDATE_OVERLAYS)
 
 
 /obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)

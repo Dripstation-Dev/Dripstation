@@ -113,10 +113,13 @@
 	else if(!(stat & (NOPOWER|BROKEN)))
 		if(busy || locked)
 			. += "red"
+			. += emissive_appearance(icon, "red", src, src)
 			if(locked)
 				. += "bolted"
+				. += emissive_appearance(icon, "bolted", src, src)
 		else
 			. += "green"
+			. += emissive_appearance(icon, "green", src, src)
 
 	//running and someone in there
 	if(occupant)

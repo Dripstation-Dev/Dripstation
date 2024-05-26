@@ -2,7 +2,7 @@
 	name = "mantle"
 	desc = "A decorative drape over the shoulders. This one has a simple, dry color."
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/clothing_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/clothing_righthand.dmi'
 	icon_state = "mantle"
@@ -49,28 +49,28 @@
 
 /obj/item/clothing/neck/cloak/hos
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
 
 /obj/item/clothing/neck/cloak/qm
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
 
 /obj/item/clothing/neck/cloak/cmo
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
 
 /obj/item/clothing/neck/cloak/cap
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
 
 /obj/item/clothing/neck/cloak/hop
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
 
 /obj/item/clothing/neck/cloak/ce
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
 
 /obj/item/clothing/neck/cloak/rd
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	

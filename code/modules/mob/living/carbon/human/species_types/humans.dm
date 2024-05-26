@@ -9,6 +9,7 @@
 	disliked_food = GROSS | RAW | MICE
 	liked_food = JUNKFOOD | FRIED | GRILLED
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
+	possible_genders = list(MALE, FEMALE)
 	species_language_holder = /datum/language_holder/english
 
 	var/list/female_screams = list('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg', 'sound/voice/human/femalescream_5.ogg')

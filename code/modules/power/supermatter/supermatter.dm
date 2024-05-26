@@ -101,6 +101,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	critical_machine = TRUE
 	light_range = 4
+	light_color = LIGHT_COLOR_YELLOW
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 	//NTNet Related Variables

@@ -22,7 +22,7 @@
 /obj/item/clothing/shoes/combat
 	icon_state = "combat"
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 
 /obj/item/clothing/shoes/combat/noble
 	name = "noble boots"
@@ -34,7 +34,7 @@
 	desc = "Tactical footwraps that make your feet feel snug and secure, while still being breathable and light."
 	icon_state = "footwraps_c"
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 	strip_delay = 2.5 SECONDS // Half time to take off
 	equip_delay_other = 2.5 SECONDS // Half time
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 25, BIO = 30, RAD = 0, FIRE = 35, ACID = 20, ELECTRIC = 0)
@@ -42,20 +42,20 @@
 ////Jackboots////
 /obj/item/clothing/shoes/jackboots
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 
 /obj/item/clothing/shoes/bhop
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 
 /obj/item/clothing/shoes/workboots
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 
 /obj/item/clothing/shoes/workboots/mining
 	custom_premium_price = 80
 	icon = 'icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/feet/feet.dmi'
+	worn_icon = 'icons/mob/clothing/feet/feet.dmi'
 
 /obj/item/clothing/shoes/workboots/cargo
 	name = "cargo boots"
@@ -64,7 +64,7 @@
 	clothing_flags = NOSLIP_ICE
 	resistance_flags = FIRE_PROOF
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 	custom_premium_price = 80
 
 /obj/item/clothing/shoes/workboots/cargo/aerostatic
@@ -84,14 +84,14 @@
 	name = "standart galoshes"
 	slowdown = SHOES_SLOWDOWN+0.1
 	clothing_flags = THICKMATERIAL
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 
 /obj/item/clothing/shoes/galoshes/cyan
 	desc = "A pair of cyan rubber boots, designed to protect against biological contamination."
 	name = "cyan galoshes"
 	icon_state = "galoshes_cyan"
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 	slowdown = SHOES_SLOWDOWN+0.1
 	clothing_flags = THICKMATERIAL|NOSLIP
 	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 0, BIO = 100, RAD = 80, FIRE = 40, ACID = 100, ELECTRIC = 100)
@@ -101,7 +101,7 @@
 	name = "white galoshes"
 	icon_state = "galoshes_white"
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 	slowdown = SHOES_SLOWDOWN+0.1
 	clothing_flags = THICKMATERIAL
 
@@ -110,7 +110,7 @@
 	name = "galoshes"
 	icon_state = "galoshes_sec"
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 	slowdown = SHOES_SLOWDOWN+0.1
 	clothing_flags = THICKMATERIAL
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 80, FIRE = 40, ACID = 100, ELECTRIC = 100)

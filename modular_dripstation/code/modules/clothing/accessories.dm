@@ -1,6 +1,6 @@
 /obj/item/clothing/accessory/maidapron
 	icon = 'icons/obj/clothing/accessories.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/accessories.dmi'
+	worn_icon = 'icons/mob/clothing/accessories.dmi'
 
 /obj/item/clothing/accessory/maidapron/syndicate
 	name = "tactical maid apron"

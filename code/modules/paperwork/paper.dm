@@ -263,7 +263,7 @@
 		if(!in_range(src, usr) && loc != usr && !istype(loc, /obj/item/clipboard) && loc.loc != usr && usr.get_active_held_item() != i)	//Some check to see if he's allowed to write
 			return
 		log_paper("[key_name(usr)] writing to paper [t]")
-		playsound(src, get_sfx("writing_sounds"), 15, TRUE) //Dripstation edit
+		playsound(src, SFX_WRITING, 15, TRUE) //Dripstation edit
 		var/list/T = parsepencode(t, i, usr, iscrayon) // Encode everything from pencode to html nibblets
 
 		if(T.len)	//No input from the user means nothing needs to be added
@@ -318,7 +318,7 @@
 		add_overlay(stampoverlay)
 
 		to_chat(user, span_notice("You stamp the paper with your rubber stamp."))
-		playsound(src, get_sfx("stamp_sounds"), 35, 1, -1) //Dripstation edit
+		playsound(src, SFX_STAMPING, 35, 1, -1) //Dripstation edit
 		timesstamped += 1
 
 	if(P.is_hot())

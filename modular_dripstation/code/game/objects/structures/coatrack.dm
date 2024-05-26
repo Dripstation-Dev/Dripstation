@@ -133,8 +133,8 @@
 		if(is_type_in_list(hat, custom_sprites))
 			. += mutable_appearance(icon, icon_state = "hat-[hat.icon_state]")
 		else
-			if(hat.mob_overlay_icon)
-				mob_icon = hat.mob_overlay_icon
+			if(hat.worn_icon)
+				mob_icon = hat.worn_icon
 			else
 				mob_icon = 'icons/mob/clothing/head/head.dmi'
 			var/image/I = image(

@@ -406,20 +406,22 @@
 
 /obj/machinery/light/update_overlays()
 	. = ..()
-	if(!on || status != LIGHT_OK)
-		return
-
-	. += emissive_appearance(overlay_icon, "[base_state]", src, alpha = src.alpha)
 
 	var/area/local_area = get_room_area()
 
-	if(emergency_mode || (local_area?.fire))
+	if(emergency_mode || (local_area?.fire) || (local_area?.vacuum)  || (local_area?.delta_light))
 		. += mutable_appearance(overlay_icon, "[base_state]_emergency")
+		. += emissive_appearance(overlay_icon, "[base_state]_emergency", src, alpha = src.alpha)
+		return
+	if(!on || status != LIGHT_OK)
 		return
 	if(nightshift_enabled)
 		. += mutable_appearance(overlay_icon, "[base_state]_nightshift")
+		. += emissive_appearance(overlay_icon, "[base_state]_nightshift", src, alpha = src.alpha)
 		return
-	. += mutable_appearance(overlay_icon, base_state)
+	else
+		. += mutable_appearance(overlay_icon, "[base_state]")
+		. += emissive_appearance(overlay_icon, "[base_state]", src, alpha = src.alpha)
 
 /obj/machinery/light/proc/clean_light(O,strength)
 	if(strength < CLEAN_TYPE_BLOOD)

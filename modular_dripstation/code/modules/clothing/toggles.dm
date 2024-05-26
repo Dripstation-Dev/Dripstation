@@ -1,14 +1,14 @@
 /obj/item/clothing/suit/hooded/explorer
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 /obj/item/clothing/head/hooded/explorer
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/suit/toggle/labcoat
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'		
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/labcoat
 
 /datum/component/storage/concrete/pockets/labcoat
@@ -74,7 +74,7 @@
 	icon_state = "brtrenchcoat"
 	item_state = "brtrenchcoat"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'		
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 /obj/item/clothing/suit/toggle/blacktrenchcoat
 	name = "black trench coat"
@@ -82,7 +82,7 @@
 	icon_state = "bltrenchcoat"
 	item_state = "bltrenchcoat"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'		
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 /obj/item/clothing/suit/toggle/bomber
 	name = "bomber jacket"
@@ -90,7 +90,7 @@
 	icon_state = "bomber"
 	item_state = "bomber"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_righthand.dmi'	
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/radio)
@@ -184,7 +184,7 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/labcoat
 	allowed = list(/obj/item/flashlight, 
 					/obj/item/radio,

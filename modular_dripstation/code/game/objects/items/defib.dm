@@ -12,7 +12,7 @@
 
 /obj/item/defibrillator/compact/combat
 	icon_state = "defibcombat"
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 
 /obj/item/defibrillator/compact/combat/make_paddles()
 	return new /obj/item/shockpaddles/combat(src)
@@ -27,7 +27,7 @@
 	name = "advanced compact defibrillator"
 	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can be used to defibrillate through space suits. It is impossible to damage."
 	icon_state = "defibnt"
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 	combat = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 

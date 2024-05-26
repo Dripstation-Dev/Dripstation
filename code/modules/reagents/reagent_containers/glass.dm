@@ -75,7 +75,7 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, span_notice("You transfer [trans] unit\s of the solution to [target]."))
-		playsound(src, get_sfx("pouring_sounds"), 25, 1) //Dripstation edit
+		playsound(src, SFX_POURING, 25, 1) //Dripstation edit
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!target.reagents.total_volume)

@@ -4,9 +4,9 @@
 	desc = "Badly translated labels tell you to clean this in Vodka. Great for squatting in."
 	icon_state = "soviet_combat"
 	can_adjust = TRUE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/spaceslav/spaceslav.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
 
 /obj/item/clothing/under/syndicate/soviet/pants
 	name = "soviet pants"
@@ -53,14 +53,14 @@
 /obj/item/clothing/under/soviet
 	icon_state = "soviet"
 	can_adjust = TRUE
-	mutantrace_variation = MUTANTRACE_VARIATION
+	mutantrace_variation = DIGITIGRADE_VARIATION
 
 /obj/item/clothing/under/yogs/soviet_dress_uniform
 	icon_state = "soviet_officer"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/spaceslav/spaceslav.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
 	can_adjust = FALSE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 
 /obj/item/clothing/under/yogs/soviet_dress_uniform/nkvd
 	icon_state = "soviet_nkvd"
@@ -73,7 +73,7 @@
 	name = "ratnik 5 tracksuit"
 	icon_state = "slav_combat"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/spaceslav/spaceslav.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
 
 /obj/item/clothing/under/syndicate/rus_army/alt
 	name = "ratnik 5 turtleneck"
@@ -84,6 +84,6 @@
 	name = "Vostok cadet uniform"
 	icon_state = "vos_cadet"
 	can_adjust = TRUE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/spaceslav/spaceslav.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'

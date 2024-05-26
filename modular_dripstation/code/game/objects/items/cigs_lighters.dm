@@ -15,7 +15,7 @@
 
 /obj/item/clothing/mask/cigarette
 	icon = 'modular_dripstation/icons/obj/cigarettes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/cigs.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/cigs.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/misc/lefthand_cigs_lighters.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/misc/righthand_cigs_lighters.dmi'
 	light_range = 1

@@ -2,7 +2,7 @@
 	name = "\improper cargo gauntlets"
 	desc = "These rubberized gauntlets have high adhesion to the metal surface that allows you to drag crates and lockers with more confidence on them not getting nabbed from you."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	icon_state = "cargogloves"
 	item_state = "cargogloves"
 	custom_premium_price = 300
@@ -79,14 +79,14 @@
 	name = "combat gloves plus"
 	icon_state = "combat_plus"
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 
 /obj/item/clothing/gloves/fingerless
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 
 /obj/item/clothing/gloves/fingerless/weaver
-	mob_overlay_icon = 'icons/mob/clothing/hands/hands.dmi'
+	worn_icon = 'icons/mob/clothing/hands/hands.dmi'
 
 /obj/item/clothing/gloves/color/orange
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
@@ -121,11 +121,11 @@
 
 /obj/item/clothing/gloves/color/yellow
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 
 /obj/item/clothing/gloves/atmos/ce
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 
 /obj/item/clothing/gloves/color/black/forensic
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
@@ -148,7 +148,7 @@
 
 /obj/item/clothing/gloves/combat
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	icon_state = "combat"
 	cryo_preserve = TRUE
 
@@ -213,7 +213,7 @@
 /obj/item/clothing/gloves/color/latex
 	desc = "Cheap sterile gloves made from latex. Assists in carrying people around and helps performing surgery a bit quicker."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 
 /obj/item/clothing/gloves/color/latex/black
 	icon_state = "latex_black"
@@ -279,7 +279,7 @@
 	surgeryspeed = 0.95
 	icon_state = "hazmat_gloves"
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 100, RAD = 80, FIRE = 30, ACID = 100, ELECTRIC = 60)
 
 /obj/item/clothing/gloves/color/latex/hazmat/cyan
@@ -295,7 +295,7 @@
 	name = "maid sleeves"
 	desc = "Just cute sleeves."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	icon_state = "maid_arms"
 	item_state = "maid_arms"
 
@@ -307,7 +307,7 @@
 	name = "tactical black gloves"
 	desc = "Standart tactical gloves issued for use with security low rank personnel."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	icon_state = "black_tactifool"
 	can_be_cut = 1
 	fingerless_variation = /obj/item/clothing/gloves/fingerless/tactifool
@@ -316,7 +316,7 @@
 	name = "tactical fingerless gloves"
 	desc = "Plain tactical gloves issued for use with security low rank personnel. These are without fingertips."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	icon_state = "fingerless_tactifool"
 
 /obj/item/clothing/gloves/fingerless/tactifool/qm
@@ -328,7 +328,7 @@
 	name = "\improper tactical fingerless gloves"
 	desc = "These high-quality tactical gloves are made of genuine leather and suede. They provide thermal protection even without fingers covered. Looks expensive."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	icon_state = "combat_fingerless"
 	cold_protection = ARMS|HANDS
 	heat_protection = ARMS|HANDS
@@ -342,7 +342,7 @@
 	name = "gripper gloves"
 	desc = "Special gloves that manipulate the blood vessels in the wearer's hands, granting them the ability to launch headfirst into walls."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	icon_state = "black"
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT

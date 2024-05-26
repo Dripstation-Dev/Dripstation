@@ -13,6 +13,11 @@ Note: Must be placed within 3 tiles of the R&D Console
 	icon_state = "d_analyzer"
 	circuit = /obj/item/circuitboard/machine/destructive_analyzer
 	var/decon_mod = 0
+	var/light_mask = "d_analyzer_lightmask"
+
+/obj/machinery/rnd/destructive_analyzer/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/rnd/destructive_analyzer/RefreshParts()
 	var/T = 0
@@ -67,6 +72,14 @@ Note: Must be placed within 3 tiles of the R&D Console
 	else
 		icon_state = initial(icon_state)
 
+/obj/machinery/rnd/destructive_analyzer/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		// if(busy && !loaded_item)
+		// 	. += emissive_appearance(icon, "[light_mask]_process", src)
+		// else
+		. += emissive_appearance(icon, light_mask, src)
+
 /obj/machinery/rnd/destructive_analyzer/proc/reclaim_materials_from(obj/item/thing)
 	. = 0
 	var/datum/component/material_container/storage = linked_console?.linked_lathe?.materials.mat_container
@@ -86,6 +99,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		busy = TRUE
 		addtimer(CALLBACK(src, PROC_REF(reset_busy)), 24)
 		use_power(250)
+		update_appearance(UPDATE_OVERLAYS)
 		if(thing == loaded_item)
 			loaded_item = null
 		var/list/food = thing.GetDeconstructableContents()

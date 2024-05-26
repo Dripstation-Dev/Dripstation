@@ -195,6 +195,11 @@
 
 	return ..()
 
+/obj/machinery/mineral/ore_redemption/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered() && !panel_open)
+		. += emissive_appearance(icon, "ore_redemption_lightmask", src)
+
 /obj/machinery/mineral/ore_redemption/multitool_act(mob/living/user, obj/item/multitool/I)
 	if (panel_open)
 		input_dir = turn(input_dir, -90)

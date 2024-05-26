@@ -16,6 +16,9 @@
 		if(10)
 			. +=("papershredder5")
 
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "papershredder_lightmask", src)
+
 /obj/machinery/papershredder/attackby(obj/item/W, mob/user) //overwrite in order to implement item insertion icons
 	if(default_unfasten_wrench(user, W))
 		return

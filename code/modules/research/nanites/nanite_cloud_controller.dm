@@ -4,6 +4,8 @@
 	circuit = /obj/item/circuitboard/computer/nanite_cloud_controller
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "nanite_cloud_controller"
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 	var/obj/item/disk/nanite_program/disk
 	var/list/datum/nanite_cloud_backup/cloud_backups = list()
 	var/current_view = 0 //0 is the main menu, any other number is the page of the backup with that ID
@@ -31,6 +33,20 @@
 		to_chat(user, span_notice("You take out [disk] from [src]."))
 		eject(user)
 	return
+
+/obj/machinery/computer/nanite_cloud_controller/update_appearance(updates)
+	. = ..()
+	if(stat & NOPOWER)
+		set_light_on(FALSE)
+		icon_state = "nanite_cloud_controller_off"
+	else
+		set_light_on(TRUE)
+		icon_state = initial(icon_state)
+
+/obj/machinery/computer/nanite_cloud_controller/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "nanite_cloud_controller_lightmask", src)
 
 /obj/machinery/computer/nanite_cloud_controller/proc/eject(mob/living/user)
 	if(!disk)

@@ -40,6 +40,11 @@
 	linked_card = null
 	return ..()
 
+/obj/machinery/paystand/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered() && !panel_open)
+		. += emissive_appearance(icon, "card_scanner_lightmask", src)
+
 /obj/machinery/paystand/attackby(obj/item/held_item, mob/item_holder, params)
 	var/mob/living/user = item_holder
 	if(!isliving(user))

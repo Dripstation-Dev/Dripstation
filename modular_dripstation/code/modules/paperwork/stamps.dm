@@ -7,7 +7,7 @@
 
 /obj/item/stamp/attack(mob/living/M, mob/living/user)
 	. = ..()
-	playsound(M, get_sfx("stamp_sounds"), 35, 1, -1)
+	playsound(M, SFX_STAMPING, 35, 1, -1)
 
 /obj/item/stamp/qm
 	item_state = "stamp-qm"

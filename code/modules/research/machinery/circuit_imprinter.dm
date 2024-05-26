@@ -2,6 +2,7 @@
 	name = "circuit imprinter"
 	desc = "Manufactures circuit boards for the construction of machines."
 	icon_state = "circuit_imprinter"
+	material_insertion_animation = ""
 	circuit = /obj/item/circuitboard/machine/circuit_imprinter
 	categories = list(
 								"AI Modules",
@@ -31,3 +32,8 @@
 		total_rating += M.rating * 2			//There is only one.
 	total_rating = max(1, total_rating)
 	efficiency_coeff = total_rating
+
+/obj/machinery/rnd/production/circuit_imprinter/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "circuit_imprinter_lightmask", src)

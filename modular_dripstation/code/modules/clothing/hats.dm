@@ -9,7 +9,7 @@
 	alternate_worn_layer = HANDCUFF_LAYER
 	dynamic_hair_suffix = ""
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 
 //////maid headband//////
@@ -25,68 +25,68 @@
 */
 /obj/item/clothing/head/helmet/blueshirt
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/chaplain
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/thunderdome
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/justice
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/roman
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/gladiator
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/redtaghelm
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/bluetaghelm
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/knight
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/skull
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/kasa
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/durathread
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/stormtrooper
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/shaman
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/head/helmet/elder_atmosian
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 obj/item/clothing/head/bio_hood
 	icon_state = "hazmat"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	dynamic_hair_suffix = ""
 
 obj/item/clothing/head/bio_hood/general
@@ -115,7 +115,7 @@ obj/item/clothing/head/bio_hood/white
 
 /obj/item/clothing/head/fedora
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/head/fedora/white
 	name = "white fedora"
@@ -130,11 +130,11 @@ obj/item/clothing/head/bio_hood/white
 /obj/item/clothing/head/fedora/brown
 	icon_state = "brfedora"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/head/fedora/det_hat
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/head/fedora/det_hat/black
 	name = "black fedora"
@@ -153,7 +153,7 @@ obj/item/clothing/head/bio_hood/white
 
 /obj/item/clothing/head/soft/emt
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/head/soft/emt/paramed
 	name = "parameds's cap"
@@ -162,7 +162,7 @@ obj/item/clothing/head/bio_hood/white
 
 /obj/item/clothing/head/beret/emt
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/head/beret/emt/paramed
 	name = "paramedical beret"

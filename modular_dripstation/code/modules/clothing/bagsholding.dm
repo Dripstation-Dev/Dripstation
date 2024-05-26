@@ -1,7 +1,7 @@
 /obj/item/boh_shell
 	var/insertion_output = /obj/item/storage/backpack/holding
 	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
 
@@ -15,7 +15,7 @@
 
 /obj/item/storage/backpack/holding
 	slot_flags = ITEM_SLOT_BACK	// yogs, I love and I hate you, THE FUCK YOU WOULD PUT ON YOUR HEAD BIG FUCKING TECHNOLOGICAL DEVICE THAT INVERTS SPACE INTO YOUR FUCKING BAG, WHATS WRONG WITH YOU?
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
 
@@ -34,7 +34,7 @@
 	desc = "A duffel bag that opens into a localized pocket of bluespace."
 	icon_state = "holdingduffel"
 	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
 
 /datum/design/duffel_holding
 	name = "Duffel bag of Holding shell"
@@ -62,7 +62,7 @@
 	desc = "A satchel that opens into a localized pocket of bluespace."
 	icon_state = "holdingsatchel"
 	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
 
 /datum/design/satchel_holding
 	name = "Satchel of Holding shell"

@@ -3,7 +3,7 @@
 	icon_state = "silverbadge"
 	item_state = ""
 	accessory_state = "silverbadge"
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/accessories.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/accessories.dmi'
 	var/can_be_adjusted = FALSE
 	var/cord_state = FALSE
 

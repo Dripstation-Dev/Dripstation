@@ -880,7 +880,7 @@
 	//item_state = "bloodred_unathi_rig"
 	hardsuit_type = "bloodred_unathi"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/unathi
-	mutantrace_variation = MUTANTRACE_VARIATION
+	mutantrace_variation = DIGITIGRADE_VARIATION
 
 //////Bloodred Waffle Co suit//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle
@@ -969,7 +969,7 @@
 	//item_state = "wafflebloodred_unathi_rig"
 	hardsuit_type = "wafflebloodred_unathi"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle/unathi
-	//mutantrace_variation = MUTANTRACE_VARIATION
+	//mutantrace_variation = DIGITIGRADE_VARIATION
 
 //////Bloodred Waffle Co Unathi Breach suit//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle/unathi/breach
@@ -988,7 +988,7 @@
 	hardsuit_type = "wafflebloodred_unathi_breacher"
 	armor = list(MELEE = 80, BULLET = 70, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle/unathi/breach
-	//mutantrace_variation = MUTANTRACE_VARIATION
+	//mutantrace_variation = DIGITIGRADE_VARIATION
 
 ///obj/item/clothing/suit/space/hardsuit/syndi/bloodred/waffle/unathi/breach/equipped(mob/living/carbon/human/user, slot)
 //	..()

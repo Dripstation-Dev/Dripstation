@@ -388,6 +388,11 @@ GLOBAL_LIST_EMPTY(checkouts)
 		ui = new(user, src, "LibraryScanner", name)
 		ui.open()
 
+/obj/machinery/libraryscanner/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered() && !panel_open)
+		. += emissive_appearance(icon, "card_scanner_lightmask", src)
+
 /obj/machinery/libraryscanner/ui_data(mob/user)
 	. = ..()
 	var/list/data = list()

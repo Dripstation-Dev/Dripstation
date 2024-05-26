@@ -6,7 +6,7 @@
 		You are now probably one of the few people in the universe to ever hold a \"Brand New Obrez\". \
 		Even thinking about that name combination makes you ill."
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 
@@ -22,7 +22,7 @@
 	<br><br>\
 	<i>BRAND NEW: Cannot be sawn off.</i>"
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	icon_state = "mosintactical"

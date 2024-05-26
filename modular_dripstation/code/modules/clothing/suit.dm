@@ -1,6 +1,6 @@
 /obj/item/clothing/suit/bio_suit
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "hazmat_suit"
 	slowdown = 0.33
 	body_parts_covered = HEAD|CHEST|GROIN
@@ -33,10 +33,10 @@
 
 /obj/item/clothing/suit/bio_suit/plaguedoctorsuit
 	icon = 'icons/obj/clothing/suits/suits.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/suit/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
 
 /obj/item/clothing/suit/poncho
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_righthand.dmi'
 
@@ -100,14 +100,14 @@
 
 /obj/item/clothing/suit/judgerobe
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'	
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	flags_inv = null
 
 /obj/item/clothing/head/judge_wig
 	name = "\improper judge wig"
 	desc = "Judgement is here."
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'	
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	icon_state = "jwig"
 	item_state = "pwig"
 
@@ -119,7 +119,7 @@
 	name = "maid dress"
 	desc = "Classic maid dress for working woman."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'	
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "maiddress"
 	item_state = "maid"
 
@@ -127,7 +127,7 @@
 	name = "green apron"
 	desc = "You can put it on your naked body!"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'	
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "apron_green"
 	item_state = "maidapron"
 	allowed = list(/obj/item/kitchen)

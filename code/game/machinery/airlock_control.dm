@@ -125,6 +125,11 @@
 	else
 		icon_state = "airlock_sensor_off"
 
+/obj/machinery/airlock_sensor/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "airlock_sensor_lightmask", src)
+
 /obj/machinery/airlock_sensor/attack_hand(mob/user)
 	. = ..()
 	if(.)

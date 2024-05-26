@@ -22,7 +22,7 @@
 	desc = "How're you gonna get 'em off, nerd?"
 	name = "spray-on insulated gloves"
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
 	icon_state = "sprayon"
 	item_state = "sprayon"
 	item_flags = DROPDEL

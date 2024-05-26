@@ -5,9 +5,9 @@
 	icon_state = "terragovpol_uni"
 	item_state = "spacepol"
 	can_adjust = TRUE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/terragov/terragov.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/terragov/terragov.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/terragov/terragov.dmi'
 
 /obj/item/clothing/under/rank/security/spacepol/formal
 	name = "Terran police official uniform"
@@ -25,9 +25,9 @@
 	icon_state = "marine_jumpsuit"
 	item_state = "marine"
 	can_adjust = TRUE
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/terragov/terragov.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/terragov/terragov.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/terragov/terragov.dmi'
 
 ////Terragov Army////
 /obj/item/clothing/under/syndicate/camo
@@ -35,4 +35,4 @@
 	desc = "A desert military camouflage uniform."
 	icon_state = "terragov_multicam"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/terragov/terragov.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/terragov/terragov.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/terragov/terragov.dmi'

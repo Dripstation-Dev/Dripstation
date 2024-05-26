@@ -5,7 +5,7 @@
 	icon = 'modular_dripstation/icons/obj/radio.dmi'
 
 /obj/item/radio/headset
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/ears.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/ears.dmi'
 
 /obj/item/radio/headset/syndicate/obv
 	icon_state = "syndie_headset"

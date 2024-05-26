@@ -303,6 +303,7 @@
 
 /obj/machinery/vending/gifts
 	icon_vend = "gifts-vend"
+	light_mask = "gifts-light-mask"
 	light_color = LIGHT_COLOR_HOLY_MAGIC
 
 /obj/machinery/lapvend

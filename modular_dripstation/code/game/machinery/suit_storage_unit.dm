@@ -324,36 +324,38 @@
 
 /obj/machinery/suit_storage_unit/update_overlays()
 	. = ..()
-	cut_overlays(TRUE)
 	if(uv)
 		if(uv_super)
-			add_overlay("super")
+			. += "super"
 		else if(occupant)
-			add_overlay("uvhuman")
-			overlays += closeimage	
+			. += "uvhuman"
+			. += closeimage	
 		else
-			add_overlay("uv")
-			overlays += closeimage			
+			. += "uv"
+			. += closeimage			
 	else if(state_open)
 		if(stat & BROKEN)
-			add_overlay("broken")
-			overlays += openimage			
+			. += "broken"
+			. += openimage			
 		else
-			add_overlay("open")
-			overlays += openimage			
+			. += "open"
+			. += openimage			
 			if(suit)
-				add_overlay("suit")
+				. += "suit"
 			if(helmet)
-				add_overlay("helm")
+				. += "helm"
 			if(tank)
-				add_overlay("storage")				
+				. += "storage"			
 	else if(occupant)
-		add_overlay("human")
-		overlays += closeimage
+		. += "human"
+		. += closeimage
 	else if(!state_open)
 		if(locked)
-			add_overlay("secure")
-		overlays += closeimage
+			. += "secure"
+		. += closeimage
+
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "storage_light_mask", src)
 	
 /obj/machinery/suit_storage_unit/proc/dump_contents()
 	dropContents()

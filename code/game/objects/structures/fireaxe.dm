@@ -228,8 +228,10 @@
 				. += "glass"
 	if(locked)
 		. += "locked"
+		. += emissive_appearance(icon, "locked", src, src)
 	else
 		. += "unlocked"
+		. += emissive_appearance(icon, "unlocked", src, src)
 
 //yogs NOTICE - toggle_lock() function MIRRORED to yogstation/code/game/objects/structure/fireaxe.dm
 //changes made to the below function will have no effect

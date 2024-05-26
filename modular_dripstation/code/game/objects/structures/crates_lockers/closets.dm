@@ -392,7 +392,7 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 /obj/structure/closet/secure_closet/chaplain/PopulateContents()
 	new /obj/item/choice_beacon/holy(src)
 	new /obj/item/clothing/accessory/pocketprotector/cosmetology(src)
-	new /obj/item/clothing/under/rank/chaplain(src)
+	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/suit/chaplainsuit/nun(src)
 	new /obj/item/clothing/head/nun_hood(src)
@@ -511,6 +511,7 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/clothing/shoes/xeno_wraps/command(src)
 	new /obj/item/storage/belt/medical/chief/full(src)
 	new /obj/item/storage/lockbox/medal/med(src)
+	new /obj/item/sequence_scanner(src)
 
 /obj/structure/closet/secure_closet/engineering_chief
 	anchored = TRUE	//i`ve commited crime with this

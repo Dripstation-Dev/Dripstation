@@ -38,3 +38,7 @@
 	name = "office toy"
 	desc = "A generic microfusion powered office desk toy. Only generates magnetism and ennui. The mechanism inside is a Hephasteus trade secret. No peeking!"
 	icon_state = "desktoy"
+
+/obj/item/toy/cards/deck
+	icon = 'modular_dripstation/icons/obj/toy.dmi'
+

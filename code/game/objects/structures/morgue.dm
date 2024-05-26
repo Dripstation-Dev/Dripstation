@@ -124,7 +124,8 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 	playsound(src, 'sound/effects/roll.ogg', 5, 1)
 	var/turf/T = get_step(src, dir)
-	connected.setDir(dir)
+	if(connected)
+		connected.setDir(dir)
 	for(var/atom/movable/AM in src)
 		AM.forceMove(T)
 	recursive_organ_check(src)
@@ -160,6 +161,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	RemoveElement(/datum/element/update_icon_blocker)
 	connected = new/obj/structure/tray/m_tray(src)
 	connected.connected = src
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/bodycontainer/morgue/examine(mob/user)
 	. = ..()
@@ -196,6 +198,31 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 							next_beep = world.time + beep_cooldown
 					break
 
+/obj/structure/bodycontainer/morgue/update_overlays()
+	. = ..()
+	var/area/A = get_area(src)
+	if(!A)
+		return
+	if(!A.powered(AREA_USAGE_EQUIP))
+		return
+
+	var/light_mask
+	if (!connected || connected.loc != src) // Open or tray is gone.
+		light_mask = "morgue1_lightmask"
+	else
+		if(contents.len == 1)  // Empty
+			light_mask = "morgue1_lightmask"
+		else
+			light_mask = "morgue2_lightmask" // Dead, brainded mob.
+			var/list/compiled = recursive_mob_check(src, 0, 0) // Search for mobs in all contents.
+			if(!length(compiled)) // No mobs?
+				light_mask = "morgue3_lightmask"
+
+			for(var/mob/living/M in compiled)
+				var/mob/living/mob_occupant = get_mob_or_brainmob(M)
+				if(mob_occupant.client && !mob_occupant.suiciding && !(HAS_TRAIT(mob_occupant, TRAIT_BADDNA)) && !mob_occupant.hellbound)
+					light_mask = "morgue2_lightmask" // Cloneable
+	. += emissive_appearance(icon, light_mask, src)
 
 /obj/item/paper/guides/jobs/medical/morgue
 	name = "morgue memo"

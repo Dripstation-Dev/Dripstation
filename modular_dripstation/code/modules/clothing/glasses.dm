@@ -1,10 +1,10 @@
 /obj/item/clothing/glasses/meson
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 
 /obj/item/clothing/glasses/meson/gar
 	icon = 'icons/obj/clothing/glasses.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/eyes/eyes.dmi'
+	worn_icon = 'icons/mob/clothing/eyes/eyes.dmi'
 	flags_cover = null //GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/meson/sunglasses
@@ -19,11 +19,11 @@
 
 /obj/item/clothing/glasses/science
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 
 /obj/item/clothing/glasses/night
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	var/can_toggle = TRUE
 	var/hud_type = null
 	var/on = FALSE
@@ -143,11 +143,11 @@
 
 /obj/item/clothing/glasses/material
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 
 /obj/item/clothing/glasses/material/mining/gar
 	icon = 'icons/obj/clothing/glasses.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/eyes/eyes.dmi'
+	worn_icon = 'icons/mob/clothing/eyes/eyes.dmi'
 	flags_cover = null //GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/material/aviator
@@ -159,12 +159,12 @@
 
 /obj/item/clothing/glasses/sunglasses/reagent
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "sunhudbeer"
 
 /obj/item/clothing/glasses/thermal
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "tact-thermal_nvg"
 	var/can_toggle = TRUE
 	var/on = FALSE
@@ -280,7 +280,7 @@
 
 /obj/item/clothing/glasses/welding
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 
 /obj/item/clothing/glasses/regular
 	flags_cover = null //GLASSESCOVERSEYES
@@ -297,7 +297,7 @@
 	icon_state = "ballistic"
 	flags_cover = GLASSESCOVERSEYES
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 
 /////HUDs///////
 /obj/item/clothing/glasses/sunglasses
@@ -309,7 +309,7 @@
 
 /obj/item/clothing/glasses/hud/health
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	hud_type = DATA_HUD_MEDICAL_BASIC
 	flags_cover = null //GLASSESCOVERSEYES
 
@@ -348,7 +348,7 @@
 
 /obj/item/clothing/glasses/hud/diagnostic
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	flags_cover = null //GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/diagnostic/military
@@ -371,7 +371,7 @@
 
 /obj/item/clothing/glasses/hud/security
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	flags_cover = null //GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/hud/security/military
@@ -393,7 +393,7 @@
 
 /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
 	icon = 'icons/obj/clothing/glasses.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/eyes/eyes.dmi'
+	worn_icon = 'icons/mob/clothing/eyes/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/security/sunglasses/hos
 	name = "security advanced HUDaviators"
@@ -403,15 +403,15 @@
 
 /obj/item/clothing/glasses/hud/security/sunglasses/gars
 	icon = 'icons/obj/clothing/glasses.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/eyes/eyes.dmi'
+	worn_icon = 'icons/mob/clothing/eyes/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/toggle/thermal
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 
 /obj/item/clothing/glasses/hud/personnel
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	icon_state = "sunhudskill"
 	flags_cover = null //GLASSESCOVERSEYES
 
@@ -420,6 +420,6 @@
 	desc = "A heads-up display with a personnel HUD. This one is military grade."
 	icon_state = "skillhud"
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	hud_type = DATA_HUD_SECURITY_BASIC
 	flags_cover = null //GLASSESCOVERSEYES

@@ -8,6 +8,6 @@
 	desc = "Nanotrasen cut corners and repainted a spare gas mask, but don't tell anyone."
 	icon_state = "gas_cap"
 	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 20, ACID = 10)
 	resistance_flags = FIRE_PROOF | ACID_PROOF

@@ -322,6 +322,11 @@
 	to_chat(user, span_notice("You use the cryptographic sequencer on [src]."))
 	return TRUE
 
+/obj/machinery/autolathe/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "autolathe_lightmask", src)
+
 //Called when the object is constructed by an autolathe
 //Has a reference to the autolathe so you can do !!FUN!! things with hacked lathes
 /obj/item/proc/autolathe_crafted(obj/machinery/autolathe/A)

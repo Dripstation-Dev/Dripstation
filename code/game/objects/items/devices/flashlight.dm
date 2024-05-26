@@ -297,7 +297,8 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
-	light_range = 5
+	light_range = 3
+	light_system = MOVABLE_LIGHT
 	w_class = WEIGHT_CLASS_BULKY
 	flags_1 = CONDUCT_1
 	materials = list()
@@ -750,19 +751,12 @@
 	desc = "A strange device manufactured with mysterious elements that somehow emits darkness. Or maybe it just sucks in light? Nobody knows for sure."
 	icon_state = "flashdark"
 	item_state = "flashdark"
-	light_system = STATIC_LIGHT //The overlay light component is not yet ready to produce darkness.
-	light_range = 0
-	///Variable to preserve old lighting behavior in flashlights, to handle darkness.
-	var/dark_light_range = 2.5
-	///Variable to preserve old lighting behavior in flashlights, to handle darkness.
-	var/dark_light_power = -3
+	light_power = -2
+	light_range = 5
 
-/obj/item/flashlight/flashdark/update_brightness(mob/user)
+/obj/item/flashlight/flashdark/Initialize(mapload)
 	. = ..()
-	if(light_on)
-		set_light(dark_light_range, dark_light_power)
-	else
-		set_light(0)
+	set_light_color(COLOR_VELVET)
 
 /obj/item/flashlight/eyelight
 	name = "eyelight"

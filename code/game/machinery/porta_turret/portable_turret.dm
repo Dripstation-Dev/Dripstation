@@ -955,6 +955,11 @@
 	else
 		icon_state = "control_stun"
 
+/obj/machinery/turretid/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "control_lightmask", src)
+
 /obj/item/wallframe/turret_control
 	name = "turret control frame"
 	desc = "Used for building turret control panels."

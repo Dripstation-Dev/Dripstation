@@ -1,17 +1,17 @@
 /obj/item/clothing/head/helmet
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	flags_cover = null	//HEADCOVERSEYES
 
 /obj/item/clothing/suit/armor
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 /obj/item/clothing/suit/armor/vest
 	icon_state = "armor"
 	item_state = "armor"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 /obj/item/clothing/suit/armor/vest/light
 	icon_state = "armorlight"
@@ -25,13 +25,13 @@
 	icon_state = "armoralt"
 	item_state = "armoralt"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 /obj/item/clothing/suit/armor/vest/rycliesarmour
 	name = "war armour"
 	desc = "Good for protecting your chest during war."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "rycliesarmour"
 	item_state = "rycliesarmour"
 
@@ -39,7 +39,7 @@
 	name = "nam flak jacket"
 	desc = "Good for protecting your chest from napalm and toolboxes!"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "namflakjacket"
 	item_state = "namflakjacket"
 
@@ -47,14 +47,14 @@
 	name = "redcoat coat"
 	desc = "Security is coming! Security is coming! Also padded with kevlar for protection."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	item_state = "red_coat_coat"
 
 /obj/item/clothing/suit/armor/vest/secmiljacket
 	name = "sec military jacket"
 	desc = "Aviators not included. Now with extra padding!"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "secmiljacket"
 	item_state = "secmiljacket"
 
@@ -62,28 +62,28 @@
 	icon_state = "riot"
 	item_state = "riot"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 40, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, WOUND = 30)
 
 /obj/item/clothing/head/helmet/riot
 	icon_state = "riot"
 	item_state = "riot"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	armor = list(MELEE = 45, BULLET = 15, LASER = 5, ENERGY = 35, BOMB = 5, BIO = 2, RAD = 0, FIRE = 50, ACID = 50, WOUND = 15)
 
 /obj/item/clothing/suit/armor/riot/chaplain
 	icon = 'icons/obj/clothing/suits/suits.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/suit/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
 
 /obj/item/clothing/head/helmet/abductor
 	flags_cover = HEADCOVERSEYES
 	icon = 'icons/obj/clothing/hats/hats.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/head/head.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
 /obj/item/clothing/suit/armor/abductor/vest
 	icon = 'icons/obj/clothing/suits/suits.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/suit/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
 
 /obj/item/clothing/head/helmet/changeling
 	flags_cover = HEADCOVERSEYES
@@ -94,7 +94,7 @@
 	icon_state = "swatsyndie"
 	item_state = "swatsyndie"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	desc = "An extremely robust helmet in a nefarious red and black stripe pattern."
 	flags_cover = HEADCOVERSEYES
 
@@ -102,7 +102,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	icon_state = "swat"
 	item_state = "swat"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	desc = "An extremely robust helmet with the Nanotrasen logo emblazoned on the top."
 
 /obj/item/clothing/suit/space/swat
@@ -110,7 +110,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	desc = "A tactical suit first developed in a joint effort by Terragov and Nanotrasen in 2XXX for military operations. It has a minor slowdown, but offers decent protection."
 	icon_state = "heavy"
 	item_state = "swat_suit"
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -127,7 +127,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	name = "assault armor"
 	desc = "A heavily armored suit that protects against moderate damage. Used by high ranking PMC operatives across human space. This one is kinda suspicious colored."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "heavys"
 	item_state = "heavys"
 	flags_inv = null
@@ -140,7 +140,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	name = "bulletproof slav chest rig"
 	desc = "A bulletproof robust vest with forest camo. Good thing there's plenty of forests to hide in around here, right?"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "rus_carrier"
 	item_state = "rus_carrier"
 	body_parts_covered = CHEST|GROIN
@@ -160,7 +160,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 /obj/item/clothing/head/helmet/rus_helmet
 	name = "/improper Altin helmet"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	armor = list(MELEE = 30, BULLET = 45, LASER = 20, ENERGY = 10, BOMB = 40, BIO = 0, RAD = 20, FIRE = 30, ACID = 50, WOUND = 5)
 
 /obj/item/clothing/head/helmet/rus_ushanka
@@ -173,7 +173,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	name = "reflective helmet"
 	desc = "A helmet that excels in protecting the wearer against energy projectiles, as well as occasionally reflecting them."
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	icon_state = "ablative_helmet"
 	item_state = "ablative_helmet"
 	armor = list(MELEE = 5, BULLET = 5, LASER = 60, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, WOUND = 5)
@@ -188,7 +188,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 
 /obj/item/clothing/suit/armor/laserproof
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "ablative"
 	item_state = "ablative"
 
@@ -196,7 +196,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 /obj/item/clothing/head/hooded/ablative
 	name = "ablative hood"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	desc = "Hood hopefully belonging to an ablative trenchcoat."
 	icon_state = "ablativehood"
 	item_state = "ablativehood"
@@ -226,7 +226,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	name = "ablative trenchcoat"
 	desc = "Experimental trenchcoat specially crafted to reflect and absorb laser and disabler shots. Don't expect it to do all that much against an axe or a shotgun, however."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "ablativecoat"
 	item_state = "ablativecoat"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
@@ -254,7 +254,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	name = "combat vest"
 	desc = "Type III bulletproof armor usually issued to paramilitary groups and real soldiers alike. Protects full body and arms. Has additional armor against energy based weaponry."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "combat"
 	item_state = "combat"
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -269,7 +269,7 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	name = "\improper Slick Plate Carrier"
 	desc = "A simple yet effective bulletproof armor. The most minimalistic design offers reliable protection of the chest."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "plate-armor"
 	item_state = "plate-armor"
 	body_parts_covered = CHEST
@@ -297,16 +297,16 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 
 /obj/item/clothing/suit/armor/vest/durathread
 	icon = 'icons/obj/clothing/suits/suits.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/suit/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
 
 /obj/item/clothing/suit/armor/tribalcoat
 	icon = 'icons/obj/clothing/suits/suits.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/suit/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
 
 /obj/item/clothing/suit/armor/pathfinder
 	icon = 'icons/obj/clothing/suits/suits.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/suit/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
 
 /obj/item/clothing/suit/armor/elder_atmosian
 	icon = 'icons/obj/clothing/suits/suits.dmi'
-	mob_overlay_icon = 'icons/mob/clothing/suit/suit.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'

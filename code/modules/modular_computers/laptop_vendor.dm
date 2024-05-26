@@ -3,8 +3,11 @@
 /obj/machinery/lapvend
 	name = "computer vendor"
 	desc = "A vending machine with microfabricator capable of dispensing various NT-branded computers."
-	icon = 'icons/obj/vending.dmi'
-	icon_state = "robotics"
+	icon = 'modular_dripstation/icons/obj/vending.dmi'
+	icon_state = "custom"
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_power = 0.7
+	light_color = LIGHT_COLOR_GREEN
 	layer = 2.9
 	density = TRUE
 
@@ -27,6 +30,22 @@
 	var/dev_apc_recharger = 0				// 0: None, 1: Standard (LAPTOP ONLY)
 	var/dev_printer = 0						// 0: None, 1: Standard
 	var/dev_card = 0						// 0: None, 1: Standard
+
+/obj/machinery/lapvend/update_icon_state()
+	. = ..()
+	if(stat & BROKEN)
+		icon_state = "[initial(icon_state)]-broken"
+		return
+
+	if(powered())
+		icon_state = initial(icon_state)
+	else
+		icon_state = "[initial(icon_state)]-off"
+
+/obj/machinery/lapvend/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "custom-light-mask", src)
 
 // Removes all traces of old order and allows you to begin configuration from scratch.
 /obj/machinery/lapvend/proc/reset_order()

@@ -4,7 +4,7 @@
 	desc = "Winter coat for filling out documents in hazardous environment. Can be reinforsed with standart armor jacket."
 	icon_state = "coatqm"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'	
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'	
 	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/boxcutter, /obj/item/export_scanner, /obj/item/cargo_teleporter, /obj/item/melee/classic_baton)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/qm
 
@@ -28,7 +28,7 @@
 	desc = "Winter hood for filling out documents in hazardous environment."
 	icon_state = "winterhood_qm"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/suit/hooded/wintercoat/qm/armored
 	name = "quartermaster`s armored winter coat"
@@ -61,9 +61,9 @@
 	desc = "Modern multi-purpose trenchcoat, enchanced with naturall fur. Someone who wears this means really serious business."
 	icon_state = "trenchcoatqm_open"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	clothing_flags = THICKMATERIAL
-	mutantrace_variation = MUTANTRACE_VARIATION
+	mutantrace_variation = DIGITIGRADE_VARIATION
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 5)
 	cold_protection = CHEST|GROIN|LEGS|ARMS
@@ -75,7 +75,7 @@
 	desc = "Classic hat issued to quartermaster."
 	icon_state = "qmhat"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
 	body_parts_covered = HEAD
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 5)
 
@@ -84,14 +84,14 @@
 	desc = "Classic beret issued to quartermaster."
 	icon_state = "beretqm"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 5)
 
 /obj/item/clothing/under/rank/cargo
 	icon_state = "qm"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/cargo/qm.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/qm.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/qm.dmi'
 
 /obj/item/clothing/under/rank/cargo/skirt
 	can_adjust = TRUE
@@ -126,7 +126,7 @@
 	alt_covers_chest = TRUE
 	icon_state = "cargotech"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/cargo/cargotech.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/cargotech.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/cargotech.dmi'
 
 /obj/item/clothing/under/rank/cargotech/customs
 	name = "customs uniform"
@@ -169,7 +169,7 @@
 	icon_state = "customs_coat"
 	desc = "A slim armored jacket issued to cargonian customs officers. Provides minor melee protection."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	custom_premium_price = 100
 	body_parts_covered = CHEST|GROIN
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 5)
@@ -180,7 +180,7 @@
 	icon_state = "gorka_jacket"
 	desc = "Gorka jacket."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	cold_protection = CHEST|GROIN|ARMS|HANDS
 	heat_protection = CHEST|GROIN|ARMS|HANDS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -201,14 +201,14 @@
 	desc = "It's a tactical jumpsuit with a sturdy set of overalls. It is very dirty."
 	icon_state = "turtleneck_miner_alt"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/cargo/miner.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/miner.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/miner.dmi'
 	custom_price = 50
 
 /obj/item/clothing/under/rank/miner/lavaland
 	desc = "A green uniform for operating in hazardous environments. Real classic."
 	icon_state = "miner"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/cargo/miner.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/miner.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/miner.dmi'
 
 /obj/item/clothing/under/rank/miner/turtleneck
 	name = "miner tactical turtleneck"
@@ -222,7 +222,7 @@
 	icon_state = "skirtleneck_miner"
 	can_adjust = TRUE
 	fitted = FEMALE_UNIFORM_TOP
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 
 // ###### CARGO STAFF ######
 
@@ -232,7 +232,7 @@
 	icon_state = "tagillawelding"	
 	item_state = "tagillawelding"	
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 obj/item/clothing/suit/hooded/wintercoat/cargo
 	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/boxcutter, /obj/item/export_scanner, /obj/item/cargo_teleporter)
@@ -265,8 +265,8 @@ obj/item/clothing/suit/hooded/wintercoat/cargo
 					/obj/item/clothing/accessory/armband/cargo = 3,
 					/obj/item/storage/bag/mail = 3)
 	premium = list(/obj/item/clothing/under/rank/miner/turtleneck = 1,
-					/obj/item/clothing/under/rank/cargotech/turtleneck = 1,
-					/obj/item/clothing/under/rank/cargotech/skirt/turtleneck = 1,
+					/obj/item/clothing/under/rank/cargo/tech/turtleneck = 1,
+					/obj/item/clothing/under/rank/cargo/tech/skirt/turtleneck = 1,
 					/obj/item/clothing/gloves/cargo_gauntlet = 2,
 					/obj/item/clothing/suit/customs = 2,
 					/obj/item/clothing/suit/gorka_jacket/supply = 2,
@@ -278,11 +278,11 @@ obj/item/clothing/suit/hooded/wintercoat/cargo
 /obj/item/clothing/under/rank/miner/mmedic
 	name = "mining medic's jumpsuit"
 	desc = "A standart stationary uniform issued to mining medics. It has minor protection against biohazards."
-	mutantrace_variation = MUTANTRACE_VARIATION
+	mutantrace_variation = DIGITIGRADE_VARIATION
 	icon_state = "mining_medic"
 	can_adjust = TRUE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/cargo/miningmed.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/miningmed.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/miningmed.dmi'
 	sensor_mode = 3
 	random_sensor = FALSE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 15, RAD = 0, FIRE = 80, ACID = 0, WOUND = 10)
@@ -291,12 +291,12 @@ obj/item/clothing/suit/hooded/wintercoat/cargo
 	name = "mining medic's jumpskirt"
 	icon_state = "mining_medic_skirt"
 	desc = "A standart stationary uniform issued with study skirt issued to mining medics. It has minor protection against biohazards."
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/rank/miner/mmedic/alt
 	desc = "A verstile brown uniform issued to mining medics in hazardous environments. It has minor protection against biohazards."
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	mutantrace_variation = NONE
 	icon_state = "mining_medical"
 
 /obj/item/clothing/under/rank/miner/mmedic/alt/skirt
@@ -308,9 +308,9 @@ obj/item/clothing/suit/hooded/wintercoat/cargo
 	icon_state = "exploresoft"
 	soft_type = "explore"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/head/beret/emt/mining
 	icon_state = "exploreberet"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'

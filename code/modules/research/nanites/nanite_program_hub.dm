@@ -7,6 +7,8 @@
 	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 	var/obj/item/disk/nanite_program/disk
 	var/datum/techweb/linked_techweb
@@ -57,6 +59,20 @@
 		to_chat(user, span_notice("You take out [disk] from [src]."))
 		eject(user)
 	return
+
+/obj/machinery/nanite_program_hub/update_appearance(updates)
+	. = ..()
+	if(stat & NOPOWER)
+		set_light_on(FALSE)
+		icon_state = "nanite_program_hub_off"
+	else
+		set_light_on(TRUE)
+		icon_state = initial(icon_state)
+
+/obj/machinery/nanite_program_hub/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "nanite_program_hub_lightmask", src)
 
 /obj/machinery/nanite_program_hub/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
