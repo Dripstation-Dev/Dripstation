@@ -9,6 +9,8 @@
 	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 /obj/machinery/nanite_programmer/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/disk/nanite_program))
@@ -22,6 +24,20 @@
 			program = N.program
 	else
 		..()
+
+/obj/machinery/nanite_program_hub/update_appearance(updates)
+	. = ..()
+	if(stat & NOPOWER)
+		set_light_on(FALSE)
+		icon_state = "nanite_program_hub_off"
+	else
+		set_light_on(TRUE)
+		icon_state = initial(icon_state)
+
+/obj/machinery/nanite_programmer/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "nanite_programmer_lightmask", src)
 
 /obj/machinery/nanite_programmer/proc/eject(mob/living/user)
 	if(!disk)

@@ -8,8 +8,9 @@
 		. += mutable_appearance(icon, "[icon_keyboard]_off")
 	else
 		. += mutable_appearance(icon, icon_keyboard)
-		. += emissive_appearance(icon, icon_keyboard, src)
+		. += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 
 /obj/machinery/modular_computer/update_appearance(updates)
 	. = ..()
-	set_light(cpu?.enabled ? light_strength : 0, l_range = light_strength)
+	if(!(stat & NOPOWER))
+		set_light(cpu?.enabled ? light_strength : 0, l_range = light_strength)

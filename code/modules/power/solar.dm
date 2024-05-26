@@ -379,6 +379,7 @@
 		. += "[icon_keyboard]_off"
 		return
 	. += icon_keyboard
+	. += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 	if(stat & BROKEN)
 		. += "[icon_state]_broken"
 	else

@@ -55,6 +55,9 @@
 		if(SEC_LEVEL_DELTA)
 			. += "alert-level-delta"
 
+	if(is_operational())
+		. += emissive_appearance(icon, "alert-level-green", src)
+
 /obj/machinery/level_interface/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!is_operational())

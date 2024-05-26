@@ -265,6 +265,10 @@
 	else
 		icon_state = "airlock_control_off"
 
+/obj/machinery/embedded_controller/radio/airlock_controller/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "airlock_control_lightmask", src)
 
 /obj/machinery/embedded_controller/radio/airlock_controller/return_text()
 	var/state_options = null

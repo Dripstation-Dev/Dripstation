@@ -2,6 +2,7 @@
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
+	material_insertion_animation = "protolathe_"
 	/// Divisor for material usage eg (2 coeff = 500 / 2 = 500)
 	var/efficiency_coeff = 1
 	/// Categories this lathe has
@@ -14,6 +15,8 @@
 	var/allowed_buildtypes = NONE
 	/// Name of the lathe in the UI
 	var/department_tag = "Unidentified"
+	/// Mask used for emissive sprites
+	var/light_mask
 
 	var/list/datum/design/cached_designs
 	var/list/datum/design/matching_designs
@@ -162,6 +165,7 @@
 	var/timecoeff = D.lathe_time_factor / efficiency_coeff
 	addtimer(CALLBACK(src, PROC_REF(reset_busy)), (30 * timecoeff * amount) ** 0.5)
 	addtimer(CALLBACK(src, PROC_REF(do_print), D.build_path, amount, efficient_mats, D.dangerous_construction), (32 * timecoeff * amount) ** 0.8)
+	update_appearance(UPDATE_OVERLAYS)
 	return TRUE
 
 /obj/machinery/rnd/production/proc/search(string)

@@ -95,6 +95,11 @@
 		else
 			icon_state = "access_button_standby"
 
+/obj/machinery/doorButtons/access_button/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "access_button_lightmask", src)
+
 /obj/machinery/doorButtons/access_button/removeMe(obj/O)
 	if(O == door)
 		door = null
@@ -254,6 +259,11 @@
 		icon_state = "access_control_process"
 	else
 		icon_state = "access_control_standby"
+
+/obj/machinery/doorButtons/airlock_controller/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "access_control_lightmask", src)
 
 /obj/machinery/doorButtons/airlock_controller/ui_interact(mob/user)
 	var/datum/browser/popup = new(user, "computer", name)

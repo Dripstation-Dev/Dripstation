@@ -31,14 +31,14 @@
 	. += mutable_appearance(icon, screen_state)
 	. += emissive_appearance(icon, screen_state, src, alpha = src.alpha)
 
-/obj/machinery/gulag_item_reclaimer/power_change()
+/obj/machinery/requests_console/power_change()
 	. = ..()
 	if(!.)
 		return // reduce unneeded light changes
 	if(stat & NOPOWER)
-		set_light(1)
-	else
 		set_light(0)
+	else
+		set_light(1)
 
 /obj/machinery/requests_console/examine(mob/user)
 	. = ..()

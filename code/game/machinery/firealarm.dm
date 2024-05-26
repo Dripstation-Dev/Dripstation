@@ -91,6 +91,7 @@
 /obj/machinery/firealarm/update_overlays()
 	. = ..()
 	if(stat & (NOPOWER|BROKEN))
+		set_light(0)
 		return
 
 	if(is_station_level(z))

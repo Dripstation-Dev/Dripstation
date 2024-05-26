@@ -521,6 +521,11 @@ GLOBAL_VAR_INIT(clones, 0)
 		log_cloning("[key_name(mob_occupant)] destroyed within [src] at [AREACOORD(src)] due to malfunction.")
 		QDEL_IN(mob_occupant, 40)
 
+/obj/machinery/clonepod/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "[icon_state]_lightmask", src, src)
+
 /obj/machinery/clonepod/relaymove(mob/user)
 	container_resist(user)
 

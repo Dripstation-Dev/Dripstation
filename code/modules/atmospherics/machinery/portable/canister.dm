@@ -325,6 +325,7 @@
 	var/light_state = get_pressure_state(air_contents?.return_pressure())
 	if(light_state) //happens when pressure is below 10kpa which means no light
 		. += mutable_appearance(canister_overlay_file, light_state)
+		. += emissive_appearance(canister_overlay_file, light_state, src)
 
 ///return the icon_state component for the canister's indicator light based on its current pressure reading
 /obj/machinery/portable_atmospherics/canister/proc/get_pressure_state(air_pressure)

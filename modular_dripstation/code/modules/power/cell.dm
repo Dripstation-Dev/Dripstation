@@ -18,4 +18,6 @@
 		cut_overlay(last_overlay_state)
 		add_overlay(new_state)
 		last_overlay_state = new_state
+	if(!grown_battery)
+		. += emissive_appearance(icon, "standard_0", src)
 

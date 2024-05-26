@@ -4,6 +4,7 @@
 	icon_state = "protolathe"
 	icon = 'modular_dripstation/icons/obj/machines/techfab.dmi'
 	circuit = /obj/item/circuitboard/machine/techfab/department
+	material_insertion_animation = "protolathe_"
 	var/stripe_icon
 
 /obj/machinery/rnd/production/techfab/department/update_overlays()
@@ -11,6 +12,9 @@
 	if(stripe_icon)
 		var/mutable_appearance/stripe = mutable_appearance('modular_dripstation/icons/obj/machines/techfab.dmi', stripe_icon)
 		. += stripe
+
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "protolathe_ightmask", src)
 
 /obj/machinery/rnd/production/techfab/department/engineering
 	name = "department techfab (Engineering)"

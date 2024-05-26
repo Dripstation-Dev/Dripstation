@@ -46,10 +46,13 @@
 		return
 	if (!occupant)
 		. += "grjam"
+		. += emissive_appearance(icon, "grjam", src)
 	else if (operating)
 		. += "gruse"
+		. += emissive_appearance(icon, "gruse", src)
 	else
 		. += "gridle"
+		. += emissive_appearance(icon, "gridle", src)
 
 /obj/machinery/gibber/attack_paw(mob/user)
 	return attack_hand(user)

@@ -98,6 +98,16 @@
 	else
 		icon_state = (state_open ? "borgcharger-u0" : "borgcharger-u1")
 
+/obj/machinery/recharge_station/update_overlays()
+	. = ..()
+	var/light_mask
+	if(is_operational())
+		if(state_open)
+			light_mask = "borgcharger0_lightmask"
+		else
+			light_mask = (occupant ? "borgcharger1_lightmask" : "borgcharger2_lightmask")
+		. += emissive_appearance(icon, light_mask, src, BELOW_OBJ_LAYER)
+
 /obj/machinery/recharge_station/proc/process_occupant(delta_time)
 	if(!occupant)
 		return

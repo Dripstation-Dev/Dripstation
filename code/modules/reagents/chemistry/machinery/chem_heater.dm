@@ -27,6 +27,11 @@
 	. = ..()
 	icon_state = "mixer[beaker ? 1 : 0][on ? "a" : "b"]"
 
+/obj/machinery/chem_heater/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, "mixer_lightmask", src)
+
 /obj/machinery/chem_heater/CtrlClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return

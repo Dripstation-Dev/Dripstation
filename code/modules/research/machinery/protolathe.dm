@@ -22,7 +22,16 @@
 								)
 	production_animation = "protolathe_n"
 	allowed_buildtypes = PROTOLATHE
+	light_mask = "protolathe_lightmask"
 
 /obj/machinery/rnd/production/protolathe/disconnect_console()
 	linked_console.linked_lathe = null
 	..()
+
+/obj/machinery/rnd/production/protolathe/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		if(busy)
+			. += emissive_appearance(icon, "[light_mask]_n", src)
+		else
+			. += emissive_appearance(icon, light_mask, src)

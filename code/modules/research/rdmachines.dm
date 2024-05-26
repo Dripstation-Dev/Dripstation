@@ -45,6 +45,10 @@
 		return
 	if(is_refillable() && O.is_drainable())
 		return FALSE //inserting reagents into the machine
+	if(istype(O, /obj/item/stack/sheet))
+		var/datum/material/M = O
+		var/image/material_animation = image(icon, src, "[material_insertion_animation][M.name]")
+		flick_overlay_global(material_animation, GLOB.clients, 20)
 	if(Insert_Item(O, user))
 		return TRUE
 	else

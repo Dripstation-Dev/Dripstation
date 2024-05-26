@@ -9,12 +9,16 @@
 	active_power_usage = 300
 	occupant_typecache = list(/mob/living, /obj/item/bodypart/head, /obj/item/organ/brain)
 	circuit = /obj/item/circuitboard/machine/clonescanner
+	light_color = LIGHT_COLOR_CYAN
+	light_power = 1.3
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	var/locked = FALSE
 	var/damage_coeff
 	var/scan_level
 	var/precision_coeff
 	var/message_cooldown
 	var/breakout_time = 1200
+	var/light_mask = "scanner_lightmask"
 	var/obj/machinery/computer/scan_consolenew/linked_console = null
 
 /obj/machinery/dna_scannernew/RefreshParts()
@@ -54,6 +58,21 @@
 
 	//running
 	icon_state = initial(icon_state)+ (state_open ? "_open" : "")
+
+
+/obj/machinery/dna_scannernew/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		if((stat & MAINT) || panel_open)
+			. += emissive_appearance(icon, initial(light_mask)+ (state_open ? "_open" : "") + "_maintenance", src)
+			return
+
+		if(occupant)
+			. += emissive_appearance(icon, initial(light_mask)+ "_occupied", src)
+			return
+
+		. += emissive_appearance(icon, initial(light_mask)+ (state_open ? "_open" : ""), src, src)
+
 
 /obj/machinery/dna_scannernew/proc/toggle_open(mob/user)
 	if(panel_open)

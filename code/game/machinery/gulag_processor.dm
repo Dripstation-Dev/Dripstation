@@ -109,6 +109,18 @@ GLOBAL_VAR_INIT(gulag_required_items, typecacheof(list(
 		icon_state += "_occupied"
 		return
 
+/obj/machinery/gulag_processor/update_overlays()
+	. = ..()
+	var/light_mask
+	if(!(stat & BROKEN) && powered())
+		if(occupant)
+			light_mask = "implantchair_occupied_lightmask"
+		if(state_open)
+			light_mask = "implantchair_open_lightmask"			
+		else
+			light_mask = "implantchair_lightmask"
+		. += emissive_appearance(icon, light_mask, src, src)
+
 
 /obj/machinery/gulag_processor/proc/locate_reclaimer()
 	linked_reclaimer = locate(/obj/machinery/gulag_item_reclaimer)

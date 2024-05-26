@@ -30,6 +30,7 @@
 	var/greytoggle = "Greyscale"
 	var/mob/living/ass //i can't believe i didn't write a stupid-ass comment about this var when i first coded asscopy.
 	var/busy = FALSE
+	var/light_mask = "photocopier_lightmask"
 
 /obj/machinery/photocopier/ui_interact(mob/user)
 	. = ..()
@@ -53,6 +54,11 @@
 	dat += "</BODY></HTML>"
 	user << browse(dat, "window=copier")
 	onclose(user, "copier")
+
+/obj/machinery/photocopier/update_overlays()
+	. = ..()
+	if(!(stat & BROKEN) && powered())
+		. += emissive_appearance(icon, light_mask, src)
 
 /obj/machinery/photocopier/proc/clearcolor(text) // Breaks all font color spans in the HTML text.
 	return replacetext(replacetext(text, "<font face=\"[CRAYON_FONT]\" color=", "<font face=\"[CRAYON_FONT]\" nocolor="), "<font face=\"[PEN_FONT]\" color=", "<font face=\"[PEN_FONT]\" nocolor=") //This basically just breaks the existing color tag, which we need to do because the innermost tag takes priority.

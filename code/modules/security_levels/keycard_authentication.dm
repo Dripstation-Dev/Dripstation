@@ -15,6 +15,10 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	power_channel = AREA_USAGE_ENVIRON
 	req_access = list(ACCESS_KEYCARD_AUTH)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	light_on = FALSE
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_color = LIGHT_COLOR_DARK_BLUE
+	light_power = 2
 	var/datum/callback/ev
 	var/event = ""
 	var/obj/machinery/keycard_auth/event_source
@@ -85,6 +89,11 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 				sendEvent(KEYCARD_BSA_UNLOCK)
 				. = TRUE
 
+/obj/machinery/keycard_auth/update_overlays()
+	. = ..()
+	if(light_on == TRUE)
+		. += emissive_appearance(icon, "auth_lightmask", src)
+
 /obj/machinery/keycard_auth/proc/sendEvent(event_type)
 	triggerer_id = usr.get_active_held_item()
 	triggerer = usr
@@ -101,12 +110,16 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 
 /obj/machinery/keycard_auth/proc/triggerEvent(source)
 	icon_state = "auth_on"
+	set_light_on(TRUE)
 	event_source = source
 	addtimer(CALLBACK(src, PROC_REF(eventTriggered)), 20)
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/keycard_auth/proc/eventTriggered()
 	icon_state = "auth_off"
+	set_light_on(FALSE)
 	event_source = null
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/machinery/keycard_auth/proc/trigger_event(mob/confirmer)
 	var/confirmer_id = confirmer.get_active_held_item() //we already know this has access to complete the action, so we don't bother checking if it's got required access
