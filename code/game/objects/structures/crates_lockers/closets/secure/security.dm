@@ -174,6 +174,7 @@
 	max_integrity = 70
 	door_anim_time = 0 // no animation
 
+/*	//dripstation edit
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
 	new /obj/item/storage/box/evidence(src)
@@ -188,6 +189,7 @@
 	new /obj/item/binoculars(src)
 	new /obj/item/storage/backpack/duffelbag/clothing/sec/detective(src)
 	new /obj/item/barrier_taperoll/police(src)
+*/
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections"
@@ -319,6 +321,7 @@
 	max_integrity = 70
 	door_anim_time = 0
 
+/*	//dripstation edit
 /obj/structure/closet/secure_closet/physician/PopulateContents()
 	..()
 	new /obj/item/storage/backpack/duffelbag/clothing/sec/physician(src)
@@ -331,3 +334,4 @@
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile
+*/

@@ -28,6 +28,10 @@
 	//item_state = "atmospherics_helm"
 	hardsuit_type = "atmospherics"
 
+/obj/item/clothing/suit/space/hardsuit/engine/atmos
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'	//doublecheck
+	worn_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/suits.dmi'	//doublecheck
+
 /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	icon_state = "white_helm0"
 	//item_state = "white_helm"

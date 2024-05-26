@@ -107,7 +107,7 @@
 			new /obj/item/clothing/under/rank/medical/doctor/green(src)
 		if ("purple")
 			new /obj/item/clothing/under/rank/medical/doctor/purple(src)
-	new /obj/item/clothing/under/rank/medical(src)
+	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/clothing/suit/toggle/labcoat/emt(src)
 	new /obj/item/clothing/head/beret/emt/green(src)
 	new /obj/item/clothing/head/beret/emt(src)

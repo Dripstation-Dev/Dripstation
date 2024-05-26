@@ -115,6 +115,7 @@
 /obj/item/clothing/under/rank/security/head_of_security
 	name = "head of security's jumpsuit"
 	desc = "A security jumpsuit decorated for those few with the dedication to achieve the position of Head of Security."
+	
 	icon_state = "rhos"
 	item_state = "r_suit"
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 10)

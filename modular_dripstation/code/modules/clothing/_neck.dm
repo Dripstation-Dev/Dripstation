@@ -71,6 +71,10 @@
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'
 
+/obj/item/clothing/neck/cloak/ce/alt
+	name = "chief engineer's green cloak"
+	icon_state = "cecloak_green"
+
 /obj/item/clothing/neck/cloak/rd
 	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
