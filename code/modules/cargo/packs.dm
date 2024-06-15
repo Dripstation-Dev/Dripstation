@@ -297,6 +297,7 @@
 					/obj/item/gun/energy/disabler)
 	crate_name = "disabler crate"
 
+/*
 /datum/supply_pack/security/energypistol
 	name = "Energy Pistol Single-Pack"
 	desc = "Contains one energy pistol for personal defense, capable of firing both lethal and nonlethal blasts of light. Requires Security access to open."
@@ -304,6 +305,7 @@
 	access_view = ACCESS_SECURITY
 	small_item = TRUE
 	contains = list(/obj/item/gun/energy/e_gun/mini)
+*/
 
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
@@ -550,6 +552,28 @@
 					/obj/item/gun/energy/e_gun)
 	crate_name = "energy gun crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
+
+/datum/supply_pack/security/armory/laser		//dripstation mooving lethals to the armory
+/*
+	name = "Lasers Crate"
+	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
+*/
+	name = "Lethal E-gun Crate"
+	desc = "Contains three lethal energy guns. Requires Armory access to open."
+	cost = 2000
+	contains = list(/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser)
+	crate_name = "lethal e-gun crate"
+
+/datum/supply_pack/security/armory/reallaser
+	name = "Lasers Crate"
+	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
+	cost = 5000
+	contains = list(/obj/item/gun/energy/laser/hitscan,
+					/obj/item/gun/energy/laser/hitscan,
+					/obj/item/gun/energy/laser/hitscan)
+	crate_name = "laser crate"
 
 /datum/supply_pack/security/armory/mindshield
 	name = "Mindshield Implants Crate"

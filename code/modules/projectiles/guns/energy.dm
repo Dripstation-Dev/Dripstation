@@ -168,6 +168,7 @@
 		return
 	item_state = "[initial(icon_state)][modifystate ? "[shot.select_name]" : ""][ratio]"
 
+/*	Dripstation edit 
 /obj/item/gun/energy/update_overlays()
 	if(QDELETED(src))
 		return
@@ -193,6 +194,7 @@
 		charge_overlay.pixel_x = ammo_x_offset * (i - 1)
 		charge_overlay.pixel_y = ammo_y_offset * (i - 1)
 		. += charge_overlay
+*/
 
 ///Used by update_icon_state() and update_overlays()
 /obj/item/gun/energy/proc/get_charge_ratio()

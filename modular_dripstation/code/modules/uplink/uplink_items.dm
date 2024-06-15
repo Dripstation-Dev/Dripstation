@@ -33,6 +33,24 @@
 	cost = 9
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/infiltration) //you can't buy it in nuke, because the elite hardsuit costs the same while being better // yogs: infiltration
 
+/datum/uplink_item/dangerous/errata
+	name = "Nanoforged Katana"
+	desc = "A tailor-made blade forged from unknown ninja clan within the Syndicate. \
+			Merely weilding this weapon grants incredible agility."
+	item = /obj/item/storage/belt/errata
+	cost = 12
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/infiltration) // yogs: infiltration
+
+/datum/uplink_item/dangerous/murasame
+	name = "Cursed Katana"
+	desc = "Edgy looking katana that has a posibility to kill humans in one blow. Wield with caution -\
+			blade is coated with poison - one pierce of the skin will end your life, agent."
+	item = /obj/item/katana/murasame
+	cost = 20
+	surplus = 0
+	player_minimum = 25
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/infiltration) // yogs: infiltration
+
 /datum/uplink_item/role_restricted/hardsuit
 	name = "GEC Blood-Red RIG"
 	desc = "Hardsuit of Global Engineering Consortium, represented in Syndicate as a minor force. Freedom for Engineers!"

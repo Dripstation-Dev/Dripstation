@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 	new /obj/item/storage/photo_album/HoP(src)
 	new /obj/item/clipboard/yog/paperwork/hop(src)
-	new /obj/item/gun/energy/e_gun/mini(src)
+	new /obj/item/gun/energy/e_gun/mini/secure(src)
 	new /obj/item/storage/bag/garment/hop(src)
 	new /obj/item/clothing/shoes/leather(src)
 	new /obj/item/clothing/shoes/laceup(src)
