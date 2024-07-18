@@ -87,7 +87,10 @@
 	if(D.mobility_flags & MOBILITY_STAND)
 		D.visible_message(span_warning("[A] slams [D] into the ground!"), \
 						  	span_userdanger("[A] slams you into the ground!"))
+		/*	dripstation edit
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1) //using hit_kick because for some stupid reason slam.ogg is delayed
+		*/
+		playsound(get_turf(A), 'modular_dripstation/sound/slam.ogg', 50, 1, -1) //dripstation edit, it`s delayed because it`s performed
 		A.do_attack_animation(D, ATTACK_EFFECT_SMASH)
 		D.apply_damage(A.get_punchdamagehigh() + 5, STAMINA)	//15 damage
 		D.Paralyze(30)
@@ -165,6 +168,7 @@
 		log_combat(A, D, "restrained (CQC)")
 		D.visible_message(span_warning("[A] locks [D] into a restraining position!"), \
 							span_userdanger("[A] locks you into a restraining position!"))
+		A.do_attack_animation(D, ATTACK_EFFECT_GRAB) //dripstation edit
 		D.Stun(20)
 		if(!(A.pulling == D))
 			D.grabbedby(A, 1)
@@ -193,6 +197,7 @@
 		D.apply_damage(consecutivedamage, STAMINA)
 	return TRUE
 
+/*
 ///CQC grab, stuns for 1.5 seconds on use
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(A.a_intent == INTENT_GRAB && A!=D && (can_use(A) && can_use(D))) // A!=D prevents grabbing yourself
@@ -206,6 +211,7 @@
 		return TRUE
 	else
 		return FALSE
+*/
 
 ///CQC harm intent, deals 15 stamina damage and immobilizes for 1.5 seconds, if the attacker is prone, they knock the defender down and stand up
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -311,6 +317,7 @@
 		if(D.getOxyLoss() >= 50)
 			return TRUE
 
+/*	I hate yog coders, just check handspells on this shit, dripstation edit, check CQC file in dripstation module
 ///CQC counter: attacker's weapon is placed in the defender's offhand and they are knocked down
 /datum/martial_art/cqc/handle_counter(mob/living/carbon/human/user, mob/living/carbon/human/attacker) //I am going to fucking gut whoever did the old counter system also whoever made martial arts
 	if(!can_use(user))
@@ -326,6 +333,7 @@
 			I.forceMove(get_turf(attacker))
 	attacker.Knockdown(60)
 	user.adjustStaminaLoss(10)	//Can't block forever. Really, if this becomes a problem you're already screwed.
+*/
 
 /**
   * CQC help proc

@@ -29,6 +29,9 @@
 	else
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "bad_touch", /datum/mood_event/bad_touch)
 
+/datum/quirk/nearsighted
+	value = -1
+
 /datum/quirk/prosthetic_limb
 	value = -1
 

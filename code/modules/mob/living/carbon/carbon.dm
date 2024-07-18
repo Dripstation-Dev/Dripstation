@@ -126,6 +126,7 @@
 		playsound(src,'sound/weapons/punch1.ogg',50,1)
 
 
+/*
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(stat)
@@ -151,6 +152,7 @@
 	in_throw_mode = 1
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_on"
+*/
 
 /mob/proc/throw_item(atom/target)
 	SEND_SIGNAL(src, COMSIG_MOB_THROW, target)
@@ -158,7 +160,10 @@
 
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
+	/*
 	throw_mode_off()
+	*/
+	throw_mode_off(THROW_MODE_TOGGLE)	//dripstation edit
 	if(!target || !isturf(loc))
 		return
 	if(istype(target, /atom/movable/screen))
@@ -202,6 +207,8 @@
 	if(thrown_thing)
 		if(HAS_TRAIT(src, TRAIT_HULK))
 			power_throw++
+		do_attack_animation(target, no_effect = 1) //Dripstation edit
+		playsound(loc, 'sound/weapons/punchmiss.ogg', 50, TRUE, -1)  //Dripstation edit
 		visible_message(span_danger("[src] throws [thrown_thing][power_throw ? " really hard!" : "."]"), \
 						span_danger("You throw [thrown_thing][power_throw ? " really hard!" : "."]"))
 		log_message("has thrown [thrown_thing] [power_throw ? "really hard" : ""]", LOG_ATTACK)
