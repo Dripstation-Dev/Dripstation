@@ -172,7 +172,10 @@ GLOBAL_VAR(command_name)
 	var/name = ""
 
 	// Prefix
+	/* dripstation edit
 	name += pick("Clandestine", "Prima", "Blue", "Zero-G", "Max", "Blasto", "Waffle", "North", "Omni", "Newton", "Cyber", "Bonk", "Gene", "Gib")
+	*/
+	name += pick("Clandestine", "Prima", "Blue", "Zero-G", "Max", "Blasto", "Waffle", "North", "Omni", "Newton", "Cyber", "Bonk", "Gene", "Gib", "Vahlen")
 
 	// Suffix
 	if (prob(80))
@@ -180,7 +183,10 @@ GLOBAL_VAR(command_name)
 
 		// Full
 		if (prob(60))
+			/* dripstation edit
 			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
+			*/
+			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Pharmaceuticals", "Enterprises", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
 		// Broken
 		else
 			name += pick("Syndi", "Corp", "Bio", "System", "Prod", "Chem", "Inter", "Hive")
@@ -189,7 +195,10 @@ GLOBAL_VAR(command_name)
 	// Small
 	else
 		name += pick("-", "*", "")
+		/* dripstation edit
 		name += pick("Tech", "Sun", "Co", "Tek", "X", "Inc", "Gen", "Star", "Dyne", "Code", "Hive")
+		*/
+		name += pick("Tech", "Sun", "Co", "Tek", "X", "Inc", "Gen", "Star", "Dyne", "Code", "Hive", "Group")
 
 	return name
 

@@ -10,7 +10,7 @@ code/__DEFINES/rust_g.dm eol=lf
 ## Enforce text mode and LF line breaks
 *.bat text eol=lf
 *.cjs text eol=lf
-*.css text eol=lf
+## *.css text eol=lf stop enforcing, dripstation edit
 *.dm text eol=lf
 *.dme text eol=lf
 *.dmf text eol=lf

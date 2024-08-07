@@ -36,33 +36,6 @@
 	H.equipOutfit(nukeop_outfit)
 	return TRUE
 
-//naming
-/syndicate_name()
-	var/name = ""
-
-	// Prefix
-	name += pick("Clandestine", "Prima", "Blue", "Zero-G", "Max", "Blasto", "Waffle", "North", "Omni", "Newton", "Cyber", "Bonk", "Gene", "Gib", "Vahlen")
-
-	// Suffix
-	if (prob(80))
-		name += " "
-
-		// Full
-		if (prob(60))
-			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Pharmaceuticals", "Enterprises", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
-		// Broken
-		else
-			name += pick("Syndi", "Corp", "Bio", "System", "Prod", "Chem", "Inter", "Hive")
-			name += pick("", "-")
-			name += pick("Tech", "Sun", "Co", "Tek", "X", "Inc", "Dyne", "Code")
-	// Small
-	else
-		name += pick("-", "")
-		name += pick("Tech", "Sun", "Co", "Tek", "X", "Inc", "Gen", "Star", "Dyne", "Code", "Hive", "Group")
-
-	return name
-
-
 /datum/antagonist/nukeop/give_alias()
 	if(nuke_team && nuke_team.syndicate_name)
 		var/mob/living/carbon/human/H = owner.current
