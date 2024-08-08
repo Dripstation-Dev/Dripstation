@@ -300,6 +300,7 @@
 	taste_description = "scorching agony"
 	metabolization_rate = 6 * REAGENTS_METABOLISM
 
+/* dripstation edit
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(!ishuman(M) && !ismonkey(M))
 		return
@@ -341,6 +342,7 @@
 			victim.Paralyze(14 SECONDS)
 			M.adjustStaminaLoss(5)
 		victim.update_damage_hud()
+*/
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/carbon/M)
 	if(prob(15))

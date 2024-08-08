@@ -276,7 +276,10 @@
 
 /obj/item/gun/ballistic/automatic/l6_saw/update_overlays()
 	. = ..()
+	/* dripstation edit
 	. += "l6_door_[cover_open ? "open" : "closed"]"
+	*/
+	. += "[initial(item_state)]_door_[cover_open ? "open" : "closed"]"	// Dripstation edit
 
 
 /obj/item/gun/ballistic/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)

@@ -174,11 +174,8 @@
 					/obj/item/clothing/suit/armor/riot/hos)
 	crate_name = "hos supply crate"
 
-/datum/supply_pack/security/armory/laser		//dripstation mooving lethals to the armory
-	name = "Lasers Crate"
-	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
-	cost = 2000
-	contains = list(/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser)
-	crate_name = "laser crate"
+/datum/supply_pack/weaponry/ballistic
+	desc = "For when the enemy absolutely needs to be replaced with lead. Contains three Militech-designed Combat Shotguns, and three Shotgun Bandoliers. Requires Armory access to open."
+
+/datum/supply_pack/weaponry/ballistic_single
+	desc = "For when the enemy absolutely needs to be replaced with lead. Contains one Militech-designed Combat Shotgun, and one Shotgun Bandolier. Requires Armory access to open."

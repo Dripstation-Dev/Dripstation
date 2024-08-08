@@ -24,6 +24,7 @@
 	wound_bonus = -15
 	bare_wound_bonus = 15
 
+/*
 /obj/item/melee/sledgehammer/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, \
@@ -38,6 +39,7 @@
 		requires_wielded=TRUE, \
 		no_multi_hit=TRUE, \
 	) // big and heavy hammer makes wide arc
+*/
 
 /obj/item/melee/sledgehammer/proc/on_wield(atom/source, mob/living/user)
 	hitsound = "swing_hit"

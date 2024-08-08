@@ -1,5 +1,6 @@
 //L6 SAW
 
+/* Dripstation edit
 /obj/item/ammo_box/magazine/mm712x82
 	name = "box magazine (7.12x82mm)"
 	desc = "A 50-round box magazine designed for the L6 Saw."
@@ -35,3 +36,4 @@
 /obj/item/ammo_box/magazine/mm712x82/update_icon_state()
 	. = ..()
 	icon_state = "a762[sprite_designation]-[round(ammo_count(),10)]"
+*/

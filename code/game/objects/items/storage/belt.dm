@@ -1190,8 +1190,12 @@
 
 /obj/item/storage/belt/sabre/update_icon(updates=ALL)
 	. = ..()
+	/* Dripstation edit
 	icon_state = "sheath"
 	item_state = "sheath"
+	*/
+	icon_state = initial(icon_state)
+	item_state = initial(item_state)
 	if(contents.len)
 		icon_state += "-sabre"
 		item_state += "-sabre"
