@@ -994,6 +994,7 @@ h2.alert {
 }
 
 $alert-stripe-colors: (
+  /*Dripstation edit
   'default': #b3bfff,
   'green': #adffad,
   'blue': #b3bfff,
@@ -1003,9 +1004,20 @@ $alert-stripe-colors: (
   'red': #ffb3b3,
   'purple': #fac2ff,
   'grey': #e3e3e3,
+  */
+  'default': #033f83,
+  'green': #109010,
+  'blue': #103f6e,
+  'pink': #e279b6,
+  'yellow': #ffe760,
+  'orange': #da911c,
+  'red': #ff0000,
+  'purple': #f18ffa,
+  'grey': #cfcfcf,
 );
 
 $alert-stripe-alternate-colors: (
+  /*Dripstation edit
   'default': #bdc8ff,
   'green': #bdffbd,
   'blue': #bdc8ff,
@@ -1015,21 +1027,38 @@ $alert-stripe-alternate-colors: (
   'red': #ffc2c2,
   'purple': #fbd1ff,
   'grey': #ebebeb,
+  */
+  'default': #022d5e,
+  'green': #077907,
+  'blue': #072d53,
+  'pink': #c5639c,
+  'yellow': #c5b03b,
+  'orange': #996107,
+  'red': #bb0202,
+  'purple': #b805c9,
+  'grey': #adadad,
 );
 
 $alert-major-header-colors: (
+  /*Dripstation edit
   'default': #003061,
+  */
+  'default': #022450,
   'green': #005229,
   'blue': #003061,
   'pink': #800033,
   'yellow': #754900,
   'orange': #823208,
+  /*Dripstation edit
   'red': #800029,
+  */
+  'red': #800000,
   'purple': #450d8c,
   'grey': #800033,
 );
 
 $alert-subheader-header-colors: (
+  /*Dripstation edit
   'default': #6b0020,
   'green': #6b0020,
   'blue': #6b0020,
@@ -1039,6 +1068,16 @@ $alert-subheader-header-colors: (
   'red': #002c85,
   'purple': #002c85,
   'grey': #002c85,
+  */
+ 'default': #183874,
+ 'green': #7e5411,
+ 'blue': #80740f,
+ 'pink': #30178b,
+ 'yellow': #805612,
+ 'orange': #70660d,
+ 'red': #7e0419,
+ 'purple': #880794,
+ 'grey': #033966,
 );
 
 $border-width: 4;
