@@ -195,8 +195,10 @@
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer beret"
 	desc = "A white beret with the engineering insignia emblazoned on it. Its owner knows what they're doing. Probably."
+	/*
 	icon = 'yogstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'yogstation/icons/mob/clothing/head/head.dmi'
+	*/
 	icon_state = "beret_ce"
 	armor = list(rad = 20, fire = 80)
 	strip_delay = 60
@@ -204,8 +206,10 @@
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
 	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
+	/*
 	icon = 'yogstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'yogstation/icons/mob/clothing/head/head.dmi'
+	*/
 	icon_state = "beret_sci"
 	armor = list(bomb = 5, bio = 5, fire = 5, acid = 10)
 	strip_delay = 60

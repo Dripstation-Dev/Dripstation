@@ -5,6 +5,7 @@
 /obj/item/clothing/head/hooded/explorer
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/suit/toggle/labcoat
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'		
@@ -213,11 +214,21 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,	ENERGY = 0, BOMB = 0, BIO = 35, RAD = 0, FIRE = 35, ACID = 35)
 
 /obj/item/clothing/suit/toggle/emt_vest/jacket
-	name = "paramedic jacket"
+	name = "emt jacket"
 	desc = "A hazard jacket used in the recovery of bodies."
+	icon_state = "emt_jacket"
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/toggle/emt_vest/jacket/paramedic
+	name = "paramedic jacket"
+	icon_state = "paramedic_jacket"
+
+/obj/item/clothing/suit/toggle/emt_vest/jacket/highvis
+	name = "em tech jacket"
+	desc = "A high vision jacket used in the recovery of bodies."
+	icon_state = "highvis"
 
 /obj/item/clothing/head/hooded/winterhood
 	dynamic_hair_suffix = ""

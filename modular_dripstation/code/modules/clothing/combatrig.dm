@@ -718,7 +718,7 @@
 	desc = "A standardized dual-mode helmet derived from more advanced special operations helmets. Designed for security operations in hasard AO`s."
 	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
-	light_color = LIGHT_COLOR_RED
+	light_color = LIGHT_COLOR_DEFAULT
 
 /obj/item/clothing/suit/space/hardsuit/syndi/security
 	name = "security RIG"
@@ -726,7 +726,7 @@
 	//item_state = "sec_rig"
 	item_state = "sec_hardsuit"
 	hardsuit_type = "sec"
-	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by paramilitary groups and PMC alike across human space. Expensive in production and maintaining."
+	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by paramilitary groups and PMC alike affiliated with or contracted by Nanotrasen across human space. Expensive in production and maintaining. Has NT logo on it`s back."
 	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/security
 

@@ -70,6 +70,13 @@
 	magboots_type = /obj/item/clothing/shoes/magboots/security
 	department = "sec"	
 
+/obj/machinery/suit_storage_unit/warden
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/warden
+	mask_type = /obj/item/clothing/mask/gas/sechailer
+	tank_type = /obj/item/tank/internals/oxygen/red
+	magboots_type = /obj/item/clothing/shoes/magboots/security
+	department = "sec"	
+
 /obj/machinery/suit_storage_unit/hos
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer

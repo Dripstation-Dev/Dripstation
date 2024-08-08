@@ -1,8 +1,8 @@
 /datum/outfit/job/rd
 	id_type = /obj/item/card/id/head
 	glasses = /obj/item/clothing/glasses/material/aviator
-	uniform = /obj/item/clothing/under/rank/research_director/alt
-	uniform_skirt = /obj/item/clothing/under/rank/research_director/alt/skirt
+	uniform = /obj/item/clothing/under/rank/rnd/research_director/alt
+	uniform_skirt = /obj/item/clothing/under/rank/rnd/research_director/alt/skirt
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/laceup/brown
 	backpack = /obj/item/storage/backpack/science/rd

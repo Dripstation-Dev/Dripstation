@@ -85,39 +85,19 @@
 	icon_state = "paramed"
 	req_access = list(ACCESS_PARAMEDIC)
 
+/*	dripstation edit
 /obj/structure/closet/secure_closet/paramedic/PopulateContents()
 	..()
-	if(prob(50))
-		new /obj/item/storage/backpack/medic(src)
-	else
-		new /obj/item/storage/backpack/satchel/med(src)
-	new /obj/item/storage/firstaid/hypospray/paramedic(src)
-	new /obj/item/clothing/shoes/sneakers/white(src)
-	switch(pick("blue", "green", "purple"))
-		if ("blue")
-			new /obj/item/clothing/under/rank/medical/doctor/blue(src)
-		if ("green")
-			new /obj/item/clothing/under/rank/medical/doctor/green(src)
-		if ("purple")
-			new /obj/item/clothing/under/rank/medical/doctor/purple(src)
-	switch(pick("blue", "green", "purple"))
-		if ("blue")
-			new /obj/item/clothing/under/rank/medical/doctor/blue(src)
-		if ("green")
-			new /obj/item/clothing/under/rank/medical/doctor/green(src)
-		if ("purple")
-			new /obj/item/clothing/under/rank/medical/doctor/purple(src)
-	new /obj/item/clothing/under/rank/medical(src)
-	new /obj/item/clothing/suit/toggle/labcoat/emt(src)
-	new /obj/item/clothing/head/beret/emt/green(src)
-	new /obj/item/clothing/head/beret/emt(src)
-	new /obj/item/clothing/head/soft/emt(src)
+	new /obj/item/clothing/shoes/sneakers/white(src) //shoes and a jumpsuit in case something goes wrong, otherwise clothes are just in vendor
+	new /obj/item/clothing/under/rank/medical/doctor(src)
 	new /obj/item/defibrillator/loaded(src)
-	new /obj/item/clothing/suit/toggle/labcoat/emt/green(src)
-	new /obj/item/clothing/head/soft/emt/green (src)
+	new /obj/item/storage/firstaid/hypospray/paramedic(src)
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/roller(src)
+*/
 
 /obj/structure/closet/secure_closet/mmedical
 	name = "mining medic's locker"
@@ -199,6 +179,7 @@
 	req_access = list(ACCESS_PSYCH)
 	icon_state = "cabinet"
 
+/*	dripstation edit
 /obj/structure/closet/secure_closet/psych/PopulateContents()
 	..()
 	new /obj/item/clothing/suit/straight_jacket(src)
@@ -210,3 +191,4 @@
 	new /obj/item/storage/pill_bottle/psicodine(src)
 	new /obj/item/assembly/flash(src)
 	new /obj/item/assembly/flash(src)
+*/

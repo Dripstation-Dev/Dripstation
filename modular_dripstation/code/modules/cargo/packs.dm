@@ -143,7 +143,7 @@
 					/obj/item/clothing/suit/armor/officerjacket,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
-					/obj/item/clothing/under/rank/warden/navyblue,
+					/obj/item/clothing/under/rank/security/warden/navyblue,
 					/obj/item/clothing/suit/armor/wardenjacket,
 					/obj/item/clothing/head/beret/sec/navywarden)
 
@@ -153,8 +153,8 @@
 	cost = 3000
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
 					/obj/item/clothing/suit/armor/laserproof,
-					/obj/item/clothing/head/helmet/laserproof,
-					/obj/item/clothing/head/helmet/laserproof)
+					/obj/item/clothing/head/helmet/laserproof/raised,
+					/obj/item/clothing/head/helmet/laserproof/raised)
 
 /datum/supply_pack/clearance/heavymining
 	name = "Old Mining Hardsuit Crate"

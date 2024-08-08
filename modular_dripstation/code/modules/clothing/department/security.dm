@@ -1,20 +1,20 @@
 // ###### HOS ######
-/obj/item/clothing/under/rank/head_of_security
+/obj/item/clothing/under/rank/security/head_of_security
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/security/hos.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/security/hos.dmi'
 
-/obj/item/clothing/under/rank/head_of_security/skirt
+/obj/item/clothing/under/rank/security/head_of_security/skirt
 	can_adjust = TRUE
 	fitted = NO_FEMALE_UNIFORM
 
-/obj/item/clothing/under/rank/head_of_security/corporate
+/obj/item/clothing/under/rank/security/head_of_security/corporate
 	name = "head of security's corporate uniform"
 	desc = "Standart issue fancy corporate uniform issued to the Head of Security."
 	icon_state = "hos_corporate"
 	can_adjust = FALSE
 	mutantrace_variation = NONE	
 
-/obj/item/clothing/under/rank/head_of_security/corporate/skirt
+/obj/item/clothing/under/rank/security/head_of_security/corporate/skirt
 	name = "head of security's corporate dress"
 	desc = "Standart issue fancy corporate dress issued to the Head of Security."
 	icon_state = "hos_corporatef"
@@ -29,6 +29,7 @@
 
 /obj/item/clothing/head/HoS
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/head/helmet/HoS
 	name = "\improper HOS SWAT helmet"
@@ -76,25 +77,25 @@
 
 // ###### WARDEN ######
 
-/obj/item/clothing/under/rank/warden
+/obj/item/clothing/under/rank/security/warden
 	name = "warden's jumpsuit"
 	alt_covers_chest = FALSE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/security/warden.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/security/warden.dmi'
 
-/obj/item/clothing/under/rank/warden/skirt
+/obj/item/clothing/under/rank/security/warden/skirt
 	name = "warden's jumpskirt"
 	alt_covers_chest = TRUE
 	can_adjust = TRUE
 	fitted = NO_FEMALE_UNIFORM
 
-/obj/item/clothing/under/rank/warden/alt
+/obj/item/clothing/under/rank/security/warden/alt
 	name = "black warden uniform"
 	desc = "A jumpsuit made of strong material, providing robust protection."
 	icon_state = "bwarden"
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/warden/corporate
+/obj/item/clothing/under/rank/security/warden/corporate
 	name = "warden's corporate uniform"
 	desc = "Standart issue fancy corporate uniform issued to the Warden."
 	icon_state = "warden_corporate"
@@ -102,7 +103,7 @@
 	mutantrace_variation = NONE	
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/warden/classic
+/obj/item/clothing/under/rank/security/warden/classic
 	name = "warden's classic uniform"
 	desc = "Old issue fancy security uniform, this one has silver lining."
 	icon_state = "warden-collar"
@@ -110,7 +111,7 @@
 	mutantrace_variation = NONE	
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/warden/corporate/skirt
+/obj/item/clothing/under/rank/security/warden/corporate/skirt
 	name = "head of security's corporate dress"
 	desc = "Standart issue fancy corporate dress issued to the Head of Security."
 	icon_state = "warden_corporatef"
@@ -123,7 +124,7 @@
 	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'	
 
-/obj/item/clothing/under/rank/warden/navyblue
+/obj/item/clothing/under/rank/security/warden/navyblue
 	mutantrace_variation = NONE	
 
 /obj/item/clothing/suit/armor/wardenjacket
@@ -177,39 +178,39 @@
 
 // ###### OFFICER ######
 
-/obj/item/clothing/under/rank/security
+/obj/item/clothing/under/rank/security/officer
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/security/security.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/security/security.dmi'
 
-/obj/item/clothing/under/rank/security/skirt
+/obj/item/clothing/under/rank/security/officer/skirt
 	can_adjust = TRUE
 	fitted = NO_FEMALE_UNIFORM
 
-/obj/item/clothing/under/rank/security/alt
+/obj/item/clothing/under/rank/security/officer/alt
 	name = "black security uniform"
 	desc = "A jumpsuit made of strong material, providing robust protection."
 	icon_state = "bsecurity"
 
-/obj/item/clothing/under/rank/security/redshirt
+/obj/item/clothing/under/rank/security/officer/redshirt
 	name = "white classic security uniform"
 	desc = "A jumpsuit made of strong material, providing robust protection."
 	icon_state = "redshirt"
 
-/obj/item/clothing/under/rank/security/corporate
+/obj/item/clothing/under/rank/security/officer/corporate
 	name = "corporate security uniform"
 	desc = "Standart issue fancy corporate uniform issued to offcers."
 	icon_state = "sec_corporate"
 
-/obj/item/clothing/under/rank/security/classic
+/obj/item/clothing/under/rank/security/officer/classic
 	name = "classic security uniform"
 	desc = "Old issue fancy security uniform, this one has gold lining."
 	icon_state = "clsecurity"
 
-/obj/item/clothing/under/rank/security/navyblue
+/obj/item/clothing/under/rank/security/officer/navyblue
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
 
-/obj/item/clothing/under/rank/security/navyblue/russian
+/obj/item/clothing/under/rank/security/officer/navyblue/russian
 	icon_state = "officertanclothes"
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
@@ -305,14 +306,14 @@
 	fitted = FEMALE_UNIFORM_TOP
 
 ////Detective////
-/obj/item/clothing/under/rank/det 
+/obj/item/clothing/under/rank/security/detective
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/security/detective.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/security/detective.dmi'
 
-/obj/item/clothing/under/rank/det/grey
+/obj/item/clothing/under/rank/security/detective/grey
 	icon_state = "noirdet"
 
-/obj/item/clothing/under/rank/det/grey/skirt
+/obj/item/clothing/under/rank/security/detective/grey/skirt
 	icon_state = "noirdet_skirt"
 
 /obj/item/clothing/suit/det_suit
@@ -355,17 +356,18 @@
 	products = list(/obj/item/storage/backpack/security = 3,
 					/obj/item/storage/backpack/satchel/sec = 3,
 					/obj/item/storage/backpack/duffelbag/sec = 3,
-					/obj/item/clothing/under/rank/security = 3,
-					/obj/item/clothing/under/rank/security/alt = 3,
-					/obj/item/clothing/under/rank/security/skirt = 3,
+					/obj/item/clothing/under/rank/security/officer = 3,
+					/obj/item/clothing/under/rank/security/officer/alt = 3,
+					/obj/item/clothing/under/rank/security/officer/skirt = 3,
 					/obj/item/clothing/under/rank/security/officer/grey = 3,
-					/obj/item/clothing/under/rank/security/redshirt = 3,
-					/obj/item/clothing/under/rank/security/classic = 3,
-					/obj/item/clothing/under/rank/security/corporate = 3,
+					/obj/item/clothing/under/rank/security/officer/redshirt = 3,
+					/obj/item/clothing/under/rank/security/officer/classic = 3,
+					/obj/item/clothing/under/rank/security/officer/corporate = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/security = 3,					
 					/obj/item/clothing/suit/armor/vest/secmiljacket = 2,
 					/obj/item/clothing/suit/toggle/bomber/secbomber/soft = 2,
 					/obj/item/clothing/suit/poncho/sec = 2,	
+					/obj/item/clothing/glasses/hud/security/ballistic = 2,	
 					/obj/item/clothing/gloves/color/black/tactifool = 3,		
 					/obj/item/clothing/shoes/jackboots = 3,
 					/obj/item/clothing/shoes/jackboots/jacksandal = 3,
@@ -391,10 +393,10 @@
 	vend_reply = "Thank you for using the DetDrobe!"
 	light_mask = "detdrobe-light-mask"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
-	products = list(/obj/item/clothing/under/rank/det = 1,
+	products = list(/obj/item/clothing/under/rank/security/detective = 1,
 					/obj/item/clothing/under/rank/security/detective/skirt = 1,
-					/obj/item/clothing/under/rank/det/grey = 1,
-					/obj/item/clothing/under/rank/det/grey/skirt = 1,
+					/obj/item/clothing/under/rank/security/detective/grey = 1,
+					/obj/item/clothing/under/rank/security/detective/skirt = 1,
 					/obj/item/clothing/under/rank/det/yogs = 1,
 					/obj/item/clothing/suit/det_suit = 1,
 					/obj/item/clothing/suit/det_suit/grey = 1,

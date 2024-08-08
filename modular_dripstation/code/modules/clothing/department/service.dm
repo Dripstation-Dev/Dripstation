@@ -1,12 +1,12 @@
 // ###### Botany ######
-/obj/item/clothing/under/rank/hydroponics
+/obj/item/clothing/under/rank/civilian/hydroponics
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/botany.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/botany.dmi'
 	icon_state = "botany_jean"
 	item_state = "g_suit"
 	mutantrace_variation = DIGITIGRADE_VARIATION
 
-/obj/item/clothing/under/rank/hydroponics/skirt
+/obj/item/clothing/under/rank/civilian/hydroponics/skirt
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/botany.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/botany.dmi'
 	icon_state = "botany_skirt"
@@ -15,17 +15,17 @@
 	fitted = FEMALE_UNIFORM_TOP
 	mutantrace_variation = NONE
 
-/obj/item/clothing/under/rank/hydroponics/turtleneck
+/obj/item/clothing/under/rank/civilian/hydroponics/turtleneck
 	name = "botanist's turtleneck"
 	desc = "It's a tactical turtleneck designed to protect against minor plant-related hazards."
 	icon_state = "hydroponics_turtle"
 
-/obj/item/clothing/under/rank/hydroponics/turtleneckalt
+/obj/item/clothing/under/rank/civilian/hydroponics/turtleneckalt
 	name = "botanist's turtleneck"
 	desc = "It's a tactical turtleneck designed to protect against minor plant-related hazards. With additional pouches!"
 	icon_state = "hydroponics_turtlealt"
 
-/obj/item/clothing/under/rank/hydroponics/turtleneckalt/skirt
+/obj/item/clothing/under/rank/civilian/hydroponics/turtleneckalt/skirt
 	name = "botanist's skirtleneck"
 	desc = "It's a tactical skirtleneck designed to protect against minor plant-related hazards. With additional pouches!"
 	icon_state = "hydroponics_turtlealt_skirt"
@@ -40,13 +40,13 @@
 					/obj/item/clothing/suit/apron = 2,
 					/obj/item/clothing/suit/apron/overalls = 3,
 					/obj/item/clothing/under/yogs/botanyuniform = 3,
-					/obj/item/clothing/under/rank/hydroponics = 3,
-					/obj/item/clothing/under/rank/hydroponics/skirt = 3,
+					/obj/item/clothing/under/rank/civilian/hydroponics = 3,
+					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 3,
 					/obj/item/clothing/mask/bandana = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3)
-	premium = list(/obj/item/clothing/under/rank/hydroponics/turtleneck = 1,
-					/obj/item/clothing/under/rank/hydroponics/turtleneckalt = 1,
-					/obj/item/clothing/under/rank/hydroponics/turtleneckalt/skirt = 1)
+	premium = list(/obj/item/clothing/under/rank/civilian/hydroponics/turtleneck = 1,
+					/obj/item/clothing/under/rank/civilian/hydroponics/turtleneckalt = 1,
+					/obj/item/clothing/under/rank/civilian/hydroponics/turtleneckalt/skirt = 1)
 
 // ###### Janitor ######
 /obj/item/clothing/under/rank/janitor
@@ -60,28 +60,29 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/janitor.dmi'
 
 // ###### Mime ######
-/obj/item/clothing/under/rank/mime
+/obj/item/clothing/under/rank/civilian/mime
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/mime.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/mime.dmi'
 	can_adjust = TRUE
 
-/obj/item/clothing/under/rank/mime/skirt
+/obj/item/clothing/under/rank/civilian/mime/skirt
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/mime.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/mime.dmi'
 	can_adjust = TRUE
 
 /obj/item/clothing/under/sexymime
 	can_adjust = FALSE
+	icon_state = "sexymime"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/mime.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/mime.dmi'
 
-/obj/item/clothing/under/rank/mime/skirt/sexymime
+/obj/item/clothing/under/rank/civilian/mime/skirt/sexymime
 	icon_state = "mime_skirtle"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/mime.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/mime.dmi'
 	can_adjust = FALSE
-	mutantrace_variation = DIGITIGRADE_VARIATION
-	fitted = NO_FEMALE_UNIFORM
+	mutantrace_variation = NONE
+	fitted = FEMALE_UNIFORM_TOP
 
 
 /obj/machinery/vending/autodrobe
@@ -163,8 +164,8 @@
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
 					/obj/item/clothing/under/sexymime = 1,
-					/obj/item/clothing/under/rank/mime/skirt = 1,
-					/obj/item/clothing/under/rank/mime/skirt/sexymime = 1,
+					/obj/item/clothing/under/rank/civilian/mime/skirt = 1,
+					/obj/item/clothing/under/rank/civilian/mime/skirt/sexymime = 1,
 					/obj/item/clothing/mask/rat/bat = 1,
 					/obj/item/clothing/mask/rat/bee = 1,
 					/obj/item/clothing/mask/rat/bear = 1,

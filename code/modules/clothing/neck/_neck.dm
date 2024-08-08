@@ -173,6 +173,7 @@
 	icon_state = "stripedbluescarf"
 	custom_price = 10
 
+/* Dripstation edit
 /obj/item/clothing/neck/petcollar
 	name = "pet collar"
 	desc = "It has a little bell!"
@@ -191,6 +192,7 @@
 /obj/item/clothing/neck/petcollar/attack_self(mob/user)
 	tagname = stripped_input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot", MAX_NAME_LEN)
 	name = "[initial(name)] - [tagname]"
+Dripstation edit */
 
 /obj/item/clothing/neck/artist
 	name = "post-modern scarf"

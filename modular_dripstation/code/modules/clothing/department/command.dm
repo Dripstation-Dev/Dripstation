@@ -1,16 +1,16 @@
 // ###### HOP ######
-/obj/item/clothing/under/rank/head_of_personnel
+/obj/item/clothing/under/rank/command/head_of_personnel
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/command/hop.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/command/hop.dmi'
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/head_of_personnel/skirt
+/obj/item/clothing/under/rank/command/head_of_personnel/skirt
 	can_adjust = TRUE
 	mutantrace_variation = DIGITIGRADE_VARIATION	
 	fitted = NO_FEMALE_UNIFORM
 	alt_covers_chest = FALSE
 
-/obj/item/clothing/under/rank/head_of_personnel/dress
+/obj/item/clothing/under/rank/command/head_of_personnel/dress
 	name = "head of personnel's dress"
 	icon_state = "hop_dress"
 	can_adjust = FALSE
@@ -18,7 +18,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS	
 	mutantrace_variation = NONE	
 
-/obj/item/clothing/under/rank/head_of_personnel/paradefancy
+/obj/item/clothing/under/rank/command/head_of_personnel/paradefancy
 	name = "head of personnel's fancy uniform"
 	desc = "For these special occasions when paperwork can wait."
 	icon_state = "hopwhimsy"
@@ -26,36 +26,36 @@
 	can_adjust = FALSE
 	mutantrace_variation = NONE	
 
-/obj/item/clothing/under/rank/head_of_personnel/parade
+/obj/item/clothing/under/rank/command/head_of_personnel/parade
 	name = "head of personnel's parade uniform"
 	desc = "A luxurious uniform for the head of personnel, woven in a deep blue. On the lapel is a small pin in the shape of a corgi's head."
 	icon_state = "hop_parade_male"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/head_of_personnel/parade/skirt
+/obj/item/clothing/under/rank/command/head_of_personnel/parade/skirt
 	name = "head of personnel's parade skirt"
 	icon_state = "hop_parade_female"	
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = FEMALE_UNIFORM_TOP
 
-/obj/item/clothing/under/rank/head_of_personnel/turtleneck
+/obj/item/clothing/under/rank/command/head_of_personnel/turtleneck
 	name = "head of personnel's turtleneck"
 	desc = "A dark teal turtleneck and black khakis, for a second with a superior sense of style."
 	icon_state = "hopturtle"
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/head_of_personnel/turtleneck/alt
+/obj/item/clothing/under/rank/command/head_of_personnel/turtleneck/alt
 	icon_state = "hopturtle_alt"
 
-/obj/item/clothing/under/rank/head_of_personnel/skirt/turtleneck
+/obj/item/clothing/under/rank/command/head_of_personnel/skirt/turtleneck
 	name = "head of personnel's turtleneck skirt"
 	desc = "A dark teal turtleneck and tanblack khaki skirt, for a second with a superior sense of style."
 	icon_state = "hopturtle_skirt"
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = NO_FEMALE_UNIFORM
 
-/obj/item/clothing/under/rank/head_of_personnel/skirt/secretary
+/obj/item/clothing/under/rank/command/head_of_personnel/skirt/secretary
 	name = "head of personnel's secretary skirt"
 	icon_state = "hop_secretary"
 	fitted = NO_FEMALE_UNIFORM
@@ -107,24 +107,24 @@
 	item_state = "sunhudskill"
 
 // ###### CAPTAIN ######
-/obj/item/clothing/under/rank/captain
+/obj/item/clothing/under/rank/command/captain
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/command/captain.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/command/captain.dmi'
 	alt_covers_chest = FALSE
 
-/obj/item/clothing/under/rank/captain/skirt
+/obj/item/clothing/under/rank/command/captain/skirt
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 	fitted = NO_FEMALE_UNIFORM
 
-/obj/item/clothing/under/rank/captain/formal
+/obj/item/clothing/under/rank/command/captain/formal
 	name = "captain's formal uniform"
 	desc = "Parade version of station captain`s uniform."
 	icon_state = "station_captain"
 	item_state = "station_captain"
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/captain/formal/skirt
+/obj/item/clothing/under/rank/command/captain/formal/skirt
 	name = "captain's formal skirt"
 	desc = "Parade version of station captain`s skirt."
 	icon_state = "station_captain_skirt"
@@ -135,14 +135,14 @@
 /obj/item/clothing/under/yogs/victoriouscaptainuniform 
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/captain/kilt
+/obj/item/clothing/under/rank/command/captain/kilt
 	desc = "Not a skirt, it is, however, armoured and decorated with a tartan sash."
 	name = "captain's kilt"
 	icon_state = "capkilt"
 	item_state = "kilt"
 	alt_covers_chest = TRUE
 
-/obj/item/clothing/under/rank/captain/dress
+/obj/item/clothing/under/rank/command/captain/dress
 	name = "captain's dress"
 	icon_state = "cap_secretary"
 	can_adjust = FALSE
@@ -152,6 +152,7 @@
 
 /obj/item/clothing/under/captainparade
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/command/captain.dmi'
+	icon_state = "captain_parade"
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/command/captain.dmi'
 
 /obj/item/clothing/suit/armor/vest/capcarapace
@@ -191,6 +192,12 @@
 	desc = "Worn by a Captain to show their class."
 	icon_state = "captunic"
 	flags_inv = null
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	armor = list(MELEE = 20, BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+
+/obj/item/clothing/suit/captunic/Initialize(mapload)
+	. = ..()
+	allowed = GLOB.security_wintercoat_allowed
 
 /obj/item/clothing/suit/armor/vest/capcarapace/jacket
 	name = "captain's jacket"
@@ -237,8 +244,12 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
 
 /obj/item/clothing/head/caphat/parade
-	icon = 'icons/obj/clothing/hats/hats.dmi'
-	worn_icon = 'icons/mob/clothing/head/head.dmi'
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
+
+/obj/item/clothing/head/caphat/parade/white
+	icon_state = "cap_parade"
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 /obj/item/clothing/head/beret/captain
 	name = "captain's formal beret"

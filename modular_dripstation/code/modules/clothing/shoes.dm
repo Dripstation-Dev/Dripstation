@@ -1,6 +1,10 @@
 ////Sneakers////
 /obj/item/clothing/shoes/sneakers
 
+/obj/item/clothing/shoes/sneakers/white
+	name = "white shoes"
+	greyscale_colors = "#c2c2c2#ffffff"
+
 /obj/item/clothing/shoes/sneakers/brown
 	greyscale_colors = "#592d01#ffffff"
 

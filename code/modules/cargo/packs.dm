@@ -317,6 +317,7 @@
 					/obj/item/toy/crayon/white,
 					/obj/item/clothing/head/fedora/det_hat)
 	crate_name = "forensics crate"
+
 /*
 /datum/supply_pack/security/laser
 	name = "Lasers Crate"
@@ -327,6 +328,7 @@
 					/obj/item/gun/energy/laser)
 	crate_name = "laser crate"
 */
+
 /datum/supply_pack/security/secfiringpins
 	name = "Mindshield Firing Pins Crate"
 	desc = "Upgrade your arsenal with 10 mindshield firing pins. Requires Security access to open."
@@ -1732,6 +1734,36 @@
 					/obj/item/vending_refill/wallmed,
 					/obj/item/vending_refill/wallhypo)
 	crate_name = "medical vending crate"
+
+//DRIPSTATION
+/datum/supply_pack/medical/gloves
+	name = "Nitrile Gloves Crate"
+	desc = "Contains one pair of pricy nitrile gloves."
+	cost = 1000
+	small_item = TRUE
+	contains = list(/obj/item/clothing/gloves/color/latex/nitrile)
+
+/datum/supply_pack/costumes_toys/randomised/sunglasses
+	name = "Eye Protection Crate"
+	desc = "Contains one pair of pricy real eye protection."
+	contraband = TRUE
+	cost = 700
+	num_contained = 1
+	small_item = TRUE
+	contains = list(/obj/item/clothing/glasses/sunglasses,
+					/obj/item/clothing/glasses/sunglasses,
+					/obj/item/clothing/glasses/sunglasses,
+					/obj/item/clothing/glasses/sunglasses/aviators)
+
+/datum/supply_pack/security/armory/sunglasses
+	name = "Sunglasses Crate"
+	desc = "Contains three pairs of pricy real sunglasses."
+	cost = 1500
+	contains = list(/obj/item/clothing/glasses/sunglasses,
+					/obj/item/clothing/glasses/sunglasses,
+					/obj/item/clothing/glasses/sunglasses)
+	crate_name = "sunglasses crate"
+//DRIPSTATION
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////

@@ -176,6 +176,11 @@
 	icon_state = "tank_white"
 	gender = NEUTER
 
+/datum/sprite_accessory/undershirt/tank_grey
+	name = "Tank (Grey)"
+	icon_state = "tank_grey"
+	gender = NEUTER
+
 /datum/sprite_accessory/undershirt/shirt_black
 	name = "Shirt (Black)"
 	icon_state = "shirt_black"
