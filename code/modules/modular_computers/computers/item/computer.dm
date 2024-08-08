@@ -63,6 +63,16 @@
 	light_color = "#FFFFFF"
 	light_on = FALSE
 
+//DRIPSTATION EDIT START
+	/// The currently imprinted ID.
+	var/saved_identification = null
+	/// The currently imprinted job.
+	var/saved_job = null
+	/// If the saved info should auto-update
+	var/saved_auto_imprint = TRUE
+	/// Can we toggle imprints or not
+	var/show_us_imprint = TRUE
+//DRIPSTATION EDIT END
 	/// List of "connection ports" in this computer and the components with which they are plugged
 	var/list/all_components = list()
 	/// Lazy List of extra hardware slots that can be used modularly.
@@ -100,6 +110,24 @@
 	install_starting_components()
 	install_starting_files()
 	update_appearance()
+
+//DRIPSTATION EDIT START
+
+/obj/item/modular_computer/proc/update_identification()
+	var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
+	if(!saved_auto_imprint || !cardholder || istype(active_program, /datum/computer_file/program/card_mod))
+		return
+	var/obj/item/card/id/stored_card = cardholder.GetID()
+	if(!stored_card.registered_name || !stored_card.assignment)
+		return
+	if(stored_card.registered_name == saved_identification && stored_card.assignment == saved_job)
+		return
+	saved_identification = stored_card.registered_name
+	saved_job = stored_card.assignment
+	update_appearance()
+	playsound(src, 'sound/machines/terminal_prompt.ogg', 15, TRUE)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_prompt_confirm.ogg', 15, TRUE), 1.3 SECONDS)
+//DRIPSTATION EDIT END
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
@@ -195,6 +223,7 @@
 		return FALSE
 
 	if((card_slot?.try_insert(inserting_id)) || (card_slot2?.try_insert(inserting_id)))
+		update_identification()
 		update_appearance(UPDATE_ICON)
 		return TRUE
 	//to_chat(user, "<span class='warning'>This computer doesn't have an open card slot.</span>")
@@ -206,6 +235,7 @@
 		return card_slot.GetID()
 	return ..()
 
+/* Yog moment
 /obj/item/modular_computer/RemoveID()
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	if(!card_slot)
@@ -220,6 +250,7 @@
 	if(!inserting_id)
 		return FALSE
 	return card_slot.try_insert(inserting_id)
+*/
 
 /obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
 	var/mob/M = usr
