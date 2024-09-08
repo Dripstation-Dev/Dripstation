@@ -203,6 +203,8 @@
 
 //implants
 #define ORGAN_SLOT_BRAIN_IMPLANT "brain_implant"
+#define ORGAN_SLOT_NEURALWARE "neuralware"  //dripstation edit
+#define ORGAN_SLOT_BATTERY "battery"  //dripstation edit
 #define ORGAN_SLOT_HUD "eye_hud"
 #define ORGAN_SLOT_BREATHING_TUBE "breathing_tube"
 #define ORGAN_SLOT_TORSO_IMPLANT "torso_implant"
