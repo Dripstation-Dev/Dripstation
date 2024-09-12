@@ -1000,11 +1000,14 @@
 	. = ..()
 	var/datum/component/mood/mood = GetComponent(/datum/component/mood) //Currently, only carbons or higher use mood, move this once that changes.
 	if(mood)
+		. *= 2 - (mood.sanity / 100)	 //Alters do_after delay based on how sane you are, dripstation edit
+/*
 		switch(mood.sanity) //Alters do_after delay based on how sane you are
 			if(-INFINITY to SANITY_DISTURBED)
 				. *= 1.25
 			if(SANITY_NEUTRAL to INFINITY)
 				. *= 0.90
+*/
 
 	for(var/datum/status_effect/S as anything in status_effects)
 		. *= S.interact_speed_modifier()
