@@ -317,6 +317,8 @@
 #include "code\modules\mob\living\simple_animal\guardian\guardiancreator.dm"
 #include "code\modules\mob\living\simple_animal\hostile\mimic.dm"
 #include "code\modules\mob\mob_helpers.dm"
+#include "code\modules\modular_computers\hardware\_hardware.dm"
+#include "code\modules\modular_computers\hardware\job_disk.dm"
 #include "code\modules\modular_computers\computers\item\pda\pda_presets.dm"
 #include "code\modules\modular_computers\computers\item\pda\pda.dm"
 #include "code\modules\modular_computers\computers\item\phone\phone_presets.dm"
