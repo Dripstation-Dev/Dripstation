@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(PDAFrameCodes)
 
 /datum/ntosframecode
 	var/code = ""
-	var/uses = 5
+	var/uses = 3	//dripstation edit, changed from 5
 
 /datum/ntosframecode/New()
 	code = "[num2hex(rand(1,65535), -1)][num2hex(rand(1,65535), -1)]" // 8 hexadecimal digits
