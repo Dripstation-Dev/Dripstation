@@ -1,12 +1,17 @@
+/*
 GLOBAL_LIST_EMPTY(allfaxes)
 GLOBAL_LIST_EMPTY(admin_departments)
 GLOBAL_LIST_EMPTY(alldepartments)
 GLOBAL_LIST_EMPTY(adminfaxes)
+*/
 
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
+	desc = "Old rusty machine. Used to send faxes."	//dripstation edit
+	stat = BROKEN
+/* Dripstation edit
 	insert_anim = "faxsend"
 	req_one_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_QM)
 	use_power = 1
@@ -228,3 +233,4 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 /obj/machinery/photocopier/faxmachine/examine(mob/user)
 	if(IsAdminGhost(user))
 		.+= span_notice("You can send admin faxes via Alt-Click to this specific fax machine.")
+*/

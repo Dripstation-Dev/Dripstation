@@ -8,6 +8,7 @@
  * Photocopier
  */
 
+/* Dripstation remove, see module
 /obj/machinery/photocopier
 	name = "photocopier"
 	desc = "Used to copy important documents and anatomy studies."
@@ -383,3 +384,4 @@
 	p.pixel_y = rand(-8, 8)
 	p.pixel_x = rand(-9, 9)
 	return p
+*/
