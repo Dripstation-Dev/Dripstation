@@ -44,3 +44,15 @@
 		icon_state = "[initial_icon]_full"
 	else
 		icon_state = "[initial_icon]"
+
+/obj/item/reagent_containers/medspray/synthflesh
+	desc = "A single use medical spray bottle, designed for precision application. This one contains synthflesh, an apex brute and burn healing agent. USE ON CORPSES ONLY."
+
+/obj/item/reagent_containers/medspray/tricordrazine
+	name = "medical spray (tricordrazine)"
+	desc = "A single use medical spray bottle, designed for precision application. This one contains tricordrazine, an apex all healing agent."
+	icon_state = "synthspray"
+	list_reagents = list(/datum/reagent/medicine/tricordrazine = 100)
+	can_fill_from_container = FALSE
+	amount_per_transfer_from_this = 25
+	volume = 100

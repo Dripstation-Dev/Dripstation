@@ -17,7 +17,7 @@
 	) // big and heavy hammer makes wide arc
 
 /obj/item/melee/sledgehammer/security
-	name = "/improper security kuvalda"
+	name = "\improper security kuvalda"
 	desc = "Tactical version of sledgehammer with more unbalanced weight. Was designed to harm walls, not crewmembers."
 	icon = 'modular_dripstation/icons/obj/weapons/security.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'

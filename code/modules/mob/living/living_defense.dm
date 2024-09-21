@@ -52,7 +52,9 @@
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/projectile/P, def_zone)
+/* Dripstation edit
 	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)
+*/
 
 	// "Projectiles now ignore the holopara's master or any of their other holoparas."
 	var/guardian_pass = FALSE
@@ -69,6 +71,7 @@
 	var/sig_return = SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	if(sig_return != NONE)
 		return sig_return
+	var/armor = run_armor_check(def_zone, P.armor_flag, "","",P.armour_penetration)	//Dripstation edit
 	
 	if(!P.nodamage)
 		last_damage = P.name

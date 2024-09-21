@@ -297,6 +297,7 @@
 // to parse and process the overlays back into strings
 /obj/machinery/inspector_booth/proc/get_colors_by_job(real_job)
 	var/list/idfluff = list(
+	/*
 	"Assistant" = list("civillian","green"),
 	"Captain" = list("captain","gold"),
 	"Head of Personnel" = list("civillian","silver"),
@@ -335,6 +336,54 @@
 	"Detective" = list("security","brown"),
 	"Brig Physician" = list("security","blue"),
 	"Lawyer" = list("security","purple")
+	)
+	*/
+	"Assistant" = list("civillian","green"),
+	"Captain" = list("captain","gold"),
+	"Head of Personnel" = list("civillian","silver"),
+	"Head of Security" = list("HOS","HOS_id"),
+	"Chief Engineer" = list("CE","CE_id"),
+	"Research Director" = list("RD","RD_id"),
+	"Chief Medical Officer" = list("CMO","CMO_id"),
+	"Quartermaster" = list("QM","QM_id"),
+	"Station Engineer" = list("engineering","yellow"),
+	"Atmospheric Technician" = list("engineering","white"),
+	"Network Admin" = list("engineering","green"),
+	"Medical Doctor" = list("medical","blue"),
+	"Geneticist" = list("medical","purple"),
+	"Virologist" = list("medical","green"),
+	"Chemist" = list("medical","brown"),
+	"Paramedic" = list("medical","white"),
+	"Psychiatrist" = list("medical","dark_brown"),
+	"Scientist" = list("science","purple"),
+	"Roboticist" = list("science","black"),
+	"Cargo Technician" = list("cargo","dark_brown"),
+	"Shaft Miner" = list("cargo","black"),
+	"Mining Medic" = list("cargo","blue"),
+	"Bartender" = list("civillian","black"),
+	"Botanist" = list("civillian","blue"),
+	"Cook" = list("civillian","white"),
+	"Janitor" = list("civillian","purple"),
+	"Curator" = list("civillian","purple"),
+	"Chaplain" = list("civillian","black"),
+	"Clown" = list("clown","rainbow"),
+	"Mime" = list("mime","white"),
+	"Artist" = list("civillian","yellow"),
+	"Clerk" = list("civillian","blue"),
+	"Tourist" = list("civillian","yellow"),
+	"Warden" = list("security","black"),
+	"Security Officer" = list("security","red"),
+	"Detective" = list("security","brown"),
+	"Brig Physician" = list("security","blue"),
+	"Lawyer" = list("security","purple"),
+	"Blueshield" = list("blueshield","nt_id"),
+	"Magistrate" = list("nanotrasen","red"),
+	"Nanotrasen Representative" = list("nanotrasen","gold"),
+	"Explorer" = list("cargo","purple"),
+	"Bridge Assistant" = list("captain","green"),
+	"Brig Officer" = list("security","white"),
+	"Repair Worker Replika" = list("nanotrasen","silver"),
+	"Customs Agent" = list("cargo","red"),
 	)
 	if (real_job in idfluff)
 		return idfluff[real_job]

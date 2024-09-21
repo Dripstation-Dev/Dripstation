@@ -18,6 +18,9 @@
 
 /obj/item/implant/mindshield/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	if(..())
+		if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
+			target.visible_message(span_warning("[target] seems to resist the implant!"), span_warning("You already have mind protection!"))
+			return FALSE
 		if(target.mind && !silent)
 			to_chat(target, span_notice("You feel a sense of peace and security. You are now protected from brainwashing."))
 		ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")

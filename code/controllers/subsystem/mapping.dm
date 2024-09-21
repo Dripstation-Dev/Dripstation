@@ -190,10 +190,14 @@ SUBSYSTEM_DEF(mapping)
 	if (ice_ruins.len)
 		// needs to be whitelisted for underground too so place_below ruins work
 		seedRuins(ice_ruins, CONFIG_GET(number/icemoon_budget), list(/area/icemoon/surface/outdoors/unexplored, /area/icemoon/underground/unexplored), ice_ruins_templates, clear_below = TRUE)
+		for (var/plasma_z in ice_ruins)	// dripstation edit
+			spawn_rivers(plasma_z, nodes = 4, turf_type = /turf/open/lava/plasma/ice_moon, whitelist_area = /area/icemoon/surface/outdoors/unexplored/danger)	// dripstation edit
 
 	var/list/ice_ruins_underground = levels_by_trait(ZTRAIT_ICE_RUINS_UNDERGROUND)
 	if (ice_ruins_underground.len)
 		seedRuins(ice_ruins_underground, CONFIG_GET(number/icemoon_budget), list(/area/icemoon/underground/unexplored), ice_ruins_underground_templates, clear_below = TRUE)
+		for (var/plasma_z in ice_ruins_underground)	// dripstation edit
+			spawn_rivers(plasma_z, nodes = 6, turf_type = /turf/open/lava/plasma/ice_moon/deep, whitelist_area = /area/icemoon/underground/unexplored)	// dripstation edit
 
 	// Generate deep space ruins
 	var/list/space_ruins = levels_by_trait(ZTRAIT_SPACE_RUINS)

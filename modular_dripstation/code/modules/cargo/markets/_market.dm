@@ -59,3 +59,7 @@
 	shipping = list(SHIPPING_METHOD_LTSRBT =50,
 					SHIPPING_METHOD_LAUNCH =10,
 					SHIPPING_METHOD_TELEPORT=75)
+
+/datum/market/syndicatecargo
+	name = "Syndicate Cargo"
+	shipping = list(SHIPPING_METHOD_RST =50)

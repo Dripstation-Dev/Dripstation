@@ -10,6 +10,8 @@
 
 	/// Price for the item, if not set creates a price according to the *_min and *_max vars.
 	var/price
+	/// Is this stock limited or not. 
+	var/limitedstock = TRUE
 	/// How many of this type of item is available, if not set creates a price according to the *_min and *_max vars.
 	var/stock
 
@@ -52,7 +54,8 @@
 
 	// SSblackmarket takes care of the shipping.
 	if(SSblackmarket.queue_item(purchase))
-		stock--
+		if(limitedstock)
+			stock--
 		buyer.log_message("has succesfully purchased [name] using [shipping_method] for shipping.", LOG_GAME)
 		return TRUE
 	return FALSE

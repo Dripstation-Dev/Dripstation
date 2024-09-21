@@ -1,3 +1,4 @@
+/* Dripstation edit
 GLOBAL_LIST_INIT(synthetic_base_access, list(
 	ACCESS_MAINT_TUNNELS, ACCESS_KITCHEN, ACCESS_CREMATORIUM,
 	ACCESS_JANITOR, ACCESS_BAR, ACCESS_CHAPEL_OFFICE,
@@ -56,10 +57,13 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 /datum/job/synthetic/get_access()
 	return GLOB.synthetic_base_access
 
+*/
 
 /datum/outfit/job/synthetic
 	name = "Synthetic"
+/* Dripstation edit
 	jobtype = /datum/job/synthetic
+*/
 
 	id_type = /obj/item/card/id/silver/synthetic
 	ears = /obj/item/radio/headset/headset_synthetic

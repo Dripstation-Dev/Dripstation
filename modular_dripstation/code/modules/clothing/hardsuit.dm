@@ -562,3 +562,11 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	slowdown = 0
 	clothing_traits = list(TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+
+/obj/item/clothing/head/helmet/space/hardsuit/cult
+	icon = 'icons/obj/clothing/hats/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
+
+/obj/item/clothing/suit/space/hardsuit/cult
+	icon = 'icons/obj/clothing/suits/suits.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'

@@ -1244,6 +1244,33 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sbo/commsoff
 
 
+//////Merc suit designes//////
+//////Standart merk rig//////
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/merk
+	name = "merk RIG helmet"
+	desc = "An austere tactical helmet used by paramilitary groups across human space."
+	icon_state = "freemerk_helm"
+	hardsuit_type = "freemerk"
+	light_range = 6
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	heat_protection = HEAD
+	toggled_for_heat_protecting = FALSE
+	light_color = LIGHT_COLOR_DEFAULT
+
+/obj/item/clothing/suit/space/hardsuit/syndi/merk
+	name = "merk RIG"
+	desc = "An austere RIG used by paramilitary groups across human space."
+	icon_state = "freemerk_rig"
+	hardsuit_type = "freemerk"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/merk
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	lightweight = 0
+	toggled_for_heat_protecting = FALSE
+	combat_slowdown = 0
+
+
 //////Military suit designes//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/military
 	name = "military RIG helmet"

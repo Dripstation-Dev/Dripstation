@@ -308,6 +308,7 @@
 	new /obj/item/clothing/under/rank/blueshield/formal(src)
 	new /obj/item/clothing/under/rank/blueshield/turtle(src)
 	new /obj/item/clothing/under/rank/blueshield/turtle_skirt(src)
+	new /obj/item/clothing/suit/storage/blueshield(src)
 	new /obj/item/clothing/neck/mantle/blueshield(src)	
 	new /obj/item/clothing/neck/cloak/blueshield(src)
 	new /obj/item/clothing/head/beret/blueshield(src)

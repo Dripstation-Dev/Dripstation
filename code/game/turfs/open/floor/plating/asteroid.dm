@@ -20,6 +20,7 @@
 	attachment_holes = FALSE
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug = FALSE
+	var/max_icon_states = 12	//	Dripstation edit
 
 /turf/open/floor/plating/asteroid/broken_states()
 	if(initial(dug))
@@ -30,8 +31,12 @@
 	var/proper_name = name
 	. = ..()
 	name = proper_name
+	/*	Dripstation edit start
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0,12)]"
+	*/
+	if(prob(floor_variance))
+		icon_state = "[base_icon_state][rand(0,max_icon_states)]"	//	Dripstation edit end
 
 /turf/open/floor/plating/asteroid/proc/getDug()
 	new digResult(src, 5)

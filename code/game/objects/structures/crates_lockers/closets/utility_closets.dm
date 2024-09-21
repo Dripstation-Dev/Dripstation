@@ -152,11 +152,13 @@
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/head/bomb_hood(src)
 
+/* Dripstation edit
 /obj/structure/closet/bombcloset/security/PopulateContents()
 	new /obj/item/clothing/suit/bomb_suit/security(src)
 	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/head/bomb_hood/security(src)
+*/
 
 /obj/structure/closet/bombcloset/white/PopulateContents()
 	new /obj/item/clothing/suit/bomb_suit/white(src)

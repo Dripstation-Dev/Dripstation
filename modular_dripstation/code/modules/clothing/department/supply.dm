@@ -134,6 +134,12 @@
 	desc = "Slick uniform issued to Cargonia guard."
 	alt_covers_chest = FALSE
 
+/obj/item/clothing/under/rank/cargo/tech/customs/skirt
+	name = "customs skirt"
+	icon_state = "customs_skirt"
+	desc = "Slick skirt issued to Cargonia guard."
+	can_adjust = TRUE
+
 /obj/item/clothing/under/rank/cargo/tech/mail
 	name = "mailman uniform"
 	icon_state = "mailroom_technician"
@@ -173,7 +179,7 @@
 	custom_premium_price = 100
 	body_parts_covered = CHEST|GROIN
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 5)
-	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/boxcutter, /obj/item/export_scanner, /obj/item/cargo_teleporter, /obj/item/melee/classic_baton)
+	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/boxcutter, /obj/item/export_scanner, /obj/item/cargo_teleporter, /obj/item/melee/classic_baton, /obj/item/melee/baton/loaded/departmental/cargo)
 
 /obj/item/clothing/suit/gorka_jacket
 	name = "gorka jacket"
@@ -270,6 +276,7 @@ obj/item/clothing/suit/hooded/wintercoat/cargo
 					/obj/item/clothing/gloves/cargo_gauntlet = 2,
 					/obj/item/clothing/suit/customs = 2,
 					/obj/item/clothing/suit/gorka_jacket/supply = 2,
+					/obj/item/clothing/suit/toggle/bomber/cargobomber = 2,
 					/obj/item/clothing/shoes/workboots/cargo = 2,
 					/obj/item/clothing/shoes/workboots/mining = 2)
 
@@ -312,5 +319,70 @@ obj/item/clothing/suit/hooded/wintercoat/cargo
 
 /obj/item/clothing/head/beret/emt/mining
 	icon_state = "exploreberet"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+
+// ###### EXPLORER ######
+/obj/item/clothing/under/rank/miner/explorer
+	name = "explorer's jumpsuit"
+	desc = "A standart stationary uniform issued to explorers. See the world, kill the beasts!"
+	mutantrace_variation = NONE
+	can_adjust = TRUE
+	icon_state = "explorer_jean"
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/cargo/explorer.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/explorer.dmi'
+
+/obj/item/clothing/under/rank/miner/explorer/fem
+	fitted = NO_FEMALE_UNIFORM
+	icon_state = "explorer_jean_f"
+
+/obj/item/clothing/under/rank/miner/explorer/turtle
+	name = "explorer tactical turtleneck"
+	desc = "It's a tactical jumpsuit with a sturdy set of pants."
+	mutantrace_variation = DIGITIGRADE_VARIATION
+	icon_state = "turtleneck_explorer"
+
+/obj/item/clothing/under/rank/miner/explorer/turtle/alt
+	name = "explorer tactical overalls"
+	desc = "It's a tactical jumpsuit with a sturdy set of overalls."
+	mutantrace_variation = NONE
+
+/obj/item/clothing/under/rank/miner/explorer/skirt
+	name = "explorer tactical skirtleneck"
+	desc = "It's a tactical skirt with a sturdy set of pants."
+	icon_state = "skirtleneck_explorer_skirt"
+	fitted = FEMALE_UNIFORM_TOP
+	mutantrace_variation = NONE
+
+/obj/item/clothing/head/soft/explorer
+	name = "explorer's cap"
+	desc = "It's a baseball hat with a dirty brown color and a reflective gold sign on the top."
+	armor = list(MELEE= 10, BULLET= 10, LASER = 0,ENERGY= 0, BOMB= 0, BIO= 50, RAD= 0, FIRE= 50, ACID= 50)
+	icon_state = "exploresoft"
+	soft_type = "explore"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/beret/explorer
+	name = "explorer's beret"
+	desc = "A beret with  a dirty brown color and a reflective gold sign on the top."
+	armor = list(MELEE= 10, BULLET= 10, LASER = 0,ENERGY= 0, BOMB= 0, BIO= 50, RAD= 0, FIRE= 50, ACID= 50)
+	icon_state = "exploreberet"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+
+/obj/item/clothing/suit/hooded/wintercoat/miner/explorer
+	name = "explorer winter coat"
+	icon_state = "coatexplore"
+	item_state = "coatexplore"
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner/explorer
+
+/obj/item/clothing/head/hooded/winterhood/miner/explorer
+	name = "explorer winter hood"
+	icon_state = "winterhood_explore"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'

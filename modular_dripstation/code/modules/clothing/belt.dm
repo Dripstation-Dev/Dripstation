@@ -42,8 +42,6 @@
 /obj/item/storage/belt/security/chief/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 6
-	STR.max_combined_w_class = 18
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.set_holdable(list(
 		/obj/item/melee/baton,
@@ -61,8 +59,6 @@
 		/obj/item/storage/box/beanbag,
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/kitchen/knife/combat,
-		/obj/item/flashlight/seclite,
-		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/radio,
 		/obj/item/pinpointer/tracker,
 		/obj/item/clothing/gloves,
@@ -71,7 +67,6 @@
 		/obj/item/holosign_creator/security,
 		/obj/item/shield/riot/tele,
 		/obj/item/barrier_taperoll/police,
-		/obj/item/multitool/tricorder,
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,

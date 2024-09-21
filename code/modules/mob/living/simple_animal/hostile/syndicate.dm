@@ -125,6 +125,7 @@
 	var/obj/effect/light_emitter/red_energy_sword/sord
 	projectile_deflect_chance = 50
 
+/* Dripstation edit
 /mob/living/simple_animal/hostile/syndicate/melee/sword/Initialize(mapload)
 	. = ..()
 	set_light(2)
@@ -138,6 +139,7 @@
 		visible_message(span_danger("[src] blocks [Proj] with its shield!"))
 		return BULLET_ACT_BLOCK
 	return ..()
+*/
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space
 	icon_state = "syndicate_space_sword"
@@ -151,6 +153,7 @@
 	spacewalk = TRUE
 	projectile_deflect_chance = 50
 
+/* Dripstation edit
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space/Initialize(mapload)
 	. = ..()
 	sord = new(src)
@@ -159,6 +162,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space/Destroy()
 	QDEL_NULL(sord)
 	return ..()
+*/
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space/stormtrooper
 	icon_state = "syndicate_stormtrooper_sword"

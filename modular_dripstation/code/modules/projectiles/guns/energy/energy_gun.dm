@@ -21,7 +21,7 @@
 	item_state = "gun"
 	ammo_x_offset = 2
 	force = 10
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser)
 
 /obj/item/gun/energy/e_gun/hos
@@ -70,6 +70,9 @@
 	pin = /obj/item/firing_pin/fucked
 	charge_sections = 1
 	shaded_charge = 1
+
+/obj/item/gun/energy/plasmarifle/unsecure
+	pin = null
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"

@@ -228,8 +228,8 @@
 	fire_delay = 2
 
 /obj/item/gun/ballistic/automatic/pistol/glock18/shelg
-	name = "\improper SSP-7 'Lawer'"
-	desc = "Burst firing cheap pocket polymer pistol chambered in 9x19mm manufactured by Shellgard Arms branch. Nicknamed 'Lawer' by Shellgard security officers."
+	name = "\improper SSP-7 'Lawyer'"
+	desc = "Burst firing cheap pocket polymer pistol chambered in 9x19mm manufactured by Shellgard Arms branch. Nicknamed 'Lawyer' by Shellgard security officers."
 	icon_state = "shelg_lawyer"
 	w_class = WEIGHT_CLASS_SMALL
 	fire_delay = 1

@@ -11,7 +11,8 @@ SUBSYSTEM_DEF(economy)
 										ACCOUNT_MED = ACCOUNT_MED_NAME,
 										ACCOUNT_SRV = ACCOUNT_SRV_NAME,
 										ACCOUNT_CAR = ACCOUNT_CAR_NAME,
-										ACCOUNT_SEC = ACCOUNT_SEC_NAME)
+										ACCOUNT_SEC = ACCOUNT_SEC_NAME,
+										ACCOUNT_SYNDIBASE = ACCOUNT_SYNDIBASE_NAME)	//dripstation edit
 	var/list/generated_accounts = list()
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -82,6 +83,9 @@ SUBSYSTEM_DEF(economy)
 			if(ACCOUNT_CAR)
 				new /datum/bank_account/department(A, STARTING_CAR_BUDGET)
 				continue
+			if(ACCOUNT_SYNDIBASE)	//dripstation edit
+				new /datum/bank_account/department(A, STARTING_SYNDIBASE_BUDGET)	//dripstation edit
+				continue
 			else
 				new /datum/bank_account/department(A, budget_starting_amt)
 	return SS_INIT_SUCCESS
@@ -91,6 +95,7 @@ SUBSYSTEM_DEF(economy)
 	department_subsidy() //Give 95% of what we need to pay the department
 	eng_payout() // Payout based on station integrity. Also adds money from excess power sold via energy harvester.
 	sci_payout() // Payout based on slimes.
+	scisyndi_payout() // Payout based on slimes.
 	secmedsrv_payout() // Payout based on crew safety, health, and mood.
 	civ_payout() // Payout based on ??? Profit
 	car_payout() // Cargo's natural gain in the cash moneys.
@@ -200,6 +205,18 @@ SUBSYSTEM_DEF(economy)
 	if(D)
 		D.adjust_money(min(science_bounty, MAX_GRANT_SCI))
 
+/datum/controller/subsystem/economy/proc/scisyndi_payout()	//dripstation edit start
+	var/science_bounty = 0
+	for(var/mob/living/simple_animal/slime/S in GLOB.mob_list)
+		if(S.stat == DEAD)
+			continue
+		if(!is_mining_level(S.z))
+			continue
+		science_bounty += slime_bounty[S.colour]
+	var/datum/bank_account/D = get_dep_account(ACCOUNT_SYNDIBASE)
+	if(D)
+		D.adjust_money(min(science_bounty, MAX_GRANT_SCI))
+//dripstation edit end
 /datum/controller/subsystem/economy/proc/civ_payout()
 	var/civ_cash = (rand(1,5) * 500)
 	var/datum/bank_account/D = get_dep_account(ACCOUNT_CIV)

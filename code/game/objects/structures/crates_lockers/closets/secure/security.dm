@@ -304,10 +304,12 @@
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "tac"
 
+/*Dripstation edit
 /obj/structure/closet/secure_closet/lethalshots/PopulateContents()
 	..()
 	for(var/i in 1 to 3)
 		new /obj/item/storage/box/lethalshot(src)
+*/
 
 //Yogs Start: Brig Pysh Closet
 /obj/structure/closet/secure_closet/physician

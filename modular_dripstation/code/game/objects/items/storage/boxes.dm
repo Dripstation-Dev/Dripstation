@@ -442,3 +442,41 @@
 	new /obj/item/reagent_containers/autoinjector/medipen/ekit/traitor(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/extinguisher/mini(src)
+
+/obj/item/storage/toolbox/infiltrator
+	name = "insidious case"
+	desc = "Bearing the emblem of the Syndicate, this case contains a full infiltrator stealth suit, and has enough room to fit weaponry if necessary."
+	icon_state = "infiltrator_case"
+	item_state = "infiltrator_case"
+	icon = 'modular_dripstation/icons/obj/storage.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/misc/boxes_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/misc/boxes_righthand.dmi'
+	force = 15
+	throwforce = 18
+	w_class = WEIGHT_CLASS_NORMAL
+	has_latches = FALSE
+
+/obj/item/storage/toolbox/infiltrator/Initialize(mapload)
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 10
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.set_holdable(list(
+		/obj/item/clothing/head/helmet/space/infiltrator,
+		/obj/item/clothing/suit/armor/vest/infiltrator,
+		/obj/item/clothing/under/syndicate/bloodred,
+		/obj/item/clothing/gloves/tackler/combat/infiltrator,
+		/obj/item/clothing/mask/chameleon,
+		/obj/item/clothing/shoes/combat/sneakboots,
+		/obj/item/gun/ballistic/automatic/pistol,
+		/obj/item/gun/ballistic/revolver,
+		/obj/item/ammo_box
+		))
+
+/obj/item/storage/toolbox/infiltrator/PopulateContents()
+	new /obj/item/clothing/head/helmet/space/infiltrator(src)
+	new /obj/item/clothing/suit/armor/vest/infiltrator(src)
+	new /obj/item/clothing/under/syndicate/bloodred(src)
+	new /obj/item/clothing/gloves/tackler/combat/infiltrator(src)
+	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/shoes/combat/sneakboots(src)

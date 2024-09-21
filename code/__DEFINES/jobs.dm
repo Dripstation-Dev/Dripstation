@@ -55,6 +55,13 @@
 #define JOB_DISPLAY_ORDER_CLERK 40
 #define JOB_DISPLAY_ORDER_CHAPLAIN 41
 
+//Dripstation edit start
+#define JOB_DISPLAY_ORDER_NTREP 42
+#define JOB_DISPLAY_ORDER_MAGISTRATE 43
+#define JOB_DISPLAY_ORDER_BLUESHIELD 44
+#define JOB_DISPLAY_ORDER_CUSTOMS 45
+#define JOB_DISPLAY_ORDER_EXPLORER 45
+//Dripstation edit end
 #define DEPARTMENT_UNASSIGNED "No Department"
 #define DEPARTMENT_BITFLAG_SECURITY (1<<0)
 #define DEPARTMENT_SECURITY "Security"
@@ -76,6 +83,9 @@
 #define DEPARTMENT_ASSISTANT "Assistant"
 #define DEPARTMENT_BITFLAG_CAPTAIN (1<<9)
 #define DEPARTMENT_CAPTAIN "Captain"
+//Dripstation edit
+#define DEPARTMENT_BITFLAG_CENTRAL_COMMAND (1<<10)
+#define DEPARTMENT_CENTRAL_COMMAND "CentralCommand"
 
 /proc/find_job(target)
 	//Get the job from the mind

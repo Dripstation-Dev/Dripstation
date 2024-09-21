@@ -113,3 +113,9 @@
 	icon_state = "ecase"
 	case_type = "egun"
 	gun_category = /obj/item/gun/energy/e_gun
+
+/obj/structure/guncase/wt
+	name = "security carbine locker"
+	desc = "A locker that holds WT 550."
+	case_type = "wtgun"
+	gun_category = /obj/item/gun/ballistic/automatic/wt550

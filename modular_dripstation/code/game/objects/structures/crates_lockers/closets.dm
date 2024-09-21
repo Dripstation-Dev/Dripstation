@@ -88,6 +88,12 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 /obj/structure/closet/secure_closet/lethalshots
 	icon_state = "armory"
 
+/obj/structure/closet/secure_closet/lethalshots/PopulateContents()
+	..()
+	for(var/i in 1 to 2)
+		new /obj/item/storage/box/lethalshot(src)
+		new /obj/item/storage/box/laserbuckshot(src)
+
 /obj/structure/closet/attackby(obj/item/attacking_item, mob/user, params)
 	if(user in src)
 		return
@@ -238,6 +244,15 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/binoculars(src)
 	new /obj/item/barrier_taperoll/police(src)
+
+/obj/structure/closet/secure_closet/security/external/PopulateContents()
+	..()
+	new /obj/item/clothing/suit/armor/vest/alt(src)
+	new /obj/item/clothing/head/helmet/sec(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/clipboard/yog/paperwork/security(src)
+	new /obj/item/flashlight/seclite(src)
 
 // ###### HOP ######
 /obj/structure/closet/secure_closet/hop
@@ -506,9 +521,12 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/gun/energy/e_gun/energyrevolver(src)
 	new /obj/item/storage/belt/military/assault/blueshield(src)
-	new /obj/item/clothing/suit/armor/bulletproof/blueshield(src)
 	new /obj/item/radio/headset/blueshield(src)
+	new /obj/item/storage/backpack/blueshield(src)
+	new /obj/item/storage/backpack/satchel/blueshield(src)
+	new /obj/item/storage/backpack/duffelbag/blueshield(src)
 	new /obj/item/storage/bag/garment/blueshield(src)
 	new /obj/item/clothing/shoes/laceup(src)
 
@@ -525,8 +543,9 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/clothing/glasses/hud/personnel(src)
-	new /obj/item/radio/headset/ntrep(src)
+	new /obj/item/radio/headset/heads/ntrep(src)
 	new /obj/item/storage/bag/garment/ntrep(src)
+	new /obj/item/melee/ntrep_cane/loaded(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/tape(src)
@@ -551,8 +570,10 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/accessory/medal/silver/legal(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/radio/headset/magistrate(src)
+	new /obj/item/radio/headset/heads/magistrate(src)
+	new /obj/item/clothing/glasses/hud/security(src)
 	new /obj/item/megaphone(src)
+	new /obj/item/clipboard/yog/paperwork/security(src)
 	new /obj/item/storage/bag/garment/magistrate(src)
 	new /obj/item/clothing/shoes/laceup/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
@@ -578,6 +599,7 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/door_remote/quartermaster(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
+	new /obj/item/clothing/glasses/hud/permit/sunglasses(src)
 	new /obj/item/storage/backpack/cargo/tactical(src)
 	new /obj/item/circuitboard/machine/techfab/department/cargo(src)
 	new /obj/item/storage/photo_album/QM(src)
@@ -679,6 +701,12 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/stamp(src)
 	new /obj/item/stamp/denied(src)
 
+/obj/structure/closet/bombcloset/security/PopulateContents()
+	new /obj/item/clothing/suit/bomb_suit/security(src)
+	new /obj/item/clothing/under/rank/security/officer(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/head/bomb_hood/security(src)
+
 /obj/structure/closet/l3closet/PopulateContents()
 	new /obj/item/storage/bag/bio(src)
 	new /obj/item/clothing/suit/bio_suit/general(src)
@@ -762,3 +790,9 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/belt/military(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/clothing/glasses/night(src)
+
+/obj/structure/closet/secure_closet/syndicate
+	icon_state = "syndicatesecure"
+
+/obj/structure/closet/secure_closet/syndicate/commsoff
+	icon_state = "commsoff"
