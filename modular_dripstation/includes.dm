@@ -1,6 +1,7 @@
 #include "code\_globalvars\list\typecache.dm"
 #include "code\_onclick\hud\rendering\plane_master.dm"
 #include "code\controllers\subsystem\blackmarket.dm"
+#include "code\controllers\subsystem\ticker.dm"
 #include "code\controllers\subsystem\processing\digital_clock.dm"
 #include "code\datums\brain_damage\severe.dm"
 #include "code\datums\component\cleaner.dm"
