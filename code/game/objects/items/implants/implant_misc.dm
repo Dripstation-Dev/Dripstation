@@ -17,7 +17,7 @@
 	name = "adrenal implant"
 	desc = "Removes all stuns."
 	icon_state = "adrenal"
-	uses = 3
+	uses = 2	//dripstation edit
 
 /obj/item/implant/adrenalin/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -46,7 +46,7 @@
 
 	imp_in.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 10)
 	imp_in.reagents.add_reagent(/datum/reagent/medicine/omnizine, 10)
-	imp_in.reagents.add_reagent(/datum/reagent/medicine/stimulants, 10)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/stimulants, 5)	//dripstation edit, just like ninja
 	if(!uses)
 		qdel(src)
 
