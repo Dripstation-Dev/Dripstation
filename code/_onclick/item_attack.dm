@@ -65,7 +65,12 @@
 
 
 /obj/item/proc/attack(mob/living/M, mob/living/user)
+	/* Dripstation edit
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
+	*/
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)	//Dripstation edit
+	if(signal_return & COMPONENT_SKIP_ATTACK)	//Dripstation edit
+		return									//Dripstation edit
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(item_flags & NOBLUDGEON)
 		return

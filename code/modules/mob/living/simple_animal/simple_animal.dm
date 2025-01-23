@@ -17,6 +17,7 @@
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	var/list/speak_sound = list()	//some noises from creatures, dripstation edit
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
@@ -203,6 +204,8 @@
 							emote("me [pick(emote_hear)]", 2, TRUE)
 				else
 					say(pick(speak), forced = "poly")
+					if(length(speak_sound))	//dripstation edit
+						playsound(loc, pick(speak_sound), 25, 1, -1)	//dripstation edit
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					emote("me", 1, pick(emote_see))
@@ -296,6 +299,8 @@
 /mob/living/simple_animal/say_mod(input, list/message_mods = list())
 	if(length(speak_emote))
 		verb_say = pick(speak_emote)
+		if(length(speak_sound))	//dripstation edit
+			playsound(loc, pick(speak_sound), 25, 1, -1)	//dripstation edit
 	return ..()
 
 /mob/living/simple_animal/emote(act, m_type=1, message = null, intentional = FALSE, is_keybind = FALSE)

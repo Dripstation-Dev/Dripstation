@@ -61,9 +61,11 @@
 	compatible_types = list(/datum/blood_type/lizard)
 
 
+/*Dripstation edit
 /datum/blood_type/universal/synthetic //Blood for preterni
 	name = "Synthetic"
 	color = LIGHT_COLOR_ELECTRIC_CYAN
+*/
 
 /*
 	The species have exotic blood, but with how dna is stored, they still need a blood type

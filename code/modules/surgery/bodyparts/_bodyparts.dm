@@ -306,6 +306,14 @@
 				wounding_dmg *= (easy_dismember ? 1 : 0.75)
 			if((mangled_state & BODYPART_MANGLED_BONE) && try_dismember(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus))
 				return
+
+		if(BIO_JUST_FLESH)	//dripstation edit
+			if(wounding_type ==  WOUND_BLUNT)	//dripstation edit
+				wounding_type = WOUND_PIERCE	//dripstation edit
+				wounding_dmg *= (easy_dismember ? 0.6 : 0.3) // blunt weapons pass along 30% of their wounding damage to the flash since it's less concentrated
+			else if(mangled_state == BODYPART_MANGLED_FLESH && sharpness && try_dismember(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus))	//dripstation edit
+				return	//dripstation edit
+			
 		// note that there's no handling for BIO_JUST_FLESH since we don't have any that are that right now (slimepeople maybe someday)
 		// standard humanoids
 		if(BIO_FLESH_BONE)
@@ -399,6 +407,13 @@
 				phantom_wounding_dmg *= (easy_dismember ? 1 : 0.75)
 			if((mangled_state & BODYPART_MANGLED_BONE) && try_dismember(wounding_type, phantom_wounding_dmg, wound_bonus, bare_wound_bonus))
 				return
+
+		if(BIO_JUST_FLESH)	//dripstation edit
+			if(wounding_type ==  WOUND_BLUNT)	//dripstation edit
+				wounding_type = WOUND_PIERCE	//dripstation edit
+				phantom_wounding_dmg *= (easy_dismember ? 0.6 : 0.3) // blunt weapons pass along 30% of their wounding damage to the flash since it's less concentrated
+			else if(mangled_state == BODYPART_MANGLED_FLESH && sharpness && try_dismember(wounding_type, phantom_wounding_dmg, wound_bonus, bare_wound_bonus))	//dripstation edit
+				return	//dripstation edit
 		// note that there's no handling for BIO_JUST_FLESH since we don't have any that are that right now (slimepeople maybe someday)
 		// standard humanoids
 		if(BIO_FLESH_BONE)
@@ -948,29 +963,34 @@
 			else if(use_digitigrade)
 				if("[species_id]" == "polysmorph")
 					limb.icon_state = "pdigitigrade_[use_digitigrade]_[body_zone]"
+				/*dripstation edit
 				else if("[species_id]" == "preternis")
 					limb.icon_state = "preternis_[use_digitigrade]_[body_zone]"
+				*/
 				else
 					limb.icon_state = "digitigrade_[use_digitigrade]_[body_zone]"
 			else
 				limb.icon_state = "[species_id]_[body_zone]"
 		else
-			limb.icon = 'yogstation/icons/mob/human_parts.dmi' // yogs -- use yogs icon instead of tg, gorilla people
+			limb.icon = 'modular_dripstation/icons/mob/human_parts.dmi'	//dripstation edit
 			if(should_draw_gender)
 				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
 			else
 				limb.icon_state = "[species_id]_[body_zone]"
 		if(aux_zone)
 			aux = image(limb.icon, "[species_id]_[aux_zone]", -aux_layer, image_dir)
-			if("[species_id]" == "human")	//dripstation edit
+			if("[species_id]" == "human" || "[species_id]" == "replica")	//dripstation edit
 				aux = image(limb.icon, "[species_id]_[aux_zone]_[icon_gender]", -aux_layer, image_dir)	//dripstation edit
 			. += aux
 
 	else
 		limb.icon = icon
+		/* Dripstaation edit, robots has no gender
 		if(should_draw_gender)
 			limb.icon_state = "[body_zone]_[icon_gender]"
 		else if(use_digitigrade)
+		*/
+		if(use_digitigrade)	//dripstation edit
 			limb.icon_state = "digitigrade_[use_digitigrade]_[body_zone]"
 		else if(body_zone == BODY_ZONE_HEAD || body_zone == BODY_ZONE_CHEST)//default to male for the torso and head if the species is agendered
 			limb.icon_state = "[body_zone]_m"

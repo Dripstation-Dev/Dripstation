@@ -410,6 +410,8 @@
 		var/mob/living/carbon/C = M
 		if (M.stat == DEAD)
 			can_heal = TRUE
+		if(isreplica(M))	//corpses, that replicates people
+			can_heal = TRUE	//dripstation edit
 		if((methods & (PATCH|TOUCH)) && can_heal)
 			for(var/i in C.all_wounds)
 				var/datum/wound/iter_wound = i
@@ -422,6 +424,9 @@
 				var/heal_amt = clamp(reac_volume, 0, TOUCH_CHEM_MAX - S?.volume)
 				M.adjustBruteLoss(-2*heal_amt)
 				M.adjustFireLoss(-2*heal_amt)
+				if(isreplica(M))	//dripstation edit
+					M.adjustBruteLoss(-1*heal_amt, FALSE, FALSE, required_status = BODYPART_ROBOTIC)	//dripstation edit
+					M.adjustFireLoss(-1*heal_amt, FALSE, FALSE, required_status = BODYPART_ROBOTIC)		//dripstation edit
 				if(methods & TOUCH)
 					M.reagents.add_reagent(/datum/reagent/medicine/synthflesh, reac_volume) // no permeability modifier because it only works on dead bodies anyway and would just be an inconvenience
 				if(HAS_TRAIT_FROM(M, TRAIT_HUSK, BURN) && (S?.volume + reac_volume >= SYNTHFLESH_UNHUSK_AMOUNT && M.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD) && M.cure_husk(BURN)) //cure husk will return true if it cures the final husking source

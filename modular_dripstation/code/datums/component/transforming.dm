@@ -182,9 +182,9 @@
 
 	source.hitsound = hitsound_on
 	source.w_class = w_class_on
-	source.icon_state = "[source.icon_state]_on"
+	source.icon_state = "[source.icon_state]_active"
 	if(item_state_change && source.item_state)
-		source.item_state = "[source.item_state]_on"
+		source.item_state = "[source.item_state]_active"
 	source.update_icon()
 
 /*

@@ -9,11 +9,36 @@
 
 /obj/item/clothing/suit/space
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 40, ACID = 70, WOUND = 0, ELECTRIC = 50)
+	body_parts_covered = CHEST|GROIN
+	body_parts_partial_covered = LEGS|FEET|ARMS|HANDS	//somebody will kill me for this, but i should do it
+	partial_armor_coeff = 0.5	//can be tweaked
+	//equip_delay_self = 20		//Ok, so it`s heavy suit that should not be equiped like jacket, but bugged af
 	icon_state = "spaceold"
 	//item_state = "spaceold"
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/suits.dmi'
+
+/obj/item/clothing/suit/space/examine(mob/user)
+	. = ..()
+	if(body_parts_covered || body_parts_partial_covered)
+		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_parts=1'>tag</a> listing its protected parts.</span>"
+
+/obj/item/clothing/suit/space/Topic(href, href_list)
+	. = ..()
+	if(href_list["list_parts"])
+		var/list/readout = list("<span class='notice'><u><b>COVERAGE</u></b>")
+		if(body_parts_covered || body_parts_partial_covered)
+			if((body_parts_covered & CHEST) || (body_parts_partial_covered & CHEST))
+				readout += "\nIt has <b>CHEST</b> [(body_parts_partial_covered & CHEST) ? "partial " : ""]covered."
+			if((body_parts_covered & ARMS) || (body_parts_partial_covered & ARMS))
+				readout += "\nIt has <b>ARMS</b> [(body_parts_partial_covered & ARMS) ? "partial " : ""]covered."
+			if((body_parts_covered & LEGS) || (body_parts_partial_covered & LEGS))
+				readout += "\nIt has <b>LEGS</b> [(body_parts_partial_covered & LEGS) ? "partial " : ""]covered."
+			if(body_parts_partial_covered && partial_armor_coeff)
+				readout += "\nIt has [partial_armor_coeff] partial armoring rating."
+		readout += "</span>"
+		to_chat(usr, "[readout.Join()]")
 
 //////STANDART NT//////
 /obj/item/clothing/head/helmet/space/eva
@@ -251,3 +276,11 @@
 /obj/item/clothing/suit/space/eva/plasmaman
 	icon = 'icons/obj/clothing/suits/suits.dmi'
 	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
+
+/obj/item/clothing/suit/space/space_ninja
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
+
+/obj/item/clothing/suit/space/chronos
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0

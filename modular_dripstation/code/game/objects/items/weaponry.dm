@@ -100,22 +100,15 @@
 	item_state = "monomolecular"
 	desc = "An elegant weapon, its molecular edge is capable of cutting through flesh and bone with ease."
 	block_chance = 40	//pretty hard 
+	force = 35 	//not too deadly though
 	block_projectile_mod = 1.5	// 60 projectile block chance
 	armour_penetration = 75
-
-/obj/item/katana/murasame/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(istype(hitby, /obj/projectile/bullet) && prob(final_block_chance))
-		if(istype(hitby, /obj/projectile/bullet))
-			owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], while he cuts the air, splitting the bullet in half!"))
-			playsound(src, block_sound, 70, vary = TRUE)
-			return 1
-	return 0
 
 /obj/item/katana/murasame
 	name = "\improper Murasame"
 	icon_state = "murasame"
 	item_state = "murasame"
-	desc = "Murasame is a katana whose blade is coated with poison, which nearly instantly kills its victim. As soon as the blade's blade pierces the skin, a deadly poison is injected into the victim's wound, killing him in a matter of seconds."
+	desc = "Murasame is a katana whose blade is coated with poison, which nearly instantly kills its victim. As soon as the katana's blade pierces the skin, a deadly poison is injected into the victim's wound, killing him in a matter of seconds."
 	block_chance = 50
 	armour_penetration = 40
 	var/next_blow
@@ -261,6 +254,48 @@
 /obj/item/storage/belt/sabre/syndie/PopulateContents()
 	new /obj/item/melee/sabre/syndie(src)
 	update_appearance(UPDATE_ICON)
+
+/obj/item/storage/belt/sabre/cane
+	name = "cane"
+	desc = "A cane used by a true gentleman. Or a clown."
+	icon = 'icons/obj/weapons/misc.dmi'
+	icon_state = "canesheath"
+	item_state = "stick"
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
+	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+
+/obj/item/storage/belt/sabre/cane/Initialize(mapload)
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 1
+	STR.rustle_sound = FALSE
+	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.set_holdable(list(
+		/obj/item/melee/sabre/cane
+		))
+
+
+/obj/item/storage/belt/sabre/cane/PopulateContents()
+	new /obj/item/melee/sabre/cane(src)
+	update_appearance(UPDATE_ICON)
+
+/obj/item/melee/sabre/cane
+	name = "\improper stealth blade"
+	desc = "An elegant plastitanium combat ready stealth blade, its edge isn`t that robust, but capable of hurting badly."
+	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
+	icon_state = "sabre"
+	force = 20
+	block_chance = 50
+	armour_penetration = 20
+	wound_bonus = -20
+	bare_wound_bonus = 30
 
 /obj/item/melee/ntrep_cane
 	name = "\improper NanoTrasen Representative`s cane"
@@ -611,16 +646,96 @@
 	on_item_state = "telebaton_1"
 
 /obj/item/melee/classic_baton/telescopic/cane
+	name = "telescopic cane"
 	icon_state = "telecane"
 	item_state = "telecane"
 	on_icon_state = "telecane_active"
 	off_icon_state = "telecane"
 	on_item_state = "telecane_active"
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
+	icon = 'modular_dripstation/icons/obj/weapons/melee.dmi'
+
+/obj/item/melee/classic_baton/blc
+	desc = "A rubber truncheon for beating criminal scum."
+	icon_state = "baton_blc"
+	item_state = "baton_blc"
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/security_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/security_righthand.dmi'
+	icon = 'modular_dripstation/icons/obj/weapons/security.dmi'
+
+
+/obj/item/melee/baton/loaded/departmental
+	name = "departmental stun baton"
+	desc = "A stun baton fitted with a departmental area-lock, based off the station's blueprint layout - outside of its department, it only has three uses."
+	icon = 'modular_dripstation/icons/obj/weapons/security.dmi'
+	icon_state = "prison_baton"
+	var/list/valid_areas = list()
+	var/emagged = FALSE
+	var/non_departmental_uses_left = 3
+
+/obj/item/melee/baton/loaded/departmental/baton_stun(mob/living/target, mob/living/user, modifiers)
+	if(status && !emagged && cooldown_check <= world.time)
+		var/area/current_area = get_area(user)
+		if(!is_type_in_list(current_area, valid_areas))
+			if(non_departmental_uses_left)
+				non_departmental_uses_left--
+				if(non_departmental_uses_left)
+					say("[non_departmental_uses_left] non-departmental uses left!")
+				else
+					say("[src] is out of non-departmental uses! Return to your department and reactivate the baton to refresh it!")
+			else
+				target.visible_message(span_warning("[user] prods [target] with [src]. Luckily, it shut off due to being in the wrong area."), \
+					span_warning("[user] prods you with [src]. Luckily, it shut off due to being in the wrong area."))
+				balloon_alert(user, "wrong department")
+				attack_self()
+				return TRUE
+	. = ..()
+
+/obj/item/melee/baton/loaded/departmental/attack_self(mob/user)
+	. = ..()
+	if(status) // just turned on
+		var/area/current_area = get_area(user)
+		if(!is_type_in_list(current_area, valid_areas))
+			return
+		if(non_departmental_uses_left < 3)
+			say("Non-departmental uses refreshed!")
+			non_departmental_uses_left = 3
+
+/obj/item/melee/baton/loaded/departmental/emag_act(mob/user)
+	if(!emagged)
+		if(user)
+			user.visible_message(span_warning("Sparks fly from [src]!"),
+							span_warning("You scramble [src]'s departmental lock, allowing it to be used freely!"),
+							span_hear("You hear a faint electrical spark."))
+		balloon_alert(user, "emagged")
+		playsound(src, SFX_SPARKS, 100, vary = TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+		do_sparks(3, cardinal_only = FALSE, source = src)
+		obj_flags |= EMAGGED
+		emagged = TRUE
+		return TRUE
+	return FALSE
+
+/obj/item/melee/baton/loaded/departmental/cargo
+	name = "cargo stun baton"
+	desc = "A stun baton that doesn't operate outside of the Cargo department, based off the station's blueprint layout. Can be used outside of Cargo up to three times before needing to return!"
+	icon_state = "cargo_baton"
+	valid_areas = list(/area/quartermaster, /area/maintenance/department/cargo, /area/shuttle/escape, /area/shuttle/supply, /area/construction/storage_wing)
+
+/obj/item/melee/baton/loaded/departmental/prison
+	name = "prison stun baton"
+	desc = "A stun baton that doesn't operate outside of the Prison, based off the station's blueprint layout. Can be used outside of the Prison up to three times before needing to return!"
+	icon_state = "prison_baton"
+	valid_areas = list(/area/security/prison, /area/security/processing, /area/security/execution, /area/shuttle/escape)
 
 /obj/item/melee/hardlight_cane
 	icon_state = "holocane"
 	item_state = "holocane"
+	w_class = WEIGHT_CLASS_NORMAL
+	icon = 'modular_dripstation/icons/obj/weapons/melee.dmi'
 	force = 0
+	wound_bonus = -10
+	bare_wound_bonus = 10
 	attack_verb = list("hit", "poked")
 
 /obj/item/melee/hardlight_cane/Initialize(mapload)
@@ -633,7 +748,7 @@
 		throw_speed_on = throw_speed, \
 		sharpness_on = SHARP_EDGED, \
 		hitsound_on = 'sound/weapons/bladeslice.ogg', \
-		w_class_on = WEIGHT_CLASS_NORMAL, \
+		w_class_on = WEIGHT_CLASS_BULKY, \
 		attack_verb_on = list("cuted", "stabed", "slashed"), \
 	)
 

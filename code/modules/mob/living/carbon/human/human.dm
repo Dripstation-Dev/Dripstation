@@ -1171,6 +1171,8 @@
 	..()
 	if(HAS_TRAIT(src, TRAIT_BOTTOMLESS_STOMACH)) //so they never cap out EVER
 		nutrition = min(nutrition, NUTRITION_LEVEL_MOSTLY_FULL)
+	if(!istype(getorganslot(ORGAN_SLOT_APPENDIX), /obj/item/organ/appendix/lizard))	//dripstation edit
+		change = min(change, NUTRITION_LEVEL_FAT - nutrition) // no getting fat, dripstation edit
 	return nutrition
 
 /mob/living/carbon/human/set_nutrition(change) //Seriously fuck you oldcoders.

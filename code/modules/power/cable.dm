@@ -550,6 +550,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!istype(H))
 		return ..()
 
+	if(isreplica(H))		//dripstation edit
+		to_chat(user, span_warning("Replika`s can`t rewire themselfes."))	//dripstation edit
+		return FALSE	//dripstation edit
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 	if(affecting.burn_dam <= 0)
 		to_chat(user, span_warning("[affecting] is already in good condition!"))

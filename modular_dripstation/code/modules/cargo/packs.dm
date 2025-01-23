@@ -49,19 +49,14 @@
 	contains = list()
 
 /datum/supply_pack/emergency/nullcrate/fill(obj/structure/closet/crate/C)
-	switch (rand(0,3))
+	switch (rand(0,2))
 		if(0)
 			new /obj/item/gun/ballistic/automatic/pistol(C)
 			new /obj/item/ammo_box/magazine/m10mm(C)
 			new /obj/item/ammo_box/magazine/m10mm(C)
 		if(1)
-			new /obj/item/gun/ballistic/rifle/boltaction(C)
-			new /obj/item/ammo_box/a762(C)
+			new /obj/item/gun/energy/kinetic_accelerator/crossbow/large(C)
 		if(2)
-			new /obj/item/gun/ballistic/automatic/toy/pistol/riot(C)
-			new /obj/item/ammo_box/magazine/toy/pistol/riot(C)
-			new /obj/item/ammo_box/foambox/riot(C)
-		if(3)
 			new /obj/item/pen/red/edagger(C)
 			new /obj/item/grenade/plastic/c4(C)
 	for(var/i in 1 to 2)
@@ -72,9 +67,9 @@
 					/obj/item/storage/belt/chameleon/syndicate,
 					/obj/item/clothing/under/chameleon,
 					/obj/item/clothing/suit/chameleon,
-					/obj/item/flashlight/emp,
 					/obj/item/syndicateReverseCard,
 					/obj/item/camera_bug,
+					/obj/item/storage/box/syndie_kit/throwing_weapons,
 					/obj/item/storage/toolbox/syndicate)
 		new item(C)
 		//Misk
@@ -84,12 +79,13 @@
 					/obj/item/storage/pill_bottle/gummies/omnizine,
 					/obj/item/storage/pill_bottle/gummies/sleepy,
 					/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
+					/obj/item/storage/backpack/syndie,
 					/obj/item/stack/tape/guerrilla,
 					/obj/item/soap/syndie,
 					/obj/item/flashlight/lantern/syndicate,
 					/obj/item/storage/box/syndie_kit/bugs,
 					/obj/item/computer_hardware/hard_drive/portable/syndicate/ntnet_dos,
-					/obj/item/storage/box/syndie_kit/throwing_weapons,
+					/obj/item/flashlight/emp,
 					/obj/item/multitool/ai_detect,
 					/obj/item/stamp/syndiround,
 					/obj/item/suppressor)
@@ -122,6 +118,77 @@
 					/obj/item/clothing/gloves/tackler,
 					/obj/item/clothing/gloves/tackler)
 	crate_name = "gripper crate"
+
+/datum/supply_pack/weaponry/russian
+	name = "Vostok Surplus Crate"
+	desc = "Hello Comrade, we have the most reliable military equipment the soviet space can offer, for the right price of course. Sadly we couldnt remove the lock so it requires Armory access to open."
+	contains = list()
+
+/datum/supply_pack/weaponry/russian/fill(obj/structure/closet/crate/C)
+	switch (rand(0,4))
+		if(0)
+			new /obj/item/gun/ballistic/revolver/nagant(C)
+			new /obj/item/ammo_box/no_direct/n762(C)
+			new /obj/item/ammo_box/no_direct/n762(C)
+		if(1)
+			new /obj/item/gun/ballistic/rifle/boltaction(C)
+			new /obj/item/storage/toolbox/ammo(C)
+		if(2)
+			new /obj/item/gun/ballistic/rifle/boltaction(C)
+			new /obj/item/ammo_box/a762(C)
+			new /obj/item/ammo_box/a762(C)
+			new /obj/item/ammo_box/a762(C)
+		if(3)
+			new /obj/item/gun/ballistic/automatic/ar/ak47(C)
+			new /obj/item/ammo_box/magazine/r762x39(C)
+		if(4)
+			new /obj/item/reagent_containers/food/snacks/rationpack(C)
+	for(var/i in 1 to 2)
+		//Under
+		var/item = pick(/obj/item/clothing/under/syndicate/rus_army,
+					/obj/item/clothing/under/syndicate/soviet/afganka,
+					/obj/item/clothing/under/syndicate/soviet/gorka,
+					/obj/item/clothing/under/soviet,
+					/obj/item/clothing/under/vostok)
+		new item(C)
+		//Gear
+		item = pick(/obj/item/clothing/shoes/russian,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/mask/russian_balaclava,
+					/obj/item/clothing/head/helmet/riot/altin,
+					/obj/item/clothing/head/helmet/rus_ushanka,
+					/obj/item/clothing/suit/armor/vest/russian,
+					/obj/item/clothing/suit/armor/vest/russian_coat)
+		new item(C)
+
+/datum/supply_pack/weaponry/nitro_express
+	name = "Nitro Express Rifle Crate"
+	desc = "This crate contains one BW-5 Nitro Express Rifle and 6 rounds of .700 Nitro Express. Requires Armory access to open."
+	cost = 12000
+	order_limit = 1
+	contains = list(/obj/item/gun/ballistic/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express)
+
+/datum/supply_pack/weaponry/nitro_express_ammo
+	name = "Nitro Express Ammo Crate"
+	desc = "This crate contains 10 rounds of .700 Nitro Express. Requires Armory access to open."
+	cost = 2000
+	order_limit = 1
+	contains = list(/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express,
+					/obj/item/ammo_casing/nitro_express)
 
 /datum/supply_pack/security/armory/swat
 	desc = "Contains two fullbody sets of tough, fireproof, pressurized suits designed in a joint effort by Terragov and Nanotrasen. Each set contains a suit, helmet, mask, combat belt, and NT brand tackler gloves. Requires Armory access to open."
@@ -189,3 +256,55 @@
 
 /datum/supply_pack/weaponry/ballistic_single
 	desc = "For when the enemy absolutely needs to be replaced with lead. Contains one Militech-designed Combat Shotgun, and one Shotgun Bandolier. Requires Armory access to open."
+
+/datum/supply_pack/weaponry/riotshotgun
+	name = "Riot Shotguns Crate"
+	desc = "Tip: techically, it counts as non-lethally subduing a target as long as they don't die before Medbay can get to them. Contains three security-grade riot shotguns. Requires Armory access to open."
+	cost = 7000
+	contains = list(/obj/item/gun/ballistic/shotgun/riot/remington,
+					/obj/item/gun/ballistic/shotgun/riot/remington,
+					/obj/item/gun/ballistic/shotgun/riot/remington)
+	crate_name = "riot shotguns crate"
+
+/datum/supply_pack/weaponry/riotshotgun_single
+	name = "Riot Shotgun Single-Pack"
+	desc = "Stop that Clown in his tracks with this magic stick of non-lethal subduction! Contains one security-grade riot shotgun. Requires Armory access to open."
+	cost = 2700
+	small_item = TRUE
+	contains = list(/obj/item/gun/ballistic/shotgun/riot/remington)
+
+/datum/supply_pack/costumes_toys/paintball
+	name = "Mixed Paintball Supply Crate"
+	desc = "Contains four paintball guns and extra ammo."
+	cost = 2500
+	contraband = TRUE
+	contains = list(/obj/item/gun/ballistic/automatic/toy/paintball/blue,
+					/obj/item/gun/ballistic/automatic/toy/paintball/blue,
+					/obj/item/gun/ballistic/automatic/toy/paintball,
+					/obj/item/gun/ballistic/automatic/toy/paintball,
+					/obj/item/ammo_box/magazine/toy/paintball,
+					/obj/item/ammo_box/magazine/toy/paintball,
+					/obj/item/ammo_box/magazine/toy/paintball,
+					/obj/item/ammo_box/magazine/toy/paintball/blue,
+					/obj/item/ammo_box/magazine/toy/paintball/blue,
+					/obj/item/ammo_box/magazine/toy/paintball/blue)
+	crate_name = "mixed paintball supply crate"
+
+/datum/supply_pack/costumes_toys/paintball_ammo
+	name = "Paintball Ammo Crate"
+	desc = "Plenty of paintball ammo in a variety of colors."
+	cost = 700
+	contraband = TRUE
+	contains = list(/obj/item/ammo_box/magazine/toy/paintball,
+					/obj/item/ammo_box/magazine/toy/paintball,
+					/obj/item/ammo_box/magazine/toy/paintball,
+					/obj/item/ammo_box/magazine/toy/paintball/blue,
+					/obj/item/ammo_box/magazine/toy/paintball/blue,
+					/obj/item/ammo_box/magazine/toy/paintball/blue,
+					/obj/item/ammo_box/magazine/toy/paintball/pink,
+					/obj/item/ammo_box/magazine/toy/paintball/pink,
+					/obj/item/ammo_box/magazine/toy/paintball/purple,
+					/obj/item/ammo_box/magazine/toy/paintball/purple,
+					/obj/item/ammo_box/magazine/toy/paintball/orange,
+					/obj/item/ammo_box/magazine/toy/paintball/orange)
+	crate_name = "paintball ammo crate"

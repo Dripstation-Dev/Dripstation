@@ -18,6 +18,8 @@ GLOBAL_LIST_INIT(huds, list(
 	DATA_HUD_SENTIENT_DISEASE = 	new /datum/atom_hud/sentient_disease(),
 	DATA_HUD_AI_DETECT = 			new /datum/atom_hud/ai_detector(),
 	DATA_HUD_SECURITY_MEDICAL = 	new /datum/atom_hud/data/human/security/advanced/hos(),
+	DATA_HUD_PERMIT 			= 	new /datum/atom_hud/data/human/security/permit(),
+	DATA_HUD_SHIELDED	 		= 	new /datum/atom_hud/data/human/security/shielded(),
 	))
 
 /datum/atom_hud

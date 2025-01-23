@@ -52,7 +52,10 @@
 	name = "Syndicate Icemoon Research Outpost"
 	id = "synd_research"
 	description = "A small Syndicate research outpost in the icy wastes, sealed off from the outside."
+	/* Dripstation edit
 	suffix = "icemoon_surface_syndicate.dmm"
+	*/
+	suffix = "icemoon_surface_syndicate_new.dmm"	// Dripstation edit
 
 /datum/map_template/ruin/icemoon/seed_vault
 	name = "Seed Vault"
@@ -64,8 +67,78 @@
 /datum/map_template/ruin/icemoon/walker_village
 	name = "Walker Village"
 	id = "walkervillage"
+	always_place = TRUE	// Dripstation edit
 	description = "A town populated by strange, sapient zombies."
 	suffix = "icemoon_surface_walkervillage.dmm"
+
+//Dripstation edit bellow
+/datum/map_template/ruin/icemoon/syndicatepod
+	name = "Syndicate Pod"
+	id = "syndicatepod"
+	description = "The Syndicate would pay handsomely for its contents"
+	suffix = "icemoon_surface_syndicatepod.dmm"
+
+/datum/map_template/ruin/icemoon/dead_ratvar
+	name = "Dead Ratvar"
+	id = "dead_ratvar"
+	description = "The god himself"
+	suffix = "icemoon_surface_dead_ratvar.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/icemoon/engioutpost
+	name = "Engi Outpost"
+	id = "engioutpost"
+	description = "Engioutposting"
+	suffix = "icemoon_surface_engioutpost.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/icemoon/newcops
+	name = "Abandoned Nuclear Operatives base"
+	id = "nukiebaseabandoned"
+	description = "Who knows what lies within?"
+	suffix = "icemoon_surface_abandoned_newcops.dmm"
+	cost = 20
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/icemoon/drakelair
+	name = "Icemoon Drake Lair"
+	id = "drakelair"
+	description = "Who knows what lies within?"
+	suffix = "icemoon_surface_drakelair.dmm"
+	cost = 20
+	allow_duplicates = FALSE	
+
+/datum/map_template/ruin/icemoon/underground/arctic_station
+	name = "Abandoned Arctic Station"
+	id = "arctic_station"
+	description = "Who knows what lies within?"
+	suffix = "icemoon_underground_oldstation.dmm"
+	cost = 15
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/icemoon/underground/ufo_crash
+	name = "UFO Crash"
+	id = "ufo-crash"
+	description = "Turns out that keeping your abductees unconscious is really important. Who knew?"
+	suffix = "icemoon_underground_ufo_crash.dmm"
+
+/datum/map_template/ruin/icemoon/underground/abandonedhydrolab
+	name = "Abandoned Hydroponics Lab"
+	id = "hydroponicslab"
+	description = "Who knows what lies within?"
+	suffix = "icemoon_underground_hydroponics_lab.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/icemoon/underground/slimelab
+	name = "Abandoned Slime Laboratory"
+	id = "slimelab"
+	description = "Who knows what lies within?"
+	suffix = "icemoon_underground_slimelab.dmm"
+	cost = 15
+	allow_duplicates = FALSE
 
 // above and below ground together
 
@@ -81,7 +154,10 @@
 	name = "Mining Site Underground"
 	id = "miningsite-underground"
 	description = "Who knew ladders could be so useful?"
+/*
 	suffix = "icemoon_underground_mining_site.dmm"
+*/
+	suffix = "icemoon_underground_mining_site_drip.dmm"
 	unpickable = TRUE
 
 // below ground only
@@ -91,29 +167,39 @@
 	ruin_type = ZTRAIT_ICE_RUINS_UNDERGROUND
 	default_area = /area/icemoon/underground/unexplored
 
+/* Dripstation edit, remap
 /datum/map_template/ruin/icemoon/underground/abandonedvillage
 	name = "Abandoned Village"
 	id = "abandonedvillage"
 	description = "Who knows what lies within?"
 	suffix = "icemoon_underground_abandoned_village.dmm"
+*/
 
 /datum/map_template/ruin/icemoon/underground/library
 	name = "Buried Library"
 	id = "buriedlibrary"
 	description = "A once grand library, now lost to the confines of the Ice Moon."
+/*	dripstation edit
 	suffix = "icemoon_underground_library.dmm"
+*/
+	suffix = "icemoon_underground_library_drip.dmm"	//dripstation edit
 
 /datum/map_template/ruin/icemoon/underground/wrath
 	name = "Ruin of Wrath"
 	id = "wrath"
 	description = "You'll fight and fight and just keep fighting."
+/*	dripstation edit
 	suffix = "icemoon_underground_wrath.dmm"
+*/
+	suffix = "icemoon_underground_wrath_drip.dmm"	//dripstation edit
 
+/* Dripstation edit
 /datum/map_template/ruin/icemoon/underground/lavaland
 	name = "Lavaland Site"
 	id = "lavalandsite"
 	description = "I guess we never really left you huh?"
 	suffix = "icemoon_underground_lavaland.dmm"
+*/
 
 /datum/map_template/ruin/icemoon/underground/puzzle
 	name = "Ancient Puzzle"
@@ -125,10 +211,15 @@
 	name = "Bath House"
 	id = "bathhouse"
 	description = "A taste of paradise, locked in the hell of the Ice Moon."
+/*	dripstation edit
 	suffix = "icemoon_underground_bathhouse.dmm"
+*/
+	suffix = "icemoon_underground_bathhouse_drip.dmm"	//dripstation edit
 
+/* Cringe, dripstation edit
 /datum/map_template/ruin/icemoon/underground/wampacave
 	name = "Wampa Cave"
 	id = "wampacave"
 	description = "A cave inhabited by a strange monster, with an unfortunate hero..."
 	suffix = "icemoon_underground_wampacave.dmm"
+*/

@@ -48,8 +48,12 @@ GLOBAL_LIST_INIT(granted_synthetic_access, list())
 
 			return TRUE
 		if("grant_supply")
+/*Dripstation edit
 			if(ACCESS_HOP in user_id.access)
 				var/relevant_access = list(ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MAILSORTING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+*/
+			if(ACCESS_QM in user_id.access)
+				var/relevant_access = list(ACCESS_CARGO, ACCESS_MINING, ACCESS_MAILSORTING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 				if(GLOB.granted_synthetic_access[SUPPLY])
 					GLOB.granted_synthetic_access[SUPPLY] = FALSE
 					binary_talk("Synthetic assistance no longer required in the Supply department", "Synthetic Access Requester")

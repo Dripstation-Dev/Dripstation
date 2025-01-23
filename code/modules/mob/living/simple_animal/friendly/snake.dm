@@ -35,7 +35,12 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST|MOB_REPTILE
 	gold_core_spawnable = HOSTILE_SPAWN
 	can_be_held = TRUE
+	/*
 	worn_slot_flags = ITEM_SLOT_NECK
+	*/
+	held_lh = 'modular_dripstation/icons/mob/inhands/mobs_lefthand.dmi'
+	held_rh = 'modular_dripstation/icons/mob/inhands/mobs_righthand.dmi'
+	worn_slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HEAD
 	obj_damage = 0
 	poison_per_bite = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE

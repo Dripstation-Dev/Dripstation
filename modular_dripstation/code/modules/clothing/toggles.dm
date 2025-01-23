@@ -10,6 +10,7 @@
 /obj/item/clothing/suit/hooded/explorer/winter
 	icon_state = "explorer_winter"
 	item_state = "explorer_winter"
+	hoodtype = /obj/item/clothing/head/hooded/explorer/winter
 
 /obj/item/clothing/head/hooded/explorer/winter
 	icon_state = "explorer_winter"
@@ -139,6 +140,15 @@
 	desc = "Long standard model in chief medical colors."
 	icon_state = "labcoat_long_cmo"
 
+/obj/item/clothing/suit/toggle/labcoat/syndicate
+	icon_state = "labcoat_syndicate"
+
+/obj/item/clothing/suit/toggle/labcoat/syndicate/robo
+	icon_state = "labcoat_syndicaterobo"
+
+/obj/item/clothing/suit/toggle/labcoat/syndicate/long
+	icon_state = "labcoat_long_syndicate"
+
 /obj/item/clothing/suit/toggle/browntrenchcoat
 	name = "brown trench coat"
 	desc = "It makes you stand out. Just the opposite of why it's typically worn. Nice try trying to blend in while wearing it."
@@ -200,7 +210,7 @@
 	desc = "A stylish jacket to keep you warm in the warehouse."
 	icon_state = "bombercargo"
 	item_state = "bombercargo"
-	allowed = list(/obj/item/clipboard, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/radio)
+	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/boxcutter, /obj/item/export_scanner, /obj/item/cargo_teleporter, /obj/item/melee/classic_baton)
 
 /obj/item/clothing/suit/jacket/miningbomber
 	name = "mining bomber jacket"
@@ -209,6 +219,20 @@
 	item_state = "bombermining"
 	allowed = list(/obj/item/pickaxe, /obj/item/t_scanner/adv_mining_scanner, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/energy/kinetic_accelerator, /obj/item/shovel, /obj/item/storage/bag/ore)
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 10, ACID = 0, WOUND = 0)
+
+/obj/item/clothing/suit/toggle/bomber/explorer
+	name = "explorer bomber jacket"
+	desc = "A slightly armoured and stylish jacket for explorers."
+	icon_state = "explore_jacket"
+	item_state = "explore_jacket"
+	armor = list(MELEE = 10, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 10, ACID = 0, WOUND = 0)
+	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/tank/internals/ipc_coolant, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/boxcutter, /obj/item/export_scanner, /obj/item/cargo_teleporter, /obj/item/melee/classic_baton)
+
+/obj/item/clothing/suit/toggle/bomber/explorer/soft
+	name = "security soft bomber jacket"
+	desc = "A cozy jacket in security's colors."
+	icon_state = "explorer_dep_jacket"
+	item_state = "explorer_dep_jacket"
 
 /obj/item/clothing/suit/toggle/bomber/secbomber/soft
 	name = "security soft bomber jacket"

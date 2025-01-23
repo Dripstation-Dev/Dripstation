@@ -824,6 +824,8 @@
 	icon_state = "bloodred_rig"
 	//item_state = "bloodred_rig"
 	hardsuit_type = "bloodred"
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred
 	jetpack = /obj/item/tank/jetpack/suit/bloodred
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
@@ -914,6 +916,8 @@
 	icon_state = "wafflebloodred_rig"
 	//item_state = "wafflebloodred_rig"
 	hardsuit_type = "wafflebloodred"
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	armor = list(MELEE = 30, BULLET = 50, LASER = 40, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle
 	combat_slowdown = 0.3
@@ -952,6 +956,8 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/waffle/examine(mob/user)
 	. = ..()
 	. += "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."
+	if(in_range(user, src) || isobserver(user))
+		. += "<span class='notice'>Alt-click on suit to toggle magpulse system.<span>"
 
 
 //////Bloodred Waffle Co Unathi suit//////
@@ -1029,6 +1035,8 @@
 	hardsuit_type = "relite"
 	jetpack = /obj/item/tank/jetpack/suit
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 30, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1144,6 +1152,11 @@
 
 	animate(H,alpha = 85, alpha = 255, time = 10)
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/optical/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		. += "<span class='notice'>Alt-click on suit to toggle optical cloaking system.<span>"
+
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/optical/cs
 	name = "elite Cybersun Industries RIG helmet"
 	desc = "An elite version of the syndicate helmet, with improved armour and fireproofing."
@@ -1244,6 +1257,35 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sbo/commsoff
 
 
+//////Merk suit designes//////
+//////Standart merk rig//////
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/merk
+	name = "merk RIG helmet"
+	desc = "An austere tactical helmet used by paramilitary groups across human space."
+	icon_state = "freemerk_helm"
+	hardsuit_type = "freemerk"
+	light_range = 6
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	heat_protection = HEAD
+	toggled_for_heat_protecting = FALSE
+	light_color = LIGHT_COLOR_DEFAULT
+
+/obj/item/clothing/suit/space/hardsuit/syndi/merk
+	name = "merk RIG"
+	desc = "An austere RIG used by paramilitary groups across human space."
+	icon_state = "freemerk_rig"
+	hardsuit_type = "freemerk"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/merk
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	lightweight = 0
+	toggled_for_heat_protecting = FALSE
+	combat_slowdown = 0
+
+
 //////Military suit designes//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/military
 	name = "military RIG helmet"
@@ -1265,6 +1307,8 @@
 	//item_state = "military_rig"
 	hardsuit_type = "military"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/military
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	armor = list(MELEE = 45, BULLET = 60, LASER = 40, ENERGY = 25, BOMB = 60, BIO = 100, RAD = 70, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT

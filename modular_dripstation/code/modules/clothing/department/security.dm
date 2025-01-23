@@ -36,10 +36,10 @@
 	desc = "It's a helmet specifically designed to protect against all types of attacks. Exclusive for station Head of Security."
 	icon_state = "hosswat"
 	item_state = "swat"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 90, RAD = 20, FIRE = 70, ACID = 90, WOUND = 15)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 90, RAD = 20, FIRE = 70, ACID = 90, WOUND = 15)
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
-	flags_inv = HIDEEARS|HIDEFACE
+	flags_inv = HIDEMASK|HIDEEARS|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 /obj/item/clothing/suit/armor/riot/hos
@@ -48,7 +48,7 @@
 	icon_state = "armor_hos"
 	item_state = "hos"
 	mutantrace_variation = NONE
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 0, RAD = 0, FIRE = 70, ACID = 90, WOUND = 15)
+	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 0, RAD = 0, FIRE = 70, ACID = 90, WOUND = 15)
 	slowdown = 0.2
 
 /obj/item/clothing/head/HoS/beret
@@ -230,18 +230,18 @@
 	item_state = "customshelm"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
-	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 	strip_delay = 60
 	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/beret/sec
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
-	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 
 /obj/item/clothing/head/beret/corpsec
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	icon_state = "beret_corporate_officer"
-	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 
 /obj/item/clothing/suit/armor/officerjacket
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
@@ -324,6 +324,76 @@
 
 /obj/item/clothing/suit/det_suit/noir
 	icon_state = "noir_detective"
+
+// ###### SECURITY CONSULTANT ######
+/obj/item/clothing/under/rank/security/consultant
+	name = "security consultant's uniform"
+	desc = "Black and blue formal jumpsuit that shows your NanoTrasen alighment."
+	icon_state = "bluesec_black"
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/security/security_consultant.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/security/security_consultant.dmi'
+	can_adjust = TRUE
+	mutantrace_variation = NONE
+
+/obj/item/clothing/under/rank/security/consultant/skirt
+	name = "security consultant's skirt"
+	desc = "Black and blue formal jumpskirt that shows your NanoTrasen alighment."
+	icon_state = "bluesec_longskirt"
+	fitted = FEMALE_UNIFORM_TOP
+
+/obj/item/clothing/under/rank/security/consultant/tactical
+	name = "security consultant's turtleneck"
+	desc = "A stylish turtleneck complete with tactical pants."
+	icon_state = "blueturtle"
+
+/obj/item/clothing/under/rank/security/consultant/skirt/tactical
+	name = "security consultant's turtleneck skirt"
+	desc = "A stylish turtleneck complete with tactical skirt."
+	icon_state = "blueturtle_skirt_blue"
+
+/obj/item/storage/belt/military/assault/consultant/Initialize(mapload) // Amber-like
+	. = ..()
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/gun/ballistic/automatic/pistol/glock17/ancile(src)
+	new /obj/item/ammo_box/magazine/pistolm9mm(src)
+	new /obj/item/ammo_box/magazine/smgm9mm(src)
+
+// ###### CORRECTIONS OFFICER ######
+/obj/item/clothing/under/rank/security/corrections_officer
+	name = "corrections officer's uniform"
+	desc = "Black and white formal jumpsuit that shows your NanoTrasen alighment."
+	icon_state = "corrections_officer"
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/security/corrections.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/security/corrections.dmi'
+	can_adjust = TRUE
+	mutantrace_variation = NONE
+
+/obj/item/clothing/under/rank/security/corrections_officer/skirt
+	name = "corrections officer's skirt"
+	desc = "Black and white formal jumpskirt that shows your NanoTrasen alighment."
+	icon_state = "corrections_officerw"
+	fitted = FEMALE_UNIFORM_TOP
+
+/obj/item/clothing/under/rank/security/corrections_officer/tactical
+	name = "corrections officer's turtleneck"
+	desc = "A stylish turtleneck complete with tactical pants."
+	icon_state = "corrections_officer_sweat"
+
+/obj/item/clothing/under/rank/security/corrections_officer/skirt/tactical
+	name = "corrections officer's turtleneck skirt"
+	desc = "A stylish turtleneck complete with tactical skirt."
+	icon_state = "corrections_officer_sweatw"
+
+/obj/item/clothing/head/brigoff
+	name = "corrections officer's cap"
+	desc = "A black visor cap with a round Nanotrasen logo made out of silver in the center. Uses reinforced fabric to offer sufficient protection."
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
+	icon_state = "brigguard"
+	armor = list(MELEE = 35, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50, WOUND = 5)
 
 // ###### VENDORS ######
 /obj/machinery/vending/security

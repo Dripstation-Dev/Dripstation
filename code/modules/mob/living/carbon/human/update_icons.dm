@@ -378,7 +378,10 @@ There are several things that need to be remembered:
 		var/t_state = s_store.item_state
 		if(!t_state)
 			t_state = s_store.icon_state
+		/* dripstation edit
 		overlays_standing[SUIT_STORE_LAYER]	= mutable_appearance('icons/mob/clothing/suit_storage.dmi', t_state, -SUIT_STORE_LAYER)
+		*/	//dripstation edit
+		overlays_standing[SUIT_STORE_LAYER]	= mutable_appearance('modular_dripstation/icons/mob/clothing/suit_storage.dmi', t_state, -SUIT_STORE_LAYER)	//dripstation edit
 		var/mutable_appearance/s_store_overlay = overlays_standing[SUIT_STORE_LAYER]
 		if(OFFSET_S_STORE in dna.species.offset_features)
 			s_store_overlay.pixel_x += dna.species.offset_features[OFFSET_S_STORE][1]

@@ -12,6 +12,22 @@
 		final_block_chance = leap_block
 	return ..()
 
+/obj/item/shield/riot/on_shield_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
+	if(!damage)
+		return ..()
+	var/dam = damage	//avoiding issues with demolition_mod
+	if(istype(hitby, /obj))
+		var/obj/hit = hitby
+		dam = damage * ((1 + hit.demolition_mod)/2)
+	if (atom_integrity <= dam)
+		var/turf/T = get_turf(owner)
+		T.visible_message(span_warning("[hitby] destroys [src]!"))
+		shatter(owner)
+		qdel(src)
+		return FALSE
+	take_damage(dam)
+	return ..()
+
 /obj/item/shield/riot
 	icon = 'modular_dripstation/icons/obj/weapons/shield.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'
@@ -85,6 +101,8 @@
 	if(!damage)
 		return ..()
 	var/dam = damage
+	if(istype(hitby, /obj))
+		dam *= demolition_mod
 	if(attack_type == PROJECTILE_ATTACK && !istype(hitby, /obj/projectile/bullet))
 		dam += damage
 	if (atom_integrity <= dam)

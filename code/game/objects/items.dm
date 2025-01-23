@@ -94,6 +94,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
 	var/body_parts_partial_covered = 0 //same bit flags as above, only applies half armor to these body parts
+	var/partial_armor_coeff = 0.5 //standart - half armor, but can be tweaked
 
 	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up

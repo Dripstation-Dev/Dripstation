@@ -11,6 +11,36 @@
 	stock_max = 3
 	availability_prob = 40
 
+/datum/market_item/clothing/syndicate_balaclava
+	name = "Syndicate gas balaclava"
+	desc = "It`s faimous syndicate balaclava! With gasmask!"
+	item = /obj/item/clothing/mask/gas/syndicate/balaclava
+
+	price_min = CARGO_CRATE_VALUE
+	price_max = CARGO_CRATE_VALUE * 2.5
+	stock_max = 3
+	availability_prob = 40
+
+/datum/market_item/clothing/shellguard_vest
+	name = "Shellguard brand new armor vest"
+	desc = "A fully new Shellguard brand vest. Nobody knows where did it came from."
+	item = /obj/item/clothing/suit/armor/vest/shellguard/brand
+
+	price_min = CARGO_CRATE_VALUE
+	price_max = CARGO_CRATE_VALUE * 2.5
+	stock_max = 1
+	availability_prob = 20
+
+/datum/market_item/clothing/slav_helmet
+	name = "SH-77 slav helmet"
+	desc = "An old helmet that keep your head covered."
+	item = /obj/item/clothing/head/helmet/rus_helmet	
+
+	price_min = CARGO_CRATE_VALUE
+	price_max = CARGO_CRATE_VALUE * 2.5
+	stock_max = 3
+	availability_prob = 20
+
 /datum/market_item/clothing/sunglasses
 	name = "Space Sunglasses"
 	desc = "Just cool sunglasses for all your needs."
@@ -68,6 +98,11 @@
 	price_max = CARGO_CRATE_VALUE
 	stock_max = 2
 	availability_prob = 70
+
+/datum/market_item/clothing/chameleon_hat/spawn_item(loc)
+	if (prob(30))
+		return new /obj/item/clothing/head/chameleon(loc)
+	return ..()
 
 /datum/market_item/clothing/rocket_boots
 	name = "Rocket Boots"

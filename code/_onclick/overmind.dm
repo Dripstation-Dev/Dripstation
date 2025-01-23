@@ -3,16 +3,29 @@
 
 /mob/camera/blob/ClickOn(atom/A, params) //Expand blob
 	var/list/modifiers = params2list(params)
+	/*	Dripstation edit
 	if(modifiers["middle"])
 		MiddleClickOn(A)
+	*/
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))
+		MiddleClickOn(A, params)
 		return
+	/*	Dripstation edit
 	if(modifiers["shift"])
+	*/
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
 		return
+	/*	Dripstation edit
 	if(modifiers["alt"])
+	*/
+	if(LAZYACCESS(modifiers, ALT_CLICK))
 		AltClickOn(A)
 		return
+	/*	Dripstation edit
 	if(modifiers["ctrl"])
+	*/
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		CtrlClickOn(A)
 		return
 	var/turf/T = get_turf(A)

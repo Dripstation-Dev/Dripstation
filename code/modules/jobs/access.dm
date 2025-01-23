@@ -151,7 +151,7 @@
 	            ACCESS_THEATRE, ACCESS_RESEARCH, ACCESS_RND, ACCESS_MINING, ACCESS_MAILSORTING, ACCESS_WEAPONS,
 				ACCESS_MECH_MINING, ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_SECURITY, ACCESS_MECH_MEDICAL,
 	            ACCESS_VAULT, ACCESS_MINING_STATION, ACCESS_XENOBIOLOGY, ACCESS_CE, ACCESS_HOP, ACCESS_HOS, ACCESS_RC_ANNOUNCE,
-				ACCESS_CLOWN, ACCESS_MIME, ACCESS_POD_PILOT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_MAGISTRATE, ACCESS_HAZARD_TECH, ACCESS_ARTIST,	/*	Dripstation jobs	*/
+				ACCESS_CLOWN, ACCESS_MIME, ACCESS_POD_PILOT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_MAGISTRATE, ACCESS_HAZARD_TECH, ACCESS_ARTIST, ACCESS_EXPLORER,	/*	Dripstation jobs	*/
 	            ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_MINERAL_STOREROOM, ACCESS_MINISAT, ACCESS_NETWORK, ACCESS_CLONING, ACCESS_TCOM_ADMIN, ACCESS_PARAMEDIC, ACCESS_MANUFACTURING, ACCESS_BRIG_PHYS, ACCESS_PSYCH, ACCESS_SERVHALL) //YOGS - yogs jobs
 
 /// Gets all centcom accesses
@@ -196,9 +196,9 @@
 		if(5) //engineering and maintenance
 			return list(ACCESS_CONSTRUCTION, ACCESS_MAINT_TUNNELS, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TECH_STORAGE, ACCESS_SECURE_TECH_STORAGE, ACCESS_ATMOSPHERICS, ACCESS_MECH_ENGINE, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_CE, ACCESS_TCOM_ADMIN, ACCESS_RC_ANNOUNCE) // yogs - Yog jobs
 		if(6) //supply
-			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_QM, ACCESS_VAULT, ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY)	//dripstation edit
+			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_QM, ACCESS_VAULT, ACCESS_MAINT_TUNNELS, ACCESS_EXPLORER, ACCESS_GATEWAY)	//dripstation edit
 		if(7) //command
-			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_SECURE_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_GATEWAY, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_VAULT, ACCESS_MAINT_TUNNELS)	//dripstation edit
+			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_SECURE_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_GATEWAY, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_MAGISTRATE, ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_VAULT, ACCESS_MAINT_TUNNELS)	//dripstation edit
 
 /// Gets the name from region ID
 /proc/get_region_accesses_name(code)
@@ -381,6 +381,14 @@
 		if(ACCESS_SERVHALL)
 			return "Service Hall"
 		// yogs end
+		//dripstation start
+		if(ACCESS_BLUESHIELD)
+			return "Blueshield`s Office"
+		if(ACCESS_NTREP)
+			return "Nanotrasen Representative`s Office"
+		if(ACCESS_MAGISTRATE)
+			return "Magistrate`s Office"
+		//dripstation end
 
 /// Get descriptions for centcom accesses
 /proc/get_centcom_access_desc(A)
@@ -411,12 +419,17 @@
 				"Atmospheric Technician", "Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist",
 				// yogs start - Yog jobs
 				"Research Director", "Scientist", "Roboticist", "Head of Security", "Warden", "Detective", "Security Officer",
+				/* Dripstation edit
 				"Network Admin", "Mining Medic", "Paramedic", "Psychiatrist", "Clerk", "Tourist", "Space Bartender", "Artist", "Brig Physician", "Synthetic")
+				*/
+				"Network Admin", "Mining Medic", "Paramedic", "Psychiatrist", "Clerk", "Tourist", "Space Bartender", "Artist", "Brig Physician",
 				// yogs end
+				"Customs Agent", "Explorer")
+				// Dripstation end
 
 /// Gets all jobs with hud icons
 /proc/get_all_job_icons() //For all existing HUD icons
-	return get_all_jobs() + list("Prisoner")
+	return get_all_jobs() + list("Prisoner", "Blueshield", "Nanotrasen Representative", "Magistrate", "Repair Worker Replika", "Bridge Assistant", "Security Consultant", "Corrections Officer")	//dripstation edit
 
 /// Gets all centcom jobs
 /proc/get_all_centcom_jobs()

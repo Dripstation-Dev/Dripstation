@@ -5,8 +5,8 @@
 /datum/outfit/job/miningmedic
 	gloves = /obj/item/clothing/gloves/color/latex
 	belt = null
-	uniform = /obj/item/clothing/under/rank/miner/mmedic
-	uniform_skirt = /obj/item/clothing/under/rank/miner/mmedic/skirt
+	uniform = /obj/item/clothing/under/rank/cargo/miner/mmedic
+	uniform_skirt = /obj/item/clothing/under/rank/cargo/miner/mmedic/skirt
 	head = /obj/item/clothing/head/soft/emt/mining
 	l_hand = /obj/item/storage/firstaid/emergency
 	backpack = /obj/item/storage/backpack/explorer

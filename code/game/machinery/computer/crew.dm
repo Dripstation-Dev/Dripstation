@@ -200,7 +200,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			if (ishumanbasic(tracked_mob))
 				species = "Human"
 			if (ispreternis(tracked_mob))
+				/*	Dripstation edit
 				species = "Robot"
+				*/
+				species = "Replica"	//	Dripstation edit
 			if (isipc(tracked_mob))
 				species = "IPC"
 			if (ispodperson(tracked_mob))

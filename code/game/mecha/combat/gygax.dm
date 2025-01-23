@@ -28,6 +28,7 @@
 	max_equip = 7
 	destruction_sleep_duration = 20
 
+/* Dripstation edit
 /obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
@@ -45,6 +46,7 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters/ion
 	ME.attach(src)
 	max_ammo()
+*/
 
 /obj/mecha/combat/gygax/dark/add_cell(obj/item/stock_parts/cell/C=null)
 	if(C)

@@ -59,6 +59,7 @@
 	exclude_modes = list(/datum/game_mode/nuclear)
 
 
+/* Dripstation edit
 /datum/uplink_item/device_tools/arm
 	name = "Additional Arm"
 	desc = "An additional arm, automatically added to your body upon purchase, allows you to use more items at once"
@@ -72,6 +73,7 @@
 	var/limbs = user.held_items.len
 	user.change_number_of_hands(limbs+1)
 	to_chat(user, "You feel more dexterous")
+*/
 
 /datum/uplink_item/explosives/trap_disk
 	name = "Syndicate Trapped Disk"

@@ -180,6 +180,9 @@
 					/obj/item/clothing/shoes/yogs/fuzzy_slippers = 3)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/mask/balaclava = 1,
+					/obj/item/clothing/mask/scarf = 1,
+					/obj/item/clothing/mask/russian_balaclava/black = 1,
+					/obj/item/clothing/mask/neck_gaiter = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/under/soviet = 1,
 					/obj/item/storage/belt/fannypack/black = 2,

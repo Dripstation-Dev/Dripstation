@@ -122,10 +122,14 @@
 	back = /obj/item/storage/backpack/fireproof
 	ears = /obj/item/radio/headset/syndicate/alt
 	l_pocket = /obj/item/pinpointer/nuke/syndicate
+	/*Dripstation edit
 	id = /obj/item/card/id/syndicate
 	belt = /obj/item/gun/ballistic/automatic/pistol
+	*/
 	box = /obj/item/storage/box/survival/syndie
+	/*Dripstation edit
 	backpack_contents = list(/obj/item/kitchen/knife/combat/survival)
+	*/
 
 	var/tc = 25
 	var/command_radio = FALSE
@@ -135,7 +139,9 @@
 /datum/outfit/syndicate/leader
 	name = "Syndicate Leader - Basic"
 	id = /obj/item/card/id/syndicate/nuke_leader
+	/*Dripstation edit
 	gloves = /obj/item/clothing/gloves/krav_maga/combatglovesplus
+	*/
 	r_hand = /obj/item/nuclear_challenge
 	neck = /obj/item/clothing/neck/cloak/nukie
 	command_radio = TRUE
@@ -170,13 +176,19 @@
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	/*Dripstation edit
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
+	*/
 	internals_slot = ITEM_SLOT_RPOCKET
+	/*Dripstation edit
 	belt = /obj/item/storage/belt/military
+	*/
 	r_hand = /obj/item/gun/ballistic/shotgun/bulldog
+	/*Dripstation edit
 	backpack_contents = list(/obj/item/tank/jetpack/oxygen/harness=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\
 		/obj/item/kitchen/knife/combat/survival)
+	*/
 
 /datum/game_mode/nuclear/generate_credit_text()
 	var/list/round_credits = list()

@@ -110,15 +110,33 @@
 		///Spawning isn't done in procs to save on overhead on the 60k turfs we're going through.
 		//FLORA SPAWNING HERE
 		if(flora_allowed && prob(flora_spawn_chance))
+			var/can_spawn = TRUE	//dripstation edit
 			var/flora_type = pick(flora_spawn_list)
+			for(var/turf/bl_turf in range(1, new_turf))	//dripstation edit
+				if(isspaceturf(bl_turf) || ischasm(bl_turf) || islava(bl_turf)|| istype(bl_turf, /turf/open/floor/plating/ice))	//dripstation edit
+					can_spawn = FALSE	//dripstation edit
+					break	//dripstation edit
+			if(can_spawn)	//dripstation edit
+				new flora_type(new_turf)	//dripstation edit
+				spawned_something = TRUE	//dripstation edit
+			/*dripstation edit
 			new flora_type(new_turf)
 			spawned_something = TRUE
+			*/	//dripstation edit
 
 		//FEATURE SPAWNING HERE
+		/*	dripstation edit
 		if(feature_allowed && prob(feature_spawn_chance))
+		*/
+		if(feature_allowed && !spawned_something && prob(feature_spawn_chance))
 			var/can_spawn = TRUE
 
 			var/atom/picked_feature = pick(feature_spawn_list)
+
+			for(var/turf/bl_turf in range(1, new_turf))	//dripstation edit
+				if(isspaceturf(bl_turf) || ischasm(bl_turf) || islava(bl_turf)|| istype(bl_turf, /turf/open/floor/plating/ice))	//dripstation edit
+					can_spawn = FALSE	//dripstation edit
+					break	//dripstation edit
 
 			for(var/obj/structure/existing_feature in range(7, new_turf))
 				if(istype(existing_feature, picked_feature))

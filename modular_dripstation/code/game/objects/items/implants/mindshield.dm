@@ -18,6 +18,9 @@
 
 /obj/item/implant/mindshield/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	if(..())
+		if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
+			target.visible_message(span_warning("[target] seems to resist the implant!"), span_warning("You already have mind protection!"))
+			return FALSE
 		if(target.mind && !silent)
 			to_chat(target, span_notice("You feel a sense of peace and security. You are now protected from brainwashing."))
 		ADD_TRAIT(target, TRAIT_MINDSHIELD, "implant")
@@ -30,14 +33,14 @@
 /////High quality variant/////
 /obj/item/implant/mindshield/centcom
 	name = "high quality mindshield implant"
-	desc = "Protects value assets from brainwashing. Grants access to military grade weaponry."
+	desc = "Protects value assets from brainwashing. Grants access to military grade equipment."
 	implant_visible_as = "hud_imp_loyal_ert"
 
 /obj/item/implant/mindshield/centcom/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Nanotrasen Human Resourse Menatal Protector<BR>
 				<b>Life:</b> Five years.<BR>
-				<b>Important Notes:</b> Combat and high value personnel injected with this device are much more resistant to brainwashing.<BR>
+				<b>Important Notes:</b> Combat and high value personnel injected with this device are much more resistant to brainwashing. Provides access to military grade equipment.<BR>
 				<HR>
 				<b>Implant Details:</b><BR>
 				<b>Function:</b> Contains a small pod of nanobots that protects the host's mental functions from manipulation.<BR>
@@ -52,7 +55,10 @@
 	name = "implant case - 'High Quality Mindshield'"
 	imp_type = /obj/item/implant/mindshield/centcom
 
-/obj/item/implant/mindshield/centcom/proc/toggle_activation(status = TRUE)
+/obj/item/implant/mindshield/centcom/iaa
+	actions_types = list(/datum/action/item_action/hands_free/activate)
+
+/obj/item/implant/mindshield/centcom/iaa/activate(status = TRUE)
 	active = status
 	to_chat(imp_in, "You feel a faint click as [name] [active ? "activates" : "deactivates"]")
 	implant_visible_as = "[active ? "hud_imp_loyal_ert" : null]"
@@ -71,17 +77,18 @@
 	implant_visible_as = "[active ? "hud_imp_loyal" : null]"
 	imp_in.sec_hud_set_implants()
 
-
 /obj/item/implant/mindshield/tot/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Cybersun Brainwash Denial Implant<BR>
+				<b>Name:</b> NULL_ENTRY Implant<BR>
 				<b>Life:</b> Five Days.<BR>
-				<b>Important Notes:</b> Device reverts previous mental interference. Agents injected with this device are much more resistant to brainwashing on the mission.<BR>
+				<b>Important Notes:</b> <font color='red'>Illegal</font><BR>
 				<HR>
-				<b>Implant Details:</b><BR>
-				<b>Function:</b> Contains a small pod of nanobots that protects the host's mental functions from manipulation.<BR>
-				<b>Special Features:</b> Will revert most forms of brainwashing before brainwash shielding.<BR>
-				<b>Integrity:</b> Implant will last so long as the nanobots are inside the bloodstream."}
+				<b>Implant Details:</b> <BR>
+				<b>Function:</b> Can transmit a specialized cluster of signals that simulates NT brand Employee Management Implant`s signals. <BR>
+				<b>Special Features:</b><BR>
+				<i>Neuro-Scan</i>- Analyzes certain shadow signals in the nervous system.<BR>
+				<HR>
+				No Implant Specifics"}
 	return dat
 
 /obj/item/implanter/mindshield/tot
@@ -92,6 +99,7 @@
 	icon_state = "totmindshield_obv"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	implant_visible_as = "hud_imp_loyal_totobv"
+	implant_color = "r"
 
 /obj/item/implant/mindshield/tot_obvious/activate()
 	. = ..()
@@ -102,9 +110,9 @@
 
 /obj/item/implant/mindshield/tot_obvious/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
-				<b>Name:</b> Cybersun Brainwash Denial Implant<BR>
+				<b>Name:</b> Operative Brainwash Denial Implant<BR>
 				<b>Life:</b> One Year.<BR>
-				<b>Important Notes:</b> Device reverts previous mental interference. Operatives injected with this device are much more resistant to brainwashing on the mission.<BR>
+				<b>Important Notes:</b> Device reverts previous mental interference. Operatives injected with this device are much more resistant to brainwashing during the mission.<BR>
 				<HR>
 				<b>Implant Details:</b><BR>
 				<b>Function:</b> Contains a small pod of nanobots that protects the host's mental functions from manipulation.<BR>
@@ -217,7 +225,7 @@
 			if(target.mind in SSticker.mode.cult)
 				to_chat(target, span_warning("You feel something interfering with your mental conditioning, but you FAITH resist it!"))
 				removed(target, TRUE)
-				return TRUE
+				return FALSE
 		
 		to_chat(target, span_warning("You feel odd. It seems you can`t remember anything about that shift..."))
 		removed(target, TRUE)

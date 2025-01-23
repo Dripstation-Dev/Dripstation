@@ -12,8 +12,8 @@
 	var/list/categories = list()
 
 /// Adds item to the available items and add it's category if it is not in categories yet.
-/datum/market/proc/add_item(datum/market_item/item)
-	if(!prob(initial(item.availability_prob)))
+/datum/market/proc/add_item(datum/market_item/item, force = FALSE)
+	if(!prob(initial(item.availability_prob)) && !force)
 		return FALSE
 
 	if(ispath(item))
@@ -24,6 +24,9 @@
 		available_items[item.category] = list()
 
 	available_items[item.category] += item
+	
+	if(item.added_market_item)
+		add_item(item.added_market_item, force = TRUE)
 	return TRUE
 
 /// Handles buying the item, this is mainly for future use and moving the code away from the uplink.
@@ -59,3 +62,7 @@
 	shipping = list(SHIPPING_METHOD_LTSRBT =50,
 					SHIPPING_METHOD_LAUNCH =10,
 					SHIPPING_METHOD_TELEPORT=75)
+
+/datum/market/syndicatecargo
+	name = "Syndicate Cargo"
+	shipping = list(SHIPPING_METHOD_RST =50)

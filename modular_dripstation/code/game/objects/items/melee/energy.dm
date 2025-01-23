@@ -71,15 +71,19 @@
 	armour_penetration = 60
 	block_chance = 30
 	light_color = "#a52019"
+	slot_flags = ITEM_SLOT_BELT
+	var/slot_flags_transform = ITEM_SLOT_BELT
 
 /obj/item/melee/transforming/energy/machete/transform_weapon(mob/living/user, supress_message_text)
 	. = ..()
 	if(.)
 		if(active)
+			slot_flags = null
 			icon_state = "[initial(icon_state)]_active"
 			item_state = "[initial(item_state)]_active"
 			START_PROCESSING(SSobj, src)
 		else
+			slot_flags = slot_flags_transform
 			icon_state = initial(icon_state)
 			item_state = initial(item_state)
 			STOP_PROCESSING(SSobj, src)

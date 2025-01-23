@@ -4,7 +4,9 @@
 	can_suppress = TRUE
 	burst_size = 3
 	fire_delay = 2
+	/* Dripstation edit
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+	*/
 	semi_auto = TRUE
 	fire_sound = "sound/weapons/smgshot.ogg"
 	fire_sound_volume = 80
@@ -28,6 +30,7 @@
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
 
+/* Dripstation edit
 /obj/item/gun/ballistic/automatic/update_overlays()
 	. = ..()
 	if(!select)
@@ -61,6 +64,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.build_all_button_icons()
+*/
 
 /obj/item/gun/ballistic/automatic/c20r
 	name = "\improper C-20r SMG"
@@ -151,11 +155,13 @@
 	underbarrel = new /obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted(src)
 	update_appearance(UPDATE_ICON)
 
+/* Dripstation edit
 /obj/item/gun/ballistic/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
 	if(select == 2)
 		underbarrel.afterattack(target, user, flag, params)
 	else
 		return ..()
+*/
 
 /obj/item/gun/ballistic/automatic/m90/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_casing))
@@ -165,6 +171,7 @@
 	else
 		..()
 
+/* Dripstation edit
 /obj/item/gun/ballistic/automatic/m90/update_overlays()
 	. = ..()
 	switch(select)
@@ -197,6 +204,7 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	update_appearance(UPDATE_ICON)
 	return
+*/
 
 /obj/item/gun/ballistic/automatic/tommygun
 	name = "\improper Thompson SMG"

@@ -20,6 +20,7 @@
 
 #define STARTING_SEC_BUDGET 14000
 #define STARTING_CAR_BUDGET 5000
+#define STARTING_SYNDIBASE_BUDGET 15000    //dripstation edit
 
 #define MAX_GRANT_CIV 2500
 #define MAX_GRANT_ENG 3000
@@ -40,6 +41,8 @@
 #define ACCOUNT_CAR_NAME "Cargo Budget"
 #define ACCOUNT_SEC "SEC"
 #define ACCOUNT_SEC_NAME "Defense Budget"
+#define ACCOUNT_SYNDIBASE "SRB"    //dripstation edit
+#define ACCOUNT_SYNDIBASE_NAME "Syndicate Research Base Budget"    //dripstation edit
 
 #define MEGAFAUNA_CASH_SCALE 2
 

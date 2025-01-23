@@ -4,7 +4,9 @@
 	report_type = "traitorchan"
 	false_report_weight = 10
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
+	/*Dripastation edit
 	restricted_jobs = list("AI", "Cyborg", "Synthetic")
+	*/
 	required_players = 15
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
