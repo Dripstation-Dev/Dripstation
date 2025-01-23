@@ -41,7 +41,10 @@
 			headername = "Syndix Main Menu"
 		else
 			headername = "NtOS Main Menu"
+/*
 		ui = new(user, src, "NtosMain", headername, 400, 500)
+*/
+		ui = new(user, src, "NtosMain", headername, 500, 600)
 		if(ui.open())
 			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
 
@@ -51,9 +54,12 @@
 	data["device_theme"] = device_theme
 	data["login"] = list()
 	var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
+	var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB] //Dripstation edit
 	data["cardholder"] = FALSE
+
 	if(cardholder)
 		data["cardholder"] = TRUE
+		data["auto_imprint"] = saved_auto_imprint	//dripstation edit
 		var/obj/item/card/id/stored_card = cardholder.GetID()
 		if(stored_card)
 			var/stored_name = stored_card.registered_name
@@ -62,10 +68,33 @@
 				stored_name = "Unknown"
 			if(!stored_title)
 				stored_title = "Unknown"
+//DRIPSTATION EDIT START
+/*
 			data["login"] = list(
+*/
+			data["proposed_login"] = list(
 				IDName = stored_name,
 				IDJob = stored_title,
 			)
+//DRIPSTATION EDIT START
+	data["login"] = list(
+		IDName = saved_identification,
+		IDJob = saved_job,
+	)
+//DRIPSTATION EDIT END
+
+//DRIPSTATION EDIT START
+	if(ssd)
+		data["disk"] = ssd
+		data["disk_name"] = ssd.name
+
+		for(var/datum/computer_file/program/prog in ssd.stored_files)
+			var/background_running = FALSE
+			if(prog in idle_threads)
+				background_running = TRUE
+
+			data["disk_programs"] += list(list("name" = prog.filename, "desc" = prog.filedesc, "running" = background_running, "icon" = prog.program_icon, "alert" = prog.alert_pending))
+//DRIPSTATION EDIT END
 
 	data["removable_media"] = list()
 	if(all_components[MC_SDD])
@@ -92,8 +121,18 @@
 	return data
 
 
+//DRIPSTATION EDIT START
+/obj/item/modular_computer/ui_static_data(mob/user)
+	var/list/data = ..()
+	data["show_imprint"] = show_us_imprint
+	return data
+//DRIPSTATION EDIT END
+
 // Handles user's GUI input
+/*
 /obj/item/modular_computer/ui_act(action, params)
+*/
+/obj/item/modular_computer/ui_act(action, params, datum/tgui/ui)	//dripstation edit
 	if(..())
 		return
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
@@ -137,9 +176,16 @@
 		if("PC_runprogram")
 			var/prog = params["name"]
 			var/datum/computer_file/program/P = null
+			var/is_disk = params["is_disk"] //Dripstation edit
+			var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB] //Dripstation edit
 			var/mob/user = usr
+			/*
 			if(hard_drive)
+			*/
+			if(hard_drive && !is_disk) //Dripstation edit
 				P = hard_drive.find_file_by_name(prog)
+			if(ssd && is_disk) //Dripstation edit
+				P = ssd.find_file_by_name(prog) //Dripstation edit
 			play_interact_sound()
 			if(!P || !istype(P)) // Program not found or it's not executable program.
 				to_chat(user, span_danger("\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning."))
@@ -203,6 +249,16 @@
 					if(uninstall_component(portable_drive, usr))
 						user.put_in_hands(portable_drive)
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+				//DRIPSTATION EDIT START
+				if("job disk")
+					var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB]
+					if(!ssd)
+						return
+					if(uninstall_component(ssd, usr, TRUE))
+						user.put_in_hands(ssd)
+						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+					return TRUE
+				//DRIPSTATION EDIT END
 				if("intelliCard")
 					var/obj/item/computer_hardware/ai_slot/intelliholder = all_components[MC_AI]
 					if(!intelliholder)
@@ -222,6 +278,29 @@
 					cardholder.try_eject(user)
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 
+		//DRIPSTATION EDIT START
+			if(user && istype(user) && ui)
+				ui.close()
+				ui_interact(user)
+			update_appearance(UPDATE_ICON)
+		if("PC_Imprint_ID")
+			var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
+			if(!cardholder)
+				return
+			var/obj/item/card/id/stored_card = cardholder.GetID()
+			saved_identification = stored_card.registered_name
+			saved_job = stored_card.assignment
+
+			update_appearance(UPDATE_ICON)
+
+			playsound(src, 'sound/machines/terminal_prompt.ogg', 15, TRUE)
+			addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/machines/terminal_prompt_confirm.ogg', 15, TRUE), 1.3 SECONDS)
+		
+		if("PC_Toggle_Auto_Imprint")
+			saved_auto_imprint = !saved_auto_imprint
+			if(saved_auto_imprint)
+				update_identification()
+		//DRIPSTATION EDIT END
 
 		else
 			return

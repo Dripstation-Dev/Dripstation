@@ -21,6 +21,7 @@
 		"Head of Security",
 		"Chief Engineer",
 		"Research Director",
+		"Quartermaster",
 		"Chief Medical Officer")
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
