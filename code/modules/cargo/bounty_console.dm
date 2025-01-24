@@ -31,12 +31,27 @@
 		<ul><li>Reward: [B.reward_string()]</li>
 		<li>Completed: [B.completion_string()]</li></ul>"}
 
+/obj/machinery/computer/bounty/emag_act(mob/user, obj/item/card/emag/emag_card)	//dripstation edit
+	if(obj_flags & EMAGGED)														//dripstation edit
+		return FALSE															//dripstation edit
+	if(istype(emag_card, /obj/item/card/emag/improvised)) // We can't have nice things, dripstation edit
+		to_chat(user, span_notice("The cheap circuitry isn't strong enough to subvert this!"))	//dripstation edit
+		return FALSE															//dripstation edit
+	to_chat(user, span_warning("You adjust the antenna on \The [src], tuning it to a syndicate frequency."))	//dripstation edit
+	obj_flags |= EMAGGED														//dripstation edit
+	do_sparks(8, FALSE, loc)													//dripstation edit
+	return TRUE																	//dripstation edit
+
 /obj/machinery/computer/bounty/proc/get_list_to_use()
+	if(obj_flags & EMAGGED)						//dripstation edit
+		return GLOB.bounties_list_syndicate		//dripstation edit
 	return GLOB.bounties_list
 
 /obj/machinery/computer/bounty/ui_interact(mob/user, datum/tgui/ui)
 	var/list/list_to_use = get_list_to_use()
 	if(!list_to_use.len)
+		if(get_list_to_use() == GLOB.bounties_list_syndicate)//dripstation edit
+			setup_syndicate_bounties()						//dripstation edit
 		setup_bounties()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -50,6 +65,7 @@
 		bountyinfo += list(list("name" = B.name, "description" = B.description, "reward_string" = B.reward_string(), "completion_string" = B.completion_string() , "claimed" = B.claimed, "can_claim" = B.can_claim(), "priority" = B.high_priority, "bounty_ref" = REF(B)))
 	data["stored_cash"] = cargocash.account_balance
 	data["bountydata"] = bountyinfo
+	data["emagged"] = (obj_flags & EMAGGED)//dripstation edit
 	return data
 
 /obj/machinery/computer/bounty/ui_act(action,params)

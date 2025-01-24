@@ -124,9 +124,18 @@
 
 /obj/item/clothing/mask/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
+	if(real)	//dripstation edit
+		GoIdle()	//ugh, stop throwing them already, for the god`s sake, dripstation edit
+	else											//dripstation edit
+		if(stat == CONSCIOUS)						//dripstation edit
+			icon_state = "[initial(icon_state)]"	//dripstation edit
+			Leap(hit_atom)							//dripstation edit
+
+	/* Dripstation edit
 	if(stat == CONSCIOUS)
 		icon_state = "[initial(icon_state)]"
 		Leap(hit_atom)
+	*/
 
 /obj/item/clothing/mask/facehugger/proc/valid_to_attach(mob/living/M)
 	// valid targets: carbons except aliens and devils

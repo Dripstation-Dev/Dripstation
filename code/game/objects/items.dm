@@ -94,6 +94,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
 	var/body_parts_partial_covered = 0 //same bit flags as above, only applies half armor to these body parts
+	var/partial_armor_coeff = 0.5 //standart - half armor, but can be tweaked
 
 	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
@@ -1156,7 +1157,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
 	var/image/attack_image
 	if(visual_effect_icon)
+/* //Dripstation edit
 		attack_image = image('icons/effects/effects.dmi', attacked_atom, visual_effect_icon, attacked_atom.layer + 0.1)
+*/
+		attack_image = image('modular_dripstation/icons/effects/effects.dmi', attacked_atom, visual_effect_icon, attacked_atom.layer + 0.1) //Dripstation edit
 	else if(used_item)
 		attack_image = image(icon = used_item, loc = attacked_atom, layer = attacked_atom.layer + 0.1)
 		attack_image.plane = attacked_atom.plane
@@ -1189,7 +1193,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(ismob(src) &&  ismob(attacked_atom) && (!used_item))
 		var/mob/M = src
 		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
+	/*
 	animate(attack_image, alpha = 175, transform = matrix() * 0.75, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
+	*/
+	animate(attack_image, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color) //Dripstation edit
 	animate(time = 1)
 	animate(alpha = 0, time = 3, easing = CIRCULAR_EASING|EASE_OUT) //yogs end
 

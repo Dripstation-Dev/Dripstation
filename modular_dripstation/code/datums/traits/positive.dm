@@ -1,6 +1,24 @@
+/datum/quirk/combattraining //low rank CQC
+	name = "Unarmed combat trainings"
+	desc = "You try to remember some basics of unarmed combat... It`s hard enough."
+	icon = "chevron-up"
+	value = 6
+	gain_text = span_danger("Yeah, I`d use some skills.")
+	lose_text = span_notice("Okey, time to touch some grass.")
+	medical_record_text = "During physical examination, patient was found to have muscles strengthened by years of training."
+
+/datum/quirk/combattraining/on_spawn()
+	var/mob/living/carbon/human/H = quirk_holder
+	var/datum/martial_art/trained/spesslife = new
+	spesslife.teach(H)
+
+/datum/quirk/combattraining/post_add()
+	to_chat(quirk_holder, span_boldannounce("Your muscles remembers some basics of unarmed combat."))
+
 /datum/quirk/drunkhealing
 	value = 3
 
+/*
 /datum/quirk/drunkhealing/on_process()
 	var/mob/living/carbon/C = quirk_holder
 	//Prevent Prosthetic healing from liquor
@@ -14,6 +32,7 @@
 		if (61 to INFINITY)
 			C.adjustBruteLoss(-0.8, FALSE, FALSE, required_status = BODYPART_ORGANIC)
 			C.adjustFireLoss(-0.4, FALSE, FALSE, required_status = BODYPART_ORGANIC)
+*/
 
 /datum/quirk/psychopathic
 	name = "Psychopathic"
@@ -81,7 +100,7 @@
 
 /datum/quirk/surgeon
 	name = "Professional Surgeon"
-	desc = "You have spend a lot more time than others to get used to the modern surgery. Your skill allows you to avoid critical failurs, but you still causes some mess when performing operations on alive and contious patients."
+	desc = "You have spend a lot more time than others to get used to the modern surgery. Your skill allows you to avoid critical failurs, but you still causes some mess when performing operations on alive and conscious patients."
 	icon = "notes-medical"
 	value = 5
 	mob_trait = TRAIT_MEDIC
@@ -294,3 +313,4 @@
 
 #undef LAST_STATE_PLANET
 #undef LAST_STATE_SPACE
+

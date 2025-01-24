@@ -612,6 +612,7 @@
 					/obj/item/shield/riot)
 	crate_name = "riot shields crate"
 
+/*
 /datum/supply_pack/security/armory/riotshotgun
 	name = "Riot Shotguns Crate"
 	desc = "Tip: techically, it counts as non-lethally subduing a target as long as they don't die before Medbay can get to them. Contains three security-grade riot shotguns. Requires Armory access to open."
@@ -627,6 +628,7 @@
 	cost = 3200
 	small_item = TRUE
 	contains = list(/obj/item/gun/ballistic/shotgun/riot)
+*/
 
 /datum/supply_pack/security/armory/smartmine
 	name = "Smart Mine Crate"

@@ -19,7 +19,9 @@
 
 /obj/item/ammo_box/magazine/m556
 	name = "toploader magazine (5.56mm)"
+	/* Dripstation edit
 	desc = "A 30-round toploading magazine filled with 5.56 rounds, designed for the M-90gl Rifle."
+	*/
 	icon_state = "5.56m-30"
 	ammo_type = /obj/item/ammo_casing/a556
 	caliber = CALIBER_556NATO
@@ -30,17 +32,21 @@
 	icon_state = "5.56m[sprite_designation]-[round(ammo_count(),5)]"
 
 /obj/item/ammo_box/magazine/m556/ap
+	/* Dripstation edit
 	name = "toploader magazine (Armor-Piercing 5.56mm)"
 	desc = "A 30-round toploading magazine filled with armor-piercing 5.56 rounds, designed for the M-90gl Rifle. \
 			These rounds sacrifice some stopping power for bypassing standard protective equipment."
+	*/
 	icon_state = "5.56mA-30"
 	ammo_type = /obj/item/ammo_casing/a556/ap
 	sprite_designation = "A"
 
 /obj/item/ammo_box/magazine/m556/inc
 	name = "toploader magazine (Incendiary 5.56mm)"
+	/* Dripstation edit
 	desc = "A 30-round toploading magazine filled with incendiary 5.56 rounds, designed for the M-90gl Rifle. \
 			These rounds do less damage but set targets ablaze."
+	*/
 	icon_state = "5.56mI-30"
 	ammo_type = /obj/item/ammo_casing/a556/inc
 	sprite_designation = "I"
@@ -49,7 +55,9 @@
 
 /obj/item/ammo_box/magazine/r556
 	name = "rifle magazine (5.56mm)"
+	/* Dripstation edit
 	desc = "A standard 30-round magazine for the NT ARG 'Boarder' Rifle. Filled with 5.56 rounds."
+	*/
 	icon_state = "arg556"
 	ammo_type = /obj/item/ammo_casing/a556
 	caliber = CALIBER_556NATO
@@ -63,25 +71,31 @@
 		icon_state = "arg556[sprite_designation]_empty"
 
 /obj/item/ammo_box/magazine/r556/ap
+	/* Dripstation edit
 	name = "rifle magazine (Armor-Piercing 5.56mm)"
 	desc = "An alternative 30-round magazine for the NT ARG 'Boarder' Rifle. Filled with AP 5.56 rounds. \
 			These rounds sacrifice some stopping power for bypassing standard protective equipment."
+	*/
 	icon_state = "arg556A"
 	ammo_type = /obj/item/ammo_casing/a556/ap
 	sprite_designation = "A"
 
 /obj/item/ammo_box/magazine/r556/inc
 	name = "rifle magazine (Incendiary 5.56mm)"
+	/* Dripstation edit
 	desc = "An alternative 30-round magazine for the NT ARG 'Boarder' Rifle. Filled with incendiary 5.56 rounds. \
 			These rounds do less damage but set targets ablaze."
+	*/
 	icon_state = "arg556I"
 	ammo_type = /obj/item/ammo_casing/a556/inc
 	sprite_designation = "I"
 
 /obj/item/ammo_box/magazine/r556/rubber
 	name = "rifle magazine (Rubber 5.56mm)"
+	/* Dripstation edit
 	desc = "An alternative 30-round magazine for the NT ARG 'Boarder' Rifle. Filled with rubber 5.56 rounds. \
 			These rounds possess minimal lethality but batter and weaken targets before they collapse from exhaustion."
+	*/
 	icon_state = "arg556R"
 	ammo_type = /obj/item/ammo_casing/a556/rubber
 	sprite_designation = "R"

@@ -86,22 +86,41 @@
 	var/list/modifiers = params2list(params)
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, modifiers) & COMSIG_MOB_CANCEL_CLICKON)
 		return
+	/*	Dripstation edit
 	if(modifiers["shift"] && modifiers["middle"])
 		ShiftMiddleClickOn(A)
 		return
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
+	*/
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))			//Dripstation edit
+		if(LAZYACCESS(modifiers, MIDDLE_CLICK))		//Dripstation edit
+			ShiftMiddleClickOn(A)					//Dripstation edit
+			return									//Dripstation edit
+		if(LAZYACCESS(modifiers, CTRL_CLICK))		//Dripstation edit
+			CtrlShiftClickOn(A)						//Dripstation edit
+			return									//Dripstation edit
+		ShiftClickOn(A)								//Dripstation edit
 		return
+	/*	Dripstation edit
 	if(modifiers["middle"])
+	*/
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))		//Dripstation edit
 		MiddleClickOn(A)
 		return
+	/*	Dripstation edit
 	if(modifiers["shift"])
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+	*/
+	if(LAZYACCESS(modifiers, ALT_CLICK)) // alt and alt-gr (rightalt)		//Dripstation edit
 		AltClickOn(A)
 		return
+	/*	Dripstation edit
 	if(modifiers["ctrl"])
+	*/
+	if(LAZYACCESS(modifiers, CTRL_CLICK))		//Dripstation edit
 		CtrlClickOn(A)
 		return
 
@@ -113,7 +132,10 @@
 	if(next_move > world.time) // in the year 2000...
 		return
 
+	/*	Dripstation edit
 	if(!modifiers["catcher"] && A.IsObscured())
+	*/
+	if(!LAZYACCESS(modifiers, "catcher") && A.IsObscured())
 		return
 
 	if(ismecha(loc))
@@ -490,11 +512,17 @@
 
 /atom/movable/screen/click_catcher/Click(location, control, params)
 	var/list/modifiers = params2list(params)
+	/*	Dripstation edit
 	if(modifiers["middle"] && iscarbon(usr))
+	*/
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK) && iscarbon(usr))	//dripstation edit
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else
+		/*	Dripstation edit
 		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr.client ? usr.client.eye : usr), usr.client)
+		*/
+		var/turf/T = params2turf(LAZYACCESS(modifiers, SCREEN_LOC), get_turf(usr.client ? usr.client.eye : usr), usr.client)	//dripstation edit
 		params += "&catcher=1"
 		if(T)
 			T.Click(location, control, params)
@@ -506,8 +534,12 @@
 	SEND_SIGNAL(src, COMSIG_MOUSE_SCROLL_ON, A, delta_x, delta_y, params)
 
 /mob/dead/observer/MouseWheelOn(atom/A, delta_x, delta_y, params)
+	/*	Dripstation edit
 	var/list/modifier = params2list(params)
 	if(modifier["shift"])
+	*/
+	var/list/modifiers = params2list(params)	//dripstation edit
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))		//dripstation edit
 		if(delta_y > 0)
 			view -= 1
 		else

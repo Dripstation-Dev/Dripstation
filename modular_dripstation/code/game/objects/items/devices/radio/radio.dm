@@ -33,11 +33,34 @@
 	name = "supply radio headset"
 	desc = "A headset used by QM`s slaves."
 
+/obj/item/radio/headset/headset_cargo/mining
+
+/obj/item/encryptionkey/headset_mining
+	name = "mining&exploring radio encryption key"
+	icon_state = "mine_cypherkey"
+	channels = list(RADIO_CHANNEL_SUPPLY = 1)
+
+/obj/item/radio/headset/headset_cargo/explorer
+	name = "explorer`s radio headset"
+	desc = "Headset used by explorers."
+	icon_state = "expl_headset_alt"
+	keyslot = new /obj/item/encryptionkey/headset_mining
+
 /obj/item/radio/headset/headset_medcargo
 	icon_state = "medcargo_headset"
 
 /obj/item/radio/headset/headset_medsec
 	icon_state = "medsec_headset"
+
+/obj/item/radio/headset/headset_com/alt
+	icon_state = "com_headset_alt"
+
+/obj/item/radio/headset/headset_com/alt/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+
+/obj/item/radio/headset/headset_com/alt/security_consultant
+	keyslot2 = new /obj/item/encryptionkey/headset_sec
 
 /obj/item/radio/headset/heads/captain
 	icon_state = "cap_headset"
@@ -82,35 +105,35 @@
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
 
-/obj/item/radio/headset/magistrate
+/obj/item/radio/headset/heads/magistrate
 	name = "\proper the magistrate's radio headset"
 	desc = "The headset of the Magistrate."
-	icon_state = "cap_headset"
+	icon_state = "proc_headset"
 	keyslot = new /obj/item/encryptionkey/heads/procedure
 	command = TRUE
 
-/obj/item/radio/headset/magistrate/alt
+/obj/item/radio/headset/heads/magistrate/alt
 	name = "\proper the magistrate's bowman headset"
 	desc = "The headset of the Magistrate. Protects ears from flashbangs."
 	icon_state = "proc_headset_alt"
 
-/obj/item/radio/headset/magistrate/alt/Initialize(mapload)
+/obj/item/radio/headset/heads/magistrate/alt/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
 
-/obj/item/radio/headset/ntrep
+/obj/item/radio/headset/heads/ntrep
 	name = "\proper the Nanotrasen Representative's radio headset"
 	desc = "The headset of the Nanotrasen Representative."
-	icon_state = "cap_headset"
+	icon_state = "proc_headset"
 	keyslot = new /obj/item/encryptionkey/heads/procedure
 	command = TRUE
 
-/obj/item/radio/headset/ntrep/alt
+/obj/item/radio/headset/heads/ntrep/alt
 	name = "\proper the Nanotrasen Representative's bowman headset"
 	desc = "The headset of the Nanotrasen Representative. Protects ears from flashbangs."
 	icon_state = "proc_headset_alt"
 
-/obj/item/radio/headset/ntrep/alt/Initialize(mapload)
+/obj/item/radio/headset/heads/ntrep/alt/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
 

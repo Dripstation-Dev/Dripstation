@@ -62,7 +62,7 @@
 	name = "suspecious magboots"
 	slowdown_active = 1.5
 	var/morphable = TRUE
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/adjust)
 
 /obj/item/clothing/shoes/magboots/syndie/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())

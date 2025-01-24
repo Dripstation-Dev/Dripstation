@@ -120,6 +120,9 @@
 
 	if(user.a_intent == INTENT_HELP && ishuman(M))
 		var/mob/living/carbon/human/H = M
+		if(isreplica(H))				//dripstation edit
+			to_chat(user, span_warning("Replika`s can`t weld themselfes."))	//dripstation edit
+			return FALSE				//dripstation edit
 		var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 		if(affecting?.status == BODYPART_ROBOTIC)
 			if(affecting.brute_dam <= 0)

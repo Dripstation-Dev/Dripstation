@@ -147,6 +147,104 @@
 	icon_state = "shelg_sallet_visor"
 	tint = 5
 
+/obj/item/clothing/head/beret/sec/shellguard
+	name = "shellguard beret"
+	desc = "A robust beret with the Shellguard insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
+	icon_state = "shelg_guard_beret"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/beret/sec/navywarden/shellguard	
+	name = "shellguard warden's beret"
+	desc = "A special beret with the Shellguard Warden's insignia emblazoned on it."
+	icon_state = "shelg_warden_beret"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/beret/captain/shellguard	
+	name = "shellguard specops's beret"
+	desc = "A special beret with the Shellguard insignia emblazoned on it."
+	icon_state = "shelg_judgeberet"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/suit/hooded/wintercoat/security/shellguard
+	name = "shellguard winter coat"
+	desc = "A Shellguard brand armour-padded winter coat. It glitters with a mild ablative coating and a robust air of authority."
+	icon_state = "shelg_coat"
+	item_state = "coatsecurity"
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 45)
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/shellguard
+
+/obj/item/clothing/head/hooded/winterhood/security/shellguard
+	name = "shellguard winter hood"
+	desc = "A red, armour-padded winter hood. Definitely not bulletproof, especially not the part where your face goes."
+	icon_state = "shelg_hood"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/suit/armor/vest/warden/shellguard
+	name = "shellguard warden's jacket"
+	desc = "Shellguard brand jacket with all the protection of a armor vest!"
+	icon_state = "warden_shelg"
+
+/obj/item/clothing/suit/armor/vest/hosjacket/shellguard
+	name = "shellguard specops's jacket"
+	desc = "Shellguard brand jacket with all the protection of a armor vest!"
+	icon_state = "shelg_judgetrench"
+
+/obj/item/clothing/under/shellguard
+	name = "shellguard employee uniform"
+	desc = "Standart uniform issued for ShellGuard employees. Red pants protects wearer from blood strains."
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 20, ACID = 30, WOUND = 0, ELECTRIC = 0)
+	icon_state = "clerk_shelg"
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/pmc.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/pmc.dmi'
+
+/obj/item/clothing/under/shellguard/guard
+	name = "shellguard guard uniform"
+	desc = "Standart uniform issued for ShellGuard guard. Red color protects wearer from blood strains."
+	icon_state = "guard_shelg"
+
+/obj/item/clothing/under/shellguard/feldsher
+	name = "shellguard feldsher uniform"
+	desc = "Standart uniform issued for ShellGuard feldsher. The one`s clothing whos job is to patch wounds."
+	icon_state = "guard_shelg"
+
+/obj/item/clothing/under/shellguard/pilot
+	name = "shellguard pilot uniform"
+	desc = "Standart uniform issued for ShellGuard pilot. Red color protects wearer from blood strains."
+	icon_state = "pilot_shelg"
+
+/obj/item/clothing/under/shellguard/gorka
+	name = "shellguard gorka"
+	desc = "Gorka issued for ShellGuard personel. Red color protects wearer from blood strains."
+	icon_state = "shelg_gorka"
+
+/obj/item/clothing/under/shellguard/warden
+	name = "shellguard warden uniform"
+	desc = "Standart uniform issued for ShellGuard warden. Red color protects wearer from blood strains."
+	icon_state = "warden_shelg"
+
+/obj/item/clothing/under/shellguard/gorka/warden
+	name = "shellguard warden`s gorka"
+	desc = "Gorka issued for ShellGuard wardens. Red color protects wearer from blood strains."
+	icon_state = "shelg_warden_gorka"
+
+/obj/item/clothing/under/shellguard/tech
+	name = "shellguard tech uniform"
+	desc = "Standart uniform issued for ShellGuard tech specialist`s. Red color protects wearer from blood strains."
+	icon_state = "tech_shelg"
+
+/obj/item/clothing/under/shellguard/combat
+	name = "shellguard combat turtleneck"
+	desc = "Combat turtle issued for ShellGuard assault persineel. Ready to operate."
+	icon_state = "shelg_combat"
+	cold_protection = CHEST|GROIN
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+
 ////Helldivers////
 /obj/item/storage/belt/military/helldiver
 	name = "helldiver belt"
@@ -161,7 +259,7 @@
 	icon_state = "helldiver"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
-	armor = list(MELEE = 40, BULLET = 40, LASER = 20, ENERGY = 25, BOMB = 30, BIO = 100, RAD = 30, FIRE = 80, ACID = 85, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 60, LASER = 20, ENERGY = 25, BOMB = 30, BIO = 100, RAD = 30, FIRE = 80, ACID = 85, WOUND = 10, ELECTRIC = 100)
 
 /obj/item/clothing/suit/armor/helldiver
 	name = "helldiver armor"
@@ -170,7 +268,7 @@
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	slowdown = 0.33
-	armor = list(MELEE = 40, BULLET = 40, LASER = 20, ENERGY = 25, BOMB = 30, BIO = 100, RAD = 30, FIRE = 80, ACID = 85, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 60, LASER = 20, ENERGY = 25, BOMB = 30, BIO = 100, RAD = 30, FIRE = 80, ACID = 85, WOUND = 10, ELECTRIC = 100)
 
 /obj/item/clothing/neck/helldiver
 	name = "helldiver mantle"
@@ -203,6 +301,23 @@
 	can_adjust = FALSE
 	mutantrace_variation = NONE
 
+/obj/item/clothing/under/syndicate/bloodred
+	name = "blood-red sneaksuit"
+	desc = "It still counts as stealth if there are no witnesses."
+	icon_state = "bloodred_pajamas"
+	item_state = "bl_suit"
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 10, FIRE = 50, ACID = 40, WOUND = 15)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	can_adjust = FALSE
+
+/obj/item/clothing/suit/jacket/leather/overcoat/armored
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT	//uh oh
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT	//uh oh
+	armor = list(MELEE = 25, BULLET = 25, LASER = 20, ENERGY = 25, BOMB = 15, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, WOUND = 5)
+
 /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	desc = "A fireproof armored chestpiece reinforced with ceramic plates and plasteel pauldrons to provide additional protection whilst still offering maximum mobility and flexibility. Issued only to the syndicate's finest, although it does chafe your nipples."
 	icon_state = "syndie_carapace"
@@ -215,6 +330,7 @@
 
 /obj/item/clothing/suit/armor/hos/syndicate
 	name = "syndicate captain's armored coat"
+	icon_state = "syndie_coat_armor"
 	mutantrace_variation = NONE
 	pocket_storage_component_path = null
 	armor = list(MELEE = 40, BULLET = 35, LASER = 40, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, WOUND = 15)
@@ -223,16 +339,63 @@
 /obj/item/clothing/suit/armor/hos/syndicate/winter
 	name = "syndicate captain's unarmored winter coat"
 	desc = "Winter fashion!"
+	icon_state = "syndie_coat_winter"
 	armor = list(MELEE = 10, BULLET = 15, LASER = 10, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, WOUND = 15)
-	resistance_flags = FIRE_PROOF
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/suit/armor/hos/syndicate/winter/armored
 	name = "syndicate captain's armored winter coat"
 	desc = "A sinister looking vest of advanced armor worn over a black and red fireproof jacket. The gold collar and shoulders denote that this belongs to a high ranking syndicate officer."
+	icon_state = "syndie_coat_winter_armor"
 	armor = list(MELEE = 40, BULLET = 35, LASER = 40, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, WOUND = 15)
-	resistance_flags = FIRE_PROOF
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/head/helmet/space/infiltrator
+	name = "infiltrator helmet"
+	desc = "The galaxy isn't big enough for the two of us."
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/helmets.dmi'
+	icon_state = "synslimsuit_helmet"
+	armor = list(MELEE = 40, BULLET = 40, LASER = 30, ENERGY = 40, BOMB = 70, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, WOUND = 10)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flash_protect = FLASH_PROTECTION_WELDER
+	flags_inv = HIDEHAIR|HIDEFACIALHAIR|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	strip_delay = 80
+	blockTracking = TRUE	//fuck off ai
+
+/obj/item/clothing/suit/armor/vest/infiltrator
+	name = "infiltrator vest"
+	desc = "This vest is made of of highly flexible materials that absorb impacts and protects from vacuum with ease."
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/suits.dmi'
+	icon_state = "synslimsuit"
+	armor = list(MELEE = 40, BULLET = 40, LASER = 30, ENERGY = 40, BOMB = 70, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, WOUND = 10)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT	//uh oh
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT	//uh oh
+	strip_delay = 80
+
+/obj/item/clothing/shoes/combat/sneakboots
+	name = "sneakboots"
+	desc = "These boots have special noise cancelling soles. Perfect for stealth, if it wasn't for the color scheme."
+	icon_state = "sneakboots"
+	item_state = "sneakboots"
+	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FIRE_PROOF |  ACID_PROOF
+
+/obj/item/clothing/shoes/combat/sneakboots/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_FEET)
+		ADD_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, SHOES_TRAIT)
+
+/obj/item/clothing/shoes/combat/sneakboots/dropped(mob/living/carbon/human/user)
+	REMOVE_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, SHOES_TRAIT)
+	return ..()
 
 /////Donk Co//////
 /obj/item/clothing/under/syndicate/donk
@@ -404,6 +567,7 @@
 	name = "Vahlen`s combat uniform"
 	desc = "A tactical combat jumpsuit with cargo pants for operatives employed by Vahlen Pharmaceuticals."
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 20, FIRE = 20, ACID = 30, WOUND = 10, ELECTRIC = 0)
+	icon_state = "vahlen_combat"
 
 /obj/item/clothing/under/syndicate/vahlen/chief_medical_officer
 	name = "chief medical officer's turtleneck jumpsuit"
@@ -439,14 +603,32 @@
 /obj/item/clothing/under/syndicate/gec
 	name = "GEC engineer uniform"
 	desc = "An official uniform worn by GEC engineers. This one is worn by middle ranking engineers."
-	icon_state = "gec_engineer"
+	icon_state = "gec_official"
 	mutantrace_variation = NONE
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 60, ACID = 20, WOUND = 0, ELECTRIC = 0)
 
 /obj/item/clothing/under/syndicate/gec/chief_engineer
 	name = "GEC chief engineer uniform"
 	desc = "An official uniform worn by GEC engineers. This one is worn by high ranking engineers."
-	icon_state = "gec_ce"
+	icon_state = "gec_official_alt"
 	mutantrace_variation = NONE
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40, WOUND = 0, ELECTRIC = 0)
 
+
+//ABDUCTOR
+/obj/item/clothing/under/abductor
+	icon_state = "abductor"
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/syndicate.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/syndicate.dmi'
+
+//NINJA
+/obj/item/clothing/under/ninja
+	name = "black-green tactical jumpsuit"
+	desc = "A tactical black jumpsuit with green stripes."
+	icon_state = "ninja"
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40, WOUND = 0, ELECTRIC = 0)
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/syndicate.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/syndicate.dmi'
+
+/datum/outfit/ninja
+	uniform = /obj/item/clothing/under/ninja

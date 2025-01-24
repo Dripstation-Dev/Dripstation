@@ -2,6 +2,7 @@
 	name = "mindshield implant"
 	desc = "Protects against brainwashing."
 
+/* Dripstation start
 /obj/item/implant/mindshield/tot/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Syndicate Brainwash Denial Implant<BR>
@@ -68,6 +69,9 @@
 			return FALSE
 		if(target.mind.has_antag_datum(/datum/antagonist/gang))
 			target.mind.remove_antag_datum(/datum/antagonist/gang)
+		if(HAS_TRAIT(target, TRAIT_MINDSHIELD))	//dripstation edit
+			target.visible_message(span_warning("[target] seems to resist the implant!"), span_warning("You already have mind protection!"))	//dripstation edit
+			return FALSE		//dripstation edit
 		if(!silent)
 			if(target.mind in SSticker.mode.cult)
 				to_chat(target, span_warning("You feel something interfering with your mental conditioning, but you resist it!"))
@@ -77,6 +81,7 @@
 		target.sec_hud_set_implants()
 		return TRUE
 	return FALSE
+*/ //Dripstation end
 
 /obj/item/implant/mindshield/tot/removed(mob/target, silent = FALSE, special = 0)
 	if(..())

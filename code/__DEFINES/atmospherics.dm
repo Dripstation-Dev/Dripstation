@@ -265,7 +265,10 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 /// space
 #define AIRLESS_ATMOS				"TEMP=2.7"
 /// -93.15°C snow and ice turfs
+/* dripstation edit
 #define FROZEN_ATMOS				"o2=22;n2=82;TEMP=180"
+*/
+#define FROZEN_ATMOS				"o2=22;n2=82;TEMP=150"	// -123.15°C, dripstation edit
 /// -80°C kitchen coldroom; higher amount of mol to reach about 101.3 kpA
 #define KITCHEN_COLDROOM_ATMOS		"o2=33;n2=124;TEMP=193.15"
 /// used in the holodeck burn test program

@@ -176,7 +176,10 @@ GLOBAL_LIST_INIT(potential_box_bars, list(
 GLOBAL_LIST_EMPTY(clerk_office_landmarks)
 // IF YOU ARE MAKING A NEW TEMPLATE AND WANT IT ROUNDSTART ADD IT TO THIS LIST!
 GLOBAL_LIST_INIT(potential_box_clerk, list(
+/* dripstation edit
 	"Clerk Box", "Clerk Pod", "Clerk Meta", "Clerk Gambling Hall"))
+*/	// dripstation edit
+	"Clerk DripMeta", "Clerk DripGambling Hall"))	// dripstation edit
 
 GLOBAL_LIST_EMPTY(chapel_landmarks)
 GLOBAL_LIST_INIT(potential_box_chapels, list(

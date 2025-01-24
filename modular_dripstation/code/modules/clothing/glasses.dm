@@ -312,6 +312,10 @@
 	hud_type = DATA_HUD_MEDICAL_BASIC
 	flags_cover = null //GLASSESCOVERSEYES
 
+/obj/item/clothing/glasses/hud/health/night/cultblind
+	icon = 'icons/obj/clothing/glasses.dmi'
+	worn_icon = 'icons/mob/clothing/eyes/eyes.dmi'
+
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
 	desc = "Corrects your vision!"
@@ -329,7 +333,7 @@
 /obj/item/clothing/glasses/hud/health/military
 	name = "military health HUDs"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status. This ones are military grade."
-	icon_state = "healthhud_military"
+	icon_state = "medhud_military"
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/glasses/hud/health/sunglasses/cmo
@@ -366,6 +370,29 @@
 	name = "diagnostic HUDaviators"
 	desc = "Aviators with a diagnostic HUD."
 	icon_state = "aviator_diagnostic"
+	custom_premium_price = 200
+
+/obj/item/clothing/glasses/hud/permit
+	name = "weapon permit HUDs"
+	desc = "A heads-up display capable of checking weapon permit status."
+	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	icon_state = "permithud"
+	flags_cover = null //GLASSESCOVERSEYES
+	hud_type = DATA_HUD_PERMIT
+
+/obj/item/clothing/glasses/hud/permit/sunglasses
+	name = "weapon permit HUDsunglasses"
+	desc = "Sunglasses with a weapon permit HUD."
+	icon_state = "sunhudpermit"
+	flash_protect = 1
+	tint = 1
+	glass_colour_type = /datum/client_colour/glass_colour/darkred
+
+/obj/item/clothing/glasses/hud/permit/sunglasses/aviators
+	name = "weapon permit HUDaviators"
+	desc = "Aviators with a weapon permit HUD."
+	icon_state = "aviator_permit"
 	custom_premium_price = 200
 
 /obj/item/clothing/glasses/hud/security

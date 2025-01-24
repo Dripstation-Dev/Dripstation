@@ -43,6 +43,21 @@
 
 /datum/atom_hud/data/human/security
 
+/datum/atom_hud/data/human/security/permit	//dripstation edit start
+	hud_icons = list(PERMIT_HUD)
+
+/datum/atom_hud/data/human/security/basic
+	hud_icons = list(ID_HUD, PERMIT_HUD)
+	
+/datum/atom_hud/data/human/security/shielded
+	hud_icons = list(SHIELDED_HUD)
+
+/datum/atom_hud/data/human/security/advanced
+	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD, NANITE_HUD, PERMIT_HUD)
+
+/datum/atom_hud/data/human/security/advanced/hos
+	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD, NANITE_HUD, STATUS_HUD, HEALTH_HUD, PERMIT_HUD, SHIELDED_HUD)
+/*
 /datum/atom_hud/data/human/security/basic
 	hud_icons = list(ID_HUD)
 
@@ -51,6 +66,7 @@
 
 /datum/atom_hud/data/human/security/advanced/hos
 	hud_icons = list(ID_HUD, IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, WANTED_HUD, NANITE_HUD, STATUS_HUD, HEALTH_HUD)
+*/	//dripstation edit end
 
 /datum/atom_hud/data/diagnostic
 
@@ -211,11 +227,23 @@ Security HUDs! Basic mode shows only the job.
 	holder.icon_state = "hudno_id"
 	if(wear_id?.GetID())
 		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
+	holder = hud_list[PERMIT_HUD]
+	var/icon/IC = icon(icon, icon_state, dir)
+	holder.pixel_y = IC.Height() - world.icon_size
+	if(wear_id?.get_gun_permit_iconstate())
+		holder.icon_state = wear_id?.get_gun_permit_iconstate()
+		set_hud_image_active(PERMIT_HUD)
+	else
+		holder.icon_state = null
+		set_hud_image_inactive(PERMIT_HUD)
 	sec_hud_set_security_status()
 
 /mob/living/proc/sec_hud_set_implants()
 	var/image/holder
+/*	Dripstation edited
 	for(var/i in list(IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD))
+*/
+	for(var/i in list(IMPTRACK_HUD, IMPLOYAL_HUD, IMPCHEM_HUD, SHIELDED_HUD))
 		holder = hud_list[i]
 		holder.icon_state = null
 		set_hud_image_inactive(i)
@@ -228,7 +256,10 @@ Security HUDs! Basic mode shows only the job.
 			holder.icon_state = "hud_imp_tracking"
 			set_hud_image_active(IMPTRACK_HUD)
 
+		/*	Dripstation edited
 		else if(istype(I, /obj/item/implant/chem))
+		*/
+		if(istype(I, /obj/item/implant/chem))	//Dripstation edited
 			holder = hud_list[IMPCHEM_HUD]
 			var/icon/IC = icon(icon, icon_state, dir)
 			holder.pixel_y = IC.Height() - world.icon_size
@@ -236,6 +267,15 @@ Security HUDs! Basic mode shows only the job.
 			set_hud_image_active(IMPCHEM_HUD)
 
 		//Dripstation edited
+		/*
+		if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
+			holder = hud_list[IMPLOYAL_HUD]
+			var/icon/IC = icon(icon, icon_state, dir)
+			holder.pixel_y = IC.Height() - world.icon_size
+			holder.icon_state = "hud_imp_loyal"
+			set_hud_image_active(IMPLOYAL_HUD)
+		*/
+
 		if(istype(I, /obj/item/implant/mindshield))
 			var/obj/item/implant/mindshield/MS = I
 			holder = hud_list[IMPLOYAL_HUD]
@@ -243,6 +283,13 @@ Security HUDs! Basic mode shows only the job.
 			holder.pixel_y = IC.Height() - world.icon_size
 			holder.icon_state = MS.implant_visible_as
 			set_hud_image_active(IMPLOYAL_HUD)
+
+	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
+		holder = hud_list[SHIELDED_HUD]
+		var/icon/IC = icon(icon, icon_state, dir)
+		holder.pixel_y = IC.Height() - world.icon_size
+		holder.icon_state = "hud_shielded"
+		set_hud_image_active(SHIELDED_HUD)
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]

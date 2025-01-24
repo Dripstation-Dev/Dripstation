@@ -1,0 +1,2531 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"ac" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"ag" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/yellow{
+	pixel_x = 3;
+	pixel_y = -2;
+	amount = 2
+	},
+/obj/item/wallframe/camera{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"am" = (
+/obj/machinery/microwave,
+/obj/structure/table,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"aC" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"aJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"bd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"bg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez{
+	pixel_x = -5;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/snacks/grown/tomato{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"bq" = (
+/obj/structure/table,
+/obj/item/seeds/replicapod{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"bv" = (
+/obj/effect/decal/cleanable/blood/gibs/up,
+/obj/item/ammo_casing/caseless{
+	pixel_y = -9;
+	pixel_x = -9;
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"bD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/energybar{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/structure/table,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"bP" = (
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ruin/powered/walker_village)
+"ct" = (
+/obj/structure/table,
+/obj/item/seeds/cabbage{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"cu" = (
+/obj/machinery/hydroponics/constructable,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"da" = (
+/obj/structure/table,
+/obj/item/seeds/watermelon{
+	pixel_x = -13;
+	pixel_y = 12
+	},
+/obj/item/toy/figure/botanist,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"dw" = (
+/obj/item/toy/katana,
+/turf/open/floor/plating,
+/area/ruin/powered/walker_village)
+"dD" = (
+/obj/machinery/door/airlock/research,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"ed" = (
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"eh" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"eD" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"eX" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"fd" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"fN" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/blood/BMinus{
+	desc = "Contains blood used for transfusion. Must be attached to an IV drip. Something is scribbled on the back in bright blue letters: ICARUS"
+	},
+/obj/item/reagent_containers/blood/OMinus{
+	desc = "Contains blood used for transfusion. Must be attached to an IV drip. Something is scribbled on the back in blue letters: DAEDALUS"
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"fO" = (
+/turf/open/floor/plating/rust,
+/area/ruin/powered/walker_village)
+"gf" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/caseless{
+	pixel_y = -9;
+	pixel_x = 11;
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"gl" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"gz" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"gA" = (
+/turf/open/floor/plating/snowed/temperatre{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/underground/explored)
+"gC" = (
+/obj/structure/table,
+/obj/item/seeds/berry{
+	pixel_x = 3
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"gM" = (
+/obj/item/ammo_casing/caseless{
+	pixel_x = 8;
+	pixel_y = 4;
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"gO" = (
+/obj/structure/table,
+/obj/item/shovel/spade{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"gP" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/fernybush,
+/mob/living/simple_animal/hostile/venus_human_trap,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"gU" = (
+/obj/structure/curtain,
+/obj/machinery/shower{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/powered/walker_village)
+"gV" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/rust,
+/area/ruin/powered/walker_village)
+"hd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"hw" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/ammo_casing/caseless{
+	pixel_x = -8;
+	pixel_y = 6;
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"hF" = (
+/mob/living/simple_animal/hostile/venus_human_trap,
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"hJ" = (
+/turf/closed/wall/r_wall,
+/area/ruin/powered/walker_village)
+"hZ" = (
+/obj/item/stack/cable_coil/yellow{
+	pixel_x = 1;
+	pixel_y = -2;
+	amount = 2
+	},
+/obj/item/wallframe/camera{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"iw" = (
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"iz" = (
+/obj/structure/table,
+/obj/item/seeds/starthistle/corpse_flower{
+	pixel_y = 3;
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/glass/bottle/nutrient/l4z{
+	pixel_x = -10;
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"iB" = (
+/obj/effect/mob_spawn/human/scientist,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"iH" = (
+/obj/structure/closet,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/hooded/wintercoat/security{
+	pixel_y = 0
+	},
+/obj/item/clothing/shoes/winterboots{
+	pixel_y = 0
+	},
+/obj/item/ammo_box/magazine/m45{
+	pixel_y = 0
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"iJ" = (
+/obj/item/trash/chips{
+	pixel_x = -1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"iQ" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/seeds/tomato/killer{
+	pixel_y = -9;
+	pixel_x = -2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"jh" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"jl" = (
+/obj/effect/decal/cleanable/food/salt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"jr" = (
+/obj/structure/table,
+/obj/item/circuitboard/machine/hydroponics{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"jY" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"kr" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"kw" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"kS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/frame/machine,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"lj" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"lw" = (
+/obj/structure/table,
+/obj/item/plant_analyzer{
+	pixel_x = 13;
+	pixel_y = 4
+	},
+/obj/item/cultivator,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"lF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"md" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/flora/ausbushes/grassybush,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"me" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"mu" = (
+/mob/living/simple_animal/hostile/venus_human_trap,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"mQ" = (
+/obj/structure/frame/computer{
+	dir = 1
+	},
+/obj/item/shard{
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/obj/item/shard{
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"mU" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table,
+/obj/item/clothing/shoes/winterboots{
+	pixel_y = 5;
+	pixel_x = 3
+	},
+/obj/item/clothing/shoes/winterboots{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"mW" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 12;
+	pixel_x = 11
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/item/ammo_casing/caseless{
+	pixel_y = 4;
+	dir = 5;
+	pixel_x = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"nh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/window/brigdoor/northright,
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"ni" = (
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"nj" = (
+/obj/structure/table,
+/obj/item/stack/cable_coil/yellow{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/item/circuitboard/machine/hydroponics{
+	pixel_y = 2;
+	pixel_x = -3
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"nn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet{
+	pixel_x = 8;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"nt" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"nD" = (
+/obj/item/stack/cable_coil/yellow{
+	pixel_x = 7;
+	pixel_y = -4;
+	amount = 2
+	},
+/obj/item/wallframe/camera{
+	pixel_x = -8;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"nI" = (
+/obj/effect/decal/cleanable/food/plant_smudge,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"nL" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/wrench{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/screwdriver{
+	pixel_x = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"nP" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"nS" = (
+/obj/structure/closet/secure_closet/hydroponics,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"oo" = (
+/obj/item/ammo_casing/caseless{
+	pixel_x = -5;
+	pixel_y = 9;
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"oT" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table,
+/obj/item/clothing/suit/hooded/wintercoat{
+	pixel_x = 3;
+	pixel_y = 8
+	},
+/obj/item/clothing/suit/hooded/wintercoat{
+	pixel_x = -1;
+	pixel_y = 5
+	},
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"pj" = (
+/obj/structure/table,
+/obj/item/seeds/apple{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"pn" = (
+/obj/structure/table,
+/obj/item/seeds/glowshroom{
+	pixel_y = -1;
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"pE" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/diethylamine{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/glass/bottle{
+	pixel_x = -6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"pG" = (
+/mob/living/simple_animal/hostile/killertomato,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"pL" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/powered/walker_village)
+"pR" = (
+/obj/structure/table,
+/obj/item/multitool{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"qh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil/yellow{
+	pixel_x = 2;
+	pixel_y = -4;
+	amount = 2
+	},
+/obj/item/wallframe/camera{
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"qt" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/tomato{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"qB" = (
+/mob/living/simple_animal/hostile/killertomato,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ruin/powered/walker_village)
+"qN" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ruin/powered/walker_village)
+"ri" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/sign/warning/biohazard{
+	pixel_x = 32
+	},
+/obj/structure/closet/emcloset,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"si" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"ss" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"tk" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/item/hatchet{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"to" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/caseless{
+	pixel_x = 6;
+	pixel_y = 6;
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"tE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/l3closet/scientist,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"tP" = (
+/obj/structure/table,
+/obj/structure/sign/warning/radiation{
+	pixel_x = -32
+	},
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"tQ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"tS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/junglebush,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"uo" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"up" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/warning/securearea{
+	pixel_x = -32
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"uX" = (
+/obj/structure/table,
+/obj/item/seeds/plump/walkingmushroom,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"uZ" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"vc" = (
+/obj/structure/table,
+/obj/structure/sign/poster/contraband/kudzu{
+	pixel_x = -32
+	},
+/obj/item/seeds/kudzu{
+	pixel_y = 2;
+	pixel_x = -3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"vg" = (
+/obj/machinery/door/window/brigdoor{
+	dir = 1
+	},
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"vm" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"vH" = (
+/obj/structure/table/wood,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"xb" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/ammonia{
+	pixel_x = 7;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/diethylamine{
+	pixel_x = -6;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/glass/bottle/ethanol{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/turf/open/floor/plating/rust,
+/area/ruin/powered/walker_village)
+"xx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"xE" = (
+/obj/machinery/door/airlock,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"xJ" = (
+/obj/effect/decal/cleanable/blood/gibs/torso,
+/obj/item/ammo_casing/caseless{
+	pixel_y = 12;
+	pixel_x = -7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ruin/powered/walker_village)
+"yi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"ys" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"yV" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"zw" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_y = 5;
+	pixel_x = -1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"zH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/can{
+	pixel_x = 5;
+	pixel_y = -6
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"zN" = (
+/obj/item/pen/blue{
+	pixel_y = -2;
+	pixel_x = -6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"zO" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"zT" = (
+/obj/machinery/door/airlock/grunge,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Ac" = (
+/obj/effect/decal/cleanable/blood/footprints{
+	dir = 4;
+	pixel_x = 15
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ruin/powered/walker_village)
+"AL" = (
+/obj/effect/turf_decal/siding/wood/end{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"AT" = (
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"Bc" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/machinery/light/small/broken{
+	dir = 1
+	},
+/obj/item/ammo_casing/caseless{
+	pixel_y = -1;
+	dir = 5;
+	pixel_x = 3
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Bx" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"Cg" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/sign/warning/fire{
+	pixel_y = 32
+	},
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"Cr" = (
+/obj/machinery/biogenerator,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"CG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"Dj" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"DA" = (
+/obj/machinery/door/window/brigdoor/eastright,
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"DH" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"DV" = (
+/turf/closed/mineral/random/snow/icyrock,
+/area/icemoon/underground/explored)
+"Eo" = (
+/obj/item/trash/sosjerky{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"Ey" = (
+/turf/template_noop,
+/area/template_noop)
+"EV" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/nutrient/l4z{
+	pixel_x = -7;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/glass/bottle/nutrient/ez{
+	pixel_x = 4;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"FO" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/shreds,
+/obj/effect/mob_spawn/human/corpse/felinid{
+	brute_damage = 300;
+	outfit = /datum/outfit/securitycorpse/jackbootless
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Gr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/hydroponics/constructable,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"Gy" = (
+/mob/living/simple_animal/hostile/killertomato,
+/obj/effect/decal/cleanable/food/tomato_smudge,
+/obj/effect/decal/cleanable/blood/footprints{
+	dir = 4;
+	pixel_x = 15
+	},
+/obj/effect/decal/cleanable/blood/footprints{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"GK" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/caseless{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"GN" = (
+/obj/machinery/door/airlock/engineering,
+/turf/open/floor/plasteel/stairs,
+/area/ruin/powered/walker_village)
+"GP" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/ruin/powered/walker_village)
+"He" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/sodium{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Hg" = (
+/obj/machinery/hydroponics/constructable,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"HK" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"Ik" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/security,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"IQ" = (
+/obj/structure/table,
+/obj/item/storage/bag/plants/portaseeder{
+	pixel_x = 3;
+	pixel_y = 0
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"IR" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"Je" = (
+/obj/effect/decal/cleanable/glass,
+/obj/item/stack/rods{
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/obj/item/shard{
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/obj/item/shard{
+	pixel_x = 4
+	},
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"Jn" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/tomato{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"JZ" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Kr" = (
+/obj/structure/chair/office,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Ks" = (
+/obj/structure/table,
+/obj/item/flamethrower/full/tank{
+	pixel_x = 11;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"KD" = (
+/obj/structure/table,
+/obj/item/seeds/cherry{
+	pixel_x = 9;
+	pixel_y = 6
+	},
+/obj/item/seeds/carrot{
+	pixel_y = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Mz" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/gun/ballistic/automatic/pistol/m1911/no_mag,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"MN" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = 11
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/powered/walker_village)
+"MV" = (
+/mob/living/simple_animal/hostile/killertomato,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"MZ" = (
+/obj/effect/decal/cleanable/food/tomato_smudge,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Nd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced,
+/turf/open/floor/plasteel/rockvault,
+/area/ruin/powered/walker_village)
+"Nf" = (
+/obj/structure/table,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Nl" = (
+/obj/machinery/seed_extractor,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"NA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/glass/bottle/nutrient/rh{
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Pa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Ph" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle{
+	pixel_x = -6;
+	pixel_y = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Pj" = (
+/obj/item/stack/cable_coil/yellow{
+	pixel_x = 1;
+	pixel_y = 4;
+	amount = 2
+	},
+/obj/item/wallframe/camera{
+	pixel_x = -11;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Pz" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/vault,
+/area/ruin/powered/walker_village)
+"PQ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"PR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/ausbushes/stalkybush,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"PY" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"Qm" = (
+/obj/structure/showcase/machinery/tv,
+/obj/structure/table,
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"Qt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/chips{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/structure/table,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Qu" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"QA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"QT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"RV" = (
+/mob/living/simple_animal/hostile/killertomato,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"RX" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/nutrient/rh{
+	pixel_x = -3;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/glass/bottle/mutagen{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"So" = (
+/obj/effect/decal/cleanable/greenglow,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Sq" = (
+/obj/effect/decal/cleanable/food/tomato_smudge,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"SW" = (
+/obj/item/clothing/shoes/jackboots{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Ti" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
+	},
+/turf/open/floor/carpet,
+/area/ruin/powered/walker_village)
+"UF" = (
+/obj/structure/table,
+/obj/item/pen{
+	pixel_x = -6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"UK" = (
+/obj/structure/toilet{
+	pixel_y = 10
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/powered/walker_village)
+"Va" = (
+/obj/item/trash/cheesie{
+	pixel_x = 3;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Vd" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/diethylamine{
+	pixel_x = -4;
+	pixel_y = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Vo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/ausbushes/ywflowers,
+/obj/machinery/door/window/brigdoor{
+	dir = 1
+	},
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"Vy" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bottle/mutagen{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/glass/bottle/nutrient/ez{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"VH" = (
+/obj/structure/table,
+/obj/item/seeds/cannabis{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_x = -9
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"VN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/machinery/light,
+/turf/open/floor/grass,
+/area/ruin/powered/walker_village)
+"We" = (
+/turf/closed/wall/r_wall/rust,
+/area/ruin/powered/walker_village)
+"Wi" = (
+/obj/structure/marker_beacon,
+/turf/open/floor/plating/snowed/temperatre{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/underground/explored)
+"WK" = (
+/obj/item/stack/cable_coil/yellow{
+	pixel_x = 4;
+	pixel_y = -2;
+	amount = 2
+	},
+/obj/item/wallframe/camera{
+	pixel_x = -7;
+	pixel_y = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Xt" = (
+/obj/structure/table/wood,
+/obj/item/folder{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/pen/fountain{
+	pixel_x = -6;
+	pixel_y = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"YO" = (
+/obj/machinery/computer/security{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+"Zd" = (
+/turf/closed/mineral/random/snow/icyrock,
+/area/icemoon/surface/outdoors)
+"ZN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/grown/mushroom/amanita{
+	pixel_y = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/powered/walker_village)
+
+(1,1,1) = {"
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+"}
+(2,1,1) = {"
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+"}
+(3,1,1) = {"
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+"}
+(4,1,1) = {"
+Ey
+Ey
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+Ey
+Ey
+"}
+(5,1,1) = {"
+Ey
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+hJ
+We
+hJ
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+Ey
+"}
+(6,1,1) = {"
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+hJ
+UK
+gU
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+"}
+(7,1,1) = {"
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+hJ
+We
+We
+hJ
+hJ
+pL
+MN
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+"}
+(8,1,1) = {"
+Ey
+DV
+DV
+DV
+We
+hJ
+We
+hJ
+We
+hJ
+DV
+DV
+DV
+hJ
+am
+Qt
+DH
+We
+xE
+hJ
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+"}
+(9,1,1) = {"
+DV
+DV
+DV
+DV
+We
+VH
+WK
+jl
+ni
+hJ
+DV
+DV
+DV
+We
+bD
+CG
+me
+Va
+ni
+fd
+We
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+"}
+(10,1,1) = {"
+DV
+DV
+DV
+DV
+hJ
+Cr
+qN
+GP
+fd
+We
+hJ
+We
+hJ
+hJ
+pR
+IR
+lj
+zH
+kw
+Eo
+We
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+"}
+(11,1,1) = {"
+DV
+DV
+DV
+DV
+hJ
+Nl
+gz
+He
+So
+hJ
+gf
+SW
+mQ
+hJ
+Pj
+iJ
+Qm
+PQ
+yi
+HK
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+"}
+(12,1,1) = {"
+DV
+DV
+DV
+DV
+We
+Vd
+nI
+xb
+ni
+hJ
+Bc
+pG
+YO
+We
+ni
+gz
+hJ
+We
+hJ
+hJ
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(13,1,1) = {"
+DV
+DV
+DV
+DV
+hJ
+nS
+ni
+Vy
+mW
+Ik
+FO
+xJ
+UF
+hJ
+si
+hJ
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(14,1,1) = {"
+Ey
+DV
+DV
+DV
+hJ
+hJ
+fd
+ni
+fd
+We
+bv
+Mz
+iH
+hJ
+ni
+fd
+We
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(15,1,1) = {"
+Ey
+DV
+DV
+DV
+Zd
+We
+hJ
+dD
+hJ
+We
+We
+Ik
+We
+hJ
+QT
+me
+fd
+hJ
+hJ
+We
+hJ
+hJ
+DV
+DV
+DV
+Wi
+gA
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(16,1,1) = {"
+Ey
+DV
+DV
+DV
+hJ
+hJ
+ni
+gM
+GK
+nD
+hJ
+ni
+ni
+zw
+IR
+xx
+ni
+hJ
+mU
+ag
+oT
+hJ
+DV
+Wi
+gA
+gA
+gA
+gA
+gA
+DV
+DV
+DV
+DV
+"}
+(17,1,1) = {"
+Ey
+DV
+DV
+DV
+hJ
+ZN
+nI
+gC
+KD
+ni
+hJ
+Pa
+Kr
+Xt
+aJ
+xx
+ni
+ed
+AT
+AT
+bd
+ed
+gA
+gA
+gA
+gA
+gA
+Wi
+DV
+DV
+DV
+DV
+DV
+"}
+(18,1,1) = {"
+Ey
+DV
+DV
+DV
+hJ
+IQ
+gV
+pn
+Nf
+to
+hJ
+ni
+fd
+JZ
+IR
+PY
+fd
+We
+AT
+Pz
+ab
+hJ
+DV
+gA
+Wi
+gA
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(19,1,1) = {"
+Ey
+DV
+DV
+DV
+We
+uX
+ni
+pj
+da
+MZ
+We
+vH
+vH
+vH
+aJ
+xx
+jY
+We
+hJ
+hJ
+We
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(20,1,1) = {"
+Ey
+DV
+DV
+DV
+hJ
+iz
+fd
+nI
+hw
+fd
+GN
+AL
+hd
+kw
+Ti
+QA
+hZ
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(21,1,1) = {"
+DV
+DV
+DV
+DV
+hJ
+nn
+ni
+MZ
+fd
+hJ
+hJ
+hJ
+tQ
+Qu
+QA
+ni
+hJ
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(22,1,1) = {"
+DV
+DV
+DV
+DV
+hJ
+We
+hJ
+uZ
+We
+hJ
+dw
+We
+hJ
+hJ
+We
+hJ
+We
+DV
+DV
+DV
+DV
+DV
+hJ
+hJ
+We
+hJ
+We
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(23,1,1) = {"
+DV
+DV
+DV
+DV
+hJ
+lw
+EV
+MZ
+RV
+hJ
+hJ
+hJ
+fd
+kr
+fd
+hJ
+DV
+DV
+DV
+DV
+hJ
+hJ
+We
+up
+vc
+tP
+hJ
+DV
+DV
+DV
+DV
+DV
+DV
+"}
+(24,1,1) = {"
+Ey
+DV
+DV
+DV
+hJ
+pE
+Ac
+ni
+Sq
+Ph
+hJ
+fN
+gz
+cu
+gz
+We
+hJ
+hJ
+We
+We
+hJ
+iw
+Nd
+gl
+DA
+eD
+hJ
+We
+We
+DV
+DV
+DV
+Ey
+"}
+(25,1,1) = {"
+Ey
+DV
+DV
+DV
+We
+Dj
+Gy
+vm
+MV
+cu
+hJ
+jr
+oo
+qN
+ni
+nL
+nj
+We
+bd
+nP
+We
+lF
+iw
+iw
+mu
+jh
+uo
+tS
+hJ
+DV
+DV
+DV
+Ey
+"}
+(26,1,1) = {"
+Ey
+DV
+DV
+DV
+We
+gO
+tk
+NA
+gV
+bg
+We
+kS
+iB
+zN
+ni
+fO
+ni
+ss
+AT
+eh
+ss
+iw
+iw
+Bx
+iw
+Vo
+nt
+Hg
+hJ
+DV
+DV
+DV
+Ey
+"}
+(27,1,1) = {"
+Ey
+DV
+DV
+DV
+hJ
+RX
+MV
+cu
+qB
+ni
+zT
+ni
+bP
+qN
+ni
+gz
+kS
+hJ
+tE
+ri
+hJ
+Ks
+vg
+hF
+Je
+nt
+gP
+VN
+hJ
+DV
+DV
+DV
+Ey
+"}
+(28,1,1) = {"
+Ey
+DV
+DV
+DV
+hJ
+hJ
+qh
+ni
+nI
+RV
+hJ
+ni
+eX
+fd
+ni
+hJ
+We
+hJ
+hJ
+hJ
+hJ
+Cg
+nh
+ys
+yV
+zO
+PR
+ac
+We
+DV
+DV
+DV
+Ey
+"}
+(29,1,1) = {"
+Ey
+DV
+DV
+DV
+DV
+hJ
+We
+Jn
+iQ
+qt
+We
+ct
+aC
+bq
+We
+hJ
+DV
+DV
+DV
+DV
+hJ
+We
+We
+hJ
+We
+Gr
+md
+hJ
+hJ
+DV
+DV
+DV
+Ey
+"}
+(30,1,1) = {"
+Ey
+Ey
+DV
+DV
+DV
+DV
+hJ
+hJ
+We
+hJ
+hJ
+hJ
+hJ
+We
+We
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+We
+hJ
+hJ
+hJ
+DV
+DV
+DV
+Ey
+Ey
+"}
+(31,1,1) = {"
+Ey
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+"}
+(32,1,1) = {"
+Ey
+Ey
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+"}
+(33,1,1) = {"
+Ey
+Ey
+Ey
+Ey
+Ey
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+Ey
+DV
+DV
+DV
+DV
+DV
+Ey
+Ey
+Ey
+Ey
+"}
