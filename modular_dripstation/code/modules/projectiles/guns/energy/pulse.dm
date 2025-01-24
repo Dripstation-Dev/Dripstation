@@ -13,6 +13,8 @@
 /obj/item/gun/energy/pulse/pistol/m1911
 	icon = 'icons/obj/guns/energy.dmi'
 
+/obj/item/gun/energy/pulse/carbine
+
 /obj/item/gun/energy/pulse/carbine/tgm
 	name = "\improper TGM 19c4"
 	desc = "Assault pulse carabine, designated 'TGM 19c4'. This pulse rifle is commonly found in the hands of Terra Gov Marines."

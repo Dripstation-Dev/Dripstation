@@ -20,3 +20,24 @@
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/pill/patch/ondansetron(src)
 
+/obj/item/storage/firstaid/tactical
+	item_state = "syndieaid"
+
+/obj/item/storage/firstaid/tactical/alt/PopulateContents()
+	new /obj/item/stack/medical/gauze(src)
+	new /obj/item/hypospray/combat(src)
+	new /obj/item/reagent_containers/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+
+/obj/item/storage/firstaid/tactical/centcom
+	item_state = "bezerk"
+
+/obj/item/storage/firstaid/tactical/ert/PopulateContents()
+	new /obj/item/stack/medical/gauze(src)
+	new /obj/item/hypospray/combat/nt(src)
+	new /obj/item/reagent_containers/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/pill/patch/silver_sulf(src)

@@ -111,12 +111,24 @@
 			if(pushed_mob.buckled)
 				to_chat(user, span_warning("[pushed_mob] is buckled to [pushed_mob.buckled]!"))
 				return
+			/*	dripstation edit start
 			if(user.a_intent == INTENT_GRAB)
 				if(user.grab_state < GRAB_AGGRESSIVE)
+			*/
+			if(user.a_intent != INTENT_HELP)
+				if(user.grab_state == GRAB_PASSIVE)
 					to_chat(user, span_warning("You need a better grip to do that!"))
 					return
+				/*
 				if(do_after(user, 3.5 SECONDS, pushed_mob))
+				*/
+				if(user.grab_state == GRAB_AGGRESSIVE)
 					tablepush(user, pushed_mob)
+				if(user.grab_state == GRAB_NECK || user.grab_state == GRAB_KILL)
+					if(user.a_intent == INTENT_DISARM)
+						tablelimbsmash(user, pushed_mob, FALSE)
+					else
+						tablelimbsmash(user, pushed_mob, TRUE)			//dripstation edit end
 			if(user.a_intent == INTENT_HELP)
 				pushed_mob.visible_message(span_notice("[user] begins to place [pushed_mob] onto [src]..."), \
 									span_userdanger("[user] begins to place [pushed_mob] onto [src]..."))
@@ -177,7 +189,9 @@
 		pushed_mob.pass_flags &= ~PASSTABLE
 	if(pushed_mob.loc != loc) //Something prevented the tabling
 		return
+	/*
 	pushed_mob.Paralyze(40)
+	*/
 	pushed_mob.visible_message(span_danger("[user] pushes [pushed_mob] onto [src]."), \
 								span_userdanger("[user] pushes [pushed_mob] onto [src]."))
 	log_combat(user, pushed_mob, "tabled", null, "onto [src]")
@@ -185,6 +199,7 @@
 		return
 	var/mob/living/carbon/human/H = pushed_mob
 	SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
+	H.Knockdown(SHOVE_KNOCKDOWN_HUMAN*2)
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rsf)) // Stops RSF from placing itself instead of glasses
@@ -213,13 +228,22 @@
 
 	if((user.a_intent != INTENT_HARM && !HAS_TRAIT(I, TRAIT_NODROP)) && !(I.item_flags & ABSTRACT)) // if you can't drop it, you can't place it on the table
 		if(user.transferItemToLoc(I, drop_location()))
+			/*	Dripstation edit
 			var/list/click_params = params2list(params)
+			*/
+			var/list/modifiers = params2list(params)	//Dripstation edit
 			//Center the icon where the user clicked.
+			/*	Dripstation edit	
 			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			*/
+			if(!(LAZYACCESS(modifiers, ICON_X)) || !(LAZYACCESS(modifiers, ICON_Y)))//Dripstation edit	
+				return																//Dripstation edit
+			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
+			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
 			return 1
 	else
 		return ..()

@@ -364,7 +364,10 @@
 	if(!bpc)
 		return 0
 
+/*Dripstation edit
 	if(bpc & FULL_BODY)
+*/
+	if(bpc == FULL_BODY)	//Dripstation edit
 		covered_parts |= list(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_HEAD,BODY_ZONE_CHEST,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG)
 
 	else

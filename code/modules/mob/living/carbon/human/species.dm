@@ -1742,8 +1742,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	if(user.pulledby && user.pulledby.grab_state >= GRAB_AGGRESSIVE)
 		return FALSE
 	else
+		/* //Dripstation edit
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		*/
 
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
@@ -1755,6 +1757,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		var/turf/target_shove_turf = get_step(target.loc, shove_dir)
 		var/mob/living/carbon/human/target_collateral_human
 		var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
+		var/shove_on_table = FALSE //Used for table check, dripstation edit
 
 		//Thank you based whoneedsspace
 		target_collateral_human = locate(/mob/living/carbon/human) in target_shove_turf.contents
@@ -1764,18 +1767,41 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		else
 			target.Move(target_shove_turf, shove_dir)
 			if(get_turf(target) != target_shove_turf)
+				/*	dripstation edit start
 				shove_blocked = TRUE
 
+				*/
+				for(var/obj/O in target_shove_turf)
+					if(istype(O, /obj/structure/table))
+						shove_on_table = TRUE
+				if(shove_on_table)
+					target.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
+					user.visible_message(span_danger("[user.name] shoves [target.name] onto \the table!"),
+				span_danger("You shove [target.name] onto \the table!"), null, COMBAT_MESSAGE_RANGE)
+					target.throw_at(target_shove_turf, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
+					user.do_attack_animation(target, ATTACK_EFFECT_DISARM2) //dripstation edit
+					playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1) //dripstation edit
+					log_combat(user, target, "shoved", "onto (table)")
+				else
+					shove_blocked = TRUE
+		/*
 		if(target.IsKnockdown() && !target.IsParalyzed())
+		*/
+		if(target.IsKnockdown() && !target.IsParalyzed() && !shove_on_table)	//dripstation edit end
 			var/armor_block = target.run_armor_check(affecting, MELEE, "Your armor prevents your fall!", "Your armor softens your fall!")
 			target.apply_effect(SHOVE_CHAIN_PARALYZE, EFFECT_PARALYZE, armor_block)
 			target.visible_message(span_danger("[user.name] kicks [target.name] onto their side!"),
 				span_danger("[user.name] kicks you onto your side!"), null, COMBAT_MESSAGE_RANGE)
+			user.do_attack_animation(target, ATTACK_EFFECT_KICK) //dripstation edit
+			playsound(target, 'modular_dripstation/sound/weapons/knockdown.ogg', 25, TRUE, -1) //dripstation edit	
 			var/reset_timer = SHOVE_CHAIN_PARALYZE * (100-armor_block)/100
 			addtimer(CALLBACK(target, /mob/living/proc/SetKnockdown, 0), reset_timer)
 			log_combat(user, target, "kicks", "onto their side (paralyzing)")
 
+		/*	dripstation edit
 		if(shove_blocked && !target.is_shove_knockdown_blocked() && !target.buckled)
+		*/
+		else if(shove_blocked && !target.is_shove_knockdown_blocked() && !target.buckled)	//dripstation edit
 			var/directional_blocked = FALSE
 			if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
 				var/target_turf = get_turf(target)
@@ -1788,22 +1814,42 @@ GLOBAL_LIST_EMPTY(features_by_species)
 						if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
 							directional_blocked = TRUE
 							break
+			if((!bothstanding || directional_blocked) && (target.mobility_flags & MOBILITY_STAND))	//dripstation edit
+/*				//dripstation edit start
 			if(!bothstanding || directional_blocked)
 				var/obj/item/I = target.get_active_held_item()
 				if(target.dropItemToGround(I))
 					user.visible_message(span_danger("[user.name] shoves [target.name], disarming them!"),
 						span_danger("You shove [target.name], disarming them!"), null, COMBAT_MESSAGE_RANGE)
 					log_combat(user, target, "shoved", "disarming them")
+*/
+				target.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
+				target.visible_message(span_danger("[user.name] shoves [target.name], knocking [target.p_them()] down!"),
+					span_danger("You're knocked down from a shove by [name]!"), null, COMBAT_MESSAGE_RANGE)
+				user.do_attack_animation(target, ATTACK_EFFECT_DISARM2) //dripstation edit
+				playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1) //dripstation edit
+				log_combat(user, target, "shoved", "knocking them down")						//dripstation edit end
 			else if(bothstanding)
 				target.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 				if(!target_collateral_human.is_shove_knockdown_blocked())
 					target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 				user.visible_message(span_danger("[user.name] shoves [target.name] into [target_collateral_human.name]!"),
 					span_danger("You shove [target.name] into [target_collateral_human.name]!"), null, COMBAT_MESSAGE_RANGE)
+				user.do_attack_animation(target, ATTACK_EFFECT_DISARM2) //dripstation edit
+				playsound(target, 'modular_dripstation/sound/weapons/knockdown.ogg', 25, TRUE, -1) //dripstation edit
 				log_combat(user, target, "shoved", "into [target_collateral_human.name]")
+		/*	dripstation edit start
 		else
+		*/
+			else
+				to_chat(user, span_danger("You try to shove [target.name], but you can`t do anything to [target.p_them()]!"))
+				user.do_attack_animation(target, ATTACK_EFFECT_DISARM) //dripstation edit
+				playsound(target, 'sound/weapons/punchmiss.ogg', 50, TRUE, -1) //dripstation edit
+		else if(!shove_on_table)	//dripstation edit end
 			user.visible_message(span_danger("[user.name] shoves [target.name]!"),
 				span_danger("You shove [target.name]!"), null, COMBAT_MESSAGE_RANGE)
+			user.do_attack_animation(target, ATTACK_EFFECT_DISARM) //dripstation edit
+			playsound(target, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1) //dripstation edit
 			var/target_held_item = target.get_active_held_item()
 			var/knocked_item = FALSE
 			if(!is_type_in_typecache(target_held_item, GLOB.shove_disarming_types))

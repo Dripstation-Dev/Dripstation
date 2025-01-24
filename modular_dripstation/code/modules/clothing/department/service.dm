@@ -70,6 +70,12 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/mime.dmi'
 	can_adjust = TRUE
 
+/obj/item/clothing/under/rank/civilian/mime/twosexytwomime
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/mime.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/mime.dmi'
+	icon_state = "mime_skirt"
+	can_adjust = TRUE
+
 /obj/item/clothing/under/sexymime
 	can_adjust = FALSE
 	icon_state = "sexymime"

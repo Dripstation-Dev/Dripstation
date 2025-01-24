@@ -13,3 +13,9 @@
 	description = "<span class='warning'>I really don't like when people touch me.</span>\n"
 	mood_change = -5
 	timeout = 4 MINUTES
+
+//Used by the Veteran Advisor trait job
+/datum/mood_event/desentized
+	description = "Nothing will ever rival with what I seen in the past..."
+	mood_change = -3
+	//special_screen_obj = "mood_desentized"	//fix screen

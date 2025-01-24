@@ -462,9 +462,14 @@
 	if(isobserver(usr))
 		return
 
+	/*	Dripstation edit
 	var/list/PL = params2list(params)
 	var/icon_x = text2num(PL["icon-x"])
 	var/icon_y = text2num(PL["icon-y"])
+	*/
+	var/list/modifiers = params2list(params)				//Dripstation edit
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))	//Dripstation edit
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))	//Dripstation edit
 	var/choice = get_zone_at(icon_x, icon_y)
 	if (!choice)
 		return 1
@@ -479,9 +484,14 @@
 	if(isobserver(usr))
 		return
 
+	/*	Dripstation edit
 	var/list/PL = params2list(params)
 	var/icon_x = text2num(PL["icon-x"])
 	var/icon_y = text2num(PL["icon-y"])
+	*/
+	var/list/modifiers = params2list(params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
 	var/choice = get_zone_at(icon_x, icon_y)
 
 	if(hovering == choice)

@@ -1,7 +1,41 @@
 /obj/item/storage/backpack
 	worn_icon = 'modular_dripstation/icons/mob/clothing/backpacks.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
-	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'	
+	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
+	var/list/species_restricted = list("exclude", "replica")
+
+/obj/item/storage/backpack/mob_can_equip(M as mob, slot)
+
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
+	if(!..())
+		return FALSE
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK, ITEM_SLOT_SUITSTORE))
+		return TRUE
+
+	if(species_restricted && istype(M,/mob/living/carbon/human))
+
+		var/wearable = FALSE
+		var/exclusive = FALSE
+		var/mob/living/carbon/human/H = M
+
+		if("exclude" in species_restricted)
+			exclusive = TRUE
+
+		if(H.dna.species)
+			if(exclusive)
+				if(!(H.dna.species.id in species_restricted))
+					wearable = TRUE
+			else
+				if(H.dna.species.id in species_restricted)
+					wearable = TRUE
+
+			if(!wearable)
+				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
+				return FALSE
+
+	return TRUE
 
 /obj/item/storage/backpack/head_of_personnel
 	name = "head of personnel backpack"
@@ -178,6 +212,25 @@
 /obj/item/storage/backpack/duffelbag/syndie/ammo
 	item_state = "duffel-syndiammo"
 
+/obj/item/storage/backpack/duffelbag/syndie/ammo/dark_gygax/PopulateContents()
+	new /obj/item/mecha_ammo/incendiarylmg(src)
+	new /obj/item/mecha_ammo/incendiarylmg(src)
+	new /obj/item/mecha_ammo/incendiarylmg(src)
+	new /obj/item/mecha_ammo/flashbang(src)
+	new /obj/item/mecha_ammo/flashbang(src)
+	new /obj/item/mecha_ammo/flashbang(src)
+
+/obj/item/storage/backpack/duffelbag/syndie/ammo/mauler/PopulateContents()
+	new /obj/item/mecha_ammo/hmg(src)
+	new /obj/item/mecha_ammo/hmg(src)
+	new /obj/item/mecha_ammo/hmg(src)
+	new /obj/item/mecha_ammo/syndieshot(src)
+	new /obj/item/mecha_ammo/syndieshot(src)
+	new /obj/item/mecha_ammo/syndieshot(src)
+	new /obj/item/mecha_ammo/missiles_he(src)
+	new /obj/item/mecha_ammo/missiles_he(src)
+	new /obj/item/mecha_ammo/missiles_he(src)
+
 /obj/item/storage/backpack/duffelbag/syndie/hitman
 	item_state = "duffel-syndiammo"
 
@@ -316,7 +369,53 @@
 	desc = "For every man, who at the bottom of his heart believes that he is a born detective."
 	icon_state = "satchel-detective"
 	item_state = "satchel-detective"	
-	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'	
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi' 
+
+/obj/item/storage/backpack/duffelbag/sec/surgery
+	icon_state = "duffel-bm"
+	item_state = "duffel-med"
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
+
+/obj/item/storage/box/barrier_grenades
+	name = "box of barrier grenades"
+	desc = "<B>WARNING: These devices deploy barriers.</B>"
+	icon_state = "secbox"
+	item_state = "secbox"	
+	illustration = "grenade"
+
+/obj/item/storage/box/barrier_grenades/PopulateContents()
+	for(var/i in 1 to 6)
+		new /obj/item/grenade/barrier(src)
+
+/obj/item/storage/backpack/duffelbag/sec/armorygrenades
+	name = "grenade duffel bag"
+	desc = "A large duffel bag for holding extra armory supplies - this one has a material inlay with space for boxes with police grade grenades."
+
+/obj/item/storage/backpack/duffelbag/sec/armorygrenades/PopulateContents()
+	new /obj/item/storage/box/flashes(src)
+	new /obj/item/storage/box/barrier_grenades(src)
+	new /obj/item/storage/box/teargas(src)
+	new /obj/item/storage/box/handcuffs(src)
+
+/obj/item/storage/backpack/duffelbag/sec/nonlethalshots
+	name = "rubber 12 gauge duffel bag"
+	desc = "A large duffel bag for holding extra armory supplies - this one has a material inlay with space for boxes with rubber shots."
+
+/obj/item/storage/backpack/duffelbag/sec/nonlethalshots/PopulateContents()
+	new /obj/item/storage/box/rubbershot(src)
+	new /obj/item/storage/box/rubbershot(src)
+	new /obj/item/storage/box/rubbershot(src)
+	new /obj/item/storage/box/rubbershot(src)
+
+/obj/item/storage/backpack/duffelbag/sec/nonlethalwt
+	name = "spare rubber WT magazines duffel bag"
+	desc = "A large duffel bag for holding extra armory supplies - this one has a material inlay with space for spare magazines with rubber WT ammo."
+
+/obj/item/storage/backpack/duffelbag/sec/nonlethalwt/PopulateContents()
+	new /obj/item/ammo_box/magazine/wt550m9/wtr(src)
+	new /obj/item/ammo_box/magazine/wt550m9/wtr(src)
+	new /obj/item/ammo_box/magazine/wt550m9/wtr(src)
+	new /obj/item/ammo_box/magazine/wt550m9/wtr(src)
 
 /obj/item/storage/backpack/duffelbag/genetics
 	name = "geneticist duffelbag"
@@ -369,8 +468,8 @@
 /obj/item/storage/backpack/duffelbag/cargo
 	name = "cargo duffelbag"
 	desc = "A duffelbag designed to hold cargo. Heavy cargo."
-	icon_state = "duffelbag-cargo"
-	item_state = "duffelbag-cargo"
+	icon_state = "duffel-cargo"
+	item_state = "duffel-cargo"
 	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
@@ -389,3 +488,56 @@
 	item_state = "satchel_syndie"
 	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
 
+/obj/item/storage/backpack/blueshield
+	name = "blueshield`s backpack"
+	desc = "A robust backpack issued to Nanotrasen Protector`s finest."
+	icon_state = "blueshieldpack"
+	item_state = "blueshieldpack"
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
+
+/obj/item/storage/backpack/satchel/blueshield
+	name = "blueshield`s satchel"
+	desc = "Your objective is simple, agent: Defend local executives at any cost."
+	icon_state = "satchel-blueshield"
+	item_state = "satchel-blueshield"
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
+
+/obj/item/storage/backpack/duffelbag/blueshield
+	name = "blueshield`s duffelbag"
+	desc = "A robust backpack issued to Nanotrasen Protector`s finest. Now with extra space!"
+	icon_state = "duffel-blueshield"
+	item_state = "duffel-blueshield"
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
+
+/obj/item/storage/backpack/unknown
+	name = "unknown backpack"
+	desc = "Unknown backpack."
+	icon_state = "unknownpack"
+	item_state = "unknownpack"
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
+
+/obj/item/storage/backpack/satchel/unknown
+	name = "unknown satchel"
+	desc = "Unknown satchel."
+	icon_state = "unknownpack"
+	item_state = "unknownpack"
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'
+
+/obj/item/storage/backpack/duffelbag/unknown
+	name = "unknown duffelbag"
+	desc = "Unknown duffelbag."
+	icon_state = "unknownpack"
+	item_state = "unknownpack"
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/backpack_righthand.dmi'

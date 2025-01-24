@@ -730,8 +730,12 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
 		return
+	/* Dripstation edit
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+	*/
+	var/list/modifiers = params2list(params)	//Dripstation edit
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat, Dripstation edit
 		to_chat(usr, "[span_boldnotice("[name]")] - [span_info("[desc]")]")
 		return
 	var/datum/our_master = master_ref?.resolve()

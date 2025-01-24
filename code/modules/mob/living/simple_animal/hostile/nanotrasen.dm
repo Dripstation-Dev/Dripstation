@@ -33,10 +33,12 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 
+/*Dripstation edit
 /mob/living/simple_animal/hostile/nanotrasen/Aggro()
 	..()
 	summon_backup(15)
 	say("411 in progress, requesting backup!")
+*/
 
 
 /mob/living/simple_animal/hostile/nanotrasen/ranged

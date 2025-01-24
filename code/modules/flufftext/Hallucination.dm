@@ -776,11 +776,14 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /datum/hallucination/sounds
 	random_hallucination_weight = 5
+	var/sound_name	//dripstation edit
 
 /datum/hallucination/sounds/New(mob/living/carbon/C, forced = TRUE, sound_type)
 	set waitfor = FALSE
 	..()
 	var/turf/source = random_far_turf()
+	if(sound_name)	//dripstation edit
+		sound_type = sound_name	//dripstation edit
 	if(!sound_type)
 		sound_type = pick("airlock","airlock pry","console","explosion","far explosion","mech","glass","alarm","beepsky","mech","wall decon","door hack")
 	feedback_details += "Type: [sound_type]"

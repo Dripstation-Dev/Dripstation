@@ -83,11 +83,18 @@
 	icon = 'icons/obj/clothing/hats/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
+/obj/item/clothing/head/bomb_hood/security
+	icon_state = "blasthelmet_sec"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
 obj/item/clothing/head/bio_hood
+	desc = "A hood that protects the head from biological contaminants."
 	icon_state = "hazmat"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	dynamic_hair_suffix = ""
+	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT
 
 obj/item/clothing/head/bio_hood/general
 	icon_state = "hazmat_general"

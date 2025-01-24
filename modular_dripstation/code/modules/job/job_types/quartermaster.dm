@@ -16,12 +16,14 @@
 		/obj/item/construction/rcd = 3,
 		/obj/item/circuitboard/machine/vending/donksofttoyvendor = 2
 	)
+	alt_titles = list("Stock Controller", "Cargo Coordinator", "Shipping Overseer")
 	paycheck = PAYCHECK_COMMAND
 	departments_list = list(
 		/datum/job_department/cargo,
 		/datum/job_department/command,
 	)
 	supervisor_corporation = /datum/corporation/nanotrasen/kompac
+	lightup_areas = list(/area/quartermaster/qm)
 
 /datum/outfit/job/quartermaster
 	id_type = /obj/item/card/id/head

@@ -469,6 +469,7 @@ GLOBAL_VAR_INIT(clones, 0)
 				O.organ_flags &= ~ORGAN_FROZEN
 		unattached_flesh.Cut()
 		mess = FALSE
+		not_self = FALSE //Dripstation edit
 		new /obj/effect/gibspawner/generic(get_turf(src), mob_occupant)
 		audible_message(span_italics("You hear a splat."))
 		icon_state = "pod_0"
@@ -487,12 +488,24 @@ GLOBAL_VAR_INIT(clones, 0)
 	if(grab_ghost_when == CLONER_MATURE_CLONE)
 		mob_occupant.grab_ghost()
 		to_chat(occupant, span_notice("<b>There is a bright flash!</b><br><i>You feel like a new being.</i>"))
+		/* Dripstation edit
 		to_chat(occupant, span_userdanger("You do not remember your death, how you died, or who killed you. <a href='https://forums.yogstation.net/help/rules/#rule-1_6'>See rule 1.6</a>.")) //yogs
 		occupant.log_message("was cloned with memory loss", LOG_ATTACK, color="green")
+		*/
 		mob_occupant.flash_act()
+	/* Dripstation edit
 		GLOB.clones++
+	*/
+	if(not_self)			//Dripstation edit
+		not_self = FALSE	//Dripstation edit
+		to_chat(occupant, span_userdanger("You do not remember anything about any death you or that`s body original personality have recived. <a href='https://forums.yogstation.net/help/rules/#rule-1_6'>See rule 1.6</a>. You can barely remember who this person used to be."))	//Dripstation edit 
+		occupant.log_message("was cloned with another soul", LOG_ATTACK, color="yellow")	//Dripstation edit
+	else	//Dripstation edit
+		to_chat(occupant, span_userdanger("You do not remember your death, how you died, or who killed you. <a href='https://forums.yogstation.net/help/rules/#rule-1_6'>See rule 1.6</a>.")) //yogs, drip
+		occupant.log_message("was cloned with memory loss", LOG_ATTACK, color="green")	//Dripstation edit
 
 	occupant.forceMove(T)
+	GLOB.clones++	// Dripstation edit
 	icon_state = "pod_0"
 	mob_occupant.domutcheck(1) //Waiting until they're out before possible monkeyizing. The 1 argument forces powers to manifest.
 	for(var/fl in unattached_flesh)

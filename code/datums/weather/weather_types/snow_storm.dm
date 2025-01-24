@@ -16,6 +16,7 @@
 	end_message = span_boldannounce("The snowfall dies down, it should be safe to go outside again.")
 
 	area_type = /area
+	protected_areas = list(/area/icemoon/underground)
 	protect_indoors = TRUE
 	target_trait = ZTRAIT_SNOWSTORM
 

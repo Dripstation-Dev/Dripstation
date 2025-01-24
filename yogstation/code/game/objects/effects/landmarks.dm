@@ -2,8 +2,10 @@ GLOBAL_LIST_EMPTY(chosen_station_templates)
 
 #define EMPTY_SPAWN "empty_spawn"
 
+/*Dripstation edit
 /obj/effect/landmark/start/yogs
 	icon = 'yogstation/icons/mob/landmarks.dmi'
+*/
 
 /obj/effect/landmark/start/yogs/mining_medic
 	name = "Mining Medic"

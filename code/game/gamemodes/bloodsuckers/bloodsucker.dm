@@ -4,12 +4,14 @@
 	report_type = "Bloodsucker"
 	antag_flag = ROLE_BLOODSUCKER
 	false_report_weight = 10
+	/*Dripastation edit
 	restricted_jobs = list("AI", "Cyborg", "Synthetic")
 	protected_jobs = list(
 		"Captain", "Head of Personnel", "Head of Security",
 		"Research Director", "Chief Engineer", "Chief Medical Officer", "Curator", 
 		"Warden", "Security Officer", "Detective", "Brig Physician",
 	)
+	*/
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 4

@@ -67,6 +67,17 @@
 	stock_max = 5
 	availability_prob = 50
 
+/datum/market_item/misc/receiver
+	name = "Modular Receiver"
+	desc = "A prototype modular receiver and trigger assembly for a firearm."
+	item = /obj/item/weaponcrafting/receiver
+
+	price_min = CARGO_CRATE_VALUE * 0.2
+	price_max = CARGO_CRATE_VALUE * 0.4
+	stock_min = 1
+	stock_max = 3
+	availability_prob = 70
+
 /datum/market_item/misc/smugglers_satchel
 	name = "Smuggler's Satchel"
 	desc = "This easily hidden satchel can become a versatile tool to anybody with the desire to keep certain items out of sight and out of mind."

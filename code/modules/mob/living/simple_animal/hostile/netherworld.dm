@@ -140,6 +140,7 @@
 	.=..()
 	START_PROCESSING(SSprocessing, src)
 
+/*
 /obj/structure/spawner/nether/examine(mob/user)
 	. = ..()
 	if(isskeleton(user) || iszombie(user))
@@ -169,3 +170,4 @@
 				blank.desc = "It's [M], but [M.p_their()] flesh has an ashy texture, and [M.p_their()] face is featureless save an eerie smile."
 				src.visible_message(span_warning("[M] reemerges from the link!"))
 				qdel(M)
+*/

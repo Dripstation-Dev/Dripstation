@@ -1,4 +1,5 @@
 import { useBackend } from '../backend';
+import { Fragment } from 'inferno';
 import { AnimatedNumber, Box, Button, Flex, Modal, Section, Tabs } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
@@ -10,6 +11,8 @@ export const BlackMarketUplink = (props, context) => {
     markets = [],
     items = [],
     money,
+    market_name,
+    theme_type,
     viewing_market,
     viewing_category,
   } = data;
@@ -17,12 +20,12 @@ export const BlackMarketUplink = (props, context) => {
     <Window
       width={600}
       height={480}
-      theme="hackerman"
+      theme={theme_type}
       resizable>
       <ShipmentSelector />
       <Window.Content scrollable>
         <Section
-          title="Black Market Uplink"
+          title={market_name}
           buttons={(
             <Box inline bold>
               <AnimatedNumber
@@ -70,9 +73,11 @@ export const BlackMarketUplink = (props, context) => {
                     {item.name}
                   </Flex.Item>
                   <Flex.Item color="label">
-                    {item.amount
-                      ? item.amount + " in stock"
-                      : "Out of stock"}
+                  {item.limited === 0
+                      ? ""
+                      : item.amount 
+                        ? item.amount + " in stock"
+                        : "Out of stock"}
                   </Flex.Item>
                   <Flex.Item>
                     {formatMoney(item.cost) + ' cr'}
@@ -101,6 +106,7 @@ const ShipmentSelector = (props, context) => {
   const {
     buying,
     ltsrbt_built,
+    redpad_built,
     money,
   } = data;
   if (!buying) {
@@ -117,7 +123,7 @@ const ShipmentSelector = (props, context) => {
     <Modal textAlign="center">
       <Flex mb={1}>
         {deliveryMethods.map(method => {
-          if (method.name === 'LTSRBT' && !ltsrbt_built) {
+          if ((method.name === 'LTSRBT' && !ltsrbt_built) || (method.name === 'RST' && !redpad_built)) {
             return null;
           }
           return (
@@ -131,21 +137,23 @@ const ShipmentSelector = (props, context) => {
               <Box mt={1}>
                 {method.description}
               </Box>
-              <Button
-                mt={2}
-                content={formatMoney(method.price) + ' cr'}
-                disabled={money < method.price}
-                onClick={() => act('buy', {
-                  method: method.name,
-                })} />
+              <Fragment>
+                <Button
+                  mt={2}
+                  content={formatMoney(method.price) + ' cr'}
+                  disabled={money < method.price}
+                  onClick={() => act('buy', {
+                    method: method.name,
+                  })} />
+                <Button
+                  content="Cancel"
+                  color="bad"
+                  onClick={() => act('cancel')} />
+              </Fragment>
             </Flex.Item>
           );
         })}
       </Flex>
-      <Button
-        content="Cancel"
-        color="bad"
-        onClick={() => act('cancel')} />
     </Modal>
   );
 };

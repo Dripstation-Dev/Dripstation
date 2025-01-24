@@ -1,0 +1,2415 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors)
+"ab" = (
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"ac" = (
+/obj/effect/mob_spawn/human/engineer/rig,
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"ad" = (
+/obj/machinery/power/floodlight,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"ae" = (
+/turf/closed/wall/r_wall,
+/area/icemoon/surface/outdoors/explored)
+"af" = (
+/obj/structure/lattice,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"ag" = (
+/obj/structure/cable,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"ah" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"ai" = (
+/obj/item/disk/holodisk/ruin/snowengieruin,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"ak" = (
+/turf/closed/mineral/snowmountain/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"al" = (
+/turf/open/floor/plating/ice/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"am" = (
+/obj/machinery/power/emitter,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"an" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"ao" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"aq" = (
+/obj/machinery/field/generator,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"ar" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"au" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"av" = (
+/turf/template_noop,
+/area/template_noop)
+"aw" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"ax" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber,
+/turf/open/floor/engine/o2,
+/area/icemoon/surface/outdoors/explored)
+"ay" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
+/turf/open/floor/engine/o2,
+/area/icemoon/surface/outdoors/explored)
+"az" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber,
+/turf/open/floor/engine/n2,
+/area/icemoon/surface/outdoors/explored)
+"aA" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume,
+/turf/open/floor/engine/n2,
+/area/icemoon/surface/outdoors/explored)
+"aB" = (
+/turf/closed/wall,
+/area/icemoon/surface/outdoors/explored)
+"aC" = (
+/turf/open/floor/plasteel/white/corner{
+	dir = 8
+	},
+/area/icemoon/surface/outdoors/explored)
+"aD" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/turf/open/floor/engine/o2,
+/area/icemoon/surface/outdoors/explored)
+"aE" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/turf/open/floor/engine/o2,
+/area/icemoon/surface/outdoors/explored)
+"aF" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/turf/open/floor/engine/n2,
+/area/icemoon/surface/outdoors/explored)
+"aG" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/turf/open/floor/engine/n2,
+/area/icemoon/surface/outdoors/explored)
+"aI" = (
+/obj/item/pda/engineering{
+	note = "To-do: Check on singularity status. Get a pint at eat. Nag the research manager for RCDs."
+	},
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"aJ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/ice/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"aK" = (
+/obj/machinery/light/small/broken{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"aL" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"aM" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plating/airless,
+/area/icemoon/surface/outdoors/explored)
+"aN" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plating/airless,
+/area/icemoon/surface/outdoors/explored)
+"aO" = (
+/turf/closed/wall/r_wall/rust,
+/area/icemoon/surface/outdoors/explored)
+"aP" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"aQ" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/space/basic,
+/area/icemoon/surface/outdoors/explored)
+"aR" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"aS" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white/side{
+	dir = 4
+	},
+/area/icemoon/surface/outdoors/explored)
+"aT" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/coffee{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/coffee,
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"aU" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/structure/table/reinforced,
+/obj/item/trash/plate,
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"aV" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"aW" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"aX" = (
+/obj/machinery/atmospherics/pipe/manifold/cyan/visible{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/meter/atmos,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"aY" = (
+/obj/machinery/atmospherics/components/trinary/mixer/flipped{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"aZ" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"ba" = (
+/obj/machinery/atmospherics/pipe/manifold/green/visible{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bb" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 10
+	},
+/obj/machinery/meter/atmos,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bc" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"bd" = (
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"be" = (
+/obj/item/card/id{
+	access = list(200,204,11,12,10);
+	assignment = "Senior Station Engineer";
+	desc = "A card used to provide ID and determine access across the station. There's blood dripping from the corner. Ew.";
+	name = "George 'Plastic' Miller's ID Card (Senior Station Engineer)";
+	registered_age = 47;
+	registered_name = "George 'Plastic' Miller"
+	},
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bf" = (
+/obj/effect/gibspawner/generic,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/gibs/core,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bh" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bi" = (
+/obj/machinery/door/airlock/engineering{
+	name = "The Singularity Engine"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"bj" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bk" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bl" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Engine Entry";
+	req_access_txt = "204"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"bm" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bn" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"bo" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"bp" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"bq" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white/side{
+	dir = 8
+	},
+/area/icemoon/surface/outdoors/explored)
+"br" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bs" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"bt" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/meter/atmos/layer2,
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/icemoon/surface/outdoors/explored)
+"bu" = (
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bv" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/meter/atmos,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bw" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bx" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 1
+	},
+/obj/machinery/power/apc/unlocked{
+	dir = 4;
+	pixel_x = 25
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"by" = (
+/obj/item/stack/rods{
+	amount = 2
+	},
+/obj/item/shard/plasma,
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bz" = (
+/obj/item/clothing/suit/space/hardsuit/engine,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bA" = (
+/obj/item/flashlight/flare,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bD" = (
+/obj/effect/decal/cleanable/robot_debris,
+/obj/item/book/manual/wiki/engineering_singulo_tesla,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bE" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white/side{
+	dir = 8
+	},
+/area/icemoon/surface/outdoors/explored)
+"bG" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bH" = (
+/obj/item/pda/clear{
+	note = "Chief's asked me to check on the machinery inside PDA. He's also worried about Build, but i'm sure Harry'll handle the construction. I just need to work on Internals. Fuck i'm hungry"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"bI" = (
+/obj/machinery/door/airlock/atmos{
+	name = "Atmospherics"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"bJ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark/side{
+	dir = 8
+	},
+/area/icemoon/surface/outdoors/explored)
+"bK" = (
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bL" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bM" = (
+/obj/machinery/atmospherics/pipe/simple/supply/visible,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bN" = (
+/obj/machinery/atmospherics/components/trinary/filter/flipped{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bO" = (
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bP" = (
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 10
+	},
+/obj/machinery/meter/atmos,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bR" = (
+/obj/effect/spawner/structure/window/plasma,
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bT" = (
+/obj/item/pipe_dispenser,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"bU" = (
+/obj/structure/sign/poster/official/build{
+	pixel_x = -32
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"bV" = (
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/plasteel/white/corner{
+	dir = 4
+	},
+/area/icemoon/surface/outdoors/explored)
+"bW" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white/side{
+	dir = 1
+	},
+/area/icemoon/surface/outdoors/explored)
+"bX" = (
+/turf/open/floor/plasteel/white/side{
+	dir = 1
+	},
+/area/icemoon/surface/outdoors/explored)
+"bY" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/icemoon/surface/outdoors/explored)
+"bZ" = (
+/obj/structure/sign/poster/official/safety_internals{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"ca" = (
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cb" = (
+/obj/item/flashlight,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cc" = (
+/obj/item/book/manual/wiki/atmospherics,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cd" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"ce" = (
+/obj/machinery/atmospherics/pipe/manifold/dark/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cf" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 1
+	},
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cg" = (
+/obj/item/wallframe/apc,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"ch" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/icemoon/surface/outdoors/explored)
+"ci" = (
+/obj/machinery/light/broken,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cj" = (
+/obj/structure/sign/poster/official/pda_ad{
+	pixel_y = -32
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cl" = (
+/obj/machinery/newscaster{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cm" = (
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 5
+	},
+/obj/structure/sign/poster/contraband/atmosia_independence{
+	pixel_x = -32
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cn" = (
+/obj/machinery/atmospherics/pipe/manifold4w/supply/visible,
+/obj/machinery/meter/atmos/distro_loop,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"co" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cp" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cq" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cr" = (
+/obj/machinery/atmospherics/components/binary/pump{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cs" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"ct" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Production Room";
+	req_access_txt = "204"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cu" = (
+/obj/structure/girder,
+/turf/open/floor/plating,
+/area/icemoon/surface/outdoors/explored)
+"cv" = (
+/obj/machinery/atmospherics/components/unary/thermomachine/heater{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cw" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cx" = (
+/obj/machinery/atmospherics/pipe/manifold/green/visible,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cy" = (
+/obj/machinery/atmospherics/pipe/manifold4w/green/visible,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cz" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cA" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/pump,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cB" = (
+/obj/machinery/atmospherics/pipe/simple/green/visible{
+	dir = 9
+	},
+/obj/machinery/meter/atmos,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cC" = (
+/obj/effect/decal/cleanable/oil,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"cD" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cF" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"cG" = (
+/obj/machinery/field/generator,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"cH" = (
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cI" = (
+/obj/machinery/modular_computer/console/preset/civilian,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"cJ" = (
+/obj/item/construction/rcd,
+/obj/structure/rack,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo,
+/obj/item/rcd_upgrade/frames,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"cK" = (
+/obj/machinery/airalarm/directional/west,
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/donkpockets,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"cL" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cM" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/obj/machinery/vending/snack/random,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"cN" = (
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cP" = (
+/obj/machinery/atmospherics/components/binary/pump,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cQ" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cR" = (
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cS" = (
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 9
+	},
+/obj/machinery/meter/atmos,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"cT" = (
+/obj/machinery/power/emitter{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating/ice/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"cU" = (
+/obj/effect/mob_spawn/human/engineer/rig,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/ice/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"cV" = (
+/obj/machinery/vending/cigarette,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"cW" = (
+/turf/open/floor/plasteel/dark/side,
+/area/icemoon/surface/outdoors/explored)
+"cX" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark/side,
+/area/icemoon/surface/outdoors/explored)
+"cY" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"cZ" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/visible,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plating/airless,
+/area/icemoon/surface/outdoors/explored)
+"da" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/simple/brown/visible,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plating/airless,
+/area/icemoon/surface/outdoors/explored)
+"db" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/simple/dark/visible,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plating/airless,
+/area/icemoon/surface/outdoors/explored)
+"dc" = (
+/obj/machinery/power/rad_collector,
+/obj/structure/cable,
+/turf/open/floor/plating/snowed/smoothed/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"dd" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"de" = (
+/obj/machinery/rnd/production/circuit_imprinter/department,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"df" = (
+/obj/machinery/rnd/production/protolathe/department/engineering,
+/obj/machinery/light/small/broken,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"dg" = (
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"dh" = (
+/obj/structure/sign/poster/contraband/grey_tide,
+/turf/closed/wall,
+/area/icemoon/surface/outdoors/explored)
+"di" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Foyer"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"dj" = (
+/turf/closed/wall/rust,
+/area/icemoon/surface/outdoors/explored)
+"dk" = (
+/obj/machinery/atmospherics/pipe/simple/supply/visible,
+/turf/open/floor/engine/air,
+/area/icemoon/surface/outdoors/explored)
+"dl" = (
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/turf/open/floor/engine/air,
+/area/icemoon/surface/outdoors/explored)
+"dm" = (
+/obj/machinery/atmospherics/pipe/simple/brown/visible,
+/turf/open/floor/engine/vacuum,
+/area/icemoon/surface/outdoors/explored)
+"dn" = (
+/obj/machinery/atmospherics/pipe/simple/dark/visible,
+/turf/open/floor/engine/vacuum,
+/area/icemoon/surface/outdoors/explored)
+"do" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/effect/decal/cleanable/oil/streak,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"dp" = (
+/obj/machinery/light/built,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"dq" = (
+/obj/item/tank/internals/plasma,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"dr" = (
+/obj/machinery/power/floodlight,
+/obj/structure/cable,
+/obj/structure/cable,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"ds" = (
+/obj/structure/tank_dispenser,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"dt" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"du" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"dv" = (
+/obj/machinery/airalarm/directional/north,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"dw" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
+	dir = 1
+	},
+/turf/open/floor/engine/air,
+/area/icemoon/surface/outdoors/explored)
+"dx" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
+	dir = 1
+	},
+/turf/open/floor/engine/air,
+/area/icemoon/surface/outdoors/explored)
+"dy" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber{
+	dir = 1
+	},
+/turf/open/floor/engine/vacuum,
+/area/icemoon/surface/outdoors/explored)
+"dz" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/high_volume{
+	dir = 1
+	},
+/turf/open/floor/engine/vacuum,
+/area/icemoon/surface/outdoors/explored)
+"dA" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"dB" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"dC" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"dD" = (
+/obj/structure/girder,
+/turf/open/space/basic,
+/area/icemoon/surface/outdoors/explored)
+"dE" = (
+/obj/structure/door_assembly/door_assembly_eng,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"em" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/atmos{
+	name = "Atmospherics"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"eO" = (
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"eS" = (
+/turf/open/floor/plasteel/white/side,
+/area/icemoon/surface/outdoors/explored)
+"fr" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"fE" = (
+/obj/machinery/atmospherics/components/trinary/filter/flipped{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"fU" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"gl" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"gJ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"he" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"hE" = (
+/obj/machinery/atmospherics/pipe/simple/dark/visible{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"hN" = (
+/obj/machinery/portable_atmospherics/pump,
+/obj/effect/turf_decal/box,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"iq" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"jP" = (
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"kp" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"kD" = (
+/obj/machinery/power/rad_collector,
+/obj/structure/cable,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"lg" = (
+/turf/open/floor/plasteel/white/corner,
+/area/icemoon/surface/outdoors/explored)
+"rB" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/ice/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"rG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 4
+	},
+/obj/machinery/meter/atmos/distro_loop,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"sT" = (
+/obj/machinery/pipedispenser,
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"vE" = (
+/turf/closed/mineral/snowmountain/icemoon,
+/area/icemoon/surface/outdoors)
+"wA" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/obj/machinery/atmospherics/pipe/simple/general/visible,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plating/airless,
+/area/icemoon/surface/outdoors/explored)
+"xG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"zK" = (
+/obj/machinery/power/emitter{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plating/ice/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"zZ" = (
+/obj/machinery/vending/cola/random,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"Fg" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/power/tesla_coil,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"Fp" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/belt/utility,
+/obj/item/lightreplacer,
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"Gx" = (
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/drone,
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"GX" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/white/side{
+	dir = 4
+	},
+/area/icemoon/surface/outdoors/explored)
+"Ha" = (
+/obj/structure/table/reinforced,
+/obj/machinery/microwave,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"Jh" = (
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"Jq" = (
+/obj/machinery/atmospherics/pipe/manifold/dark/visible{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"JM" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"LM" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/ice/icemoon,
+/area/icemoon/surface/outdoors/explored)
+"Oz" = (
+/obj/machinery/airalarm/directional/west,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+"OH" = (
+/turf/open/floor/plasteel/white/side{
+	dir = 8
+	},
+/area/icemoon/surface/outdoors/explored)
+"Pj" = (
+/obj/machinery/door/airlock/atmos{
+	name = "Storage"
+	},
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"Pn" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"PU" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white/side{
+	dir = 4
+	},
+/area/icemoon/surface/outdoors/explored)
+"Qx" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/folder/red,
+/obj/item/pen{
+	pixel_x = 6;
+	pixel_y = 12
+	},
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"Rj" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel/white,
+/area/icemoon/surface/outdoors/explored)
+"RD" = (
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/plating/snowed,
+/area/icemoon/surface/outdoors/explored)
+"UO" = (
+/obj/machinery/space_heater,
+/obj/effect/turf_decal/box,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"Xl" = (
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/effect/turf_decal/box,
+/turf/open/floor/plasteel/dark{
+	initial_gas_mix = "ICEMOON_ATMOS"
+	},
+/area/icemoon/surface/outdoors/explored)
+"XP" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/icemoon/surface/outdoors/explored)
+
+(1,1,1) = {"
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+av
+"}
+(2,1,1) = {"
+av
+av
+aa
+vE
+ab
+ak
+ab
+ab
+ab
+eO
+by
+bR
+bR
+ae
+ae
+ae
+ae
+ae
+aO
+av
+"}
+(3,1,1) = {"
+av
+av
+av
+aa
+ao
+ab
+al
+al
+ab
+ab
+ab
+ab
+ab
+ab
+al
+al
+ab
+do
+ae
+av
+"}
+(4,1,1) = {"
+av
+av
+av
+aa
+eO
+eO
+ao
+al
+al
+al
+al
+al
+al
+al
+al
+al
+ab
+xG
+ak
+av
+"}
+(5,1,1) = {"
+av
+av
+av
+av
+eO
+eO
+eO
+ab
+ab
+bc
+bc
+ab
+bS
+bS
+cC
+cT
+bS
+Pn
+aO
+av
+"}
+(6,1,1) = {"
+av
+av
+av
+av
+eO
+eO
+eO
+eO
+eO
+eO
+eO
+eO
+af
+al
+ah
+rB
+ab
+Jh
+aO
+av
+"}
+(7,1,1) = {"
+av
+eO
+av
+av
+eO
+eO
+eO
+eO
+eO
+bd
+eO
+eO
+eO
+af
+ab
+LM
+dc
+Jh
+ae
+av
+"}
+(8,1,1) = {"
+av
+ab
+ab
+eO
+eO
+eO
+eO
+aI
+eO
+be
+eO
+eO
+eO
+af
+af
+LM
+ag
+Jh
+ak
+av
+"}
+(9,1,1) = {"
+av
+ac
+ab
+ab
+bh
+eO
+eO
+eO
+eO
+bf
+bz
+eO
+eO
+af
+af
+LM
+kD
+dp
+ae
+av
+"}
+(10,1,1) = {"
+av
+ab
+ab
+ab
+bh
+al
+eO
+eO
+eO
+eO
+eO
+bT
+eO
+af
+ab
+LM
+dc
+dq
+ak
+av
+"}
+(11,1,1) = {"
+av
+ad
+bS
+bS
+aq
+al
+al
+eO
+eO
+eO
+bA
+eO
+eO
+af
+ab
+LM
+dc
+Jh
+ak
+av
+"}
+(12,1,1) = {"
+av
+ab
+ab
+ab
+xG
+al
+al
+aJ
+eO
+eO
+eO
+eO
+eO
+eO
+cF
+cU
+ab
+Jh
+aO
+av
+"}
+(13,1,1) = {"
+av
+ab
+ab
+am
+ar
+bc
+bc
+bc
+bc
+dd
+ab
+ab
+ab
+bc
+cG
+zK
+bS
+dr
+ae
+av
+"}
+(14,1,1) = {"
+av
+ab
+ah
+ab
+RD
+au
+RD
+RD
+RD
+bh
+ab
+ab
+cg
+ab
+ab
+ab
+ab
+Jh
+ae
+av
+"}
+(15,1,1) = {"
+av
+ab
+ai
+Jh
+Jh
+Jh
+Jh
+Jh
+ab
+bh
+Jh
+Jh
+kp
+Jh
+Jh
+Jh
+Jh
+ds
+ae
+av
+"}
+(16,1,1) = {"
+av
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+aO
+bi
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+av
+"}
+(17,1,1) = {"
+eO
+eO
+eO
+eO
+eO
+eO
+eO
+ae
+aP
+bj
+bD
+ae
+av
+av
+av
+av
+av
+av
+av
+av
+"}
+(18,1,1) = {"
+eO
+eO
+eO
+eO
+eO
+eO
+eO
+ae
+iq
+bk
+he
+ae
+av
+av
+av
+av
+av
+av
+av
+av
+"}
+(19,1,1) = {"
+eO
+af
+eO
+eO
+eO
+ab
+aB
+ae
+ch
+bl
+ch
+ae
+aB
+aB
+aB
+aB
+aB
+aB
+av
+av
+"}
+(20,1,1) = {"
+eO
+af
+af
+cN
+eO
+eO
+af
+aK
+aR
+bm
+bE
+bU
+fr
+ct
+cH
+Oz
+de
+aB
+av
+av
+"}
+(21,1,1) = {"
+eO
+af
+cN
+cN
+af
+af
+cN
+lg
+aS
+GX
+PU
+bV
+ci
+aB
+cI
+gl
+df
+aB
+av
+av
+"}
+(22,1,1) = {"
+eO
+eO
+eO
+af
+cN
+cN
+cN
+Fp
+Rj
+gJ
+Gx
+bW
+fU
+aQ
+cJ
+cN
+dg
+aB
+av
+av
+"}
+(23,1,1) = {"
+eO
+ab
+eO
+af
+cN
+cN
+cN
+eS
+an
+bn
+JM
+bX
+cj
+aB
+aB
+cD
+aB
+aB
+ab
+av
+"}
+(24,1,1) = {"
+eO
+eO
+af
+cN
+ab
+cN
+cN
+eS
+aT
+bo
+JM
+bX
+cN
+Ha
+cK
+cV
+aB
+dj
+ak
+ak
+"}
+(25,1,1) = {"
+av
+aa
+af
+cN
+cN
+cN
+cN
+eS
+aU
+bp
+Qx
+bX
+cN
+cN
+cN
+cW
+dh
+dt
+dA
+ak
+"}
+(26,1,1) = {"
+av
+av
+af
+af
+ab
+ab
+cN
+aC
+OH
+bq
+bF
+bY
+fr
+fr
+cL
+cX
+di
+du
+dB
+dD
+"}
+(27,1,1) = {"
+av
+av
+av
+eO
+eO
+ab
+ab
+aL
+cN
+br
+bG
+bZ
+cl
+zZ
+cM
+cY
+aB
+dv
+dC
+dE
+"}
+(28,1,1) = {"
+av
+av
+av
+av
+ab
+ab
+ab
+aB
+ae
+bs
+bH
+ae
+aB
+cu
+cu
+aB
+dj
+ak
+ak
+dj
+"}
+(29,1,1) = {"
+av
+av
+av
+av
+ae
+Fg
+Fg
+Xl
+ae
+em
+bI
+ae
+av
+av
+av
+av
+av
+av
+av
+ak
+"}
+(30,1,1) = {"
+av
+av
+av
+av
+ae
+jP
+jP
+jP
+Pj
+bt
+bJ
+ae
+av
+av
+av
+av
+av
+av
+av
+ak
+"}
+(31,1,1) = {"
+av
+av
+av
+av
+ae
+hN
+UO
+UO
+ae
+XP
+bK
+ae
+ae
+ae
+ae
+ae
+av
+av
+av
+av
+"}
+(32,1,1) = {"
+av
+av
+av
+av
+ae
+ae
+ae
+ae
+ae
+rG
+bL
+ca
+cm
+cv
+cN
+ae
+ae
+ae
+ae
+av
+"}
+(33,1,1) = {"
+av
+av
+av
+av
+ae
+ax
+aD
+aM
+aV
+bu
+bM
+ca
+cn
+cw
+ca
+cZ
+dk
+dw
+ae
+av
+"}
+(34,1,1) = {"
+av
+av
+av
+av
+ae
+ay
+aE
+aN
+aW
+bv
+bN
+cN
+co
+cq
+cP
+wA
+dl
+dx
+ae
+av
+"}
+(35,1,1) = {"
+av
+av
+av
+av
+ae
+ae
+ae
+ae
+aX
+bw
+bO
+cb
+cp
+cx
+cQ
+ae
+ae
+ae
+ae
+av
+"}
+(36,1,1) = {"
+av
+av
+av
+av
+ae
+az
+aF
+aM
+aY
+aw
+hE
+cc
+cq
+cy
+ca
+da
+dm
+dy
+ae
+av
+"}
+(37,1,1) = {"
+av
+av
+av
+av
+ae
+aA
+aG
+wA
+aZ
+bv
+fE
+cd
+cr
+cz
+cR
+db
+dn
+dz
+ae
+av
+"}
+(38,1,1) = {"
+av
+av
+av
+av
+ae
+ae
+ae
+ae
+ba
+bw
+bP
+ce
+Jq
+cA
+cS
+ae
+ae
+ae
+ae
+av
+"}
+(39,1,1) = {"
+av
+av
+av
+av
+av
+av
+av
+ae
+bb
+bx
+cP
+cf
+cs
+cB
+sT
+ae
+av
+av
+av
+av
+"}
+(40,1,1) = {"
+av
+av
+av
+av
+av
+av
+av
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+ae
+av
+av
+av
+av
+"}
