@@ -104,6 +104,13 @@
 	icon = 'icons/mob/drone.dmi'
 	icon_state = "[D.visualAppearence]_hat"
 
+/obj/item/clothing/mob_holder/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_NECK)
+		worn_icon = 'icons/mob/clothing/neck/neck.dmi'
+	if(slot == ITEM_SLOT_HEAD)
+		worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
 /obj/item/clothing/mob_holder/cheese/release(del_on_release = TRUE)
 	if(!held_mob)
 		if(del_on_release && !destroying)

@@ -164,6 +164,7 @@
 	head = /obj/item/clothing/head/wizard
 
 
+/* Dripstation edit
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier
 	name = "Nanotrasen Private Security Officer"
 	id_job = "Private Security Force"
@@ -183,6 +184,7 @@
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security
 	id = /obj/item/card/id
+*/
 
 /obj/effect/mob_spawn/human/corpse/cat_butcher
 	name = "The Cat Surgeon"

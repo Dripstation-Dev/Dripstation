@@ -79,7 +79,9 @@
 	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 2
+	/*Dripstation edit
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+	*/
 	feedback_types = list(
 		"fire" = 2
 	)

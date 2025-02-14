@@ -164,9 +164,11 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/*	Dripstation edit
 /obj/item/radio/headset/heads/hos/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+*/
 
 /obj/item/radio/headset/heads/ce
 	name = "\proper the chief engineer's headset"
@@ -211,15 +213,6 @@
 	keyslot = new /obj/item/encryptionkey/headset_synthetic
 	item_flags = DROPDEL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
-/obj/item/radio/headset/headset_synthetic/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, SYNTHETIC_TRAIT)
-	ADD_TRAIT(src, TRAIT_EMPPROOF_CONTENTS, SYNTHETIC_TRAIT)
-	ADD_TRAIT(src, TRAIT_EMPPROOF_SELF, SYNTHETIC_TRAIT)
-	
-/obj/item/radio/headset/headset_synthetic/attackby(obj/item/W, mob/user, params)
-	return FALSE
 
 /obj/item/radio/headset/headset_cent
 	name = "\improper CentCom headset"

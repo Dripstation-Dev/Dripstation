@@ -45,13 +45,19 @@
 
 /obj/item/melee/transforming/energy/sword/nt
 	name = "hardlight blade"
-	desc = "A powerful energy-based hardlight blade that is easily stored when not in use. NT property."
+	desc = "A powerful energy-based hardlight blade that is easily stored when not in use. NanoTrasen property."
 	icon_state = "ntesword0"
 	icon_state_on = "ntesword1"
 	item_state = "sword0"
-	icon_state_on = "swordblue"
 	saber_color = null
 	light_color = "#40ceff"
+
+/obj/item/melee/transforming/energy/sword/nt/transform_weapon(mob/living/user, supress_message_text)
+	. = ..()
+	if(. && active)
+		item_state = "swordblue"
+	else
+		item_state = initial(item_state)
 
 /obj/item/melee/transforming/energy/machete
 	name = "energy machete"
@@ -71,15 +77,19 @@
 	armour_penetration = 60
 	block_chance = 30
 	light_color = "#a52019"
+	slot_flags = ITEM_SLOT_BELT
+	var/slot_flags_transform = ITEM_SLOT_BELT
 
 /obj/item/melee/transforming/energy/machete/transform_weapon(mob/living/user, supress_message_text)
 	. = ..()
 	if(.)
 		if(active)
+			slot_flags = null
 			icon_state = "[initial(icon_state)]_active"
 			item_state = "[initial(item_state)]_active"
 			START_PROCESSING(SSobj, src)
 		else
+			slot_flags = slot_flags_transform
 			icon_state = initial(icon_state)
 			item_state = initial(item_state)
 			STOP_PROCESSING(SSobj, src)

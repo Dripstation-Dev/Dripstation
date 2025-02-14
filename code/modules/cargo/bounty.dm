@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(bounties_list)
+GLOBAL_LIST_EMPTY(bounties_list_syndicate)	//dripstation edit never gonna give you up never gonna let you down
 
 /datum/bounty
 	var/name
@@ -57,16 +58,27 @@ GLOBAL_LIST_EMPTY(bounties_list)
 /proc/bounty_ship_item_and_contents(atom/movable/AM, dry_run=FALSE)
 	if(!GLOB.bounties_list.len)
 		setup_bounties()
+	if(!GLOB.bounties_list_syndicate.len)	//dripstation edit
+		setup_syndicate_bounties()			//dripstation edit
 
 	var/list/matched_one = FALSE
 	for(var/thing in reverse_range(AM.get_all_contents()))
 		var/matched_this = FALSE
+		for(var/list/i in list(GLOB.bounties_list,GLOB.bounties_list_syndicate))	//dripstation edit start
+			for(var/datum/bounty/B in i)
+				if(B.applies_to(thing))
+					matched_one = TRUE
+					matched_this = TRUE
+					if(!dry_run)
+						B.ship(thing)
+		/*	dripstation edit
 		for(var/datum/bounty/B as anything in GLOB.bounties_list)
 			if(B.applies_to(thing))
 				matched_one = TRUE
 				matched_this = TRUE
 				if(!dry_run)
 					B.ship(thing)
+		*/	//dripstation edit end
 		if(!dry_run && matched_this)
 			qdel(thing)
 	return matched_one
@@ -199,6 +211,22 @@ GLOBAL_LIST_EMPTY(bounties_list)
 
 	for(var/low_priority_bounty in low_priority_strict_type_list)
 		try_add_bounty(new low_priority_bounty)
+
+
+/proc/setup_syndicate_bounties() //Much simpler as we're only picking from one pool of bounties, dripastation edit
+	for(var/i in 0 to 5)												//dripastation edit
+		var/pick = pick(subtypesof(/datum/bounty/item/syndicate))		//dripastation edit
+		if(!(try_add_syndie_bounty(new pick)))							//dripastation edit
+			i -= 1														//dripastation edit
+/proc/try_add_syndie_bounty(datum/bounty/new_bounty)					//dripastation edit
+	if(!new_bounty || !new_bounty.name || !new_bounty.description)		//dripastation edit
+		return FALSE													//dripastation edit
+	for(var/i in GLOB.bounties_list_syndicate)							//dripastation edit
+		var/datum/bounty/B = i											//dripastation edit
+		if(!B.compatible_with(new_bounty) || !new_bounty.compatible_with(B))	//dripastation edit
+			return FALSE												//dripastation edit
+	GLOB.bounties_list_syndicate += new_bounty							//dripastation edit
+	return TRUE															//dripastation edit
 
 /proc/completed_bounty_count()
 	var/count = 0

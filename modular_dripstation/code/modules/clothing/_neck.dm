@@ -301,6 +301,8 @@
 	name = "choker"
 	desc = "Close-fitting necklace worn around the neck, 15 inch in length. Made of velvet."
 	icon_state = "choker_black"
+	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
 
 /obj/item/clothing/neck/choker/gold
 	name = "gold choker"
@@ -311,3 +313,16 @@
 	name = "maid neck cover"
 	desc = "A neckpiece for a maid costume, it smells faintly of disappointment."
 	icon_state = "maid_neck"
+	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
+
+/obj/item/clothing/neck/cape
+	name = "captain's cape"
+	desc = "A sizable black cape with gold connects."
+	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
+	icon_state = "centcom_cloak"
+
+/obj/item/clothing/neck/cape/executive
+	name = "admiral's cape"
+	icon_state = "centcom_admiral_cloak"

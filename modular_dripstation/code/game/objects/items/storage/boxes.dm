@@ -69,11 +69,15 @@
 	item_state = "box_emergency"
 	illustration = null
 
-/obj/item/storage/box/engineer
+/obj/item/storage/box/survival/engineer
 	name = "extended emergency survival box"
 	icon_state = "air_upgrade"
 	item_state = "box_emergency"
 	illustration = null
+
+/obj/item/storage/box/survival/engineer/PopulateContents()
+	..()
+	new /obj/item/flashlight/glowstick/yellow(src)
 
 /obj/item/storage/box/syndie
 	name = "emergency survival box"
@@ -213,6 +217,17 @@
 /obj/item/storage/box/silver_ids
 	icon_state = "nt"
 	item_state = "nt"
+
+/obj/item/storage/box/sec_ids
+	name = "box of spare security IDs"
+	desc = "Shiny IDs for security personel. Cards has IFF signal."
+	icon_state = "secbox"
+	item_state = "secbox"
+	illustration = "id"
+
+/obj/item/storage/box/sec_ids/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/card/id/spearhead(src)
 
 /obj/item/storage/box/deputy
 	icon_state = "secbox"
@@ -379,6 +394,51 @@
 	new /obj/item/reagent_containers/autoinjector/medipen(src)
 	new /obj/item/crowbar/red(src)
 
+/obj/item/storage/box/ert
+	name = "combat survival box"
+	icon_state = "nt"
+	item_state = "nt"
+	illustration = "syringe"
+
+/obj/item/storage/box/ert/PopulateContents()
+	new /obj/item/clothing/mask/breath/tactical(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/survival(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/melee/emergency_forcing_tool(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/flashlight/flare/signal(src)
+
+/obj/item/storage/box/militech
+	name = "unknown survival box"
+	icon_state = "box"
+	item_state = "box"
+	illustration = null
+
+/obj/item/storage/box/militech/PopulateContents()
+	new /obj/item/clothing/mask/gas/tactical(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/survival(src)
+	new /obj/item/radio/military/militech(src)
+	new /obj/item/melee/emergency_forcing_tool/varyag(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/flashlight/flare/signal(src)
+
+/obj/item/storage/box/shellguard
+	name = "unknown survival box"
+	icon_state = "box"
+	item_state = "box"
+	illustration = null
+
+/obj/item/storage/box/shellguard/PopulateContents()
+	new /obj/item/clothing/mask/breath/tactical/shellguard(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/survival(src)
+	new /obj/item/radio/military/shellguard(src)
+	new /obj/item/melee/emergency_forcing_tool/varyag(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/flashlight/flare/signal(src)
+
 /obj/item/storage/box/holobadge
 	name = "holobadge box"
 	desc = "A box claiming to contain holobadges."
@@ -442,3 +502,41 @@
 	new /obj/item/reagent_containers/autoinjector/medipen/ekit/traitor(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/extinguisher/mini(src)
+
+/obj/item/storage/toolbox/infiltrator
+	name = "insidious case"
+	desc = "Bearing the emblem of the Syndicate, this case contains a full infiltrator stealth suit, and has enough room to fit weaponry if necessary."
+	icon_state = "infiltrator_case"
+	item_state = "infiltrator_case"
+	icon = 'modular_dripstation/icons/obj/storage.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/misc/boxes_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/misc/boxes_righthand.dmi'
+	force = 15
+	throwforce = 18
+	w_class = WEIGHT_CLASS_NORMAL
+	has_latches = FALSE
+
+/obj/item/storage/toolbox/infiltrator/Initialize(mapload)
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 10
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.set_holdable(list(
+		/obj/item/clothing/head/helmet/space/infiltrator,
+		/obj/item/clothing/suit/armor/vest/infiltrator,
+		/obj/item/clothing/under/syndicate/bloodred,
+		/obj/item/clothing/gloves/tackler/combat/infiltrator,
+		/obj/item/clothing/mask/chameleon,
+		/obj/item/clothing/shoes/combat/sneakboots,
+		/obj/item/gun/ballistic/automatic/pistol,
+		/obj/item/gun/ballistic/revolver,
+		/obj/item/ammo_box
+		))
+
+/obj/item/storage/toolbox/infiltrator/PopulateContents()
+	new /obj/item/clothing/head/helmet/space/infiltrator(src)
+	new /obj/item/clothing/suit/armor/vest/infiltrator(src)
+	new /obj/item/clothing/under/syndicate/bloodred(src)
+	new /obj/item/clothing/gloves/tackler/combat/infiltrator(src)
+	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/shoes/combat/sneakboots(src)

@@ -213,13 +213,22 @@
 
 	if((user.a_intent != INTENT_HARM && !HAS_TRAIT(I, TRAIT_NODROP)) && !(I.item_flags & ABSTRACT)) // if you can't drop it, you can't place it on the table
 		if(user.transferItemToLoc(I, drop_location()))
+			/*	Dripstation edit
 			var/list/click_params = params2list(params)
+			*/
+			var/list/modifiers = params2list(params)	//Dripstation edit
 			//Center the icon where the user clicked.
+			/*	Dripstation edit	
 			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			*/
+			if(!(LAZYACCESS(modifiers, ICON_X)) || !(LAZYACCESS(modifiers, ICON_Y)))//Dripstation edit	
+				return																//Dripstation edit
+			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
+			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
 			return 1
 	else
 		return ..()

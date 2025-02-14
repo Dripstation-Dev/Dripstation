@@ -4,6 +4,9 @@ GLOBAL_LIST_EMPTY(uplinks)
 #define NT_ERT_TROOPER 1
 #define NT_ERT_MEDIC 2
 #define NT_ERT_ENGINEER 3
+#define NT_ERT_COMMANDER 4	//dripstation edit
+#define NT_ERT_SECURITY_SPECIALIST 5	//dripstation edit
+#define NT_SPY 6	//dripstation edit
 /**
  * Uplinks
  *
@@ -184,8 +187,18 @@ GLOBAL_LIST_EMPTY(uplinks)
 						continue
 			if(istype(I, /datum/uplink_item/nt))
 				var/datum/uplink_item/nt/M = I
+				/*
 				if(nt_uplink_type != null && M.required_ert_uplink != null && nt_uplink_type != M.required_ert_uplink) //Different roles in ERT uplinks have different equipment avaliable
 					continue
+				*/
+				if(nt_uplink_type != null && M.required_ert_uplink != null)
+					var/is_inaccessible = TRUE
+					for(var/uptype in M.required_ert_uplink)
+						if(uptype == nt_uplink_type || debug)
+							is_inaccessible = FALSE
+							break
+					if(is_inaccessible)
+						continue
 			cat["items"] += list(list(
 				"name" = I.name,
 				"cost" = I.manufacturer && user.mind.is_employee(I.manufacturer) ? CEILING(I.cost * 0.8, 1) : I.cost,
@@ -376,3 +389,9 @@ GLOBAL_LIST_EMPTY(uplinks)
 	nt_uplink_type = NT_ERT_MEDIC
 /datum/component/uplink/nanotrasen/engineer
 	nt_uplink_type = NT_ERT_ENGINEER
+/datum/component/uplink/nanotrasen/commander
+	nt_uplink_type = NT_ERT_COMMANDER
+/datum/component/uplink/nanotrasen/security
+	nt_uplink_type = NT_ERT_SECURITY_SPECIALIST
+/datum/component/uplink/nanotrasen/security
+	nt_uplink_type = NT_SPY

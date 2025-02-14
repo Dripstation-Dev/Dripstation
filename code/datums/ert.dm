@@ -1,3 +1,4 @@
+/* Dripstation edit - modular
 /datum/ert
 	var/mobtype = /mob/living/carbon/human
 	var/team = /datum/team/ert
@@ -169,3 +170,4 @@
 	rename_team = "Imperial Guard"
 	mission = "Eliminate the threat to the station."
 	polldesc = "the Imperial Guard Task Force"
+*/

@@ -39,7 +39,9 @@
 	report_type = "cult"
 	antag_flag = ROLE_CULTIST
 	false_report_weight = 10
+	/*Dripastation edit
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Brig Physician", "Synthetic") //Yogs: Added Brig Physician
+	*/
 	protected_jobs = list()
 	required_players = 24
 	required_enemies = 4

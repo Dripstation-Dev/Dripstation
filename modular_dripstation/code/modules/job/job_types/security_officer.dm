@@ -1,7 +1,8 @@
-/datum/job/security
+/datum/job/officer
 	supervisor_corporation = /datum/corporation/spearhead
 
 /datum/outfit/job/security
+	id_type = /obj/item/card/id/spearhead
 	gloves = /obj/item/clothing/gloves/color/black/tactifool
 	suit = /obj/item/clothing/suit/armor/vest
 	ears = /obj/item/radio/headset/headset_sec
@@ -10,6 +11,7 @@
 	chameleon_extras = list(/obj/item/gun/energy/disabler, /obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/head/helmet)
 
 /datum/outfit/job/plasmaman/security
+	id_type = /obj/item/card/id/spearhead
 	gloves = /obj/item/clothing/gloves/color/black/tactifool
 	suit = /obj/item/clothing/suit/armor/vest
 	ears = /obj/item/radio/headset/headset_sec

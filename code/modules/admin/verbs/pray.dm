@@ -86,6 +86,15 @@
 	for(var/obj/machinery/computer/communications/console in GLOB.machines)
 		console.override_cooldown()
 
+#define ADMIN_CALL_ERT "(<a href='?_src_=holder;[HrefToken(TRUE)];makeAntag=centcom'>Make CentCom Response Team</a>)"
+#define ADMIN_CALL_UPLINK_ERT "(<a href='?_src_=holder;[HrefToken(TRUE)];makeAntag=centcom_custom'>Make Uplink CentCom Response Team</a>)"
+/proc/ERT_Announce(text, mob/sender)	//dripstation edit start
+	var/msg = copytext_char(sanitize(text), 1, MAX_MESSAGE_LEN)
+	msg = span_adminnotice("<b><font color=orange>ERT REQUEST: </font>[ADMIN_FULLMONTY(sender)] [ADMIN_CENTCOM_REPLY(sender)] [ADMIN_CALL_ERT] [ADMIN_CALL_UPLINK_ERT]:</b> [msg]</span>")
+	to_chat(GLOB.permissions.admins, msg, confidential = TRUE)
+	for(var/obj/machinery/computer/communications/console in GLOB.machines)
+		console.override_cooldown()	//dripstation edit end
+
 /proc/Clown_announce(text , mob/Sender)
 	var/msg = copytext_char(sanitize(text), 1, MAX_MESSAGE_LEN)
 	msg = span_adminnotice("<b><font color=violet>CLOWN PLANET:</font>[ADMIN_FULLMONTY(Sender)] [ADMIN_SYNDICATE_REPLY(Sender)]:</b> [msg]")

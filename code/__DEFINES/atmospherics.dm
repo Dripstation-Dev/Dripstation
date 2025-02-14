@@ -139,10 +139,16 @@
 /// The maximum number of degrees that your body can heat up in 1 tick, due to the environment, when in a hot area.
 #define BODYTEMP_HEATING_MAX				30
 
+/*Dripstation edit start
 /// The limit the human body can take before it starts taking damage from heat.
 #define BODYTEMP_HEAT_DAMAGE_LIMIT			(BODYTEMP_NORMAL + 50)
 /// The limit the human body can take before it starts taking damage from coldness.
 #define BODYTEMP_COLD_DAMAGE_LIMIT			(BODYTEMP_NORMAL - 50)
+*/
+/// The limit the human body can take before it starts taking damage from heat.	//dripstation edit
+#define BODYTEMP_HEAT_DAMAGE_LIMIT			(BODYTEMP_NORMAL + 30)	//dripstation edit
+/// The limit the human body can take before it starts taking damage from coldness.	//dripstation edit
+#define BODYTEMP_COLD_DAMAGE_LIMIT			(BODYTEMP_NORMAL - 30)	//dripstation edit
 
 
 /// what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
@@ -265,7 +271,10 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 /// space
 #define AIRLESS_ATMOS				"TEMP=2.7"
 /// -93.15°C snow and ice turfs
+/* dripstation edit
 #define FROZEN_ATMOS				"o2=22;n2=82;TEMP=180"
+*/
+#define FROZEN_ATMOS				"o2=22;n2=82;TEMP=150"	// -123.15°C, dripstation edit
 /// -80°C kitchen coldroom; higher amount of mol to reach about 101.3 kpA
 #define KITCHEN_COLDROOM_ATMOS		"o2=33;n2=124;TEMP=193.15"
 /// used in the holodeck burn test program

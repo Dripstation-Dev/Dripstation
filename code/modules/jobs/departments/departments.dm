@@ -30,6 +30,11 @@
 	department_bitflags = DEPARTMENT_BITFLAG_ASSISTANT
 	// Don't add department_head! Assistants names should not be in bold.
 
+/// A special centcom only department, primarily for use by the preferences menu
+/datum/job_department/central_command
+	department_name = DEPARTMENT_CENTRAL_COMMAND
+	department_bitflags = DEPARTMENT_BITFLAG_CENTRAL_COMMAND
+
 /// A special captain only department, for use by the preferences menu
 /datum/job_department/captain
 	department_name = DEPARTMENT_CAPTAIN

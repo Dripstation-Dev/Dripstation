@@ -29,7 +29,7 @@
 	max_integrity = 75
 	var/obj/item/stack/sheet/mineral/repair_material = /obj/item/stack/sheet/mineral/titanium
 
-/*
+/* Dripstation edit
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSGLASS))
 		return FALSE
@@ -61,6 +61,7 @@
 	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
 	new /obj/item/shard((get_turf(src)))
 
+/*Dripstation edit
 /obj/item/shield/riot/on_shield_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(!damage)
 		return ..()
@@ -72,6 +73,7 @@
 		return FALSE
 	take_damage(damage)
 	return ..()
+*/
 
 /obj/item/shield/riot/roman
 	name = "\improper Roman shield"

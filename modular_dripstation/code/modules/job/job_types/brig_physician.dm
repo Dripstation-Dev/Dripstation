@@ -3,6 +3,7 @@
 	supervisor_corporation = /datum/corporation/spearhead
 
 /datum/outfit/job/brigphysician
+	id_type = /obj/item/card/id/spearhead
 	uniform = /obj/item/clothing/under/yogs/rank/physician/white
 	gloves = /obj/item/clothing/gloves/color/latex/black
 	backpack = /obj/item/storage/backpack/bmed
@@ -13,6 +14,7 @@
 	pda_type = /obj/item/modular_computer/tablet/pda/preset/medical/phys
 
 /datum/outfit/job/plasmaman/brigphysician
+	id_type = /obj/item/card/id/spearhead
 	gloves = /obj/item/clothing/gloves/color/latex/black
 	backpack = /obj/item/storage/backpack/bmed
 	satchel = /obj/item/storage/backpack/satchel/bmed

@@ -187,7 +187,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/hardon = FALSE				//Tracking current mode on suit, handles by helmet on
 	armor = list(MELEE = 35, BULLET = 25, LASER = 30, ENERGY = 25, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
-	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/emergency_forcing_tool, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = null
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -196,7 +196,9 @@
 	var/eva_slowdown = 1 //slowdown when in eva mode
 	var/lightweight = 1 //used for flags when toggling
 	var/winter_mod = FALSE	//protects from cold when toggled in combat mode
-	var/complexity = 1	//how many modules can be attached
+	var/current_complexity = 0	//how many modules can be attached
+	var/max_complexity = 1
+	var/list/inserted_modules = list()
 
 /obj/item/clothing/suit/space/hardsuit/syndi/Initialize()
 	. = ..()
@@ -213,6 +215,59 @@
 		heat_protection &= ~(CHEST | GROIN | LEGS | FEET | ARMS | HANDS)
 	if(lightweight)
 		flags_inv &= ~(HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT)
+
+/obj/item/clothing/suit/space/hardsuit/syndi/examine(mob/user)
+	. = ..()
+	for(var/obj/item/module/M in inserted_modules)
+		. += "It has \a [M] incerted into it."
+
+/obj/item/clothing/suit/space/hardsuit/syndi/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+
+	var/list/options = list()
+	var/list/radial_display = list()
+	for(var/obj/item/module/mod as anything in inserted_modules)
+		if(!initial(mod.removable))
+			continue
+		options[initial(mod.name)] = mod
+		var/datum/radial_menu_choice/option = new
+		option.image = image(icon = initial(mod.icon), icon_state = initial(mod.icon_state))
+		option.info = "[initial(mod.name)] - [span_boldnotice(initial(mod.desc))]"
+		radial_display[initial(mod.name)] = option
+
+	if(!LAZYLEN(options))
+		to_chat(user, span_announce("There is nothing to remove."))
+		return FALSE
+	else if(LAZYLEN(options) == 1)
+		return remove_rig_mod(user, I, inserted_modules[1], "unscrewed")
+	
+	var/choice = show_radial_menu(user, user, radial_display)
+	var/obj/item/module/chosen_mod = options[choice]
+	if(QDELETED(src) || QDELETED(user))
+		return FALSE
+	if(!chosen_mod)
+		to_chat(user, span_announce("You choose not to choose."))
+		return FALSE
+	if(src && chosen_mod && !user.incapacitated() && in_range(user,src))
+		remove_rig_mod(user, I, chosen_mod)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.build_all_button_icons()
+		to_chat(user, span_notice("You remove [chosen_mod.name] from your [name]!"))
+		return TRUE
+
+/obj/item/clothing/suit/space/hardsuit/syndi/proc/remove_rig_mod(mob/living/user, obj/item/tool_item, obj/item/chosen_mod, removal_verb)
+	if(tool_item)
+		tool_item.play_tool_sound(src)
+	to_chat(user, span_notice("You [removal_verb ? removal_verb : "remove"] [chosen_mod] from [src]."))
+	chosen_mod.forceMove(drop_location())
+
+	if(Adjacent(user) && !issilicon(user))
+		user.put_in_hands(chosen_mod)
+
+	if(istype(chosen_mod, /obj/item/module))
+		var/obj/item/module/M = chosen_mod
+		return M.remove_module(src, user)
 
 ////////////////////
 ////Known bugs
@@ -824,6 +879,8 @@
 	icon_state = "bloodred_rig"
 	//item_state = "bloodred_rig"
 	hardsuit_type = "bloodred"
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred
 	jetpack = /obj/item/tank/jetpack/suit/bloodred
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
@@ -831,6 +888,7 @@
 	combat_slowdown = -0.2
 	lightweight = 0
 	toggled_for_heat_protecting = FALSE
+	//max_complexity = 2
 
 /obj/item/tank/jetpack/suit/bloodred
 	full_speed = TRUE
@@ -881,6 +939,7 @@
 	hardsuit_type = "bloodred_unathi"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/unathi
 	mutantrace_variation = DIGITIGRADE_VARIATION
+	species_restricted = list("lizard", "polysmorph")
 
 //////Bloodred Waffle Co suit//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle
@@ -914,6 +973,8 @@
 	icon_state = "wafflebloodred_rig"
 	//item_state = "wafflebloodred_rig"
 	hardsuit_type = "wafflebloodred"
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	armor = list(MELEE = 30, BULLET = 50, LASER = 40, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle
 	combat_slowdown = 0.3
@@ -952,6 +1013,8 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/waffle/examine(mob/user)
 	. = ..()
 	. += "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."
+	if(in_range(user, src) || isobserver(user))
+		. += "<span class='notice'>Alt-click on suit to toggle magpulse system.<span>"
 
 
 //////Bloodred Waffle Co Unathi suit//////
@@ -969,7 +1032,8 @@
 	//item_state = "wafflebloodred_unathi_rig"
 	hardsuit_type = "wafflebloodred_unathi"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle/unathi
-	//mutantrace_variation = DIGITIGRADE_VARIATION
+	mutantrace_variation = DIGITIGRADE_VARIATION
+	species_restricted = list("lizard", "polysmorph")
 
 //////Bloodred Waffle Co Unathi Breach suit//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle/unathi/breach
@@ -988,7 +1052,6 @@
 	hardsuit_type = "wafflebloodred_unathi_breacher"
 	armor = list(MELEE = 80, BULLET = 70, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/waffle/unathi/breach
-	//mutantrace_variation = DIGITIGRADE_VARIATION
 
 ///obj/item/clothing/suit/space/hardsuit/syndi/bloodred/waffle/unathi/breach/equipped(mob/living/carbon/human/user, slot)
 //	..()
@@ -1029,6 +1092,8 @@
 	hardsuit_type = "relite"
 	jetpack = /obj/item/tank/jetpack/suit
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 30, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1144,6 +1209,11 @@
 
 	animate(H,alpha = 85, alpha = 255, time = 10)
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/optical/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		. += "<span class='notice'>Alt-click on suit to toggle optical cloaking system.<span>"
+
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/optical/cs
 	name = "elite Cybersun Industries RIG helmet"
 	desc = "An elite version of the syndicate helmet, with improved armour and fireproofing."
@@ -1244,6 +1314,35 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sbo/commsoff
 
 
+//////Merk suit designes//////
+//////Standart merk rig//////
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/merk
+	name = "merk RIG helmet"
+	desc = "An austere tactical helmet used by paramilitary groups across human space."
+	icon_state = "freemerk_helm"
+	hardsuit_type = "freemerk"
+	light_range = 6
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	heat_protection = HEAD
+	toggled_for_heat_protecting = FALSE
+	light_color = LIGHT_COLOR_DEFAULT
+
+/obj/item/clothing/suit/space/hardsuit/syndi/merk
+	name = "merk RIG"
+	desc = "An austere RIG used by paramilitary groups across human space."
+	icon_state = "freemerk_rig"
+	hardsuit_type = "freemerk"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/merk
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	lightweight = 0
+	toggled_for_heat_protecting = FALSE
+	combat_slowdown = 0
+
+
 //////Military suit designes//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/military
 	name = "military RIG helmet"
@@ -1265,6 +1364,8 @@
 	//item_state = "military_rig"
 	hardsuit_type = "military"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/military
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	armor = list(MELEE = 45, BULLET = 60, LASER = 40, ENERGY = 25, BOMB = 60, BIO = 100, RAD = 70, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT

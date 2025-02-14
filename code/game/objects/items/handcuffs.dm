@@ -449,7 +449,10 @@
 	hit_carbon.update_inv_legcuffed()
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	to_chat(hit_carbon, span_userdanger("\The [src] ensnares you!"))
+	/*		dripstation edit start
 	hit_carbon.Immobilize(immobilize)
+	*/
+	hit_carbon.Knockdown(immobilize)	//dripstation edit end
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/proc/impactAnimal(mob/living/simple_animal/hit_animal, datum/thrownthing/throwingdatum)

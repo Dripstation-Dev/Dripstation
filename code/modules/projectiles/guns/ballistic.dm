@@ -365,7 +365,10 @@
 					user.say(reload_say, forced = "reloading")
 				if (chambered == null && bolt_type == BOLT_TYPE_NO_BOLT)
 					chamber_round()
+				/*dripstation edit
 				A.update_appearance(UPDATE_ICON)
+				*/
+				A.update_appearance(UPDATE_ICON|UPDATE_DESC) //dripstation edit
 				update_appearance(UPDATE_ICON)
 			return
 	if(istype(A, /obj/item/suppressor))

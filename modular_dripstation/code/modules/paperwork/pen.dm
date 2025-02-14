@@ -136,3 +136,22 @@
 		item_state = initial(item_state)
 		lefthand_file = initial(lefthand_file)
 		righthand_file = initial(righthand_file)
+
+/obj/item/pen/red/edagger/nt
+	desc = "It's a normal black ink pen."
+	icon_state = "pen"
+	item_state = "pen"
+	colour = "black"
+
+/obj/item/pen/red/edagger/nt/update_icon()
+	. = ..()
+	if(on)
+		icon_state = "eknife"
+		item_state = "eknife"
+		lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
+		righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
+	else
+		icon_state = initial(icon_state) //looks like a normal pen when off.
+		item_state = initial(item_state)
+		lefthand_file = initial(lefthand_file)
+		righthand_file = initial(righthand_file)

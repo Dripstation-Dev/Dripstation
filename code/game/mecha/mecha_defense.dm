@@ -108,7 +108,13 @@
 
 
 /obj/mecha/bullet_act(obj/projectile/Proj) //wrapper
+	/*Dripstation edit
 	if ((!enclosed || istype(Proj, /obj/projectile/bullet/shotgun/slug/uranium))&& occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
+	*/
+	if ((!enclosed || ((Proj.armour_penetration >= getArmor(Proj.armor_flag) && Proj.penetrations > 0))) && occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of mecha, dripstation edit
+		if(enclosed)	//dripstation edit
+			Proj.armour_penetration -= getArmor(Proj.armor_flag)	//modifies bullet penetration, dripstation edit
+			Proj.penetrations -= 1
 		occupant.bullet_act(Proj) //If the sides are open, the occupant can be hit
 		return BULLET_ACT_HIT
 	if(istype(Proj, /obj/projectile/ion))

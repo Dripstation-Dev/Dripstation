@@ -7,7 +7,9 @@
 	base_icon_state = "vxtvul_hammer"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
+	/* Dripstation edit start
 	name = "Vxtvul Hammer"
+	*/	// Dripstation edit end
 	desc = "A relic sledgehammer with charge packs wired to two blast pads on its head. \
 			While wielded in two hands, the user can charge a massive blow that will shatter construction and hurl bodies."
 	force = 4 //It's heavy as hell

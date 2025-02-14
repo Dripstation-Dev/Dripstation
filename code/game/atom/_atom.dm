@@ -1293,11 +1293,20 @@
 	var/client/usr_client = usr.client
 	var/list/paramslist = list()
 	if(href_list["statpanel_item_shiftclick"])
+		/*	Dripstation edit
 		paramslist["shift"] = "1"
+		*/
+		paramslist[SHIFT_CLICK] = "1"	//Dripstation edit
 	if(href_list["statpanel_item_ctrlclick"])
+		/*	Dripstation edit
 		paramslist["ctrl"] = "1"
+		*/
+		paramslist[CTRL_CLICK] = "1"	//Dripstation edit
 	if(href_list["statpanel_item_altclick"])
+		/*	Dripstation edit
 		paramslist["alt"] = "1"
+		*/
+		paramslist[ALT_CLICK] = "1"	//Dripstation edit
 	if(href_list["statpanel_item_click"])
 		// first of all make sure we valid
 		var/mouseparams = list2params(paramslist)

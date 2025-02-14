@@ -7,7 +7,7 @@ export const KeycardAuth = (props, context) => {
   return (
     <Window
       width={375}
-      height={125}>
+      height={145}>
       <Window.Content>
         <Section>
           <Box>
@@ -37,6 +37,11 @@ export const KeycardAuth = (props, context) => {
                         return act('red_alert');
                       }}
                       content="Red Alert" />
+                    <Button
+                      icon="broadcast-tower"
+                      fluid
+                      onClick={() => act('ertreason')}
+                      content="Request Emergency Response Team" />
                     <Button
                       icon="wrench"
                       fluid

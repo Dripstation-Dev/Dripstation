@@ -36,6 +36,8 @@
 	var/allow_quick_empty = FALSE					//allow empty verb which allows dumping on the floor of everything inside quickly.
 	var/allow_quick_gather = FALSE					//allow toggle mob verb which toggles collecting all items from a tile.
 
+	var/list/storage_type_limits = list()	//dripstation edit
+
 	var/collection_mode = COLLECT_EVERYTHING
 
 	var/insert_preposition = "in"					//you put things "in" a bag, but "on" a tray.
@@ -632,6 +634,12 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			if(!stop_messages)
 				to_chat(M, span_warning("[IP] cannot hold [I] as it's a storage item of the same size!"))
 			return FALSE //To prevent the stacking of same sized storage items.
+	for(var/limited_type in storage_type_limits)	//Dripstation edit start
+		if(!istype(I, limited_type))
+			continue
+		if(storage_type_limits[limited_type] == 0)
+			if(!stop_messages)
+				to_chat(M, span_warning("[host] can't fit any more of those.") )	//Dripstation edit end
 	if(HAS_TRAIT(I, TRAIT_NO_STORAGE))
 		if(!stop_messages)
 			to_chat(M, span_warning("\the [I] can't seem to fit in \the [host]!"))
@@ -744,6 +752,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(rustle_sound)
 		playsound(A, "rustle", 50, 1, -5)
 
+	/* Dripstation edit
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == A && !H.get_active_held_item())	//Prevents opening if it's in a pocket.
@@ -756,11 +765,23 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 			H.put_in_hands(A)
 			H.r_store = null
 			return
+	*/
 
 	if(A.loc == user)
 		. = COMPONENT_NO_ATTACK_HAND
 		if(locked)
 			to_chat(user, span_warning("[parent] seems to be locked!"))
+		else if(quickdraw && !user.incapacitated())			// Dripstation edit start
+			var/obj/item/I = locate() in real_location()
+			if(!I)
+				return
+			A.add_fingerprint(user)
+			remove_from_storage(I, get_turf(user))
+			if(!user.put_in_hands(I))
+				to_chat(user, span_notice("You fumble for [I] and it falls on the floor."))
+				return
+			user.visible_message(span_warning("[user] draws [I] from [parent]!"), span_notice("You draw [I] from [parent]."))
+			return				// Dripstation edit end
 		else
 			show_to(user)
 

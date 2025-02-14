@@ -25,40 +25,40 @@
 
 /datum/corporation/spearhead	//pmc company contracted with Nanotrasen
 	name = "Spearhead Private Security"
-	paymodifier = 0.2
+	paymodifier = 1
 
 /datum/corporation/shellguard
 	name = "Shellguard Co."
-	paymodifier = 0.3
+	paymodifier = 1.3
 
 /datum/corporation/hephaestus
 	name = "Hephaestus Asset Management"
-	paymodifier = 1.2
+	paymodifier = 1.3
 
 /datum/corporation/hephaestus/cargo
 	name = "Hephaestus Resource Logistics"
-	paymodifier = 0.2
+	paymodifier = 1.2
 
 /datum/corporation/hephaestus/industrial
 	name = "Hephaestus Industries"
-	paymodifier = 0.2
+	paymodifier = 1.2
 
 /datum/corporation/hephaestus/militech
 	name = "Militech Corp&Gov Asset Security"
 
 /datum/corporation/zeng_hu
 	name = "Zeng-Hu Pharmaceuticals & Cybernetics"
-	paymodifier = 0.2
+	paymodifier = 1.2
 
 /datum/corporation/eden_llc
 	name = "Eden LLC"
-	paymodifier = 0.2
+	paymodifier = 1.2
 
 // You are alone
 /datum/corporation/traitor/independent
 	name = "Independent"
-	paymodifier = 0
+	paymodifier = 1
 
 /datum/corporation/vostok
 	name = "Vostok"
-	paymodifier = 0.9
+	paymodifier = 1.1

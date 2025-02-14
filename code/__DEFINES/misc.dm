@@ -45,8 +45,13 @@
 #define SEC_LEVEL_BLUE		1
 #define SEC_LEVEL_RED		2
 #define SEC_LEVEL_GAMMA		3
+#define SEC_LEVEL_AMBER		4	//Dripstation edit
+#define SEC_LEVEL_EPSILON	5	//Dripstation edit
+#define SEC_LEVEL_DELTA		6	//Dripstation edit
+/*Dripstation edit
 #define SEC_LEVEL_EPSILON	4
 #define SEC_LEVEL_DELTA		5
+*/
 
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list

@@ -21,6 +21,7 @@
 		return
 
 	var/list/modifiers = params2list(params)
+	/*Dripstation edit
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
@@ -31,12 +32,29 @@
 		MiddleClickOn(A)
 		return
 	if(modifiers["shift"])
+	*/
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))		//dripstation edit
+		if(LAZYACCESS(modifiers, CTRL_CLICK))	//dripstation edit
+			CtrlShiftClickOn(A)		//dripstation edit
+			return					//dripstation edit
+		if(LAZYACCESS(modifiers, MIDDLE_CLICK))	//dripstation edit
+			ShiftMiddleClickOn(A)	//dripstation edit
+			return					//dripstation edit
 		ShiftClickOn(A)
 		return
+	/*Dripstation edit
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+	*/
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))		//dripstation edit
+		MiddleClickOn(A, params)				//dripstation edit
+		return									//dripstation edit
+	if(LAZYACCESS(modifiers, ALT_CLICK)) // alt and alt-gr (rightalt)		//dripstation edit
 		AltClickOn(A)
 		return
+	/*Dripstation edit
 	if(modifiers["ctrl"])
+	*/
+	if(LAZYACCESS(modifiers, CTRL_CLICK))		//dripstation edit
 		CtrlClickOn(A)
 		return
 

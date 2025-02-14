@@ -132,6 +132,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/admin_away,
 	/client/proc/centcom_podlauncher,/*Open a window to launch a Supplypod and configure it or it's contents*/
 	/client/proc/load_json_admin_event,
+	/client/proc/toggle_ert_calling,	/*edits game-mode removing ability to call ert*/
 	/client/proc/event_role_manager
 	))
 GLOBAL_PROTECT(admin_verbs_fun)

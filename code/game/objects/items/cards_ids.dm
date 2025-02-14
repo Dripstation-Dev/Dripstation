@@ -890,9 +890,11 @@ update_label("John Doe", "Clowny")
 
 
 
+/*Dripstation edit start
 /obj/item/card/id/centcom/Initialize(mapload)
 	access = get_all_centcom_access()
 	. = ..()
+*/ //Dripstation edit end
 
 /obj/item/card/id/ert
 	name = "\improper CentCom ID"
@@ -923,6 +925,7 @@ update_label("John Doe", "Clowny")
     access = list(ACCESS_SECURITY,ACCESS_BRIG,ACCESS_WEAPONS,ACCESS_SEC_DOORS,ACCESS_MAINT_TUNNELS)+get_ert_access("sec")
     . = ..()
 
+/*Dripstation edit start
 /obj/item/card/id/ert/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
 	. = ..()
@@ -980,6 +983,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/ert/clown/Initialize(mapload)
 	access = get_all_accesses()
 	. = ..()
+*/ //Dripstation edit end
 
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"

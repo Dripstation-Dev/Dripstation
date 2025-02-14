@@ -8,12 +8,17 @@
 	. = ..()
 	if(. && silent && !prevent_warning)
 		if(quickdraw)
+			/* Dripstation edit
 			to_chat(user, span_notice("You discreetly slip [I] into [parent]. Alt-click [parent] to remove it."))
+			*/
+			to_chat(user, span_notice("You discreetly slip [I] into [parent]. Click [parent] to remove it. Alt-click [parent] to see all contents."))	// Dripstation edit
 		else
 			to_chat(user, span_notice("You discreetly slip [I] into [parent]."))
 
+/* I wonder how, i wonder why dripstation edit
 /datum/component/storage/concrete/pockets
 	max_w_class = WEIGHT_CLASS_NORMAL
+*/
 
 /datum/component/storage/concrete/pockets/small
 	max_items = 1

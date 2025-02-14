@@ -3,6 +3,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 #define KEYCARD_RED_ALERT "Red Alert"
 #define KEYCARD_EMERGENCY_MAINTENANCE_ACCESS "Emergency Maintenance Access"
 #define KEYCARD_BSA_UNLOCK "Bluespace Artillery Unlock"
+#define KEYCARD_ERT_ASKED "Emergency Response Team"			//Dripstation edit 
 
 /obj/machinery/keycard_auth
 	name = "Keycard Authentication Device"
@@ -25,6 +26,8 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	var/mob/triggerer = null
 	var/waiting = 0
 	var/triggerer_id = null
+	var/list/ert_chosen = list()	//Dripstation edit
+	var/ert_reason					//Dripstation edit
 
 /obj/machinery/keycard_auth/Initialize(mapload)
 	. = ..()
@@ -49,6 +52,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	data["waiting"] = waiting
 	data["auth_required"] = event_source ? event_source.event : 0
 	data["red_alert"] = (SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) ? 1 : 0
+	data["ertreason"] = event_source && event_source.ert_reason ? event_source.ert_reason : ert_reason		//Dripstation edit
 	data["emergency_maint"] = GLOB.emergency_access
 	data["bsa_unlock"] = GLOB.bsa_unlock
 	return data
@@ -79,9 +83,14 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 			if(!event_source)
 				sendEvent(KEYCARD_EMERGENCY_MAINTENANCE_ACCESS)
 				. = TRUE
+		if("ertreason")			//Dripstation edit start
+			if(!event_source)
+				ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
+				sendEvent(KEYCARD_ERT_ASKED)
+				. = TRUE		//Dripstation edit end
 		if("auth_swipe")
 			if(event_source)
-				event_source.trigger_event(usr)
+				event_source.triggeR_FUN(usr)
 				event_source = null
 				. = TRUE
 		if("bsa_unlock")
@@ -121,7 +130,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	event_source = null
 	update_appearance(UPDATE_OVERLAYS)
 
-/obj/machinery/keycard_auth/proc/trigger_event(mob/confirmer)
+/obj/machinery/keycard_auth/proc/triggeR_FUN(mob/confirmer)
 	var/confirmer_id = confirmer.get_active_held_item() //we already know this has access to complete the action, so we don't bother checking if it's got required access
 	if(confirmer_id == triggerer_id)
 		return
@@ -143,6 +152,128 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 			make_maint_all_access()
 		if(KEYCARD_BSA_UNLOCK)
 			toggle_bluespace_artillery()
+		if(KEYCARD_ERT_ASKED)	//dripstation edit start
+			pray_for_ert(triggerer)
+
+/obj/machinery/keycard_auth/proc/is_ert_blocked()
+	return SSticker.mode && SSticker.mode.ert_disabled
+
+/obj/machinery/keycard_auth/proc/pray_for_ert(triggerer)
+	if(is_ert_blocked())
+		addtimer(CALLBACK(src, /atom/movable/proc/say, "All Emergency Response Teams are dispatched and can not be called at this time."), 10)
+		return
+	addtimer(CALLBACK(src, /atom/movable/proc/say, "ERT request transmitted!"), 10)
+	priority_announce("ERT request transmitted. Reason: [ert_reason]", triggerer, 'sound/misc/airraid.ogg')
+	
+	var/fullmin_count = 0
+	for(var/client/C in GLOB.clients)
+		if(check_rights(R_FUN, 0, C.mob))
+			fullmin_count++
+	if(fullmin_count)
+		ERT_Announce(ert_reason, triggerer, 0)
+		ert_reason = null
+		SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
+	else
+		if (istype(SSticker.mode, /datum/game_mode/dynamic))
+			for(var/datum/dynamic_ruleset/dynamic_ruleset as anything in subtypesof(/datum/dynamic_ruleset))
+				var/antag_flag = initial(dynamic_ruleset.antag_flag)
+				if(antag_flag == ROLE_OPERATIVE)
+					return
+		else
+			var/list/excludemodes = list(/datum/game_mode/nuclear)
+			if(SSticker.mode.type in excludemodes)
+				return
+		var/list/excludeevents = list(/datum/round_event/ghost_role/blob, /datum/round_event/disease_outbreak)
+		for(var/datum/round_event/E in SSevents.running)
+			if(E in excludeevents)
+				return
+		trigger_armed_response_team(/datum/ert/blue) // No admins? No problem. Automatically send a code blue ERT. 	//dripstation edit end
+
+
+/proc/trigger_armed_response_team(datum/ert/ertemplate = null)
+	if (ertemplate)
+		ertemplate = new ertemplate
+	else
+		ertemplate = new /datum/ert/official
+
+		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc] ?", "deathsquad", null)
+		var/teamSpawned = FALSE
+
+		if(candidates.len > 0)
+			//Pick the (un)lucky players
+			var/numagents = min(ertemplate.teamsize,candidates.len)
+
+			//Create team
+			var/datum/team/ert/ert_team = new ertemplate.team
+			if(ertemplate.rename_team)
+				ert_team.name = ertemplate.rename_team
+
+			//Asign team objective
+			var/datum/objective/missionobj = new
+			missionobj.team = ert_team
+			missionobj.explanation_text = ertemplate.mission
+			missionobj.completed = TRUE
+			ert_team.objectives += missionobj
+			ert_team.mission = missionobj
+
+			var/list/spawnpoints = GLOB.emergencyresponseteamspawn
+			while(numagents && candidates.len)
+				if (numagents > spawnpoints.len)
+					numagents--
+					continue // This guy's unlucky, not enough spawn points, we skip him.
+				var/spawnloc = spawnpoints[numagents]
+				var/mob/dead/observer/chosen_candidate = pick(candidates)
+				candidates -= chosen_candidate
+				if(!chosen_candidate.key)
+					continue
+
+				//Spawn the body
+				var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
+				chosen_candidate.client.prefs.apply_prefs_to(ERTOperative)
+				ERTOperative.key = chosen_candidate.key
+
+				if(ertemplate.enforce_human || !(ERTOperative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
+					ERTOperative.set_species(/datum/species/human)
+
+				//Give antag datum
+				var/datum/antagonist/ert/ert_antag
+
+				if(numagents == 1)
+					ert_antag = new ertemplate.leader_role
+				else
+					ert_antag = ertemplate.roles[WRAP(numagents,1,length(ertemplate.roles) + 1)]
+					ert_antag = new ert_antag
+
+				ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
+				ERTOperative.mind.assigned_role = ert_antag.name
+
+				if(ertemplate.dusting)
+					var/obj/item/implant/dusting/dustimplant = new(ERTOperative)
+					dustimplant.implant(ERTOperative)
+
+				//Logging and cleanup
+				//log_game("[key_name(ERTOperative)] has been selected as an [ert_antag.name]") | yogs - redundant
+				numagents--
+				teamSpawned++
+
+			if (teamSpawned)
+				message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
+
+			//Open the Armory doors
+			if(ertemplate.opendoors)
+				for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
+					INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/poddoor, open))
+
+			//Open the Mech Bay
+			if(ertemplate.openmech)
+				for(var/obj/machinery/door/poddoor/deathsquad/door in GLOB.airlocks)
+					INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/poddoor, open))
+			return TRUE
+		else
+			return FALSE
+
+	return
+
 
 GLOBAL_VAR_INIT(emergency_access, FALSE)
 /proc/make_maint_all_access()

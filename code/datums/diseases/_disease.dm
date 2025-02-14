@@ -19,7 +19,10 @@
 
 	//Other
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
+	/* Dripstation edit
 	var/mob/living/carbon/affected_mob = null
+	*/
+	var/mob/living/carbon/affected_mob = null	// Dripstation edit
 	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
 	var/infectivity = 65
 	var/cure_chance = 8
@@ -88,6 +91,9 @@
 	if(!(disease_flags & CURABLE))
 		return FALSE
 
+	if(!iscarbon(affected_mob))	//dripstation edit
+		return FALSE			//dripstation edit
+
 	. = cures.len
 	for(var/C_id in cures)
 		if(!affected_mob.reagents.has_reagent(C_id))
@@ -99,6 +105,9 @@
 /datum/disease/proc/spread(force_spread = 0)
 	if(!affected_mob)
 		return
+
+	if(!iscarbon(affected_mob))	//dripstation edit
+		return					//dripstation edit
 
 	if(!(spread_flags & DISEASE_SPREAD_AIRBORNE) && !force_spread)
 		return
@@ -132,6 +141,8 @@
 
 /datum/disease/proc/cure(add_resistance = TRUE)
 	if(affected_mob)
+		if(!iscarbon(affected_mob))	//dripstation edit
+			return FALSE			//dripstation edit
 		if(add_resistance && (disease_flags & CAN_RESIST))
 			affected_mob.disease_resistances |= GetDiseaseID()
 	qdel(src)

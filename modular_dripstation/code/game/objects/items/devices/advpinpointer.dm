@@ -23,11 +23,12 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 	var/obj/item/highrisk_rem = null
 	var/remember_target = null
 	var/setting = SETTING_DISK
+	var/unlocked = FALSE
 
 /obj/item/pinpointer/adv/examine(mob/user)
 	. = ..()
 	var/msg = "Its tracking indicator reads "
-	if(is_syndicate(user))
+	if(is_syndicate(user) || unlocked)
 		switch(setting)
 			if(SETTING_DISK)
 				msg += "\"nuclear_disk\"."
@@ -45,7 +46,7 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 	active = !active
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 	if(active)
-		if(!is_syndicate(usr))
+		if(!is_syndicate(usr) && !unlocked)
 			setting = SETTING_DISK
 		START_PROCESSING(SSfastprocess, src)
 	else
@@ -79,7 +80,7 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 
 /obj/item/pinpointer/adv/AltClick(mob/user)
 	if(isliving(user))
-		if(is_syndicate(user))
+		if(is_syndicate(user) || unlocked)
 			if(!user.is_holding(src))
 				to_chat(user, span_notice("You should be able to press the change mode button to interact with interface."))
 				return
@@ -133,3 +134,6 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 					else
 						playsound(src, 'sound/machines/triple_beep.ogg', 50, 1)
 						to_chat(user, "<span class='warning'>Malfunction detected.</span>")
+
+/obj/item/pinpointer/adv/unrestricted
+	unlocked = TRUE

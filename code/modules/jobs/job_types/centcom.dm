@@ -1,3 +1,4 @@
+/* Dripstation edit to dripstation module
 /datum/outfit/centcom
 	implants = list(/obj/item/implant/mindshield)
 	box = /obj/item/storage/box/survival
@@ -288,3 +289,4 @@
 	W.update_label()
 
 	H.ignores_capitalism = TRUE // Yogs -- Lets Centcom guys buy a damned smoke for christ's sake
+*/

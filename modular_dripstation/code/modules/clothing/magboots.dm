@@ -62,40 +62,56 @@
 	name = "suspecious magboots"
 	slowdown_active = 1.5
 	var/morphable = TRUE
-	actions_types = list(/datum/action/item_action/adjust)
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/adjust)
 
-/obj/item/clothing/shoes/magboots/syndie/ui_action_click(mob/user)
+/obj/item/clothing/shoes/magboots/syndie/ui_action_click(mob/user, actiontype)
 	if(!istype(user) || user.incapacitated())
 		return
-	var/list/options = list()
-	var/list/radial_display = list()
-	for(var/obj/item/clothing/shoes/magboots/syndie/all_magboots as anything in typesof(/obj/item/clothing/shoes/magboots/syndie))
-		if(!initial(all_magboots.morphable))
-			continue
-		options[initial(all_magboots.name)] = all_magboots
-		var/datum/radial_menu_choice/option = new
-		option.image = image(icon = initial(all_magboots.icon), icon_state = initial(all_magboots.icon_state))
-		option.info = "[initial(all_magboots.name)] - [span_boldnotice(initial(all_magboots.desc))]"
-		radial_display[initial(all_magboots.name)] = option
+	if(istype(actiontype, /datum/action/item_action/adjust))	
+		var/list/options = list()
+		var/list/radial_display = list()
+		for(var/obj/item/clothing/shoes/magboots/syndie/all_magboots as anything in typesof(/obj/item/clothing/shoes/magboots/syndie))
+			if(!initial(all_magboots.morphable))
+				continue
+			options[initial(all_magboots.name)] = all_magboots
+			var/datum/radial_menu_choice/option = new
+			option.image = image(icon = initial(all_magboots.icon), icon_state = initial(all_magboots.icon_state))
+			option.info = "[initial(all_magboots.name)] - [span_boldnotice(initial(all_magboots.desc))]"
+			radial_display[initial(all_magboots.name)] = option
 
-	var/choice = show_radial_menu(user, user, radial_display)
-	var/obj/item/clothing/shoes/magboots/syndie/chosen_magboots = options[choice]
-	if(QDELETED(src) || QDELETED(user))
-		return FALSE
-	if(!chosen_magboots)
-		to_chat(user, span_announce("You choose not to choose."))
-		return
-	if(src && chosen_magboots && !user.incapacitated() && in_range(user,src))
-		name = chosen_magboots.name
-		desc = chosen_magboots.desc
-		item_state = chosen_magboots.item_state
-		icon_state = chosen_magboots.icon_state
-		user.update_inv_belt()
+		var/choice = show_radial_menu(user, user, radial_display)
+		var/obj/item/clothing/shoes/magboots/syndie/chosen_magboots = options[choice]
+		if(QDELETED(src) || QDELETED(user))
+			return FALSE
+		if(!chosen_magboots)
+			to_chat(user, span_announce("You choose not to choose."))
+			return
+		if(src && chosen_magboots && !user.incapacitated() && in_range(user,src))
+			name = chosen_magboots.name
+			desc = chosen_magboots.desc
+			item_state = chosen_magboots.item_state
+			icon_state = chosen_magboots.icon_state
+			user.update_inv_belt()
+			for(var/X in actions)
+				var/datum/action/A = X
+				A.build_all_button_icons()
+			to_chat(user, span_notice("Your webbing has now morphed into [chosen_magboots.name]!"))
+			return TRUE
+	if(istype(actiontype, /datum/action/item_action/toggle))	
+		if(magpulse)
+			clothing_flags &= ~NOSLIP
+			slowdown = SHOES_SLOWDOWN
+		else
+			clothing_flags |= NOSLIP
+			slowdown = slowdown_active
+		magpulse = !magpulse
+		icon_state = "[magboot_state][magpulse]"
+		to_chat(user, span_notice("You [magpulse ? "enable" : "disable"] the [magpulse_name]."))
+		user.update_inv_shoes()	//so our mob-overlays update
+		user.update_gravity(user.has_gravity())
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.build_all_button_icons()
-		to_chat(user, span_notice("Your webbing has now morphed into [chosen_magboots.name]!"))
-		return TRUE
 
 /obj/item/clothing/shoes/magboots/syndie/elite
 	name = "elite magboots"

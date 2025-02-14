@@ -28,6 +28,9 @@
 	BB.original = target
 	BB.firer = user
 	BB.fired_from = fired_from
+	if(istype(fired_from, /obj/item/gun))		//Dripstation edit, iff and weapon mods
+		var/obj/item/gun/G = fired_from			//Dripstation edit, iff and weapon mods
+		G.apply_gun_modifiers(BB, target, user)	//Dripstation edit, iff and weapon mods
 	if (zone_override)
 		BB.def_zone = zone_override
 	else

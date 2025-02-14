@@ -232,11 +232,13 @@
 /obj/machinery/button/door/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
+/* Stopping my sanity abuse, dripstation edit
 /obj/machinery/button/door/indestructible/allowed(mob/M)
 	if(IsAdminGhost(M))
 		//Access can't stop the abuse
 		return TRUE
 	return FALSE
+*/
 
 /obj/machinery/button/door/setup_device()
 	if(!device)

@@ -207,6 +207,7 @@
 	W.registered_name = H.real_name
 	W.update_label(H.real_name)
 
+/* Dripstation edit
 /datum/outfit/spec_ops
 	name = "Special Ops Officer"
 
@@ -239,6 +240,7 @@
 	var/obj/item/radio/headset/R = H.ears
 	R.set_frequency(FREQ_CENTCOM)
 	R.freqlock = TRUE
+*/
 
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"
@@ -355,6 +357,7 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman
 	shoes = /obj/item/clothing/shoes/sneakers/black
 
+/* Dripstation edit start
 /datum/outfit/death_commando
 	name = "Death Commando"
 
@@ -401,6 +404,7 @@
 /datum/outfit/death_commando/officer
 	name = "Death Commando Officer"
 	head = /obj/item/clothing/head/helmet/space/beret
+*/ //Dripstation edit end
 
 
 /datum/outfit/chrono_agent

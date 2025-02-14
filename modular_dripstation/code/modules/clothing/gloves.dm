@@ -176,6 +176,7 @@
 
 /obj/item/clothing/gloves/combat/militech
 	icon_state = "militech_combat"
+	clothing_traits = list(TRAIT_STRONG_GRIP)
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/combat/shelg

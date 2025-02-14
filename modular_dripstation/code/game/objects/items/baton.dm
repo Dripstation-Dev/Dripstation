@@ -32,6 +32,7 @@
 /obj/item/storage/belt/sabre/stunsword/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.attack_hand_interact = TRUE
 	STR.max_items = 6
 	STR.max_combined_w_class = 18
 	STR.max_w_class = WEIGHT_CLASS_NORMAL

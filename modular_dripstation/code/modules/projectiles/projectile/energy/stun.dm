@@ -6,6 +6,7 @@
 	hitsound = 'sound/weapons/taserhit.ogg'
 	range = 7
 	reflectable = NONE	//Yeah, it`s phisical, not energy
+	armor_flag = ELECTRIC	//rigs just block that shit
 	tracer_type = /obj/effect/projectile/tracer/stun
 	muzzle_type = /obj/effect/projectile/muzzle/stun
 	impact_type = /obj/effect/projectile/impact/stun

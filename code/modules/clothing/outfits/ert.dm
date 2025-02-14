@@ -1,3 +1,4 @@
+/* Dripstation edit - see module
 /datum/outfit/ert
 	name = "ERT Common"
 
@@ -387,3 +388,4 @@
 		/obj/item/megaphone/clown = 1,
 		/obj/item/reagent_containers/spray/chemsprayer/janitor/clown = 1,
 		)
+*/

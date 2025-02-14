@@ -349,13 +349,21 @@
 			else
 				graf_rot = 0
 
+	/*	Dripstation edit
 	var/list/click_params = params2list(params)
+	*/
+	var/list/modifiers = params2list(params)	//Dripstation edit
 	var/clickx
 	var/clicky
 
+	/*	Dripstation edit
 	if(click_params && click_params["icon-x"] && click_params["icon-y"])
 		clickx = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 		clicky = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+	*/
+	if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))											//Dripstation edit
+		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
+		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
 
 	if(!instant)
 		to_chat(user, span_notice("You start drawing a [temp] on the [target.name]...")) // yogs -- removed a weird tab that had no reason to be here

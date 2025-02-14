@@ -5,7 +5,12 @@ GLOBAL_LIST_INIT(original_command_positions, list(
 	"Chief Engineer",
 	"Research Director",
 	"Chief Medical Officer",
-	"Quartermaster"))	//dripstation edit
+	"Quartermaster",				/*dripstation edit*/
+	"Nanotrasen Representative",	/*dripstation edit*/
+	"Magistrate",					/*dripstation edit*/
+	"Blueshield",					/*dripstation edit*/
+	"Lawyer",						/*dripstation edit*/
+	"Bridge Assistant"))			//dripstation edit
 
 GLOBAL_LIST_INIT(command_lightup_areas, typecacheof(list(
 	/area/bridge,
@@ -86,12 +91,19 @@ GLOBAL_LIST_INIT(original_supply_positions, list(
 	*/
 	"Quartermaster",
 	"Cargo Technician",
+	/*	dripstation edit
 	"Shaft Miner"))
+	*/
+	"Shaft Miner",
+	"Explorer",
+	"Customs Agent"))
 
 GLOBAL_LIST_INIT(supply_lightup_areas,			\
 	typecacheof(list(							\
 		/area/quartermaster,					\
+		/* Dripstation edit
 		/area/security/checkpoint/supply		\
+		*/
 	)) - typecacheof(list(						\
 		/area/quartermaster/qm					\
 	))											\
@@ -104,7 +116,9 @@ GLOBAL_LIST_INIT(original_civilian_positions, list(
 	"Cook",
 	"Janitor",
 	"Curator",
+	/*	//dripstation edit
 	"Lawyer",
+	*/
 	"Chaplain",
 	"Clown",
 	"Mime",
@@ -114,6 +128,14 @@ GLOBAL_LIST_INIT(original_civilian_positions, list(
 	"Artist"))
 
 GLOBAL_LIST_INIT(original_security_positions, list(
+	"Head of Security",
+	"Warden",
+	"Detective",
+	"Security Officer",			/*dripstation edit*/
+	"Corrections Officer",		/*dripstation edit*/
+	"Security Consultant"))		//dripstation edit
+
+GLOBAL_LIST_INIT(selectable_security_positions, list(
 	"Head of Security",
 	"Warden",
 	"Detective",
@@ -132,16 +154,25 @@ GLOBAL_LIST_INIT(security_lightup_areas,	\
 GLOBAL_LIST_INIT(original_nonhuman_positions, list(
 	"AI",
 	"Cyborg",
+	"Repair Worker Replika",
 	"pAI"))
 
 GLOBAL_LIST_INIT(alt_command_positions, list(
 	"Station Commander", "Facility Director", "Chief Executive Officer","Big Boss",
+	/*dripstation edit
 	"Chief of Staff", "Head of Internal Affairs", "First Officer",
+	*/
+	"Chief of Staff", "Head of Human Resources", "First Officer",
 	"Security Commander", "Security Chief",
 	"Head of Engineering", "Engineering Director", "Senior Engineer",
 	"Chief Science Officer", "Head of Research", "Chief Technology Officer",
 	"Medical Director", "Head of Medical",
-	"Stock Controller", "Cargo Coordinator", "Shipping Overseer", "Postmaster General",))	//dripstation edit
+	"Stock Controller", "Cargo Coordinator", "Shipping Overseer",							/*dripstation edit*/
+	"Nanotrasen Consultant", "Central Command Representative",								/*dripstation edit*/
+	"TerraGov Judge",	"Nanotrasen Internal Affairs Representative",						/*dripstation edit*/
+	"Blueshield Lieutenant", "Close Protection Specialist", "Executive Protection Agent",	/*dripstation edit*/
+	"Internal Affair`s Observer", "Corporate Defense Attorney",								/*dripstation edit*/
+	"Captain`s Secretary",))//dripstation edit
 
 GLOBAL_LIST_INIT(alt_engineering_positions, list(
 	"Head of Engineering", "Engineering Director", "Senior Engineer",
@@ -169,10 +200,16 @@ GLOBAL_LIST_INIT(alt_science_positions, list(
 GLOBAL_LIST_INIT(alt_supply_positions, list(
 	/*Dripstation edit, QM is head of supply
 	"Chief of Staff", "Head of Internal Affairs",
-	*/
 	"Stock Controller", "Cargo Coordinator", "Shipping Overseer", "Postmaster General",
+	*/
+	"Stock Controller", "Cargo Coordinator", "Shipping Overseer",
 	"Deliveryperson", "Mail Service", "Exports Handler", "Cargo Trainee", "Crate Pusher", "Courier",
+	/*Dripstation edit, QM is head of supply
 	"Lavaland Scout", "Prospector", "Junior Miner", "Major Miner", "Surveyor"))
+	*/
+	"Lavaland Scout", "Prospector", "Junior Miner", "Major Miner",
+	"Space Scout", "Junior Explorer", "Major Explorer", "Surveyor",
+	"Customs Officer", "Customs Specialist"))
 
 GLOBAL_LIST_INIT(alt_civilian_positions, list(
 	"Barkeep", "Tapster", "Barista", "Mixologist",
@@ -180,7 +217,9 @@ GLOBAL_LIST_INIT(alt_civilian_positions, list(
 	"Chef", "Hash Slinger", "Sous-chef", "Culinary Artist", "Culinarian",
 	"Custodian", "Sanitation Worker", "Cleaner", "Caretaker", "Maid",
 	"Librarian", "Journalist", "Archivist", "Cartographer", "Space Archaeologist",
+	/*Dripstation edit
 	"Prosecutor", "Defense Attorney", "Paralegal", "Ace Attorney",
+	*/
 	"Priest", "Preacher", "Cleric", "Exorcist", "Vicar",
 	"Entertainer", "Comedian", "Jester", "Improv Artist",
 	"Mute Entertainer", "Silent Jokester", "Pantomimist",
@@ -195,11 +234,14 @@ GLOBAL_LIST_INIT(alt_security_positions, list(
 	"Brig Watchman", "Brig Superintendent", "Security Staff Sergeant", "Security Dispatcher", "Prison Supervisor",
 	"Investigator", "Forensic Analyst", "Investigative Cadet", "Private Eye", "Inspector",
 	"Threat Response Officer", "Civilian Protection Officer", "Security Cadet", "Corporate Officer", "Peacekeeper",
+	"Brig Enforcer",														/*dripstation edit*/
+	"Nanotrasen Defense Team Member", "Nanotrasen Fighting Force Veteran",	/*dripstation edit*/
 	))
 
 GLOBAL_LIST_INIT(alt_nonhuman_positions, list(
 	"Station Central Processor", "Central Silicon Intelligence", "Station Super Computer",
 	"Droid", "Robot", "Automaton",
+	"Security Technician Replika",
 	ROLE_PAI))
 
 GLOBAL_LIST_INIT(command_positions, original_command_positions | alt_command_positions)
@@ -272,6 +314,14 @@ GLOBAL_PROTECT(exp_specialmap)
 	var/static/regex/para_expand = new("paramedic")
 	var/static/regex/phys_expand = new("brig physician")
 	// yogs end
+	//dripstation start
+	var/static/regex/bs_expand = new("blueshield")
+	var/static/regex/ntr_expand = new("nanotrasen representative")
+	var/static/regex/mag_expand = new("magistrate")
+	var/static/regex/replica_expand = new("replica")
+	var/static/regex/customs_expand = new("customs officer")
+	var/static/regex/explorer_expand = new("explorer")
+	//dripstation end
 
 	job = lowertext(job)
 	job = cap_expand.Replace(job, "captain")
@@ -296,6 +346,14 @@ GLOBAL_PROTECT(exp_specialmap)
 	job = para_expand.Replace(job, "paramedic")
 	job = phys_expand.Replace(job, "brig physician")
 	// yogs end
+	//dripstation start
+	job = bs_expand.Replace(job, "blueshield")
+	job = ntr_expand.Replace(job, "nanotrasen representative")
+	job = mag_expand.Replace(job, "magistrate")
+	job = replica_expand.Replace(job, "replika")
+	job = customs_expand.Replace(job, "customs officer")
+	job = explorer_expand.Replace(job, "explorer")
+	//dripstation end
 	return job
 
 /proc/get_alternate_titles(job)

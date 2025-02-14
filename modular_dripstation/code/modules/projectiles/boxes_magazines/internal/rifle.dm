@@ -1,15 +1,14 @@
-/obj/item/ammo_box/magazine/internal/boltaction
-	name = "bolt action rifle internal magazine"
-	desc = "Oh god, this shouldn't be here"
-	ammo_type = /obj/item/ammo_casing/a762
-	caliber = "a762"
-	max_ammo = 5
+/obj/item/ammo_box/magazine/internal/nitro_express
+	name = "nitro express internal magazine (.700)"
+	ammo_type = /obj/item/ammo_casing/nitro_express
+	caliber = NITRO_EXPRESS
+	max_ammo = 2
 	multiload = 1
 
-/obj/item/ammo_box/magazine/internal/boltaction/enchanted
-	max_ammo = 1
-	ammo_type = /obj/item/ammo_casing/a762/enchanted
-
-/obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
-	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage
-
+///gets a round from the magazine, if keep is TRUE the round will stay in the gun
+/obj/item/ammo_box/magazine/internal/nitro_express/proc/remove_casing(obj/item/ammo_casing/AC)
+	if (!stored_ammo.len)
+		return
+	else
+		if(AC in stored_ammo)
+			stored_ammo -= AC

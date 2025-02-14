@@ -253,6 +253,10 @@
 	suffix = "basic"
 	name = "basic syndicate infiltrator"
 
+/datum/map_template/shuttle/infiltrator/drip	//dripstation edit
+	suffix = "drip"	//dripstation edit
+	name = "drip syndicate infiltrator"	//dripstation edit
+
 /datum/map_template/shuttle/cargo/delta
 	suffix = "delta"
 	name = "cargo ferry (Delta)"
@@ -284,6 +288,10 @@
 /datum/map_template/shuttle/aux_base/default
 	suffix = "default"
 	name = "auxilliary base (Default)"
+
+/datum/map_template/shuttle/aux_base/drip	//dripstation edit
+	suffix = "drip"							//dripstation edit
+	name = "auxilliary base (Drip)"			//dripstation edit
 
 /datum/map_template/shuttle/aux_base/small
 	suffix = "small"

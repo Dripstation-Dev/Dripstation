@@ -886,7 +886,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
+	/* Dripstation edit start
 	var/level = input("Select security level to change to","Set Security Level") as null|anything in list("green","blue","red","gamma","epsilon","delta")
+	*/
+	var/level = input("Select security level to change to","Set Security Level") as null|anything in list("green","blue","red","gamma","amber","epsilon","delta")	//dripstation edit end
 	if(level)
 		SSsecurity_level.set_level(level)
 

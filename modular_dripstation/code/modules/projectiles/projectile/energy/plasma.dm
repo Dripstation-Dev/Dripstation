@@ -1,5 +1,5 @@
 /obj/projectile/plasma/combat
-	range = 7
+	range = 10
 	mine_range = 5
 	light_power = 2
 	speed = 1.4 // plasma ball slow

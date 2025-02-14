@@ -5,8 +5,11 @@
 	icon = 'icons/obj/guns/energy.dmi'
 	ammo_x_offset = 2
 
+	/*
 	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
 	var/cell_type = /obj/item/stock_parts/cell
+	*/
+	cell_type = /obj/item/stock_parts/cell/gun
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.

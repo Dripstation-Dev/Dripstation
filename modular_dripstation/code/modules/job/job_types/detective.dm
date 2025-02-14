@@ -2,6 +2,7 @@
 	supervisor_corporation = /datum/corporation/spearhead
 
 /datum/outfit/job/detective
+	id_type = /obj/item/card/id/spearhead
 	uniform = /obj/item/clothing/under/rank/security/detective
 	shoes = /obj/item/clothing/shoes/laceup
 	ears = /obj/item/radio/headset/headset_sec
@@ -13,6 +14,7 @@
 	backpack_contents = list(/obj/item/storage/box/evidence=1)
 
 /datum/outfit/job/plasmaman/detective
+	id_type = /obj/item/card/id/spearhead
 	shoes = /obj/item/clothing/shoes/laceup
 	ears = /obj/item/radio/headset/headset_sec
 

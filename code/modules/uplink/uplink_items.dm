@@ -10,6 +10,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			continue
 		if(I.include_uplinks.len && !(uplink_type in I.include_uplinks))
 			continue
+		if(I.exclude_uplinks.len && (uplink_type in I.exclude_uplinks))	//dripstation edit
+			continue													//dripstation edit
 		if(I.include_modes.len)
 			if(!gamemode && SSticker.mode && !(SSticker.mode.type in I.include_modes))
 				continue
@@ -97,6 +99,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/cant_discount = FALSE
 	var/limited_stock = -1 //Setting this above zero limits how many times this item can be bought by the same traitor in a round, -1 is unlimited
 	var/list/include_uplinks = list("Uplink") // Uplink types this is in
+	var/list/exclude_uplinks = list() // Uplink types disallow this item from
 	var/list/include_modes = list() // Game modes to allow this item in.
 	var/list/exclude_modes = list() // Game modes to disallow this item from.
 	var/list/restricted_roles = list() //If this uplink item is only available to certain roles. Roles are dependent on the frequency chip or stored ID.
@@ -651,6 +654,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_weapons
 	category = "Stealthy Weapons"
 
+/* Dripstation edit
 /datum/uplink_item/stealthy_weapons/combatglovesplus
 	name = "Combat Gloves Plus"
 	desc = "A pair of gloves that are fireproof and shock resistant, however unlike the regular Combat Gloves this one uses nanotechnology \
@@ -659,6 +663,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	surplus = 0
+*/
 
 /datum/uplink_item/stealthy_weapons/cqc
 	name = "CQC Manual"
@@ -791,11 +796,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
 
+/* Dripstation edit
 /datum/uplink_item/ammo/pistol
 	name = "Random 10mm Handgun Magazines"
 	desc = "A box that contains four random 10-round 10mm magazines at a discount; compatible with the Stechkin Pistol."
 	item = /obj/item/storage/box/syndie_kit/pistolammo/random
 	cost = 2 // same mentality as the 357. You can get 4 mags for 2-4 TC, so giving in to the random chance give you a deal
+*/
 
 /datum/uplink_item/ammo/pistol/cs
 	name = "Pair of 10mm Caseless Magazines"
@@ -2891,6 +2898,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE //no i dont want amber erts with tasers thanks
 	var/required_ert_uplink = null //Do we need a specific uplink? Defaults to universal.
 
+/* Dripstation edit
 /datum/uplink_item/nt/energy_weps
 	category = "Energy Weapons"
 
@@ -3540,3 +3548,4 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Omnizine infused gummy bears. Grape flavor. Chew throughly!"
 	item = /obj/item/storage/pill_bottle/gummies/omnizine
 	cost = 1
+*/
