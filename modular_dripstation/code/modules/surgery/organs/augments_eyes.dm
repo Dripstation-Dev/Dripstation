@@ -1,6 +1,6 @@
 /obj/item/organ/cyberimp/eyes/hud
 	icon_state = "eye"
-	icon = "modular_dripstation/icons/obj/augments.dmi"
+	icon = 'modular_dripstation/icons/obj/augment.dmi'
 
 /obj/item/organ/cyberimp/eyes/hud/medical
 	icon_state = "eye_medical"
