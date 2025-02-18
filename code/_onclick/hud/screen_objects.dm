@@ -739,6 +739,7 @@
 
 //dripstation edit start, combo display
 /atom/movable/screen/combo
+	name = "martial hud"
 	icon_state = ""
 	icon = 'modular_dripstation/icons/hud/combo.dmi'
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -758,6 +759,7 @@
 	reset_icons()
 	if (timerid)
 		deltimer(timerid)
+	alpha = 255
 	if (!streak)
 		return ..()
 	timerid = addtimer(CALLBACK(src, PROC_REF(clear_streak)), time, TIMER_UNIQUE | TIMER_STOPPABLE)
@@ -767,6 +769,7 @@
 		var/image/intent_icon = image(icon,src,"combo_[intent_text]")
 		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
 		add_overlay(intent_icon)
+	return ..()
 //dripstation edit end, combo display
 
 /atom/movable/screen/cooldown_overlay

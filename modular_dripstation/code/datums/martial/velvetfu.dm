@@ -27,19 +27,19 @@
 
 /datum/martial_art/velvetfu/proc/check_streak(mob/living/A, mob/living/D)
 	if(findtext(streak, FLYING_AXEKICK_COMBO))
-		reset_streak()
+		reset_streak(D)
 		flyingAxekick(A,D)
 		return TRUE
 	if(findtext(streak, GOAT_HEADBUTT_COMBO))
-		reset_streak()
+		reset_streak(D)
 		goatHeadbutt(A,D)
 		return TRUE
 	if(findtext(streak, FULL_THRUST_COMBO))
-		reset_streak()
+		reset_streak(D)
 		fullThrust(A,D)
 		return TRUE
 	if(findtext(streak, MINOR_IRIS_COMBO))
-		reset_streak()
+		reset_streak(D)
 		minorIris(A,D)
 	return FALSE
 
@@ -119,7 +119,7 @@
 		span_userdanger("You untwist yourself in pain!"),
 	)
 	if(owner.mind.martial_art.streak == TWISTED_STANCE)
-		owner.mind.martial_art.reset_streak()
+		owner.mind.martial_art.reset_streak(owner)
 
 
 /*

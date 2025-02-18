@@ -99,7 +99,8 @@
 	//Dripstation edit start
 	if (display_combos)
 		var/mob/living/holder_living = holder.resolve()
-		holder_living?.hud_used?.combo_display.update_icon_state(streak)
+		timerid = addtimer(CALLBACK(src, PROC_REF(reset_streak), null, FALSE), combo_timer, TIMER_UNIQUE | TIMER_STOPPABLE)
+		holder_living?.hud_used?.combo_display.update_icon_state(streak, combo_timer - 2 SECONDS)
 	//Dripstation edit end
 	return
 

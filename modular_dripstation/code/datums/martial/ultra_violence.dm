@@ -6,7 +6,7 @@
 		return FALSE
 
 	if(findtext(streak, POCKET_PISTOL))
-		reset_streak()
+		reset_streak(D)
 		pocket_pistol(A,D)
 		return TRUE
 
@@ -14,11 +14,11 @@
 		return FALSE
 
 	if(findtext(streak, BLOOD_BURST))
-		reset_streak()
+		reset_streak(D)
 		blood_burst(A,D)
 		return TRUE
 
 	if(findtext(streak, GUN_HAND))
-		reset_streak()
+		reset_streak(D)
 		gun_hand(A, D)
 		return TRUE

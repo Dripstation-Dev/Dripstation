@@ -4,23 +4,23 @@
 
 /datum/martial_art/the_sleeping_carp/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak,WRIST_WRENCH_COMBO))
-		reset_streak()
+		reset_streak(D)
 		wristWrench(A,D)
 		return TRUE
 	if(findtext(streak,BACK_KICK_COMBO))
-		reset_streak()
+		reset_streak(D)
 		backKick(A,D)
 		return TRUE
 	if(findtext(streak,STOMACH_KNEE_COMBO))
-		reset_streak()
+		reset_streak(D)
 		kneeStomach(A,D)
 		return TRUE
 	if(findtext(streak,HEAD_KICK_COMBO))
-		reset_streak()
+		reset_streak(D)
 		headKick(A,D)
 		return TRUE
 	if(findtext(streak,ELBOW_DROP_COMBO))
-		reset_streak()
+		reset_streak(D)
 		elbowDrop(A,D)
 		return TRUE
 	return FALSE

@@ -9,10 +9,10 @@
 		Slam(A,D)
 		return TRUE
 	if(findtext(streak, TAIL_COMBO))
-		reset_streak()
+		reset_streak(D)
 		Slap(A,D)
 		return TRUE
 	if(findtext(streak, CHOMP_COMBO))
-		reset_streak()
+		reset_streak(D)
 		Chomp(A,D)
 		return TRUE

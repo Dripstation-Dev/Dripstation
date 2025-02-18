@@ -7,13 +7,14 @@
 	help_verb = /mob/living/carbon/human/proc/trained_help
 	block_chance = 60 //Don't get into melee with someone trained for melee and prepared for your attacks
 	nonlethal = TRUE //all attacks deal solely stamina damage or knock out before dealing lethal amounts of damage
+	display_combos = TRUE //for style points literally
 	var/chokehold_active = FALSE
 
 /datum/martial_art/trained/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(can_use(A) || can_use(D)))
 		return FALSE
 	if(findtext(streak,LOW_RESTRAIN_COMBO))
-		reset_streak()
+		reset_streak(D)
 		LowRestrain(A,D)
 		return TRUE
 	return FALSE
@@ -37,6 +38,9 @@
 	return TRUE
 
 /datum/martial_art/trained/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	if(!(can_use(A) || can_use(D)))
+		return FALSE
+	add_to_streak("D", D)
 	if(restraining && A.pulling == D && A.zone_selected == BODY_ZONE_HEAD)
 		if(chokehold_active)
 			return TRUE
@@ -87,14 +91,11 @@
 /datum/martial_art/trained/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(can_use(A) || can_use(D)))
 		return FALSE
+	add_to_streak("H", D)
 	if(restraining && A.pulling == D && (A.zone_selected == BODY_ZONE_L_ARM || A.zone_selected == BODY_ZONE_R_ARM))
 		armlock(A, D)
-		if(A.grab_state < GRAB_NECK)
-			A.grab_state = GRAB_NECK
-		var/checkpull = "A do not pull D"
-		if(A.pulling == D)
-			checkpull = "A pull D"
-		to_chat(A, span_warning("Current grab state is [A.grab_state], [checkpull]!"))
+		//if(A.grab_state < GRAB_NECK)
+		//	A.grab_state = GRAB_NECK
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		var/picked_hit_type = pick("punched effectively", "kicked effectively", "tacticooled")
@@ -134,8 +135,11 @@
 	playsound(D, 'modular_dripstation/sound/weapons/knockdown.ogg', 20, TRUE, -1)
 	if(D.mobility_flags & MOBILITY_STAND)
 		D.set_resting(TRUE)
-	D.Immobilize(5 SECONDS)
+	D.Immobilize(7 SECONDS)	//time to handcuff target or do something to them
+	D.Knockdown(12 SECONDS) //+5 seconds to punch him in his guts
+	D.apply_damage(A.get_punchdamagehigh() + 5, STAMINA)	//15 damage
 	A.forceMove(get_turf(D))
+	A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//grants free 0.2 seconds, swag
 	D.visible_message(
 		span_danger("[A] successfully armlocks [D]!"),
 		span_userdanger("[A] successfully armlocks you!")

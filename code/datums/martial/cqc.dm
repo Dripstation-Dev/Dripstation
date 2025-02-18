@@ -149,6 +149,9 @@
 	D.visible_message(span_warning("[A] dislocates [D]'s [hit_limb]!"), \
 						"<span class = 'userdanger'>[A] dislocates your [hit_limb]!</span>")
 	D.drop_all_held_items()
+	var/obj/item/bodypart/limb = D.get_bodypart(ran_zone(A.zone_selected))	//dripstation edit
+	var/datum/wound/blunt/moderate/crit_wound = new			//dripstation edit
+	crit_wound.apply_wound(limb)							//dripstation edit
 	D.apply_damage(50, STAMINA, selected_zone)	//not based on species damage since this should just disable the limb outright anyways, which caps at 50 damage
 	playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	return TRUE

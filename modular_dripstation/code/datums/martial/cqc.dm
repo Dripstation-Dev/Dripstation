@@ -5,23 +5,23 @@
 	if(!(can_use(A) || can_use(D)))
 		return FALSE
 	if(findtext(streak,SLAM_COMBO))
-		reset_streak()
+		reset_streak(D)
 		Slam(A,D)
 		return TRUE
 	if(findtext(streak,KICK_COMBO))
-		reset_streak()
+		reset_streak(D)
 		Kick(A,D)
 		return TRUE
 	if(findtext(streak,RESTRAIN_COMBO))
-		reset_streak()
+		reset_streak(D)
 		Restrain(A,D)
 		return TRUE
 	if(findtext(streak,PRESSURE_COMBO))
-		reset_streak()
+		reset_streak(D)
 		Pressure(A,D)
 		return TRUE
 	if(findtext(streak,CONSECUTIVE_COMBO))
-		reset_streak()
+		reset_streak(D)
 		Consecutive(A,D)
 		return TRUE
 	return FALSE
