@@ -20,7 +20,7 @@
 /obj/item/paper/contract/employment/examine(mob/user)
 	. = ..()
 	. += "The paper definitely contains more text than it should normally have."
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/ert) || user.mind.assigned_role in list("Lawyer", "Head of Personnel", "Nanotrasen Representative", "Magistrate", "Captain", get_all_centcom_jobs()))
+	if(user.mind && (user.mind.has_antag_datum(/datum/antagonist/ert) || (user.mind.assigned_role in list("Lawyer", "Head of Personnel", "Nanotrasen Representative", "Magistrate", "Captain", get_all_centcom_jobs()))))
 		. += "You notise some clauses in the contract: \
 			Something about non-insurance cases. \
 			Something about working on rival corps.\
@@ -37,7 +37,7 @@
 /obj/item/paper/contract/employment/examine_more(mob/user)
 	. = ..()
 	var/msg
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/ert) || user.mind.assigned_role in list("Lawyer", "Head of Personnel", "Nanotrasen Representative", "Magistrate", "Captain", get_all_centcom_jobs()))
+	if(user.mind && (user.mind.has_antag_datum(/datum/antagonist/ert) || (user.mind.assigned_role in list("Lawyer", "Head of Personnel", "Nanotrasen Representative", "Magistrate", "Captain", get_all_centcom_jobs()))))
 		msg = "<BR>Preamble \
 		<BR>Employee, being a naturally born human (or other humanoid species approved for existence at commercial facilities in the Terragov space), possesses skills that can be useful to the Employer. Employee seeks employment with the Employer. \
 		<BR>Employer agrees to regulary pay Employee a salary in exchange for his continued service... \

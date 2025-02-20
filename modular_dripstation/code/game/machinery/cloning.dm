@@ -9,7 +9,7 @@
 	if(mess || attempting)
 		return NONE
 
-	if(!empty & prob(100-(efficiency*10)))	//like 80% at 1-tier components and 20% at 4-tier components 
+	if(!empty & (prob(100-(efficiency*10))))	//like 80% at 1-tier components and 20% at 4-tier components 
 		not_self = TRUE
 
 	if(!empty || not_self) //Doesn't matter if we're just making a copy or it`s not the soul we were searching for

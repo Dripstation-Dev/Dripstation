@@ -34,6 +34,7 @@
 	update_icon()
 
 /obj/item/stock_parts/cell/gun/update_icon()
+	. = ..()
 	cut_overlays()
 	if(grown_battery)
 		. += mutable_appearance('icons/obj/power.dmi', "grown_wires")

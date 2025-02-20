@@ -168,6 +168,7 @@
 	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/gun/ballistic/rail/update_icon_state()
+	. = ..()
 	if(!cell)
 		icon_state = "railgun_no_cell"
 	else if(recharging)

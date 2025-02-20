@@ -168,7 +168,7 @@
 	)
 	if(job in idfluff)
 		has_fluff = TRUE
-	else if(!job || job in fluffblacklist)
+	else if(!job || (job in fluffblacklist))
 		return
 	else
 		if(has_fluff)

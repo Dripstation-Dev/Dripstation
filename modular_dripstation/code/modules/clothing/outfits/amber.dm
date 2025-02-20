@@ -38,6 +38,7 @@
 		deploed = 0
 
 /obj/item/clothing/head/helmet/swat/nanotrasen/ert/clocker/Destroy()
+	. = ..()
 	if(deploed)
 		var/mob/living/carbon/human/user = usr
 		QDEL_NULL(user.glasses)
