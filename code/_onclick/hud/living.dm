@@ -10,6 +10,9 @@
 	pull_icon.screen_loc = ui_living_pull
 	static_inventory += pull_icon
 
+	combo_display = new /atom/movable/screen/combo()	//dripstation edit, combo display
+	infodisplay += combo_display	//dripstation edit, combo display
+
 	//mob health doll! assumes whatever sprite the mob is
 	healthdoll = new /atom/movable/screen/healthdoll/living(src)
 	infodisplay += healthdoll

@@ -1,0 +1,1 @@
+#define ui_combo "CENTER+4:24,SOUTH+1:7" //combo meter for martial arts

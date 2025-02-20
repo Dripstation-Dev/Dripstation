@@ -29,6 +29,9 @@
 	else
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "bad_touch", /datum/mood_event/bad_touch)
 
+/datum/quirk/nearsighted
+	value = -1
+
 /datum/quirk/prosthetic_limb
 	value = -1
 
@@ -128,7 +131,7 @@
 	gain_text = span_notice("You feel like you won't be able to use guns anymore...")
 	lose_text = span_notice("You suddenly feel like you can use guns again!")
 	medical_record_text = "Patient is unable to use firearms. Reasoning unknown."
-	value = -6
+	value = -5
 	mob_trait = TRAIT_NOGUNS_QUIRK
 	icon = "gun"
 	job_blacklist = list("Head of Security", "Security Officer", "Warden")
