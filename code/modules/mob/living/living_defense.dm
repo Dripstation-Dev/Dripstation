@@ -185,6 +185,7 @@
 	if(user.grab_state >= user.max_grab)
 		return
 	user.changeNext_move(CLICK_CD_GRABBING)
+	user.do_attack_animation(src, ATTACK_EFFECT_GRAB) //dripstation edit
 	var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

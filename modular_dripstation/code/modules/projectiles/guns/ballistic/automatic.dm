@@ -688,8 +688,8 @@
 	mag_display = TRUE
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
-
-
+  
+ 
 //paintballs
 /obj/item/gun/ballistic/automatic/toy/paintball
 	name = "red paintball gun"
