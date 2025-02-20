@@ -99,6 +99,7 @@
 	var/matrix/new_transform = matrix()
 	new_transform.Scale(1, 0.8)
 	owner.transform = new_transform.Multiply(owner.transform)
+	ADD_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)			// Dripstation edit
 	passtable_on(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly shrinks!"), span_notice("Everything around you seems to grow.."))
 
@@ -108,6 +109,7 @@
 	var/matrix/new_transform = matrix()
 	new_transform.Scale(1, 1.25)
 	owner.transform = new_transform.Multiply(owner.transform)
+	REMOVE_TRAIT(owner, TRAIT_DWARF, GENETIC_MUTATION)			// Dripstation edit
 	passtable_off(owner, GENETIC_MUTATION)
 	owner.visible_message(span_danger("[owner] suddenly grows!"), span_notice("Everything around you seems to shrink.."))
 

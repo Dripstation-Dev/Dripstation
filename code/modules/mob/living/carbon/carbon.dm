@@ -158,12 +158,10 @@
 	SEND_SIGNAL(src, COMSIG_MOB_THROW, target)
 	return
 
+/* Dripstation edit - see dripstation module
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
-	/*
 	throw_mode_off()
-	*/
-	throw_mode_off(THROW_MODE_TOGGLE)	//dripstation edit
 	if(!target || !isturf(loc))
 		return
 	if(istype(target, /atom/movable/screen))
@@ -207,14 +205,13 @@
 	if(thrown_thing)
 		if(HAS_TRAIT(src, TRAIT_HULK))
 			power_throw++
-		do_attack_animation(target, no_effect = 1) //Dripstation edit
-		playsound(loc, 'sound/weapons/punchmiss.ogg', 50, TRUE, -1)  //Dripstation edit
 		visible_message(span_danger("[src] throws [thrown_thing][power_throw ? " really hard!" : "."]"), \
 						span_danger("You throw [thrown_thing][power_throw ? " really hard!" : "."]"))
 		log_message("has thrown [thrown_thing] [power_throw ? "really hard" : ""]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed + power_throw, src, null, null, null, move_force)
 		changeNext_move(CLICK_CD_RANGE)
+*/
 
 /mob/living/carbon/restrained(ignore_grab)
 	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))
