@@ -59,6 +59,23 @@
 	l_hand = /obj/item/gun/ballistic/rifle/boltaction/brand_new
 	implants = list(/obj/item/implant/mindshield/centcom)
 
+/datum/outfit/centcom/intern/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/W = H.wear_id
+	W.access = get_centcom_access("VIP Guest")
+	W.access += ACCESS_MAINT_TUNNELS
+	W.access += ACCESS_WEAPONS
+	W.access += ACCESS_HEADS
+	W.access += ACCESS_BRIG
+	W.assignment = "CentCom Intern"
+	W.registered_name = H.real_name
+	W.update_label()
+
+	//H.ignores_capitalism = TRUE 	//Ugh, sorry mate
+
 /datum/outfit/centcom/intern/unarmed
 	name = "CentCom Intern (Unarmed)"
 
@@ -85,14 +102,14 @@
 	suit_store = null
 	l_pocket = null
 
-/datum/outfit/centcom/intern/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/centcom/intern/leader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	if(pdaequip)
-		var/obj/item/pda/heads/centcom/pda = H.r_store
-		pda.owner = H.real_name
-		pda.ownjob = "CentCom Intern"
+		var/obj/item/modular_computer/tablet/pda/preset/bureaucrat/pda = H.r_store
+		//pda.owner = H.real_name
+		//pda.ownjob = "CentCom Intern"
 		pda.update_label()
 
 	var/obj/item/card/id/W = H.wear_id
@@ -128,17 +145,17 @@
 	id = /obj/item/card/id/centcom
 	backpack_contents = list(/obj/item/restraints/handcuffs/cable/zipties=1, /obj/item/stamp/cent = 1, /obj/item/reagent_containers/spray/pepper = 1, /obj/item/lighter/nt = 1)
 
-/obj/item/pda/heads/centcom
-	insert_type = /obj/item/pen/red/edagger/nt
+/obj/item/modular_computer/tablet/pda/preset/bureaucrat
+	pen_type = /obj/item/pen/red/edagger/nt
 
 /datum/outfit/centcom/official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	if(pdaequip)
-		var/obj/item/pda/heads/centcom/pda = H.r_store
-		pda.owner = H.real_name
-		pda.ownjob = "CentCom Official"
+		var/obj/item/modular_computer/tablet/pda/preset/bureaucrat/pda = H.r_store
+		//pda.owner = H.real_name
+		//pda.ownjob = "CentCom Official"
 		pda.update_label()
 
 	var/obj/item/card/id/W = H.wear_id

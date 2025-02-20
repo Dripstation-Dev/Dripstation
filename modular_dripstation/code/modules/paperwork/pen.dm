@@ -142,6 +142,7 @@
 	icon_state = "pen"
 	item_state = "pen"
 	colour = "black"
+	unlocked = TRUE
 
 /obj/item/pen/red/edagger/nt/update_icon()
 	. = ..()

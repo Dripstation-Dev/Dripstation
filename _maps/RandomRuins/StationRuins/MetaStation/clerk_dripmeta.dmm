@@ -222,8 +222,16 @@
 /obj/effect/turf_decal/tile/green/opposingcorners{
 	dir = 1
 	},
+/obj/item/poster/random_erotic{
+	pixel_x = 2;
+	pixel_y = 12
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
+	},
+/obj/item/poster/random_terragov{
+	pixel_x = 0;
+	pixel_y = -3
 	},
 /turf/open/floor/plasteel,
 /area/clerk)
