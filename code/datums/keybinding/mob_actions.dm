@@ -1,3 +1,4 @@
+/*Dripstation edit - remove this type of hotkeys
 ///Hotkeys for performing actions
 /datum/keybinding/mob/action_hotkey
 	var/action_num = 0
@@ -42,3 +43,4 @@
 	name = "action_4"
 	full_name = "Quick Action 4"
 	action_num = 4
+*/

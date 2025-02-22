@@ -5,7 +5,7 @@
 	range = 35
 	light_color = COLOR_VIVID_YELLOW
 	light_range = 3
-	speed = 1.2	//the OVERspeed
+	speed = 0.18	//the OVERspeed
 	wound_bonus = -30
 	penetrations = 2
 	penetration_flags = PENETRATE_OBJECTS | PENETRATE_MOBS
@@ -17,7 +17,7 @@
 	name = "ferromagnetic lance"
 	icon_state = "gauss"
 	damage = 32
-	speed = 1	//more mass - more damage - bit slower
+	speed = 0.2	//more mass - more damage - bit slower
 	armour_penetration = 80
 	penetrations = 4
 	penetration_flags = PENETRATE_OBJECTS | PENETRATE_MOBS
@@ -27,7 +27,7 @@
 	icon_state = "gaussstrong"
 	damage = 60
 	wound_bonus = -40
-	speed = 1	//more mass - more damage - bit slower
+	speed = 0.2	//more mass - more damage - bit slower
 	penetration_flags = PENETRATE_OBJECTS
 
 /obj/projectile/bullet/rail
@@ -37,7 +37,7 @@
 	range = 60
 	light_color = COLOR_VIVID_YELLOW
 	light_range = 4
-	speed = 1.6	//the OVERspeeeeeed
+	speed = 0.15	//the OVERspeeeeeed
 	wound_bonus = -60
 	armour_penetration = 100 //completely deny it
 	hard_armour_penetration = 40 //even hardened armor can`t stand

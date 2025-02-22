@@ -21,6 +21,18 @@
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 
+/obj/item/clothing/glasses/science/sunglasses
+	name = "science sunglasses"
+	desc = "Science sunglasses."
+	flags_cover = null //GLASSESCOVERSEYES
+	flash_protect = 1
+	tint = 1
+
+/obj/item/clothing/glasses/science/sunglasses/aviator
+	name = "chemical aviators"
+	desc = "Science aviators."
+	icon_state = "aviator_sci"
+
 /obj/item/clothing/glasses/night
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
@@ -148,13 +160,6 @@
 /obj/item/clothing/glasses/material/mining/gar
 	icon = 'icons/obj/clothing/glasses.dmi'
 	worn_icon = 'icons/mob/clothing/eyes/eyes.dmi'
-	flags_cover = null //GLASSESCOVERSEYES
-
-/obj/item/clothing/glasses/material/aviator
-	name = "material chemical aviators"
-	desc = "Science aviators with a reagent scanner. Can see through materials, nothing special though."
-	icon_state = "aviator_sci"
-	clothing_flags = SCAN_REAGENTS
 	flags_cover = null //GLASSESCOVERSEYES
 
 /obj/item/clothing/glasses/sunglasses/reagent

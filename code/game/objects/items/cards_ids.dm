@@ -461,7 +461,12 @@
 		registered_account.bank_card_talk(span_warning("ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS."), TRUE)
 		return
 
+	/* dripstation edit
 	var/amount_to_remove =  FLOOR(input(user, "How much do you want to withdraw? Current Balance: [registered_account.account_balance]", "Withdraw Funds", 5) as num, 1)
+	*/
+	var/amount_to_remove = tgui_input_number(user, "How much do you want to withdraw? (Current Balance: [registered_account.account_balance] cr)", "Withdraw Funds", default = 5, max_value = registered_account.account_balance, min_value = 0)	//dripstation edit
+	if(QDELETED(user) || QDELETED(src) || issilicon(user) || loc != user)	//dripstation edit
+		return	//dripstation edit
 
 	if(!amount_to_remove || amount_to_remove < 0)
 		to_chat(user, span_warning("You're pretty sure that's not how money works."))
@@ -610,6 +615,7 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_MINERAL_STOREROOM)
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 	var/forged = FALSE //have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
+	var/copied_iff_signals
 
 /obj/item/card/id/syndicate/Initialize(mapload)
 	. = ..()
@@ -625,6 +631,7 @@ update_label("John Doe", "Clowny")
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
 		src.access |= I.access
+		src.copied_iff_signals |= I.iff_signal	//dripstation edit
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
 				to_chat(usr, span_notice("The card's microscanners activate as you pass it over the ID, copying its access."))
@@ -638,11 +645,19 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
+		/*Dripstation edit
 		var/popup_input = tgui_alert(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change Account ID"))
+		*/
+		var/popup_input = tgui_input_list(user, "Choose Action", "Agent ID", list("Show", "Forge/Reset", "Change IFF", "Change Account ID", "Remove All Access"))	//dripstation edit
 		if(user.incapacitated())
 			return
+		if(!popup_input)
+			return
 		if(popup_input == "Forge/Reset" && !forged)
+			var/input_name = tgui_input_text(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)	//dripstation edit
+			/*			dripstation edit
 			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
+			*/
 			input_name = reject_bad_name(input_name, TRUE) //some species (IPCs) can have numbers in their name
 			if(!input_name)
 				// Invalid/blank names give a randomly generated one.
@@ -651,13 +666,39 @@ update_label("John Doe", "Clowny")
 				else
 					input_name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
 
+			var/id_visual = tgui_input_list(user, "Choose Card Visual", "Agent ID", list("Normal", "Security", "Silver", "Gold", "Head", "Nanotrasen", "Syndicate"))	//dripstation edit start
+			if(!id_visual)
+				return
+			switch(id_visual)
+				if("Normal")
+					icon_state = "id"
+				if("Security")
+					icon_state = "id_spearhead"
+				if("Silver")
+					icon_state = "id_silver"
+				if("Gold")
+					icon_state = "id_gold"
+				if("Head")
+					icon_state = "id_head"
+				if("Nanotrasen")
+					icon_state = "id_nanotrasen"
+				if("Syndicate")
+					icon_state = "syndie"
+					has_fluff = TRUE						//dripstation edit end
+
+			var/target_occupation = tgui_input_text(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : "Assistant", MAX_MESSAGE_LEN)	//dripstation edit
+			/*			dripstation edit
 			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : "Assistant", MAX_MESSAGE_LEN)
+			*/
 			if(!target_occupation)
 				return
 
+			/*	dripstation edit
 			var/newAge = input(user, "Choose the ID's age:\n([AGE_MIN]-[AGE_MAX])", "Agent card age") as num|null
 			if(newAge)
 				registered_age = clamp(round(text2num(newAge)), AGE_MIN, AGE_MAX)
+			*/
+			registered_age = tgui_input_number(user, "Choose the ID's age:\n([AGE_MIN]-[AGE_MAX])", "Agent card age", default = 18, max_value = AGE_MAX, min_value = AGE_MIN)		//dripstation edit
 
 			registered_name = input_name
 			assignment = target_occupation
@@ -680,6 +721,9 @@ update_label("John Doe", "Clowny")
 			return
 		else if (popup_input == "Forge/Reset" && forged)
 			registered_name = initial(registered_name)
+			icon_state = initial(icon_state)	//dripstation edit
+			has_fluff = initial(has_fluff)		//dripstation edit
+			overlays.Cut()						//dripstation edit
 			assignment = initial(assignment)
 			originalassignment = initial(originalassignment)
 			log_game("[key_name(user)] has reset \the [initial(name)] named \"[src]\" to default.")
@@ -687,10 +731,93 @@ update_label("John Doe", "Clowny")
 			forged = FALSE
 			to_chat(user, span_notice("You successfully reset the ID card."))
 			return
+		else if (popup_input == "Change IFF")								//dripstation edit start
+			if(!copied_iff_signals)
+				to_chat(user, span_notice("Card has no IFF signals to choose from."))
+				return
+			var/list/has_iff_by_name = list()
+			if(copied_iff_signals & TERRAGOV_IFF)
+				has_iff_by_name += get_iff_desc(TERRAGOV_IFF)
+			else if(copied_iff_signals & NANOTRASEN_IFF)
+				has_iff_by_name += get_iff_desc(NANOTRASEN_IFF)
+			else if(copied_iff_signals & SPEARHEAD_IFF)
+				has_iff_by_name += get_iff_desc(SPEARHEAD_IFF)
+			else if(copied_iff_signals & HEPHAESTUS_IFF)
+				has_iff_by_name += get_iff_desc(HEPHAESTUS_IFF)
+			else if(copied_iff_signals & SYNDICATE_IFF)
+				has_iff_by_name += get_iff_desc(SYNDICATE_IFF)
+			else if(copied_iff_signals & SHELLGUARD_IFF)
+				has_iff_by_name += get_iff_desc(SHELLGUARD_IFF)
+			else if(copied_iff_signals & UNN_IFF)
+				has_iff_by_name += get_iff_desc(UNN_IFF)
+			else if(copied_iff_signals & DEATHSQUAD_IFF)
+				has_iff_by_name += get_iff_desc(DEATHSQUAD_IFF)
+			has_iff_by_name += "Reset IFF"
+			var/iff_to_choose = tgui_alert(user, "Choose IFF Signals", "Agent ID", has_iff_by_name)
+			switch(iff_to_choose)
+				if("Terragov IFF")
+					to_chat(user, span_notice("Card beeps as Terragov IFF signal [(iff_signal & TERRAGOV_IFF) ? "stops" : "starts"] transmitting."))
+					iff_signal ^= TERRAGOV_IFF
+					return
+				if("Nanotrasen IFF")
+					to_chat(user, span_notice("Card beeps as Nanotrasen IFF signal [(iff_signal & NANOTRASEN_IFF) ? "stops" : "starts"] transmitting."))
+					iff_signal ^= NANOTRASEN_IFF
+					return
+				if("Spearhead IFF")
+					to_chat(user, span_notice("Card beeps as Spearhead IFF signal [(iff_signal & SPEARHEAD_IFF) ? "stops" : "starts"] transmitting."))
+					iff_signal ^= SPEARHEAD_IFF
+					return
+				if("Hephaestus IFF")
+					to_chat(user, span_notice("Card beeps as Hephaestus IFF signal [(iff_signal & HEPHAESTUS_IFF) ? "stops" : "starts"] transmitting."))
+					iff_signal ^= HEPHAESTUS_IFF
+					return
+				if("Syndicate IFF")
+					to_chat(user, span_notice("Card beeps as Syndicate IFF signal [(iff_signal & SYNDICATE_IFF) ? "stops" : "starts"] transmitting."))
+					iff_signal ^= SYNDICATE_IFF
+					return
+				if("Shellguard IFF")
+					to_chat(user, span_notice("Card beeps as Shellguard IFF signal [(iff_signal & SHELLGUARD_IFF) ? "stops" : "starts"] transmitting."))
+					iff_signal ^= SHELLGUARD_IFF
+					return
+				if("UNN IFF")
+					to_chat(user, span_notice("Card beeps as UNN IFF signal [(iff_signal & UNN_IFF) ? "stops" : "starts"] transmitting."))
+					iff_signal ^= UNN_IFF
+					return
+				if("BlackOps IFF")
+					to_chat(user, span_notice("Card beeps as BlackOps IFF signal [(iff_signal & DEATHSQUAD_IFF) ? "stops" : "starts"] transmitting."))
+					iff_signal ^= DEATHSQUAD_IFF
+					return
+				if("Reset IFF")
+					to_chat(user, span_notice("Card beeps as all signals stop transmitting."))
+					iff_signal = null
+					return							//dripstation edit end
 		else if (popup_input == "Change Account ID")
 			set_new_account(user)
 			return
+		else if (popup_input == "Remove All Access")			//dripstation edit
+			access = initial(access)							//dripstation edit
+			return												//dripstation edit
 	return ..()
+
+///IFF signals by name, dripstation edit start
+/obj/item/card/id/syndicate/proc/get_iff_desc(A)
+	switch(A)
+		if(TERRAGOV_IFF)
+			return "Terragov IFF"
+		if(NANOTRASEN_IFF)
+			return "Nanotrasen IFF"
+		if(SPEARHEAD_IFF)
+			return "Spearhead IFF"
+		if(HEPHAESTUS_IFF)
+			return "Hephaestus IFF"
+		if(SYNDICATE_IFF)
+			return "Syndicate IFF"
+		if(SHELLGUARD_IFF)
+			return "Shellguard IFF"
+		if(UNN_IFF)
+			return "UNN IFF"
+		if(DEATHSQUAD_IFF)
+			return "BlackOps IFF"	//dripstation edit end
 
 /obj/item/card/id/syndicate/on_chameleon_change()
 	. = ..()
@@ -701,16 +828,26 @@ update_label("John Doe", "Clowny")
 	. = FALSE
 	var/datum/bank_account/old_account = registered_account
 
+	var/user_account = 11111																//dripstation edit
+	if(istype(user, /mob/living/carbon/human))												//dripstation edit
+		var/mob/living/carbon/human/H = user												//dripstation edit
+		if(!isnull(H.account_id))															//dripstation edit
+			user_account = H.account_id														//dripstation edit
+	var/new_bank_id = tgui_input_number(user, "Enter the account ID to associate with this card.", "Link Bank Account", user_account, 999999, 111111)		//dripstation edit
+	/*		//dripstation edit
 	var/new_bank_id = input(user, "Enter your account ID number.", "Account Reclamation", 111111) as num | null
+	*/
 
 	if (isnull(new_bank_id))
 		return
 
 	if(!alt_click_can_use_id(user))
 		return
+	/*		//dripstation edit
 	if(!new_bank_id || new_bank_id < 111111 || new_bank_id > 999999)
 		to_chat(user, span_warning("The account ID number needs to be between 111111 and 999999."))
 		return
+	*/
 	if (registered_account && registered_account.account_id == new_bank_id)
 		to_chat(user, span_warning("The account ID was already assigned to this card."))
 		return

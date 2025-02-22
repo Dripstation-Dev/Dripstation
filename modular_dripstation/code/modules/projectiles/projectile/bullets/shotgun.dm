@@ -1,3 +1,19 @@
+
+/obj/projectile/bullet/shotgun/slug
+	speed = 0.35 //Shotgun = slower
+
+/obj/projectile/bullet/shotgun/slug/uranium
+	icon_state = "bullet"
+
+/obj/projectile/bullet/pellet
+	icon_state = "buckshot"
+	icon = 'modular_dripstation/icons/effects/projectiles/projectiles.dmi'
+	speed = 0.35 //Shotgun = slower
+
+/obj/projectile/bullet/pellet/shotgun_flechette
+	icon_state = "flechette"
+	speed = 0.29
+
 /obj/projectile/bullet/pellet/shotgun_buckshot/syndie
 	name = "12/70 RIP-S"
 	bare_wound_bonus = 6 //shotgunning assistants, PAINfully

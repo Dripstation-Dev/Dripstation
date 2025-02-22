@@ -6782,7 +6782,8 @@
 	pixel_y = 2
 	},
 /obj/structure/mirror{
-	pixel_x = -28
+	pixel_x = -28;
+	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/mine/laborcamp)
@@ -9713,7 +9714,8 @@
 /obj/structure/mirror{
 	pixel_y = 36;
 	pixel_x = 0;
-	layer = 2.8
+	layer = 2.8;
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 1
@@ -11445,7 +11447,8 @@
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "dmt" = (
 /obj/structure/mirror{
-	pixel_x = -28
+	pixel_x = -28;
+	dir = 1
 	},
 /obj/machinery/shower{
 	dir = 4
@@ -15419,15 +15422,13 @@
 /turf/open/floor/carpet,
 /area/bridge/showroom/corporate)
 "eqG" = (
-/obj/machinery/vending/coffee{
-	pixel_x = -3
-	},
 /obj/machinery/button/door{
 	id = "council blast";
 	name = "Council Chamber Blast Door Control";
 	pixel_x = -28;
 	req_access_txt = "19"
 	},
+/obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 8
@@ -21737,7 +21738,8 @@
 /area/crew_quarters/dorms)
 "gfn" = (
 /obj/structure/mirror{
-	pixel_x = 28
+	pixel_x = 28;
+	dir = 1
 	},
 /obj/structure/sink{
 	dir = 4;
@@ -26637,7 +26639,8 @@
 /area/icemoon/underground/explored/laborcamp)
 "huT" = (
 /obj/structure/mirror{
-	pixel_x = -28
+	pixel_x = -28;
+	dir = 1
 	},
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
@@ -27598,6 +27601,9 @@
 /turf/open/floor/plating/snowed/smoothed/icemoon,
 /area/solar/starboard/fore)
 "hHE" = (
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel{
 	icon_state = "red";
 	dir = 5
@@ -36503,7 +36509,8 @@
 /obj/structure/mirror{
 	pixel_y = 35;
 	pixel_x = 0;
-	layer = 2.8
+	layer = 2.8;
+	dir = 1
 	},
 /obj/effect/landmark/start/repair_worker_replika,
 /turf/open/floor/plasteel/white/side{
@@ -37623,7 +37630,8 @@
 /area/hallway/secondary/command)
 "koS" = (
 /obj/structure/mirror{
-	pixel_x = 28
+	pixel_x = 28;
+	dir = 1
 	},
 /obj/effect/landmark/start/repair_worker_replika,
 /turf/open/floor/plasteel,
@@ -38889,7 +38897,8 @@
 /area/engine/engineering)
 "kGt" = (
 /obj/structure/mirror{
-	pixel_y = 28
+	pixel_y = 28;
+	dir = 1
 	},
 /obj/structure/sink{
 	pixel_y = 17
@@ -48960,6 +48969,19 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
+/obj/structure/table/wood,
+/obj/machinery/coffeemaker/impressa{
+	pixel_x = 3;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/drinks/mug{
+	pixel_x = -7;
+	pixel_y = -2
+	},
+/obj/item/storage/box/coffeepack{
+	pixel_x = 10;
+	pixel_y = -2
+	},
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 1
@@ -56555,7 +56577,8 @@
 /area/crew_quarters/bar)
 "ptx" = (
 /obj/structure/mirror{
-	pixel_x = 28
+	pixel_x = 28;
+	dir = 1
 	},
 /obj/machinery/shower{
 	dir = 8
@@ -62454,7 +62477,8 @@
 	pixel_y = 2
 	},
 /obj/structure/mirror{
-	pixel_x = -28
+	pixel_x = -28;
+	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -66905,6 +66929,15 @@
 	dir = 1
 	},
 /area/mine/eva_secondary)
+"sqh" = (
+/obj/machinery/light_switch{
+	pixel_x = -1;
+	pixel_y = -22
+	},
+/turf/open/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/security/brig)
 "sqq" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel{
@@ -74084,7 +74117,8 @@
 	specialfunctions = 4
 	},
 /obj/structure/mirror{
-	pixel_x = -28
+	pixel_x = -28;
+	dir = 1
 	},
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/freezer,
@@ -76702,7 +76736,8 @@
 	pixel_x = 11
 	},
 /obj/structure/mirror{
-	pixel_x = 28
+	pixel_x = 28;
+	dir = 1
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 4
@@ -82195,9 +82230,6 @@
 "woF" = (
 /obj/structure/chair{
 	name = "Judge"
-	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
 	},
 /obj/machinery/light{
 	dir = 1
@@ -248560,7 +248592,7 @@ eqP
 fWv
 suD
 aoc
-bEY
+sqh
 ulr
 vxp
 jEO

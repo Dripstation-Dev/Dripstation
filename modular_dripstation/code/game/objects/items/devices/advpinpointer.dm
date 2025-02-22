@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 			/obj/item/clothing/suit/armor/laserproof,
 			/obj/item/blackbox,
 			/obj/item/holotool,
-			/obj/item/areaeditor/blueprints)))
+			/obj/item/areaeditor/blueprints), only_root_path = TRUE))
 			///obj/item/clothing/gloves/krav_maga/sec,
 			///obj/item/cargo_teleporter,
 /obj/item/pinpointer/adv
@@ -92,7 +92,8 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 			setting = SETTING_DISK
 
 /obj/item/pinpointer/adv/proc/switch_mode_to(mob/user)
-	switch(alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", "Disk Recovery", "High Risk", "DNA RSS"))
+	var/choice = tgui_alert(user, "Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", list("Disk Recovery", "High Risk", "DNA RSS"))
+	switch(choice)
 		if("Disk Recovery")
 			setting = SETTING_DISK
 		if("High Risk")
@@ -104,7 +105,7 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 				var/name = initial(I.name)
 				item_names += name
 				item_paths[name] = objective
-			var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
+			var/targetitem = tgui_input_list(user, "Select item to search for.", "Item Mode Select", item_names)
 			if(!targetitem)
 				return
 			var/list/target_candidates = get_all_of_type(item_paths[targetitem], subtypes = TRUE)
@@ -119,8 +120,7 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 				return
 
 		if("DNA RSS")
-			setting = SETTING_PERSON
-			var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
+			var/DNAstring = tgui_input_text(user, "Input DNA string to search for." , "Please Enter String." , "")
 			if(!DNAstring)
 				return
 			for(var/mob/living/carbon/C in GLOB.mob_list)
@@ -131,6 +131,7 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 						remember_target = C
 						playsound(src, get_sfx("terminal_type"), 25, 1)
 						to_chat(user, "<span class='notice'>You set the pinpointer to locate somebody.</span>")
+						setting = SETTING_PERSON
 					else
 						playsound(src, 'sound/machines/triple_beep.ogg', 50, 1)
 						to_chat(user, "<span class='warning'>Malfunction detected.</span>")

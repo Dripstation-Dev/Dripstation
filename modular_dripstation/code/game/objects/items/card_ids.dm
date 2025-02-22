@@ -166,14 +166,10 @@
 		"TerraGov Military Officer",
 		"Shellguard Mercenary",
 	)
-	if(job in idfluff)
-		has_fluff = TRUE
-	else if(!job || (job in fluffblacklist))
+	if(!job || (job in fluffblacklist) || has_fluff)
 		return
 	else
-		if(has_fluff)
-			return
-		else
+		if(!(job in idfluff))
 			job = "Assistant" //Loads up the basic green ID
 	overlays.Cut()
 	overlays += idfluff[job][1]
@@ -186,11 +182,14 @@
 /obj/item/card/id/head
 	icon_state = "id_head"
 
+/obj/item/card/id/head/hos
+	iff_signal = SPEARHEAD_IFF
+
 /obj/item/card/id/gold/captain
 	iff_signal = SPEARHEAD_IFF
 
 /obj/item/card/id/spearhead
-	desc = "A card that allows access across the station. Also has Security IFF signal."
+	//desc = "A card that allows access across the station. Also has Security IFF signal."
 	icon_state = "id_spearhead"
 	iff_signal = SPEARHEAD_IFF
 

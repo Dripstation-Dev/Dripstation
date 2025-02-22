@@ -1344,10 +1344,15 @@
 	STR.set_holdable(list(/obj/item/reagent_containers/food/snacks/grown/coffee))
 
 /obj/item/storage/box/coffeepack/PopulateContents()
+	/*Dripstation edit
 	var/static/items_inside = list(
 		beantype = 5
 		)
 	generate_items_inside(items_inside,src)
+	*/
+	
+	for(var/i in 1 to 5)
+		new beantype(src)
 
 /obj/item/storage/box/coffeepack/robusta
 	icon_state = "robusta_beans"

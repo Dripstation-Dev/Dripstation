@@ -30,6 +30,12 @@
 		M.Knockdown(2 SECONDS)
 	return ..()
 
+/obj/projectile/beam
+	speed = 0.4
+
+/obj/projectile/beam/laser/hellfire
+	speed = 0.5
+
 /obj/projectile/beam/laser/spec	//basicly overpowered
 	speed = 1
 	armour_penetration = 10

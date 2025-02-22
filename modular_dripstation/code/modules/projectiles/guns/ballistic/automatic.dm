@@ -44,6 +44,7 @@
 	burst_size = 1
 	selector_switch_icon = TRUE
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	auto_fire_delay = 0.2 SECONDS 
 
 /obj/item/gun/ballistic/automatic/c20r
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
@@ -77,7 +78,7 @@
 	semi_auto_spread = 4
 	fire_delay = 2
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT, SELECT_FULLY_AUTOMATIC)
-	auto_fire_delay = 0.2 SECONDS
+	auto_fire_delay = 0.18 SECONDS
 	icon_state = "waffle_smg"
 	pin = /obj/item/firing_pin/fucked
 
@@ -329,6 +330,7 @@
 	can_suppress = FALSE
 	w_class = WEIGHT_CLASS_NORMAL
 	auto_fire_delay = 0.1 SECONDS
+	pin = /obj/item/firing_pin
 
 /obj/item/gun/ballistic/automatic/ar/ak47
 	name = "\improper AK-47 Assault Rifle"
@@ -346,6 +348,7 @@
 	spread = 25
 	burst_size = 1
 	can_suppress = FALSE
+	pin = /obj/item/firing_pin
 
 /obj/item/gun/ballistic/automatic/ar/akm
 	name = "\improper AKM Assault Rifle"
@@ -363,6 +366,7 @@
 	spread = 20
 	burst_size = 1
 	can_suppress = FALSE
+	pin = /obj/item/firing_pin
 
 /obj/item/gun/ballistic/automatic/ar/akm_tactical
 	name = "\improper TMCAR-47M Tactical Assault Rifle"
@@ -378,6 +382,7 @@
 	spread = 15
 	burst_size = 1
 	can_suppress = FALSE
+	pin = /obj/item/firing_pin
 
 /obj/item/gun/ballistic/automatic/ar/ak101
 	name = "\improper AK-101 Assault Rifle"
@@ -402,6 +407,7 @@
 	var/folded_item_state = "ak101_stockless"
 	can_suppress = FALSE
 	auto_fire_delay = 0.2 SECONDS
+	pin = /obj/item/firing_pin
 
 /obj/item/gun/ballistic/automatic/ar/ak101/CtrlClick(mob/user)
 	. = ..()
