@@ -17,3 +17,5 @@
 	desc = "The NT-D2 is a self-defense weapon that exhausts organic targets, weakening them until they collapse. Has white painting and secured pin."
 	icon_state = "disabler_secure"
 	pin = /obj/item/firing_pin/implant/mindshield
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
