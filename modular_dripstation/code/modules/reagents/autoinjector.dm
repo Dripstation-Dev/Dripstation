@@ -24,11 +24,11 @@
 
 /obj/item/reagent_containers/autoinjector/mixi
 	icon = 'icons/obj/syringe.dmi'
-	icon_state = "hypo_syndie"
+	icon_state = "hypo_vahlen"
 
 /obj/item/reagent_containers/autoinjector/derm
 	icon = 'icons/obj/syringe.dmi'
-	icon_state = "hypo_syndie"
+	icon_state = "hypo_vahlen"
 
 /obj/item/reagent_containers/autoinjector/medipen/stimpack/large
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
@@ -77,6 +77,10 @@
 	amount_per_transfer_from_this = 40
 	list_reagents = list(/datum/reagent/medicine/stimulants = 5, /datum/reagent/medicine/morphine = 5, /datum/reagent/medicine/salbutamol = 5, /datum/reagent/medicine/tricordrazine = 5, /datum/reagent/medicine/omnizine = 10, /datum/reagent/medicine/coagulant/blood_restoring_nanites = 2.5, /datum/reagent/iron = 3.5, /datum/reagent/medicine/salglu_solution = 4)
 
+/obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor/export
+	name = "combat autoinjector 'Vahlen Pharma'"
+	icon_state = "medipenemergencysyndie_e"
+
 /obj/item/reagent_containers/autoinjector/medipen/syndicate_trauma_repairer
 	name = "syndicate anti-trauma autoinjector"
 	desc = "A experimental autoinjector for use in combat situations. Helps to reform damaged neural connections, repair bones and coagulate bleeding and rapidly reverse severe bloodloss."
@@ -85,6 +89,9 @@
 	volume = 30
 	amount_per_transfer_from_this = 30
 	list_reagents = list(/datum/reagent/medicine/neurine = 5, /datum/reagent/medicine/morphine = 5, /datum/reagent/medicine/bone_restoring_nanites = 10, /datum/reagent/medicine/coagulant/blood_restoring_nanites = 2.5, /datum/reagent/iron = 3.5, /datum/reagent/medicine/salglu_solution = 4)
+
+/obj/item/reagent_containers/autoinjector/medipen/syndicate_trauma_repairer/export
+	icon_state = "medipentraumasyndie_e"
 
 /obj/item/reagent_containers/autoinjector/medipen/syndicate_cellular_repairer
 	name = "syndicate cellular restorer autoinjector"

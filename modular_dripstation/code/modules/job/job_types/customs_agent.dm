@@ -8,6 +8,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the quartermaster"
+	supervisor_corporation = /datum/corporation/nanotrasen/kompac
 	minimal_player_age = 14
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -21,6 +22,7 @@
 						ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO,
 						ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	paycheck = PAYCHECK_MEDIUM	//He is just a guy that is more valuable then tech, but less than normal officer
+	loyalties = LOYALTY_CORP_SLAVE
 	paycheck_department = ACCOUNT_CAR
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 

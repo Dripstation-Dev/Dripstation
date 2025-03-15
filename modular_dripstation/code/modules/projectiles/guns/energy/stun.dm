@@ -1,8 +1,7 @@
-/obj/item/gun/energy/pulse
-	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
-
 /obj/item/gun/energy/taser
 	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
+	muzzleflash_iconstate = "muzzle_flash_light"
+	muzzle_flash_color = COLOR_VERY_SOFT_YELLOW
 
 /obj/item/gun/energy/tesla_revolver
 	modifystate = TRUE
@@ -10,6 +9,8 @@
 
 /obj/item/gun/energy/disabler
 	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
+	muzzleflash_iconstate = "muzzle_flash_disabler"
+	muzzle_flash_color = COLOR_DISABLER_BLUE
 
 /obj/item/gun/energy/disabler/secure
 	name = "NT-D2S"

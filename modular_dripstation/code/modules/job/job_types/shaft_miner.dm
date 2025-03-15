@@ -5,6 +5,7 @@
 	supervisors = "the quartermaster"
 	alt_titles = list("Lavaland Scout", "Prospector", "Junior Miner", "Major Miner")
 	added_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_RESEARCH)
+	loyalties = LOYALTY_CORP_SLAVE
 
 /datum/outfit/job/miner
 	duffelbag = /obj/item/storage/backpack/duffelbag/explorer

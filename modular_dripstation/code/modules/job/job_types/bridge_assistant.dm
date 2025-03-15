@@ -25,6 +25,7 @@
 			    		ACCESS_SERVHALL, ACCESS_CONSTRUCTION, ACCESS_MAINT_TUNNELS,
 			    		ACCESS_MAILSORTING)
 	paycheck = PAYCHECK_MEDIUM	//u are assistant after all
+	loyalties = LOYALTY_CORP_SLAVE
 	paycheck_department = ACCOUNT_CAR
 	mind_traits = list(TRAIT_PRETENDER_ROYAL_METABOLISM) //beat the intruders, drink secy shit
 

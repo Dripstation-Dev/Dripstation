@@ -101,6 +101,7 @@
 		else
 			pin = new pin(src)
 	current_tracers = list()
+	muzzle_flash = new(src, muzzleflash_iconstate)	//dripstation edit
 	build_zooming()
 
 /obj/item/gun/Destroy()
@@ -133,7 +134,10 @@
 		clear_gunlight()
 	if(A in current_attachments)
 		var/obj/item/attachment/T = A
+		/* Dripstation edit
 		T.on_detach(src)
+		*/ 
+		T.can_detach(src)	//dripstation edit
 		
 	return ..()
 
@@ -222,6 +226,7 @@
 	else
 		if(enloudened && enloudened.enloudened_sound)
 			playsound(user, enloudened.enloudened_sound, fire_sound_volume, vary_fire_sound)
+		simulate_muzzle_flash(user, pbtarget)				//dripstation edit
 		playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 		if(message)
 			if(pointblank)
@@ -497,7 +502,10 @@
 			return ..()
 
 		to_chat(user, span_notice("You [A.attach_verb] \the [I] into place on [src]."))
+		/* dripstation edit
 		A.on_attach(src, user)
+		*/
+		A.can_attach(src, user)	//dripstation edit
 
 	else if(istype(I, /obj/item/flashlight/seclite))
 		if(!can_flashlight)
@@ -592,7 +600,10 @@
 
 	if(istype(item_to_remove, /obj/item/attachment))
 		var/obj/item/attachment/A = item_to_remove
+		/* Dripstation edit
 		return A.on_detach(src, user)
+		*/
+		return A.can_detach(src, user)	//dripstation edit
 
 	if(item_to_remove == bayonet)
 		return clear_bayonet()
@@ -709,7 +720,10 @@
 	if(azoom)
 		azoom.Remove(user)
 	if(zoomed)
+	/* Dripstation edit
 		zoom(user, user.dir)
+	*/
+		zoom(user, user.dir, FALSE)	//dripstation edit
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params, bypass_timer)
 	if(!ishuman(user) || !ishuman(target))
@@ -784,7 +798,7 @@
 		if(gun.zoomed)
 			gun.zoom(owner, owner.dir, FALSE)	//dripstation edit
 		return FALSE
-	/*
+	/*	Dripstation edit
 	if(!. && gun)
 		gun.zoom(owner, owner.dir, FALSE)
 	*/
@@ -798,6 +812,7 @@
 		var/mob/lad = thing
 		lad.client.view_size.zoomOut(zoom_out_amt, zoom_amt, new_dir)
 
+/* Dripstation edit
 /obj/item/gun/proc/zoom(mob/living/user, direc, forced_zoom)
 	if(!user || !user.client)
 		return
@@ -811,19 +826,13 @@
 			zoomed = !zoomed
 
 	if(zoomed)
-		if(!do_after(user, zooming_time, src, timed_action_flags = IGNORE_USER_LOC_CHANGE)) 			//dripstation edit
-			return	!zoomed		 																		//dripstation edit
-		user.add_movespeed_modifier(MOVESPEED_ID_ZOOMED_MODIFIER, update=TRUE, priority=100, multiplicative_slowdown = zooming_speed)//dripstation edit
-		fire_select(SELECT_SEMI_AUTOMATIC)								//dripstation edit
-		fire_delay = zooming_fire_delay			//dripstation edit
 		RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(rotate))
 		user.client.view_size.zoomOut(zoom_out_amt, zoom_amt, direc)
 	else
-		user.remove_movespeed_modifier(MOVESPEED_ID_ZOOMED_MODIFIER)					//dripstation edit
-		fire_delay = initial(fire_delay)			//dripstation edit
 		UnregisterSignal(user, COMSIG_ATOM_DIR_CHANGE)
 		user.client.view_size.zoomIn()
 	return zoomed
+*/
 
 //Proc, so that gun accessories/scopes/etc. can easily add zooming.
 /obj/item/gun/proc/build_zooming()

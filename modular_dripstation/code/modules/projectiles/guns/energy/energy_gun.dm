@@ -90,7 +90,9 @@
 	name = "miniature energy gun"
 	desc = "A small, pistol-sized version of the energy gun with a built-in flashlight. The NT-E4 functions as a popular self defense weapon among the elite due to its small size and cheap price. It has three settings: disable, stun and kill."
 	icon_state = "mini"
-	item_state = "gun"
+	item_state = "smallgun"
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	cell_type = /obj/item/stock_parts/cell/gun/mini
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
@@ -103,6 +105,16 @@
 	cell_type = /obj/item/stock_parts/cell/gun/pulse/pistol	//specops grade cell
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser_spec)
+
+/obj/item/gun/energy/e_gun/mini/specops/flash
+	name = "\improper 'Flash' energy gun"
+	desc = "A small, pistol-sized version of the energy gun with a built-in flashlight. The Flash functions as a popular self defense weapon among UNN corporate stuff due to its small size and cheap price. It has three settings: disable, stun and kill."
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	icon_state = "unn_flash"
+	item_state = "nt_ancile"
+	pin = /obj/item/firing_pin/dna/secure
+	automatic_charge_overlays = FALSE
 
 /obj/item/gun/energy/e_gun/mini/practice_phaser
 	icon = 'icons/obj/guns/energy.dmi'

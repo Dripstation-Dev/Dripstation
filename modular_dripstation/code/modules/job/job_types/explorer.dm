@@ -19,6 +19,7 @@
 	added_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_RESEARCH, ACCESS_RND)
 	base_access = list(ACCESS_EXPLORER, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 	paycheck = PAYCHECK_MEDIUM	//He is just a guy that is more valuable then tech, but less than normal shaft miner
+	loyalties = LOYALTY_CORP_SLAVE
 	paycheck_department = ACCOUNT_CAR
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORER

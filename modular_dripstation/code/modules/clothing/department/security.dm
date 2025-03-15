@@ -388,8 +388,7 @@
 // ###### VENDORS ######
 /obj/machinery/vending/security
 	req_access = list(ACCESS_BRIG)
-	products = list(/obj/item/clothing/head/helmet/plated = 6,
-					/obj/item/clothing/suit/armor/plated = 6,
+	products = list(/obj/item/clothing/suit/armor/plated = 6,
 					/obj/item/restraints/handcuffs = 8,
 					/obj/item/clothing/neck/anti_magic_collar = 3,
 					/obj/item/restraints/handcuffs/cable/zipties = 10,
@@ -413,6 +412,7 @@
 					/obj/item/clothing/glasses/hud/security/sunglasses/aviators = 1,
 					/obj/item/coin/antagtoken = 1,
 					/obj/item/bowman_upgrade = 2,
+					/obj/item/clothing/suit/armor/vest/alt/full = 2,
 					/obj/item/clothing/head/helmet/warhelmet = 5,
 					/obj/item/clothing/suit/armor/vest/rycliesarmour = 5,
 					/obj/item/clothing/head/helmet/blueshirt = 5,

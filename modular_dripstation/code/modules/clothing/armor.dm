@@ -43,10 +43,51 @@
 	item_state = "armorlight"
 
 /obj/item/clothing/suit/armor/vest/alt
-	icon_state = "armoralt"
-	item_state = "armoralt"
-	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
-	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	name = "security armor"
+	desc = "A tactical Type I armor vest. Not designed for serious operations."
+	icon_state = "armor_security"
+
+/obj/item/clothing/suit/armor/vest/alt/examine(mob/user)
+	. = ..()
+	. += "Alt-click on [src] to toggle."
+
+/obj/item/clothing/suit/armor/vest/alt/AltClick(mob/user)
+	..()
+	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		return
+	else
+		suit_toggle(user)
+
+/obj/item/clothing/suit/armor/vest/alt/ui_action_click()
+	suit_toggle()
+
+/obj/item/clothing/suit/armor/vest/alt/proc/suit_toggle()
+	set src in usr
+
+	if(!can_use(usr))
+		return 0
+
+	if(src.suittoggled)
+		to_chat(usr, "You button up the vest.")
+		src.icon_state = "[initial(icon_state)]"
+		src.suittoggled = FALSE
+	else if(!src.suittoggled)
+		to_chat(usr, "You unbutton the vest.")
+		src.icon_state = "[initial(icon_state)]_open"
+		src.suittoggled = TRUE
+	usr.update_inv_wear_suit()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.build_all_button_icons()
+
+/obj/item/clothing/suit/armor/vest/alt/full
+	name = "full security armor"
+	desc = "A tactical armor vest, but with shoulderpads and knee pads included to cover all parts of the body. Not designed for serious operations."
+	icon_state = "armor_security_fullbody"
+	body_parts_covered = CHEST|GROIN|ARMS
+	cold_protection = CHEST|GROIN|ARMS
+	heat_protection = CHEST|GROIN|ARMS
+	custom_premium_price = 600
 
 /obj/item/clothing/suit/armor/vest/rycliesarmour
 	name = "war armour"
@@ -264,9 +305,9 @@
 	toggle_message = "You pull the visor down on"
 	alt_toggle_message = "You push the visor up on"
 	can_toggle = 1
-	flags_inv = HIDEEARS|HIDEFACE
 	actions_types = list(/datum/action/item_action/toggle)
-	visor_flags_inv = HIDEFACE
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	toggle_cooldown = 0
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -383,6 +424,55 @@
 	armor = list(MELEE = 15, BULLET = 60, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
 	strip_delay = 70
 	equip_delay_other = 50
+
+/obj/item/clothing/suit/armor/vest/bulletproof/spesspress
+	name = "press armor vest"
+	desc = "Armor vest of the faimous SPESS PRESS! Brought by UNN LLC."
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	icon_state = "spesspress"
+
+/obj/item/clothing/suit/armor/vest/unn_ringmail
+	name = "\improper'Ringmail' armor vest"
+	desc = "Security grade corporate light armour. Brought by UNN LLC."
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	icon_state = "unn_ringmail"
+	slowdown = -0.1
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
+
+/obj/item/clothing/suit/armor/vest/bulletproof/unn
+	name = "bulletproof UNN vest"
+	desc = "Type III bulletproof armor usually issued to UNN contracted operatives. This model has additional armor against energy based weaponry."
+	icon_state = "unn_ballistic_vest"
+	armor = list(MELEE = 15, BULLET = 60, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
+
+/obj/item/clothing/suit/armor/vest/bulletproof/combat
+	name = "combat UNN vest"
+	desc = "Type III bulletproof armor usually issued to UNN contracted operatives. Protects full body and arms. This model has additional armor against energy based weaponry."
+	icon_state = "unn_combat_armor"
+	armor = list(MELEE = 20, BULLET = 60, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
+
+/obj/item/clothing/head/helmet/unn_enclosed
+	name = "\improper'Agent' UNN helmet"
+	icon_state = "closed_unn_helmet"
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 30, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
+	flags_inv = HIDEEARS|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	strip_delay = 80
+
+/obj/item/clothing/head/helmet/alt/unn
+	name = "combat unn helmet"
+	icon_state = "unn_helmet"
+
+/obj/item/clothing/head/helmet/alt/unn/parade
+	icon_state = "unn_helmet_parade"
+
+/obj/item/clothing/head/helmet/cyberpunkgoggle
+	name = "\improper Type-34 Semi-Enclosed Headwear"
+	desc = "Armored helmet used by certain law enforcement agencies. It's hard to believe there's a human somewhere behind that."
+	flags_inv = HIDEEARS|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 /obj/item/clothing/suit/armor/plated/attack_self(mob/user)
 	. = ..()

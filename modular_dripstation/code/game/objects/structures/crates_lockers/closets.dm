@@ -220,7 +220,6 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 /obj/structure/closet/secure_closet/security/sec/PopulateContents()
 	..()
 	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/radio/security(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/storage/belt/security/full(src)

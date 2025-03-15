@@ -781,6 +781,11 @@
 		if(istype(c, company))
 			return src in c.employees
 
+/datum/mind/proc/get_nontraitor_company()									//dripstation edit
+	for(var/datum/corporation/c in GLOB.corporations)						//dripstation edit
+		if(!istype(c, /datum/corporation/traitor) && src in c.employees)	//dripstation edit
+			return c														//dripstation edit
+
 /mob/proc/sync_mind()
 	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
 	mind.active = TRUE		//indicates that the mind is currently synced with a client

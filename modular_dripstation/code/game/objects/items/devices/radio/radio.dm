@@ -45,7 +45,9 @@
 				desc = "[desc] Protects ears from flashbangs."
 			icon_state = "[icon_state]_alt"
 			AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
-			qdel(src)
+			qdel(I)
+			if(user.get_item_by_slot(ITEM_SLOT_EARS) == src)
+				user.update_inv_ears()
 		else
 			to_chat(user, span_warning("[src] can't be upgraded!"))
 
@@ -131,6 +133,13 @@
 /obj/item/radio/headset/headset_medsec
 	icon_state = "medsec_headset"
 
+/obj/item/radio/headset/headset_sec
+	name = "\proper security radio headset"
+	upgrade_name = "\proper security bowman headset"
+
+/obj/item/radio/headset/headset_com
+	upgrade_name = "command bowman headset"
+
 /obj/item/radio/headset/headset_com/alt
 	icon_state = "com_headset_alt"
 
@@ -142,30 +151,38 @@
 	keyslot2 = new /obj/item/encryptionkey/headset_sec
 
 /obj/item/radio/headset/heads
+	upgrade_name = "\proper the head of staff`s radio headset"
+	upgrade_name = "\proper the head of staff`s bowman headset"
 	icon_state = "com_headset"
 
 /obj/item/radio/headset/heads/captain
+	upgrade_name = "\proper the captain`s bowman headset"
 	icon_state = "cap_headset"
 
 /obj/item/radio/headset/heads/captain/alt
 	icon_state = "cap_headset_alt"
 
 /obj/item/radio/headset/heads/rd
+	upgrade_name = "\proper the research director's bowman headset"
 	icon_state = "rd_headset"
 
 /obj/item/radio/headset/heads/hos
+	upgrade_name = "\proper the head of security's bowman headset"
 	icon_state = "hos_headset"
 
 /obj/item/radio/headset/heads/hos/alt
 	icon_state = "hos_headset_alt"
 
 /obj/item/radio/headset/heads/ce
+	upgrade_name = "\proper the chief engineer's bowman headset"
 	icon_state = "ce_headset"
 
 /obj/item/radio/headset/heads/cmo
+	upgrade_name = "\proper the chief medical officer's bowman headset"
 	icon_state = "cmo_headset"
 
 /obj/item/radio/headset/heads/hop
+	upgrade_name = "\proper the head of personnel's bowman headset"
 	icon_state = "hop_headset"
 
 /obj/item/radio/headset/headset_rob
@@ -271,6 +288,20 @@
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
 
+/obj/item/radio/headset/military/unn
+	name = "\improper UNN radio headset"
+	desc = "A radio headset for UNN operatives."
+	frequency = 1210
+	icon_state = "unn_headset"
+
+/obj/item/radio/headset/military/unn/alt
+	name = "\improper UNN bowman headset"
+	icon_state = "unn_headset_alt"
+
+/obj/item/radio/headset/military/unn/alt/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+
 /obj/item/radio/headset/military/shellguard
 	name = "\improper Shellguard radio headset"
 	desc = "A headset especially for Shellguard operatives."
@@ -297,12 +328,17 @@
 	icon_state = "walkietalkiemilitech"
 	frequency = 1211
 
+/obj/item/radio/military/unn
+	name = "\improper UNN bounced radio"
+	desc = "A radio especially for UNN operatives."
+	icon_state = "walkietalkie"
+	frequency = 1210
+
 /obj/item/radio/military/shellguard
 	name = "\improper Shellguard bounced radio"
 	desc = "A radio especially for Shellguard operatives."
 	icon_state = "walkietalkiesec"
 	frequency = 1209
-
 
 //////Bowman upgrade//////
 /obj/item/bowman_upgrade

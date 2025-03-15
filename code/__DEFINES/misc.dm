@@ -38,6 +38,7 @@
 //AND -1 MEANS "ABOVE", OK?, OK!?!
 #define ABOVE_SHOES_LAYER			(SHOES_LAYER-1)
 #define ABOVE_BODY_FRONT_LAYER		(BODY_FRONT_LAYER-1)
+#define ABOVE_HEAD_LAYER			(HEAD_LAYER-1)	//dripstation
 
 
 //Security levels

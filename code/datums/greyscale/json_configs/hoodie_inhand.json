@@ -1,0 +1,42 @@
+{
+	"hoodie": [
+		{
+			"type": "icon_state",
+			"icon_state": "hoodie",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		}
+	],
+	"croppierhoodie": [
+		{
+			"type": "icon_state",
+			"icon_state": "hoodie",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		}
+	],
+	"croppedhoodie": [
+		{
+			"type": "icon_state",
+			"icon_state": "hoodie",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		}
+	],
+	"supercroppedhoodie": [
+		{
+			"type": "icon_state",
+			"icon_state": "hoodie",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		}
+	],
+	"highcrophoodie": [
+		{
+			"type": "icon_state",
+			"icon_state": "hoodie",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		}
+	]
+}

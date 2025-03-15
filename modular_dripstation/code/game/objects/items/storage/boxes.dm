@@ -3,6 +3,10 @@
 	icon_state = "beanbag_box"
 	icon = 'modular_dripstation/icons/obj/ammo.dmi'
 
+/obj/item/storage/box/rubbershot
+	icon_state = "beanbag_box"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
+
 /obj/item/storage/box/slug
 	name = "box of slug shotgun shots"
 	desc = "A box full of slug lethal shots designed for shotguns. The box itself is designed for holding any kind of shotgun shell."
@@ -436,6 +440,21 @@
 	new /obj/item/reagent_containers/autoinjector/medipen/survival(src)
 	new /obj/item/radio/military/shellguard(src)
 	new /obj/item/melee/emergency_forcing_tool/varyag(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/flashlight/flare/signal(src)
+
+/obj/item/storage/box/unn
+	name = "unknown survival box"
+	icon_state = "box"
+	item_state = "box"
+	illustration = null
+
+/obj/item/storage/box/unn/PopulateContents()
+	new /obj/item/clothing/mask/gas/tactical/unn(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/survival(src)
+	new /obj/item/radio/military/unn(src)
+	new /obj/item/melee/emergency_forcing_tool(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/flashlight/flare/signal(src)
 

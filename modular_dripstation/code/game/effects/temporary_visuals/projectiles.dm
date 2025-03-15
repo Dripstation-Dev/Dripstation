@@ -42,3 +42,16 @@
 	name = "bfg muzzle"
 	icon_state = "bfg"
 	icon = 'modular_dripstation/icons/effects/projectiles/muzzle.dmi'
+
+
+/obj/effect/muzzle_flash
+	icon = 'modular_dripstation/icons/effects/projectiles/muzzle.dmi'
+	icon_state = "muzzle_flash"
+	layer = VEHICLE_LAYER
+	plane = GAME_PLANE
+	var/applied = FALSE
+
+/obj/effect/muzzle_flash/Initialize(mapload, new_icon_state)
+	. = ..()
+	if(new_icon_state)
+		icon_state = new_icon_state

@@ -9,6 +9,7 @@
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "the Captain and Magistrate"
+	supervisor_corporation = /datum/corporation/nanotrasen/isd
 	req_admin_notify = 1
 	minimal_player_age = 14
 	exp_requirements = 6000 //100 hours on security jobs

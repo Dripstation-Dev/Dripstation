@@ -1,3 +1,8 @@
+/datum/job/paramedic
+	supervisor_corporation = /datum/corporation/nanotrasen/vita_tek
+	alt_supervisor_corporations = list(/datum/corporation/eden_llc)
+	loyalties = LOYALTY_CORP_SLAVE
+
 /datum/outfit/job/paramedic
 	gloves = /obj/item/clothing/gloves/color/latex
 	uniform = /obj/item/clothing/under/rank/medical/paramedic/emt

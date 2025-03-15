@@ -8,6 +8,8 @@
 		/obj/item/attachment/grip/angled,
 		/obj/item/attachment/grip/magnetic_harness,
 	)
+	muzzleflash_iconstate = "muzzle_flash_laser"
+	muzzle_flash_color = COLOR_LASER_RED
 
 /obj/item/gun/energy/update_overlays()
 	if(QDELETED(src))

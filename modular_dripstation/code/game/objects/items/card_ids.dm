@@ -256,6 +256,14 @@
 	originalassignment = "Hephaestus"
 	iff_signal = HEPHAESTUS_IFF
 
+/obj/item/card/id/unn
+	desc = "An ID straight from UNN LLC."
+	icon_state = "unn"
+	has_fluff = TRUE
+	assignment = "UNN press service card"
+	originalassignment = "UNN"
+	iff_signal = UNN_IFF
+
 /obj/item/card/id/deathsquad
 	name = "\improper BlackOps ID"
 	desc = "An ID straight from Nanotrasen SpecOps Division."

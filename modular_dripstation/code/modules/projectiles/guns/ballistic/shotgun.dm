@@ -1,3 +1,6 @@
+/obj/item/gun/ballistic/shotgun
+	muzzleflash_iconstate = "muzzle_flash_medium"
+
 /obj/item/gun/ballistic/shotgun/riot
 	desc = "A sturdy shotgun with a standart magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "policeshotgun"

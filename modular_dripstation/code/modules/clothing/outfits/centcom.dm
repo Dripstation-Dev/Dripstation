@@ -470,11 +470,11 @@
 	var/obj/item/card/id/syndicate/W = H.wear_id
 	W.access = get_all_accesses()
 	W.assignment = "Assistant"
-	W.assignment = "Assistant"
+	W.originalassignment = "Assistant"
 	W.registered_name = H.real_name
 	W.update_label()
 
-/datum/outfit/centcom/nanotrasen_defence //Nanotrasen`s regular fighter force
+/datum/outfit/centcom/nanotrasen_defence //Nanotrasen`s regular fighter force, Internal Affairs Department
 	name = "Nanotrasen Defence Unit"
 	
 	suit = /obj/item/clothing/suit/armor/hardened
@@ -501,7 +501,6 @@
 	var/obj/item/card/id/centcom/W = H.wear_id
 	W.access = get_all_accesses()
 	W.access += get_centcom_access("Death Commando")
-	W.assignment = "CentCom Assault Unit"
 	W.registered_name = H.real_name
 	W.update_label()
 

@@ -26,6 +26,120 @@
 
 	var/list/initial_attachments = list()
 
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
+	light_range = 0
+	light_color = COLOR_WHITE
+
+/*
+ *  Muzzle Vars
+*/
+	///Effect for the muzzle flash of the gun.
+	var/obj/effect/muzzle_flash/muzzle_flash
+	///Icon state of the muzzle flash effect.
+	var/muzzleflash_iconstate
+	///Brightness of the muzzle flash effect.
+	var/muzzle_flash_lum = 2
+	///Color of the muzzle flash effect.
+	var/muzzle_flash_color = COLOR_VERY_SOFT_YELLOW
+
+/obj/item/gun/proc/simulate_muzzle_flash(mob/living/user, atom/target)
+	var/firing_angle = Get_Angle(user,target)
+	if(muzzle_flash && !muzzle_flash.applied)
+		var/atom/movable/flash_loc = user
+		var/prev_light = light_range
+		if(!light_on && (light_range <= muzzle_flash_lum))
+			set_light_range(muzzle_flash_lum)
+			set_light_color(muzzle_flash_color)
+			set_light_on(TRUE)
+			addtimer(CALLBACK(src, .proc/reset_light_range, prev_light), 0.3 SECONDS)
+		//Offset the pixels.
+		switch(firing_angle)
+			if(0, 360)
+				muzzle_flash.pixel_x = 0
+				muzzle_flash.pixel_y = 4
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(1 to 44)
+				muzzle_flash.pixel_x = round(4 * ((firing_angle) / 45))
+				muzzle_flash.pixel_y = 4
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(45)
+				muzzle_flash.pixel_x = 4
+				muzzle_flash.pixel_y = 4
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(46 to 89)
+				muzzle_flash.pixel_x = 4
+				muzzle_flash.pixel_y = round(4 * ((90 - firing_angle) / 45))
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(90)
+				muzzle_flash.pixel_x = 4
+				muzzle_flash.pixel_y = 0
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(91 to 134)
+				muzzle_flash.pixel_x = 4
+				muzzle_flash.pixel_y = round(-3 * ((firing_angle - 90) / 45))
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(135)
+				muzzle_flash.pixel_x = 4
+				muzzle_flash.pixel_y = -3
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(136 to 179)
+				muzzle_flash.pixel_x = round(4 * ((180 - firing_angle) / 45))
+				muzzle_flash.pixel_y = -3
+				muzzle_flash.layer = ABOVE_MOB_LAYER
+			if(180)
+				muzzle_flash.pixel_x = 0
+				muzzle_flash.pixel_y = -3
+				muzzle_flash.layer = ABOVE_MOB_LAYER
+			if(181 to 224)
+				muzzle_flash.pixel_x = round(-3 * ((firing_angle - 180) / 45))
+				muzzle_flash.pixel_y = -3
+				muzzle_flash.layer = ABOVE_MOB_LAYER
+			if(225)
+				muzzle_flash.pixel_x = -3
+				muzzle_flash.pixel_y = -3
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(226 to 269)
+				muzzle_flash.pixel_x = -3
+				muzzle_flash.pixel_y = round(-3 * ((270 - firing_angle) / 45))
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(270)
+				muzzle_flash.pixel_x = -3
+				muzzle_flash.pixel_y = 0
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(271 to 314)
+				muzzle_flash.pixel_x = -3
+				muzzle_flash.pixel_y = round(4 * ((firing_angle - 270) / 45))
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(315)
+				muzzle_flash.pixel_x = -3
+				muzzle_flash.pixel_y = 4
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+			if(316 to 359)
+				muzzle_flash.pixel_x = round(-3 * ((360 - firing_angle) / 45))
+				muzzle_flash.pixel_y = 4
+				muzzle_flash.layer = initial(muzzle_flash.layer)
+
+		muzzle_flash.transform = null
+		muzzle_flash.transform = turn(muzzle_flash.transform, firing_angle)
+		flash_loc.vis_contents += muzzle_flash
+		muzzle_flash.applied = TRUE
+
+		addtimer(CALLBACK(src, .proc/remove_muzzle_flash, flash_loc, muzzle_flash), 0.2 SECONDS)
+
+
+/obj/item/gun/proc/reset_light_range(lightrange)
+	set_light_range(lightrange)
+	set_light_color(initial(light_color))
+	if(lightrange <= 0)
+		set_light_on(FALSE)
+
+/obj/item/gun/proc/remove_muzzle_flash(atom/movable/flash_loc, obj/effect/muzzle_flash/muzzle_flash)
+	if(!QDELETED(flash_loc))
+		flash_loc.vis_contents -= muzzle_flash
+	muzzle_flash.applied = FALSE
+
+
 /obj/item/gun/equipped(mob/user, slot)
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //so it's easier to click when it`s in inventory
 	..()
@@ -255,3 +369,41 @@
 	if(user.back == src)
 		user.visible_message(span_warning("[src] snaps into place on your back."))
 	user.update_inv_back()
+
+/obj/item/gun/proc/zoom(mob/living/user, direc, forced_zoom = null)
+	if(!user || !user.client)
+		return
+
+	switch(forced_zoom)
+		if(FALSE)
+			onunzoom(user)
+			zoomed = FALSE
+		else if(TRUE)
+			onzoom(user, direc)
+			zoomed = TRUE
+		else
+			if(zoomed)
+				if(!do_after(user, zooming_time, src, timed_action_flags = IGNORE_USER_LOC_CHANGE))
+					zoomed = FALSE
+					return zoomed
+				zoomed = TRUE
+				onzoom(user, direc)
+			else
+				zoomed = FALSE
+				onunzoom(user)
+	return zoomed
+
+/obj/item/gun/proc/onzoom(mob/living/user, direc)
+	if(!do_after(user, zooming_time, src, timed_action_flags = IGNORE_USER_LOC_CHANGE))
+		return	!zoomed
+	user.add_movespeed_modifier(MOVESPEED_ID_ZOOMED_MODIFIER, update=TRUE, priority=100, multiplicative_slowdown = zooming_speed)
+	fire_select(SELECT_SEMI_AUTOMATIC)
+	fire_delay = zooming_fire_delay
+	RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(rotate))
+	user.client.view_size.zoomOut(zoom_out_amt, zoom_amt, direc)
+
+/obj/item/gun/proc/onunzoom(mob/living/user)
+	user.remove_movespeed_modifier(MOVESPEED_ID_ZOOMED_MODIFIER)
+	fire_delay = initial(fire_delay)
+	UnregisterSignal(user, COMSIG_ATOM_DIR_CHANGE)
+	user.client.view_size.zoomIn()

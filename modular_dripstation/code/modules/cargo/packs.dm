@@ -214,6 +214,16 @@
 					/obj/item/clothing/suit/armor/wardenjacket,
 					/obj/item/clothing/head/beret/sec/navywarden)
 
+
+/datum/supply_pack/security/securityarmor
+	name = "Full Security Armor Crate"
+	desc = "Contains three fullbody vests, shoulderpads and knee pads included. Requires Security access to open."
+	cost = 500
+	contains = list(/obj/item/clothing/suit/armor/vest/alt/full,
+					/obj/item/clothing/suit/armor/vest/alt/full,
+					/obj/item/clothing/suit/armor/vest/alt/full)
+	crate_name = "full security armor crate"
+
 /datum/supply_pack/security/armory/laserarmor
 	name = "Reflective Armor Crate"
 	desc = "Contains two vests and two helmets of highly reflective material. Each armor piece diffuses a laser's energy by over half, as well as offering a good chance to reflect the laser entirely. Requires Armory access to open."

@@ -46,11 +46,13 @@
 	if (!istype(targloc) || !istype(curloc) || !BB)
 		return FALSE
 
+	/* Dripstation edit
 	var/firing_dir
 	if(BB.firer)
 		firing_dir = BB.firer.dir
 	if(!BB.suppressed && firing_effect_type)
 		new firing_effect_type(get_turf(src), firing_dir)
+	*/
 
 	var/direct_target
 	if(targloc == curloc)

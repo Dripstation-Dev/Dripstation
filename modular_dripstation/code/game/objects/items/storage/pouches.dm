@@ -177,6 +177,15 @@
 	new /obj/item/storage/pill_bottle/psicodine(src)
 	new /obj/item/reagent_containers/autoinjector/medipen/blood_loss(src)
 
+/obj/item/storage/pouch/firstaid/unn/Initialize()
+	. = ..()
+	new /obj/item/stack/medical/gauze(src)
+	new /obj/item/reagent_containers/autoinjector/mixi(src)
+	new /obj/item/reagent_containers/autoinjector/derm(src)
+	new /obj/item/storage/pill_bottle/charcoal(src)
+	new /obj/item/storage/pill_bottle/psicodine(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/syndicate_trauma_repairer/export(src)
+
 /obj/item/storage/pouch/pistol
 	name = "sidearm pouch"
 	desc = "It can contain a pistol or revolver. Useful for emergencies."
@@ -200,6 +209,14 @@
 
 /obj/item/storage/pouch/pistol/glock18
 	fill_type = /obj/item/gun/ballistic/automatic/pistol/glock18
+	fill_number = 1
+
+/obj/item/storage/pouch/pistol/glock17
+	fill_type = /obj/item/gun/ballistic/automatic/pistol/glock17
+	fill_number = 1
+
+/obj/item/storage/pouch/pistol/flash
+	fill_type = /obj/item/gun/energy/e_gun/mini/specops/flash
 	fill_number = 1
 
 /obj/item/storage/pouch/pistol/ancile

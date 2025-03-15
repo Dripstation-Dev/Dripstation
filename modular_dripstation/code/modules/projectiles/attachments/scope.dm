@@ -4,9 +4,11 @@
 	var/zoom_amt = 3
 	var/zoom_out_amt = 0
 	var/zooming_fire_delay_mod = 1	//normal firedelay mod
+	var/zoomable = TRUE
 
 /obj/item/attachment/scope/on_attach(obj/item/gun/G, mob/user = null)
 	. = ..()
+	G.zoomable = zoomable
 	G.zoom_amt = zoom_amt
 	G.zoom_out_amt = zoom_out_amt
 	G.zooming_speed = zooming_speed
@@ -15,11 +17,14 @@
 
 /obj/item/attachment/scope/on_detach(obj/item/gun/G, mob/living/user = null)
 	. = ..()
+	G.zoomable = initial(G.zoomable)
 	G.zoom_amt = initial(G.zoom_amt)
 	G.zoom_out_amt = initial(G.zoom_out_amt)
 	G.zooming_speed = initial(G.zooming_speed)
 	G.zooming_time /= initial(G.zooming_time)
 	G.zooming_fire_delay = initial(G.zooming_fire_delay)
+
+/obj/item/attachment/scope
 
 /obj/item/attachment/scope/simple
 	zooming_speed = 0.6			//lesser zooming punish modifier
@@ -32,7 +37,7 @@
 	zooming_time_mod = 0.5
 
 /obj/item/attachment/scope/sniper
-	name = "rail scope"
+	name = "rail sniper scope"
 	icon_state = "scope"
 	icon = 'modular_dripstation/icons/obj/weapons/attachment.dmi'
 	zoom_amt = 10
@@ -42,7 +47,7 @@
 	zooming_time_mod = 0.5
 
 /obj/item/attachment/scope/sniper_slav
-	name = "rail scope"
+	name = "rail slav sniper scope"
 	icon_state = "slavicscope"
 	icon = 'modular_dripstation/icons/obj/weapons/attachment.dmi'
 	zoom_amt = 7
@@ -52,7 +57,7 @@
 	zooming_time_mod = 0.8
 
 /obj/item/attachment/scope/sniper/nvg
-	name = "nvg scope"
+	name = "nvg sniper scope"
 	desc = "Night vision military grade sniper scope. It lowers accuracy a bit, but grants you nightvision when scoping."
 	icon_state = "nvg_scope"
 	accuracy = -1

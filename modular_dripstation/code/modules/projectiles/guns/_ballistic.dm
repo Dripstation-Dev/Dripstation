@@ -1,5 +1,4 @@
 /obj/item/gun/ballistic
-	zoomable = TRUE
 	available_attachments = list(
 		/obj/item/attachment/scope/simple,
 		/obj/item/attachment/scope/holo,

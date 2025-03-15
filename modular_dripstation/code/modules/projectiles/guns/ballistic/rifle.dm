@@ -1,4 +1,7 @@
 ///Sniper///
+/obj/item/gun/ballistic/rifle
+	muzzleflash_iconstate = "muzzle_flash_medium"
+
 /obj/item/gun/ballistic/rifle/sniper_rifle
 	name = "SA-91R anti-materiel rifle"
 	desc = "A devastating Scarborough Arms heavy sniper rifle, fitted with a modern scope."

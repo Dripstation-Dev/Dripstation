@@ -1,4 +1,76 @@
-////CentCom Faction////
+////////////////////////////////////
+/////////////FREE MERKS/////////////
+////////////////////////////////////
+/obj/item/clothing/under/freemerk
+	name = "black-blue tactical turtleneck"
+	desc = "A tactical black cargo pants with blue turtleneck. Wild geese ahead!"
+	has_sensor = NO_SENSORS
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 40, WOUND = 0, ELECTRIC = 0)
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/pmc.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/pmc.dmi'
+	icon_state = "tactifool_freemerk"
+	can_adjust = TRUE
+	mutantrace_variation = NONE
+
+/obj/item/clothing/under/freemerk/skirt
+	name = "black-blue tactical skirtlneck"
+	desc = "A tactical black cargo skirt with blue turtleneck. Wild geese ahead!"
+	icon_state = "tactifool_freemerk_skirt"
+	fitted = FEMALE_UNIFORM_TOP
+
+/obj/item/clothing/under/freemerk/contract
+	name = "merk uniform"
+	desc = "Tactical uniform to operate in urban areas. Wild geese ahead!"
+	icon_state = "contract"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/freemerk/contract/blc
+	name = "black merk uniform"
+	icon_state = "contract_blc"
+
+/obj/item/clothing/under/freemerk/contract/tac
+	name = "tactical merk uniform"
+	icon_state = "contract_tac"
+
+/obj/item/clothing/under/freemerk/hawaiian
+	name = "orange hawaiian uniform"
+	desc = "Uniform for operating in hot areas. Wild geese ahead!"
+	icon_state = "tactifool_hawaiian_orange"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 40, WOUND = 0, ELECTRIC = 0)
+	can_adjust = FALSE
+
+/obj/item/clothing/under/freemerk/hawaiian/blue
+	name = "blue hawaiian uniform"
+	icon_state = "tactifool_hawaiian_blue"
+
+/obj/item/clothing/under/freemerk/hawaiian/purple
+	name = "purple hawaiian uniform"
+	icon_state = "tactifool_hawaiian_purple"
+
+/obj/item/clothing/under/freemerk/hawaiian/green
+	name = "green hawaiian uniform"
+	icon_state = "tactifool_hawaiian_green"
+
+/obj/item/clothing/under/blackops
+	name = "black tactical turtleneck"
+	desc = "A non-descript and slightly suspicious looking turtleneck with digital camouflage cargo pants."
+	has_sensor = NO_SENSORS
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 40, WOUND = 0, ELECTRIC = 0)
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/pmc.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/pmc.dmi'
+	icon_state = "blackops_turtle"
+	can_adjust = TRUE
+	mutantrace_variation = DIGITIGRADE_VARIATION
+
+/obj/item/clothing/under/blackops/uni
+	name = "black tactical uniform"
+	desc = "A tactical black uniform with cargo pants. True classic."
+	icon_state = "blackops_combat"
+
+
+///////////////////////////////
+////////CentCom Faction////////
+///////////////////////////////
 /obj/item/clothing/head/beret/sec/centcom
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
@@ -235,7 +307,9 @@
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 10, BIO = 0, FIRE = 20, ACID = 30)
 
 
-//////SHELGUARD//////
+//////////////////////
+//////SHELGUARD///////
+//////////////////////
 /obj/item/clothing/head/helmet/shellguard_sallet
 	name = "Shellguard Sallet Helmet"
 	desc = "A head cover designed to protect the wearer completely from space-arc eye."
@@ -375,7 +449,18 @@
 	cold_protection = CHEST|GROIN
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 
-////Helldivers////
+
+
+////////////////////////////////////
+//////TRADE-MILITARY-COALITION//////
+////////////////////////////////////
+
+
+
+
+//////////////////////////
+////////Helldivers////////
+//////////////////////////
 /obj/item/storage/belt/military/helldiver
 	name = "helldiver belt"
 	desc = "A tactical military belt."
@@ -408,6 +493,7 @@
 	icon_state = "helldivercloak"
 
 
+////////////////////////////////////////////////////////
 ////Entire Hephaestus inc. & Militech Asset Security////
 //Hephaestus Resource Logistics & Hephaestus Industries
 /obj/item/clothing/under/hephaestus
@@ -418,35 +504,44 @@
 	icon_state = "heph_tech"
 	item_state = "hephaestus_under"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 0, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 10, FIRE = 20, ACID = 30, WOUND = 0)
+
 /obj/item/clothing/under/hephaestus/alt
 	icon_state = "heph_tech_alt"
+
 /obj/item/clothing/under/hephaestus/miner
 	name = "hephaestus miner uniform"
 	desc = "Standart Hephaestus uniform. This one probably belongs to some miner."
 	icon_state = "heph_miner"
+
 /obj/item/clothing/under/hephaestus/engi
 	name = "hephaestus engineer uniform"
 	desc = "Standart Hephaestus uniform. This one probably belongs to some engineer."
 	icon_state = "heph_engi"
+
 //Hephaestus Asset Management
 /obj/item/clothing/under/hephaestus/official
 	name = "hephaestus official suit"
 	desc = "Standart Hephaestus official suit."
 	icon_state = "heph_official"
+
 //Militech Corp&Gov Asset Security
 /obj/item/clothing/under/hephaestus/militech
 	name = "militech uniform"
 	desc = "A double seamed tactical camouflage uniform for usage in corporate wars. Intended for corporate operator."
 	icon_state = "militech_uni"
+
 /obj/item/clothing/under/hephaestus/militech/tech
 	name = "militech tech uniform"
 	icon_state = "militech_tech"
+
 /obj/item/clothing/under/hephaestus/militech/turtle
 	name = "militech tactical turtleneck"
 	icon_state = "militech_turtle"
+
 /obj/item/clothing/under/hephaestus/militech/turtleblack
 	name = "militech black tactical turtleneck"
 	icon_state = "militech_blcturtle"
+
 /obj/item/clothing/under/hephaestus/militech/gex
 	name = "militech gex camouflage"
 	icon_state = "militech_gex"
@@ -499,6 +594,60 @@
 	name = "militech officer`s beret"
 	icon_state = "alpha_beret"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+
+
+////////////////////////////////
+//////UNITED NEWS & NETWORK/////
+////////////////////////////////
+/obj/item/clothing/under/unn
+	name = "unn tech uniform"
+	desc = "Standart United News&Network uniform. This one probably belongs to some tech specialist."
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/syndicate.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/syndicate.dmi'
+	icon_state = "unn_uniform"
+	can_adjust = TRUE
+	mutantrace_variation = DIGITIGRADE_VARIATION
+
+/obj/item/clothing/under/unn/reporter
+	name = "unn reporter uniform"
+	desc = "Standart United News&Network uniform. This one probably belongs to some press specialist."
+	icon_state = "unn_reporter"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/unn/reporter/skirt
+	icon_state = "unn_reporter_skirt"
+	fitted = FEMALE_UNIFORM_TOP
+	mutantrace_variation = NONE	
+	can_adjust = FALSE
+
+/obj/item/clothing/under/unn/combat
+	name = "unn combat uniform"
+	desc = "A double seamed tactical camouflage uniform for usage in corporate wars. Intended for corporate operator."
+	icon_state = "unn_uniform_operator"
+	mutantrace_variation = NONE	
+	can_adjust = FALSE
+
+/obj/item/clothing/under/unn/combat/skirt
+	icon_state = "unn_skirt"
+	fitted = FEMALE_UNIFORM_TOP
+
+/obj/item/clothing/suit/hooded/wintercoat/security/unn
+	name = "UNN winter coat"
+	desc = "A UNN brand armour-padded winter coat. It glitters with a mild ablative coating and a robust air of authority."
+	icon_state = "unn_coat"
+	item_state = "coatsecurity"
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 25, BIO = 0, RAD = 0, FIRE = 0, ACID = 45)
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/unn
+
+/obj/item/clothing/head/hooded/winterhood/security/unn
+	name = "UNN winter hood"
+	desc = "An armour-padded winter hood. Definitely not bulletproof, especially not the part where your face goes."
+	icon_state = "unn_hood"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
 
 //////////////////////////////
 //////////Syndicate///////////

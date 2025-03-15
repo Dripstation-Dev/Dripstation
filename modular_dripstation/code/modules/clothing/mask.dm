@@ -188,3 +188,7 @@
 
 /obj/item/clothing/mask/gas/tactical/alt
 	icon_state = "tacalt_gasmask"
+
+/obj/item/clothing/mask/gas/tactical/unn
+	name = "\improper tactical gas mask"
+	icon_state = "unnmask"

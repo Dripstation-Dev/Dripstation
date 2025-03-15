@@ -5,6 +5,7 @@
 	supervisors = "the quartermaster"
 	lightup_areas = list(/area/quartermaster/office)
 	added_access = list(ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION)
+	loyalties = LOYALTY_CORP_SLAVE
 
 /datum/outfit/job/cargo_tech
 	backpack_contents = list(/obj/item/boxcutter = 1)

@@ -1,3 +1,7 @@
+/datum/corporation/independent
+	name = "nobody"
+	paymodifier = 0.5
+
 /datum/corporation/nanotrasen
 	name = "Nanotrasen Strategic Investment Company"
 
@@ -57,7 +61,7 @@
 // You are alone
 /datum/corporation/traitor/independent
 	name = "Independent"
-	paymodifier = 1
+	paymodifier = 0
 
 /datum/corporation/vostok
 	name = "Vostok"

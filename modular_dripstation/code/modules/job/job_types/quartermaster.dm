@@ -18,6 +18,7 @@
 	)
 	alt_titles = list("Stock Controller", "Cargo Coordinator", "Shipping Overseer")
 	paycheck = PAYCHECK_COMMAND
+	loyalties = LOYALTY_CORP_SLAVE
 	departments_list = list(
 		/datum/job_department/cargo,
 		/datum/job_department/command,

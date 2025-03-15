@@ -8820,7 +8820,7 @@
 	},
 /area/janitor)
 "czT" = (
-/obj/effect/landmark/stationroom/maint/fivexthree,
+/obj/effect/landmark/stationroom/maint/threexfive,
 /turf/baseturf_bottom,
 /area/maintenance/starboard/fore)
 "cAa" = (
@@ -36844,10 +36844,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/grimy,
 /area/hallway/primary/port)
-"kex" = (
-/obj/effect/spawner/structure/window/reinforced/shutter,
-/turf/open/floor/plating,
-/area/icemoon/top_layer/outdoors)
 "keA" = (
 /obj/machinery/power/apc{
 	areastring = "/area/medical/sleeper";
@@ -39634,7 +39630,6 @@
 /turf/open/floor/wood,
 /area/library)
 "kQA" = (
-/obj/machinery/door/airlock/public,
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
@@ -39645,7 +39640,11 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/obj/machinery/door/airlock/public,
+/turf/open/floor/plasteel/dark/side{
+	icon_state = "textured_dark_half";
+	dir = 8
+	},
 /area/escapepodbay)
 "kQR" = (
 /obj/structure/table/wood,
@@ -43666,9 +43665,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
-"lWS" = (
-/turf/baseturf_bottom,
-/area/icemoon/top_layer/outdoors)
 "lWU" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -59655,10 +59651,6 @@
 	dir = 4
 	},
 /area/medical/chemistry)
-"qno" = (
-/obj/effect/landmark/stationroom/maint/fivexthree,
-/turf/baseturf_bottom,
-/area/icemoon/top_layer/outdoors)
 "qnr" = (
 /obj/structure/table,
 /obj/item/paicard,
@@ -257939,9 +257931,9 @@ ksP
 uhS
 ksP
 ksP
-dML
-dML
-dML
+ksP
+ksP
+ksP
 ozK
 ozK
 ozK
@@ -258195,10 +258187,10 @@ aCo
 qYX
 ciy
 ksP
-lWS
-lWS
-qno
-dML
+bQS
+bQS
+lCF
+ksP
 ozK
 ozK
 ozK
@@ -258452,10 +258444,10 @@ ksP
 xuU
 lBl
 uhS
-lWS
-lWS
-lWS
-dML
+bQS
+bQS
+bQS
+ksP
 ozK
 ozK
 ueX
@@ -258709,10 +258701,10 @@ ciy
 xuU
 ksP
 ksP
-lWS
-lWS
-lWS
-kex
+bQS
+bQS
+bQS
+gKd
 ueX
 ueX
 ueX
@@ -258966,10 +258958,10 @@ ciy
 xuU
 llb
 ksP
-lWS
-lWS
-lWS
-kex
+bQS
+bQS
+bQS
+gKd
 ozK
 ozK
 ueX
@@ -259223,10 +259215,10 @@ ksP
 xuU
 vcI
 ksP
-lWS
-lWS
-lWS
-kex
+bQS
+bQS
+bQS
+gKd
 ueX
 ueX
 ueX
@@ -259480,10 +259472,10 @@ mot
 tgM
 ciy
 ksP
-dML
-dML
-dML
-dML
+ksP
+ksP
+ksP
+ksP
 ozK
 ozK
 ueX

@@ -70,7 +70,7 @@
 	
 	mask = /obj/item/clothing/mask/russian_balaclava/black
 	uniform = /obj/item/clothing/under/hephaestus/militech
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/security/pmc_ballistic
 	gloves = /obj/item/clothing/gloves/combat/militech
 	suit = /obj/item/clothing/suit/armor/vest/iotv
 	belt = /obj/item/storage/belt/military/army
@@ -81,6 +81,7 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/spray/pepper = 1,
 		/obj/item/grenade/smokebomb = 1,
+		/obj/item/clothing/glasses/night = 1,
 		)
 	implants = list(/obj/item/implant/freedom)
 
@@ -98,6 +99,7 @@
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/ammo_box/magazine/m12g/slug = 1,
 		/obj/item/ammo_box/magazine/m12g = 1,
+		/obj/item/clothing/glasses/night = 1,
 		)
 	belt = /obj/item/storage/belt/military/webbing/grenade/full
 	suit_store = /obj/item/gun/ballistic/shotgun/bulldog/m12
@@ -141,6 +143,7 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/spray/pepper = 1,
 		/obj/item/grenade/smokebomb = 1,
+		/obj/item/clothing/glasses/night = 1,
 		)
 
 /datum/outfit/hephaestus/operative/machinegun/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -160,7 +163,7 @@
 	name = "Militech Operative - Sniper"
 
 	mask = /obj/item/clothing/mask/scarf
-	glasses = /obj/item/clothing/glasses/thermal
+	glasses = /obj/item/clothing/glasses/hud/security/militech_ballistic
 	suit = /obj/item/clothing/suit/hooded/wintercoat/security/militech
 	belt = /obj/item/storage/belt/military/webbing/lbv88
 	uniform = /obj/item/clothing/under/hephaestus/militech/turtle
@@ -197,6 +200,7 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/spray/pepper = 1,
 		/obj/item/grenade/smokebomb = 1,
+		/obj/item/clothing/glasses/night = 1,
 		)
 	
 /datum/outfit/hephaestus/operative/lieutenant/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

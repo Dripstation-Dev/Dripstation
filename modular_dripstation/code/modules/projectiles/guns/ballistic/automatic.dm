@@ -12,6 +12,7 @@
 		/obj/item/attachment/grip/magnetic_harness,
 		/obj/item/attachment/trigger/iff_module
 	)
+	muzzleflash_iconstate = "muzzle_flash_light"
 
 /obj/item/gun/ballistic/automatic/update_overlays()
 	. = ..()
@@ -179,6 +180,7 @@
 	selector_switch_icon = TRUE
 	select = 0
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT)
+	muzzleflash_iconstate = "muzzle_flash_medium"
 
 /obj/item/gun/ballistic/automatic/m90/examine(mob/user)
 	. = ..()
@@ -257,6 +259,7 @@
 	pin = /obj/item/firing_pin
 	mag_display = TRUE
 	empty_indicator = TRUE
+	muzzleflash_iconstate = "muzzle_flash_medium"
 
 /obj/item/gun/ballistic/automatic/ar
 	name = "\improper NT ARG-63"
@@ -278,6 +281,7 @@
 	fire_sound_volume = 80
 	vary_fire_sound = 0
 	burst_size = 3
+	muzzleflash_iconstate = "muzzle_flash_medium"
 
 /obj/item/gun/ballistic/automatic/ar/mk4
 	name = "\improper Militech M-K4 Infantry Assault Rifle"
@@ -477,12 +481,14 @@
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
+	muzzleflash_iconstate = "muzzle_flash_medium"
 
 /obj/item/gun/ballistic/automatic/k41s/dna
 	pin = /obj/item/firing_pin/dna/secure
 
 /obj/item/gun/ballistic/automatic/lwt650
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
+	muzzleflash_iconstate = "muzzle_flash_medium"
 
 /obj/item/gun/ballistic/automatic/svd
 	name = "\improper SR-33 Dragunov sniper rifle"
@@ -510,6 +516,7 @@
 	available_attachments = list(
 		/obj/item/attachment/scope/sniper_slav,
 	)
+	muzzleflash_iconstate = "muzzle_flash_medium"
 
 
 /obj/item/gun/ballistic/automatic/pistol

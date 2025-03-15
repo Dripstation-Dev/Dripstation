@@ -236,6 +236,7 @@
 #include "code\__DEFINES\{dripstation_defines}\hud_defines.dm"
 #include "code\__DEFINES\{dripstation_defines}\is_helpers.dm"
 #include "code\__DEFINES\{dripstation_defines}\layers.dm"
+#include "code\__DEFINES\{dripstation_defines}\loyalty.dm"
 #include "code\__DEFINES\{dripstation_defines}\melee.dm"
 #include "code\__DEFINES\{dripstation_defines}\mobs.dm"
 #include "code\__DEFINES\{dripstation_defines}\movespeed_modification.dm"
