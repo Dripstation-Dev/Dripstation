@@ -602,8 +602,8 @@
 /obj/item/clothing/under/unn
 	name = "unn tech uniform"
 	desc = "Standart United News&Network uniform. This one probably belongs to some tech specialist."
-	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/syndicate.dmi'
-	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/syndicate.dmi'
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/pmc.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/pmc.dmi'
 	icon_state = "unn_uniform"
 	can_adjust = TRUE
 	mutantrace_variation = DIGITIGRADE_VARIATION

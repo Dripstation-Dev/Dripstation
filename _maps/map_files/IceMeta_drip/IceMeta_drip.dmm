@@ -470,7 +470,7 @@
 	},
 /obj/item/folder/red,
 /obj/item/pen,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "agB" = (
 /obj/structure/cable/yellow{
@@ -8192,7 +8192,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "cpA" = (
 /obj/structure/table,
@@ -23655,7 +23655,7 @@
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
 /obj/item/pickaxe/mini,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/escapepodbay)
 "gFx" = (
 /obj/structure/extinguisher_cabinet{
@@ -26845,7 +26845,7 @@
 /obj/machinery/camera{
 	c_tag = "Podbay Camera"
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/escapepodbay)
 "hwN" = (
 /turf/closed/wall,
@@ -27277,7 +27277,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
 "hDp" = (
 /obj/structure/table,
@@ -41790,7 +41790,7 @@
 /area/medical/sleeper)
 "lwP" = (
 /obj/structure/chair/office/light,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/science/server)
 "lwS" = (
 /obj/structure/lattice,
@@ -47132,7 +47132,7 @@
 	pixel_y = -1
 	},
 /obj/machinery/light,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/escapepodbay)
 "mQz" = (
 /turf/closed/wall,
@@ -52144,7 +52144,10 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark/side{
+	icon_state = "textured_dark_half";
+	dir = 8
+	},
 /area/hallway/secondary/exit/departure_lounge)
 "oeF" = (
 /obj/structure/closet/crate/coffin,
@@ -66223,7 +66226,7 @@
 	pixel_y = -1
 	},
 /obj/machinery/light,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/escapepodbay)
 "sdJ" = (
 /obj/machinery/camera{
@@ -85536,7 +85539,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel/dark/telecomms,
+/turf/open/floor/plasteel/dark,
 /area/escapepodbay)
 "xjJ" = (
 /turf/open/floor/plasteel/dark/telecomms,
