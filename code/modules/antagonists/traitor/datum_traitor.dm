@@ -22,6 +22,7 @@
 	/// If this specific traitor has been assigned codewords. This is not always true, because it varies by faction.
 	var/has_codewords = FALSE
 	var/datum/weakref/uplink_ref
+	hijack_speed = 0.5
 
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && iscyborg(owner.current))
@@ -42,7 +43,7 @@
 	/*Dripstation edit, checking upstream prs for edit, for now using drip code
 		company = pick(subtypesof(/datum/corporation/traitor))
 	*/
-		company = /datum/corporation/traitor/independent	//dripstation edit, solo untill picking company
+		company = /datum/corporation/independent	//dripstation edit, solo untill picking company
 	owner.add_employee(company)
 
 	SSticker.mode.traitors += owner

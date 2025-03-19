@@ -6,6 +6,7 @@
 	show_in_antagpanel = FALSE
 	antag_moodlet = /datum/mood_event/focused
 	can_hijack = HIJACK_HIJACKER
+	hijack_speed = 0.5
 	var/mob/living/carbon/master
 
 /datum/antagonist/mindslave/on_body_transfer(mob/living/old_body, mob/living/new_body)

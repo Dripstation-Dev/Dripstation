@@ -1,3 +1,11 @@
+
+/**
+ * GREEN
+ *
+ */
+/datum/security_level/green
+	shuttle_call_time_mod = ALERT_COEFF_BLUE //we hate that x2 green alert shuttle time here, I do not want to punish people for green code.
+
 /**
  * AMBER
  *

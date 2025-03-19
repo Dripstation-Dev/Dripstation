@@ -159,6 +159,16 @@
 			message_say = "FOR RATVAR!"
 		else if(UM.has_antag_datum(/datum/antagonist/rev))
 			message_say = "VIVA LA REVOLUTION!"
+		else if(UM.has_antag_datum(/datum/antagonist/brother))	//dripstation edit start
+			message_say = "FOR MY BROTHER!!"
+		else if(UM.has_antag_datum(/datum/antagonist/heretic))
+			message_say = "THE MANSUS SMILES UPON ME!!"
+		else if(UM.has_antag_datum(/datum/antagonist/enemy_of_the_state))
+			message_say = "FOR THE ETERNAL REVOLUTION!!"
+		else if(UM.has_antag_datum(/datum/antagonist/enemy_of_the_revolution))
+			message_say = "FOR NANOTRASEN, NOW AND FOREVER!!"
+		else if(UM.has_antag_datum(/datum/antagonist/pirate))
+			message_say = "FOR ME MATEYS!!"						//dripstation edit end
 	M.say(message_say, forced="C4 suicide")
 
 /obj/item/grenade/plastic/suicide_act(mob/living/user)

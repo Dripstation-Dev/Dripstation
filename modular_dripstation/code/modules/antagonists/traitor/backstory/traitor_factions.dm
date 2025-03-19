@@ -8,7 +8,7 @@
 	You are a person who holds grudges, and has been hurt greatly by Nanotrasen. Remember that for the Syndicate you are expendable.\n\
 	You probably have nothing left to lose. Don`t expect any backup. You will have no allies."
 	faction_theme = PDA_THEME_INDEPENDENT
-	corporation_allighment = /datum/corporation/traitor/independent
+	corporation_allighment = /datum/corporation/independent
 	allies = "If the anyone learns of your plan, they're going to kill you and take your uplink. Take no chances."
 
 /datum/traitor_faction/donk_co

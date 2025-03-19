@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/task_memory = ""//Optional little objectives that are to be removed on a certain milestone
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
 	var/can_hijack = HIJACK_NEUTRAL //If these antags are alone on shuttle hijack happens.
+	var/hijack_speed = 0	//you can`t hijack console if 0, greater number - faster hijack
 	///The antag hud's icon file
 	var/hud_icon = 'modular_dripstation/icons/mob/hud.dmi'	//dripstation edit
 	///Name of the antag hud we provide to this mob.

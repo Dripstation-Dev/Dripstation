@@ -41526,8 +41526,10 @@
 /area/mine/laborcamp)
 "ltZ" = (
 /obj/effect/turf_decal/bot_red,
-/obj/effect/spawner/lootdrop/armory_contraband_dripstation,
-/obj/structure/closet/secure_closet/contraband/heads,
+/obj/structure/closet/secure_closet/contraband/heads{
+	name = "Secure Weaponry Locker"
+	},
+/obj/effect/spawner/lootdrop/armory_dripstation,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "lue" = (

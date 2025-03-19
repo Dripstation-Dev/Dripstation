@@ -1,3 +1,9 @@
+/obj/item/clothing/shoes
+	cold_protection = FEET
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+	heat_protection = FEET
+	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
+
 ////Sneakers////
 /obj/item/clothing/shoes/sneakers
 
@@ -27,11 +33,15 @@
 	icon_state = "combat"
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/shoes/combat/noble
 	name = "noble boots"
 	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
 	icon_state = "noble"
+
+/obj/item/clothing/shoes/combat/coldres
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/shoes/xeno_wraps/jackboots/combat
 	name = "combat footwraps"
@@ -47,6 +57,7 @@
 /obj/item/clothing/shoes/jackboots
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+	min_cold_protection_temperature = 120
 
 /obj/item/clothing/shoes/bhop
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
@@ -118,3 +129,6 @@
 	slowdown = SHOES_SLOWDOWN+0.1
 	clothing_flags = THICKMATERIAL
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 80, FIRE = 40, ACID = 100, ELECTRIC = 100)
+
+/obj/item/clothing/shoes/winterboots
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

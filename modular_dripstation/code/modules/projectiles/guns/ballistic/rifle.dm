@@ -11,6 +11,7 @@
 	weapon_weight = WEAPON_HEAVY
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper.ogg'
 	dry_fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_empty.ogg'
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/rifle/sniper_rifle/syndicate
 	name = "\improper 'Caracal' SA-91M anti-materiel rifle"
@@ -35,7 +36,7 @@
 
 /obj/item/gun/ballistic/rifle/sniper_rifle/waffle
 	name = "\improper WA-7 anti-material sniper rifle"
-	desc = "An illegal Waffle Armory rendition of an Scarborough Arms sniper rifle. This one has been fitted with a sturdier stock and has a removable muzzle brake that allows easy attachment of suppressors."
+	desc = "An Waffle Armory rendition of an Scarborough Arms sniper rifle. This one has been fitted with a sturdier stock and has a removable muzzle brake that allows easy attachment of suppressors."
 	icon_state = "waffle_sniper"
 	item_state = "waffle_sniper"
 	can_suppress = TRUE
@@ -48,6 +49,7 @@
 	eject_empty_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
 	load_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_reload.ogg'
 	pin = /obj/item/firing_pin/fucked
+	manufacturer = /datum/corporation/traitor/waffleco
 
 /obj/item/gun/ballistic/rifle/sniper_rifle/waffle/unrestricted
 	pin = /obj/item/firing_pin
@@ -61,6 +63,7 @@
 	eject_empty_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
 	load_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_reload.ogg'
 	pin = /obj/item/firing_pin/dna/secure
+	manufacturer = /datum/corporation/hephaestus/militech
 
 
 ///Nitro Express///
@@ -88,6 +91,7 @@
 	fire_sound_volume = 100
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	var/locked = TRUE
+	manufacturer = /datum/corporation/wardtakhashi
 
 	available_attachments = list(
 		/obj/item/attachment/laser_sight,
@@ -283,6 +287,7 @@
 	available_attachments = list(
 		/obj/item/attachment/scope/sniper_slav,
 	)
+	manufacturer = /datum/corporation/vostok
 
 /obj/item/gun/ballistic/rifle/boltaction/brand_new
 	desc = "A brand new Mosin Nagant issued by Nanotrasen for their interns. You would rather not to damage it."
@@ -299,6 +304,7 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	zoom_out_amt = 2
 	actions_types = list()
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/rifle/boltaction/brand_new/sawoff(mob/user)
 	. = ..()
@@ -318,6 +324,7 @@
 	icon_state = "mosintactical"
 	item_state = "mosintactical"
 	can_be_sawn_off = FALSE
+	manufacturer = /datum/corporation/independent
 
 // The Lionhunter, a gun for heretics
 // The ammo it uses takes time to "charge" before firing,

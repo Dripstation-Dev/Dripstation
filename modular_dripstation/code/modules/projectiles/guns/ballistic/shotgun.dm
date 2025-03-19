@@ -1,5 +1,6 @@
 /obj/item/gun/ballistic/shotgun
 	muzzleflash_iconstate = "muzzle_flash_medium"
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/shotgun/riot
 	desc = "A sturdy shotgun with a standart magazine and a fixed tactical stock designed for non-lethal riot control."
@@ -63,6 +64,7 @@
 
 /obj/item/gun/ballistic/shotgun/bulldog
 	desc = "A semi-auto, mag-fed Scarborough Arms shotgun for combat in narrow corridors, nicknamed the 'Bulldog' by boarding parties. Only compatible with specialized 8-round drum magazines."
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/shotgun/bulldog/m12
 	name = "\improper Combat Assault Shotgun M-12"
@@ -71,6 +73,7 @@
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	mag_display_ammo = FALSE
 	pin = /obj/item/firing_pin/dna
+	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/shotgun/bulldog/waffle
 	name = "\improper Waffle Combat Assault Shotgun WA-12"
@@ -84,6 +87,7 @@
 	mag_display_ammo = FALSE
 	empty_indicator = FALSE
 	pin = /obj/item/firing_pin/fucked
+	manufacturer = /datum/corporation/traitor/waffleco
 
 /obj/item/gun/ballistic/shotgun/bulldog/waffle/unrestricted
 	pin = /obj/item/firing_pin

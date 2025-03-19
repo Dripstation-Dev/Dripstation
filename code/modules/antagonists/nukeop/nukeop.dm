@@ -11,6 +11,7 @@
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
 	var/nukeop_outfit = /datum/outfit/syndicate
 	can_hijack = HIJACK_HIJACKER //Alternative way to wipe out the station.
+	hijack_speed = 2	//be fast in it
 
 	preview_outfit = /datum/outfit/nuclear_operative_elite
 

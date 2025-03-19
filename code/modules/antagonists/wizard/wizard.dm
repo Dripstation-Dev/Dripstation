@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(wizard_spellbook_purchases_by_key)
 	var/outfit_type = /datum/outfit/wizard
 	var/wiz_age = WIZARD_AGE_MIN /* Wizards by nature cannot be too young. */
 	can_hijack = HIJACK_HIJACKER
+	hijack_speed = 0.5
 	show_to_ghosts = TRUE
 	preview_outfit = /datum/outfit/wizard
 

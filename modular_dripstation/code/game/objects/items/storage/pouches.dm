@@ -77,6 +77,11 @@
 	draw_mode = 0
 	silent = FALSE
 
+/obj/item/storage/pouch/general/large/spacepolice/Initialize()
+	. = ..()
+	new /obj/item/megaphone(src)
+	new /obj/item/restraints/handcuffs(src)
+
 /obj/item/storage/pouch/general/large/command/Initialize()
 	. = ..()
 	new /obj/item/binoculars(src)
@@ -239,6 +244,18 @@
 	fill_type = /obj/item/gun/energy/pulse/pistol/loyalpin
 	fill_number = 1
 
+/obj/item/storage/pouch/pistol/fn45
+	fill_type = /obj/item/gun/ballistic/automatic/pistol/fn45
+	fill_number = 1
+
+/obj/item/storage/pouch/pistol/m1911
+	fill_type = /obj/item/gun/ballistic/automatic/pistol/m1911
+	fill_number = 1
+
+/obj/item/storage/pouch/pistol/m1911signature
+	fill_type = /obj/item/gun/ballistic/automatic/pistol/m1911/signature
+	fill_number = 1
+
 //// MAGAZINE POUCHES /////
 
 /obj/item/storage/pouch/magazine
@@ -398,6 +415,10 @@
 	can_hold = list(
 		/obj/item/grenade,
 	)
+
+/obj/item/storage/pouch/grenade/full
+	fill_type = /obj/item/grenade/syndieminibomb/concussion/frag
+	fill_number = 6
 
 /obj/item/storage/pouch/medkit
 	name = "medkit pouch"

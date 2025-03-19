@@ -24,6 +24,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan)
 	ammo_x_offset = 1
 	shaded_charge = 1
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
 
 /obj/item/gun/energy/laser/captain
 	name = "antique energy gun"

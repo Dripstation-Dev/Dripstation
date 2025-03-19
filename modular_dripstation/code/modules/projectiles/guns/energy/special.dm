@@ -26,6 +26,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	ammo_x_offset = 3
 	charge_sections = 3
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
 
 /obj/item/gun/energy/temperature
 	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
@@ -36,6 +37,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"

@@ -153,6 +153,11 @@
 /obj/item/reagent_containers/glass/beaker/slime
 	lid_state = TRUE
 
+/obj/item/reagent_containers/glass/beaker/large/gunpowder
+	list_reagents = list(/datum/reagent/gunpowder = 100)
+	lid_state = TRUE
+	label_state = TRUE
+
 /obj/item/reagent_containers/glass/beaker/large/silver_sulfadiazine
 	lid_state = TRUE
 	label_state = TRUE

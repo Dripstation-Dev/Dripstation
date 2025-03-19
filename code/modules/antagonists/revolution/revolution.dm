@@ -291,6 +291,7 @@
 	var/max_headrevs = 3
 	var/list/ex_headrevs = list() // Dynamic removes revs on loss, used to keep a list for the roundend report.
 	var/list/ex_revs = list()
+	var/finished = FALSE
 
 /datum/team/revolution/proc/update_objectives(initial = FALSE)
 	var/untracked_heads = SSjob.get_all_heads()
@@ -343,6 +344,82 @@
 /datum/team/revolution/proc/save_members()
 	ex_headrevs = get_antag_minds(/datum/antagonist/rev/head, TRUE)
 	ex_revs = get_antag_minds(/datum/antagonist/rev, TRUE)
+
+//dripstation edit start, dynamic thing
+/datum/team/revolution/proc/rev_victory_effects()
+	for (var/mob/living/player as anything in GLOB.player_list)
+		var/datum/mind/player_mind = player.mind
+		if (isnull(player_mind))
+			continue
+		if(!(player_mind.assigned_role in GLOB.command_positions) && !(player_mind.assigned_role in GLOB.security_positions))
+			continue
+		if (player_mind in ex_revs + ex_headrevs)
+			continue
+		player_mind.add_antag_datum(/datum/antagonist/enemy_of_the_revolution)
+
+		if (!istype(player))
+			continue
+
+		if(!(player_mind.assigned_role in GLOB.command_positions))
+			if(player_mind.current)
+				var/mob/living/carbon/C = player_mind.current
+				if(istype(C) && C.stat == DEAD)
+					C.makeUncloneable()
+
+	for(var/datum/job/job as anything in SSjob.joinable_occupations)
+		if(!(job.title in GLOB.command_positions) && !(job.title in GLOB.security_positions))
+			continue
+		job.total_positions = 0
+
+	var/datum/game_mode/dynamic/dynamic = SSticker.mode
+	dynamic.unfavorable_situation()
+
+	var/message_header = "A recent assessment of your station has marked your station as a severe risk area for high ranking Nanotrasen officials."
+	var/extra_detail = try_auto_call_shuttle() \
+		? "For the safety of our staff, we are expediting an emergency shuttle for remaining members of security and command." \
+		: "For the safety of our staff, we have blacklisted your station for new employment of security and command."
+	var/propaganda = pick(world.file2list("strings/anti_union_propaganda.txt"))
+
+	priority_announce(
+		"[message_header]\n\n[extra_detail]\n\n[propaganda]",
+		sender_override = "Central Command Loyalty Monitoring Division"
+	)
+
+/// How much of the station, ignoring sec and command, should be revs before a shuttle will be automatically called?
+#define REV_AUTO_CALL_THRESHOLD 0.65
+
+/datum/team/revolution/proc/try_auto_call_shuttle()
+	var/total_revs = ex_revs.len + ex_headrevs.len
+	var/total_candidates = 0
+
+	for (var/mob/player as anything in GLOB.player_list)
+		if (player.mind.has_antag_datum(/datum/antagonist/enemy_of_the_revolution))
+			continue
+
+		total_candidates += 1
+
+	var/display_percent = round(total_revs / total_candidates * 100)
+
+	if (total_revs / total_candidates < REV_AUTO_CALL_THRESHOLD)
+		log_game("REVOLUTION: Not calling the shuttle, [display_percent]% are revs")
+		return FALSE
+
+	// Do it later so everyone has time to see the messages
+	addtimer(CALLBACK(src, .proc/finish_round), 20 SECONDS)
+
+	var/log = "REVOLUTION: Auto-calling the shuttle, [display_percent]% are revs"
+	log_game(log)
+	message_admins(log)
+
+	return TRUE
+
+#undef REV_AUTO_CALL_THRESHOLD
+
+/datum/team/revolution/proc/finish_round()
+	finished = TRUE
+
+	
+//dripstation edit end
 
 /datum/team/revolution/proc/check_victory()
 	for(var/datum/objective/O in objectives)

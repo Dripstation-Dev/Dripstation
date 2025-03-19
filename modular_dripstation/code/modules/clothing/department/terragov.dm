@@ -12,20 +12,23 @@
 /obj/item/clothing/under/rank/security/spacepol/formal
 	name = "Terran police official uniform"
 	desc = "You are The Law official. Show them it`s true nature."
+	icon_state = "terragovpol_formal"
 
 /obj/item/clothing/under/rank/security/spacepol/camo
 	name = "Terran police camo uniform"
 	desc = "Enforce the Law. Spess them all if not."
+	icon_state = "terragovpol_camo"
 
 
 ////Marine Faction////
-/obj/item/clothing/under/rank/security/terramarine
+/obj/item/clothing/under/terramarine
 	name = "Terran marine jumpsuit"
 	desc = "Be proud and loud about your uniform, son."
 	icon_state = "marine_jumpsuit"
 	item_state = "marine"
 	can_adjust = TRUE
 	mutantrace_variation = NONE
+	armor = list(MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0, WOUND = 0)
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/terragov/terragov.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/terragov/terragov.dmi'
 

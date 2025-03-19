@@ -73,10 +73,11 @@
 
 /obj/item/gun/energy/plasmarifle
 	name = "Plasma Assault Rifle"
-	desc = "A plasma rifle constructed of lightweight materials, Cybersun Armory. Slowly fires powerful plasma projectiles."
+	desc = "A plasma rifle constructed of lightweight materials, Cyber-Tech Armory. Slowly fires powerful plasma projectiles."
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	icon_state = "cybersun_plasmarifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/combat)
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	pin = /obj/item/firing_pin/fucked
@@ -115,6 +116,7 @@
 	item_state = "nt_ancile"
 	pin = /obj/item/firing_pin/dna/secure
 	automatic_charge_overlays = FALSE
+	manufacturer = /datum/corporation/unn
 
 /obj/item/gun/energy/e_gun/mini/practice_phaser
 	icon = 'icons/obj/guns/energy.dmi'

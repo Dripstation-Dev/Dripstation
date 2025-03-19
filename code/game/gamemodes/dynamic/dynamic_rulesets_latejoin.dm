@@ -94,12 +94,12 @@
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 1
-	cost = 100000
 	delay = 1 MINUTES
-	requirements = list(80,75,60,60,55,50,40,30,20,20)
+	cost = 10	//dripstation edit
+	requirements = list(101,101,70,40,30,20,20,20,20,20)	//dripstation edit
 	blocking_rules = list(/datum/dynamic_ruleset/roundstart/revs)
 	var/required_heads_of_staff = 3
-	var/finished = FALSE
+	var/winner = FALSE	//dripstation edit
 	var/datum/team/revolution/revolution
 	minimum_players = 30
 
@@ -134,6 +134,7 @@
 		log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
 		return FALSE
 
+/* Dripstation edit start
 /datum/dynamic_ruleset/latejoin/provocateur/rule_process()
 	if(check_rev_victory())
 		finished = REVOLUTION_VICTORY
@@ -156,6 +157,46 @@
 		priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
 			We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "Central Command Loyalty Monitoring Division")
 		return RULESET_STOP_PROCESSING
+*/
+
+/datum/dynamic_ruleset/latejoin/provocateur/rule_process()
+	if(!revolution)
+		log_game("DYNAMIC: Something went horrifically wrong with [name] - and the antag datum could not be created. Notify coders.")
+		return
+	if(check_rev_victory())
+		winner = REVOLUTION_VICTORY
+		SSshuttle.clearHostileEnvironment(src)
+		revolution.save_members()
+		for(var/datum/mind/M in revolution.members)	// Remove antag datums and prevents podcloned or exiled headrevs restarting rebellions.
+			if(M.has_antag_datum(/datum/antagonist/rev/head))
+				var/datum/antagonist/rev/head/R = M.has_antag_datum(/datum/antagonist/rev/head)
+				R.remove_revolutionary(FALSE, "gamemode")
+			if(M.has_antag_datum(/datum/antagonist/rev))
+				var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
+				R.remove_revolutionary(FALSE, "gamemode")
+		revolution.rev_victory_effects()
+		//return RULESET_STOP_PROCESSING, forcing heavy midround event
+	else if (check_heads_victory())
+		winner = STATION_VICTORY
+		SSshuttle.clearHostileEnvironment(src)
+		revolution.save_members()
+		for(var/datum/mind/M in revolution.members)	// Remove antag datums and prevents podcloned or exiled headrevs restarting rebellions.
+			if(M.has_antag_datum(/datum/antagonist/rev/head))
+				var/datum/antagonist/rev/head/R = M.has_antag_datum(/datum/antagonist/rev/head)
+				R.remove_revolutionary(FALSE, "gamemode")
+				if(M.current)
+					var/mob/living/carbon/C = M.current
+					if(istype(C) && C.stat == DEAD)
+						C.makeUncloneable()
+					else
+						M.add_antag_datum(/datum/antagonist/enemy_of_the_state)
+			if(M.has_antag_datum(/datum/antagonist/rev))
+				var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
+				R.remove_revolutionary(FALSE, "gamemode")
+		priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
+			We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "Central Command Loyalty Monitoring Division")
+		return RULESET_STOP_PROCESSING
+	//Dripstation edit end
 
 
 
@@ -167,7 +208,7 @@
 	return FALSE
 
 /datum/dynamic_ruleset/latejoin/provocateur/check_finished()
-	if(finished == REVOLUTION_VICTORY)
+	if(revolution.finished)	//Dripstation edit
 		return TRUE
 	else
 		return ..()
@@ -187,10 +228,10 @@
 	return TRUE
 
 /datum/dynamic_ruleset/latejoin/provocateur/round_result()
-	if(finished == REVOLUTION_VICTORY)
+	if(winner == REVOLUTION_VICTORY)	//Dripstation edit
 		SSticker.mode_result = "win - heads killed"
 		SSticker.news_report = REVS_WIN
-	else if(finished == STATION_VICTORY)
+	else if(winner == STATION_VICTORY)	//Dripstation edit
 		SSticker.mode_result = "loss - rev heads killed"
 		SSticker.news_report = REVS_LOSE
 

@@ -30,11 +30,13 @@
 	burst_size = 1
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_FULLY_AUTOMATIC)
 	auto_fire_delay = 0.07 SECONDS
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/minigunosprey
 	burst_size = 1
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_FULLY_AUTOMATIC)
 	auto_fire_delay = 0.07 SECONDS
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/automatic/proto
 	desc = "A fullauto 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
@@ -46,6 +48,7 @@
 	selector_switch_icon = TRUE
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
 	auto_fire_delay = 0.2 SECONDS 
+	manufacturer = /datum/corporation/nanotrasen/arq_tek
 
 /obj/item/gun/ballistic/automatic/c20r
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
@@ -55,6 +58,7 @@
 	semi_auto_spread = 3
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT)
 	selector_switch_icon = TRUE
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/automatic/c20r/cobra
 	name = "\improper 'Cobra' 18"
@@ -82,6 +86,7 @@
 	auto_fire_delay = 0.18 SECONDS
 	icon_state = "waffle_smg"
 	pin = /obj/item/firing_pin/fucked
+	manufacturer = /datum/corporation/traitor/waffleco
 
 /obj/item/gun/ballistic/automatic/c20r/waffle/unrestricted
 	pin = /obj/item/firing_pin
@@ -104,6 +109,7 @@
 	burst_size = 3
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT, SELECT_FULLY_AUTOMATIC)
 	auto_fire_delay = 0.07 SECONDS
+	manufacturer = /datum/corporation/unn
 
 /obj/item/gun/ballistic/automatic/c20r/aegis
 	name = "\improper NB-20A 'Aegis'"
@@ -115,6 +121,7 @@
 	icon_state = "nt_aegis"
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/wt550
 	name = "\improper WT-550 security auto carbine"
@@ -124,6 +131,7 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	auto_fire_delay = 0.2 SECONDS
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/wt550/armory
 	icon_state = "wt550_secure"
@@ -158,6 +166,7 @@
 	knife_y_offset = 12
 	mag_display = TRUE
 	auto_fire_delay = 0.15 SECONDS
+	manufacturer = /datum/corporation/shellguard
 
 /obj/item/gun/ballistic/automatic/mini_uzi
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
@@ -181,6 +190,7 @@
 	select = 0
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT)
 	muzzleflash_iconstate = "muzzle_flash_medium"
+	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/automatic/m90/examine(mob/user)
 	. = ..()
@@ -242,9 +252,17 @@
 	underbarrel = new /obj/item/gun/ballistic/revolver/grenadelauncher/unrestricted(src)
 	update_appearance(UPDATE_ICON)
 
+/obj/item/gun/ballistic/automatic/m90/m31a1/attachments
+	initial_attachments = list(/obj/item/attachment/trigger/iff_module, /obj/item/attachment/scope/holo, /obj/item/attachment/grip/magnetic_harness)
+
+/obj/item/gun/ballistic/automatic/m90/m31a1/attachments/Initialize(mapload)
+	. = ..()
+	var/obj/item/suppressor/S = new(src)
+	install_suppressor(S)
+
 /obj/item/gun/ballistic/automatic/p90
 	name = "\improper P-90 Personal Defense Weapon"
-	desc = "A three-round burst 5.56 toploading rifle, designated 'P-90PDW'."
+	desc = "A full-auto 5.56 toploading rifle, designated 'P-90PDW'. Cheap yeat effective it can be finded in hands of PMC operatives across all the space. Ward-Takahashi design."
 	icon_state = "p90"
 	item_state = "m90"
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
@@ -255,11 +273,13 @@
 	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 2
+	slot_flags = ITEM_SLOT_BELT
 	auto_fire_delay = 0.2 SECONDS
 	pin = /obj/item/firing_pin
 	mag_display = TRUE
 	empty_indicator = TRUE
 	muzzleflash_iconstate = "muzzle_flash_medium"
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/ar
 	name = "\improper NT ARG-63"
@@ -282,6 +302,7 @@
 	vary_fire_sound = 0
 	burst_size = 3
 	muzzleflash_iconstate = "muzzle_flash_medium"
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/ar/mk4
 	name = "\improper Militech M-K4 Infantry Assault Rifle"
@@ -292,12 +313,21 @@
 	pin = /obj/item/firing_pin/dna/secure
 	spread = 5
 	semi_auto_spread = 2
+	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/automatic/ar/mk4/grn
 	name = "\improper Militech M-K4 Infantry Assault Rifle"
 	desc = "A robust assault rifle used by Militech fighting forces."
 	icon_state = "militech_mkIV_grn"
 	item_state = "militech_mkIV_grn"
+
+/obj/item/gun/ballistic/automatic/ar/mk4/grn/attachments
+	initial_attachments = list(/obj/item/attachment/trigger/iff_module, /obj/item/attachment/scope/holo, /obj/item/attachment/grip/magnetic_harness)
+
+/obj/item/gun/ballistic/automatic/ar/mk4/grn/attachments/Initialize(mapload)
+	. = ..()
+	var/obj/item/suppressor/S = new(src)
+	install_suppressor(S)
 
 /obj/item/gun/ballistic/automatic/ar/tgm16
 	name = "\improper TGM-16 Infantry Assault Rifle"
@@ -307,6 +337,7 @@
 	pin = /obj/item/firing_pin
 	spread = 8
 	semi_auto_spread = 3
+	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/automatic/ar/waffle
 	name = "\improper WA-5 Infantry Assault Rifle"
@@ -315,6 +346,7 @@
 	pin = /obj/item/firing_pin/fucked
 	spread = 5
 	semi_auto_spread = 2
+	manufacturer = /datum/corporation/traitor/waffleco
 
 /obj/item/gun/ballistic/automatic/ar/waffle/unrestricted
 	pin = /obj/item/firing_pin
@@ -335,6 +367,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	auto_fire_delay = 0.1 SECONDS
 	pin = /obj/item/firing_pin
+	manufacturer = /datum/corporation/vostok
 
 /obj/item/gun/ballistic/automatic/ar/ak47
 	name = "\improper AK-47 Assault Rifle"
@@ -353,6 +386,7 @@
 	burst_size = 1
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin
+	manufacturer = /datum/corporation/vostok
 
 /obj/item/gun/ballistic/automatic/ar/akm
 	name = "\improper AKM Assault Rifle"
@@ -371,6 +405,7 @@
 	burst_size = 1
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin
+	manufacturer = /datum/corporation/vostok
 
 /obj/item/gun/ballistic/automatic/ar/akm_tactical
 	name = "\improper TMCAR-47M Tactical Assault Rifle"
@@ -387,6 +422,7 @@
 	burst_size = 1
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin
+	manufacturer = /datum/corporation/vostok
 
 /obj/item/gun/ballistic/automatic/ar/ak101
 	name = "\improper AK-101 Assault Rifle"
@@ -412,6 +448,7 @@
 	can_suppress = FALSE
 	auto_fire_delay = 0.2 SECONDS
 	pin = /obj/item/firing_pin
+	manufacturer = /datum/corporation/vostok
 
 /obj/item/gun/ballistic/automatic/ar/ak101/CtrlClick(mob/user)
 	. = ..()
@@ -476,12 +513,14 @@
 	eject_sound = "sound/weapons/rifleunload.ogg"
 	eject_empty_sound = "sound/weapons/rifleunload.ogg"
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
+	manufacturer = /datum/corporation/vostok
 
 /obj/item/gun/ballistic/automatic/k41s
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
 	muzzleflash_iconstate = "muzzle_flash_medium"
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/automatic/k41s/dna
 	pin = /obj/item/firing_pin/dna/secure
@@ -489,6 +528,7 @@
 /obj/item/gun/ballistic/automatic/lwt650
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
 	muzzleflash_iconstate = "muzzle_flash_medium"
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/automatic/svd
 	name = "\improper SR-33 Dragunov sniper rifle"
@@ -517,6 +557,7 @@
 		/obj/item/attachment/scope/sniper_slav,
 	)
 	muzzleflash_iconstate = "muzzle_flash_medium"
+	manufacturer = /datum/corporation/vostok
 
 
 /obj/item/gun/ballistic/automatic/pistol
@@ -537,9 +578,11 @@
 		/obj/item/attachment/grip/magnetic_harness,
 		/obj/item/attachment/trigger/iff_module
 	)
+	manufacturer = /datum/corporation/traitor/waffleco
 
 /obj/item/gun/ballistic/automatic/pistol/stickman
 	icon = 'icons/obj/guns/projectile.dmi'
+	manufacturer = /datum/corporation/independent
 
 
 /obj/item/gun/ballistic/automatic/pistol/glock17
@@ -553,10 +596,11 @@
 	can_suppress = FALSE
 	fire_sound = 'modular_dripstation/sound/weapons/pistol/shot_alt.ogg'
 	fire_delay = 1
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/automatic/pistol/glock17/ancile
 	name = "\improper NB-2 'Ancile'"
-	desc = "Nanotrasen easily concealable servise pistol. Chambered in 9x19mm."
+	desc = "Nanotrasen`s easily concealable servise pistol. Chambered in 9x19mm."
 	icon_state = "nt_ancile"
 	item_state = "nt_ancile"
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/beretta.ogg'
@@ -571,6 +615,7 @@
 	can_suppress = FALSE
 	starting_mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/pistol/glock18
 	name = "\improper Glock-18"
@@ -599,6 +644,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	fire_delay = 1
 	starting_mag_type = /obj/item/ammo_box/magazine/pistolm9mm
+	manufacturer = /datum/corporation/shellguard
 
 /obj/item/gun/ballistic/automatic/pistol/fn45
 	name = "\improper FNX-45 Tactical"
@@ -624,6 +670,7 @@
 	feedback_types = list(
 		"fire" = 3
 	)
+	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/automatic/pistol/m1911
 	eject_sound = 'modular_dripstation/sound/weapons/tgmc/colt_unload.ogg'
@@ -633,6 +680,7 @@
 	item_state = "colt"
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/alt
 	name = "\improper M1911M"
@@ -646,6 +694,7 @@
 
 /obj/item/gun/ballistic/automatic/pistol/ntusp
 	icon = 'icons/obj/guns/projectile.dmi'
+	manufacturer = /datum/corporation/nanotrasen/arq_tek
 
 
 // L6 SAW //
@@ -660,6 +709,7 @@
 	burst_size = 1
 	actions_types = list()
 	auto_fire_delay = 0.1 SECONDS
+	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/automatic/l6_saw/update_icon()
 	. = ..()
@@ -692,6 +742,7 @@
 ///Laser rifle
 /obj/item/gun/ballistic/automatic/laser
 	name = "\improper energy carbine"
+	manufacturer = /datum/corporation/nanotrasen/arq_tek
 
 /obj/item/gun/ballistic/automatic/laser/tgmc
 	name = "\improper TGM 43"

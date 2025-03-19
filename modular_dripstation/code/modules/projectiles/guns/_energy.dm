@@ -10,6 +10,7 @@
 	)
 	muzzleflash_iconstate = "muzzle_flash_laser"
 	muzzle_flash_color = COLOR_LASER_RED
+	manufacturer = /datum/corporation/nanotrasen/arq_tek
 
 /obj/item/gun/energy/update_overlays()
 	if(QDELETED(src))

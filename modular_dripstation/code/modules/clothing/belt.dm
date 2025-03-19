@@ -479,6 +479,12 @@
 	SSwardrobe.provide_type(/obj/item/gun/energy/e_gun/pdwpistol, src)
 	update_appearance(UPDATE_ICON)	
 
+/obj/item/storage/belt/holster/m1911/PopulateContents()
+	SSwardrobe.provide_type(/obj/item/ammo_box/magazine/m45, src)
+	SSwardrobe.provide_type(/obj/item/ammo_box/magazine/m45, src)
+	SSwardrobe.provide_type(/obj/item/gun/ballistic/automatic/pistol/m1911, src)
+	update_appearance(UPDATE_ICON)
+
 /obj/item/storage/belt/holster/syndicate
 	name = "advanced shoulder holster"
 	item_state = "syndicate_holster"

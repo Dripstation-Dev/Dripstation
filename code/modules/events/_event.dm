@@ -34,6 +34,8 @@
 
 	/// Whether or not dynamic should hijack this event
 	var/dynamic_should_hijack = FALSE
+	/// Flags dictating whether this event should be run on certain kinds of map
+	var/map_flags = NONE
 
 /datum/round_event_control/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, random) && var_value) // CAN'T LET YOU DO THAT, STAR FOX
@@ -132,6 +134,19 @@
 //Special admins setup
 /datum/round_event_control/proc/admin_setup()
 	return
+
+
+/// Returns true if event can run in current map
+/datum/round_event_control/proc/valid_for_map()
+	if (!map_flags)
+		return TRUE
+	if (SSmapping.is_planetary())
+		if (map_flags & EVENT_SPACE_ONLY)
+			return FALSE
+	else
+		if (map_flags & EVENT_PLANETARY_ONLY)
+			return FALSE
+	return TRUE
 
 /datum/round_event	//NOTE: Times are measured in master controller ticks!
 	var/processing = TRUE

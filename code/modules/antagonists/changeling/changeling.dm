@@ -57,6 +57,8 @@
 	var/static/list/all_powers = typecacheof(/datum/action/changeling,TRUE)
 	var/list/stored_snapshots = list() //list of stored snapshots
 
+	hijack_speed = 0.5
+
 /datum/antagonist/changeling/New()
 	. = ..()
 	for(var/datum/antagonist/changeling/C in GLOB.antagonists)

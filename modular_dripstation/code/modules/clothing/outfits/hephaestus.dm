@@ -74,6 +74,7 @@
 	gloves = /obj/item/clothing/gloves/combat/militech
 	suit = /obj/item/clothing/suit/armor/vest/iotv
 	belt = /obj/item/storage/belt/military/army
+	l_pocket = /obj/item/storage/pouch/firstaid/full
 	ears = /obj/item/radio/headset/military/militech/alt
 	shoes = /obj/item/clothing/shoes/combat/combat_knife
 	box = /obj/item/storage/box/militech
@@ -81,9 +82,22 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/spray/pepper = 1,
 		/obj/item/grenade/smokebomb = 1,
+		/obj/item/grenade/syndieminibomb/concussion/frag = 1,
 		/obj/item/clothing/glasses/night = 1,
 		)
 	implants = list(/obj/item/implant/freedom)
+
+/datum/outfit/hephaestus/operative/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	if(istype(H.belt, /obj/item/storage/belt/military/army))
+		var/obj/item/storage/belt/military/army/milbelt_store = H.belt
+		for(var/i = 2 to 0 step -1)
+			SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/pistolm9mm/pmag, null, TRUE, TRUE)
+		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/extinguisher/mini, null, TRUE, TRUE)
+		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/large, null, TRUE, TRUE)
 
 /datum/outfit/hephaestus/operative/grenadier
 	name = "Militech Operative - Grenadier"
@@ -94,7 +108,6 @@
 	uniform = /obj/item/clothing/under/hephaestus/militech/turtle
 	r_pocket = /obj/item/storage/pouch/shotgun/full_rip
 	backpack_contents = list(
-		/obj/item/gun/ballistic/automatic/pistol/glock18 = 1,
 		/obj/item/reagent_containers/spray/pepper = 1,
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/ammo_box/magazine/m12g/slug = 1,
@@ -111,7 +124,7 @@
 	head = /obj/item/clothing/head/helmet/militech
 	suit = /obj/item/clothing/suit/armor/vest/iotv/gen4
 	belt = /obj/item/storage/belt/military/webbing/militech/ar
-	suit_store = /obj/item/gun/ballistic/automatic/ar/mk4/grn
+	suit_store = /obj/item/gun/ballistic/automatic/ar/mk4/grn/attachments
 	uniform = /obj/item/clothing/under/hephaestus/militech/turtle
 
 /datum/outfit/hephaestus/operative/mantis
@@ -137,7 +150,6 @@
 	mask = /obj/item/clothing/mask/scarf
 	head = /obj/item/clothing/head/helmet/militech
 	suit = /obj/item/clothing/suit/armor/vest/militech_carrier
-	belt = /obj/item/storage/belt/military/army
 	uniform = /obj/item/clothing/under/hephaestus/militech/turtle
 	r_hand = /obj/item/gun/ballistic/automatic/l6_saw/dna
 	backpack_contents = list(
@@ -156,8 +168,6 @@
 	for(var/i = 2 to 0 step -1)
 		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/mm556x45_100, null, TRUE, TRUE)
 	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/mm556x45_100/ssaap, null, TRUE, TRUE)
-	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/extinguisher/mini, null, TRUE, TRUE)
-	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/large, null, TRUE, TRUE)
 
 /datum/outfit/hephaestus/operative/sniper
 	name = "Militech Operative - Sniper"
@@ -182,7 +192,6 @@
 	var/obj/item/storage/belt/military/webbing/lbv88/belt_store = H.belt
 	for(var/i = 3 to 0 step -1)
 		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/sniper_rounds, null, TRUE, TRUE)
-	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/extinguisher/mini, null, TRUE, TRUE)
 	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/large, null, TRUE, TRUE)
 
 
@@ -196,11 +205,14 @@
 	uniform = /obj/item/clothing/under/hephaestus/militech/gex
 	l_pocket = /obj/item/storage/pouch/general/large/pmc
 	r_pocket = /obj/item/storage/pouch/magazine/toploader556
-	suit_store = /obj/item/gun/ballistic/automatic/m90/m31a1
+	suit_store = /obj/item/gun/ballistic/automatic/m90/m31a1/attachments
 	backpack_contents = list(
 		/obj/item/reagent_containers/spray/pepper = 1,
 		/obj/item/grenade/smokebomb = 1,
+		/obj/item/ammo_box/a40mm = 1,
+		/obj/item/suppressor = 1,
 		/obj/item/clothing/glasses/night = 1,
+		/obj/item/extinguisher/mini = 1,
 		)
 	
 /datum/outfit/hephaestus/operative/lieutenant/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

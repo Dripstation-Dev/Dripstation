@@ -24,6 +24,8 @@
 	var/zooming_time = 2 SECONDS
 	var/zooming_speed = 1
 
+	var/datum/corporation/manufacturer = /datum/corporation/independent
+
 	var/list/initial_attachments = list()
 
 	light_on = FALSE

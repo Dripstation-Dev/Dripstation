@@ -1,6 +1,7 @@
+// You are alone
 /datum/corporation/independent
 	name = "nobody"
-	paymodifier = 0.5
+	paymodifier = 0
 
 /datum/corporation/nanotrasen
 	name = "Nanotrasen Strategic Investment Company"
@@ -58,11 +59,27 @@
 	name = "Eden LLC"
 	paymodifier = 1.2
 
-// You are alone
-/datum/corporation/traitor/independent
-	name = "Independent"
-	paymodifier = 0
-
 /datum/corporation/vostok
 	name = "Vostok"
 	paymodifier = 1.1
+
+/datum/corporation/wardtakhashi
+	name = "Ward-Takahashi Arms Group"
+
+/datum/corporation/scarborough
+	name = "Scarborough Arms Group"	
+
+/datum/corporation/traitor/cybersun/robotech
+	name = "Cybersun Virtual Solutions"
+	instantiate = FALSE
+
+/datum/corporation/traitor/cybersun/medical
+	name = "Cybersun Medical Solutions"
+	instantiate = FALSE
+
+/datum/corporation/traitor/cybersun/weapons
+	name = "Cyber-Tech Armory"
+	instantiate = FALSE
+
+/datum/corporation/unn
+	name = "United News&Network"

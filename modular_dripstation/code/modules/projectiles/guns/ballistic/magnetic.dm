@@ -117,6 +117,8 @@
 	charge_sections = 4
 	ammo_x_offset = 2
 
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
+
 /obj/item/gun/ballistic/automatic/powered/gauss_rifle/empty
 	spawnwithmagazine = FALSE
 
@@ -155,6 +157,8 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_HUGE
 	
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
+
 	//zoomable = TRUE
 	//zoom_amt = 10 //Long range, enough to see in front of you, but no tiles behind you.
 	//zoom_out_amt = 5

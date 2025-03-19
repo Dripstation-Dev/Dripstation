@@ -402,6 +402,7 @@
 					/obj/item/storage/pouch/pistol = 2,
 					/obj/item/storage/pouch/magazine/pistol = 2,
 					/obj/item/storage/pouch/magazine = 2,
+					/obj/item/storage/pouch/shotgun = 2,
 					/obj/item/storage/pouch/explosive = 2,
 					/obj/item/storage/pouch/flare = 2,
 					/obj/item/storage/belt/bandolier = 2)

@@ -327,7 +327,7 @@
 /obj/structure/sign/poster/erotic
 	icon = 'modular_dripstation/icons/obj/contraband.dmi'
 	poster_item_name = "erotic poster"
-	poster_item_desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	poster_item_desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	poster_item_icon_state = "rolled_erotic"
 
 /obj/structure/sign/poster/erotic/random
@@ -338,80 +338,80 @@
 
 /obj/structure/sign/poster/erotic/v1
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster1_erotic"
 
 /obj/structure/sign/poster/erotic/v2
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster2_erotic"
 
 /obj/structure/sign/poster/erotic/v3
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster3_erotic"
 
 /obj/structure/sign/poster/erotic/v4
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster4_erotic"
 
 /obj/structure/sign/poster/erotic/v5
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster5_erotic"
 
 /obj/structure/sign/poster/erotic/v6
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster6_erotic"
 
 /obj/structure/sign/poster/erotic/v7
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster7_erotic"
 
 /obj/structure/sign/poster/erotic/v8
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster8_erotic"
 
 /obj/structure/sign/poster/erotic/v9
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster9_erotic"
 
 /obj/structure/sign/poster/erotic/v10
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster10_erotic"
 
 /obj/structure/sign/poster/erotic/v11
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster11_erotic"
 
 /obj/structure/sign/poster/erotic/v12
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster12_erotic"
 
 /obj/structure/sign/poster/erotic/v13
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster13_erotic"
 
 /obj/structure/sign/poster/erotic/v14
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster14_erotic"
 
 /obj/structure/sign/poster/erotic/v15
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster15_erotic"
 
 /obj/structure/sign/poster/erotic/v16
 	name = "erotic poster"
-	desc = "This poster`s vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster16_erotic"

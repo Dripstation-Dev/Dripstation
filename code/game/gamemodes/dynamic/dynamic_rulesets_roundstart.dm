@@ -444,15 +444,15 @@
 	required_candidates = 3
 	weight = 1
 	delay = 7 MINUTES
-	cost = 101
-	requirements = list(101,101,101,101,101,101,101,101,101,101)
+	cost = 20			//Dripstation edit
+	requirements = list(101,101,70,40,30,20,10,10,10,10)	//Dripstation edit
 	antag_cap = 3
 	flags = HIGH_IMPACT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 30
 	var/datum/team/revolution/revolution
-	var/finished = FALSE
+	var/winner = FALSE	//Dripstation edit
 
 /datum/dynamic_ruleset/roundstart/revs/pre_execute(population)
 	. = ..()
@@ -490,6 +490,7 @@
 	qdel(revolution)
 	..()
 
+/* Dripstation edit start
 /datum/dynamic_ruleset/roundstart/revs/rule_process()
 	if(!revolution)
 		log_game("DYNAMIC: Something went horrifically wrong with [name] - and the antag datum could not be created. Notify coders.")
@@ -515,6 +516,46 @@
 		priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
 			We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "Central Command Loyalty Monitoring Division")
 		return RULESET_STOP_PROCESSING
+*/
+
+/datum/dynamic_ruleset/roundstart/revs/rule_process()
+	if(!revolution)
+		log_game("DYNAMIC: Something went horrifically wrong with [name] - and the antag datum could not be created. Notify coders.")
+		return
+	if(check_rev_victory())
+		winner = REVOLUTION_VICTORY
+		SSshuttle.clearHostileEnvironment(src)
+		revolution.save_members()
+		for(var/datum/mind/M in revolution.members)	// Remove antag datums and prevents podcloned or exiled headrevs restarting rebellions.
+			if(M.has_antag_datum(/datum/antagonist/rev/head))
+				var/datum/antagonist/rev/head/R = M.has_antag_datum(/datum/antagonist/rev/head)
+				R.remove_revolutionary(FALSE, "gamemode")
+			if(M.has_antag_datum(/datum/antagonist/rev))
+				var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
+				R.remove_revolutionary(FALSE, "gamemode")
+		revolution.rev_victory_effects()
+		//return RULESET_STOP_PROCESSING, forcing heavy midround event
+	else if (check_heads_victory())
+		winner = STATION_VICTORY
+		SSshuttle.clearHostileEnvironment(src)
+		revolution.save_members()
+		for(var/datum/mind/M in revolution.members)	// Remove antag datums and prevents podcloned or exiled headrevs restarting rebellions.
+			if(M.has_antag_datum(/datum/antagonist/rev/head))
+				var/datum/antagonist/rev/head/R = M.has_antag_datum(/datum/antagonist/rev/head)
+				R.remove_revolutionary(FALSE, "gamemode")
+				if(M.current)
+					var/mob/living/carbon/C = M.current
+					if(istype(C) && C.stat == DEAD)
+						C.makeUncloneable()
+					else
+						M.add_antag_datum(/datum/antagonist/enemy_of_the_state)
+			if(M.has_antag_datum(/datum/antagonist/rev))
+				var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
+				R.remove_revolutionary(FALSE, "gamemode")
+		priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
+			We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "Central Command Loyalty Monitoring Division")
+		return RULESET_STOP_PROCESSING
+	//Dripstation edit end
 
 /// Checks for revhead loss conditions and other antag datums.
 /datum/dynamic_ruleset/roundstart/revs/proc/check_eligible(datum/mind/M)
@@ -524,7 +565,7 @@
 	return FALSE
 
 /datum/dynamic_ruleset/roundstart/revs/check_finished()
-	if(finished == REVOLUTION_VICTORY)
+	if(revolution.finished)	//Dripstation edit
 		return TRUE
 	else
 		return ..()
@@ -544,10 +585,10 @@
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/round_result()
-	if(finished == REVOLUTION_VICTORY)
+	if(winner == REVOLUTION_VICTORY)		//Dripstation edit
 		SSticker.mode_result = "win - heads killed"
 		SSticker.news_report = REVS_WIN
-	else if(finished == STATION_VICTORY)
+	else if(winner == STATION_VICTORY)		//Dripstation edit
 		SSticker.mode_result = "loss - rev heads killed"
 		SSticker.news_report = REVS_LOSE
 

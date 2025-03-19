@@ -7,6 +7,7 @@
 	antag_hud_name = "heretic"
 	ui_name = "AntagInfoHeretic"
 	can_hijack = HIJACK_HIJACKER
+	hijack_speed = 0.5
 	show_to_ghosts = TRUE
 	preview_outfit = /datum/outfit/heretic
 	var/give_equipment = TRUE
@@ -22,7 +23,7 @@
 ///tracks the number of knowledges to next tier, currently 3
 	var/tier_counter = 0
 ///order these from main path ability (will choose the color in the UI) to minor abilities below them (will once again, make sense if you look at the in game UI)
-	
+
 	var/static/list/path_to_ui_color = list(
 		PATH_START = "grey",
 		PATH_SIDE = "green",
@@ -38,12 +39,12 @@
 
 /datum/antagonist/heretic/ui_data(mob/user)
 	var/list/data = list()
-	
+
 	data["charges"] = charge
 	data["total_sacrifices"] = total_sacrifices
 	data["ascended"] = ascended
 	data["path"] = lore
-	
+
 	for(var/datum/eldritch_knowledge/knowledge as anything in get_researchable_knowledge())
 		var/list/knowledge_data = list()
 		knowledge_data["name"] = initial(knowledge.name)
@@ -60,7 +61,7 @@
 		knowledge_data["color"] = path_to_ui_color[initial(knowledge.route)] || "grey"
 
 		data["learnableKnowledge"] += list(knowledge_data)
-	
+
 	for(var/path in researched_knowledge)
 		var/list/knowledge_data = list()
 		var/datum/eldritch_knowledge/found_knowledge = researched_knowledge[path]
@@ -327,9 +328,9 @@
 
 	flavor += "<div><font color='#6d6dff'>Epilogue: </font>"
 	var/message_color = "#ef2f3c"
-	
+
 	//Stolen from chubby's bloodsucker code, but without support for lists
-	
+
 	if(is_ash()) //Ash epilogues
 
 		if(ascended)
@@ -479,7 +480,7 @@
 									present. Your spirit flies into the Mansus, yet it is not dragged down from the Glory. Instead, you float to the Mecurial Lake, where your \
 									consciousness extends into the waters. It is difficult to recognize the heightening of awareness until you set your eyes upon the galaxy. \
 									You rumble with Nature's fury as your mind becomes primordial. You will not grow old. Everything else will. Their time will come. And so will yours."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"The shuttle creaks as you arrive, and you make your way through Centcom briefly. The ship away creaks louder, and you decide to \
@@ -524,7 +525,7 @@
 			if(escaped)
 				flavor_message += 	"Sitting tight in your seat, as you hear the hiss of the shuttle doors open everything begins to grow dark, you hear the crying of a baby and the smell of salt. \
 									Travelling to the Mansus, you find yourself once more upon the moonlit beach, though what you find is not what you expect. \
-									The child of the bloated corpse has risen from it's mother's dead womb, and turns to you with a sickly smile. Your hunt is not yet over."	
+									The child of the bloated corpse has risen from it's mother's dead womb, and turns to you with a sickly smile. Your hunt is not yet over."
 			else if(alive)
 				flavor_message += 	"As you watch the escape shuttle leave with dull eyes, you turn to the others left behind, the sickly smell of blood fills the station's corridors. \
 									You fall quickly into a dream, Mansus calls and the beach is empty, though you see your way out from this nightmare, floating above the sky, a cracked moon. \
@@ -535,7 +536,7 @@
 									you feel yourself dragged ever towards a familiar beach, scores of dead fish and crabs litter the shoreline, you step closer to the water's edge inch by inch. \
 									As you make it to the water, you do not slow, and more and more corpses float through the waters of the murky ocean. Those you've killed stare back at you, sacrificed to the endless tide. \
 									You simply look back at them and smile, not quite sure where you're going, or where you'll end up, until finally you arrive at the end of it all, and you're finally ready to wake."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"Sitting tight in your seat, as you hear the hiss of the shuttle doors open everything begins to grow dark, you hear the crying of a baby and the smell of salt. \
@@ -567,7 +568,7 @@
 			else //Dead
 				flavor_message += 	"Your beaten and battered body lays there, your consciousness still trapped in it like a prison of flesh. \
 									You rally against the cage, fists pounding at the inside of your brain as you beat your fists bloody raw. \
-									Unfortunately, despite all your rage you're still just a rat in a cage. Doomed to be nothing more than a rotten corpse added to the beach at the end of time." 
+									Unfortunately, despite all your rage you're still just a rat in a cage. Doomed to be nothing more than a rotten corpse added to the beach at the end of time."
 	else if(is_void()) //Void epilogues
 
 		if(ascended)
@@ -578,7 +579,7 @@
 				flavor_message += 	"You watch as the shuttle leaves, smirking, you turn your gaze to the planet below, planning your next moves carefully, ready to expand your domain of Ice."
 			else //Dead
 				flavor_message += 	"Your body freezes and shatters, but it is not the end. Your eternal spirit will live on, and the storm you called will never stop in this sector. You have won the war."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"The mission is done, the stage is set, though you did not reach the peak of power, you achieved what many thought impossible."
@@ -598,7 +599,7 @@
 				flavor_message += 	"Stepping through the empty halls of the station, you look towards the empty space, and contemplate your failures."
 			else //Dead
 				flavor_message += 	"As your body shatters, the last pieces of your consciousness wonder what you could have done differently, before the spark of life dissipates."
-	
+
 	else if(is_blade()) //blade epilogues
 
 		if(ascended)
@@ -609,7 +610,7 @@
 				flavor_message += 	"Watching the shuttle as it jumps to warp puts a smile on your face, you ready your blade to cut through space and time. They won't escape."
 			else //Dead
 				flavor_message += 	"As your blade falls from your hand, it hits the ground and shatters, splintering into an uncountable amount of smaller blades. As long as one survives, your soul will exist, and you will return to cut again."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"You've crafted an impossible amount of blades, and made a mountain of corpses doing so. Victory is yours today!"
@@ -629,7 +630,7 @@
 				flavor_message += 	"Your bloodied hand pounds on the nearest wall, a failure of a smith you turned out to be. You pray someone finds your emergency beacon on this abandoned station."
 			else //Dead
 				flavor_message += 	"You lay there, life draining from your body onto the station around you. The last thing you see is your reflection in your own blade, and then it all goes dark."
-	
+
 	else if(is_cosmic()) //Cosmic epilogues
 
 		if(ascended)
@@ -640,7 +641,7 @@
 				flavor_message += 	"You turn to watch the escape shuttle leave, waving a small goodbye before beginning your new duty: Remaking the cosmos in your image."
 			else //Dead
 				flavor_message += 	"A loud scream is heard around the cosmos, your death cry will awaken your brothers and sisters, you will be remembered as a martyr."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"You completed everything you had set out to do and more on this station, now you must take the art of the cosmos to the rest of humanity."
@@ -671,7 +672,7 @@
 				flavor_message += 	"You've opened the door, unlocked the lock, became the key. Crack open the rest of reality, door by door."
 			else //Dead
 				flavor_message += 	"For a fleeting moment, you opened a portal to the end of days. Nothing could have brought you greater satisfaction, and you pass in peace"
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"With each gleeful step you take through the station, you look at the passing airlocks, knowing the truth that you will bring."
@@ -723,7 +724,7 @@
 			else //Dead
 				flavor_message += 	"Perhaps it is better this way. You chose not to make a plunge into the Mansus, yet your soul returns to it. \
 									You will drift down, deeper, further, until you are forgotten to nothingness."
-				
+
 
 
 	flavor += "<font color=[message_color]>[flavor_message]</font></div>"
