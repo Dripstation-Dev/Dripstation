@@ -32,9 +32,16 @@
 	name = "Spearhead Private Security"
 	paymodifier = 1
 
+/datum/corporation/free_mind	//company contracted with Nanotrasen
+	name = "Free Mind Inc"
+	paymodifier = 1
+
 /datum/corporation/shellguard
-	name = "Shellguard Co."
+	name = "Shellguard Inc"
 	paymodifier = 1.3
+
+/datum/corporation/shellguard/munitions
+	name = "Shellguard Munitions"
 
 /datum/corporation/hephaestus
 	name = "Hephaestus Asset Management"

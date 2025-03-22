@@ -152,6 +152,7 @@
 #include "code\game\objects\items\miscellaneous.dm"
 #include "code\game\objects\items\mop.dm"
 #include "code\game\objects\items\pinpointer.dm"
+#include "code\game\objects\items\plushie.dm"
 #include "code\game\objects\items\robot\robot_items.dm"
 #include "code\game\objects\items\shield.dm"
 #include "code\game\objects\items\stacks\cash.dm"

@@ -33350,6 +33350,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical/central)
+"jjG" = (
+/obj/structure/closet/secure_closet/personal/cabinet,
+/obj/machinery/airalarm{
+	pixel_y = 24
+	},
+/obj/item/toy/plush/blahaj,
+/turf/open/floor/carpet,
+/area/crew_quarters/dorms)
 "jjW" = (
 /obj/docking_port/stationary{
 	dir = 2;
@@ -256298,7 +256306,7 @@ gAd
 qAN
 jFk
 gAd
-tze
+jjG
 hAA
 gAd
 vYy

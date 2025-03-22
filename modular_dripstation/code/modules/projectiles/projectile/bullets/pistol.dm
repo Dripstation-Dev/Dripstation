@@ -5,19 +5,19 @@
 	armour_penetration = 25
 
 /obj/projectile/bullet/c10mm
-	damage = 25
+	damage = 24
 	stamina = 10
 	wound_bonus = -25
 
 /obj/projectile/bullet/c10mm/cs
-	damage = 21
+	damage = 20
 
 /obj/projectile/bullet/c10mm/ap
-	damage = 21
+	damage = 20
 	armour_penetration = 25
 
 /obj/projectile/bullet/c10mm/hp
-	damage = 38
+	damage = 36
 	wound_bonus = -23
 	bare_wound_bonus = 10
 

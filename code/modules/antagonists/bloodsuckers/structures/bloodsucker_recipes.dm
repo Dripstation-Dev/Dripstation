@@ -24,6 +24,7 @@
 		/obj/item/stack/rods = 1,
 		/obj/item/stack/sheet/plasteel = 5,
 		/obj/item/stack/sheet/metal = 5,
+		/obj/item/stack/sheet/cloth = 1,	//dripstation edit
 	)
 	time = 15 SECONDS
 	category = CAT_STRUCTURES
@@ -43,9 +44,11 @@
 /datum/crafting_recipe/metalcoffin
 	name = "Metal Coffin"
 	result = /obj/structure/closet/crate/coffin/metalcoffin
+	tool_behaviors = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)	//dripstation edit
 	reqs = list(
 		/obj/item/stack/sheet/metal = 6,
 		/obj/item/stack/rods = 2,
+		/obj/item/stack/sheet/cloth = 1,	//dripstation edit
 	)
 	time = 10 SECONDS
 	category = CAT_STRUCTURES

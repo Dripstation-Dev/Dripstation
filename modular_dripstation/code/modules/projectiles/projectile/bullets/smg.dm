@@ -1,22 +1,22 @@
 /obj/projectile/bullet/c45
-	damage = 25
-	stamina = 27
+	damage = 26
+	stamina = 17
 	bare_wound_bonus = 5
 
 /obj/projectile/bullet/c45/ap
-	damage = 22
+	damage = 23
 	armour_penetration = 30
 
 /obj/projectile/bullet/c45/hp
-	damage = 39
+	damage = 41
 	bare_wound_bonus = 10
 
 /obj/projectile/bullet/c45/venom
-	damage = 17
+	damage = 18
 
 /obj/projectile/bullet/incendiary/c45
-	damage = 19
-	stamina = 27
+	damage = 20
+	stamina = 17
 	fire_stacks = 2
 
 /obj/projectile/bullet/c46x30mm

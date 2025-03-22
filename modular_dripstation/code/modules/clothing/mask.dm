@@ -58,6 +58,18 @@
 	body_parts_covered = HEAD
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 100, ACID = 100)
 
+/obj/item/clothing/mask/breath
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
+
+/obj/item/clothing/mask/breath/tactical
+	icon = 'icons/obj/clothing/masks.dmi'
+	worn_icon = 'icons/mob/clothing/mask/mask.dmi'
+
+/obj/item/clothing/mask/breath/medical
+	icon = 'icons/obj/clothing/masks.dmi'
+	worn_icon = 'icons/mob/clothing/mask/mask.dmi'
+
 /obj/item/clothing/mask/breath/tactical/shellguard
 	icon_state = "shelg_gasmask"
 	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
@@ -94,10 +106,95 @@
 /obj/item/clothing/mask/neck_gaiter
 	name = "neck gaiter"
 	desc = "Protects your face from snow."
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
 	icon_state = "neck_gaiter"
 	item_state = "balaclava"
 	flags_inv = HIDEFACE|HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_SMALL
+
+/////HOODIE//////
+GLOBAL_LIST_INIT(balaclava_style_list, list(
+	"None" = "balaclava",
+	"On mouth" = "balaclava_mouth",
+	"Open" = "balaclava_open",
+))
+
+/obj/item/clothing/mask/sec_clava
+	name = "spearhead security balaclava"
+	desc = "Spearhead Security standart issue balaclava."
+	icon_state = "balaclava"
+	item_state = "balaclava"
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
+	custom_price = 20
+	actions_types = list(/datum/action/item_action/adjust_secclava)
+	flags_inv = HIDEEARS|HIDEFACE|HIDEFACIALHAIR|HIDEHAIR
+	flags_cover = MASKCOVERSMOUTH
+	var/list/toggled_type = list("None", "On mouth", "Open")
+	custom_price = 20
+
+/datum/action/item_action/adjust_secclava
+	name = "Adjust Balaclava Style"
+
+/datum/action/item_action/adjust_secclava/New(Target)
+	..()
+	var/obj/item/item_target = target
+	name = "Adjust [item_target.name] style"
+
+
+/obj/item/clothing/mask/sec_clava/verb/toggle_secclava()
+	set name = "Toggle Hoodie"
+	set category = "Object"
+	set src in view(1)
+
+	try_toggle_secclava(usr)
+
+/obj/item/clothing/mask/sec_clava/AltClick(mob/user)
+	try_toggle_secclava(user)
+
+/obj/item/clothing/mask/sec_clava/ui_action_click(mob/user, actiontype)
+	if(!istype(user) || user.incapacitated())
+		return
+	if(istype(actiontype, /datum/action/item_action/adjust_secclava))	
+		try_toggle_secclava(user)
+
+/obj/item/clothing/mask/sec_clava/proc/try_toggle_secclava(mob/user)
+	if(!istype(user) || user.incapacitated())
+		return
+	var/list/options = list()
+	var/list/radial_display = list()
+	for(var/check_style as anything in toggled_type)
+		options[initial(check_style)] = check_style
+		var/datum/radial_menu_choice/option = new
+		option.image = image(icon = icon, icon_state = GLOB.balaclava_style_list[check_style])
+		//option.info = "[check_style]"
+		radial_display[initial(check_style)] = option
+
+	var/choice = show_radial_menu(user, user, radial_display)
+	var/chosen_style = options[choice]
+	if(QDELETED(src) || QDELETED(user))
+		return FALSE
+	if(!chosen_style || !(chosen_style in GLOB.balaclava_style_list))
+		to_chat(user, span_announce("You choose not to choose."))
+		return
+	if(src && chosen_style && !user.incapacitated() && in_range(user,src))
+		icon_state = GLOB.balaclava_style_list[chosen_style]
+		if(chosen_style == "Open")
+			flags_inv = HIDEEARS|HIDEHAIR
+			flags_cover =  null
+		else if(chosen_style == "On mouth")
+			flags_inv = HIDEFACE|HIDEFACIALHAIR
+			flags_cover =  initial(flags_cover)
+		else
+			flags_inv = initial(flags_inv)
+			flags_cover =  initial(flags_cover)
+		user.update_inv_wear_mask()
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.build_all_button_icons()
+		to_chat(user, span_notice("You toggled your balaclava stile!"))
+		return TRUE
 
 /obj/item/clothing/mask/gas/sechailer/task_force
 	name = "task force gas mask"
@@ -190,5 +287,5 @@
 	icon_state = "tacalt_gasmask"
 
 /obj/item/clothing/mask/gas/tactical/unn
-	name = "\improper tactical gas mask"
+	name = "\improper unn gas mask"
 	icon_state = "unnmask"

@@ -80,6 +80,7 @@
 /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor/export
 	name = "combat autoinjector 'Vahlen Pharma'"
 	icon_state = "medipenemergencysyndie_e"
+	icon = 'modular_dripstation/icons/obj/syringe.dmi'
 
 /obj/item/reagent_containers/autoinjector/medipen/syndicate_trauma_repairer
 	name = "syndicate anti-trauma autoinjector"

@@ -10,19 +10,21 @@
 	desc = "Pulse rifle, designated 'UNN PV277'. This pulse rifle is commonly found in the hands of UNN elite operatives."
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	icon_state = "unn_pulserifle"
+	item_state = "oldrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/disabler)
 	pin = /obj/item/firing_pin/dna/secure
 	automatic_charge_overlays = FALSE
 	manufacturer = /datum/corporation/unn
 
 /obj/item/gun/energy/pulse/pistol
-	item_state = "smallgun"
+	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse/pistol, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 
 /obj/item/gun/energy/pulse/pistol/unn
 	name = "\improper UNN PV146"
 	desc = "Pulse pistol, designated 'UNN PV146'. This pulse pistol is commonly found in the hands of UNN elite operatives."
 	icon_state = "unn_pulse"
+	item_state = "nt_ancile"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse/pistol, /obj/item/ammo_casing/energy/disabler)
 	pin = /obj/item/firing_pin/dna/secure
 	automatic_charge_overlays = FALSE
@@ -48,6 +50,7 @@
 	desc = "Automatic pulse carabine, designated 'UNN XTC665'. This pulse carabine is commonly found in the hands of UNN elite operatives."
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	icon_state = "unn_pulseauto"
+	item_state = "oldrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/disabler)
 	burst_size = 3
 	fire_delay = 8

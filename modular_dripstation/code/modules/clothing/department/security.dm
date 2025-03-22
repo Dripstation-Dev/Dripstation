@@ -445,6 +445,7 @@
 					/obj/item/clothing/head/officer = 3,
 					/obj/item/clothing/head/soft/sec = 3,
 					/obj/item/clothing/head/soft/sec/corp = 3,
+					/obj/item/clothing/mask/sec_clava = 3,
 					/obj/item/clothing/mask/bandana/red = 3,
 					/obj/item/badge/security/cadet = 3)
 	premium = list(/obj/item/clothing/under/rank/security/navyblue = 3,

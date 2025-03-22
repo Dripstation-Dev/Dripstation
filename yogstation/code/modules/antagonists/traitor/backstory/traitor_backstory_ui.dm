@@ -31,6 +31,7 @@
 
 	var/list/data = list()
 	data["allowed_factions"] = allowed_factions
+	data["starting_faction"] = starting_faction
 	data["allowed_backstories"] = allowed_backstories
 	data["recommended_factions"] = recommended_factions
 	data["recommended_backstories"] = recommended_backstories

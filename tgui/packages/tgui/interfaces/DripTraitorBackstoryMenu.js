@@ -5,12 +5,12 @@ import { DripAntagInfoTraitorContent } from './DripAntagInfoTraitor';
 
 export const DripTraitorBackstoryMenu = (_, context) => {
   const { data } = useBackend(context);
-  const { all_backstories = {}, all_factions = {}, backstory, faction, faction_theme } = data;
+  const { all_backstories = {}, all_factions = {}, starting_faction, backstory, faction, faction_theme } = data;
   let has_backstory = all_backstories[backstory];
   let has_faction = all_factions[faction];
   let [ui_phase, set_ui_phase] = useLocalState(context, 'traitor_ui_phase', has_faction ? 2 : 0);
   let [tabIndex, setTabIndex] = useLocalState(context, 'traitor_selected_tab', 1);
-  let [selected_faction, set_selected_faction_backend] = useLocalState(context, 'traitor_selected_faction', 'independent');
+  let [selected_faction, set_selected_faction_backend] = useLocalState(context, 'traitor_selected_faction', starting_faction);
   let [selected_backstory, set_selected_backstory] = useLocalState(context, 'traitor_selected_backstory', null);
   const set_selected_faction = (faction) => {
     set_selected_faction_backend(faction);

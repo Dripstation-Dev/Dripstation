@@ -37,7 +37,7 @@
 /*
 		recommended_factions = list(TRAITOR_FACTION_SYNDICATE, TRAITOR_FACTION_INDEPENDENT)
 */
-		recommended_factions = list(TRAITOR_FACTION_GORLEX, TRAITOR_FACTION_INDEPENDENT)	//dripstation edit
+		recommended_factions = list(TRAITOR_FACTION_GORLEX, TRAITOR_FACTION_INDEPENDENT, TRAITOR_FACTION_SELF)	//dripstation edit
 	allowed_backstories = list()
 	recommended_backstories = list()
 	for(var/datum/traitor_backstory/path as anything in subtypesof(/datum/traitor_backstory))

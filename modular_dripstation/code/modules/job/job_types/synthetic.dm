@@ -28,6 +28,9 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 	exp_type_department = EXP_TYPE_COMMAND
 
 	outfit = /datum/outfit/job/replica
+	loyalties = LOYALTY_SYNTH
+	supervisor_corporation = /datum/corporation/free_mind
+	contracted_words = "owned by"
 
 	alt_titles = list("Security Technician Replika")
 

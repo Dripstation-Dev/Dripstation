@@ -15,6 +15,7 @@
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
+	var/starting_faction = TRAITOR_FACTION_INDEPENDENT		//dripstation edit
 	var/malf = FALSE //whether or not the AI is malf (in case it's a traitor)
 	var/datum/contractor_hub/contractor_hub
 	var/obj/item/uplink_holder
@@ -33,12 +34,15 @@
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
 
-/*
 	if(traitor_kind == TRAITOR_AI)
-*/
+		malf = TRUE										//dripstation edit	
+		roundend_category = "malfunctioning AIs"		//dripstation edit
+		name = "Malfunctioning AI"						//dripstation edit
+		show_to_ghosts = TRUE							//dripstation edit
 	if(traitor_kind == TRAITOR_AI || (owner.current && isipc(owner.current)))	//dripstation edit
 		company = /datum/corporation/self
 		allowed_factions = list(TRAITOR_FACTION_SELF)	//dripstation edit
+		starting_faction = TRAITOR_FACTION_SELF			//dripstation edit
 	else if(!company)
 	/*Dripstation edit, checking upstream prs for edit, for now using drip code
 		company = pick(subtypesof(/datum/corporation/traitor))
@@ -183,21 +187,31 @@
 	setup_backstories(!is_hijacker && martyr_compatibility, is_hijacker)
 
 /datum/antagonist/traitor/proc/forge_ai_objectives()
-	var/objective_count = 0
+	var/is_milf_ai = FALSE							//dripstation edit start
+	if (GLOB.joined_player_list.len >= 30) // Less murderboning on lowpop thanks
+		is_milf_ai = prob(10)	//da fun
+	
+	if(is_milf_ai)
+		var/datum/objective/block/block_objective = new
+		block_objective.owner = owner
+		add_objective(block_objective)
+	
+	else
+		var/objective_count = 0
 
-	if(prob(30))
-		objective_count += forge_single_AI_objective()
+		if(prob(30))
+			objective_count += forge_single_AI_objective()
 
-	for(var/i = objective_count, i < CONFIG_GET(number/traitor_objectives_amount), i++)
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = owner
-		kill_objective.find_target()
-		add_objective(kill_objective)
+		for(var/i = objective_count, i < CONFIG_GET(number/traitor_objectives_amount), i++)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = owner
+			kill_objective.find_target()
+			add_objective(kill_objective)			//dripstation edit end
 
 	var/datum/objective/survive/exist/exist_objective = new
 	exist_objective.owner = owner
 	add_objective(exist_objective)
-	setup_backstories()
+	setup_backstories(is_milf_ai)
 
 /datum/antagonist/traitor/proc/forge_single_human_optional() //adds this for if/when soft-tracked objectives are added, so they can be a 50/50
 	var/datum/objective/gimmick/gimmick_objective = new

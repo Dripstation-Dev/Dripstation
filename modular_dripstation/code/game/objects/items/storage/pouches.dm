@@ -200,6 +200,7 @@
 		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/gun/ballistic/revolver,
 		/obj/item/gun/energy/e_gun/mini,
+		/obj/item/gun/energy/e_gun/flash,
 		/obj/item/gun/energy/disabler,
 		/obj/item/gun/energy/e_gun/advtaser,
 		/obj/item/gun/energy/e_gun/hos,
@@ -221,7 +222,7 @@
 	fill_number = 1
 
 /obj/item/storage/pouch/pistol/flash
-	fill_type = /obj/item/gun/energy/e_gun/mini/specops/flash
+	fill_type = /obj/item/gun/energy/e_gun/flash
 	fill_number = 1
 
 /obj/item/storage/pouch/pistol/ancile

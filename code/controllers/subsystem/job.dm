@@ -626,7 +626,7 @@ SUBSYSTEM_DEF(job)
 		if(company_aligment)																													// Dripstation edit
 			comp_name = company_aligment.name																									// Dripstation edit
 		var/ingame_desc = job.GetIngameDesc(comp_name, station_name())																			// Dripstation edit
-		var/rank_aligm = "<h2>As the [alt_title ? alt_title : rank] of the [station_name()] you contracted with [comp_name].</h2>"		// Dripstation edit																	// Dripstation edit
+		var/rank_aligm = "<h2>As the [alt_title ? alt_title : rank] of the [station_name()] you [job.contracted_words] [comp_name].</h2>"		// Dripstation edit																	// Dripstation edit
 		to_chat(M, examine_block("<center>[rank_aligm]</center><br>\
 								[ingame_desc]"))	// Dripstation edit
 		job.radio_help_message(M)					// Dripstation edit

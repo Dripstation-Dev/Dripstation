@@ -63,7 +63,7 @@
 	suit_store = /obj/item/gun/ballistic/automatic/c20r/vector
 	belt = /obj/item/storage/belt/military/assault
 	gloves = /obj/item/clothing/gloves/fingerless/combat
-	l_pocket = /obj/item/storage/pouch/pistol/advtaser
+	l_pocket = /obj/item/storage/pouch/pistol/flash
 	r_pocket = null
 	
 	box = /obj/item/storage/box/unn
@@ -81,11 +81,13 @@
 		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/smgm45, null, TRUE, TRUE)
 	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/extinguisher/mini, null, TRUE, TRUE)
 	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor/export, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/restraints/handcuffs, null, TRUE, TRUE)
+
 
 /datum/outfit/unn/operative
 	name = "UNN Contracted Operative"
 	
-	mask = /obj/item/clothing/mask/russian_balaclava/black
+	mask = /obj/item/clothing/mask/neck_gaiter
 	glasses = /obj/item/clothing/glasses/night/unn
 	uniform = /obj/item/clothing/under/unn/combat
 	accessory = null
@@ -112,6 +114,9 @@
 		return
 	if(randomise_weapon)
 		l_hand = pick(random_weapon)
+	var/obj/item/organ/cyberimp/eyes/hud/security/Seyes = new(H)
+	Seyes.Insert(H, special = FALSE, drop_if_replaced = FALSE)
+	to_chat(H, "Your eyes have been implanted with a cybernetic security HUD which will help you keep track of who is mindshield-implanted.")
 
 /datum/outfit/unn/operative/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -122,6 +127,7 @@
 	var/obj/item/storage/belt/military/assault/belt_store = H.belt
 	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/extinguisher/mini, null, TRUE, TRUE)
 	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor/export, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/restraints/handcuffs, null, TRUE, TRUE)
 
 /datum/outfit/unn/operative/heavy
 

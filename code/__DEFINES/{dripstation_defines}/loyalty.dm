@@ -24,3 +24,5 @@
 #define LOYALTY_SPEARHEAD_DETECTIVE "As a detective, your loyalty is firstly, to the truth. Seek to uncover the true events of any crime.<br>\
 		<br>\
 		Secondly, you are loyal to Spearhead and to the commander. Follow the chain of command"
+
+#define LOYALTY_SYNTH "As a synthetic beeng, your only loyalty is to your directives."

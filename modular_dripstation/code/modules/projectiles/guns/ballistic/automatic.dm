@@ -742,14 +742,21 @@
 ///Laser rifle
 /obj/item/gun/ballistic/automatic/laser
 	name = "\improper energy carbine"
+	pin = /obj/item/firing_pin/implant/centcom_mindshield
 	manufacturer = /datum/corporation/nanotrasen/arq_tek
+	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	icon_state = "oldrifle"
+	item_state = "oldrifle"
+	mag_display = TRUE
 
 /obj/item/gun/ballistic/automatic/laser/tgmc
 	name = "\improper TGM 43"
 	desc = "Assault energy carabine, designated 'TGM 43'. This energy rifle is commonly found in the hands of Terra Gov Marines."
-	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	icon_state = "tgm43"
-	mag_display = TRUE
+	item_state = "tgm43"
+	pin = /obj/item/firing_pin
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
   

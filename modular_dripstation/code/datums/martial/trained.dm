@@ -9,6 +9,8 @@
 	nonlethal = TRUE //all attacks deal solely stamina damage or knock out before dealing lethal amounts of damage
 	display_combos = TRUE //for style points literally
 	var/chokehold_active = FALSE
+	var/mob/restraining_mob
+	var/old_grab_state = null
 
 /datum/martial_art/trained/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(can_use(A) || can_use(D)))
@@ -20,7 +22,7 @@
 	return FALSE
 
 /datum/martial_art/trained/proc/LowRestrain(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(restraining)
+	if(restraining_mob)
 		return
 	if(!can_use(A))
 		return FALSE
@@ -29,19 +31,17 @@
 		D.visible_message(span_warning("[A] locks [D] into a restraining position!"), \
 							span_userdanger("[A] locks you into a restraining position!"))
 		A.do_attack_animation(D, ATTACK_EFFECT_GRAB)
-		D.Stun(2 SECONDS)
-		if(!(A.pulling == D))
-			D.grabbedby(A, 1)
-		if(A.grab_state < GRAB_AGGRESSIVE)
-			A.grab_state = GRAB_AGGRESSIVE
-		restraining = TRUE
-	return TRUE
+		D.Stun(3 SECONDS)
+		D.adjustStaminaLoss(20)
+		restraining_mob = D
+		addtimer(VARSET_CALLBACK(src, restraining_mob, null), 25, TIMER_UNIQUE)
+		return TRUE
 
 /datum/martial_art/trained/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(can_use(A) || can_use(D)))
 		return FALSE
 	add_to_streak("D", D)
-	if(restraining && A.pulling == D && A.zone_selected == BODY_ZONE_HEAD)
+	if(restraining_mob && A.pulling == restraining_mob && A.zone_selected == BODY_ZONE_HEAD)
 		if(chokehold_active)
 			return TRUE
 		log_combat(A, D, "began to chokehold(Trained Combat)")
@@ -66,10 +66,9 @@
 				else
 					A.visible_message(span_danger("[A] is put off balance, and struggles to maintain their grip on [D]!"), \
 										"<span class='danger>You are put off balance, and struggle to maintain your grip on [D]!</span>")
-		chokehold_active = FALSE
-		restraining = FALSE
-		return TRUE
-	return FALSE
+	chokehold_active = FALSE
+	restraining_mob = null
+	return TRUE
 
 /datum/martial_art/trained/proc/handle_chokehold(mob/living/carbon/human/A, mob/living/carbon/human/D) //handles the chokehold attack, dealing oxygen damage until the target is unconscious or would have less than 20 health before knocking out
 	chokehold_active = TRUE
@@ -92,7 +91,7 @@
 	if(!(can_use(A) || can_use(D)))
 		return FALSE
 	add_to_streak("H", D)
-	if(restraining && A.pulling == D && (A.zone_selected == BODY_ZONE_L_ARM || A.zone_selected == BODY_ZONE_R_ARM))
+	if(restraining_mob && A.pulling == restraining_mob && (A.zone_selected == BODY_ZONE_L_ARM || A.zone_selected == BODY_ZONE_R_ARM))
 		armlock(A, D)
 		//if(A.grab_state < GRAB_NECK)
 		//	A.grab_state = GRAB_NECK
@@ -145,18 +144,26 @@
 		span_userdanger("[A] successfully armlocks you!")
 	)
 
+/datum/martial_art/trained/reset_streak(mob/living/new_target)
+	if(new_target && new_target != restraining_mob)
+		restraining_mob = null
+	return ..()
+
 ///CQC grab, no stun
-/datum/martial_art/trained/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(A.a_intent == INTENT_GRAB && A!=D && (can_use(A) && can_use(D))) // A!=D prevents grabbing yourself
-		add_to_streak("G",D)
-		if(check_streak(A,D)) //if a combo is made no grab upgrade is done
+/datum/martial_art/trained/grab_act(mob/living/A, mob/living/D)
+	if(A != D && can_use(A)) // A != D prevents grabbing yourself
+		add_to_streak("G", D)
+		if(check_streak(A, D)) //if a combo is made no grab upgrade is done
 			return TRUE
-		if(D.grabbedby(A))
-			D.drop_all_held_items()
-			A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.6 Seconds instead of 1, less frustrating
-			//D.Stun(0.5 SECONDS)
-		if(A.grab_state < 1)
-			restraining = FALSE
+		old_grab_state = A.grab_state
+		D.grabbedby(A, 1)
+		A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.6 Seconds instead of 1, less frustrating
+		if(old_grab_state == GRAB_PASSIVE)
+			A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
+			log_combat(A, D, "aggressively grabbed")
+			D.visible_message(span_warning("[A] violently grabs [D]!"), \
+							span_userdanger("You're grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
+			to_chat(A, span_danger("You violently grab [D]!"))
 		return TRUE
 	else
 		return FALSE
