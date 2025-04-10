@@ -299,6 +299,9 @@
 	zone_select.update_appearance(UPDATE_ICON)
 	static_inventory += zone_select
 
+	combo_display = new /atom/movable/screen/combo()	//dripstation edit, combo display
+	infodisplay += combo_display	//dripstation edit, combo display
+
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
