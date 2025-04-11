@@ -18,6 +18,8 @@
 	desc = "Removes all stuns."
 	icon_state = "adrenal"
 	uses = 2	//dripstation edit
+	var/max_uses = 2
+	var/refreshtimer = 120 SECONDS
 
 /obj/item/implant/adrenalin/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -30,8 +32,17 @@
 				<b>Integrity:</b> Implant can only be used three times before reserves are depleted."}
 	return dat
 
+/obj/item/implant/adrenalin/ui_action_click()
+	if(!uses)
+		to_chat(imp_in, span_userdanger("You feel a twinge inside from your [src], you get the feeling it won't work any time soon."))
+		return
+	activate("action_button")
+
 /obj/item/implant/adrenalin/activate()
 	. = ..()
+	if(!uses)
+		to_chat(imp_in, span_userdanger("You feel a twinge inside from your [src], you get the feeling it won't work any time soon."))
+		return
 	uses--
 	to_chat(imp_in, span_notice("You feel a sudden surge of energy!"))
 	imp_in.SetStun(0)
@@ -44,11 +55,27 @@
 	imp_in.set_resting(FALSE)
 	imp_in.update_mobility()
 
+	/* Dripstation edit 
 	imp_in.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 10)
+	*/
 	imp_in.reagents.add_reagent(/datum/reagent/medicine/omnizine, 10)
-	imp_in.reagents.add_reagent(/datum/reagent/medicine/stimulants, 5)	//dripstation edit, just like ninja
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/muscle_stimulant, 10)			//dripstation edit
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/stimulants/nanite, 5)	//dripstation edit
+	/* Dripstation edit
 	if(!uses)
 		qdel(src)
+	*/
+	if(uses < max_uses)
+		addtimer(CALLBACK(src, PROC_REF(refreshed), imp_in), refreshtimer, TIMER_UNIQUE)
+
+/obj/item/implant/adrenalin/proc/refreshed(mob/living/target)
+	if(target.blood_volume >= 65 && target.nutrition > 100)
+		target.blood_volume -= 65
+		target.nutrition -= 100
+		to_chat(target, span_usernotice("A familiar feeling resonates from [src], it seems to restore it`s functions."))
+		uses++
+	if(uses < max_uses)
+		addtimer(CALLBACK(src, PROC_REF(refreshed), imp_in), refreshtimer, TIMER_UNIQUE)
 
 /obj/item/implanter/adrenalin
 	name = "implanter (adrenalin)"
