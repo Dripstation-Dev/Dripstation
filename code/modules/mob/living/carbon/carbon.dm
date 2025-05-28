@@ -126,6 +126,7 @@
 		playsound(src,'sound/weapons/punch1.ogg',50,1)
 
 
+/*
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(stat)
@@ -151,11 +152,13 @@
 	in_throw_mode = 1
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_on"
+*/
 
 /mob/proc/throw_item(atom/target)
 	SEND_SIGNAL(src, COMSIG_MOB_THROW, target)
 	return
 
+/* Dripstation edit - see dripstation module
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
 	throw_mode_off()
@@ -208,6 +211,7 @@
 		newtonian_move(get_dir(target, src))
 		thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed + power_throw, src, null, null, null, move_force)
 		changeNext_move(CLICK_CD_RANGE)
+*/
 
 /mob/living/carbon/restrained(ignore_grab)
 	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_NECK))

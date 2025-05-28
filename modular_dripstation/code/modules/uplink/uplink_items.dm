@@ -1,4 +1,6 @@
 ////////////Syndicate/////////////
+/datum/uplink_item/device_tools/frame
+	cost = 2
 /datum/uplink_item/suits/hardsuit
 	name = "Blood-red RIG"
 	desc = "The feared suit of a Syndicate nuclear operative. Features slightly better armoring and a built in jetpack \
@@ -198,6 +200,15 @@
 	cost = 2
 
 
+/datum/uplink_item/role_restricted/velvetfu
+	name = "Velvet-Fu VHS tape"
+	desc = "Velvet-Fu is a knock-off Hollywood Martial Art.\
+			Has a notice, 'Removes the ability to Grab/Push'.\
+			Has been modified to beam its knowledge directly into your eyes, removing the need for a TV."
+	item = /obj/item/book/granter/martial/velvetfu
+	cost = 7
+	restricted_roles = list("Janitor")
+	manufacturer = /datum/corporation/traitor/cybersun
 
 
 

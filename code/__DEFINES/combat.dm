@@ -144,7 +144,7 @@
 #define DEFAULT_MESSAGE_RANGE 7
 
 //Shove knockdown lengths (deciseconds)
-#define SHOVE_KNOCKDOWN_HUMAN 10
+#define SHOVE_KNOCKDOWN_HUMAN 20	//dripstation edit
 #define SHOVE_CHAIN_PARALYZE 30
 //Shove slowdown
 #define SHOVE_SLOWDOWN_LENGTH 30
