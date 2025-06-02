@@ -376,6 +376,24 @@
 /obj/item/storage/box/syndie_kit/emp_shield
 	illustration = "implant"
 
+/obj/item/storage/box/syndie_kit/swat
+	illustration = "syndiesuit"
+
+/obj/item/storage/box/syndie_kit/swat/PopulateContents()
+	new /obj/item/clothing/suit/space/swat/syndicate(src)
+	new /obj/item/clothing/head/helmet/swat(src)
+
+/obj/item/storage/box/syndie_kit/hardarmor
+	illustration = "syndiesuit"
+
+/obj/item/storage/box/syndie_kit/hardarmor/PopulateContents()
+	new /obj/item/clothing/suit/armor/hardened/gorlex(src)
+	new /obj/item/clothing/head/helmet/hardened/gorlex(src)
+
+/obj/item/storage/box/hardarmor/PopulateContents()
+	new /obj/item/clothing/suit/armor/hardened(src)
+	new /obj/item/clothing/head/helmet/hardened(src)
+
 /obj/item/storage/box/syndicate/bundle_A
 	icon_state = "syndiebox"
 	item_state = "box_of_doom"
@@ -385,6 +403,14 @@
 	icon_state = "syndiebox"
 	item_state = "box_of_doom"
 	illustration = "writing_syndie"
+
+/obj/item/storage/box/forcing/PopulateContents()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/melee/emergency_forcing_tool(src)
+	new /obj/item/reagent_containers/autoinjector/medipen(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/flashlight/flare/signal(src)
 
 /obj/item/storage/box/captain
 	name = "extended emergency survival box"

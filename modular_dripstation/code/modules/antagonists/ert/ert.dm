@@ -48,6 +48,9 @@
 
 	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
 
+/datum/job/ert_generic
+	title = "ERT Operative"
+
 /datum/antagonist/ert
 	name = "Emergency Response Officer"
 	var/datum/team/ert/ert_team
@@ -59,6 +62,7 @@
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
 	can_hijack = HIJACK_PREVENT
+	var/ert_job_path = /datum/job/ert_generic
 
 /datum/antagonist/ert/on_gain()
 	update_name()
@@ -83,10 +87,18 @@
 	. = ..()
 	name_source = GLOB.clown_names
 
+/datum/antagonist/ert/apply_innate_effects(mob/living/mob_override)
+	mob_override.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
+
+/datum/antagonist/ert/remove_innate_effects(mob/living/mob_override)
+	mob_override.remove_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
+
 /datum/antagonist/ert/deathsquad/apply_innate_effects(mob/living/mob_override)
+	. = ..()
 	ADD_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
 /datum/antagonist/ert/deathsquad/remove_innate_effects(mob/living/mob_override)
+	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
 /datum/antagonist/ert/trooper
@@ -146,9 +158,11 @@
 	outfit = /datum/outfit/ert/commonleader
 
 /datum/antagonist/ert/common/leader/apply_innate_effects(mob/living/mob_override)
+	. = ..()
 	ADD_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
 /datum/antagonist/ert/common/leader/remove_innate_effects(mob/living/mob_override)
+	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
 /datum/antagonist/ert/commander
@@ -156,9 +170,11 @@
 	outfit = /datum/outfit/ert/commander
 
 /datum/antagonist/ert/commander/apply_innate_effects(mob/living/mob_override)
+	. = ..()
 	ADD_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
 /datum/antagonist/ert/commander/remove_innate_effects(mob/living/mob_override)
+	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
 /datum/antagonist/ert/commander/red
@@ -262,9 +278,11 @@
 	role = "Lieutenant"
 
 /datum/antagonist/ert/amber/commander/apply_innate_effects(mob/living/mob_override)
+	. = ..()
 	ADD_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
 /datum/antagonist/ert/amber/commander/remove_innate_effects(mob/living/mob_override)
+	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_DISK_VERIFIER, DEATHSQUAD_TRAIT)
 
 /datum/antagonist/ert/occupying

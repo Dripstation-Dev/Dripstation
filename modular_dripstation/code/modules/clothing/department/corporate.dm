@@ -706,6 +706,9 @@
 	armor = list(MELEE = 40, BULLET = 35, LASER = 40, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, WOUND = 15)
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/suit/armor/hos/syndicate/gorlex
+	name = "gorlex officer's armored coat"
+
 /obj/item/clothing/suit/armor/hos/syndicate/winter
 	name = "syndicate captain's unarmored winter coat"
 	desc = "Winter fashion!"
@@ -754,7 +757,6 @@
 	name = "sneakboots"
 	desc = "These boots have special noise cancelling soles. Perfect for stealth, if it wasn't for the color scheme."
 	icon_state = "sneakboots"
-	item_state = "sneakboots"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
 

@@ -94,10 +94,22 @@
 	..()
 	var/static/regex/lizard_hiss = new("s+", "g")
 	var/static/regex/lizard_hiSS = new("S+", "g")
+	var/static/regex/lizard_hissru = new("с+", "g")		//dripstation edit
+	var/static/regex/lizard_hiSSru = new("С+", "g")		//dripstation edit
+	var/static/regex/lizard_hiss1ru = new("ш+", "g")	//dripstation edit
+	var/static/regex/lizard_hiSS1ru = new("Ш+", "g")	//dripstation edit
+	var/static/regex/lizard_hiss2ru = new("щ+", "g")	//dripstation edit
+	var/static/regex/lizard_hiSS2ru = new("Щ+", "g")	//dripstation edit
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = lizard_hiss.Replace(message, "sss")
 		message = lizard_hiSS.Replace(message, "SSS")
+		message = lizard_hissru.Replace(message, pick("сс","ссс"))		//dripstation edit
+		message = lizard_hiSSru.Replace(message, "С[pick("с","сс")]")	//dripstation edit
+		message = lizard_hiss1ru.Replace(message, pick("шш","шшш"))		//dripstation edit
+		message = lizard_hiSS1ru.Replace(message, "Ш[pick("ш","шш")]")	//dripstation edit
+		message = lizard_hiss2ru.Replace(message, pick("щщ","щщщ"))		//dripstation edit
+		message = lizard_hiSS2ru.Replace(message, "Щ[pick("щ","щщ")]")	//dripstation edit
 	speech_args[SPEECH_MESSAGE] = message
 
 /obj/item/organ/tongue/fly

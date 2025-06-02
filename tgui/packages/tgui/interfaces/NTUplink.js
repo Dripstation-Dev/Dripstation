@@ -14,7 +14,7 @@ export const NTUplink = (props, context) => {
       <Window.Content scrollable>
         <GenericUplink
           currencyAmount={telecrystals}
-          currencySymbol="WC" />
+          currencySymbol="TC" />
       </Window.Content>
     </Window>
   );

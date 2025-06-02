@@ -85,11 +85,15 @@
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT, SELECT_FULLY_AUTOMATIC)
 	auto_fire_delay = 0.18 SECONDS
 	icon_state = "waffle_smg"
+	item_state = "waffle_smg"
 	pin = /obj/item/firing_pin/fucked
 	manufacturer = /datum/corporation/traitor/waffleco
 
 /obj/item/gun/ballistic/automatic/c20r/waffle/unrestricted
 	pin = /obj/item/firing_pin
+
+/obj/item/gun/ballistic/automatic/c20r/waffle/dna
+	pin = /obj/item/firing_pin/dna/secure
 
 /obj/item/gun/ballistic/automatic/c20r/vector
 	name = "\improper UNN PDW-45V 'Vector'"
@@ -281,6 +285,19 @@
 	muzzleflash_iconstate = "muzzle_flash_medium"
 	manufacturer = /datum/corporation/wardtakhashi
 
+/obj/item/gun/ballistic/automatic/tgaf17
+	name = "\improper TGAF-17 Infantry Marksman Rifle"
+	desc = "An old robust marksman rifle used by Terra Gov Armed Forces."
+	fire_sound = 'modular_dripstation/sound/weapons/tgmc/autorifle-2.ogg'
+	icon_state = "tgaf17"
+	pin = /obj/item/firing_pin
+	spread = 6
+	semi_auto_spread = 3
+	burst_size = 2
+	mag_type = /obj/item/ammo_box/magazine/r762x51
+	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT)
+	manufacturer = /datum/corporation/scarborough
+
 /obj/item/gun/ballistic/automatic/ar
 	name = "\improper NT ARG-63"
 	desc = "Nanotrasen's prime ballistic option based on the Ward-Takahashi design, fitted with a light polymer frame and other tactical furniture, and chambered in 5.56 - nicknamed 'Boarder' by Nanotrasen Special Operations teams."
@@ -315,6 +332,14 @@
 	semi_auto_spread = 2
 	manufacturer = /datum/corporation/hephaestus/militech
 
+/obj/item/gun/ballistic/automatic/ar/mk4/attachments
+	initial_attachments = list(/obj/item/attachment/scope/holo, /obj/item/attachment/grip/magnetic_harness)
+
+/obj/item/gun/ballistic/automatic/ar/mk4/attachments/Initialize(mapload)
+	. = ..()
+	var/obj/item/suppressor/S = new(src)
+	install_suppressor(S)
+
 /obj/item/gun/ballistic/automatic/ar/mk4/grn
 	name = "\improper Militech M-K4 Infantry Assault Rifle"
 	desc = "A robust assault rifle used by Militech fighting forces."
@@ -329,20 +354,33 @@
 	var/obj/item/suppressor/S = new(src)
 	install_suppressor(S)
 
-/obj/item/gun/ballistic/automatic/ar/tgm16
-	name = "\improper TGM-16 Infantry Assault Rifle"
-	desc = "A robust assault rifle used by Terra Gov Marine Corps."
+/obj/item/gun/ballistic/automatic/ar/famas
+	name = "\improper Famas Infantry Assault Rifle"
+	desc = "A robust assault rifle used by free companies."
+	can_suppress = FALSE
+	spread = 14
+	semi_auto_spread = 6
+	pin = /obj/item/firing_pin
+	mag_type = /obj/item/ammo_box/magazine/f556
+	starting_mag_type = /obj/item/ammo_box/magazine/f556
+	manufacturer = /datum/corporation/scarborough
+
+/obj/item/gun/ballistic/automatic/ar/tgaf416
+	name = "\improper TGAF-416 Infantry Assault Rifle"
+	desc = "A robust assault rifle used by Terra Gov Armed Forces."
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/autorifle-3.ogg'
-	icon_state = "tgm16"
+	icon_state = "tgaf416"
 	pin = /obj/item/firing_pin
 	spread = 8
 	semi_auto_spread = 3
 	manufacturer = /datum/corporation/hephaestus/militech
+	initial_attachments = list(/obj/item/attachment/scope/holo/integrated)
 
 /obj/item/gun/ballistic/automatic/ar/waffle
 	name = "\improper WA-5 Infantry Assault Rifle"
 	desc = "A robust assault rifle used by mercinaries and Waffle Special Operations Division."
 	icon_state = "waffle_assault"
+	item_state = "waffle_assault"
 	pin = /obj/item/firing_pin/fucked
 	spread = 5
 	semi_auto_spread = 2
@@ -350,6 +388,9 @@
 
 /obj/item/gun/ballistic/automatic/ar/waffle/unrestricted
 	pin = /obj/item/firing_pin
+
+/obj/item/gun/ballistic/automatic/ar/waffle/dna
+	pin = /obj/item/firing_pin/dna/secure
 
 /obj/item/gun/ballistic/automatic/ar/ak814
 	name = "\improper AK-814 Infantry Assault Rifle"
@@ -612,7 +653,7 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	can_suppress = FALSE
+	can_suppress = TRUE
 	starting_mag_type = /obj/item/ammo_box/magazine/pistolm9mm
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
 	manufacturer = /datum/corporation/wardtakhashi
@@ -751,11 +792,11 @@
 	item_state = "oldrifle"
 	mag_display = TRUE
 
-/obj/item/gun/ballistic/automatic/laser/tgmc
-	name = "\improper TGM 43"
-	desc = "Assault energy carabine, designated 'TGM 43'. This energy rifle is commonly found in the hands of Terra Gov Marines."
-	icon_state = "tgm43"
-	item_state = "tgm43"
+/obj/item/gun/ballistic/automatic/laser/tgaf
+	name = "\improper TGAF 43"
+	desc = "Assault energy carabine, designated 'TGAF 43'. This energy rifle is commonly found in the hands of Terra Gov Marines."
+	icon_state = "tgaf43"
+	item_state = "tgaf43"
 	pin = /obj/item/firing_pin
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE

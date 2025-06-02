@@ -187,7 +187,7 @@
 					/obj/item/clothing/mask/russian_balaclava/black = 1,
 					/obj/item/clothing/mask/neck_gaiter = 1,
 					/obj/item/clothing/head/ushanka = 1,
-					/obj/item/clothing/under/soviet = 1,
+					/obj/item/clothing/under/costume/soviet = 1,
 					/obj/item/storage/belt/fannypack/black = 2,
 					/obj/item/clothing/suit/jacket/letterman_syndie = 1,
 					/obj/item/clothing/suit/yogs/battlejacket = 2,

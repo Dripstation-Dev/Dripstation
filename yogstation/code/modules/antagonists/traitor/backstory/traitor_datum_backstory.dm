@@ -71,6 +71,7 @@
 		to_chat(owner.current, span_notice("Your employer within [initial(company.name)] will be paying you an extra [initial(company.paymodifier)]x your nanotrasen paycheck."))	//dripstation edit
 	if(no_faction)
 		if(new_faction.give_codewords)
+			RegisterSignal(owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
 			give_codewords()
 		equip(silent)
 	log_game("[key_name(owner)] selected traitor faction [new_faction.name]")

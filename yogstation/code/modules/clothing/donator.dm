@@ -16,11 +16,13 @@
 	icon_state = "hardsuit_helm_clown"
 	item_state = "hardsuit_helm_clown"
 
+/*
 /obj/item/clothing/head/yogs/cowboy
 	name = "cowboy hat"
 	desc = "A cowboy hat. YEEEHAWWWWW."
 	icon_state = "cowboy_hat"
 	item_state = "cowboy_hat"
+*/
 
 /obj/item/clothing/head/yogs/crusader
 	name = "crusader helmet"
@@ -28,11 +30,13 @@
 	icon_state = "crusader"
 	item_state = "crusader"
 
+/*
 /obj/item/clothing/head/yogs/cowboy_sheriff
 	name = "sheriff cowboy hat"
 	desc = "A sheriffs hat. YEEEHAWWWWW!"
 	icon_state = "cowboy_sheriff"
 	item_state = "cowboy_sheriff"
+*/
 
 /obj/item/clothing/head/yogs/dallas
 	name = "dallas hat"

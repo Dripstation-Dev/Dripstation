@@ -103,6 +103,7 @@
 	W.access += get_centcom_access("CentCom Official")
 	W.access += ACCESS_CENT_SPECOPS
 	W.access += ACCESS_MAINT_TUNNELS
+	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
 	W.access += ACCESS_BRIG

@@ -175,6 +175,19 @@ GLOBAL_LIST_EMPTY(uplinks)
 						is_inaccessible = FALSE
 				if(is_inaccessible)
 					continue
+			if(I.restricted_corps.len)											//dripstation edit
+				var/is_inaccessible = FALSE										//dripstation edit
+				for(var/corp in I.restricted_corps)								//dripstation edit
+					if(user.mind.is_employee(corp) && !debug)					//dripstation edit
+						is_inaccessible = TRUE									//dripstation edit
+				if(is_inaccessible)												//dripstation edit
+					continue													//dripstation edit
+			if(I.manufacturer && I.restricted_corp_property)					//dripstation edit
+				var/is_inaccessible = TRUE										//dripstation edit
+				if(user.mind.is_employee(I.manufacturer) || debug)				//dripstation edit
+					is_inaccessible = FALSE										//dripstation edit
+				if(is_inaccessible)												//dripstation edit
+					continue													//dripstation edit
 			if(I.restricted_species)
 				if(ishuman(user))
 					var/is_inaccessible = TRUE
@@ -201,7 +214,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 						continue
 			cat["items"] += list(list(
 				"name" = I.name,
-				"cost" = I.manufacturer && user.mind.is_employee(I.manufacturer) ? CEILING(I.cost * 0.8, 1) : I.cost,
+				"cost" = I.manufacturer && user.mind.is_employee(I.manufacturer) && !I.restricted_corp_property ? CEILING(I.cost * 0.8, 1) : I.cost,
 				"desc" = I.desc,
 				"path" = replacetext(replacetext("[I.item]", "/obj/item/", ""), "/", "-"),
 				"manufacturer" = I.manufacturer ? initial(I.manufacturer.name) : null,
@@ -248,7 +261,7 @@ GLOBAL_LIST_EMPTY(uplinks)
 		return
 	if (!user || user.incapacitated())
 		return
-	if(U.manufacturer && user.mind.is_employee(U.manufacturer))
+	if(U.manufacturer && user.mind.is_employee(U.manufacturer) && !U.restricted_corp_property) //dripstation edit
 		if(telecrystals < CEILING(U.cost*0.8, 1) || U.limited_stock == 0)
 			return
 		telecrystals -= CEILING(U.cost*0.8, 1)

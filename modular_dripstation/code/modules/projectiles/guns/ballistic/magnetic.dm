@@ -38,6 +38,8 @@
 	var/obj/item/ammo_casing/caseless/gauss/shot = chambered
 	if(!shot)
 		return FALSE
+	if(!cell)
+		return FALSE
 	if(cell.charge < shot.energy_cost * burst_size)
 		return FALSE
 	return ..()

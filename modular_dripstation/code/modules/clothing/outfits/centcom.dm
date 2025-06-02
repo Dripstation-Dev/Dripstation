@@ -67,6 +67,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.access = get_centcom_access("VIP Guest")
 	W.access += ACCESS_MAINT_TUNNELS
+	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
 	W.access += ACCESS_BRIG
@@ -115,6 +116,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.access = get_centcom_access("VIP Guest")
 	W.access += ACCESS_MAINT_TUNNELS
+	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
 	W.access += ACCESS_BRIG
@@ -123,6 +125,53 @@
 	W.update_label()
 
 	//H.ignores_capitalism = TRUE 	//Ugh, sorry mate
+
+
+/datum/outfit/centcom/intern/pizza //da pizza for you and me
+	name = "Pizza Delivery Boy"
+	id = /obj/item/card/id
+	suit = /obj/item/clothing/suit/hoodie/pizza
+	head = /obj/item/clothing/head/soft/red
+	mask = /obj/item/clothing/mask/fakemoustache/italian
+	uniform = /obj/item/clothing/under/pizza
+	ears = /obj/item/radio/headset/alt
+	back = /obj/item/storage/backpack/unknown
+	backpack_contents = list(
+		/obj/item/storage/box/survival,\
+		/obj/item/kitchen/knife/combat/survival,\
+		/obj/item/storage/box/ingredients/italian,\
+		)
+
+/datum/outfit/centcom/intern/pizza/leader //da pizza for you and me
+	name = "Pizza Delivery Manager"
+	id = /obj/item/card/id
+	suit = null
+	uniform = /obj/item/clothing/under/pizza
+	mask = /obj/item/clothing/mask/fakemoustache/italian
+	head = null
+	ears = /obj/item/radio/headset/alt
+	back = /obj/item/storage/backpack/unknown
+	backpack_contents = list(
+		/obj/item/storage/box/survival,\
+		/obj/item/kitchen/knife/combat/survival/hotknife,\
+		/obj/item/storage/box/ingredients/italian,\
+		)
+
+/obj/item/kitchen/knife/combat/survival/hotknife
+	name = "thousand degree knife"
+	desc = "Once known as Lightbringer, this sword has been demoted to a simple pizza cutting knife... It may still have its fire attack powers."
+
+	/// How many fire stacks to apply on attack
+	var/fire_stacks = 4
+
+/obj/item/kitchen/knife/combat/survival/hotknife/attack(mob/living/victim, mob/living/attacker, params)
+	victim.adjust_fire_stacks(fire_stacks)
+	victim.ignite_mob()
+	return ..()
+
+/datum/outfit/centcom/intern/pizza/pre_equip(mob/living/carbon/human/equipped_human, visualsOnly)
+	var/list/pizza_list = list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/mushroom, /obj/item/pizzabox/meat, /obj/item/pizzabox/pineapple)
+	r_hand = pick(pizza_list)
 
 /datum/outfit/centcom/official
 	name = "CentCom Official"
@@ -161,6 +210,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.access = get_centcom_access("CentCom Official")
 	W.access += ACCESS_MAINT_TUNNELS
+	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
 	W.access += ACCESS_BRIG
@@ -203,6 +253,8 @@
 	W.update_label()
 
 	H.ignores_capitalism = TRUE // Yogs -- Lets Centcom guys buy a damned smoke for christ's sake
+
+	H.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
 
 /datum/outfit/centcom/shield //CentCom shield
 	name = "Nanotrasen Close Protection Unit"
@@ -281,6 +333,8 @@
 	var/datum/martial_art/cqc/justanop = new
 	justanop.teach(H)
 
+	H.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
+
 /datum/outfit/centcom/sod_officer //CentCom Special Operations Department Head
 	name = "CentCom Special Operations Department Officer"
 
@@ -321,6 +375,8 @@
 	var/obj/item/organ/cyberimp/arm/combat/nt/CARM = new			//THE TIME FOR NEGOTIATIONS HAVE COME TO AN END.
 	CARM.Insert(H, special = TRUE, drop_if_replaced = FALSE)
 	to_chat(H, "Your arm has been implanted with a cybernetic pulse gun which will help you put some holes in people.")
+
+	H.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
 
 /datum/outfit/centcom/death_commando
 	name = "Death Commando"
@@ -422,7 +478,7 @@
 	to_chat(H, "Your have been additionally equiped with rig module, that grants you shielding.")
 
 /datum/outfit/centcom/sod_agent
-	name = "Internal Affairs Agent"
+	name = "Internal Security Agent"
 
 	uniform = /obj/item/clothing/under/syndicate/sniper
 	shoes = /obj/item/clothing/shoes/laceup
@@ -434,7 +490,7 @@
 	l_hand = /obj/item/storage/secure/briefcase
 	r_hand = /obj/item/storage/belt/sabre/cane
 	id = /obj/item/card/id/syndicate
-	implants = list(/obj/item/implant/mindshield/centcom/iaa, /obj/item/implant/biosig_ert, /obj/item/implant/dusting)
+	implants = list(/obj/item/implant/mindshield/centcom/isa, /obj/item/implant/biosig_ert, /obj/item/implant/dusting)
 
 /datum/outfit/centcom/sod_agent/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -473,6 +529,8 @@
 	W.originalassignment = "Assistant"
 	W.registered_name = H.real_name
 	W.update_label()
+
+	H.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
 
 /datum/outfit/centcom/nanotrasen_defence //Nanotrasen`s regular fighter force, Internal Affairs Department
 	name = "Nanotrasen Defence Unit"
@@ -532,6 +590,8 @@
 	ntmantis_l.Insert(H, special = TRUE, drop_if_replaced = FALSE)
 	to_chat(H, "Your arms has been implanted with a cybernetic combat implants which will help you slice some people.")
 
+	H.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
+
 /datum/outfit/centcom/nanotrasen_defence/leader
 	name = "Nanotrasen Defence Commander"
 
@@ -570,6 +630,8 @@
 
 	H.ignores_capitalism = TRUE // Yogs -- Lets Centcom guys buy a damned smoke for christ's sake
 
+	H.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
+
 /obj/item/storage/pouch/pistol/pulse_m1911
 	fill_type = /obj/item/gun/energy/pulse/pistol/m1911
 	fill_number = 1
@@ -604,6 +666,8 @@
 
 	H.ignores_capitalism = TRUE // Yogs -- Lets Centcom guys buy a damned smoke for christ's sake
 
+	H.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)
+
 /datum/outfit/centcom/executive //CentCom Executive. The final boss.
 	name = "CentCom Executive"
 
@@ -634,3 +698,5 @@
 	W.update_label()
 
 	H.ignores_capitalism = TRUE // Yogs -- Lets Centcom guys buy a damned smoke for christ's sake
+
+	H.grant_language(/datum/language/encrypted, TRUE, TRUE, LANGUAGE_MIND)

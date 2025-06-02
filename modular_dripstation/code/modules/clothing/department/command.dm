@@ -387,7 +387,7 @@
 	desc = "An armored bulletproof vest with the badge of a Blueshield Lieutenant."
 	icon_state = "bulletproof_bs"
 
-/obj/item/clothing/suit/storage/blueshield
+/obj/item/clothing/suit/toggle/blueshield
 	name = "blueshield coat"
 	desc = "NT deluxe ripoff. You finally have your own coat."
 	icon_state = "blueshieldcoat"
@@ -561,7 +561,7 @@
 	mutantrace_variation = NONE
 	strip_delay = 80
 	clothing_flags = THICKMATERIAL
-	blocks_shove_knockdown = TRUE
+	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED)
 
 /obj/item/clothing/suit/toggle/capformal/centcom/alt
 	icon_state = "centcom_formalalt"

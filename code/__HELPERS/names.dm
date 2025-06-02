@@ -130,6 +130,7 @@ GLOBAL_VAR(command_name)
 	var/name = ""
 	var/new_station_name = ""
 
+/* Dripstation edit start
 	//Rare: Pre-Prefix
 	if (prob(10))
 		name = pick(GLOB.station_prefixes)
@@ -151,6 +152,30 @@ GLOBAL_VAR(command_name)
 	// Suffix
 	name = pick(GLOB.station_suffixes)
 	new_station_name += name + " "
+*/
+
+	// Prefix
+	for(var/holiday_name in SSevents.holidays)
+		if(holiday_name == "Friday the 13th")
+			random = 13
+
+	name = "NT"						//
+	new_station_name += name + " "	//modify if main corp not NT
+
+	if(SSmapping.config.map_name == "IceMeta_drip")
+		name = pick("Icemoon", "Arctic", "Snow", "Cold", "Ice")
+		new_station_name += name + " "
+
+	// Suffix
+	name = pick("Mining", "Research", "Supply", "Production", "Experimental", "Automated", "Delivery", "Exoplanetary", "Correctional", "Control", "Augmented", "Rim", "Secret")
+	new_station_name += name + " "
+
+	if(SSmapping.is_planetary())
+		name = pick("Facility", "Complex", "Outpost", "Construct", "Waypoint", "Colony", "Trade Post")
+	else
+		name = pick("Station", "Frontier", "Space Lab", "Orbital Station", "Space Station", "Spacecraft")
+
+	new_station_name += name + " "	//Dripstation edit end
 
 	// ID Number
 	switch(random)

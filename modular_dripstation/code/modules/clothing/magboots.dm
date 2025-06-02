@@ -95,7 +95,7 @@
 			for(var/X in actions)
 				var/datum/action/A = X
 				A.build_all_button_icons()
-			to_chat(user, span_notice("Your webbing has now morphed into [chosen_magboots.name]!"))
+			to_chat(user, span_notice("Your magboots has now morphed into [chosen_magboots.name]!"))
 			return TRUE
 	if(istype(actiontype, /datum/action/item_action/toggle))	
 		if(magpulse)

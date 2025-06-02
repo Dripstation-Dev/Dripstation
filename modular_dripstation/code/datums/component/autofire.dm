@@ -119,10 +119,8 @@
 		return
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		return
-	/* Dripstation edit - fix when throwmode will be implemented
-	if(source.mob.throw_mode)
+	if(source.mob.in_throw_mode)
 		return
-	*/
 	if(!isturf(source.mob.loc)) //No firing inside lockers and stuff.
 		return
 	if(get_dist(source.mob, _target) < 2) //Adjacent clicking.

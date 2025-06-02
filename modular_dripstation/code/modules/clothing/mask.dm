@@ -17,6 +17,13 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 20, ACID = 10)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/mask/gas/sechailer/swat/military
+	name = "\improper T.G.A.F. SWAT mask"
+	icon_state = "swat_military"	
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'	
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
+
 /obj/item/clothing/mask/gas/combat
 	name = "combat gas mask"
 	desc = "Easy storrage militarygade gas mask. Property of Militech Corp&Gov Asset Security."
@@ -289,3 +296,11 @@ GLOBAL_LIST_INIT(balaclava_style_list, list(
 /obj/item/clothing/mask/gas/tactical/unn
 	name = "\improper unn gas mask"
 	icon_state = "unnmask"
+
+/obj/item/clothing/mask/gas/m40
+	name = "m40 gas mask"
+	desc = "A deprecated field protective mask developed during the 20th century in Sol-3. It's designed to protect from chemical agents, biological agents, and nuclear fallout particles. It does not protect the user from ammonia or from lack of oxygen, though the filter can be replaced with a tube for any air tank."
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
+	icon_state = "hecu2"
+	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR

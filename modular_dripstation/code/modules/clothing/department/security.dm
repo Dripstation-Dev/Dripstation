@@ -48,7 +48,7 @@
 	icon_state = "armor_hos"
 	item_state = "hos"
 	mutantrace_variation = NONE
-	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 0, RAD = 0, FIRE = 70, ACID = 90, WOUND = 15)
+	armor = list(MELEE = 50, BULLET = 40, LASER = 30, ENERGY = 40, BOMB = 50, BIO = 0, RAD = 0, FIRE = 70, ACID = 90, WOUND = 20)
 	slowdown = 0.2
 
 /obj/item/clothing/head/HoS/beret
@@ -451,7 +451,8 @@
 	premium = list(/obj/item/clothing/under/rank/security/navyblue = 3,
 					/obj/item/clothing/under/rank/security/navyblue/russian = 3,
 					/obj/item/clothing/suit/armor/officerjacket = 3,
-					/obj/item/clothing/head/beret/sec/navyofficer = 3)
+					/obj/item/clothing/head/beret/sec/navyofficer = 3,
+					/obj/item/clothing/head/yogs/cowboy/sec = 3)
 
 /obj/machinery/vending/wardrobe/det_wardrobe
 	name = "\improper DetDrobe"

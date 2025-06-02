@@ -3,6 +3,9 @@
 	name = "nobody"
 	paymodifier = 0
 
+/datum/corporation/independent/traitor
+	name = "ACLF, GEC or S`Sarsĥs cult"
+
 /datum/corporation/nanotrasen
 	name = "Nanotrasen Strategic Investment Company"
 

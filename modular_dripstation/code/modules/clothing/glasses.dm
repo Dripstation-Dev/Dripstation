@@ -344,7 +344,7 @@
 	else
 		alternate_worn_layer = initial(alternate_worn_layer)
 		flags_cover = initial(flags_cover)
-	if(usr.get_item_by_slot(ITEM_SLOT_EYES) == src)
+	if(usr && usr.get_item_by_slot(ITEM_SLOT_EYES) == src)
 		usr.update_inv_glasses()
 	for(var/X in actions)
 		var/datum/action/A = X

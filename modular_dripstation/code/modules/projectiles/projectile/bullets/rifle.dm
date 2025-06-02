@@ -76,6 +76,14 @@
 	wound_bonus = -30
 
 
+///Standart 7.62x51
+/obj/projectile/bullet/a762x51
+	name = "7.62x51mm bullet"
+	damage = 35
+	stamina = 27
+	bare_wound_bonus = 10
+	wound_bonus = -20
+	armour_penetration = 20
 
 /////Nitro Express/////
 /obj/projectile/bullet/nitro_express

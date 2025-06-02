@@ -46,7 +46,11 @@
 
 /obj/item/katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = block_chance*block_projectile_mod //Pretty good...
+		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block bullets
+			to_chat(owner, span_userdanger("<b><i>You're too off balance to try block bullets!</i></b>"))
+			final_block_chance = 0 
+		else
+			final_block_chance = block_chance*(block_projectile_mod + owner.in_throw_mode) / 2 //Pretty good...
 	if(prob(final_block_chance))
 		if(istype(hitby, /obj/projectile/bullet))
 			owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], while he cuts the air, splitting the bullet in half!"))
@@ -69,6 +73,16 @@
 	//if(slot == ITEM_SLOT_SUITSTORE)
 	//	worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
 	update_appearance(UPDATE_ICON)
+
+/obj/item/katana/traditional
+	name = "traditional katana"
+	desc = "Ancient terran weapon, capable to slice through variety of materials."
+	icon_state = "traditional_katana"
+	item_state = "traditional_katana"
+	force = 30
+	armour_penetration = 30
+	block_chance = 60
+	block_projectile_mod = 1.5	//75%
 
 /obj/item/katana/bloody
 	name = "bloody katana"
@@ -103,7 +117,7 @@
 	desc = "An elegant weapon, its molecular edge is capable of cutting through flesh and bone with ease."
 	block_chance = 40	//pretty hard 
 	force = 35 	//not too deadly though
-	block_projectile_mod = 1.5	// 60 projectile block chance
+	block_projectile_mod = 1.5	// 50 projectile block chance in throwmode
 	armour_penetration = 75
 
 /obj/item/katana/murasame
@@ -181,6 +195,31 @@
 	name = "officer's rapier"
 	desc = "An elegant weapon, for a more civilized age. Ceremonial version issued to NanoTrasen finest."
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	block_chance = 40
+
+/obj/item/melee/sabre/examine(mob/user)
+	. = ..()
+	. += span_info("Toggle throw mode for melee riposts.")
+
+/obj/item/melee/sabre/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(owner.in_throw_mode)
+		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to parry
+			to_chat(owner, span_userdanger("<b><i>You're too off balance to try parry [attack_text]!</i></b>"))
+		else
+			final_block_chance = block_chance + 50	//90% parry chance
+			owner.adjustStaminaLoss(25)	//Can't parry forever.
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	if(prob(final_block_chance))
+		var/mob/living/A = hitby.loc
+		if(owner.in_throw_mode && istype(A))
+			owner.visible_message(span_danger("[owner] parry [attack_text] with [src]!"))
+			attack(A, owner)
+		else
+			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		playsound(src, block_sound, 70, vary = TRUE)
+		return 1
+	return 0
 
 /obj/item/storage/belt/sabre
 	name = "rapier sheath"
@@ -189,6 +228,10 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	hit_reaction_chance = 20
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+
+/obj/item/melee/sabre/examine(mob/user)
+	. = ..()
+	. += span_info("Can be used to fend off melee attacks.")
 
 /obj/item/storage/belt/sabre/Initialize(mapload)
 	. = ..()
@@ -223,7 +266,7 @@
 	icon_state = "monorapier"
 	item_state = "monorapier"
 	force = 30
-	block_chance = 60
+	block_chance = 50
 	armour_penetration = 100
 
 /obj/item/storage/belt/sabre/mono
@@ -231,7 +274,7 @@
 	desc = "An ornate sheath designed to preserve molecular edge of combat rapier."
 	icon_state = "msheath"
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
-	worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 
 /obj/item/storage/belt/sabre/mono/PopulateContents()
 	new /obj/item/melee/sabre/mono(src)
@@ -245,7 +288,7 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	icon_state = "sabre"
 	force = 30
-	block_chance = 40
+	block_chance = 30
 	armour_penetration = 30
 
 /obj/item/storage/belt/sabre/syndie
@@ -256,7 +299,7 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
-	worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 
 /obj/item/storage/belt/sabre/syndie/PopulateContents()
 	new /obj/item/melee/sabre/syndie(src)
@@ -295,10 +338,10 @@
 /obj/item/melee/sabre/cane
 	name = "\improper stealth blade"
 	desc = "An elegant plastitanium combat ready stealth blade, its edge isn`t that robust, but capable of hurting badly."
-	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
+	icon = 'modular_dripstation/icons/obj/weapons/misc.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
-	icon_state = "sabre"
+	icon_state = "canesabre"
 	force = 20
 	block_chance = 50
 	armour_penetration = 20
@@ -814,20 +857,20 @@
 			return
 
 		if(A.hasPower())
-			user.visible_message(span_warning("[user] jams [src] into the airlock and starts prying it open!"), span_warning("We start forcing the airlock open."), //yogs modified description
+			user.visible_message(span_warning("[user] jams [src] into the airlock and starts prying it open!"), span_warning("You start forcing the airlock open."), //yogs modified description
 			span_italics("You hear a metal screeching sound."))
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
 			if(!do_after(user, 6 SECONDS, A))
 				return
 		//user.say("Heeeeeeeeeerrre's Johnny!")
-		user.visible_message(span_warning("[user] forces the airlock to open with [user.p_their()] [src]!"), span_warning("We force the airlock to open."), //yogs modified description
+		user.visible_message(span_warning("[user] forces the airlock to open with [user.p_their()] [src]!"), span_warning("You force the airlock to open."), //yogs modified description
 		span_italics("You hear a metal screeching sound."))
 		A.open(2)
 
 /obj/item/melee/emergency_forcing_tool/varyag
 	name = "Varyag"
 	desc = "Combat forcing tool, capable of prying firelocks, destroing stuff and killing someone in emergency situations."
-	force = 30
+	force = 27
 	//w_class = WEIGHT_CLASS_NORMAL
 	armour_penetration = 0
 	wound_bonus = 0

@@ -58,8 +58,8 @@
 	automatic_charge_overlays = FALSE
 	manufacturer = /datum/corporation/unn
 
-/obj/item/gun/energy/pulse/carbine/tgmc
-	name = "\improper TGM 19c4"
+/obj/item/gun/energy/pulse/carbine/tgaf
+	name = "\improper TGAF 19c4"
 	desc = "Assault pulse carabine, designated 'TGM 19c4'. This pulse rifle is commonly found in the hands of Terra Gov Marines."
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	icon_state = "tgm19c4"

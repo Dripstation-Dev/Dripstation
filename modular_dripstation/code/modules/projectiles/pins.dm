@@ -40,7 +40,7 @@
 /obj/item/firing_pin/implant/mindshield/pin_auth(mob/living/user)
 	if(user)
 		for(var/obj/item/implant/I in user.implants)
-			if(req_implant && (I.type == /obj/item/implant/mindshield || I.type == /obj/item/implant/mindshield/centcom || I.type == /obj/item/implant/mindshield/centcom/iaa))
+			if(req_implant && (I.type == /obj/item/implant/mindshield || I.type == /obj/item/implant/mindshield/centcom || I.type == /obj/item/implant/mindshield/centcom/isa))
 				return TRUE
 	return FALSE
 
@@ -53,7 +53,7 @@
 /obj/item/firing_pin/implant/centcom_mindshield/pin_auth(mob/living/user)
 	if(user)
 		for(var/obj/item/implant/I in user.implants)
-			if(req_implant && (I.type == /obj/item/implant/mindshield/centcom || I.type == /obj/item/implant/mindshield/centcom/iaa))
+			if(req_implant && (I.type == /obj/item/implant/mindshield/centcom || I.type == /obj/item/implant/mindshield/centcom/isa))
 				return TRUE
 	return FALSE
 

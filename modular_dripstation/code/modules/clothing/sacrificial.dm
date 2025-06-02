@@ -111,7 +111,44 @@
 
 /obj/item/clothing/suit/armor/vest/sacrificial/examine_more(mob/user)
 	. = ..()
-	var/msg = "An extreme solution to an extreme problem. While many galactic armors have some semblance of self-repairing tech \
+	var/msg = "An extreme solution to an extreme problem. While many armors have some semblance of self-repairing tech \
+		in them to prevent the armor becoming useless after being shot enough, it does have its limits. Those limits tend to be \
+		that the self-repairing, while handy, take the place of what could have simply been more armor. For a small market, \
+		one that doesn't care if their armor lasts more than one gunfight, there exists a niche for armors such as the 'Val'. \
+		Passing up self-repair for nigh-immunity to bullets, the right tool for a certain job, if you can find whatever that job may be."
+
+	return list(span_notice("<i>[msg]</i>"))
+
+/obj/item/clothing/head/helmet/sacrificial
+	name = "'Val' sacrificial enclosed helmet"
+	desc = "A thick-fronted helmet with extendable visor for whole face protection. The unique pattern and geometry of the helmet \
+		combine in such a way that this helmet has extremely high bullet protection \
+		in exchange for allowing itself to be destroyed by impacts. It'll protect you from hell, \
+		but only for so long."
+	icon_state = "hexagon"
+	item_state = "helmet"
+	can_toggle = 1
+	toggle_message = "You extend the visor on"
+	alt_toggle_message = "You retract the visor on"
+	actions_types = list(/datum/action/item_action/toggle)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	dynamic_hair_suffix = ""
+	dog_fashion = null
+	armor = list(MELEE = 30, BULLET = 75, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, WOUND = 10)
+	max_integrity = 200
+	limb_integrity = 200
+
+/obj/item/clothing/head/helmet/sacrificial/Initialize(mapload)
+	. = ..()
+
+	AddComponent(/datum/component/clothing_damaged_by_bullets)
+
+/obj/item/clothing/head/helmet/sacrificial/examine_more(mob/user)
+	. = ..()
+	var/msg = "An extreme solution to an extreme problem. While many armors have some semblance of self-repairing tech \
 		in them to prevent the armor becoming useless after being shot enough, it does have its limits. Those limits tend to be \
 		that the self-repairing, while handy, take the place of what could have simply been more armor. For a small market, \
 		one that doesn't care if their armor lasts more than one gunfight, there exists a niche for armors such as the 'Val'. \

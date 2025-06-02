@@ -90,6 +90,7 @@
 
 /obj/item/radio/headset/headset_synthetic/alt
 	icon_state = "hos_headset_alt"
+	keyslot = new /obj/item/encryptionkey/headset_synthetic/sec
 
 /obj/item/radio/headset/headset_synthetic/alt/Initialize(mapload)
 	. = ..()

@@ -1534,6 +1534,10 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/capture,
 		/datum/objective/absorb,
 		/datum/objective/minor/pet,
+		/datum/objective/minor/mindshield,
+		/datum/objective/minor/deadpics,
+		/datum/objective/minor/staffpics,
+		/datum/objective/minor/secrecords,
 		/datum/objective/custom,
 		/datum/objective/gimmick //bee port
 	)

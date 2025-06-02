@@ -113,6 +113,8 @@
 		QDEL_NULL(bayonet)
 	if(chambered) //Not all guns are chambered (EMP'ed energy guns etc)
 		QDEL_NULL(chambered)
+	if(cell) //Not all guns are celled
+		QDEL_NULL(cell)
 	if(azoom)
 		QDEL_NULL(azoom)
 	return ..()
@@ -162,6 +164,11 @@
 			. += "The [pin] is [pin.jammed ? "malfunctioning" : "combat ready"]."
 		else
 			. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
+
+	if(manufacturer && !istype(manufacturer, /datum/corporation/independent))			//dripstation edit
+		. += span_info("It has \a [manufacturer.name]`s stamp and serial number on it.")		//dripstation edit
+	else if(!manufacturer)	//if null has fun span										//dripstation edit
+		. += span_info("Its manufacturer stamp and symbols have been scratched out.")	//dripstation edit
 
 	if(gun_light)
 		. += "It has \a [gun_light] [can_flashlight ? "" : "permanently "]mounted on it."

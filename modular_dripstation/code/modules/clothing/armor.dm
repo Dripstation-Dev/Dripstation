@@ -80,13 +80,24 @@
 		var/datum/action/A = X
 		A.build_all_button_icons()
 
+
+/obj/item/clothing/suit/armor/vest/alt/med
+	name = "brig med armor"
+	desc = "A tactical armor vest, but with shoulderpads included to cover arms. Has additional medical patches on it. Not designed for serious operations."
+	icon_state = "armor_secmed"
+	body_parts_covered = CHEST|GROIN|ARMS
+	body_parts_partial_covered = ARMS
+	cold_protection = CHEST|GROIN|ARMS
+	heat_protection = CHEST|GROIN|ARMS
+
 /obj/item/clothing/suit/armor/vest/alt/full
 	name = "full security armor"
 	desc = "A tactical armor vest, but with shoulderpads and knee pads included to cover all parts of the body. Not designed for serious operations."
 	icon_state = "armor_security_fullbody"
-	body_parts_covered = CHEST|GROIN|ARMS
-	cold_protection = CHEST|GROIN|ARMS
-	heat_protection = CHEST|GROIN|ARMS
+	body_parts_covered = CHEST|GROIN|ARMS|LEGS
+	body_parts_partial_covered = LEGS|ARMS
+	cold_protection = CHEST|GROIN|ARMS|LEGS
+	heat_protection = CHEST|GROIN|ARMS|LEGS
 	custom_premium_price = 600
 
 /obj/item/clothing/suit/armor/vest/rycliesarmour
@@ -120,12 +131,21 @@
 	icon_state = "secmiljacket"
 	item_state = "secmiljacket"
 
+/obj/item/clothing/suit/armor/vest/police
+	name = "terragov police armor"
+	desc = "Aviators not included."
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	icon_state = "terragov_pol"
+	item_state = "terragov_pol"
+
 /obj/item/clothing/suit/armor/riot
 	icon_state = "riot"
 	item_state = "riot"
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 40, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, WOUND = 30)
+	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED, TRAIT_NO_STAGGER)
 
 /obj/item/clothing/head/helmet/riot
 	icon_state = "riot"
@@ -133,6 +153,7 @@
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	armor = list(MELEE = 45, BULLET = 15, LASER = 5, ENERGY = 35, BOMB = 5, BIO = 2, RAD = 0, FIRE = 50, ACID = 50, WOUND = 15)
+	clothing_traits = list(TRAIT_HEAD_INJURY_BLOCKED)
 
 /obj/item/clothing/suit/armor/riot/chaplain
 	icon = 'icons/obj/clothing/suits/suits.dmi'
@@ -181,6 +202,7 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	desc = "An extremely robust helmet in a nefarious red and black stripe pattern."
 	flags_cover = HEADCOVERSEYES
+	clothing_traits = list(TRAIT_HEAD_INJURY_BLOCKED)
 
 /obj/item/clothing/head/helmet/swat/nanotrasen
 	icon_state = "swat"
@@ -210,7 +232,7 @@
 
 /obj/item/clothing/suit/space/swat
 	name = "MK.I SWAT Suit"
-	desc = "A tactical suit first developed in a joint effort by Terragov and Nanotrasen in 2XXX for military operations. It has a minor slowdown, but offers decent protection."
+	desc = "A tactical suit first developed in a joint effort by TerraGov and Nanotrasen in 2XXX for military operations. It has a minor slowdown, but offers decent protection."
 	icon_state = "heavy"
 	item_state = "swat_suit"
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
@@ -223,6 +245,7 @@
 	slowdown = 0.7
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	body_parts_partial_covered = 0
+	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED, TRAIT_NO_STAGGER)
 	armor = list(MELEE = 40, BULLET = 40, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 90, RAD = 20, FIRE = 100, ACID = 100, WOUND = 15)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -471,8 +494,22 @@
 /obj/item/clothing/head/helmet/cyberpunkgoggle
 	name = "\improper Type-34 Semi-Enclosed Headwear"
 	desc = "Armored helmet used by certain law enforcement agencies. It's hard to believe there's a human somewhere behind that."
+	icon_state = "cyberpunkgoggle"
 	flags_inv = HIDEEARS|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+/obj/item/clothing/head/helmet/tanker
+	name = "\improper M50 tanker helmet"
+	desc = "The lightweight M50 tanker helmet is designed for use by armored crewmen in the TGMC. It offers low weight protection, and allows agile movement inside the confines of an armored vehicle."
+	icon_state = "tanker_helmet"
+	armor = list(MELEE = 35, BULLET = 35, LASER = 15, ENERGY = 25, BOMB = 30, BIO = 45, RAD = 15, FIRE = 45, ACID = 45, WOUND = 20)
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/head/helmet/tanker/slav
+	name = "\improper slav tanker helmet"
+	desc = "The lightweight slav tanker helmet is designed for use by armored crewmen in the USSP. It offers low weight protection, and allows agile movement inside the confines of an armored vehicle."
+	icon_state = "tanker_helmet_gray"
 
 /obj/item/clothing/suit/armor/plated/attack_self(mob/user)
 	. = ..()
@@ -665,7 +702,7 @@
 
 //////////////////HARDENED ARMOR//////////////////
 /obj/item/clothing/suit/armor/hardened/gorlex
-	name = "gorlex hardened armor vest"
+	name = "red hardened armor vest"
 	desc = "A large red plasceramic breastplate, and a semi-flexible composite torso with nanocarbone matrix. \
 		While if offers tactical grade protectionthe semi-flexible composite with nanocarbone matrix provides special \
 		defence that cause bullets to lose some of their armor penetrating energy before any damage can be done."
@@ -677,7 +714,7 @@
 	armor = list(MELEE = 40, BULLET = 60, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
 
 /obj/item/clothing/head/helmet/hardened/gorlex
-	name = "gorlex enclosed helmet"
+	name = "red enclosed helmet"
 	desc = "A thick-fronted helmet that offers tactical grade vision and protection. The materials and geometry of the helmet \
 		combine in such a way that bullets lose much of their armor penetrating energy before any damage can be done, rather than penetrate into it."
 	icon_state = "enclosed_gorlex"
@@ -743,6 +780,7 @@
 	icon_state = "riot_shelg_alt"
 
 /obj/item/clothing/suit/armor/riot/shellguard/brand
+	desc = "Standart issue riot vest with Shellguard marking. Has BIG logo on their chest."
 	icon_state = "riot_shelg"
 
 /obj/item/clothing/suit/armor/vest/bulletproof/combat/shellguard
@@ -757,3 +795,22 @@
 
 /obj/item/clothing/suit/armor/vest/bulletproof/combat/shellguard/brand
 	icon_state = "bulletproof_shelg"
+
+///Unathi///
+/obj/item/clothing/suit/armor/vest/unathi
+	name = "\improper combat unathi light armor"
+	desc = "Armored vest issued to Unathi Empire light troopers. Protects full body, legs, arms and tail."
+	armor = list(MELEE = 40, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	icon_state = "unati_samurai"
+	body_parts_covered = CHEST|GROIN|ARMS|LEGS
+	cold_protection = CHEST|GROIN|ARMS|LEGS
+	heat_protection = CHEST|GROIN|ARMS|LEGS
+	species_restricted = list("lizard", "polysmorph")
+
+/obj/item/clothing/suit/armor/vest/unathi/heavy
+	name = "\improper combat unathi grunt armor"
+	desc = "Armored vest issued to Unathi Empire heavy troopers. Protects full body, legs, arms and tail."
+	armor = list(MELEE = 60, BULLET = 60, LASER = 20, ENERGY = 20, BOMB = 60, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
+	icon_state = "unati_grunt"

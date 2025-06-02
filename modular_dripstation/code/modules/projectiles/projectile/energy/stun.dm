@@ -39,4 +39,5 @@
 /mob/living/carbon/proc/apply_stun_effect()
 	adjustStaminaLoss(30)
 	Knockdown(10 SECONDS)
+	set_staggered(15 SECONDS)
 	do_jitter_animation(10 SECONDS)

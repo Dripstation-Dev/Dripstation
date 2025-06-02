@@ -17,6 +17,19 @@
 	l_pocket = /obj/item/gun/ballistic/automatic/pistol/glock18/shelg
 	r_pocket = null
 
+/datum/outfit/shellguard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/W = H.wear_id
+	W.access += ACCESS_SHELLGUARD
+	W.access += ACCESS_MAINT_TUNNELS
+	W.access += ACCESS_EXTERNAL_AIRLOCKS
+	W.registered_name = H.real_name
+	W.assignment = name
+	W.originalassignment = "Shellguard"
+	W.update_label()
 
 /datum/outfit/shellguard/guard
 	name = "Shellguard Guard"
@@ -95,7 +108,7 @@
 	l_pocket = /obj/item/storage/pouch/general/large/pmc
 	r_pocket = /obj/item/storage/pouch/magazine/pistol/mateba
 
-/datum/outfit/shellguard/officer/operative
+/datum/outfit/shellguard/officer/heavy
 	name = "Shellguard Officer - Heavy"
 	
 	suit = /obj/item/clothing/suit/armor/vest/bulletproof/combat/shellguard/brand

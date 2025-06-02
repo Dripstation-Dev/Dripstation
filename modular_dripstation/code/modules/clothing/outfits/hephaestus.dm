@@ -38,6 +38,9 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
+	W.access += ACCESS_HEPHAESTUS
+	W.access += ACCESS_MAINT_TUNNELS
+	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.registered_name = H.real_name
 	W.assignment = name
 	W.originalassignment = "Hephaestus"
@@ -97,7 +100,7 @@
 		for(var/i = 2 to 0 step -1)
 			SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/pistolm9mm/pmag, null, TRUE, TRUE)
 		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/extinguisher/mini, null, TRUE, TRUE)
-		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/large, null, TRUE, TRUE)
+		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor/export, null, TRUE, TRUE)
 
 /datum/outfit/hephaestus/operative/grenadier
 	name = "Militech Operative - Grenadier"
@@ -192,7 +195,7 @@
 	var/obj/item/storage/belt/military/webbing/lbv88/belt_store = H.belt
 	for(var/i = 3 to 0 step -1)
 		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/sniper_rounds, null, TRUE, TRUE)
-	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/large, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor/export, null, TRUE, TRUE)
 
 
 /datum/outfit/hephaestus/operative/lieutenant

@@ -23,6 +23,9 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
+	W.access += ACCESS_UNN
+	W.access += ACCESS_MAINT_TUNNELS
+	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.registered_name = H.real_name
 	W.assignment = name
 	W.originalassignment = "UNN"

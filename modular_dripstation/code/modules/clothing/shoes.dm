@@ -40,6 +40,9 @@
 	desc = "The boots are economically designed to balance function and comfort, so that you can step on peasants without having to worry about blisters. The leather also resists unwanted blood stains."
 	icon_state = "noble"
 
+/obj/item/clothing/shoes/combat/desert
+	icon_state = "combat_desert"
+
 /obj/item/clothing/shoes/combat/coldres
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 

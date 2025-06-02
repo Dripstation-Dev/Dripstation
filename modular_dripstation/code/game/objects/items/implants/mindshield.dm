@@ -55,11 +55,11 @@
 	name = "implant case - 'High Quality Mindshield'"
 	imp_type = /obj/item/implant/mindshield/centcom
 
-/obj/item/implant/mindshield/centcom/iaa
+/obj/item/implant/mindshield/centcom/isa
 	icon_state = "iaamindshield"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 
-/obj/item/implant/mindshield/centcom/iaa/activate(status = TRUE)
+/obj/item/implant/mindshield/centcom/isa/activate(status = TRUE)
 	. = ..()
 	active = !active
 	to_chat(imp_in, "You feel a faint click as [name] [active ? "activates" : "deactivates"]")

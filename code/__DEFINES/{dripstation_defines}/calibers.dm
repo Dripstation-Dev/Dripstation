@@ -5,6 +5,8 @@
 
 #define CALIBER_762USSP "a762"
 
+#define CALIBER_762X51 "a762x51"
+
 #define GAUSS_PELLET "gauss_pellet"
 
 #define RAIL_PELLET "railgun_pellet"

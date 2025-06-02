@@ -167,6 +167,10 @@ obj/item/clothing/head/bio_hood/white
 	desc = "It's a standart blue baseball hat."
 	icon_state = "paramedsoft"
 
+/obj/item/clothing/head/soft/emt/green
+	icon = 'icons/obj/clothing/hats/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
+
 /obj/item/clothing/head/beret/emt
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
@@ -175,3 +179,27 @@ obj/item/clothing/head/bio_hood/white
 	name = "paramedical beret"
 	desc = "A blue beret with a white cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "paramedberet"
+
+/obj/item/clothing/head/yogs/cowboy
+	name = "cowboy hat"
+	desc = "A cowboy hat. YEEEHAWWWWW."
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	icon_state = "lawdog"
+	item_state = "cowboy_hat"
+
+/obj/item/clothing/head/yogs/cowboy_sheriff
+	name = "sheriff cowboy hat"
+	desc = "A sheriffs hat. YEEEHAWWWWW!"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	icon_state = "sherif"
+	item_state = "cowboy_hat"
+
+/obj/item/clothing/head/yogs/cowboy/sec
+	name = "security cowboy hat"
+	desc = "A security`s hat. YEEEHAWWWWW!"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	icon_state = "lawdog_sec"
+	item_state = "cowboy_hat"

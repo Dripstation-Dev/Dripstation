@@ -150,3 +150,133 @@
 	backpack_contents = list(/obj/item/kitchen/knife/combat/survival = 1, \
 		/obj/item/reagent_containers/food/snacks/waffles = 1)
 	faction = "an agent of the Waffle Corporation"
+
+
+
+/datum/outfit/syndicate/private_security
+	name = "Gorlex Private Security - Basic"
+	uniform = /obj/item/clothing/under/syndicate/gorlex/security
+	suit = /obj/item/clothing/suit/armor/hardened/gorlex
+	belt = /obj/item/storage/belt/military
+	head = /obj/item/clothing/head/helmet/hardened/gorlex
+	gloves = /obj/item/clothing/gloves/combat/gorlex
+	neck = /obj/item/clothing/neck/scarf/red
+	glasses = /obj/item/clothing/glasses/cold
+	l_pocket = /obj/item/storage/pouch/pistol/fn45
+	id = /obj/item/card/id/syndicate
+	backpack_contents = list(/obj/item/kitchen/knife/combat/survival = 1, \
+		/obj/item/ammo_box/magazine/fn45 = 1)
+	tc = 0
+	uplink_type = null
+
+/datum/outfit/syndicate/private_security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	//Could use a type
+	var/obj/item/storage/belt/military/belt_store = H.belt
+	if(istype(belt_store))
+		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/storage/pill_bottle/bica, null, TRUE, TRUE)
+		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/storage/pill_bottle/kelo, null, TRUE, TRUE)
+		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/extinguisher/mini, null, TRUE, TRUE)
+	var/obj/item/implant/radio/syndicate/S = new/obj/item/implant/radio/syndicate(H)
+	S.implant(H)
+
+/datum/outfit/syndicate/private_security/ar
+	name = "Gorlex Private Security - Rifle Specialist"
+
+	r_hand = /obj/item/gun/ballistic/automatic/ar/waffle
+
+/datum/outfit/syndicate/private_security/ar/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	//Could use a type
+	var/obj/item/storage/belt/military/belt_store = H.belt
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/r556, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/r556, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/r556/ap, null, TRUE, TRUE)
+
+
+/datum/outfit/syndicate/private_security/machinegun
+	name = "Gorlex Private Security - Machinegunner"
+
+	mask = /obj/item/clothing/mask/scarf
+	r_hand = /obj/item/gun/ballistic/automatic/l6_saw
+	backpack_contents = list(/obj/item/kitchen/knife/combat/survival = 1, \
+		/obj/item/ammo_box/magazine/fn45 = 1, \
+		/obj/item/reagent_containers/spray/pepper = 1, \
+		/obj/item/grenade/smokebomb = 1,
+		)
+
+
+/datum/outfit/syndicate/private_security/machinegun/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	//Could use a type
+	var/obj/item/storage/belt/military/belt_store = H.belt
+	for(var/i = 2 to 0 step -1)
+		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/mm556x45_100, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/mm556x45_100/ssaap, null, TRUE, TRUE)
+
+/datum/outfit/syndicate/private_security/sniper
+	name = "Gorlex Private Security - Sniper"
+
+	head = /obj/item/clothing/head/helmet/space/infiltrator
+	suit = /obj/item/clothing/suit/armor/vest/infiltrator
+	glasses = /obj/item/clothing/glasses/hud/security/militech_ballistic
+	shoes = /obj/item/clothing/shoes/combat/sneakboots
+	suit_store = /obj/item/gun/ballistic/rifle/sniper_rifle/syndicate
+	backpack_contents = list(/obj/item/kitchen/knife/combat/survival = 1, \
+		/obj/item/ammo_box/magazine/fn45 = 1, \
+		/obj/item/reagent_containers/spray/pepper = 1, \
+		/obj/item/grenade/smokebomb = 1,
+		)
+
+/datum/outfit/syndicate/private_security/sniper/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	//Could use a type
+	var/obj/item/storage/belt/military/belt_store = H.belt
+	for(var/i = 3 to 0 step -1)
+		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/sniper_rounds, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor, null, TRUE, TRUE)
+
+/datum/outfit/syndicate/private_security/mantis
+	name = "Militech Operative - Close Combat"
+
+/datum/outfit/syndicate/private_security/mantis/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/organ/cyberimp/chest/spinalspeed/sp = new
+	sp.Insert(H, special = TRUE, drop_if_replaced = FALSE)
+
+	var/obj/item/organ/cyberimp/arm/syndie_mantis/mantis_r = new
+	mantis_r.Insert(H, special = TRUE, drop_if_replaced = FALSE)
+
+	var/obj/item/organ/cyberimp/arm/syndie_mantis/mantis_l = new
+	mantis_l.zone = BODY_ZONE_L_ARM
+	mantis_l.Insert(H, special = TRUE, drop_if_replaced = FALSE)
+
+	to_chat(H, "Your arms has been implanted with a cybernetic combat implants which will help you slice some people.")
+
+/datum/outfit/syndicate/private_security/officer
+	name = "Gorlex Private Security - Officer"
+
+	neck = null
+	head = /obj/item/clothing/head/HoS/beret/syndicate
+	suit = /obj/item/clothing/suit/armor/hos/syndicate/gorlex
+	back = /obj/item/storage/backpack/satchel/syndie
+	uniform = /obj/item/clothing/under/syndicate/gorlex/elite
+	r_pocket = /obj/item/storage/pouch/general/large/nuclear
+	belt = /obj/item/storage/belt/sabre/syndie
+
+	command_radio = TRUE

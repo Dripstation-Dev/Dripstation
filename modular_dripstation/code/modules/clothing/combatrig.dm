@@ -524,6 +524,24 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/engineering
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/engineering/unathi
+	name = "engineering unathi RIG helmet"
+	desc = "A modern helmet designed for isolation from the hazardous, low-pressure environment. Has radiation shielding."
+	icon_state = "engineering_unathi_helm"
+	//item_state = "engineering_helm"
+	hardsuit_type = "engineering_unathi"
+
+/obj/item/clothing/suit/space/hardsuit/syndi/engineering/unathi
+	name = "engineering unathi RIG"
+	desc = "A modern rig designed for isolation from the hazardous, low pressure environments. Moded for users with digitigrade legs. Has radiation shielding."
+	icon_state = "engineering_unathi_rig"
+	//item_state = "engineering_rig"
+	item_state = "eng_hardsuit"
+	hardsuit_type = "engineering_unathi"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/engineering/unathi
+	mutantrace_variation = DIGITIGRADE_VARIATION
+	species_restricted = list("lizard", "polysmorph")
+
 //mechanic
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/engineering/mechanic
 	name = "mechanic RIG helmet"
@@ -1317,7 +1335,7 @@
 //////Merk suit designes//////
 //////Standart merk rig//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/merk
-	name = "merk RIG helmet"
+	name = "grey merc RIG helmet"
 	desc = "An austere tactical helmet used by paramilitary groups across human space."
 	icon_state = "freemerk_helm"
 	hardsuit_type = "freemerk"
@@ -1330,7 +1348,7 @@
 	light_color = LIGHT_COLOR_DEFAULT
 
 /obj/item/clothing/suit/space/hardsuit/syndi/merk
-	name = "merk RIG"
+	name = "grey merc RIG"
 	desc = "An austere RIG used by paramilitary groups across human space."
 	icon_state = "freemerk_rig"
 	hardsuit_type = "freemerk"
@@ -1342,6 +1360,14 @@
 	toggled_for_heat_protecting = FALSE
 	combat_slowdown = 0
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/merk/blue
+	name = "blue mercenary RIG helmet"
+	icon_state = "bfreemerk_helm"
+
+/obj/item/clothing/suit/space/hardsuit/syndi/merk/blue
+	name = "blue mercenary RIG"
+	icon_state = "bfreemerk_rig"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/merk/blue
 
 //////Military suit designes//////
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/military

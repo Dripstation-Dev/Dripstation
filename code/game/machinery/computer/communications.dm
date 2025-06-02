@@ -6,6 +6,31 @@
 #define STATE_MAIN "main"
 #define STATE_MESSAGES "messages"
 
+#define STATE_BUYING_MERCENARIES "buying_mercenaries"
+
+/*
+#define FREE_MERC "I`m here to loot your corpses."
+#define MILITECH_MERC "Heavy here."
+#define SHELLGUARD_MERC "Sec+"
+GLOBAL_LIST_INIT(mercs_datums_list, list(
+	FREE_MERC = /datum/merc/free,
+	MILITECH_MERC = /datum/merc/militech,
+	SHELLGUARD_MERC = /datum/merc/shellguard,
+	))
+
+GLOBAL_LIST_INIT(mercs_datums_list, list ( \
+	new/datum/merc/militech("Militech Corp&Gov Asset Security", "group of 3 operatives", 3, 200, null, "kva"), \
+	new/datum/merc/shellguard("Shellguard", "group of 5 operatives", 5, 100, null, "kva"), \
+	))
+*/
+
+
+GLOBAL_VAR_INIT(cops_arrived, FALSE)
+#define EMERGENCY_RESPONSE_POLICE "WOOP WOOP THAT'S THE SOUND OF THE POLICE"
+#define EMERGENCY_RESPONSE_ATMOS "DISCO INFERNO"
+#define EMERGENCY_RESPONSE_EMT "AAAAAUGH, I'M DYING, I NEEEEEEEEEED A MEDIC BAG"
+#define EMERGENCY_RESPONSE_EMAG "AYO THE PIZZA HERE"
+
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
@@ -43,6 +68,13 @@
 
 	/// Allows use off station z-level
 	var/unlocked = FALSE
+
+	var/list/mercs_datums_list = list(
+	/datum/merc/free,
+	/datum/merc/militech,
+	/datum/merc/shellguard,
+	/datum/merc/gorlex,
+	)
 
 /obj/machinery/computer/communications/unlocked
 	unlocked = TRUE
@@ -97,7 +129,7 @@
 	return TRUE
 
 /obj/machinery/computer/communications/ui_act(action, list/params)
-	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_CHANGING_STATUS, STATE_MAIN, STATE_MESSAGES)
+	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_BUYING_MERCENARIES, STATE_CHANGING_STATUS, STATE_MAIN, STATE_MESSAGES)	//dripstation edit
 	var/static/list/approved_status_pictures = list("biohazard", "blank", "default", "lockdown", "redalert", "shuttle")
 
 	. = ..()
@@ -243,6 +275,30 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [shuttle.name].")
 			SSblackbox.record_feedback("text", "shuttle_purchase", 1, shuttle.name)
 			state = STATE_MAIN
+		if ("purchaseMercenaries")
+			var/can_buy_mercenaries_or_fail_reason = can_buy_mercenaries(usr)
+			if (can_buy_mercenaries_or_fail_reason != TRUE)
+				return
+
+			//var/list/mercs_list = flatten_list(mercs_datums_list)
+			var/t = locate(params["mercs_type"]) in mercs_datums_list
+			var/datum/merc/mercs_type = t
+			//if (!istype(mercs_type))
+			//	return
+			//if(!(mercs_type in GLOB.mercs_datums_list))
+			//	return
+			if (!can_purchase_this_mercs(mercs_type))
+				return
+
+			var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			if (bank_account.account_balance < mercs_type.credit_cost)
+				return
+			bank_account.adjust_money(-mercs_type.credit_cost)
+			trigger_armed_mercs(mercs_type)
+			minor_announce("[authorize_name] has purchased [mercs_type.name] for [mercs_type.credit_cost] credits.[mercs_type.extra_desc ? " [mercs_type.extra_desc]" : ""]" , "Merc Purchase")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [mercs_type.name].")
+			SSblackbox.record_feedback("text", "merc_purchase", 1, mercs_type.name)
+			state = STATE_MAIN
 		if ("recallShuttle")
 			// AIs cannot recall the shuttle
 			if (!authenticated(usr) || issilicon(usr))
@@ -297,6 +353,8 @@
 			if (!(params["state"] in approved_states))
 				return
 			if (state == STATE_BUYING_SHUTTLE && can_buy_shuttles(usr) != TRUE)
+				return
+			if (state == STATE_BUYING_MERCENARIES && can_buy_mercenaries(usr) != TRUE)
 				return
 			set_state(usr, params["state"])
 			playsound(src, "terminal_type", 50, FALSE)
@@ -370,6 +428,33 @@
 				new /obj/item/card/id/captains_spare/temporary(loc)
 				COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 				priority_announce("The emergency spare ID has been printed by [authorize_name].", "Emergency Spare ID Warning System", SSstation.announcer.get_rand_report_sound())
+		// SKYRAT code moment
+		if ("callThePolice")
+			if(!pre_911_check(usr))
+				return
+			calling_911(usr, "Marshals", EMERGENCY_RESPONSE_POLICE)
+		if ("callBreachControl")
+			if(!pre_911_check(usr))
+				return
+			calling_911(usr, "Breach Control", EMERGENCY_RESPONSE_ATMOS)
+		if ("callTheParameds")
+			if(!pre_911_check(usr))
+				return
+			calling_911(usr, "EMTs", EMERGENCY_RESPONSE_EMT)
+		if("callThePizza")
+			if(!(obj_flags & EMAGGED))
+				return
+			if(!pre_911_check(usr))
+				return
+			GLOB.cops_arrived = TRUE
+			log_game("[key_name(usr)] has dialed for a pizza order from Dogginos using an emagged communications console.")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] has dialed for a pizza order from Dogginos using an emagged communications console.")
+			deadchat_broadcast(" has dialed for a pizza order from Dogginos using an emagged communications console.", span_name("[usr.real_name]"), usr, message_type=DEADCHAT_ANNOUNCEMENT)
+			GLOB.pizza_order = pick(GLOB.pizza_names)
+			call_911(EMERGENCY_RESPONSE_EMAG)
+			to_chat(usr, span_notice("Thank you for choosing Dogginos, [GLOB.pizza_order]!"))
+			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+		// SKYRAT code end
 				
 
 /obj/machinery/computer/communications/ui_data(mob/user)
@@ -391,6 +476,7 @@
 		switch (ui_state)
 			if (STATE_MAIN)
 				data["canBuyShuttles"] = can_buy_shuttles(user)
+				data["canBuyMercs"] = can_buy_mercenaries(user)
 				data["canMakeAnnouncement"] = FALSE
 				data["canMakeVoiceAnnouncement"] = FALSE
 				data["canMessageAssociates"] = FALSE
@@ -488,6 +574,41 @@
 			if (STATE_CHANGING_STATUS)
 				data["lineOne"] = last_status_display ? last_status_display[1] : ""
 				data["lineTwo"] = last_status_display ? last_status_display[2] : ""
+			if(STATE_BUYING_MERCENARIES)
+				var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+				var/list/mercs = list()
+
+				to_chat(usr, span_notice("Initializing STATE_BUYING_MERCENARIES"))
+				for (var/team in mercs_datums_list)
+					to_chat(usr, span_notice("Initial [team]"))
+					var/datum/merc/mercs_type = team
+					to_chat(usr, span_notice("Initial [mercs_type]"))
+					//if(!istype(mercs_type, /datum/merc))
+					//	to_chat(usr, span_notice("[mercs_type] out"))
+					//	continue
+					
+					if (mercs_type.credit_cost == INFINITY)
+						to_chat(usr, span_notice("[mercs_type] out - Infinity credit_cost"))
+						continue
+					
+					if (!can_purchase_this_mercs(mercs_type))
+						to_chat(usr, span_notice("[mercs_type] out - can_purchase_this_mercs"))
+						continue
+					
+					mercs += list(list(
+						"name" = mercs_type.name,
+						"description" = mercs_type.description,
+						"teamsize" = mercs_type.teamsize,
+						"creditCost" = mercs_type.credit_cost,
+						"initial_cost" = initial(mercs_type.credit_cost),
+						"emagOnly" = mercs_type.emag_only,
+						"prerequisites" = mercs_type.prerequisites,
+						"ref" = REF(mercs_type),
+					))
+					to_chat(usr, span_notice("[mercs_type]"))
+
+				data["budget"] = bank_account.account_balance
+				data["mercs"] = mercs
 
 	return data
 
@@ -537,6 +658,114 @@
 		return "Due to unforseen circumstances, shuttle purchasing is no longer available."
 	return TRUE
 
+/obj/machinery/computer/communications/proc/can_buy_mercenaries(mob/user)
+	
+	if (issilicon(user))
+		return FALSE
+	
+	/*
+	var/has_access = FALSE
+
+	for (var/access in SSshuttle.has_purchase_shuttle_access)
+		if (access in authorize_access)
+			has_access = TRUE
+			break
+
+	if (!has_access)
+		return FALSE
+
+	if (SSshuttle.emergency.mode != SHUTTLE_RECALL && SSshuttle.emergency.mode != SHUTTLE_IDLE)
+		return "The shuttle is already in transit."
+	if (SSshuttle.shuttle_purchased == SHUTTLEPURCHASE_PURCHASED)
+		return "A replacement shuttle has already been purchased."
+	if (SSshuttle.shuttle_purchased == SHUTTLEPURCHASE_FORCED)
+		return "Due to unforseen circumstances, shuttle purchasing is no longer available."
+	*/
+	if(is_ert_blocked())
+		return "All Emergency Response Teams are dispatched and can not be called at this time."
+
+	if(GLOB.cops_arrived)
+		return "Signal from this region traced. No additional help from foreign forces allowed this shift due to standart protocols."
+
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_GAMMA)
+		return "No response from standart signal repiter. Recalculating... Retracing... Error."
+	
+	return TRUE
+
+/obj/machinery/computer/communications/proc/is_ert_blocked()
+	return SSticker.mode && SSticker.mode.ert_disabled
+
+/proc/trigger_armed_mercs(datum/merc/merctemplate = null)
+	GLOB.cops_arrived = TRUE
+	if (merctemplate)
+		merctemplate = new merctemplate
+	else
+		merctemplate = new /datum/merc/shellguard
+
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [merctemplate.polldesc] ?", "deathsquad", null)
+	var/teamSpawned = FALSE
+
+	if(candidates.len > 0)
+		//Pick the (un)lucky players
+		var/numagents = min(merctemplate.teamsize,candidates.len)
+
+		//Create team
+		var/datum/team/merc/merc_team = new merctemplate.team
+		if(merctemplate.rename_team)
+			merc_team.name = merctemplate.rename_team
+
+		//Asign team objective
+		var/datum/objective/missionobj = new
+		missionobj.team = merc_team
+		missionobj.explanation_text = merctemplate.mission
+		missionobj.completed = TRUE
+		merc_team.objectives += missionobj
+		merc_team.mission = missionobj
+
+		var/list/spawnpoints = GLOB.emergencyresponseteamspawn		//later fix it
+		while(numagents && candidates.len)
+			if (numagents > spawnpoints.len)
+				numagents--
+				continue // This guy's unlucky, not enough spawn points, we skip him.
+			var/spawnloc = spawnpoints[numagents]
+			var/mob/dead/observer/chosen_candidate = pick(candidates)
+			candidates -= chosen_candidate
+			if(!chosen_candidate.key)
+				continue
+
+			//Spawn the body
+			var/mob/living/carbon/human/MercOperative = new merctemplate.mobtype(spawnloc)
+			chosen_candidate.client.prefs.apply_prefs_to(MercOperative)
+			MercOperative.key = chosen_candidate.key
+
+			if(merctemplate.enforce_human || !(MercOperative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
+				MercOperative.set_species(/datum/species/human)
+
+			//Give antag datum
+			var/datum/antagonist/merc/merc_antag
+
+			if(numagents == 1)
+				merc_antag = new merctemplate.leader_role
+			else
+				merc_antag = merctemplate.roles[WRAP(numagents,1,length(merctemplate.roles) + 1)]
+				merc_antag = new merc_antag
+
+			MercOperative.mind.add_antag_datum(merc_antag,merc_team)
+			MercOperative.mind.assigned_role = merc_antag.name
+			SSjob.SendToLateJoin(MercOperative)
+
+			//Logging and cleanup
+			//log_game("[key_name(ERTOperative)] has been selected as an [ert_antag.name]") | yogs - redundant
+			numagents--
+			teamSpawned++
+
+		if (teamSpawned)
+			message_admins("[merctemplate.polldesc] has spawned with the mission: [merctemplate.mission]")
+
+		return TRUE
+	else
+		return FALSE
+
 /// Returns whether we are authorized to buy this specific shuttle.
 /// Does not handle prerequisite checks, as those should still *show*.
 /obj/machinery/computer/communications/proc/can_purchase_this_shuttle(datum/map_template/shuttle/shuttle_template)
@@ -551,6 +780,22 @@
 			return TRUE
 
 	return FALSE
+
+
+/// Returns whether we are authorized to buy this specific team.
+/// Does not handle prerequisite checks, as those should still *show*.
+/obj/machinery/computer/communications/proc/can_purchase_this_mercs(datum/merc/merctemplate)
+	//if (isnull(merctemplate.who_can_purchase))
+	//	return FALSE
+
+	if (merctemplate.emag_only)
+		return !!(obj_flags & EMAGGED)
+
+	//for (var/access in authorize_access)	//i dono why it don`t work, but it just don`t work.
+	//	if (access in merctemplate.who_can_purchase)
+	//		return TRUE
+
+	return TRUE
 
 /obj/machinery/computer/communications/proc/can_send_messages_to_other_sectors(mob/user)
 	if (!authenticated_as_non_silicon_captain(user))
@@ -627,5 +872,6 @@
 #undef MAX_STATUS_LINE_LENGTH
 #undef STATE_BUYING_SHUTTLE
 #undef STATE_CHANGING_STATUS
+#undef STATE_BUYING_MERCENARIES
 #undef STATE_MAIN
 #undef STATE_MESSAGES

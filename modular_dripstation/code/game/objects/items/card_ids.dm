@@ -216,7 +216,7 @@
 	has_fluff = TRUE
 	//registered_name = "TerraGov Militant"
 	assignment = "TerraGov Military"
-	originalassignment = "TerraGov Military"
+	originalassignment = "TerraGov"
 	resistance_flags = UNACIDABLE | ACID_PROOF	//xenos scum
 	iff_signal = TERRAGOV_IFF
 
@@ -234,6 +234,10 @@
 /obj/item/card/id/idtags/AltClick(mob/living/user)
 	return FALSE
 
+/obj/item/card/id/idtags/response_911
+	assignment = "TerraGov 911 Response"
+	originalassignment = "Terragov"
+
 /obj/item/card/id/idtags/shellguard
 	desc = "A shellguard dog tag."
 	//registered_name = "Shellguard Mercenary"
@@ -247,6 +251,12 @@
 	assignment = "Militech Operative"
 	originalassignment = "Militech"
 	iff_signal = HEPHAESTUS_IFF
+
+/obj/item/card/id/idtags/freelancer
+	desc = "A freelancer dog tag."
+	assignment = "Freelancer"
+	originalassignment = "Freelancer"
+	iff_signal = null
 
 /obj/item/card/id/hephaestus
 	desc = "An ID straight from Hephaestus Industries."

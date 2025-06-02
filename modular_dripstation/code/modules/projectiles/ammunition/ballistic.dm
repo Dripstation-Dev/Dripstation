@@ -60,6 +60,13 @@
 	icon_state = "556ap-casing"
 	projectile_type = /obj/projectile/bullet/a762x39/ap
 
+/obj/item/ammo_casing/a762x51
+	name = "7.62x51mm bullet casing"
+	desc = "A 7.62x51mm bullet casing."
+	icon_state = "556-casing"
+	projectile_type = /obj/projectile/bullet/a762x51
+	caliber = CALIBER_762X51
+
 ///GAUSS///
 /obj/item/ammo_casing/caseless/gauss
 	name = "ferromagnetic pellet"

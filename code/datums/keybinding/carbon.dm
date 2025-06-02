@@ -29,6 +29,8 @@
 
 /datum/keybinding/carbon/select_help_intent/down(client/user)
 	user.mob?.a_intent_change(INTENT_HELP)
+	var/mob/living/carbon/C = user.mob	//dripstation edit
+	C.face_mouse = FALSE	//dripstation edit
 	return TRUE
 
 
@@ -40,6 +42,8 @@
 
 /datum/keybinding/carbon/select_disarm_intent/down(client/user)
 	user.mob?.a_intent_change(INTENT_DISARM)
+	var/mob/living/carbon/C = user.mob	//dripstation edit
+	C.face_mouse = FALSE	//dripstation edit
 	return TRUE
 
 
@@ -51,6 +55,8 @@
 
 /datum/keybinding/carbon/select_grab_intent/down(client/user)
 	user.mob?.a_intent_change(INTENT_GRAB)
+	var/mob/living/carbon/C = user.mob	//dripstation edit
+	C.face_mouse = FALSE	//dripstation edit
 	return TRUE
 
 
@@ -62,6 +68,8 @@
 
 /datum/keybinding/carbon/select_harm_intent/down(client/user)
 	user.mob?.a_intent_change(INTENT_HARM)
+	var/mob/living/carbon/C = user.mob	//dripstation edit
+	C.face_mouse = TRUE	//dripstation edit
 	return TRUE
 
 

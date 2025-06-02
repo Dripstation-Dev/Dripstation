@@ -148,7 +148,7 @@
 		var/item = pick(/obj/item/clothing/under/syndicate/rus_army,
 					/obj/item/clothing/under/syndicate/soviet/afganka,
 					/obj/item/clothing/under/syndicate/soviet/gorka,
-					/obj/item/clothing/under/soviet,
+					/obj/item/clothing/under/costume/soviet,
 					/obj/item/clothing/under/vostok)
 		new item(C)
 		//Gear

@@ -45,7 +45,9 @@
 	armor = list(MELEE = 60, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 40, BIO = 2, RAD = 0, FIRE = 0, ACID = 50) //Medieval armor was exceptional against melee weaponry and shrapnel, as highlighted by breastplate usage during the Napoleonic Wars, but suffered against ballistics
 	slowdown = 0.3 //Have you ever worn full plate armor before
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	blocks_shove_knockdown = FALSE
+	//blocks_shove_knockdown = FALSE	//dripstation edit
+	clothing_flags = THICKMATERIAL		//dripstation edit
+	clothing_traits = list()			//dripstation edit
 
 /obj/item/clothing/head/helmet/chaplain
 	name = "crusader helmet"

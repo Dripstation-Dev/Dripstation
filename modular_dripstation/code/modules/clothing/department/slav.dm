@@ -50,7 +50,11 @@
 	desc = "Mountain storm suit. For operating in slav woods."
 	icon_state = "gorka_ssleto"
 
-/obj/item/clothing/under/soviet
+/obj/item/clothing/under/costume/soviet
+	name = "soviet uniform"
+	desc = "For the Motherland!"
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/spaceslav/spaceslav.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
 	icon_state = "soviet"
 	can_adjust = TRUE
 	mutantrace_variation = DIGITIGRADE_VARIATION

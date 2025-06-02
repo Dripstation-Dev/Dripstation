@@ -248,6 +248,44 @@
 	slowdown = 1.1
 
 
+//Marines
+/obj/item/clothing/head/helmet/space/hardsuit/marine
+	name = "terragov marine helmet"
+	desc = "The integrated helmet of an TGMC hardsuit."
+	icon_state = "marine_terragov_helm0"
+	//item_state = "nt_combathard_helm"
+	hardsuit_type = "marine_terragov"
+	armor = list(MELEE = 45, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 80, WOUND = 10, ELECTRIC = 100)
+
+/obj/item/clothing/suit/space/hardsuit/marine
+	name = "terragov marine hardsuit"
+	desc = "The standard issue hardsuit of the TGMC. Offers superb protection against environmental hazards."
+	icon_state = "marine_terragov_hardsuit"
+	//item_state = "nt_combat_hardsuit"
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
+	armor = list(MELEE = 45, BULLET = 40, LASER = 40, ENERGY = 35, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 80, WOUND = 10, ELECTRIC = 100)
+	slowdown = 0.5
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/emergency_forcing_tool, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+
+/obj/item/clothing/head/helmet/space/hardsuit/marine/medic
+	name = "terragov marine medic helmet"
+	icon_state = "marine_terragov_medic_helm0"
+	hardsuit_type = "marine_terragov_medic"
+
+/obj/item/clothing/suit/space/hardsuit/marine/medic
+	name = "terragov marine medic hardsuit"
+	icon_state = "marine_terragov_medic_hardsuit"
+
+/obj/item/clothing/head/helmet/space/hardsuit/marine/command
+	name = "terragov marine command helmet"
+	icon_state = "marine_terragov_command_helm0"
+	hardsuit_type = "marine_terragov_command"
+
+/obj/item/clothing/suit/space/hardsuit/marine/command
+	name = "terragov marine command hardsuit"
+	icon_state = "marine_terragov_command_hardsuit"
+
 //ERT
 /obj/item/clothing/head/helmet/space/hardsuit/ert
 	name = "emergency response team helmet"

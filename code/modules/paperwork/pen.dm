@@ -232,7 +232,7 @@
 	/* // dripstation edit
 		if(!is_syndicate(user) && !is_battleroyale(user)) // this is just a normal pen to non syndicates as they don't know how to switch it on.
 	*/ // dripstation edit
-		if((!is_syndicate(user) && !is_battleroyale(user)) || unlocked) // dripstation edit
+		if(!is_syndicate(user) && !is_battleroyale(user) && !unlocked) // dripstation edit
 			. = ..()
 			return
 		on = TRUE

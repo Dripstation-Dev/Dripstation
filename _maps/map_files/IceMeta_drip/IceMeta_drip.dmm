@@ -7646,6 +7646,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/structure/table,
+/obj/item/clothing/suit/space/hardsuit/syndi/engineering/unathi,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "chl" = (
@@ -27555,6 +27556,12 @@
 	icon_state = "0-4"
 	},
 /obj/structure/table,
+/obj/item/roller,
+/obj/item/roller{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/hud/health/nt,
+/obj/item/clothing/glasses/hud/health/nt,
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 8
@@ -33718,7 +33725,9 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/structure/closet/secure_closet/paramedic,
+/obj/machinery/vending/wardrobe/para_wardrobe{
+	dir = 4
+	},
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 9
@@ -38406,16 +38415,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/regular{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/firstaid/toxin,
+/obj/structure/closet/secure_closet/paramedic,
 /turf/open/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -66981,6 +66981,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/paramedic,
 /turf/open/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -74092,7 +74093,16 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/paramedic,
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/firstaid/toxin,
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 8
@@ -78721,12 +78731,6 @@
 	pixel_x = -26
 	},
 /obj/structure/table,
-/obj/item/roller,
-/obj/item/roller{
-	pixel_y = 6
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/item/clothing/glasses/hud/health,
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 10

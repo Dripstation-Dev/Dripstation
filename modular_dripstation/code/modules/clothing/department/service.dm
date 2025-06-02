@@ -49,15 +49,19 @@
 					/obj/item/clothing/under/rank/civilian/hydroponics/turtleneckalt/skirt = 1)
 
 // ###### Janitor ######
-/obj/item/clothing/under/rank/janitor
+/obj/item/clothing/under/rank/civilian/janitor
 	icon_state = "janitor"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/janitor.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/janitor.dmi'
 
-/obj/item/clothing/under/rank/janitor/skirt
+/obj/item/clothing/under/rank/civilian/janitor/skirt
 	icon_state = "janitor_skirt"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/janitor.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/janitor.dmi'
+
+/obj/item/clothing/under/rank/civilian/janitor/overalls
+	name = "janitor's overalls"
+	icon_state = "janitor_overalls"
 
 // ###### Mime ######
 /obj/item/clothing/under/rank/civilian/mime
@@ -150,7 +154,7 @@
 					/obj/item/clothing/suit/pirate = 1,
 					/obj/item/clothing/head/pirate = 1,
 					/obj/item/clothing/head/pirate/bandana = 1,
-					/obj/item/clothing/under/soviet = 1,
+					/obj/item/clothing/under/costume/soviet = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/suit/imperium_monk = 1,
 					/obj/item/clothing/mask/gas/cyborg = 1,

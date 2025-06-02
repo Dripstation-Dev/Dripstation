@@ -32,7 +32,11 @@
 
 /obj/item/melee/errata/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = block_chance / 2 //Pretty good...
+		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block bullets
+			to_chat(owner, span_userdanger("<b><i>You're too off balance to try block bullets!</i></b>"))
+			final_block_chance = 0 
+		else
+			final_block_chance = (block_chance * (1 + owner.in_throw_mode)) / 2 //In throwmode owner has full blockchance
 	if(prob(final_block_chance))
 		if(istype(hitby, /obj/projectile/bullet))
 			owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], while he cuts the air, splitting the bullet in half!"))
@@ -45,12 +49,11 @@
 /obj/item/melee/errata/attack(atom/target, blocked = FALSE)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		if(prob(10))
+		if(prob(15))
 			M.adjust_fire_stacks(2)
 			M.ignite_mob()
 		if(M.fire_stacks > 0)
-			var/fire_force = 35
-			force = fire_force
+			force = force + (M.fire_stacks*5)
 	..()
 
 
@@ -112,7 +115,7 @@
 		playsound(user, dash_sound, 25, TRUE)
 		user.visible_message("<span class='notice'>[user] swiftly draws \the [I].</span>", "<span class='notice'>You draw \the [I].</span>")
 		user.put_in_hands(I)
-		update_icon()
+		update_appearance()
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
@@ -125,13 +128,13 @@
 			playsound(user, 'sound/items/sheath.ogg', 25, TRUE)
 			to_chat(user, "<span class='notice'>You return your stance.</span>")
 			primed = FALSE
-			update_icon()
+			update_appearance()
 		else
 			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 			playsound(user, 'sound/items/unsheath.ogg', 25, TRUE)
 			user.visible_message("<span class='warning'>[user] grips the blade within [src] and primes to attack.</span>", "<span class='warning'>You take an opening stance...</span>", "<span class='warning'>You hear a weapon being drawn...</span>")
 			primed = TRUE
-			update_icon()
+			update_appearance()
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 
@@ -164,7 +167,7 @@
 		for(var/mob/living/victim in tile)
 			if(victim != user)
 				playsound(victim, 'sound/weapons/bladeslice.ogg', 10, TRUE)
-				victim.take_bodypart_damage(15)
+				victim.take_bodypart_damage(brute = 20, wound_bonus = 10, bare_wound_bonus = 30, sharpness = SHARP_EDGED)
 		// Unlike actual ninjas, we stop noclip-dashing here.
 		if(isclosedturf(T))
 			halt = TRUE
@@ -192,6 +195,9 @@
 		else
 			icon_state += "-blade"
 		item_state += "-sabre"
+	if(loc && isliving(loc))
+		var/mob/living/L = loc
+		L.regenerate_icons()
 
 /obj/item/storage/belt/errata/PopulateContents()
 	new /obj/item/melee/errata(src)

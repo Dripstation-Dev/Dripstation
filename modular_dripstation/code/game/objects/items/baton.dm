@@ -26,6 +26,7 @@
 	icon_state = "secsheath"
 	item_state = "security"
 	icon = 'modular_dripstation/icons/obj/weapons/security.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 
@@ -61,6 +62,22 @@
 		/obj/item/shield/riot/tele,
 		/obj/item/barrier_taperoll/police
 		))
+
+/obj/item/storage/belt/sabre/stunsword/update_icon(updates=ALL)
+	. = ..()
+	/* Dripstation edit
+	icon_state = "sheath"
+	item_state = "sheath"
+	*/
+	icon_state = initial(icon_state)
+	var/has_sword = 0
+	for(var/obj/item/melee/baton/stunsword/sts in contents)
+		has_sword += 1
+	if(has_sword > 0)
+		icon_state += "-stunsword"
+	if(loc && isliving(loc))
+		var/mob/living/L = loc
+		L.regenerate_icons()
 
 /obj/item/storage/belt/sabre/stunsword/PopulateContents()
 	SSwardrobe.provide_type(/obj/item/melee/baton/stunsword/loaded, src)

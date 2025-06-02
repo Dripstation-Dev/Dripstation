@@ -1,3 +1,4 @@
+/* Dripstation edit start, sorry but in my country this is extrimism
 /datum/holiday/pride
 	name = "Pride Month"
 	begin_month = JUNE
@@ -15,3 +16,4 @@
 		animate(G, color = rgb(255, 0, 0), time = 5, loop = -1)
 		animate(color = rgb(0, 255, 0), time = 5, loop = -1)
 		animate(color = rgb(0, 0, 255), time = 5, loop = -1)
+*/ //dripstation end of pride

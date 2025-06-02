@@ -485,6 +485,12 @@
 	SSwardrobe.provide_type(/obj/item/gun/ballistic/automatic/pistol/m1911, src)
 	update_appearance(UPDATE_ICON)
 
+/obj/item/storage/belt/holster/m1911_alt/PopulateContents()
+	SSwardrobe.provide_type(/obj/item/ammo_box/magazine/m45, src)
+	SSwardrobe.provide_type(/obj/item/ammo_box/magazine/m45, src)
+	SSwardrobe.provide_type(/obj/item/gun/ballistic/automatic/pistol/m1911/alt, src)
+	update_appearance(UPDATE_ICON)
+
 /obj/item/storage/belt/holster/syndicate
 	name = "advanced shoulder holster"
 	item_state = "syndicate_holster"
@@ -498,3 +504,11 @@
 	SSwardrobe.provide_type(/obj/item/ammo_box/magazine/fn45, src)
 	SSwardrobe.provide_type(/obj/item/gun/ballistic/automatic/pistol/fn45, src)
 	update_appearance(UPDATE_ICON)
+
+
+/obj/item/storage/belt/holster/syndicate/revolver/PopulateContents()
+	SSwardrobe.provide_type(/obj/item/ammo_box/a357, src)
+	SSwardrobe.provide_type(/obj/item/ammo_box/a357, src)
+	SSwardrobe.provide_type(/obj/item/ammo_box/a357, src)
+	SSwardrobe.provide_type(/obj/item/gun/ballistic/revolver, src)
+	update_appearance(UPDATE_ICON)	

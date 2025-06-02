@@ -36,6 +36,11 @@
 	zooming_fire_delay_mod = 0.5
 	zooming_time_mod = 0.5
 
+/obj/item/attachment/scope/holo/integrated
+	can_be_attached = FALSE
+	can_be_removed = FALSE
+	icon_state = ""
+
 /obj/item/attachment/scope/sniper
 	name = "rail sniper scope"
 	icon_state = "scope"

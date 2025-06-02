@@ -1,4 +1,27 @@
 ////////////Syndicate/////////////
+/datum/uplink_item
+	var/restricted_corp_property = FALSE //If this uplink item is only available to manufacturer.
+	var/list/restricted_corps = list(/datum/corporation/nanotrasen/isd) // Corporations that disallow this item.
+
+/datum/uplink_item/suits
+	category = "Armor & Space Suits"
+
+/datum/uplink_item/suits/swat_suit
+	name = "Syndicate SWAT Suit"
+	desc = "This red and black Syndicate SWAT suit is less encumbering than Nanotrasen variant. \
+			Nanotrasen crew members are trained to report red SWAT suit sightings, however."
+	item = /obj/item/storage/box/syndie_kit/swat
+	cost = 3
+	exclude_modes = list(/datum/game_mode/infiltration) // yogs: infiltration
+
+/datum/uplink_item/suits/hardened_armor
+	name = "Gorlex Hardened Armor"
+	desc = "This red and black gorlex armor set is hardened for armor piercing bullets shotout. \
+			Nanotrasen crew members are trained to report red armor sightings, however."
+	item = /obj/item/storage/box/syndie_kit/hardarmor
+	cost = 4
+	exclude_modes = list(/datum/game_mode/infiltration) // yogs: infiltration
+
 /datum/uplink_item/suits/hardsuit
 	name = "Blood-red RIG"
 	desc = "The feared suit of a Syndicate nuclear operative. Features slightly better armoring and a built in jetpack \
@@ -31,6 +54,50 @@
 	item = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/winter
 	cost = 9
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/infiltration) //you can't buy it in nuke, because the elite hardsuit costs the same while being better // yogs: infiltration
+
+/datum/uplink_item/suits/hardsuit/elite
+	name = "Elite Syndicate RIG"
+	desc = "An upgraded, elite version of the Syndicate RIG. It features fireproofing, and also \
+			provides the user with superior armor and mobility compared to the blood-red RIG."
+	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	cost = 8
+	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	exclude_modes = list()
+
+/datum/uplink_item/suits/hardsuit/shielded
+	name = "Shield RIG module"
+	desc = "Simple module that features energy shielding system. \
+			The shield can handle only one impact within a short duration \
+			but will rapidly recharge while not under fire."
+	item = /obj/item/module/shield/syndicate
+	cost = 12
+	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	exclude_modes = list()
+
+/datum/uplink_item/suits/infiltrator_bundle
+	name = "Infiltrator Case"
+	desc = "Developed by Roseus Galactic in conjunction with the Gorlex Marauders to produce a functional suit for urban operations, \
+			this suit proves to be cheaper than your standard issue hardsuit, with none of the movement restrictions of the outdated spacesuits employed by the company. \
+			Comes with a armor vest, helmet, sneaksuit, sneakboots, specialized combat gloves and a high-tech balaclava. The case is also rather useful as a storage container."
+	item = /obj/item/storage/toolbox/infiltrator
+	cost = 6
+	limited_stock = 1 //you only get one so you don't end up with too many gun cases
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+
+// Stealthy Weapons
+
+/datum/uplink_item/stealthy_weapons/energy_knuclers
+	name = "Energy Knuclers"
+	desc = "A pair of gloves that are fireproof, however unlike the regular clack gloves this one uses energy projected knuclers \
+			to help the wearer beat all the shit out of people."
+	item = /obj/item/clothing/gloves/combat/energy_knuclers
+	cost = 8
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	surplus = 0
+
+// Dangerous Weapons
+/datum/uplink_item/dangerous/rapid
+	cost = 5	//rapid gloves don`t cost like 8 wtf
 
 /datum/uplink_item/dangerous/errata
 	name = "Nanoforged Katana"
@@ -143,41 +210,470 @@
 	item = /obj/item/reagent_containers/syringe/felinid
 	restricted_species = list("human")
 
+/datum/uplink_item/race_restricted/wirecrawl
+	name = "Modified yellow slime extract"
+	desc = "An experimental yellow slime extract that when absorbed by an jellypeople, grants control over electrical powers."
+	cost = 8
+	item = /obj/item/book/granter/action/wirecrawl
+	restricted_species = list("slime", "jelly", "lum")
+
 /obj/item/reagent_containers/syringe/felinid
 	name = "syringe (felinid)"
 	desc = "Contains felinid mutation toxin."
 	list_reagents = list(/datum/reagent/mutationtoxin/felinid = 15)
 
-/datum/uplink_item/suits/hardsuit/elite
-	name = "Elite Syndicate RIG"
-	desc = "An upgraded, elite version of the Syndicate RIG. It features fireproofing, and also \
-			provides the user with superior armor and mobility compared to the blood-red RIG."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
-	cost = 8
-	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-	exclude_modes = list()
+/datum/uplink_item/corp_restricted
+	category = "Corporation restricted"
+	restricted_corp_property = TRUE
+	surplus = 0
 
-/datum/uplink_item/suits/hardsuit/shielded
-	name = "Shield RIG module"
-	desc = "Simple module that features energy shielding system. \
-			The shield can handle only one impact within a short duration \
-			but will rapidly recharge while not under fire."
-	item = /obj/item/module/shield/syndicate
-	cost = 12
-	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-	exclude_modes = list()
+/datum/uplink_item/corp_restricted/blood_magic
+	name = "S`Sarsĥs holy rites"
+	desc = "Rites about S`Sarsĥs written with real unathi blood. On human leather. You need to have ability to read on unathi language to understand the contents."
+	cost = 10
+	item = /obj/item/book/granter/action/spell/blood_magic
+	manufacturer = /datum/corporation/independent/traitor
+	restricted_corp_property = TRUE
+
+/datum/uplink_item/corp_restricted/gorlex_microbomb
+	name = "Microbomb Implant"
+	desc = "An implant injected into the body, and later activated either manually or automatically upon death. \
+			This will permanently destroy your body, however."
+	item = /obj/item/storage/box/syndie_kit/imp_microbomb
+	limited_stock = 1 // Might be too annoying if traitor has mulitple.
+	cost = 2
+	manufacturer = /datum/corporation/gorlex
+	include_modes = list(/datum/game_mode/traitor)
+
+/datum/uplink_item/corp_restricted/waffle_gloves
+	name = "Waffle Tackler Gloves"
+	desc = "Faimous rocket gloves, allows user to accelerate and reach high speed in seconds."
+	item = /obj/item/clothing/gloves/tackler/combat/waffle
+	cost = 3
+	manufacturer = /datum/corporation/traitor/waffleco
+
+/datum/uplink_item/corp_restricted/adv_pinpointer
+	name = "Advanced Pinpointer"
+	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
+	item = /obj/item/pinpointer/adv
+	cost = 4
+	manufacturer = /datum/corporation/traitor/cybersun
+
+////////////Nanotrasen Production/////////////
+/datum/uplink_item/corp_restricted/mini_egun
+	name = "NT SpecOps Department miniature energy gun"
+	desc = "Visually standart energy gun. Has three modes, overcharged combat energy projectiles and specops battery onboard."
+	item = /obj/item/gun/energy/e_gun/mini/specops
+	cost = 4
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/iongun
+	name = "NT SpecOps Department Ion pistol"
+	desc = "The NT-I3 Prototype Ion Projector is a compact ion pistol, built for personal defense. \
+	The serial number of this gun has been erased."
+	item = /obj/item/gun/energy/ionrifle/pistol/stealth
+	cost = 3
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/nt_pistol
+	name = "NB-2 'Ancile'"
+	desc = "Nanotrasen`s easily concealable servise pistol that fires 9mm rounds."
+	item = /obj/item/gun/ballistic/automatic/pistol/glock17/ancile
+	cost = 3
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/nt_ammo
+	name = "9mm pmag"
+	desc = "A 9mm pmag. This magazine contain twenty one 9mm rounds each; usable with any 9mm pistol sistem."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/pmag
+	cost = 1
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/nt_revolver
+	name = "Mateba Revolver"
+	desc = "A brutally simple retro, high-powered autorevolver that fires .44 Magnum rounds and has 6 chambers."
+	item = /obj/item/gun/ballistic/revolver/mateba
+	cost = 10
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/nt_revolverammo
+	name = ".44 Speed Loader"
+	desc = "A .44 speed loader. This speed loader contain six .44 rounds each; usable with the Mateba revolver."
+	item = /obj/item/ammo_box/m44
+	cost = 1
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/nt_hardlightbow
+	name = "Hardlight Bow"
+	desc = "A modern bow that can fabricate hardlight arrows, designed for silent takedowns of targets."
+	item = /obj/item/gun/ballistic/bow/energy/ntia
+	cost = 6
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/obj/item/gun/ballistic/bow/energy/ntia
+	mag_type = /obj/item/ammo_box/magazine/internal/bow/energy/ntia
+	zoomable = TRUE
+	zoom_amt = 10
+	zoom_out_amt = 5
+	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	fire_sound = null
+	draw_sound = null
+	can_fold = TRUE
+
+/obj/item/ammo_box/magazine/internal/bow/energy/ntia
+	selectable_types = list(/obj/item/ammo_casing/reusable/arrow/energy, /obj/item/ammo_casing/reusable/arrow/energy/disabler, /obj/item/ammo_casing/reusable/arrow/energy/xray)
+
+/datum/uplink_item/corp_restricted/canesword
+	name = "Cane blade"
+	desc = "Stored in sheath that looks like a cane. Elegant, but not so stealth and effective. It`s capable of hurting unarmored targets badly."
+	item = /obj/item/storage/belt/sabre/cane
+	cost = 6
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/ntx4
+	name = "Composition NTX-4"
+	desc = "A variety of plastic explosive with a stronger explosive charge. It is both safer to use and is capable of breaching even the most secure areas."
+	item = /obj/item/grenade/plastic/x4
+	cost = 3
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/eknife
+	name = "Energy Knife"
+	desc = "A knife made of energy that looks and functions as a pen when off."
+	item = /obj/item/pen/red/edagger/nt
+	cost = 2
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/militechmantisblade
+	name = "H.E.P.H.A.E.S.T.U.S. Mantis Blades"
+	desc = "One H.E.P.H.A.E.S.T.U.S. Mantis blade implant able to be retracted inside your body at will for easy storage and concealing. Two blades can be used at once."
+	item = /obj/item/autosurgeon/nt_mantis/stealth
+	cost = 5
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/obj/item/autosurgeon/nt_mantis/stealth
+	starting_organ = /obj/item/organ/cyberimp/arm/nt_mantis/stealth
+
+/obj/item/organ/cyberimp/arm/nt_mantis/stealth
+	desc = "Stealth mosification of H.E.P.H.A.E.S.T.U.S. retractable arm-blade implant. Wielding two will let you double-attack."
+	syndicate_implant = TRUE
+
+/datum/uplink_item/corp_restricted/combatglovesplus
+	name = "Combat Gloves Plus"
+	desc = "A pair of gloves that are fireproof and shock resistant, however unlike the regular Combat Gloves this one uses nanotechnology \
+			to learn the abilities of krav maga to the wearer."
+	item = /obj/item/clothing/gloves/krav_maga/combatglovesplus
+	cost = 5
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/ntradio
+	name = "Internal Nanotrasen Radio Implant"
+	desc = "An implant injected into the body, allowing the use of an internal Centcom radio. \
+			Used just like a regular headset, but can be disabled to use external headsets normally and to avoid detection."
+	item = /obj/item/storage/box/syndie_kit/imp_ntisa_radio
+	cost = 4
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/obj/item/storage/box/syndie_kit/imp_ntisa_radio
+	real_name = "implant box"
+	illustration = "implant"
+
+/obj/item/storage/box/syndie_kit/imp_ntisa_radio/PopulateContents()
+	new /obj/item/implanter/radio/ntisa(src)
+
+/obj/item/implanter/radio/ntisa
+	name = "implanter"
+	imp_type = /obj/item/implant/radio/ntisa
+
+/obj/item/implant/radio/ntisa
+	desc = "Are you there God? It's me, Internal Security Agent."
+	radio_key = /obj/item/encryptionkey/headset_cent
+	subspace_transmission = TRUE
+
+/datum/uplink_item/corp_restricted/reviver
+	name = "Reviver Implant"
+	desc = "This implant will attempt to revive and heal you if you are critically injured. Comes with an autosurgeon."
+	item = /obj/item/autosurgeon/reviver/stealth
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+	cost = 8
+
+/obj/item/autosurgeon/reviver/stealth
+	starting_organ = /obj/item/organ/cyberimp/chest/reviver/stealth
+
+/obj/item/organ/cyberimp/chest/reviver/stealth
+	syndicate_implant = TRUE
+
+/datum/uplink_item/corp_restricted/nt_minibomb
+	name = "Nanotrasen Minibomb"
+	desc = "The minibomb is a grenade with a five-second fuse. Upon detonation, it will create a small hull breach \
+			in addition to dealing high amounts of damage to nearby personnel."
+	item = /obj/item/grenade/syndieminibomb/nt
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+	cost = 6
+
+/obj/item/grenade/syndieminibomb/nt
+	name = "\improper nanotrasen minibomb"
+	desc = "A nanotrasen manufactured explosive used to sow destruction and chaos."
+	icon = 'modular_dripstation/icons/obj/weapons/grenade.dmi'
+	icon_state = "nanotrasen"
+
+/datum/uplink_item/corp_restricted/teargas
+	name = "Teargas Grenade"
+	desc = "A grenade containing teargas."
+	item = /obj/item/grenade/chem_grenade/teargas
+	cost = 1
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/variag
+	name = "Varyag Militech Forsing Tool"
+	desc = "Smash stuff. Pry open doors. Kill enemies."
+	item = /obj/item/melee/emergency_forcing_tool/varyag
+	cost = 6
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/nt_bodybag
+	name = "Nanotrasen Bluespace Transport Bag"
+	desc = "A folded bluespace body bag designed for the storage and transportation."
+	item = /obj/item/bodybag/bluespace
+	cost = 1
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/oldspacesuit
+	name = "Old Style Spacesuit"
+	desc = "A box of modern spacesuit disguised into \"Old Style\"."
+	item = /obj/item/storage/box/full_spacesuit_set
+	cost = 1
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/obj/item/storage/box/full_spacesuit_set
+	name = "Spacesuit Box"
+	desc = "It has no logo on it."
+
+/obj/item/storage/box/full_spacesuit_set/PopulateContents()
+	new /obj/item/clothing/suit/space(src)
+	new /obj/item/clothing/head/helmet/space(src)
+
+/datum/uplink_item/corp_restricted/mercrig
+	name = "Merk RIG"
+	desc = "The feared suit of a free mercenary unit. Toggling the suit in and out of \
+			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
+			Additionally the suit is collapsible, making it small enough to fit within a backpack."
+	item = /obj/item/clothing/suit/space/hardsuit/syndi/merk
+	cost = 8
+	illegal_tech = FALSE
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/suits/nt_hardened_armor
+	name = "NT Hardened Armor"
+	desc = "This white and black Nanotrasen armor set is hardened for armor piercing bullets shotout. \
+			Nanotrasen crew members are trained to report red armor sightings, however."
+	item = /obj/item/storage/box/hardarmor
+	cost = 4
+
+/datum/uplink_item/corp_restricted/ntstamp
+	category = "(Pointless) Badassery"
+	name = "CentCom Official Stamp"
+	desc = "To let them know you're the real deal."
+	item = /obj/item/stamp/cent
+	cost = 1
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+
+/datum/uplink_item/corp_restricted/ntposters
+	category = "(Pointless) Badassery"
+	name = "Box of Posters"
+	desc = "A box of Nanotrasen-approved posters to boost crew morale."
+	item = /obj/item/storage/box/official_posters
+	cost = 1
+	manufacturer = /datum/corporation/nanotrasen/isd
+	restricted_corps = list()
+/////////////////////////////////////////////////
+///Nanotrasen Agents can use this syndi stuff////
+/datum/uplink_item/dangerous/throwingweapons
+	restricted_corps = list()
+
+/datum/uplink_item/dangerous/sword
+	restricted_corps = list()
+
+/datum/uplink_item/dangerous/backstab
+	restricted_corps = list()
+
+/datum/uplink_item/dangerous/bostaff
+	restricted_corps = list()
+
+/datum/uplink_item/dangerous/powerfist
+	restricted_corps = list()
+
+/datum/uplink_item/dangerous/watergun
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_weapons/cqc
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_weapons/dart_pistol
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_weapons/derringer
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_weapons/origami_kit
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_weapons/traitor_chem_bottle
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_weapons/sleepy_pen
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_weapons/suppressor
+	restricted_corps = list()
+
+/datum/uplink_item/explosives/c4
+	restricted_corps = list()
+
+/datum/uplink_item/explosives/detomatix
+	restricted_corps = list()
+
+/datum/uplink_item/explosives/door_charge
+	restricted_corps = list()
+
+/datum/uplink_item/explosives/trap_disk
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/agent_card
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/shadowcloak
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/syndireverse
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/chameleon
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/chameleon_proj
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/syndigaloshes
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/emplight
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/mulligan
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/smugglersatchel
+	restricted_corps = list()
+
+/datum/uplink_item/stealthy_tools/armorpolish
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/cutouts
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/binary
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/briefcase_launchpad
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/camera_bug
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/frame
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/failsafe
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/tactical_gloves
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/stimpack
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/thermal
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/holo_sight
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/vert_grip
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/laser_sight
+	restricted_corps = list()
+
+/datum/uplink_item/device_tools/mechpilotguide
+	restricted_corps = list()
+
+/datum/uplink_item/implants/antistun
+	restricted_corps = list()
+
+/datum/uplink_item/implants/freedom
+	restricted_corps = list()
+
+/datum/uplink_item/implants/stealthimplant
+	restricted_corps = list()
+
+/datum/uplink_item/implants/storage
+	restricted_corps = list()
+/////////////////////////////////////////////////
+
+
+/datum/uplink_item/implants/mantis
+	manufacturer = /datum/corporation/gorlex
+
+/datum/uplink_item/dangerous/revolver
+	manufacturer = /datum/corporation/traitor/waffleco
+
+/datum/uplink_item/device_tools/loic_remote
+	manufacturer = /datum/corporation/self
 
 /datum/uplink_item/device_tools/tacklers
 	name = "Combat Tackler Gloves"
 	desc = "Combat gloves, that are good at performing tackle takedowns as well as absorbing electrical shocks."
 	item = /obj/item/clothing/gloves/tackler/combat
 	cost = 2
-
-/datum/uplink_item/device_tools/tacklers/waffle
-	name = "Waffle Tackler Gloves"
-	desc = "Faimous rocket gloves, allows user to accelerate and reach high speed in seconds."
-	item = /obj/item/clothing/gloves/tackler/combat/waffle
-	cost = 3
 
 /datum/uplink_item/device_tools/morphbelt
 	name = "Morphing combat belt"
@@ -202,16 +698,6 @@
 	desc = "An infiltration tackler gloves, capable of changing it's appearance instantly. Will be helpfull in cases when you need to run."
 	item = /obj/item/clothing/gloves/tackler/combat/infiltrator/chameleon
 	cost = 2
-
-/datum/uplink_item/suits/infiltrator_bundle
-	name = "Infiltrator Case"
-	desc = "Developed by Roseus Galactic in conjunction with the Gorlex Marauders to produce a functional suit for urban operations, \
-			this suit proves to be cheaper than your standard issue hardsuit, with none of the movement restrictions of the outdated spacesuits employed by the company. \
-			Comes with a armor vest, helmet, sneaksuit, sneakboots, specialized combat gloves and a high-tech balaclava. The case is also rather useful as a storage container."
-	item = /obj/item/storage/toolbox/infiltrator
-	cost = 6
-	limited_stock = 1 //you only get one so you don't end up with too many gun cases
-	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/role_restricted/velvetfu
 	name = "Velvet-Fu VHS tape"

@@ -98,6 +98,20 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 				sendEvent(KEYCARD_BSA_UNLOCK)
 				. = TRUE
 
+/obj/machinery/keycard_auth/attackby(obj/item/W, mob/user, params)
+	if(waiting || !allowed(usr))
+		return
+	//This is not the device that made the initial request. It is the device confirming the request.
+	if(event_source)
+		if(!check_access(usr.get_active_held_item()))
+			to_chat(usr, span_warning("You need to swipe your ID!"))
+			return ..()
+		event_source.triggeR_FUN(usr)
+		event_source = null
+		SStgui.update_uis(event_source)
+		SStgui.update_uis(src)
+	return ..()
+
 /obj/machinery/keycard_auth/update_overlays()
 	. = ..()
 	if(light_on == TRUE)
@@ -196,83 +210,82 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	else
 		ertemplate = new /datum/ert/official
 
-		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc] ?", "deathsquad", null)
-		var/teamSpawned = FALSE
+	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you wish to be considered for [ertemplate.polldesc] ?", "deathsquad", null)
+	var/teamSpawned = FALSE
 
-		if(candidates.len > 0)
-			//Pick the (un)lucky players
-			var/numagents = min(ertemplate.teamsize,candidates.len)
+	if(candidates.len > 0)
+		//Pick the (un)lucky players
+		var/numagents = min(ertemplate.teamsize,candidates.len)
 
-			//Create team
-			var/datum/team/ert/ert_team = new ertemplate.team
-			if(ertemplate.rename_team)
-				ert_team.name = ertemplate.rename_team
+		//Create team
+		var/datum/team/ert/ert_team = new ertemplate.team
+		if(ertemplate.rename_team)
+			ert_team.name = ertemplate.rename_team
 
-			//Asign team objective
-			var/datum/objective/missionobj = new
-			missionobj.team = ert_team
-			missionobj.explanation_text = ertemplate.mission
-			missionobj.completed = TRUE
-			ert_team.objectives += missionobj
-			ert_team.mission = missionobj
+		//Asign team objective
+		var/datum/objective/missionobj = new
+		missionobj.team = ert_team
+		missionobj.explanation_text = ertemplate.mission
+		missionobj.completed = TRUE
+		ert_team.objectives += missionobj
+		ert_team.mission = missionobj
 
-			var/list/spawnpoints = GLOB.emergencyresponseteamspawn
-			while(numagents && candidates.len)
-				if (numagents > spawnpoints.len)
-					numagents--
-					continue // This guy's unlucky, not enough spawn points, we skip him.
-				var/spawnloc = spawnpoints[numagents]
-				var/mob/dead/observer/chosen_candidate = pick(candidates)
-				candidates -= chosen_candidate
-				if(!chosen_candidate.key)
-					continue
-
-				//Spawn the body
-				var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
-				chosen_candidate.client.prefs.apply_prefs_to(ERTOperative)
-				ERTOperative.key = chosen_candidate.key
-
-				if(ertemplate.enforce_human || !(ERTOperative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
-					ERTOperative.set_species(/datum/species/human)
-
-				//Give antag datum
-				var/datum/antagonist/ert/ert_antag
-
-				if(numagents == 1)
-					ert_antag = new ertemplate.leader_role
-				else
-					ert_antag = ertemplate.roles[WRAP(numagents,1,length(ertemplate.roles) + 1)]
-					ert_antag = new ert_antag
-
-				ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
-				ERTOperative.mind.assigned_role = ert_antag.name
-
-				if(ertemplate.dusting)
-					var/obj/item/implant/dusting/dustimplant = new(ERTOperative)
-					dustimplant.implant(ERTOperative)
-
-				//Logging and cleanup
-				//log_game("[key_name(ERTOperative)] has been selected as an [ert_antag.name]") | yogs - redundant
+		var/list/spawnpoints = GLOB.emergencyresponseteamspawn
+		while(numagents && candidates.len)
+			if (numagents > spawnpoints.len)
 				numagents--
-				teamSpawned++
+				continue // This guy's unlucky, not enough spawn points, we skip him.
+			var/spawnloc = spawnpoints[numagents]
+			var/mob/dead/observer/chosen_candidate = pick(candidates)
+			candidates -= chosen_candidate
+			if(!chosen_candidate.key)
+				continue
 
-			if (teamSpawned)
-				message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
+			//Spawn the body
+			var/mob/living/carbon/human/ERTOperative = new ertemplate.mobtype(spawnloc)
+			chosen_candidate.client.prefs.apply_prefs_to(ERTOperative)
+			ERTOperative.key = chosen_candidate.key
 
-			//Open the Armory doors
-			if(ertemplate.opendoors)
-				for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
-					INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/poddoor, open))
+			if(ertemplate.enforce_human || !(ERTOperative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
+				ERTOperative.set_species(/datum/species/human)
 
-			//Open the Mech Bay
-			if(ertemplate.openmech)
-				for(var/obj/machinery/door/poddoor/deathsquad/door in GLOB.airlocks)
-					INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/poddoor, open))
-			return TRUE
-		else
-			return FALSE
+			//Give antag datum
+			var/datum/antagonist/ert/ert_antag
 
-	return
+			if(numagents == 1)
+				ert_antag = new ertemplate.leader_role
+			else
+				ert_antag = ertemplate.roles[WRAP(numagents,1,length(ertemplate.roles) + 1)]
+				ert_antag = new ert_antag
+
+			ERTOperative.mind.add_antag_datum(ert_antag,ert_team)
+			ERTOperative.mind.assigned_role = ert_antag.name
+
+			if(ertemplate.dusting)
+				var/obj/item/implant/dusting/dustimplant = new(ERTOperative)
+				dustimplant.implant(ERTOperative)
+
+			//Logging and cleanup
+			//log_game("[key_name(ERTOperative)] has been selected as an [ert_antag.name]") | yogs - redundant
+			numagents--
+			teamSpawned++
+
+		if (teamSpawned)
+			message_admins("[ertemplate.polldesc] has spawned with the mission: [ertemplate.mission]")
+
+		//Open the Armory doors
+		if(ertemplate.opendoors)
+			for(var/obj/machinery/door/poddoor/ert/door in GLOB.airlocks)
+				INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/poddoor, open))
+
+		//Open the Mech Bay
+		if(ertemplate.openmech)
+			for(var/obj/machinery/door/poddoor/deathsquad/door in GLOB.airlocks)
+				INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/poddoor, open))
+		return TRUE
+	else
+		return FALSE
+
 
 
 GLOBAL_VAR_INIT(emergency_access, FALSE)

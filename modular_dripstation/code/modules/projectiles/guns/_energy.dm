@@ -23,7 +23,7 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += mutable_appearance(icon, "[icon_state]_[initial(shot.select_name)]")
-	if(cell.charge < shot.e_cost)
+	if(!cell || cell.charge < shot.e_cost)
 		. += "[icon_state]_empty"
 		return
 	if(modifystate)

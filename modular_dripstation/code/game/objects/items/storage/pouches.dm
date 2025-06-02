@@ -304,6 +304,10 @@
 		/obj/item/ammo_box/tra32,
 	)
 
+/obj/item/storage/pouch/magazine/pistol/m45full
+	fill_type = /obj/item/ammo_box/magazine/m45
+	fill_number = 3
+
 /obj/item/storage/pouch/magazine/pistol/large
 	name = "pistol magazine pouch"
 	desc = "This pouch can contain six pistol and revolver ammo magazines."

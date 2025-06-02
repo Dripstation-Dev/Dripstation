@@ -137,7 +137,7 @@
 	cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, WOUND = 30)
-	blocks_shove_knockdown = TRUE
+	//blocks_shove_knockdown = TRUE		//dripstation edit
 	strip_delay = 80
 	equip_delay_other = 60
 	slowdown = 0.33

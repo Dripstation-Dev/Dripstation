@@ -244,15 +244,15 @@
 
 /obj/item/clothing/under/rank/medical/doctor/blue
 	icon = 'icons/obj/clothing/uniforms.dmi'
-	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/uniform/medical.dmi'
 
 /obj/item/clothing/under/rank/medical/doctor/green
 	icon = 'icons/obj/clothing/uniforms.dmi'
-	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/uniform/medical.dmi'
 
 /obj/item/clothing/under/rank/medical/doctor/purple
 	icon = 'icons/obj/clothing/uniforms.dmi'
-	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
+	worn_icon = 'icons/mob/clothing/uniform/medical.dmi'
 
 /obj/item/clothing/under/rank/medical/doctor/black
 	name = "medical scrubs"

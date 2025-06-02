@@ -174,6 +174,11 @@
 	body_parts_covered = ARMS|HANDS
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 60, RAD = 0, FIRE = 80, ACID = 50, WOUND = 0, ELECTRIC = 0)
 
+/obj/item/clothing/gloves/combat/terragov_army
+	icon_state = "tgaf_gloves"
+	clothing_traits = list(TRAIT_STRONG_GRIP)
+	can_be_cut = FALSE
+
 /obj/item/clothing/gloves/combat/militech
 	icon_state = "militech_combat"
 	clothing_traits = list(TRAIT_STRONG_GRIP)
@@ -372,6 +377,71 @@
 	resistance_flags = NONE
 	body_parts_covered = ARMS|HANDS
 	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 5, FIRE = 80, ACID = 50, WOUND = 0, ELECTRIC = 0)
+
+/obj/item/clothing/gloves/combat/energy_knuclers
+	name = "Combat gloves"
+	desc = "Combat gloves with energy knuclers. Helps to beat all shit out of people."
+	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	icon_state = "energy_knuclers"
+	var/datum/martial_art/energy_knuclers/style = new
+
+/obj/item/clothing/gloves/combat/energy_knuclers/Touch(mob/living/target,proximity = TRUE)
+	var/mob/living/M = loc
+
+	if(M.a_intent == INTENT_HARM)
+		M.changeNext_move(CLICK_CD_RAPID)
+	.= FALSE
+
+/datum/martial_art/energy_knuclers
+	name = "Energy Knuclers"
+
+/datum/martial_art/energy_knuclers/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+
+	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+
+	var/atk_verb = pick("left hook","right hook","straight punch")
+
+	var/damage = rand(8, 12) + A.get_punchdamagehigh()	//let us respect physiology and species damage mods
+	if(!damage)
+		playsound(D.loc, A.dna.species.miss_sound, 25, 1, -1)
+		D.visible_message(span_warning("[A] has attempted to [atk_verb] [D]!"), \
+			span_userdanger("[A] has attempted to [atk_verb] [D]!"), null, COMBAT_MESSAGE_RANGE)
+		log_combat(A, D, "attempted to punch (energy_knuclers)")
+		return FALSE
+
+	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
+	var/armor_block = D.run_armor_check(affecting, MELEE)
+
+	playsound(D.loc, A.dna.species.attack_sound, 25, 1, -1)
+
+	D.visible_message(span_danger("[A] has [atk_verb]ed [D]!"), \
+			span_userdanger("[A] has [atk_verb]ed [D]!"), null, COMBAT_MESSAGE_RANGE)
+
+	D.apply_damage(A.get_punchdamagehigh(), BRUTE, affecting, armor_block)
+	D.apply_damage(damage, STAMINA, affecting, armor_block)
+	D.adjust_staggered_up_to(STAGGERED_SLOWDOWN_LENGTH * 2, 5 SECONDS)
+	log_combat(A, D, "punched (energy_knuclers)")
+	return TRUE
+
+/obj/item/clothing/gloves/combat/energy_knuclers/equipped(mob/user, slot)
+	. = ..()
+	if(!ishuman(user))
+		return
+	if(slot == ITEM_SLOT_GLOVES)
+		var/mob/living/carbon/human/H = user
+		style.teach(H,1)
+	return
+
+/obj/item/clothing/gloves/combat/energy_knuclers/dropped(mob/user)
+	. = ..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H)
+		if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
+			style.remove(H)
+		return
 
 /obj/item/clothing/gloves/tackler
 	name = "gripper gloves"
