@@ -1035,11 +1035,17 @@
 	..()
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/carbon/M)
+	/*	//dripstation edit
 	if(M.health < 50 && M.health > 0)
+	*/
+	if(M.health < 50 && M.health > M.crit_threshold)	//dripstation edit
+	/*	//dripstation edit
 		M.adjustOxyLoss(-1*REM, 0)
+	*/
 		M.adjustToxLoss(-1*REM, 0)
 		M.adjustBruteLoss(-1*REM, 0)
 		M.adjustFireLoss(-1*REM, 0)
+	M.adjustOxyLoss(-1*REM, 0)
 	M.AdjustAllImmobility(-60, FALSE)
 	M.adjustStaminaLoss(-30*REM, 0)
 	..()
@@ -1062,11 +1068,17 @@
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.25, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/medicine/stimulants/nanite/on_mob_life(mob/living/carbon/M)
+	/*	//dripstation edit
 	if(M.health < 50 && M.health > 0)
+	*/
+	if(M.health < 50 && M.health > M.crit_threshold)	//dripstation edit
+	/*	//dripstation edit
 		M.adjustOxyLoss(-1*REM, 0)
+	*/
 		M.adjustToxLoss(-1*REM, 0)
 		M.adjustBruteLoss(-1*REM, 0)
 		M.adjustFireLoss(-1*REM, 0)
+	M.adjustOxyLoss(-1*REM, 0)
 	M.AdjustAllImmobility(-20, FALSE)
 	M.adjustStaminaLoss(-15*REM, 0)
 	..()

@@ -22,6 +22,9 @@
 	cost = 4
 	exclude_modes = list(/datum/game_mode/infiltration) // yogs: infiltration
 
+/datum/uplink_item/device_tools/frame
+	cost = 2
+
 /datum/uplink_item/suits/hardsuit
 	name = "Blood-red RIG"
 	desc = "The feared suit of a Syndicate nuclear operative. Features slightly better armoring and a built in jetpack \
