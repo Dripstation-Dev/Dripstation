@@ -8704,8 +8704,8 @@
 "cyq" = (
 /obj/effect/landmark/event_spawn,
 /obj/machinery/door_timer{
-	id = "Cell 3";
-	name = "Cell 3";
+	id = "Cell 2";
+	name = "Cell 2";
 	pixel_y = -32
 	},
 /turf/open/floor/plasteel{
@@ -9277,6 +9277,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/construction/storage_wing)
@@ -14095,7 +14098,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "dWr" = (
-/obj/machinery/computer/security/qm{
+/obj/machinery/computer/stockexchange{
 	dir = 4
 	},
 /turf/open/floor/plasteel{
@@ -32280,6 +32283,10 @@
 	name = "Quartermaster's Fax Machine"
 	},
 /obj/machinery/digital_clock/directional/north,
+/obj/structure/sign/poster/terragov/paperwork{
+	pixel_x = 29;
+	pixel_y = 0
+	},
 /turf/open/floor/plasteel{
 	icon_state = "darkbrown";
 	dir = 5
@@ -40556,6 +40563,16 @@
 	dir = 4
 	},
 /area/crew_quarters/toilet/restrooms)
+"lfP" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/sign/poster/terragov/terragov_enlist{
+	pixel_x = 0;
+	pixel_y = 32
+	},
+/turf/open/floor/plating,
+/area/maintenance/port)
 "lgi" = (
 /obj/structure/chair{
 	dir = 8
@@ -44234,7 +44251,7 @@
 	},
 /obj/machinery/door_timer{
 	id = "Cell 2";
-	name = "Cell 2";
+	name = "Cell 1";
 	pixel_y = -32
 	},
 /turf/open/floor/plasteel{
@@ -51003,6 +51020,8 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "nPP" = (
@@ -61324,6 +61343,7 @@
 	},
 /obj/structure/closet/secure_closet/security/sec,
 /obj/effect/turf_decal/bot_red,
+/obj/item/storage/belt/sabre/stunsword/full,
 /turf/open/floor/plasteel{
 	icon_state = "darkred";
 	dir = 9
@@ -75657,6 +75677,10 @@
 	pixel_x = 11;
 	pixel_y = 1
 	},
+/obj/structure/sign/poster/official/safety_report{
+	pixel_x = 29;
+	pixel_y = 0
+	},
 /turf/open/floor/plasteel{
 	icon_state = "darkbrown";
 	dir = 6
@@ -85102,9 +85126,14 @@
 /obj/machinery/modular_computer/console/preset/cargo/qm{
 	dir = 1
 	},
-/obj/machinery/computer/security/telescreen/minisat{
+/obj/structure/sign/poster/erotic/random{
+	pixel_x = 29;
+	pixel_y = 0
+	},
+/obj/machinery/computer/security/telescreen/vault{
 	dir = 1;
-	pixel_y = -28
+	pixel_x = 0;
+	pixel_y = -27
 	},
 /turf/open/floor/plasteel{
 	icon_state = "darkbrown";
@@ -237341,7 +237370,7 @@ wnd
 wnd
 wnd
 jmC
-gxJ
+lfP
 ydD
 jmC
 ydD

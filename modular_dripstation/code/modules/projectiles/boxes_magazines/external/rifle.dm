@@ -5,7 +5,7 @@
 	icon_state = "ar556"
 	icon = 'modular_dripstation/icons/obj/ammo.dmi'
 
-/obj/item/ammo_box/magazine/f556/update_icon_state()
+/obj/item/ammo_box/magazine/r556/update_icon_state()
 	. = ..()
 	if(ammo_count())
 		icon_state = "ar556[sprite_designation]"

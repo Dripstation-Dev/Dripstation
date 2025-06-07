@@ -690,6 +690,10 @@
 	if (!(. & EMP_PROTECT_SELF))
 		deductcharge(100 * severity)
 
+/obj/item/melee/classic_baton
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/security_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/security_righthand.dmi'
+
 /obj/item/melee/classic_baton/telescopic
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/security_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/security_righthand.dmi'

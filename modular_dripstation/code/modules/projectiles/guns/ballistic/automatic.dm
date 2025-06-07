@@ -625,6 +625,14 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	manufacturer = /datum/corporation/independent
 
+/obj/item/gun/ballistic/automatic/pistol/protector
+	name = "Type 10 'Protector'"
+	desc = "Modern semi-automatic pistol that fires 10mm ammunition from 10-round magazine. Easy to use, high rate of fire."
+	icon_state = "type10"
+	spread = 8
+	w_class = WEIGHT_CLASS_NORMAL
+	can_suppress = FALSE
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/pistol/glock17
 	name = "\improper Glock-17"

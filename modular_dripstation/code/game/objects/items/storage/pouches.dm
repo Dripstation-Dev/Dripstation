@@ -213,6 +213,10 @@
 	)
 	draw_mode = 1
 
+/obj/item/storage/pouch/pistol/protector
+	fill_type = /obj/item/gun/ballistic/automatic/pistol/protector
+	fill_number = 1
+
 /obj/item/storage/pouch/pistol/glock18
 	fill_type = /obj/item/gun/ballistic/automatic/pistol/glock18
 	fill_number = 1

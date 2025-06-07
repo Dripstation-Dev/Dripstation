@@ -24,6 +24,25 @@
 
 /obj/item/reagent_containers/food/drinks/attack(mob/living/M, mob/user, def_zone)
 
+	if(user.a_intent == INTENT_HARM && isGlass)	//dripstation edit start
+		if(user.zone_selected == BODY_ZONE_HEAD && ishuman(M))
+			if(HAS_TRAIT(user, TRAIT_PACIFISM))
+				to_chat(user, span_warning("You don't want to harm [M]!"))
+				return
+			var/force = 15 //Smashing bottles over someone's head hurts
+			var/brute_block = M.run_armor_check(user.zone_selected, MELEE, 0)
+			M.apply_damage(force, BRUTE, user.zone_selected, brute_block)
+			if(M != user)
+				user.visible_message(span_warning("[user] crushes the bottle of [src] on [M.p_their()] forehead!"), span_notice("You crush the bottle of [src] on [M.p_their()] forehead."))
+			else
+				user.visible_message(span_warning("[user] hits [user.p_their()]self with the bottle of [src]!"), span_danger("You hit [user.p_their()]self with the bottle of [src]."))
+			to_chat(M, span_danger("You feel a blunt pain in your head."))
+			if(!HAS_TRAIT(M, TRAIT_HEAD_INJURY_BLOCKED))
+				M.Knockdown(2 SECONDS)
+				to_chat(M, span_danger("You suddenly find yourself on the ground."))
+		log_combat(user, M, "crushes the bottle", src)
+		smash(M)	//dripstation edit end
+
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, span_warning("[src] is empty!"))
 		return 0

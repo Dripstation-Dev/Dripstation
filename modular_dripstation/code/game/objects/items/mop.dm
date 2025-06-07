@@ -18,9 +18,13 @@
 		to_chat(user, span_warning("Your mop is dry!"))
 		return
 
-	if(istype(A, /turf))
+	var/location = A
+	if (istype(A, /obj/effect/decal/cleanable))
+		location = get_turf(A)
+
+	if(istype(location, /turf))
 		if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
-			start_cleaning(src, A, user)
+			start_cleaning(src, location, user)
 
 /obj/item/mop/proc/apply_reagents(datum/cleaning_source, turf/cleaned_turf, clean_succeeded)
 	if(!clean_succeeded)

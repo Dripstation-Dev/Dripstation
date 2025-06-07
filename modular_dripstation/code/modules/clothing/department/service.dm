@@ -63,6 +63,33 @@
 	name = "janitor's overalls"
 	icon_state = "janitor_overalls"
 
+/obj/machinery/vending/wardrobe/jani_wardrobe
+	products = list(/obj/item/clothing/under/rank/civilian/janitor = 2,
+					/obj/item/clothing/under/yogs/casualjanitorsuit = 2,
+					/obj/item/clothing/suit/yogs/janitorcoat = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/janitor = 2,
+					/obj/item/clothing/under/rank/civilian/janitor/skirt = 2,
+					/obj/item/clothing/under/rank/civilian/janitor/overalls = 2,
+					/obj/item/clothing/gloves/color/black = 2,
+					/obj/item/clothing/head/soft/purple = 2,
+					/obj/item/broom = 2,
+					/obj/item/paint/paint_remover = 2,
+					/obj/item/melee/flyswatter = 2,
+					/obj/item/flashlight = 2,
+					/obj/item/clothing/suit/caution = 6,
+					/obj/item/holosign_creator/janibarrier = 2,
+					/obj/item/lightreplacer = 2,
+					/obj/item/soap/nanotrasen = 2,
+					/obj/item/storage/bag/trash = 2,
+					/obj/item/reagent_containers/glass/rag = 2,
+					/obj/item/clothing/shoes/galoshes = 2,
+					/obj/item/watertank/janitor = 2,
+					/obj/item/storage/belt/janitor = 2,
+					/obj/item/clothing/accessory/armband/service = 2,
+					/obj/item/reagent_containers/spray/cleaner = 2)
+	contraband = list(/obj/item/clothing/under/rank/civilian/janitor/maid = 2,
+					/obj/item/clothing/head/maidheadband = 2)
+
 // ###### Mime ######
 /obj/item/clothing/under/rank/civilian/mime
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/mime.dmi'

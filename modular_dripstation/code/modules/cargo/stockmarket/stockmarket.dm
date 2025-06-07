@@ -59,8 +59,8 @@
 
 /datum/stockMarket/proc/generateStocks(var/amt = 15)
 	var/list/fruits = list("Banana", "Mimana", "Watermelon", "Ambrosia", "Pomegranate", "Reishi", "Papaya", "Mango", "Tomato", "Conkerberry", "Wood", "Lychee", "Mandarin", "Harebell", "Pumpkin", "Rhubarb", "Tamarillo", "Yantok", "Ziziphus", "Oranges", "Gatfruit", "Daisy", "Kudzu")
-	var/list/tech_prefix = list("Nano", "Cyber", "Funk", "Astro", "Fusion", "Tera", "Exo", "Star", "Virtual", "Plasma", "Robust", "Bit", "Future", "Hugbox", "Carbon", "Nerf", "Buff", "Nova", "Space", "Meta", "Cyber")
-	var/list/tech_short = list("soft", "tech", "prog", "tec", "tek", "ware", "", "gadgets", "nics", "tric", "trasen", "tronic", "coin")
+	var/list/tech_prefix = list("Nano", "Cyber", "Astro", "Fusion", "Terra", "Exo", "Star", "Virtual", "Plasma", "Robust", "Bit", "Future", "Carbon", "Nova", "Space", "Meta", "Tri", "Slav")
+	var/list/tech_short = list("soft", "tech", "prog", "tec", "tek", "ware", " Solutions", "gadgets", "nics", "tric", "tronic", "coin")
 	var/list/random_nouns = list("Johnson", "Cluwne", "General", "Specific", "Master", "King", "Queen", "Table", "Rupture", "Dynamic", "Massive", "Mega", "Giga", "Certain", "Singulo", "State", "National", "International", "Interplanetary", "Sector", "Planet", "Burn", "Robust", "Exotic", "Solar", "Lunar", "Chelp", "Corgi", "Lag", "Lizard")
 	var/list/company = list("Company", "Factory", "Incorporated", "Industries", "Group", "Consolidated", "GmbH", "LLC", "Ltd", "Inc.", "Association", "Limited", "Software", "Technology", "Programming", "IT Group", "Electronics", "Nanotechnology", "Farms", "Stores", "Mobile", "Motors", "Electric", "Designs", "Energy", "Pharmaceuticals", "Communications", "Wholesale", "Holding", "Health", "Machines", "Astrotech", "Gadgets", "Kinetics")
 	for (var/i = 1, i <= amt, i++)
@@ -75,13 +75,15 @@
 			if (3 to 4)
 				var/fruit = pick(fruits)
 				fruits -= fruit
-				sname = "[prob(10) ? "The " : null][fruit][prob(40) ? " " + pick(company): null]"
+				sname = "[prob(10) ? "The " : null][fruit][prob(60) ? " " + pick(company): null]"
 			if (5 to 6)
 				var/pname = pick(random_nouns)
 				random_nouns -= pname
 				switch (rand(1,3))
 					if (1)
-						sname = "[pname] & [pname]"
+						var/pname2 = pick(random_nouns)
+						random_nouns -= pname2
+						sname = "[pname] & [pname2]"
 					if (2)
 						sname = "[pname] [pick(company)]"
 					if (3)

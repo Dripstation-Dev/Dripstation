@@ -15,7 +15,7 @@
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
 
 /obj/item/gun/energy/laser/cybersun
-	name = "laser carbine (Cybersun)"
+	name = "laser carbine C-18"
 	desc = "Basic energy-based laser gun that uses full potential of beam guns and hits targets through glass and thin metal at the speed of light. Cybersun model used by contract paramilitary forces."
 	icon_state = "lasercarbine-cybersun"
 	item_state = LASER

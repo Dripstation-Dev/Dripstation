@@ -41,6 +41,7 @@
 	if(!(can_use(A) || can_use(D)))
 		return FALSE
 	add_to_streak("D", D)
+	var/returning = FALSE
 	if(restraining_mob && A.pulling == restraining_mob && A.zone_selected == BODY_ZONE_HEAD)
 		if(chokehold_active)
 			return TRUE
@@ -66,9 +67,10 @@
 				else
 					A.visible_message(span_danger("[A] is put off balance, and struggles to maintain their grip on [D]!"), \
 										"<span class='danger>You are put off balance, and struggle to maintain your grip on [D]!</span>")
+		returning = TRUE
 	chokehold_active = FALSE
 	restraining_mob = null
-	return TRUE
+	return returning
 
 /datum/martial_art/trained/proc/handle_chokehold(mob/living/carbon/human/A, mob/living/carbon/human/D) //handles the chokehold attack, dealing oxygen damage until the target is unconscious or would have less than 20 health before knocking out
 	chokehold_active = TRUE
@@ -201,7 +203,11 @@
 				if(!user.put_in_hand(I, hand))
 					I.forceMove(get_turf(attacker))
 		attacker.Knockdown(60)
-
+	if(!I)
+		attacker.visible_message(span_warning("[user] grabs [attacker]'s arm as they attack and twists it!"), \
+							span_userdanger("[user] grabs your arm as you attack and twists it, you feel staggered!"))
+		attacker.adjust_staggered_up_to(2 SECONDS, 4 SECONDS)
+		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_2.ogg', 50, 1, -1)
 
 /mob/living/carbon/human/proc/trained_help()
 	set name = "Remember The Basics"

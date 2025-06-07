@@ -81,6 +81,11 @@
 				if(!user.put_in_hand(I, hand))
 					I.forceMove(get_turf(attacker))
 		attacker.Knockdown(60)
+	if(!I)
+		attacker.visible_message(span_warning("[user] grabs [attacker]'s arm as they attack and twists it!"), \
+							span_userdanger("[user] grabs your arm as you attack and twists it, you feel staggered!"))
+		attacker.adjust_staggered_up_to(2 SECONDS, 4 SECONDS)
+		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_2.ogg', 50, 1, -1)
 	if(user.a_intent == INTENT_GRAB)
 		grab_act(user,attacker)
 

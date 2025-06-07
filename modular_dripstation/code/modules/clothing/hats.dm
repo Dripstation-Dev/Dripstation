@@ -13,11 +13,12 @@
 
 
 //////maid headband//////
-/obj/item/clothing/head/maidheadband/syndicate
-	name = "tactical maid headband"
-	desc = "Tacticute."
-	icon_state = "syndieheadband"
-	item_state = "syndieheadband"
+/obj/item/clothing/head/maidheadband
+	name = "maid headband"
+	desc = "Just like from one of those chinese cartoons!"
+	icon_state = "maidheadband"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 
 /*

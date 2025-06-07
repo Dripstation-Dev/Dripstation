@@ -250,7 +250,7 @@
 
 /datum/map_template/ruin/station/meta/teg
 	id = "meta_teg"
-	suffix = "meta_teg.dmm"
+	suffix = "dripmeta_teg.dmm"
 	name = "Meta TEG"
 
 /datum/map_template/ruin/station/meta/reactor

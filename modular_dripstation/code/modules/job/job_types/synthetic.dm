@@ -127,6 +127,7 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 /datum/outfit/job/replica/sec
 	name = "Security Replika"
 	ears = /obj/item/radio/headset/headset_synthetic/alt
+	r_pocket = /obj/item/storage/pouch/pistol/protector
 	belt = /obj/item/storage/belt/military/assault/replica
 
 /obj/item/storage/belt/military/assault/replica
@@ -144,6 +145,7 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 	SSwardrobe.provide_type(/obj/item/restraints/handcuffs, src)
 	SSwardrobe.provide_type(/obj/item/grenade/flashbang, src)
 	SSwardrobe.provide_type(/obj/item/assembly/flash/handheld, src)
+	SSwardrobe.provide_type(/obj/item/ammo_box/magazine/m10mm, src)
 	SSwardrobe.provide_type(/obj/item/melee/classic_baton/telescopic, src)
 	SSwardrobe.provide_type(/obj/item/barrier_taperoll/police, src)
 	update_appearance(UPDATE_ICON)

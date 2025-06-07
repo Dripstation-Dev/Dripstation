@@ -92,6 +92,10 @@
 /obj/item/gun/ballistic/shotgun/bulldog/waffle/unrestricted
 	pin = /obj/item/firing_pin
 
+/obj/item/gun/ballistic/shotgun/bulldog/waffle/traitor
+	pin = /obj/item/firing_pin
+	mag_type = /obj/item/ammo_box/magazine/m12g/less_painfull
+
 /obj/item/gun/ballistic/shotgun/doublebarrel
 	item_state = "shotgun_db"
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/64x_guns_left.dmi'

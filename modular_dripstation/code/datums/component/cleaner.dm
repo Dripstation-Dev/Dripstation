@@ -85,7 +85,7 @@
 		clean_succeeded = TRUE
 		user.visible_message(span_notice("[user] finishes cleaning [target]!"), span_notice("You finish cleaning [target]."))
 		if(clean_target)
-			for(var/obj/effect/decal/cleanable/cleanable_decal in target) //it's important to do this before you wash all of the cleanables off
+			//for(var/obj/effect/decal/cleanable/cleanable_decal in target)  fix that thing or remove, it`s literally do nothing              //it's important to do this before you wash all of the cleanables off 
 			if(istype(target, /obj/structure/window)) //window cleaning
 				target.set_opacity(initial(target.opacity))
 				target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)

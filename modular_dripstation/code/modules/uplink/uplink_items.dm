@@ -229,14 +229,29 @@
 	category = "Corporation restricted"
 	restricted_corp_property = TRUE
 	surplus = 0
+	cant_discount = TRUE	//so it does not take place of discounts for other factions
+	include_modes = list(/datum/game_mode/traitor)	//so this is for traitors
 
 /datum/uplink_item/corp_restricted/blood_magic
 	name = "S`Sarsĥs holy rites"
 	desc = "Rites about S`Sarsĥs written with real unathi blood. On human leather. You need to have ability to read on unathi language to understand the contents."
-	cost = 10
+	cost = 16
 	item = /obj/item/book/granter/action/spell/blood_magic
 	manufacturer = /datum/corporation/independent/traitor
-	restricted_corp_property = TRUE
+
+/datum/uplink_item/corp_restricted/fnx45
+	name = "FNX-45 holster"
+	desc = "Expanded holster with FNX-45 and spare .45 magazines - side arm of many modern mercs and professional operatives. Time to become one of them."
+	cost = 10
+	item = /obj/item/storage/belt/holster/syndicate/fnx45
+	manufacturer = /datum/corporation/independent/traitor
+
+/datum/uplink_item/corp_restricted/pirate_sabre
+	name = "Pirate Sabre"
+	desc = "Plastitanium sabre prefered by pirate teams alligned with Syndicate coalition corporations and frontline command officers of Gorlex security detachment`s. Good choice if you prefere ripost people."
+	cost = 8
+	item = /obj/item/storage/belt/sabre/syndie
+	manufacturer = /datum/corporation/gorlex
 
 /datum/uplink_item/corp_restricted/gorlex_microbomb
 	name = "Microbomb Implant"
@@ -246,7 +261,6 @@
 	limited_stock = 1 // Might be too annoying if traitor has mulitple.
 	cost = 2
 	manufacturer = /datum/corporation/gorlex
-	include_modes = list(/datum/game_mode/traitor)
 
 /datum/uplink_item/corp_restricted/waffle_gloves
 	name = "Waffle Tackler Gloves"
@@ -255,12 +269,117 @@
 	cost = 3
 	manufacturer = /datum/corporation/traitor/waffleco
 
+/datum/uplink_item/corp_restricted/bulldog_traitor
+	name = "Waffle Combat Assault Shotgun WA-12"
+	desc = "A fully-loaded semi-automatic drum-fed shotgun. Compatible with all 12g rounds. Designed for close \
+			quarter anti-personnel engagements."
+	cost = 16
+	item = /obj/item/gun/ballistic/shotgun/bulldog/waffle/traitor
+	manufacturer = /datum/corporation/traitor/waffleco
+
+/datum/uplink_item/corp_restricted/slug_traitor
+	name = "12g Slug Drum"
+	desc = "An additional 8-round slug magazine for use with the Bulldog shotgun.\
+			Front towards enemy."
+	cost = 3
+	item = /obj/item/ammo_box/magazine/m12g/slug/less_painfull
+	manufacturer = /datum/corporation/traitor/waffleco
+
+/datum/uplink_item/corp_restricted/buck_traitor
+	name = "12g Buckshot Drum"
+	desc = "An additional 8-round buckshot magazine for use with the Bulldog shotgun.\
+			Front towards enemy."
+	cost = 3
+	item = /obj/item/ammo_box/magazine/m12g/less_painfull
+	manufacturer = /datum/corporation/traitor/waffleco
+
 /datum/uplink_item/corp_restricted/adv_pinpointer
 	name = "Advanced Pinpointer"
 	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
 	item = /obj/item/pinpointer/adv
 	cost = 4
 	manufacturer = /datum/corporation/traitor/cybersun
+
+/datum/uplink_item/corp_restricted/las_carab
+	name = "C-18 Ceybersun laser carabine"
+	desc = "A carabine for damaging Nanotrasen`s reputation."
+	item = /obj/item/gun/energy/laser/cybersun
+	cost = 6
+	manufacturer = /datum/corporation/traitor/cybersun
+
+/datum/uplink_item/corp_restricted/aps
+	name = "Altin Striped helmet"
+	desc = "Black Altin helmet with stripes. Extra drip."
+	item = /obj/item/clothing/head/helmet/riot/altin/kill
+	cost = 3
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/aps
+	name = "Stechkin Pistol"
+	desc = "A faimous pistol that provides you an ability to rapidly fire at your opponents, comrade."
+	item = /obj/item/gun/ballistic/automatic/pistol/APS
+	cost = 4
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/aps_mag
+	name = "Stechkin Magazine"
+	desc = "Magazine of fifteen 9mm bullets, comrade."
+	item = /obj/item/ammo_box/magazine/pistolm9mm
+	cost = 1
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/ak47
+	name = "Real Ak-47"
+	desc = "A faimous automatic rifle of AK system. Older than your grandfather`s grandfather, comrade. But still relible."
+	item = /obj/item/gun/ballistic/automatic/ar/ak47
+	cost = 16
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/ak47_mag
+	name = "7.62x39 mag"
+	desc = "A faimous magazine for automatic rifle of AK system. Still relible."
+	item = /obj/item/ammo_box/magazine/r762x39
+	cost = 3
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/foamsmg_traitor
+	name = "Submachine Gun (Toy)"
+	desc = "A fully-loaded Donksoft bullpup submachine gun that fires riot grade darts with a 20-round magazine."
+	item = /obj/item/gun/ballistic/automatic/c20r/toy
+	cost = 5
+	manufacturer = /datum/corporation/traitor/donkco
+
+/datum/uplink_item/corp_restricted/foammachinegun_traitor
+	name = "Machine Gun (Toy)"
+	desc = "A fully-loaded Donksoft belt-fed machine gun. This weapon has a massive 50-round magazine of devastating \
+			riot grade darts, that can briefly incapacitate someone in just one volley."
+	item = /obj/item/gun/ballistic/automatic/l6_saw/toy
+	cost = 10
+	manufacturer = /datum/corporation/traitor/donkco
+
+/datum/uplink_item/corp_restricted/foampistol_traitor
+	name = "Pistol with Riot Darts (Toy)"
+	desc = "An innocent-looking toy pistol designed to fire foam darts. Comes loaded with riot-grade \
+			darts effective at incapacitating a target."
+	item = /obj/item/gun/ballistic/automatic/toy/pistol/riot
+	cost = 1
+	manufacturer = /datum/corporation/traitor/donkco
+
+/datum/uplink_item/corp_restricted/watergun_traitor
+	name = "Extended Capacity Hyper-Soaker (Toy)"
+	desc = "A simple yet effective way of applying chemicals to a target's skin. \
+			Comes with a high-power nozzle and larger tank."
+	item = /obj/item/gun/water/syndicate
+	cost = 2
+	manufacturer = /datum/corporation/traitor/donkco
+
+/datum/uplink_item/corp_restricted/foambox_traitor
+	name = "ammo box (Foam Darts)"
+	desc = "Foam darts in the box. If you like to gun down sec in fancy nonlethal way."
+	item = /obj/item/ammo_box/foambox/riot
+	cost = 1
+	manufacturer = /datum/corporation/traitor/donkco
+
 
 ////////////Nanotrasen Production/////////////
 /datum/uplink_item/corp_restricted/mini_egun

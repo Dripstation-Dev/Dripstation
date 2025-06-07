@@ -47,8 +47,8 @@
 		if (0)
 			next_phase = world.time + rand(300*TIME_MULTIPLIER, 600*TIME_MULTIPLIER) * (10*TIME_MULTIPLIER)
 			product_name = company.industry.generateProductName(company.name)
-			current_title = "Product release: [product_name]"
-			current_desc = "[company.name] unveiled their newest product at a conference, [product_name]Product release is expected to happen at spacetime [spacetime(next_phase)]."
+			current_title = "Product release: [product_name]."
+			current_desc = "[company.name] unveiled their newest product at a conference, [product_name]. Product release is expected to happen at spacetime [spacetime(next_phase)]."
 			var/datum/article/A = company.industry.generateInCharacterProductArticle(product_name, company)
 			product_article = A
 			effect = A.opinion + rand(-1, 1)
@@ -212,7 +212,7 @@
 /datum/stockEvent/arrest/proc/generateArrestArticle()
 	var/datum/article/A = new
 	A.about = company
-	var/police = pick("Terra Gov Police", "Mars Tribunal", "Nanotrasen Internal Affairs department", "Cybersun Security department", "Gorlex Lynching executioneers", "TG Marine Law enforcement")
+	var/police = pick("Terragov Police", "Terragov Fleet catchpoll", "Mars Exile Tribunal", "Nanotrasen Internal Affairs department", "Cybersun Security department", "Gorlex Lynching executioneers", "TG Marine Law enforcement")
 	A.headline = company.industry.detokenize(pick( \
 						"[tname], [position] of [company.name] arrested", \
 						"[position] of [company.name] facing jail time", \

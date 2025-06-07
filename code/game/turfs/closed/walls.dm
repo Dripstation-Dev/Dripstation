@@ -208,7 +208,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
 
-	if(W.tool_behaviour == TOOL_WELDER)
+	if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)	//dripstation edit
 		if(atom_integrity >= max_integrity)
 			to_chat(user, span_warning("[src] is intact!"))
 			return TRUE
