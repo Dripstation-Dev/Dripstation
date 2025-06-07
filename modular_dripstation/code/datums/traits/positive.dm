@@ -6,14 +6,18 @@
 	gain_text = span_danger("Yeah, I`d use some skills.")
 	lose_text = span_notice("Okey, time to touch some grass.")
 	medical_record_text = "During physical examination, patient was found to have muscles strengthened by years of training."
+	var/datum/martial_art/trained/spesslife = new
 
 /datum/quirk/combattraining/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/datum/martial_art/trained/spesslife = new
 	spesslife.teach(H)
 
 /datum/quirk/combattraining/post_add()
 	to_chat(quirk_holder, span_boldannounce("Your muscles remembers some basics of unarmed combat."))
+
+/datum/quirk/combattraining/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	spesslife.remove(H)
 
 /datum/quirk/drunkhealing
 	value = 3

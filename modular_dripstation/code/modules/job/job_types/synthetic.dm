@@ -53,13 +53,15 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 
 	forced_species = /datum/species/replica
 
-/datum/job/replica/after_spawn(mob/living/H, mob/M, latejoin = FALSE)
-	. = ..()
-	//H.apply_pref_name(/datum/preference/name/synthetic, M.client)
-	H.remove_all_quirks()
-	var/start_sound = "[global.config.directory]/sounds/TurnedAround.ogg"
-	if(start_sound)
-		SEND_SOUND(H, sound(start_sound))
+/datum/job/replica/after_roundstart_spawn(mob/living/spawning, client/player_client)
+	spawning.remove_all_quirks()
+	to_chat(spawning, span_notice("All quirks removed."))
+	var/start_sound = "[global.config.directory]/sound/TurnedAround.ogg"
+	SEND_SOUND(spawning, sound(start_sound))
+
+/datum/job/replica/after_latejoin_spawn(mob/living/spawning)
+	spawning.remove_all_quirks()
+	to_chat(spawning, span_notice("All quirks removed."))
 
 /datum/job/replica/get_access()
 	return GLOB.synthetic_base_access
