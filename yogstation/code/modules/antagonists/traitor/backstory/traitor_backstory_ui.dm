@@ -1,5 +1,8 @@
 /datum/antagonist/traitor
+/*
 	ui_name = "TraitorBackstoryMenu"
+*/
+	ui_name = "DripTraitorBackstoryMenu"	//dripstation edit
 
 /// We will handle this ourselves, thank you.
 /datum/antagonist/traitor/make_info_button()
@@ -39,7 +42,12 @@
 		data["faction_theme"] = faction.faction_theme
 
 	var/datum/component/uplink/uplink = uplink_ref?.resolve()
+/*dripstation edit start
 	data["antag_name"] = name
+*/
+	data["antag_name"] = faction ? "[faction.name] [name]" : "[name]"	//dripstation edit
+	data["faction_desc"] = faction?.description							//dripstation edit
+	data["allies"] = faction?.allies									//dripstation edit end
 	data["has_codewords"] = has_codewords
 	if(has_codewords)
 		data["phrases"] = jointext(GLOB.syndicate_code_phrase, ", ")
@@ -57,6 +65,8 @@
 	var/list/data = list()
 	var/list/all_factions = list()
 	for(var/key in GLOB.traitor_factions_to_datum)
+		if(!(key in allowed_factions))	//yeah, it is shitcode, i know. I don`t wanna to rewrite entire interface 
+			continue	//dripstation edit
 		var/datum/traitor_faction/faction = GLOB.traitor_factions_to_datum[key]
 		all_factions[key] = list(
 			"name" = faction.name,

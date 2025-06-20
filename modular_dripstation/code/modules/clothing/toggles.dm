@@ -5,6 +5,77 @@
 /obj/item/clothing/head/hooded/explorer
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	//dynamic_hair_suffix = ""
+
+/obj/item/clothing/suit/hooded/explorer/winter
+	icon_state = "explorer_winter"
+	item_state = "explorer_winter"
+
+/obj/item/clothing/head/hooded/explorer/winter
+	icon_state = "explorer_winter"
+	item_state = "explorer_winter"
+	//dynamic_hair_suffix = ""
+
+/obj/item/clothing/suit/hooded/miningmedic
+	name = "recovery suit"
+	desc = "A lightly armoured suit for search and rescue in harsh environments."
+	icon_state = "recovery"
+	item_state = "recovery"
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	cold_protection = CHEST|GROIN|LEGS|ARMS
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	heat_protection = CHEST|GROIN|LEGS|ARMS
+	flags_inv = HIDEGLOVES|HIDESHOES
+	flags_prot = HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/hooded/miningmedic
+	armor = list(MELEE = 40, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, WOUND = 10)
+
+	resistance_flags = FIRE_PROOF
+	mutantrace_variation = DIGITIGRADE_VARIATION
+	allowed = list(/obj/item/analyzer,/obj/item/multitool/tricorder,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/autoinjector,/obj/item/healthanalyzer,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/melee/classic_baton/telescopic,/obj/item/soap,/obj/item/sensor_device,/obj/item/tank/internals, /obj/item/hypospray, /obj/item/flashlight, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/organ/regenerative_core/legion, /obj/item/kitchen/knife/combat)
+/*
+/obj/item/clothing/suit/hooded/miningmedic/Initialize(mapload) //can't be reinforced like regular explorer suits, but can also carry medical stuff in addition to mining stuff
+	. = ..()
+	allowed |= GLOB.labcoat_allowed
+	allowed |= GLOB.mining_allowed
+*/
+
+/obj/item/clothing/head/hooded/miningmedic
+	name = "recovery hood"
+	desc = "A lightly armoured hood for search and rescue in harsh environments."
+	icon_state = "recovery"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	body_parts_covered = HEAD
+	flags_inv = HIDEHAIR|HIDEEARS // hoods don't hide your face, silly
+	flags_prot = HIDEHAIR
+	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	armor = list(MELEE = 40, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 50, WOUND = 10)
+	resistance_flags = FIRE_PROOF
+	var/adjusted = NORMAL_STYLE
+
+//don't want this to be a subtype of the explorer suit or it'll inherit the armor plating
+/obj/item/clothing/head/hooded/miningmedic/verb/hood_adjust()
+	set name = "Adjust Hood Style"
+	set category = null
+	set src in usr
+	switch(adjusted)
+		if(NORMAL_STYLE)
+			adjusted = ALT_STYLE
+			to_chat(usr, span_notice("You adjust the hood to wear it more casually."))
+			flags_inv &= ~HIDEHAIR
+		if(ALT_STYLE)
+			adjusted = NORMAL_STYLE
+			to_chat(usr, span_notice("You adjust the hood back to normal."))
+			flags_inv |= HIDEHAIR
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		H.update_hair()
+		H.update_body()
 
 /obj/item/clothing/suit/toggle/labcoat
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'		
@@ -213,11 +284,21 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,	ENERGY = 0, BOMB = 0, BIO = 35, RAD = 0, FIRE = 35, ACID = 35)
 
 /obj/item/clothing/suit/toggle/emt_vest/jacket
-	name = "paramedic jacket"
+	name = "emt jacket"
 	desc = "A hazard jacket used in the recovery of bodies."
+	icon_state = "emt_jacket"
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/toggle/emt_vest/jacket/paramedic
+	name = "paramedic jacket"
+	icon_state = "paramedic_jacket"
+
+/obj/item/clothing/suit/toggle/emt_vest/jacket/highvis
+	name = "em tech jacket"
+	desc = "A high vision jacket used in the recovery of bodies."
+	icon_state = "highvis"
 
 /obj/item/clothing/head/hooded/winterhood
 	dynamic_hair_suffix = ""

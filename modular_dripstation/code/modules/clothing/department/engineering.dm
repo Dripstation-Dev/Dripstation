@@ -22,14 +22,14 @@
 	icon_state = "hazard_b"
 
 // ###### Engineer ######
-/obj/item/clothing/under/rank/engineer
+/obj/item/clothing/under/rank/engineering/engineer
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/engineering/engineer.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/engineer.dmi'
 
-/obj/item/clothing/under/rank/engineer/skirt
+/obj/item/clothing/under/rank/engineering/engineer/skirt
 	can_adjust = TRUE
 
-/obj/item/clothing/under/rank/engineer/gorka
+/obj/item/clothing/under/rank/engineering/engineer/gorka
 	name = "engineer`s gorka"
 	desc = "Gorka undersuit for hard work."
 	icon_state = "engine_gorka"
@@ -37,14 +37,14 @@
 	mutantrace_variation = NONE
 
 // ###### Atmostech ######
-/obj/item/clothing/under/rank/atmospheric_technician
+/obj/item/clothing/under/rank/engineering/atmospheric_technician
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/engineering/atmos.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/atmos.dmi'
 
-/obj/item/clothing/under/rank/atmospheric_technician/skirt
+/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt
 	can_adjust = TRUE
 
-/obj/item/clothing/under/rank/atmospheric_technician/gorka
+/obj/item/clothing/under/rank/engineering/atmospheric_technician/gorka
 	name = "atmospheric technician`s gorka"
 	desc = "Gorka undersuit for hard work."
 	icon_state = "atmos_gorka"
@@ -73,35 +73,56 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 // ###### Chief Engineer ######
-/obj/item/clothing/under/rank/chief_engineer
+/obj/item/clothing/under/rank/engineering/chief_engineer
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/engineering/chief.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/engineering/chief.dmi'
 
-/obj/item/clothing/under/rank/chief_engineer/skirt
+/obj/item/clothing/under/rank/engineering/chief_engineer/skirt
 	can_adjust = TRUE
 
-/obj/item/clothing/under/rank/chief_engineer/alt
+/obj/item/clothing/under/rank/engineering/chief_engineer/alt
 	icon_state = "chiefengineer_alt"
 
-/obj/item/clothing/under/rank/chief_engineer/gorka
+/obj/item/clothing/under/rank/engineering/chief_engineer/gorka
 	name = "chief`s gorka"
 	desc = "Gorka undersuit for hard work."
 	icon_state = "chiefengineer_gorka"
 	can_adjust = FALSE
 	mutantrace_variation = NONE
 
-/obj/item/clothing/under/rank/chief_engineer/formal
+/obj/item/clothing/under/rank/engineering/chief_engineer/formal
 	name = "chief engineer's official uniform"
 	desc = "It's an official version of high visibility uniform given to the finest engineers. It has minor radiation shielding."
-	name = "network admin`s gorka"
-	desc = "Gorka undersuit for hard work."
 	icon_state = "chiefengineer_formal"
 
-/obj/item/clothing/under/rank/chief_engineer/skirt/formal
+/obj/item/clothing/under/rank/engineering/chief_engineer/skirt/formal
 	name = "chief engineer's official skirt"
 	desc = "It's an official version of high visibility skirt given to the finest engineers. It has minor radiation shielding."
-	icon_state = "chiefengineer_formal"
+	icon_state = "chiefengineer_formal_skirt"
 
+/obj/item/clothing/under/rank/engineering/chief_engineer/turtle
+	name = "chief engineer's turtleneck"
+	desc = "Sleek industrial version of high visibility uniform given to the finest engineers. Provides tacticoolness."
+	icon_state = "turtleneck_chiefengineer"
+
+/obj/item/clothing/under/rank/engineering/chief_engineer/casual
+	name = "casual chief engineer uniform"
+	desc = "Even the CE has to take a break from setting up the engine somet- and the singlo is loose."
+	icon_state = "ce_suit"
+	can_adjust = FALSE
+	mutantrace_variation = NONE
+
+/obj/item/clothing/head/beret/ce
+	name = "chief engineer's white beret"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/beret/ce/alt
+	name = "chief engineer's beret"
+	desc = "A fancy beret designed exactly to the Chief Engineer's tastes, minus the LEDs."
+	icon_state = "ceberet"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
 
 ////////Wardrobs/////////
 /obj/machinery/vending/wardrobe/engi_wardrobe
@@ -110,10 +131,10 @@
 					/obj/item/storage/backpack/industrial = 3,
 					/obj/item/storage/backpack/satchel/eng = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
-					/obj/item/clothing/under/rank/engineer = 3,
-					/obj/item/clothing/under/rank/engineer/skirt = 3,
+					/obj/item/clothing/under/rank/engineering/engineer = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 					/obj/item/clothing/under/rank/engineering/engineer/hazard = 3,
-					/obj/item/clothing/under/rank/engineer/gorka = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/gorka = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
 					/obj/item/clothing/shoes/xeno_wraps/engineering = 3,
@@ -133,9 +154,9 @@
 					/obj/item/storage/backpack/industrial/atmos = 2,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 2,
 					/obj/item/clothing/head/beret/atmos = 2,
-					/obj/item/clothing/under/rank/atmospheric_technician = 2,
-					/obj/item/clothing/under/rank/atmospheric_technician/skirt = 2,
-					/obj/item/clothing/under/rank/atmospheric_technician/gorka = 2,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 2,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 2,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician/gorka = 2,
 					/obj/item/clothing/shoes/workboots = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool/atmos = 1)
 

@@ -8,6 +8,15 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 	item_state = "medicalbelt"
 
+/obj/item/storage/belt/medical/full/PopulateContents()
+	SSwardrobe.provide_type(/obj/item/scalpel, src)
+	SSwardrobe.provide_type(/obj/item/retractor, src)
+	SSwardrobe.provide_type(/obj/item/cautery, src)
+	SSwardrobe.provide_type(/obj/item/stack/medical/gauze/twelve, src)
+	SSwardrobe.provide_type(/obj/item/stack/medical/suture, src)
+	SSwardrobe.provide_type(/obj/item/stack/medical/mesh, src)
+	SSwardrobe.provide_type(/obj/item/reagent_containers/autoinjector/medipen/ekit, src)
+
 /obj/item/storage/belt/medical/chief
 	icon = 'icons/obj/clothing/belts.dmi'
 	worn_icon = 'icons/mob/clothing/belt.dmi'
@@ -29,6 +38,75 @@
 /obj/item/storage/belt/security/chief
 	icon = 'modular_dripstation/icons/obj/clothing/belt.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
+
+/obj/item/storage/belt/security/chief/Initialize(mapload)
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 6
+	STR.max_combined_w_class = 18
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.set_holdable(list(
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
+		/obj/item/grenade,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/assembly/flash/handheld,
+		/obj/item/clothing/glasses,
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_box,
+		/obj/item/storage/box/rubbershot,
+		/obj/item/storage/box/lethalshot,
+		/obj/item/storage/box/breacherslug,
+		/obj/item/storage/box/beanbag,
+		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/kitchen/knife/combat,
+		/obj/item/flashlight/seclite,
+		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/radio,
+		/obj/item/pinpointer/tracker,
+		/obj/item/clothing/gloves,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/gun/ballistic/revolver/tracking,
+		/obj/item/holosign_creator/security,
+		/obj/item/shield/riot/tele,
+		/obj/item/barrier_taperoll/police,
+		/obj/item/multitool/tricorder,
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/flashlight,
+		/obj/item/stack/cable_coil,
+		/obj/item/t_scanner,
+		/obj/item/analyzer,
+		/obj/item/geiger_counter,
+		/obj/item/extinguisher/mini,
+		/obj/item/radio,
+		/obj/item/clothing/gloves,
+		/obj/item/holosign_creator/atmos,
+		/obj/item/holosign_creator/engineering,
+		/obj/item/forcefield_projector,
+		/obj/item/assembly/signaler,
+		/obj/item/lightreplacer,
+		/obj/item/construction/rcd,
+		/obj/item/pipe_dispenser,
+		/obj/item/inducer,
+		/obj/item/holosign_creator/multi/chief_engineer,
+		/obj/item/airlock_painter,
+		/obj/item/grenade/chem_grenade/smart_metal_foam,
+		/obj/item/grenade/chem_grenade/metalfoam,
+		/obj/item/storage/bag/construction,
+		/obj/item/handdrill,
+		/obj/item/jawsoflife,
+		/obj/item/shuttle_creator,
+		/obj/item/barrier_taperoll/engineering,
+		/obj/item/storage/bag/sheetsnatcher,
+		/obj/item/boxcutter,
+		/obj/item/holotool
+	))
 
 /obj/item/storage/belt/grenade
 	icon_state = "grenadebeltnew"

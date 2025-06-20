@@ -27,7 +27,10 @@
 /datum/outfit/tournament/gangster
 	name = "tournament gangster"
 
+	/* Dripstation Edit
 	uniform = /obj/item/clothing/under/rank/det
+	*/
+	uniform = /obj/item/clothing/under/rank/security/detective	// Dripstation Edit
 	suit = /obj/item/clothing/suit/det_suit
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	head = /obj/item/clothing/head/fedora/det_hat

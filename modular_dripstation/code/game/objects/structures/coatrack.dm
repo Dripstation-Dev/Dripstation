@@ -9,7 +9,7 @@
 	var/obj/item/clothing/suit/suit = null
 	var/obj/item/clothing/head/hat = null
 	var/list/allowed_suits = list(
-		// /obj/item/clothing/suit/armor/vest/capcarapace/jacket,
+		/obj/item/clothing/suit/armor/vest/capcarapace/jacket,
 		/obj/item/clothing/suit/hooded/wintercoat/captain,
 		/obj/item/clothing/suit/det_suit,
 		/obj/item/clothing/suit/toggle/labcoat,
@@ -18,7 +18,12 @@
 		/obj/item/clothing/suit/dracula,
 		/obj/item/clothing/suit/pirate,
 		/obj/item/clothing/suit/hooded/wintercoat,
-		// /obj/item/clothing/suit/armor/vest/warden/winter,
+		/obj/item/clothing/suit/armor/vest/warden/winter,
+		/obj/item/clothing/suit/trenchcoatqm,
+		/obj/item/clothing/suit/hooded/wintercoat/hop,
+		/obj/item/clothing/suit/hooded/wintercoat/medical/cmo/long,
+		/obj/item/clothing/suit/armor/hos/trenchcoat/winter,
+		/obj/item/clothing/suit/hooded/wintercoat/engineering/ce,
 		)
 	var/list/allowed_hats = list(
 		/obj/item/clothing/head/fedora/det_hat,
@@ -27,14 +32,29 @@
 		/obj/item/clothing/head/warden,
 		/obj/item/clothing/head/beret/sec,
 		/obj/item/clothing/head/beret/rd,
-		/obj/item/clothing/head/beret/captain,	
+		/obj/item/clothing/head/beret/captain,
+		/obj/item/clothing/head/caphat/parade,
+		/obj/item/clothing/head/hopcap,
+		
 		)
 	var/list/custom_sprites = list(
 		/obj/item/clothing/head/beret/sec, 
 		/obj/item/clothing/head/HoS/beret,
 		/obj/item/clothing/head/beret/captain,
 		/obj/item/clothing/head/beret/rd,
-		)		
+		)
+
+/obj/structure/coatrack/Initialize(mapload)
+	. = ..()
+	if(mapload)
+		for(var/obj/item/I in loc)
+			if(is_type_in_list(I, allowed_hats))
+				I.loc = src
+				hat = I
+			if(is_type_in_list(I, allowed_suits))
+				I.loc = src
+				suit = I
+	update_appearance(UPDATE_OVERLAYS)
 
 /obj/structure/coatrack/attack_hand(mob/user as mob)
 	if(suit && hat)

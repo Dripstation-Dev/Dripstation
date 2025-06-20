@@ -1,5 +1,6 @@
 /datum/job/miningmedic
 	department_head = list("Chief Medical Officer", "Quartermaster")
+	supervisor_corporation = /datum/corporation/nanotrasen/kompac
 
 /datum/outfit/job/miningmedic
 	gloves = /obj/item/clothing/gloves/color/latex

@@ -1,3 +1,4 @@
+/* Dripstation edit
 /mob/living/carbon/human/grippedby(mob/living/user, instant = FALSE)
 	if(wear_neck)
 		if(wear_neck.type == /obj/item/clothing/neck/petcollar)
@@ -9,3 +10,4 @@
 		devour_mob(pulling)	
 	else	
 		.=..()
+*/

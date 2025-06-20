@@ -1,3 +1,6 @@
+/datum/job/chief_engineer
+	supervisor_corporation = /datum/corporation/nanotrasen/interstellar_industries
+
 /datum/outfit/job/ce
 	id_type = /obj/item/card/id/head
 	belt = null

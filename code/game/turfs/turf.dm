@@ -710,7 +710,11 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/handle_fall(mob/faller)
 	if(has_gravity(src))
 		playsound(src, "bodyfall", 50, 1)
+	/*	dripstation edit
 	faller.drop_all_held_items()
+	*/
+	if(!HAS_TRAIT(faller, TRAIT_STRONG_GRIP))		//dripstation edit
+		faller.drop_all_held_items()		//dripstation edit
 
 /turf/proc/photograph(limit=20)
 	var/image/I = new()

@@ -8,9 +8,17 @@
 #define PDA_THEME_SPOOKY "ntos_spooky"
 #define PDA_THEME_TERMINAL "ntos_terminal"
 #define PDA_THEME_SYNDICATE "syndicate"
+/*Dripstation edit start
 #define PDA_THEME_DONK "donk_co"
 #define PDA_THEME_WAFFLE "waffle_co"
 #define PDA_THEME_CYBER "cyber_sun"
+*/
+#define PDA_THEME_INDEPENDENT "independent"
+#define PDA_THEME_SELF "hackerman"
+#define PDA_THEME_CYBER "cyber_sundrip"
+#define PDA_THEME_WAFFLE "syndicate"
+#define PDA_THEME_DONK "donk_codrip"
+//Dripstation edit end
 #define PDA_THEME_VAHLEN "vahlen"
 #define PDA_THEME_GORLEX "gorlex"
 #define PDA_THEME_BOSYN "bosyn"
@@ -29,7 +37,10 @@
 #define PDA_THEME_TITLE_CYBER "Cyber Sun"
 #define PDA_THEME_TITLE_VAHLEN "Vahlen"
 #define PDA_THEME_TITLE_GORLEX "Gorlex"
+/*
 #define PDA_THEME_TITLE_BOSYN "Bosyn"
+*/
+#define PDA_THEME_TITLE_BOSYN "Vostok"
 
 GLOBAL_LIST_INIT(pda_themes, list(
 	PDA_THEME_TITLE_NTOS = PDA_THEME_NTOS, 

@@ -1,5 +1,6 @@
 /datum/antagonist/traitor
 	/// A list of factions the traitor can pick from freely.
+/* dripstation edit start
 	var/list/allowed_factions = list(
 		TRAITOR_FACTION_SYNDICATE, 
 		TRAITOR_FACTION_BLACK_MARKET, 
@@ -10,6 +11,16 @@
 		TRAITOR_FACTION_VAHLEN,
 		TRAITOR_FACTION_GORLEX,
 		TRAITOR_FACTION_SELF)
+*/
+	var/list/allowed_factions = list(
+		TRAITOR_FACTION_INDEPENDENT,
+		TRAITOR_FACTION_DONK,
+		TRAITOR_FACTION_WAFFLE,
+		TRAITOR_FACTION_CYBERSUN,
+		TRAITOR_FACTION_VAHLEN,
+		TRAITOR_FACTION_GORLEX,
+		TRAITOR_FACTION_SELF,
+		TRAITOR_FACTION_VOSTOK)	//dripstation edit end
 	/// A list of factions the traitor can pick from freely.
 	var/list/recommended_factions = list()
 	/// A list of backstories that are allowed for this traitor.
@@ -23,7 +34,10 @@
 
 /datum/antagonist/traitor/proc/setup_backstories(murderbone, hijack)
 	if(murderbone || hijack)
+/*
 		recommended_factions = list(TRAITOR_FACTION_SYNDICATE, TRAITOR_FACTION_INDEPENDENT)
+*/
+		recommended_factions = list(TRAITOR_FACTION_GORLEX, TRAITOR_FACTION_INDEPENDENT)	//dripstation edit
 	allowed_backstories = list()
 	recommended_backstories = list()
 	for(var/datum/traitor_backstory/path as anything in subtypesof(/datum/traitor_backstory))
@@ -49,6 +63,12 @@
 	var/no_faction = isnull(faction)
 	faction = new_faction
 	employer = new_faction.employer_name
+	if(company)	//dripstation edit
+		owner.remove_employee(company)	//dripstation edit
+	company = new_faction.corporation_allighment	//dripstation edit
+	owner.add_employee(company)	//dripstation edit
+	if(initial(company.paymodifier))	//dripstation edit
+		to_chat(owner.current, span_notice("Your employer within [initial(company.name)] will be paying you an extra [initial(company.paymodifier)]x your nanotrasen paycheck."))	//dripstation edit
 	if(no_faction)
 		if(new_faction.give_codewords)
 			give_codewords()

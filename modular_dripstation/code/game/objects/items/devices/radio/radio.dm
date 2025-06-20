@@ -67,17 +67,64 @@
 	icon_state = "sci_headset"
 
 /obj/item/radio/headset/qm
-	name = "quartermaster`s radio headset"
+	name = "\proper the quartermaster`s radio headset"
 	desc = "The headset of the guy who will one day be second on command."
 	icon_state = "qm_headset"
 	keyslot = new /obj/item/encryptionkey/heads/qm
 	command = TRUE
 
 /obj/item/radio/headset/qm/alt
-	name = "quartermaster`s bowman headset"
+	name = "\proper the quartermaster`s bowman headset"
 	desc = "Do you see the crates? Load into crates. When you finish, you will receive crates. If you lose crates, you will get crates. If you finish the crates, you'll get nothing. You cum in the shuttle, you get ten credits. If you break ten credits, you'll get nothing. Do you see the shuttle? Load into shuttle."
 	icon_state = "qm_headset"
 
 /obj/item/radio/headset/qm/alt/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+
+/obj/item/radio/headset/magistrate
+	name = "\proper the magistrate's radio headset"
+	desc = "The headset of the Magistrate."
+	icon_state = "cap_headset"
+	keyslot = new /obj/item/encryptionkey/heads/procedure
+	command = TRUE
+
+/obj/item/radio/headset/magistrate/alt
+	name = "\proper the magistrate's bowman headset"
+	desc = "The headset of the Magistrate. Protects ears from flashbangs."
+	icon_state = "proc_headset_alt"
+
+/obj/item/radio/headset/magistrate/alt/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+
+/obj/item/radio/headset/ntrep
+	name = "\proper the Nanotrasen Representative's radio headset"
+	desc = "The headset of the Nanotrasen Representative."
+	icon_state = "cap_headset"
+	keyslot = new /obj/item/encryptionkey/heads/procedure
+	command = TRUE
+
+/obj/item/radio/headset/ntrep/alt
+	name = "\proper the Nanotrasen Representative's bowman headset"
+	desc = "The headset of the Nanotrasen Representative. Protects ears from flashbangs."
+	icon_state = "proc_headset_alt"
+
+/obj/item/radio/headset/ntrep/alt/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+
+/obj/item/radio/headset/blueshield
+	name = "\proper the blueshield's radio headset"
+	desc = "The headset of the Blueshield."
+	icon_state = "cent_headset"
+	keyslot = new /obj/item/encryptionkey/heads/bshield
+
+/obj/item/radio/headset/blueshield/alt
+	name = "\proper the blueshield's bowman headset"
+	desc = "The headset of the Blueshield. Protects ears from flashbangs."
+	icon_state = "shield_headset_alt"
+
+/obj/item/radio/headset/blueshield/alt/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))

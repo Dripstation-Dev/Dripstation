@@ -35,7 +35,7 @@
 
 /obj/item/clothing/suit/space/explorer
 	name = "explorer space suit"
-	icon_state = "explorer"
+	icon_state = "space_explorer"
 	//item_state = "explorer"
 	desc = "A suit that protects against low pressure environments. Has a big NT logo on the back. This variation has reinforced bulletproof plating."
 	armor = list(MELEE = 25, BULLET = 25, LASER = 0, ENERGY = 0, BOMB = 20, BIO = 100, RAD = 70, FIRE = 60, ACID = 65, WOUND = 0, ELECTRIC = 100)

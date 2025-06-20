@@ -88,78 +88,78 @@
 	body_parts_covered = HEAD
 	armor = list(MELEE = 15, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 5)
 
-/obj/item/clothing/under/rank/cargo
+/obj/item/clothing/under/rank/cargo/qm
 	icon_state = "qm"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/cargo/qm.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/qm.dmi'
 
-/obj/item/clothing/under/rank/cargo/skirt
+/obj/item/clothing/under/rank/cargo/qm/skirt
 	can_adjust = TRUE
 
-/obj/item/clothing/under/rank/cargo/official
+/obj/item/clothing/under/rank/cargo/qm/official
 	icon_state = "qmtanofficial"
 
-/obj/item/clothing/under/rank/cargo/supply_chief
+/obj/item/clothing/under/rank/cargo/qm/supply_chief
 	icon_state = "supply_chief"
 
-/obj/item/clothing/under/rank/cargo/skirt/supply_chief
+/obj/item/clothing/under/rank/cargo/qm/skirt/supply_chief
 	icon_state = "supply_chief_skirt"
 
-/obj/item/clothing/under/rank/cargo/supply_chief/alt
+/obj/item/clothing/under/rank/cargo/qm/supply_chief/alt
 	icon_state = "supply_chiefalt"
 
-/obj/item/clothing/under/rank/cargo/skirt/supply_chief/alt
+/obj/item/clothing/under/rank/cargo/qm/skirt/supply_chief/alt
 	icon_state = "supply_chiefalt_skirt"
 
-/obj/item/clothing/under/rank/cargo/qmc
+/obj/item/clothing/under/rank/cargo/qm/qmc
 	icon_state = "qmc"
 	desc = "For those cases when you need to order alcohol for the entire station."
 
-/obj/item/clothing/under/rank/cargo/turtleneck/alt
+/obj/item/clothing/under/rank/cargo/qm/turtleneck/alt
 	name = "quartermaster's tactical turtleneck"
 	desc = "Why would a cargo head need to be a tacticool? Ask their coworkers."
 	icon_state = "qmtactical"
 
 // ###### CARGO TECH ######
-/obj/item/clothing/under/rank/cargotech
+/obj/item/clothing/under/rank/cargo/tech
 	custom_price = 50
 	alt_covers_chest = TRUE
 	icon_state = "cargotech"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/cargo/cargotech.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/cargo/cargotech.dmi'
 
-/obj/item/clothing/under/rank/cargotech/customs
+/obj/item/clothing/under/rank/cargo/tech/customs
 	name = "customs uniform"
 	icon_state = "customs_uniform"
 	desc = "Slick uniform issued to Cargonia guard."
 	alt_covers_chest = FALSE
 
-/obj/item/clothing/under/rank/cargotech/mail
+/obj/item/clothing/under/rank/cargo/tech/mail
 	name = "mailman uniform"
 	icon_state = "mailroom_technician"
 	desc = "Uniform issued to Cargonia mailmen. NOTHING STOPS THE MAIL!"
 
-/obj/item/clothing/under/rank/cargotech/delivery
+/obj/item/clothing/under/rank/cargo/tech/delivery
 	name = "delivery officer uniform"
 	icon_state = "deliveries_officer"
 	desc = "Uniform issued to Cargonia delivery officials. Deliver with style!"
 
-/obj/item/clothing/under/rank/cargotech/jean
+/obj/item/clothing/under/rank/cargo/tech/jean
 	name = "technician's tacticool cargo pants"
 	icon_state = "cargotechjean"
 	desc = "Tactical version of standart cargo uniform."
 
-/obj/item/clothing/under/rank/cargotech/skirt/jean
+/obj/item/clothing/under/rank/cargo/tech/skirt/jean
 	name = "technician's tacticool skirt"
 	icon_state = "cargotechjean_skirt"
 	desc = "Tactical version of standart cargo skirt."
 
-/obj/item/clothing/under/rank/cargotech/skirt/mail
+/obj/item/clothing/under/rank/cargo/tech/skirt/mail
 	name = "mailwoman skirt"
 	icon_state = "mailroom_technician_skirt"
 	desc = "Skirt issued to Cargonia mailwomen. NOTHING STOPS THE MAIL!"
 
-/obj/item/clothing/under/rank/cargotech/skirt/delivery
+/obj/item/clothing/under/rank/cargo/tech/skirt/delivery
 	name = "delivery officer skirt"
 	icon_state = "deliveries_officer_skirt"
 	desc = "Skirt issued to Cargonia delivery officials. Deliver with style!"
@@ -245,15 +245,15 @@ obj/item/clothing/suit/hooded/wintercoat/cargo
 	vend_reply = "Thank you for using the CargoDrobe!"
 	default_price = 50
 	products = list(/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
-					/obj/item/clothing/under/rank/cargotech = 3,
-					/obj/item/clothing/under/rank/cargotech/skirt = 3,
-					/obj/item/clothing/under/rank/cargotech/customs = 2,
-					/obj/item/clothing/under/rank/cargotech/jean = 2,
-					/obj/item/clothing/under/rank/cargotech/skirt/jean = 2,
-					/obj/item/clothing/under/rank/cargotech/mail = 3,
-					/obj/item/clothing/under/rank/cargotech/skirt/mail = 3,
-					/obj/item/clothing/under/rank/cargotech/delivery = 3,
-					/obj/item/clothing/under/rank/cargotech/skirt/delivery = 3,
+					/obj/item/clothing/under/rank/cargo/tech = 3,
+					/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
+					/obj/item/clothing/under/rank/cargo/tech/customs = 2,
+					/obj/item/clothing/under/rank/cargo/tech/jean = 2,
+					/obj/item/clothing/under/rank/cargo/tech/skirt/jean = 2,
+					/obj/item/clothing/under/rank/cargo/tech/mail = 3,
+					/obj/item/clothing/under/rank/cargo/tech/skirt/mail = 3,
+					/obj/item/clothing/under/rank/cargo/tech/delivery = 3,
+					/obj/item/clothing/under/rank/cargo/tech/skirt/delivery = 3,
 					/obj/item/clothing/under/rank/miner = 2,
 					/obj/item/clothing/under/rank/miner/skirt = 2,
 					/obj/item/clothing/under/rank/miner/lavaland = 2,

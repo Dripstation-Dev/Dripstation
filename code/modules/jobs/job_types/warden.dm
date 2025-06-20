@@ -38,6 +38,8 @@
 		/obj/item/storage/box/flashbangs = 10,
 		/obj/item/storage/box/rubbershot = 10,
 		/obj/effect/spawner/lootdrop/techshell = 10,
+		/obj/item/storage/box/laserbuckshot = 10,	//dripstation edit
+		/obj/item/storage/belt/sabre/stunsword = 5,	//dripstation edit
 		/obj/item/storage/box/lethalshot = 5
 	)
 

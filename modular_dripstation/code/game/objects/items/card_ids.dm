@@ -174,3 +174,6 @@
 
 /obj/item/card/id/ert/clown
 	icon_state = "ERT_clown"
+
+/obj/item/card/id/makeshift
+	icon = 'modular_dripstation/icons/obj/card.dmi'

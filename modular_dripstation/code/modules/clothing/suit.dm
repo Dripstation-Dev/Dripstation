@@ -111,10 +111,6 @@
 	icon_state = "jwig"
 	item_state = "pwig"
 
-/obj/item/clothing/under/maid
-	name = "maid costume"
-	desc = "Maid in USSP."
-
 /obj/item/clothing/suit/maiddress
 	name = "maid dress"
 	desc = "Classic maid dress for working woman."

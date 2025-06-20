@@ -44,6 +44,10 @@
 	/// Supervisors, who this person answers to directly
 	var/supervisors = ""
 
+	/// The corporation, that person should belongs to by job. NT standart.	Dripstation edit
+	var/datum/corporation/supervisor_corporation = /datum/corporation/nanotrasen/management	//Dripstation edit
+	var/list/alt_supervisor_corporations = list()	//Dripstation edit
+
 	/// What kind of mob type joining players with this job as their assigned role are spawned as.
 	var/spawn_type = /mob/living/carbon/human
 
@@ -161,7 +165,10 @@
 	if(liver)
 		for(var/trait in liver_traits)
 			ADD_TRAIT(liver, trait, JOB_TRAIT)
+	/* Dripstation edit start
 	spawned.mind.add_employee(/datum/corporation/nanotrasen)
+	*/
+	spawned.mind.add_employee(supervisor_corporation)	//	Dripstation edit end
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)

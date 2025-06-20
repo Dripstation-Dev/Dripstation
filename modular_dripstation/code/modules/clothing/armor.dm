@@ -179,12 +179,29 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 	armor = list(MELEE = 5, BULLET = 5, LASER = 60, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100, WOUND = 5)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/hit_reflect_chance = 50
+	toggle_message = "You pull the visor down on"
+	alt_toggle_message = "You push the visor up on"
+	can_toggle = 1
+	flags_inv = HIDEEARS|HIDEFACE
+	actions_types = list(/datum/action/item_action/toggle)
+	visor_flags_inv = HIDEFACE
+	toggle_cooldown = 0
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 /obj/item/clothing/head/helmet/laserproof/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))) //If not shot where ablative is covering you, you don't get the reflection bonus!
 		return FALSE
 	if (prob(hit_reflect_chance))
 		return TRUE
+
+/obj/item/clothing/head/helmet/laserproof/raised/Initialize(mapload)
+	. = ..()
+	up = !up
+	flags_1 ^= visor_flags
+	flags_inv ^= visor_flags_inv
+	flags_cover ^= visor_flags_cover
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
 
 /obj/item/clothing/suit/armor/laserproof
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
@@ -249,6 +266,11 @@ obj/item/clothing/head/helmet/swat/nanotrasen
 /obj/item/clothing/head/helmet/alt
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
+
+/obj/item/clothing/suit/armor/vest/bulletproof/cybersun
+	name = "combat cybersun vest"
+	desc = "Type III bulletproof armor usually issued to paramilitary groups and real soldiers alike. Protects full body. This model has additional armor against energy based weaponry."
+	armor = list(MELEE = 15, BULLET = 60, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"

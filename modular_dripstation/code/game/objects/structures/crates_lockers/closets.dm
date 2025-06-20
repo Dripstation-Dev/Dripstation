@@ -14,6 +14,40 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	icon_state = "med"
 	icon_door = "med_generic"
 
+/obj/structure/closet/secure_closet/paramedic/PopulateContents()
+	..()
+	if(prob(50))
+		new /obj/item/storage/backpack/medic(src)
+	else
+		new /obj/item/storage/backpack/satchel/med(src)
+	new /obj/item/storage/firstaid/hypospray/paramedic(src)
+	new /obj/item/clothing/shoes/sneakers/white(src)
+	switch(pick("blue", "green", "purple"))
+		if ("blue")
+			new /obj/item/clothing/under/rank/medical/doctor/blue(src)
+		if ("green")
+			new /obj/item/clothing/under/rank/medical/doctor/green(src)
+		if ("purple")
+			new /obj/item/clothing/under/rank/medical/doctor/purple(src)
+	switch(pick("blue", "green", "purple"))
+		if ("blue")
+			new /obj/item/clothing/under/rank/medical/doctor/blue(src)
+		if ("green")
+			new /obj/item/clothing/under/rank/medical/doctor/green(src)
+		if ("purple")
+			new /obj/item/clothing/under/rank/medical/doctor/purple(src)
+	new /obj/item/clothing/under/rank/medical/paramedic(src)
+	new /obj/item/clothing/suit/toggle/labcoat/emt(src)
+	new /obj/item/clothing/head/beret/emt/green(src)
+	new /obj/item/clothing/head/beret/emt(src)
+	new /obj/item/clothing/head/soft/emt(src)
+	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/clothing/suit/toggle/labcoat/emt/green(src)
+	new /obj/item/clothing/head/soft/emt/green (src)
+	new /obj/item/radio/headset/headset_med(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+
 /obj/structure/closet/secure_closet/freezer
 	locked_state = "freezer_locked"
 	unlocked_state = "freezer_unlocked"
@@ -22,6 +56,21 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 /obj/structure/closet/secure_closet/psych
 	locked_state = "cabinet_locked"
 	unlocked_state = "cabinet_unlocked"
+
+/obj/structure/closet/secure_closet/psych/PopulateContents()
+	..()
+	new /obj/item/clothing/under/rank/psych(src)
+	new /obj/item/clothing/under/rank/psych/skirt(src)
+	new /obj/item/clothing/under/rank/psych/turtleneck(src)
+	new /obj/item/clothing/suit/straight_jacket(src)
+	new /obj/item/clothing/mask/muzzle(src)
+	new /obj/item/storage/pill_bottle/happiness(src)
+	new /obj/item/storage/pill_bottle/dice(src)
+	new /obj/item/storage/pill_bottle/happy(src)
+	new /obj/item/storage/pill_bottle/lsd(src)
+	new /obj/item/storage/pill_bottle/psicodine(src)
+	new /obj/item/assembly/flash(src)
+	new /obj/item/assembly/flash(src)
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	locked_state = "cabinet_locked"
@@ -122,6 +171,10 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/pinpointer/nuke(src)
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/clothing/gloves/combat(src)
+	if(prob(50))
+		new /obj/item/clothing/neck/petcollar/spike(src)
+	else
+		new /obj/item/clothing/neck/petcollar/sec(src)
 	new /obj/item/storage/belt/security/chief/full(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/hos(src)	
 	new /obj/item/clothing/shoes/xeno_wraps/jackboots/combat(src)
@@ -164,11 +217,10 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/clothing/head/helmet/sec(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/clipboard/yog/paperwork/security(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/radio/security(src)
-	new /obj/item/clipboard/yog/paperwork/security(src)
-	new /obj/item/barrier_taperoll/police(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
@@ -208,14 +260,17 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/personnel(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/clothing/neck/petcollar(src)
+	if(prob(50))
+		new /obj/item/clothing/neck/petcollar(src)
+	else
+		new /obj/item/clothing/neck/petcollar/bell(src)
 	new /obj/item/clothing/suit/armor/vest/light(src)		
 	new /obj/item/pet_carrier(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 	new /obj/item/storage/photo_album/HoP(src)
 	new /obj/item/clipboard/yog/paperwork/hop(src)
-	new /obj/item/gun/energy/e_gun/mini(src)
+	new /obj/item/gun/energy/e_gun/mini/secure(src)
 	new /obj/item/storage/bag/garment/hop(src)
 	new /obj/item/clothing/shoes/leather(src)
 	new /obj/item/clothing/shoes/laceup(src)
@@ -231,7 +286,10 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	else
 		new /obj/item/storage/backpack/satchel/cap(src)
 	new /obj/item/storage/backpack/duffelbag/captain(src)
-	new /obj/item/clothing/neck/petcollar(src)
+	if(prob(50))
+		new /obj/item/clothing/neck/petcollar/holo(src)
+	else
+		new /obj/item/clothing/neck/petcollar/bell(src)
 	new /obj/item/pet_carrier(src)
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/storage/box/silver_ids(src)
@@ -239,6 +297,8 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/radio/headset/heads/captain(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/storage/belt/sabre(src)
+	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
+	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
 	new /obj/item/clothing/glasses/hud/personnel(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/photo_album/Captain(src)
@@ -438,19 +498,68 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	req_access = list(ACCESS_BLUESHIELD)
 	icon_state = "bs"
 
+/obj/structure/closet/secure_closet/blueshield/PopulateContents()
+	..()
+	new /obj/item/storage/firstaid/advanced(src)
+	new /obj/item/clothing/glasses/hud/security(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/storage/box/flashbangs(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/storage/belt/military/assault/blueshield(src)
+	new /obj/item/clothing/suit/armor/bulletproof/blueshield(src)
+	new /obj/item/radio/headset/blueshield(src)
+	new /obj/item/storage/bag/garment/blueshield(src)
+	new /obj/item/clothing/shoes/laceup(src)
+
 // ###### NT REPRESENTATIVE ######
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
 	icon = 'modular_dripstation/icons/obj/closet.dmi'
 	req_access = list(ACCESS_NTREP)
-	icon_state = "cc"
+	icon_state = "ntr"
+
+/obj/structure/closet/secure_closet/ntrep/PopulateContents()
+	..()
+	new /obj/item/book/manual/wiki/security_space_law(src)
+	new /obj/item/storage/secure/briefcase(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/clothing/glasses/hud/personnel(src)
+	new /obj/item/radio/headset/ntrep(src)
+	new /obj/item/storage/bag/garment/ntrep(src)
+	new /obj/item/clothing/shoes/laceup(src)
+	new /obj/item/taperecorder(src)
+	new /obj/item/tape(src)
+	new /obj/item/tape(src)
+	new /obj/item/tape(src)
 
 // ###### MAGISTRATE ######
 /obj/structure/closet/secure_closet/magistrate
 	name = "\improper Magistrate's locker"
 	icon = 'modular_dripstation/icons/obj/closet.dmi'
 	req_access = list(ACCESS_MAGISTRATE)
-	icon_state = "cc"
+	icon_state = "magi"
+
+/obj/structure/closet/secure_closet/magistrate/PopulateContents()
+	..()
+	new /obj/item/book/manual/wiki/security_space_law(src)
+	new /obj/item/storage/secure/briefcase(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/gavelblock(src)
+	new /obj/item/gavelhammer(src)
+	new /obj/item/clothing/accessory/medal/silver/legal(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/radio/headset/magistrate(src)
+	new /obj/item/megaphone(src)
+	new /obj/item/storage/bag/garment/magistrate(src)
+	new /obj/item/clothing/shoes/laceup/brown(src)
+	new /obj/item/clothing/shoes/laceup(src)
+	new /obj/item/taperecorder(src)
+	new /obj/item/tape(src)
+	new /obj/item/tape(src)
+	new /obj/item/tape(src)
 
 // ###### QUARTERMASTER ######
 /obj/structure/closet/secure_closet/quartermaster
@@ -472,6 +581,8 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/backpack/cargo/tactical(src)
 	new /obj/item/circuitboard/machine/techfab/department/cargo(src)
 	new /obj/item/storage/photo_album/QM(src)
+	new /obj/item/stamp(src)
+	new /obj/item/stamp/denied(src)
 	new /obj/item/circuitboard/machine/ore_silo(src)
 	new /obj/item/card/id/departmental_budget/car(src)
 	new /obj/item/clothing/mask/gas(src)
@@ -493,9 +604,11 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/defibrillator/compact/advanced/loaded(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/storage/firstaid/hypospray/deluxe/cmo(src)
-	new /obj/item/autosurgeon/cmo(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
-	new /obj/item/clothing/neck/petcollar(src)
+	if(prob(50))
+		new /obj/item/clothing/neck/petcollar/holo(src)
+	else
+		new /obj/item/clothing/neck/petcollar/bell(src)
 	new /obj/item/pet_carrier(src)
 	new /obj/item/wallframe/defib_mount(src)
 	new /obj/item/circuitboard/machine/techfab/department/medical(src)
@@ -544,7 +657,27 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/clothing/shoes/xeno_wraps/command(src)
 	new /obj/item/storage/lockbox/medal/eng(src)
 	new /obj/item/barrier_taperoll/engineering(src)
-	new /obj/item/multisurgeon/magboots(src)
+
+/obj/structure/closet/secure_closet/cargotech
+	name = "\improper cargotech's locker"
+	desc = "Crates. Pull them. Lockers. Push them."
+	icon = 'modular_dripstation/icons/obj/closet.dmi'
+	req_access = list(ACCESS_CARGO)
+	icon_state = "cargo"
+
+/obj/structure/closet/secure_closet/cargotech/PopulateContents()
+	..()
+	new /obj/item/clothing/under/rank/cargo/tech(src)
+	new /obj/item/clothing/under/rank/cargo/tech/skirt(src)
+	new /obj/item/clothing/shoes/workboots/cargo(src)
+	new /obj/item/storage/backpack/cargo(src)
+	new /obj/item/storage/backpack/satchel/cargo(src)
+	new /obj/item/storage/backpack/duffelbag/cargo(src)
+	new /obj/item/clothing/gloves/fingerless(src)
+	new /obj/item/radio/headset/headset_cargo(src)
+	new /obj/item/export_scanner(src)
+	new /obj/item/stamp(src)
+	new /obj/item/stamp/denied(src)
 
 /obj/structure/closet/l3closet/PopulateContents()
 	new /obj/item/storage/bag/bio(src)
@@ -616,3 +749,16 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/clothing/gloves/color/latex/hazmat/cyan(src)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/oxygen(src)
+
+/////SYNDICATE/////
+/obj/structure/closet/syndicate/personal
+
+/obj/structure/closet/syndicate/personal/PopulateContents()
+	..()
+	new /obj/item/clothing/under/syndicate(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/radio/headset/syndicate(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)	//probably fix this in weapon update
+	new /obj/item/storage/belt/military(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/clothing/glasses/night(src)

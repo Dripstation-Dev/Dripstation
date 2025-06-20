@@ -32,10 +32,17 @@
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
 
+/*
 	if(traitor_kind == TRAITOR_AI)
+*/
+	if(traitor_kind == TRAITOR_AI || (owner.current && isipc(owner.current)))	//dripstation edit
 		company = /datum/corporation/self
+		allowed_factions = list(TRAITOR_FACTION_SELF)	//dripstation edit
 	else if(!company)
+	/*Dripstation edit, checking upstream prs for edit, for now using drip code
 		company = pick(subtypesof(/datum/corporation/traitor))
+	*/
+		company = /datum/corporation/traitor/independent	//dripstation edit, solo untill picking company
 	owner.add_employee(company)
 
 	SSticker.mode.traitors += owner
@@ -260,9 +267,11 @@
 	msg += "<span class='alertsyndie'>Use the 'Traitor Info and Backstory' action at the top left in order to select a backstory and review your objectives, uplink location, and codewords!</span>"
 	to_chat(owner.current, EXAMINE_BLOCK(msg.Join("\n")))
 	owner.announce_objectives()
+/*
 	if(should_give_codewords)
 		give_codewords()
 	to_chat(owner.current, span_notice("Your employer [initial(company.name)] will be paying you an extra [initial(company.paymodifier)]x your nanotrasen paycheck."))
+*/
 
 /datum/antagonist/traitor/proc/finalize_traitor()
 	switch(traitor_kind)

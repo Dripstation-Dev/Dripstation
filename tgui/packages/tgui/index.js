@@ -26,6 +26,11 @@ import './styles/themes/retro.scss';
 import './styles/themes/syndicate.scss';
 import './styles/themes/wizard.scss';
 import './styles/themes/donk_co.scss';
+// Dripstation edit start
+import './styles/themes/independent.scss';
+import './styles/themes/cyber_sundrip.scss';
+import './styles/themes/donk_codrip.scss';
+// Dripstation edit end
 import './styles/themes/waffle_co.scss';
 import './styles/themes/cyber_sun.scss';
 import './styles/themes/vahlen.scss';

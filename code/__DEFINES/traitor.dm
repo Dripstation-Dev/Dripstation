@@ -8,6 +8,7 @@
 #define TRAITOR_FACTION_GORLEX "gorlex marauders"
 #define TRAITOR_FACTION_SELF "self"
 #define TRAITOR_FACTION_BOSYN "bosyn_powell_front"
+#define TRAITOR_FACTION_VOSTOK "vostok"
 
 /// If this backstory involves being forced into the job
 #define TRAITOR_MOTIVATION_FORCED "Forced Into It"

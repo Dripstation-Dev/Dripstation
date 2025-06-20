@@ -188,6 +188,52 @@
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/syndicate.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/syndicate.dmi'
 
+/obj/item/clothing/under/syndicate/sniper
+	name = "executive suit"
+	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit. Intended for the most formal operator. The collar is really sharp."
+	icon_state = "tactical_suit"
+	item_state = "bl_suit"
+	can_adjust = FALSE
+	mutantrace_variation = DIGITIGRADE_VARIATION
+
+/obj/item/clothing/under/syndicate/sniper/female
+	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit for women. Intended for the most formal operator. The collar is really sharp."
+	icon_state = "tactical_suit_fem"
+	item_state = "black_suit_fem"
+	can_adjust = FALSE
+	mutantrace_variation = NONE
+
+/obj/item/clothing/suit/armor/vest/capcarapace/syndicate
+	desc = "A fireproof armored chestpiece reinforced with ceramic plates and plasteel pauldrons to provide additional protection whilst still offering maximum mobility and flexibility. Issued only to the syndicate's finest, although it does chafe your nipples."
+	icon_state = "syndie_carapace"
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/suit/toggle/capformal/syndicate
+	icon_state = "syndie_coat"
+	resistance_flags = FIRE_PROOF
+	mutantrace_variation = NONE
+
+/obj/item/clothing/suit/armor/hos/syndicate
+	name = "syndicate captain's armored coat"
+	mutantrace_variation = NONE
+	pocket_storage_component_path = null
+	armor = list(MELEE = 40, BULLET = 35, LASER = 40, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, WOUND = 15)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/suit/armor/hos/syndicate/winter
+	name = "syndicate captain's unarmored winter coat"
+	desc = "Winter fashion!"
+	armor = list(MELEE = 10, BULLET = 15, LASER = 10, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, WOUND = 15)
+	resistance_flags = FIRE_PROOF
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/suit/armor/hos/syndicate/winter/armored
+	name = "syndicate captain's armored winter coat"
+	desc = "A sinister looking vest of advanced armor worn over a black and red fireproof jacket. The gold collar and shoulders denote that this belongs to a high ranking syndicate officer."
+	armor = list(MELEE = 40, BULLET = 35, LASER = 40, ENERGY = 25, BOMB = 25, BIO = 0, RAD = 0, FIRE = 100, ACID = 90, WOUND = 15)
+	resistance_flags = FIRE_PROOF
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
 /////Donk Co//////
 /obj/item/clothing/under/syndicate/donk
 	name = "Donk! Co. employee uniform"
@@ -274,7 +320,7 @@
 /obj/item/clothing/under/syndicate/cybersun
 	name = "Cybersun clerk uniform"
 	desc = "Standart uniform worn by personnel employed by Cybersun industries."
-	icon_state = "cybersun_combat"
+	icon_state = "cybersun_clerk"
 	mutantrace_variation = NONE
 
 /obj/item/clothing/under/syndicate/cybersun/lab
@@ -303,6 +349,12 @@
 	icon_state = "cybersun_combat"
 	mutantrace_variation = NONE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, FIRE = 60, ACID = 100, WOUND = 10, ELECTRIC = 0)
+
+/obj/item/clothing/under/costume/mech_suit/cybersun
+	desc = "An armored mech pilot suit, used exclusively by Cybersun mech operators."
+	icon_state = "cybersun_mech_suit"
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/syndicate.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/syndicate.dmi'
 
 //////////Waffle Co//////////////
 /obj/item/clothing/under/syndicate/waffle
@@ -397,3 +449,4 @@
 	icon_state = "gec_ce"
 	mutantrace_variation = NONE
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 80, ACID = 40, WOUND = 0, ELECTRIC = 0)
+

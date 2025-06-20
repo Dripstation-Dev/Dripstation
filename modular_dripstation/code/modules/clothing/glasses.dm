@@ -280,7 +280,6 @@
 
 /obj/item/clothing/glasses/welding
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
-	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 
 /obj/item/clothing/glasses/regular
 	flags_cover = null //GLASSESCOVERSEYES
@@ -313,9 +312,9 @@
 	hud_type = DATA_HUD_MEDICAL_BASIC
 	flags_cover = null //GLASSESCOVERSEYES
 
-/obj/item/clothing/glasses/hud/health/regular
-	name = "prescription health glasses"
-	desc = "Protect your vision with stile!"
+/obj/item/clothing/glasses/regular
+	name = "prescription glasses"
+	desc = "Corrects your vision!"
 	icon_state = "glasses"
 	item_state = "glasses"
 	vision_correction = 1 //corrects nearsightedness

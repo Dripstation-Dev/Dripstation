@@ -1,3 +1,6 @@
+/datum/job/security
+	supervisor_corporation = /datum/corporation/spearhead
+
 /datum/outfit/job/security
 	gloves = /obj/item/clothing/gloves/color/black/tactifool
 	suit = /obj/item/clothing/suit/armor/vest

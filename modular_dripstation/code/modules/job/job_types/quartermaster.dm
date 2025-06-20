@@ -21,6 +21,8 @@
 		/datum/job_department/cargo,
 		/datum/job_department/command,
 	)
+	supervisor_corporation = /datum/corporation/nanotrasen/kompac
+
 /datum/outfit/job/quartermaster
 	id_type = /obj/item/card/id/head
 	ears = /obj/item/radio/headset/qm

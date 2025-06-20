@@ -143,7 +143,7 @@
 					/obj/item/clothing/suit/armor/officerjacket,
 					/obj/item/clothing/head/beret/sec/navyofficer,
 					/obj/item/clothing/head/beret/sec/navyofficer,
-					/obj/item/clothing/under/rank/warden/navyblue,
+					/obj/item/clothing/under/rank/security/warden/navyblue,
 					/obj/item/clothing/suit/armor/wardenjacket,
 					/obj/item/clothing/head/beret/sec/navywarden)
 
@@ -153,8 +153,8 @@
 	cost = 3000
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
 					/obj/item/clothing/suit/armor/laserproof,
-					/obj/item/clothing/head/helmet/laserproof,
-					/obj/item/clothing/head/helmet/laserproof)
+					/obj/item/clothing/head/helmet/laserproof/raised,
+					/obj/item/clothing/head/helmet/laserproof/raised)
 
 /datum/supply_pack/clearance/heavymining
 	name = "Old Mining Hardsuit Crate"
@@ -162,6 +162,16 @@
 	cost = 3000
 	order_limit = 1
 	contains = list(/obj/item/clothing/suit/space/hardsuit/heavymining)
+
+/datum/supply_pack/security/armory/mindshield
+	desc = "Prevent against radical thoughts with three Mindshield implants. Requires Armory access to open."
+
+/datum/supply_pack/security/armory/amnestic
+	name = "Amnestic Implants Crate"
+	desc = "Revert radical thoughts with three Amnestic implants. Requires Armory access to open."
+	cost = 4000
+	contains = list(/obj/item/storage/lockbox/amnestic)
+	crate_name = "amnestic implant crate"
 
 /datum/supply_pack/security/armory/hos
 	name = "Head of Security Armor Crate"
@@ -174,11 +184,8 @@
 					/obj/item/clothing/suit/armor/riot/hos)
 	crate_name = "hos supply crate"
 
-/datum/supply_pack/security/armory/laser		//dripstation mooving lethals to the armory
-	name = "Lasers Crate"
-	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
-	cost = 2000
-	contains = list(/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser)
-	crate_name = "laser crate"
+/datum/supply_pack/weaponry/ballistic
+	desc = "For when the enemy absolutely needs to be replaced with lead. Contains three Militech-designed Combat Shotguns, and three Shotgun Bandoliers. Requires Armory access to open."
+
+/datum/supply_pack/weaponry/ballistic_single
+	desc = "For when the enemy absolutely needs to be replaced with lead. Contains one Militech-designed Combat Shotgun, and one Shotgun Bandolier. Requires Armory access to open."

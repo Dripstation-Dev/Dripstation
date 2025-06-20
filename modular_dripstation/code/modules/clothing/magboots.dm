@@ -99,11 +99,13 @@
 
 /obj/item/clothing/shoes/magboots/syndie/elite
 	name = "elite magboots"
-	icon_state = "gsyndiemag"
+	icon_state = "gsyndiemag0"
+	magboot_state = "gsyndiemag"
 
 /obj/item/clothing/shoes/magboots/syndie/blred
 	name = "blood-red magboots"
-	icon_state = "brsyndiemag"
+	icon_state = "brsyndiemag0"
+	magboot_state = "brsyndiemag"
 
 /obj/item/clothing/shoes/magboots/paramedic
 	name = "paramedic magboots"

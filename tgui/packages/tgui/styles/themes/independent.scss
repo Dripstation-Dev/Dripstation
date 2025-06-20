@@ -1,0 +1,51 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
+ @use 'sass:color';
+ @use 'sass:meta';
+ 
+ $independent: #ffb300;
+ 
+ @use '../colors.scss' with (
+   $primary: $independent,
+   $fg-map-keys: (),
+   $bg-map-keys: ()
+ );
+ @use '../base.scss' with (
+   $color-bg: color.scale($independent, $lightness: -40%),
+   $color-bg-grad-spread: 6%
+ );
+ 
+ .theme-independent {
+   // Components
+   @include meta.load-css(
+     '../components/Button.scss',
+     $with: (
+       'color-default': color.scale($independent, $lightness: -30%),
+       'color-transparent-text': color.scale($independent, $lightness: 30%)
+     )
+   );
+   @include meta.load-css(
+     '../components/ProgressBar.scss',
+     $with: (
+       'color-default-fill': $independent,
+       'background-color': rgba(0, 0, 0, 0.5)
+     )
+   );
+   @include meta.load-css('../components/Section.scss');
+ 
+   // Layouts
+   @include meta.load-css('../layouts/Layout.scss');
+   @include meta.load-css('../layouts/Window.scss');
+   @include meta.load-css(
+     '../layouts/TitleBar.scss',
+     $with: ('background-color': color.scale($independent, $lightness: -25%))
+   );
+ 
+   .Layout__content {
+     background-image: none;
+   }
+ }
+ 

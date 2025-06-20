@@ -50,3 +50,12 @@
 			item_state = "vialbox_secure"
 		else
 			item_state = "vialbox"
+
+/obj/item/storage/lockbox/amnestic
+	name = "lockbox of amnestic implants"
+	req_access = list(ACCESS_SECURITY)
+
+/obj/item/storage/lockbox/amnestic/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/implantcase/amnestic(src)
+	new /obj/item/implanter/amnestic(src)

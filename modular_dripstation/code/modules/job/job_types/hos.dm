@@ -1,3 +1,6 @@
+/datum/job/hos
+	supervisor_corporation = /datum/corporation/spearhead
+
 /datum/outfit/job/hos
 	id_type = /obj/item/card/id/head
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators

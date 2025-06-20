@@ -87,12 +87,21 @@
   */
 /datum/martial_art/proc/add_to_streak(element,mob/living/carbon/human/D)
 	if(D != current_target)
+		/* Dripstation edit start
 		current_target = D
 		streak = ""
+		*/
+		reset_streak(D)	//Dripstation edit end
 		restraining = 0
 	streak = streak+element
 	if(length(streak) > max_streak_length)
 		streak = copytext(streak, 1 + length(streak[1]))
+	//Dripstation edit start
+	if (display_combos)
+		var/mob/living/holder_living = holder.resolve()
+		timerid = addtimer(CALLBACK(src, PROC_REF(reset_streak), null, FALSE), combo_timer, TIMER_UNIQUE | TIMER_STOPPABLE)
+		holder_living?.hud_used?.combo_display.update_icon_state(streak, combo_timer - 2 SECONDS)
+	//Dripstation edit end
 	return
 
 /**
@@ -168,7 +177,10 @@
 		base = H.mind.default_martial_art
 	if(help_verb)
 		add_verb(H, help_verb)
+	//dripstation edit start
 	H.mind.martial_art = src
+	holder = WEAKREF(H)
+	//dripstation edit end
 	if(no_guns)
 		for(var/mob/living/simple_animal/hostile/guardian/guardian in H.hasparasites())
 			guardian.stats.ranged = FALSE
@@ -203,6 +215,7 @@
 	else
 		var/datum/martial_art/X = H.mind.default_martial_art
 		X.teach(H)
+	holder = null	//dripstation edit
 /**
   * martial art on_remove handler proc
   *

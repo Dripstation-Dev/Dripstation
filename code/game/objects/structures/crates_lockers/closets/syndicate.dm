@@ -6,6 +6,7 @@
 /obj/structure/closet/syndicate/personal
 	desc = "It's a personal storage unit for operative gear."
 
+/* Dripstation edit, check modular_dripstation\code\game\objects\structures\crates_lockers\closets.dm
 /obj/structure/closet/syndicate/personal/PopulateContents()
 	..()
 	new /obj/item/clothing/under/syndicate(src)
@@ -15,6 +16,7 @@
 	new /obj/item/storage/belt/military(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/clothing/glasses/night(src)
+*/
 
 /obj/structure/closet/syndicate/nuclear
 	desc = "It's a storage unit for a Syndicate boarding party."

@@ -99,8 +99,12 @@
 /mob/living/simple_animal/pet/regenerate_icons()
 	cut_overlays()
 	if(pcollar && collar_type)
+/* Dripstation edit
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+*/
+		add_overlay(mutable_appearance('modular_dripstation/icons/mob/pet.dmi', "[collar_type]collar[pcollar.collar]"))
+		add_overlay(mutable_appearance('modular_dripstation/icons/mob/pet.dmi', "[collar_type]tag[pcollar.tagtype]"))
 
 /mob/living/simple_animal/pet/proc/wuv(mob/M, change = TRUE)
 	if(change)

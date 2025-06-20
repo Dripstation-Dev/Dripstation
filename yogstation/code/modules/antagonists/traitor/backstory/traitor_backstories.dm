@@ -12,8 +12,11 @@
 		TRAITOR_FACTION_VAHLEN,
 		TRAITOR_FACTION_GORLEX,
 		TRAITOR_FACTION_SELF,
+		TRAITOR_FACTION_VOSTOK)
+/*Dripstation edit
 		TRAITOR_FACTION_BOSYN
 	)
+*/
 	/// A list of motivation types for this backstory, used for filtering and searching
 	var/list/motivations = list()
 	/// If this backstory suggested for murderboning or hijacking
@@ -70,7 +73,9 @@
 
 /datum/traitor_backstory/hater
 	name = "The Hater"
+/*
 	description = "Nanotrasen ruined my life. They ruined everything. They took the things that I love away from me. <b>Now I'm going to make them pay.</b>"
+*/
 	motivations = list(TRAITOR_MOTIVATION_NOT_FORCED, TRAITOR_MOTIVATION_POLITICAL, TRAITOR_MOTIVATION_LOVE)
 	murderbone = TRUE
 

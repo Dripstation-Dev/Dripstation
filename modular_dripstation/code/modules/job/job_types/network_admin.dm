@@ -1,3 +1,7 @@
+/datum/job/network_admin
+	supervisor_corporation = /datum/corporation/nanotrasen/interstellar_industries
+	alt_supervisor_corporations = list(/datum/corporation/hephaestus/industrial)
+
 /datum/outfit/job/network_admin
 	belt = null
 	backpack = /obj/item/storage/backpack/industrial/signal
