@@ -11,6 +11,7 @@
 	backpack = /obj/item/storage/backpack/industrial/ce
 	satchel = /obj/item/storage/backpack/satchel/ce
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering/ce
+	backpack_contents = list(/obj/item/melee/classic_baton/telescopic/silver=1) 
 
 /datum/outfit/job/plasmaman/ce
 	id_type = /obj/item/card/id/head
@@ -21,5 +22,6 @@
 	backpack = /obj/item/storage/backpack/industrial/ce
 	satchel = /obj/item/storage/backpack/satchel/ce
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering/ce
+	backpack_contents = list(/obj/item/melee/classic_baton/telescopic/silver=1) 
 
 	pda_slot = ITEM_SLOT_LPOCKET

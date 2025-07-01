@@ -441,7 +441,10 @@
 	if(!alt_click_can_use_id(user))
 		return
 	if(!registered_account)
+		/* dripstation edit
 		var/new_bank_id = input(user, "Enter your account ID number.", "Account Reclamation", 111111) as num
+		*/
+		var/new_bank_id = tgui_input_number(user, "Enter your account ID number.", "Account Reclamation",  default = 111111)
 		if(!alt_click_can_use_id(user))
 			return
 		if(!new_bank_id || new_bank_id < 111111 || new_bank_id > 999999)
@@ -456,6 +459,15 @@
 			return
 		to_chat(user, span_warning("The account ID number provided is invalid."))
 		return
+
+	if(!corporation)	// dripstation edit start
+		var/new_corporation = tgui_input_text(user, "Enter your corporation.", "Account Reclamation", default = "Nanotrasen Human Resources Management", max_length = MAX_MESSAGE_LEN)
+		if(!new_corporation)
+			return
+		for(var/datum/corporation/C in GLOB.corporations)
+			if(C.name != new_corporation)
+				continue
+			corporation = new_corporation		// dripstation edit end
 
 	if (world.time < registered_account.withdrawDelay)
 		registered_account.bank_card_talk(span_warning("ERROR: UNABLE TO LOGIN DUE TO SCHEDULED MAINTENANCE. MAINTENANCE IS SCHEDULED TO COMPLETE IN [(registered_account.withdrawDelay - world.time)/10] SECONDS."), TRUE)
@@ -527,6 +539,8 @@
 	.=..()
 	if(registered_age)
 		. += "The card indicates that the holder is [registered_age] years old. [(registered_age < AGE_MINOR) ? "There's a holographic stripe that reads <b>[span_danger("'MINOR: DO NOT SERVE ALCOHOL OR TOBACCO'")]</b> along the bottom of the card." : ""]"
+	if(corporation)																	//dripstation edit
+		. += "The card indicates that the holder is contracted with [corporation]."	//dripstation edit
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 
@@ -564,7 +578,7 @@ update_label("John Doe", "Clowny")
 		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
 		return
 
-	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment]"][(!corporation) ? ")" : ", [corporation])"]"	//dripstation edit
 
 //a card that can't register a bank account IC
 /obj/item/card/id/no_bank/AltClick(mob/living/user)
@@ -693,6 +707,10 @@ update_label("John Doe", "Clowny")
 			if(!target_occupation)
 				return
 
+			var/target_corporation = tgui_input_text(user, "What corporation alligment would you like to put on this card?\nNote: This will not grant any additional payments.", "Agent card corp assignment", assignment ? assignment : "Nanotrasen Human Resources Management", MAX_MESSAGE_LEN)	//dripstation edit
+			if(!target_corporation)
+				return
+
 			/*	dripstation edit
 			var/newAge = input(user, "Choose the ID's age:\n([AGE_MIN]-[AGE_MAX])", "Agent card age") as num|null
 			if(newAge)
@@ -700,9 +718,13 @@ update_label("John Doe", "Clowny")
 			*/
 			registered_age = tgui_input_number(user, "Choose the ID's age:\n([AGE_MIN]-[AGE_MAX])", "Agent card age", default = 18, max_value = AGE_MAX, min_value = AGE_MIN)		//dripstation edit
 
+			if(tgui_alert(user, "Activate wallet ID spoofing, allowing this card to force itself to occupy the visible ID slot in wallets?", "Wallet ID Spoofing", list("Yes", "No")) == "Yes")		//dripstation edit
+				ADD_TRAIT(src, TRAIT_MAGNETIC_ID_CARD, CHAMELEON_ITEM_TRAIT)																														//dripstation edit
+
 			registered_name = input_name
 			assignment = target_occupation
 			originalassignment = target_occupation
+			corporation = target_corporation	//dripstation edit
 			update_label()
 			forged = TRUE
 			to_chat(user, span_notice("You successfully forge the ID card."))
@@ -726,6 +748,7 @@ update_label("John Doe", "Clowny")
 			overlays.Cut()						//dripstation edit
 			assignment = initial(assignment)
 			originalassignment = initial(originalassignment)
+			REMOVE_TRAIT(src, TRAIT_MAGNETIC_ID_CARD, CHAMELEON_ITEM_TRAIT)
 			log_game("[key_name(user)] has reset \the [initial(name)] named \"[src]\" to default.")
 			update_label()
 			forged = FALSE

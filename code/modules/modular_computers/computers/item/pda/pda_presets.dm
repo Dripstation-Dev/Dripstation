@@ -251,8 +251,10 @@
 //for inside one of the nukie lockers
 /obj/item/modular_computer/tablet/pda/preset/syndicate
 	desc = "Based off Nanotrasen's PDAs, this one has been reverse-engineered and loaded with illegal software provided by the Syndicate."
+/*Dripstation edit
 	greyscale_config = /datum/greyscale_config/tablet/stripe_thick
 	greyscale_colors = "#A80001#5C070F#000000"
+*/
 
 /obj/item/modular_computer/tablet/pda/preset/syndicate/Initialize(mapload)
 	obj_flags |= EMAGGED //starts emagged
@@ -269,6 +271,7 @@
 	obj_flags |= EMAGGED //starts emagged //rather have this than re-do clown stuff over
 	starting_files |= list(
 		new /datum/computer_file/program/bomberman,
+		new /datum/computer_file/program/radar/fission360,	/*Dripstation edit*/
 	)
 	return ..()
 

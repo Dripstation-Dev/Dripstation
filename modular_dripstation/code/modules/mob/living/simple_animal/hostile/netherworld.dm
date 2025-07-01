@@ -12,9 +12,16 @@
 	spawn_text = "crawls through"
 	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody, /mob/living/simple_animal/hostile/netherworld/fcult/wretch, /mob/living/simple_animal/hostile/netherworld/fcult/pentarox)
 	faction = list("nether")
+	var/music_component = /datum/component/music_player
+	var/music_path = /datum/music/sourced/nether
 
 /obj/structure/spawner/nether/Initialize(mapload)
 	.=..()
+	if(music_component && music_path)
+		var/pathm = "[global.config.directory]/sound/portal_nightrealm_loop.ogg"
+		var/datum/music/n = music_path
+		n.sound_file = pathm
+		AddComponent(music_component, n)
 	START_PROCESSING(SSprocessing, src)
 
 /obj/structure/spawner/nether/examine(mob/user)

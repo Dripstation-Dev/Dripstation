@@ -171,6 +171,7 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
+	icon = 'modular_dripstation/icons/mob/alienmaid.dmi'
 
 /mob/living/simple_animal/hostile/alien/maid/Initialize(mapload)
 	. = ..()

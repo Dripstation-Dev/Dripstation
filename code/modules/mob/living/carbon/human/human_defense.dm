@@ -46,8 +46,9 @@
 
 
 /mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone)
-	var/obj/item/card/id/I = get_item_by_slot(ITEM_SLOT_ID)	//dripstation edit
-	if(I?.iff_signal & P.iff_signal)				//dripstation edit
+	var/obj/item/W = get_item_by_slot(ITEM_SLOT_ID)	//dripstation edit
+	var/obj/item/card/id/I = W?.GetID()				//dripstation edit
+	if(istype(I) && (I?.iff_signal & P.iff_signal))	//dripstation edit
 		return BULLET_ACT_FORCE_PIERCE				//dripstation edit
 	if(P.precise && get_dist(P.firer, src) <= 2)	//dripstation edit
 		return BULLET_ACT_FORCE_PIERCE				//dripstation edit
@@ -149,6 +150,10 @@
 		var/final_block_chance = wear_neck.block_chance - (clamp((armour_penetration-wear_neck.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(wear_neck.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return TRUE
+	if(head)	//dripstation edit start
+		var/final_block_chance = head.block_chance - (clamp((armour_penetration-head.armour_penetration)/2,0,100)) + block_chance_modifier
+		if(head.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
+			return TRUE	//dripstation edit end
 	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, damage, attack_text, attack_type, armour_penetration, damage_type) & SHIELD_BLOCK)
 		return TRUE
 	return FALSE

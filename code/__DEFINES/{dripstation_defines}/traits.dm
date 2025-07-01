@@ -3,6 +3,8 @@
 #define TRAIT_MEDIC				"medic"
 #define TRAIT_NOSURGERY		"no_surgery"
 #define TRAIT_NOGUNS_QUIRK		"nogun_quirk"
+#define TRAIT_BADASS 		"trait_badass"
+#define HOLO_CIGAR 			"holo_cigar"
 
 /// Prevents shovies and some strong blows such as unarmed punches and (unreliably) tackles the owner down
 #define TRAIT_BRAWLING_KNOCKDOWN_BLOCKED "brawling_knockdown_blocked"

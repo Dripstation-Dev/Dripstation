@@ -51,7 +51,7 @@
 			if(L.embedded_objects)
 				var/mob/living/carbon/C = target
 				var/obj/item/I = pick(L.embedded_objects)
-				if(C.remove_embedded_object(I, C.drop_location(), TRUE))
+				if(C.remove_embedded_object(I))
 					display_results(user, target, span_notice("You successfully remove \the [I] from [C]'s [L.name]."),
 						"[user] successfully removes \the [I] from [C]'s [L]!",
 						"[user] successfully removes \the [I] from [C]'s [L]!")

@@ -510,6 +510,8 @@
 	. = 1
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
 	M.adjustToxLoss(1.5*REM, 0)
 	M.adjustOxyLoss(1.5*REM, 0)
 	M.adjustBruteLoss(1.5*REM, FALSE, FALSE, BODYPART_ORGANIC)
@@ -962,6 +964,7 @@
 	..()
 	. = 1
 
+/* Dripstation edit
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	description = "Efficiently restores brain damage."
@@ -970,6 +973,7 @@
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
 	C.adjustOrganLoss(ORGAN_SLOT_BRAIN, (holder.has_reagent(/datum/reagent/drug/methamphetamine) ? 0 : -2)*REM)
 	..()
+*/
 
 /datum/reagent/medicine/neurine
 	name = "Neurine"
@@ -1024,32 +1028,54 @@
 	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
 	color = "#78008C"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	overdose_threshold = 60
+	overdose_threshold = 45	//dripstation edit
+	var/trippy = TRUE		//dripstation edit
+	var/started_tripping = FALSE		//dripstation edit
 
 /datum/reagent/medicine/stimulants/on_mob_metabolize(mob/living/L)
 	..()
+	addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, overlay_fullscreen),"eyestatic", /atom/movable/screen/fullscreen/flash/static/stim), 2 SECONDS)//dripstation edit
+	addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, clear_fullscreen), "eyestatic"), 8 SECONDS)//dripstation edit
+	if(trippy && !started_tripping)//dripstation edit
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/reagent/medicine/stimulants, apply_tripping_effect), L), 8 SECONDS)//dripstation edit
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.physiology.brute_mod *= 0.8
+		H.physiology.burn_mod *= 0.8
+
+/datum/reagent/medicine/stimulants/proc/apply_tripping_effect(mob/living/M)	//Dripstation edit
+	M.adjust_tripping_up_to(10 SECONDS * REM, 20 SECONDS)//dripstation edit
+	started_tripping = TRUE
 
 /datum/reagent/medicine/stimulants/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
+	started_tripping = FALSE		//dripstation edit
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.physiology.brute_mod /= 0.8
+		H.physiology.burn_mod /= 0.8
 	..()
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/carbon/M)
-	/*	//dripstation edit
-	if(M.health < 50 && M.health > 0)
-	*/
-	if(M.health < 50 && M.health > M.crit_threshold)	//dripstation edit
-	/*	//dripstation edit
+	if(started_tripping)										//dripstation edit
+		M.adjust_tripping_up_to(10 SECONDS * REM, 20 SECONDS)	//dripstation edit
+	if(!overdosed)
+		if(M.health < 50 && M.health > M.crit_threshold)		//dripstation edit
+			M.adjustToxLoss(-1*REM, 0)
+			M.adjustBruteLoss(-1*REM, 0)
+			M.adjustFireLoss(-1*REM, 0)
 		M.adjustOxyLoss(-1*REM, 0)
-	*/
-		M.adjustToxLoss(-1*REM, 0)
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-	M.adjustOxyLoss(-1*REM, 0)
-	M.AdjustAllImmobility(-60, FALSE)
-	M.adjustStaminaLoss(-30*REM, 0)
+		M.AdjustAllImmobility(-60, FALSE)
+		M.adjustStaminaLoss(-30*REM, 0)
 	..()
 	. = 1
+
+datum/reagent/medicine/stimulants/overdose_start(mob/living/M)	//dripstation edit
+	M.set_confusion_if_lower(10 SECONDS)						//dripstation edit
+	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 1.5 SECONDS), 0.5 SECONDS)//dripstation edit
+	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, apply_stun_effect)), 2 SECONDS)					//dripstation edit
+	..()
 
 /datum/reagent/medicine/stimulants/overdose_process(mob/living/M)
 	if(prob(33))
@@ -1062,7 +1088,10 @@
 /datum/reagent/medicine/stimulants/nanite
 	name = "Nano-Stimulants"
 	description = "Nanite synthesized muscle stimulation mix that temporarily increases speed and stun resistance slightly. Overdose causes weakness and toxin damage."
+	trippy = FALSE	//Dripstation edit
+	metabolization_rate = REAGENTS_METABOLISM	//x2 faster metabolization
 
+/* Dripstation edit
 /datum/reagent/medicine/stimulants/nanite/on_mob_metabolize(mob/living/L)
 	..()
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.25, blacklisted_movetypes=(FLYING|FLOATING))
@@ -1083,6 +1112,7 @@
 	M.adjustStaminaLoss(-15*REM, 0)
 	..()
 	. = 1
+*/
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"

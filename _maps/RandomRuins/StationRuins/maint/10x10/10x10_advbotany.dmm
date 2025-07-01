@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "b" = (
-/obj/structure/grille/broken,
+/obj/effect/spawner/lootdrop/grille,
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -31,10 +31,6 @@
 /area/template_noop)
 "n" = (
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating,
-/area/template_noop)
-"o" = (
-/obj/structure/grille,
 /turf/open/floor/plating,
 /area/template_noop)
 "p" = (
@@ -268,7 +264,7 @@ U
 y
 p
 U
-o
+b
 U
 U
 "}
@@ -302,7 +298,7 @@ b
 J
 U
 u
-o
+b
 X
 p
 B
@@ -310,7 +306,7 @@ U
 "}
 (10,1,1) = {"
 U
-o
+b
 U
 U
 z

@@ -3,11 +3,13 @@
 ///Standart 5.56
 /obj/projectile/bullet/a556
 	armour_penetration = 10
+	ap_falloff_tile = 2.5
 
 ///Incendiary 5.56
 /obj/projectile/bullet/incendiary/a556
 	armour_penetration = 20
 	wound_bonus = -35
+	ap_falloff_tile = 2.5
 
 ///New SSAAP 5.56
 /obj/projectile/bullet/a556/ssaap
@@ -18,6 +20,7 @@
 	penetrations = 1
 	hard_armour_penetration = 10	//penetrates hard armor
 	wound_bonus = -45
+	ap_falloff_tile = 1
 
 ///AP 5.56
 /obj/projectile/bullet/a556/ap
@@ -26,6 +29,12 @@
 	armour_penetration = 40
 	wound_bonus = -45
 
+/obj/projectile/bullet/a556/ihdf
+	name = "5.56mm frag bullet"
+	damage = 20
+	bare_wound_bonus = 50
+	embedding = list("pain_multiplier" = 3, "embed_chance" = 65, "fall_chance" = 0, "impact_pain_multiplier" = 6, "ignore_throwspeed_threshold" = 1, "remove_pain_mult" = 4)
+
 // 5.45mm (AK)
 ///Standart 5.45
 /obj/projectile/bullet/a545
@@ -33,6 +42,7 @@
 	damage = 28
 	wound_bonus = -25
 	armour_penetration = 5
+	ap_falloff_tile = 2.5
 
 ///Incendiary 5.45
 /obj/projectile/bullet/incendiary/a545
@@ -41,6 +51,7 @@
 	wound_bonus = -30
 	fire_stacks = 2
 	armour_penetration = 15
+	ap_falloff_tile = 2.5
 
 ///AP 5.45
 /obj/projectile/bullet/a545/ap
@@ -58,6 +69,7 @@
 	bare_wound_bonus = 10
 	wound_bonus = -20
 	armour_penetration = 0
+	ap_falloff_tile = 2.5
 
 ///Incendiary 7.62
 /obj/projectile/bullet/incendiary/a762x39
@@ -67,6 +79,7 @@
 	wound_bonus = -25
 	fire_stacks = 2
 	armour_penetration = 10
+	ap_falloff_tile = 2.5
 
 ///AP 7.62
 /obj/projectile/bullet/a762x39/ap
@@ -75,6 +88,18 @@
 	armour_penetration = 30
 	wound_bonus = -30
 
+/obj/projectile/bullet/a762x39/ihdf
+	name = "7.62x39mm Frag bullet"
+	damage = 18
+	bare_wound_bonus = 50
+	embedding = list("pain_multiplier" = 3, "embed_chance" = 65, "fall_chance" = 0, "impact_pain_multiplier" = 6, "ignore_throwspeed_threshold" = 1, "remove_pain_mult" = 4)
+
+/obj/projectile/bullet/a762x39/civ	//you can hunt wolfs with this
+	name = "7.62x39mm PS GJ bullet"
+	damage = 35
+	bare_wound_bonus = -20
+	wound_bonus = -30
+	armour_penetration = -40	//any armor will fucking nullify this bullet
 
 ///Standart 7.62x51
 /obj/projectile/bullet/a762x51
@@ -84,11 +109,12 @@
 	bare_wound_bonus = 10
 	wound_bonus = -20
 	armour_penetration = 20
+	ap_falloff_tile = 2.5
 
 /////Nitro Express/////
 /obj/projectile/bullet/nitro_express
 	name = ".700 NE bullet"
-	speed = 0.3
+	speed = 1.2
 	damage = 75
 	wound_bonus = -50	//25% wound chance I guess?
 	wound_falloff_tile = -2.5
@@ -99,3 +125,13 @@
 	penetrations = 2
 	penetration_flags = PENETRATE_MOBS
 	demolition_mod = 3 // breaks any physical shield instantly
+	ap_falloff_tile = 2.5
+
+/obj/projectile/bullet/p50
+	ap_falloff_tile = 2.5
+
+/obj/projectile/bullet/a546
+	ap_falloff_tile = 2.5
+
+/obj/projectile/bullet/mm712x82
+	ap_falloff_tile = 2.5

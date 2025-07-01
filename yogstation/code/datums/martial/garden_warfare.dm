@@ -116,7 +116,8 @@
 		D.Stun((A.get_punchdamagehigh() / 8) SECONDS)	//1 second
 
 		var/obj/item/splinter = new /obj/item/splinter(D)
-		D.embed_object(splinter, affecting, FALSE, FALSE, TRUE)
+		//D.embed_object(splinter, affecting, FALSE, FALSE, TRUE)	//dripstation edit
+		D.hitby(splinter, skipcatch = TRUE, hitpush = FALSE)
 		streak = ""
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_SLASH)
@@ -201,7 +202,7 @@
 	desc = "It's sharp!"
 	throwforce = 3
 	sharpness = SHARP_EDGED
-	embedding = list("embedded_pain_multiplier" = 3, "embed_chance" = 100, "embedded_fall_chance" = 0, "embedded_unsafe_removal_pain_multiplier" = 12)
+	embedding = list("pain_multiplier" = 3, "embed_chance" = 100, "fall_chance" = 0, "remove_pain_mult" = 12)
 
 /datum/martial_art/gardern_warfare/handle_counter(mob/living/carbon/human/user, mob/living/carbon/human/attacker)
 	if(!can_use(user))
@@ -221,7 +222,8 @@
 	attacker.apply_damage(user.get_punchdamagehigh() + 2, BRUTE, selected_zone, armor_block, sharpness = SHARP_EDGED) 	//10 damage
 
 	var/obj/item/splinter = new /obj/item/splinter(attacker)
-	attacker.embed_object(splinter, affecting, FALSE, FALSE, TRUE)
+	//attacker.embed_object(splinter, affecting, FALSE, FALSE, TRUE)	//dripstation edit
+	attacker.hitby(splinter, skipcatch = TRUE, hitpush = FALSE)
 	streak = ""	
 
 /mob/living/carbon/human/proc/gardern_warfare_help()

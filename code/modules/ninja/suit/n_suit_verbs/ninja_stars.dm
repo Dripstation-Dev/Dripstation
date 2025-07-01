@@ -16,7 +16,7 @@
 	name = "ninja throwing star"
 	desc = "A small throwing star with incapacitating poison laced onto the edges."
 	throwforce = 10
-	embedding = list("embedded_pain_multiplier" = 1, "embed_chance" = 100, "embedded_fall_chance" = 20, "embedded_fall_pain_multiplier" = 1, "embedded_impact_pain_multiplier" = 1)
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 100, "fall_chance" = 20, "impact_pain_multiplier" = 1)
 
 /obj/item/throwing_star/ninja/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..())

@@ -126,3 +126,59 @@
 		button_icon_state = "nvg_scope[att?.is_on ? "_on" : ""]"
 
 	return ..()
+
+/obj/item/attachment/scope/holo/sec
+	name = "holographic scope (integrated sec hud)"
+	desc = "Military grade holographic scope with integrated security scaners."
+	icon_state = "sec_sight"
+	icon = 'modular_dripstation/icons/obj/weapons/attachment.dmi'
+	var/showed = FALSE
+
+/obj/item/attachment/scope/holo/sec/pickup_user(mob/user)
+	. = ..()
+	if(user && !showed)
+		var/datum/atom_hud/SHUD = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		SHUD.show_to(user)
+		showed = TRUE
+
+/obj/item/attachment/scope/holo/sec/equip_user(mob/user)
+	. = ..()
+	if(user && showed)
+		var/datum/atom_hud/SHUD = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		SHUD.hide_from(user)
+		showed = FALSE
+
+/obj/item/attachment/scope/holo/sec/drop_user(mob/user)
+	. = ..()
+	if(user && showed)
+		var/datum/atom_hud/SHUD = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+		SHUD.hide_from(user)
+		showed = FALSE
+
+/obj/item/attachment/scope/holo/med
+	name = "holographic scope (integrated med hud)"
+	desc = "Military grade holographic scope with integrated medical scaners."
+	icon_state = "med_sight"
+	icon = 'modular_dripstation/icons/obj/weapons/attachment.dmi'
+	var/showed = FALSE
+
+/obj/item/attachment/scope/holo/med/pickup_user(mob/user)
+	. = ..()
+	if(user && !showed)
+		var/datum/atom_hud/MHUD = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		MHUD.show_to(user)
+		showed = TRUE
+
+/obj/item/attachment/scope/holo/med/equip_user(mob/user)
+	. = ..()
+	if(user && showed)
+		var/datum/atom_hud/MHUD = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		MHUD.hide_from(user)
+		showed = FALSE
+
+/obj/item/attachment/scope/holo/med/drop_user(mob/user)
+	. = ..()
+	if(user && showed)
+		var/datum/atom_hud/MHUD = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		MHUD.hide_from(user)
+		showed = FALSE

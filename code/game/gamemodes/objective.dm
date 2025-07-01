@@ -1522,6 +1522,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		// Fulp edit START - Bloodsuckers
 		// DEFAULT OBJECTIVES //
 		/datum/objective/bloodsucker_lair,
+		/datum/objective/vassal,
 		/datum/objective/survive/bloodsucker,
 		// Fulp edit END
 		/datum/objective/destroy,
@@ -1538,6 +1539,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/minor/deadpics,
 		/datum/objective/minor/staffpics,
 		/datum/objective/minor/secrecords,
+		/datum/objective/block,
+		/datum/objective/purge,
+		/datum/objective/robot_army,
 		/datum/objective/custom,
 		/datum/objective/gimmick //bee port
 	)
@@ -1556,7 +1560,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/found = FALSE
 	while (!found)
 		var/area/dropoff_area = pick(GLOB.areas)
-		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors)
+		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors && !istype(dropoff_area, /area/ruin))	//dripstation edit, a little bit of sanity here
 			dropoff = dropoff_area
 			found = TRUE
 

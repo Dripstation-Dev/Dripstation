@@ -1,4 +1,4 @@
-/datum/design/bluespacebeaker
+/datum/design/bluespaceshaker
 	name = "Bluespace Shaker"
 	desc = "A bluespace shaker, powered by experimental bluespace technology and whatever crazy (hazardous) mix bartender made last time. Can hold up to 300 units."
 	id = "bluespaceshaker"

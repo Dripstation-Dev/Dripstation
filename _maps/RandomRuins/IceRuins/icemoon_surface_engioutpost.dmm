@@ -188,9 +188,9 @@
 /turf/open/floor/plasteel,
 /area/icemoon/surface/outdoors/explored)
 "aQ" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
-/turf/open/space/basic,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating/snowed/smoothed/icemoon,
 /area/icemoon/surface/outdoors/explored)
 "aR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -1223,7 +1223,7 @@
 /area/icemoon/surface/outdoors/explored)
 "dD" = (
 /obj/structure/girder,
-/turf/open/space/basic,
+/turf/open/floor/plating/snowed/smoothed/icemoon,
 /area/icemoon/surface/outdoors/explored)
 "dE" = (
 /obj/structure/door_assembly/door_assembly_eng,

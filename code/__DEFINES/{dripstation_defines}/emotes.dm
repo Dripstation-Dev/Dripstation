@@ -13,7 +13,7 @@
 //10.moan
 //11.yawn
 
-//################ HUMAN(DEFAUL) ################
+//################ HUMAN(DEFAULT) ################
 
 #define SPECIES_DEFAULT_LAUGH_SOUND(user) user.gender == FEMALE ? pick(\
 		'modular_dripstation/sound/emotes/human/female/laugh_female_1.ogg',\
@@ -93,3 +93,15 @@
 		'modular_dripstation/sound/emotes/human/female/yawn_female_3.ogg') : pick(\
 		'modular_dripstation/sound/emotes/human/male/yawn_male_1.ogg',\
 		'modular_dripstation/sound/emotes/human/male/yawn_male_2.ogg')
+
+
+//################ UNATHI(NOISES) ################
+#define UNATHI_DEFAULT_SCREAM_SOUND(user) user.gender == FEMALE ? pick(\
+		'modular_dripstation/sound/emotes/unathi/female/scream_female_1.ogg',\
+		'modular_dripstation/sound/emotes/unathi/female/scream_female_2.ogg') : pick(\
+		'modular_dripstation/sound/emotes/unathi/male/scream_male_1.ogg',\
+		'modular_dripstation/sound/emotes/unathi/male/scream_male_2.ogg')
+
+#define UNATHI_DEFAULT_SNEEZE_SOUND(user) user.gender == FEMALE ? pick(\
+		'modular_dripstation/sound/emotes/unathi/female/sneeze_female.ogg') : pick(\
+		'modular_dripstation/sound/emotes/unathi/male/sneeze_male.ogg')

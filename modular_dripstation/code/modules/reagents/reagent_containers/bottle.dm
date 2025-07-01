@@ -58,6 +58,7 @@
 	lid_state = TRUE
 
 /obj/item/reagent_containers/glass/bottle/mannitol
+	name = "mannitolin bottle"
 	label_state = TRUE
 	lid_state = TRUE
 

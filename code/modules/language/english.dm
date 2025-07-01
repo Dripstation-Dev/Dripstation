@@ -1,3 +1,4 @@
+/* Dripstation edit
 /datum/language/english
 	name = "English"
 	desc = "The language of lobsterbacks. Also known as galactic common without the chinese."
@@ -15,3 +16,4 @@
 	)
 	icon_state = "english"
 	sing_verb = "sings"
+*/

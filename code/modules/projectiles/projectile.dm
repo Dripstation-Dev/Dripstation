@@ -105,6 +105,8 @@
 	var/armor_flag = BULLET
 	///How much armor this projectile pierces.
 	var/armour_penetration = 0
+	///Doubles the armor that the proj pierce to embed.
+	var/weak_against_armour = FALSE
 	///How much armor this projectile pierces.
 	var/projectile_type = /obj/projectile
 	///This will de-increment every step. When 0, it will deletze the projectile.
@@ -155,6 +157,8 @@
 	var/wound_falloff_tile
 	///How much we want to drop the embed_chance value, if we can embed, per tile, for falloff purposes
 	var/embed_falloff_tile
+	///How much we want to drop ap per tile, for falloff purposes
+	var/ap_falloff_tile
 
 	/// If true directly targeted turfs can be hit
 	var/can_hit_turfs = FALSE
@@ -183,6 +187,10 @@
 	if(wound_bonus != CANT_WOUND)
 		wound_bonus += wound_falloff_tile
 		bare_wound_bonus = max(0, bare_wound_bonus + wound_falloff_tile)
+	if(ap_falloff_tile && decayedRange - range >= 3 && armour_penetration > -100)
+		armour_penetration = max(-100, armour_penetration - ap_falloff_tile)
+	if(embed_falloff_tile && !isnull(embedding["embed_chance"]) && embedding["embed_chance"] > 0)
+		embedding["embed_chance"] = max(0, embedding["embed_chance"] - embed_falloff_tile)
 	if(range <= 0 && loc)
 		on_range()
 
@@ -272,6 +280,7 @@
 
 		var/organ_hit_text = ""
 		var/limb_hit = L.check_limb_hit(def_zone)//to get the correct message info.
+		SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, limb_hit)
 		if(limb_hit)
 			organ_hit_text = " in \the [parse_zone(limb_hit)]"
 		if(suppressed)
@@ -454,6 +463,11 @@
 	if(paused || !isturf(loc))
 		last_projectile_move += world.time - last_process		//Compensates for pausing, so it doesn't become a hitscan projectile when unpaused from charged up ticks.
 		return
+	var/required_moves = required_moves_calc()	//dripstation edit
+	if(!required_moves)							//dripstation edit
+		return //Slowpoke. Maybe next tick.		//dripstation edit
+	
+	/* dripstation edit start
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	time_offset = 0
 	var/required_moves = speed > 0? FLOOR(elapsed_time_deciseconds / speed, 1) : MOVES_HITSCAN			//Would be better if a 0 speed made hitscan but everyone hates those so I can't make it a universal system :<
@@ -465,9 +479,27 @@
 			required_moves = SSprojectiles.global_max_tick_moves
 			time_offset += overrun * speed
 		time_offset += MODULUS(elapsed_time_deciseconds, speed)
+	*/ //dripstation edit end
 
 	for(var/i in 1 to required_moves)
 		pixel_move(1, FALSE)
+
+/obj/projectile/proc/required_moves_calc()	//dripstation edit start
+	var/elapsed_time_deciseconds = world.time - last_projectile_move
+	if(!elapsed_time_deciseconds)
+		return 0 //No moves needed if not a tick has passed.
+	var/required_moves = (elapsed_time_deciseconds * speed) + time_offset
+	time_offset = 0
+	var/modulus_excess = MODULUS(required_moves, 1) //Fractions of a move.
+	if(modulus_excess)
+		required_moves -= modulus_excess
+		time_offset += modulus_excess
+
+	if(required_moves > SSprojectiles.global_max_tick_moves)
+		time_offset += required_moves - SSprojectiles.global_max_tick_moves
+		required_moves = SSprojectiles.global_max_tick_moves
+
+	return required_moves	//dripstation edit end
 
 /obj/projectile/proc/fire(angle, atom/direct_target)
 	if(fired_from)
@@ -503,6 +535,8 @@
 	trajectory = new(starting.x, starting.y, starting.z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
 	last_projectile_move = world.time
 	fired = TRUE
+	if(shrapnel_type && LAZYLEN(embedding))
+		AddElement(/datum/element/embed, projectile_payload = shrapnel_type)
 	if(hitscan)
 		process_hitscan()
 	if(!(datum_flags & DF_ISPROCESSING))

@@ -21,7 +21,8 @@
 	item_state = LASER
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=2000)
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan/spec)
+	can_cell = TRUE ///if the gun's cell can be replaced
 	ammo_x_offset = 1
 	shaded_charge = 1
 	manufacturer = /datum/corporation/traitor/cybersun/weapons

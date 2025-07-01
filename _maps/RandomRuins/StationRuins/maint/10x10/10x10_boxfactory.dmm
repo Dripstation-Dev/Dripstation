@@ -292,6 +292,10 @@
 /area/template_noop)
 "Y" = (
 /obj/structure/table/wood,
+/obj/item/boxcutter{
+	pixel_x = 0;
+	pixel_y = 7
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "Z" = (

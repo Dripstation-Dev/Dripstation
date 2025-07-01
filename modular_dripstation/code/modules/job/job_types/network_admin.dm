@@ -2,6 +2,7 @@
 	supervisor_corporation = /datum/corporation/nanotrasen/interstellar_industries
 	alt_supervisor_corporations = list(/datum/corporation/hephaestus/industrial)
 	loyalties = LOYALTY_CORP_SLAVE
+	added_access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_MAINT_TUNNELS, ACCESS_ATMOSPHERICS)
 
 /datum/outfit/job/network_admin
 	belt = null

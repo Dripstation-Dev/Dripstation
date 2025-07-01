@@ -375,7 +375,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 2
 	throwforce = 10 //10 + 2 (WEIGHT_CLASS_SMALL) * 4 (EMBEDDED_IMPACT_PAIN_MULTIPLIER) = 18 damage on hit due to guaranteed embedding
 	throw_speed = 4
-	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 100, "embedded_fall_chance" = 0)
+	embedding = list("pain_multiplier" = 4, "embed_chance" = 100, "fall_chance" = 0)
 	w_class = WEIGHT_CLASS_SMALL
 	sharpness = SHARP_POINTY
 	materials = list(/datum/material/iron=500, /datum/material/glass=500)
@@ -390,7 +390,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 10
 	throw_range = 0 //throwing these invalidates the speargun
 	attack_verb = list("stabbed", "ripped", "gored", "impaled")
-	embedding = list("embedded_pain_multiplier" = 8, "embed_chance" = 100, "embedded_fall_chance" = 0, "embedded_impact_pain_multiplier" = 15) //55 damage+embed on hit
+	embedding = list("pain_multiplier" = 8, "embed_chance" = 100, "fall_chance" = 0, "impact_pain_multiplier" = 15) //55 damage+embed on hit
 
 /obj/item/switchblade
 	name = "switchblade"

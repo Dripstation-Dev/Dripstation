@@ -1,3 +1,6 @@
+/datum/species/human
+	//deathsound = SFX_BODYFALL
+
 /datum/species/human/get_laugh_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_LAUGH_SOUND(user)
 
@@ -30,3 +33,6 @@
 
 /datum/species/human/get_yawn_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_YAWN_SOUND(user)
+
+/datum/species/human/slavic
+	species_language_holder = /datum/language_holder/slavic

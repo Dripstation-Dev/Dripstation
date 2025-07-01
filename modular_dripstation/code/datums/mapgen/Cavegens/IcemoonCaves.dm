@@ -85,7 +85,7 @@
 						  /mob/living/simple_animal/hostile/asteroid/ice_whelp = 30,
 						  /mob/living/simple_animal/hostile/asteroid/hivelord/legion/snow = 30,
 						  /mob/living/simple_animal/hostile/asteroid/goldgrub = 10,
-						  SPAWN_MEGAFAUNA = 1)
+						  SPAWN_MEGAFAUNA = 2)
 	feature_spawn_chance = 0.8
 	weighted_feature_spawn_list = list(
 		/obj/structure/spawner/ice_moon/demonic_portal = 3,
@@ -93,7 +93,7 @@
 		/obj/structure/spawner/ice_moon/demonic_portal/snowlegion = 1,
 		/obj/structure/geyser/random = 1
 	)
-	weighted_megafauna_spawn_list = list(/mob/living/simple_animal/hostile/megafauna/colossus = 1)
+	weighted_megafauna_spawn_list = list(/mob/living/simple_animal/hostile/megafauna/colossus = 1, /mob/living/simple_animal/hostile/megafauna/stalwart = 1)
 	weighted_flora_spawn_list = list(/obj/structure/flora/rock/icy = 6, /obj/structure/flora/rock/pile/icy = 6)
 	weighted_open_turf_types = list(/turf/open/floor/plating/asteroid/icerock = 30, /turf/open/floor/plating/asteroid/icerock/smooth = 2, /turf/open/floor/plating/asteroid/icerock/cracked = 2, /turf/open/floor/plating/ice/deep = 1, /turf/open/floor/plating/ice/deep/iceberg = 1, /turf/open/floor/plating/asteroid/iceberg = 1)
 	weighted_closed_turf_types = list(/turf/closed/mineral/random/snow/icyrock = 1)

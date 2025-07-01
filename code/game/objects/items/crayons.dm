@@ -128,11 +128,26 @@
 		var/amount = weight * units_per_weight
 		reagents.add_reagent(reagent, amount)
 
+/obj/item/toy/crayon/proc/use_reagents()	//change it 
+	if(charges == -1)
+		charges_left = 100
+	else
+		charges_left = charges
+	var/total_weight = 0
+	for(var/key in reagent_contents)
+		total_weight += reagent_contents[key]
+	var/units_per_weight = reagents.maximum_volume / total_weight
+	for(var/reagent in reagent_contents)
+		var/weight = reagent_contents[reagent]
+		var/amount = weight * units_per_weight
+		reagents.remove_reagent(reagent, amount)
+
 /obj/item/toy/crayon/proc/use_charges(mob/user, amount = 1, requires_full = TRUE)
 	// Returns number of charges actually used
 	if(charges == -1)
 		. = amount
-		refill()
+		//refill()
+		use_reagents()
 	else
 		if(check_empty(user, amount, requires_full))
 			return 0

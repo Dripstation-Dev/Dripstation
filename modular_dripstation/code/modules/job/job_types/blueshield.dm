@@ -15,6 +15,7 @@
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_COMMAND
 	alt_titles = list("Blueshield Lieutenant", "Close Protection Specialist", "Executive Protection Agent")
+	supervisor_corporation = /datum/corporation/nanotrasen
 
 	outfit = /datum/outfit/job/blueshield
 

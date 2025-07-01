@@ -13,20 +13,38 @@
 	accessory_state = "holobadge"
 	can_be_adjusted = TRUE
 
+/obj/item/badge/security/medic1
+	name = "security holobadge (Physician)"
+	icon_state = "holobadge"
+	accessory_state = "holobadge"
+	can_be_adjusted = TRUE
+
+/obj/item/badge/security/medic2
+	name = "security holobadge (Field medic)"
+	icon_state = "holobadge"
+	accessory_state = "holobadge"
+	can_be_adjusted = TRUE
+
+/obj/item/badge/security/medic3
+	name = "security holobadge (Chief Physician)"
+	icon_state = "holobadge"
+	accessory_state = "holobadge"
+	can_be_adjusted = TRUE
+
 /obj/item/badge/security/officer1
-	name = "security holobadge (Junior Officer)"
+	name = "security holobadge (Patrolman)"
 	icon_state = "holobadge"
 	accessory_state = "holobadge"
 	can_be_adjusted = TRUE
 
 /obj/item/badge/security/officer2
-	name = "security holobadge (Officer)"
+	name = "security holobadge (Operative)"
 	icon_state = "holobadge"
 	accessory_state = "holobadge"
 	can_be_adjusted = TRUE
 
 /obj/item/badge/security/officer3
-	name = "security holobadge (Senior Officer)"
+	name = "security holobadge (Corporal)"
 	icon_state = "holobadge"
 	accessory_state = "holobadge"
 	can_be_adjusted = TRUE

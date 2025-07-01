@@ -11,6 +11,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	w_class_on = WEIGHT_CLASS_NORMAL
 
+/obj/item/melee/transforming/vib_blade/afterattack(atom/target, mob/user, blocked)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(prob(2) && ishuman(target) && H.health > (H.maxHealth - 20))
+			var/saylog = pick("I`ll cut you in two!", "You want the right to kill people - come try to take it!", "THIS IS POWER!", "There will be blood!")
+			H.forcesay(saylog)
+
 /obj/item/energy_katana
 	icon_state = "energy_katana"
 	item_state = "energy_katana"
@@ -61,6 +69,8 @@
 		else
 			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 		playsound(src, block_sound, 70, vary = TRUE)
+		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
 		return 1
 	return 0
 
@@ -207,7 +217,8 @@
 			to_chat(owner, span_userdanger("<b><i>You're too off balance to try parry [attack_text]!</i></b>"))
 		else
 			final_block_chance = block_chance + 50	//90% parry chance
-			owner.adjustStaminaLoss(25)	//Can't parry forever.
+			if(!owner.getStaminaLoss() > 70)
+				owner.adjustStaminaLoss(25)	//Can't parry forever.
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0 //Don't bring a sword to a gunfight
 	if(prob(final_block_chance))
@@ -362,6 +373,12 @@
 	var/cooldown = 1.5 SECONDS
 	var/on = FALSE
 
+	light_range = 2
+	light_power = 1
+	light_color = "#40ceff" // badass sheen
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
 	var/on_item_state = "cane_nt_active"
 	var/force_on = 3
 	var/force_off = 7
@@ -431,6 +448,7 @@
 		if(on && cell.charge < hitcost)
 			//we're below minimum, turn off
 			on = FALSE
+			set_light_on(on)
 			update_appearance(UPDATE_ICON)
 			playsound(loc, "sparks", 75, 1, -1)
 			STOP_PROCESSING(SSobj, src) // no more charge? stop checking for discharge
@@ -469,6 +487,7 @@
 	if(cell && cell.charge > hitcost)
 		var/list/desc = get_on_description()
 		on = !on
+		set_light_on(on)
 		playsound(loc, "sparks", 75, 1, -1)
 		cell_last_used = 0
 		if(on)
@@ -488,6 +507,7 @@
 		to_chat(user, span_notice("[src] is now [on ? "on" : "off"]."))
 	else
 		on = FALSE
+		set_light_on(on)
 		item_state = initial(item_state)
 		force = force_off
 		stamina_damage = initial(stamina_damage)
@@ -520,6 +540,7 @@
 			cell = null
 			to_chat(user, span_notice("You remove the cell from [src]."))
 			on = FALSE
+			set_light_on(on)
 			STOP_PROCESSING(SSobj, src) // no cell, no charge; stop processing for on because it cant be on
 			update_appearance(UPDATE_ICON)
 	else
@@ -700,6 +721,25 @@
 	item_state = "telebaton_0"
 	on_item_state = "telebaton_1"
 
+/obj/item/melee/classic_baton/telescopic/bronze
+	icon_state = "telebaton_bronze"
+	on_icon_state = "telebaton_bronze_active"
+	off_icon_state = "telebaton_bronze"
+	icon = 'modular_dripstation/icons/obj/weapons/security.dmi'
+
+/obj/item/melee/classic_baton/telescopic/silver
+	icon_state = "telebaton_silver"
+	on_icon_state = "telebaton_silver_active"
+	off_icon_state = "telebaton_silver"
+	icon = 'modular_dripstation/icons/obj/weapons/security.dmi'
+
+/obj/item/melee/classic_baton/telescopic/gold
+	icon_state = "telebaton_gold"
+	on_icon_state = "telebaton_gold_active"
+	off_icon_state = "telebaton_gold"
+	icon = 'modular_dripstation/icons/obj/weapons/security.dmi'
+
+
 /obj/item/melee/classic_baton/telescopic/cane
 	name = "telescopic cane"
 	icon_state = "telecane"
@@ -811,6 +851,191 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 
+/obj/item/melee/glaive
+	name = "glaive"
+	desc = "As uncestors intended."
+	force = 10
+	throwforce = 15
+	demolition_mod = 3
+	w_class = WEIGHT_CLASS_HUGE
+	slot_flags = ITEM_SLOT_BACK
+	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut", "axed")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = SHARP_EDGED
+	max_integrity = 100
+	icon_state = "glaive0"
+	base_icon_state = "glaive"
+	item_state = "glaive0"
+	worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'
+	icon = 'modular_dripstation/icons/obj/weapons/melee.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
+	wound_bonus = -15
+	bare_wound_bonus = 20
+
+	/// Bonus damage from wielding
+	var/force_wielded = 40
+
+/obj/item/fireaxe/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, \
+		force_wielded = force_wielded, \
+		icon_wielded = "[base_icon_state]1", \
+	)
+
+// Unathi Cleaver
+/obj/item/melee/breach_cleaver
+	name = "breach cleaver"
+	desc = "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
+	icon = 'modular_dripstation/icons/obj/weapons/melee.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
+	base_icon_state = "breach_cleaver"
+	icon_state = "breach_cleaver0"
+	item_state = "breach_cleaver0"
+	force = 10
+	throwforce = 5
+	demolition_mod = 3
+	armour_penetration = 30
+	w_class = WEIGHT_CLASS_BULKY
+	sharpness = SHARP_EDGED
+	block_chance = 0
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	attack_verb = list("slashed", "cleaved", "chopped")
+	hitsound = 'modular_dripstation/sound/weapons/swordhitheavy.ogg'
+	/// How much damage the sword does when wielded
+	var/force_wield = 35
+
+/obj/item/melee/breach_cleaver/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_wielded = force_wield, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
+
+/obj/item/melee/breach_cleaver/update_icon_state()
+	. = ..()
+	icon_state = "[base_icon_state]0"
+
+/obj/item/melee/breach_cleaver/proc/wield(obj/item/source, mob/living/carbon/human/user)
+	to_chat(user, "<span class='notice'>You heave [src] up in both hands.</span>")
+	user.apply_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
+	item_state = "[base_icon_state]1"
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/melee/breach_cleaver/proc/unwield(obj/item/source, mob/living/carbon/human/user)
+	user.remove_status_effect(STATUS_EFFECT_BREACH_AND_CLEAVE)
+	item_state = "[base_icon_state]0"
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/melee/breach_cleaver/suicide_act(mob/user)
+	user.visible_message(span_suicide("[user] slices [user.p_them()]self from head to toe! It looks like [user.p_theyre()] trying to commit suicide!"))
+	return (BRUTELOSS)
+
+/obj/item/melee/breach_cleaver/examine(mob/user)
+	. = ..()
+	if(is_syndicate(user))
+		. += span_info("notice'>When wielded, this blade has different effects depending on your intent, similar to a martial art. \
+			Help intent will strike with the flat, dealing stamina, disarm intent forces them away, grab intent knocks down the target, \
+			and harm intent deals heavy damage.")
+		. += span_info("Toggle throw mode for melee riposts.")
+
+/obj/item/melee/breach_cleaver/examine_more(mob/user)
+	. = ..()
+	. += "Massive, heavy, and utterly impractical. This sharpened chunk of steel is too big and too heavy to be called a sword."
+	. += ""
+	. += "The Unathi Breach Cleaver is a weapon the scaled, warlike race favours for its impressive weight and myriad combat applications. \
+	The pinnacle of Moghes' combat technology, it combines all of this knowledge into a massive, heavy slab of alloyed metal that most \
+	species find difficult to lift, let alone use in any sort of fight."
+	. += ""
+	. += "Actually a little lightweight for its size, a Breach Cleaver is unmatched in combat utility as a weapon, a tool for getting into\
+	places and as a slab of armour for the wielder. The leather of the Kar'oche beast, a predator native to Moghes, binds the hilt, \
+	allowing it to be gripped securely by its warrior. The wide blade is often etched with scenes depicting military victories or great hunts."
+
+/obj/item/melee/breach_cleaver/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(owner.in_throw_mode)
+		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to parry
+			to_chat(owner, span_userdanger("<b><i>You're too off balance to try parry [attack_text]!</i></b>"))
+		else
+			final_block_chance = block_chance + 70	//70% parry chance
+			if(!owner.getStaminaLoss() > 70)
+				owner.adjustStaminaLoss(25)	//Can't parry forever.
+	if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = 0 //Don't bring a sword to a gunfight
+	if(prob(final_block_chance))
+		var/mob/living/A = hitby.loc
+		if(owner.in_throw_mode && istype(A))
+			owner.visible_message(span_danger("[owner] parry [attack_text] with [src]!"))
+			attack(A, owner)
+		else
+			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		playsound(src, block_sound, 70, vary = TRUE)
+		return 1
+	return 0
+
+/obj/item/melee/breach_cleaver/attack(atom/A, mob/living/user, params)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED)) // Only works good when wielded
+		return ..()
+	if(isobj(A))
+		var/obj/O = A
+		if(!ismachinery(O) && !isstructure(O)) // This sword hates doors
+			return ..()
+		if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
+			return
+		if(item_flags & (NOBLUDGEON))
+			return
+		var/mob/living/carbon/human/H = user
+		H.changeNext_move(CLICK_CD_MELEE)
+		H.do_attack_animation(O)
+		H.visible_message(span_danger("[H] has hit [O] with [src]!"), span_danger("You hit [O] with [src]!"))
+		var/damage = force_wield
+		damage += H.physiology.force_multiplier
+		O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
+		return
+
+	if(!ishuman(A))
+		return ..()
+	
+	var/mob/living/carbon/human/H = A
+	var/obj/item/bodypart/targetlimb = H.get_bodypart(user.zone_selected)
+	switch(user.a_intent)
+		if(INTENT_HELP) // Stamina damage
+			H.visible_message(span_danger("[user] slams [H] with the flat of the blade!"), \
+							span_userdanger("[user] slams you with the flat of the blade!"), \
+							span_notice("You hear a thud."))
+			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+			playsound(get_turf(user), 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
+			H.adjust_confusion_up_to(3 SECONDS, 5 SECONDS)
+			H.apply_damage(40, STAMINA, targetlimb, H.run_armor_check(targetlimb, MELEE))
+			log_combat(user, H, "Slammed by a breach cleaver. (Help intent, Stamina)")
+
+		if(INTENT_DISARM) // Slams away
+			if(H.stat != CONSCIOUS || !(H.mobility_flags & MOBILITY_STAND))
+				return ..()
+
+			H.visible_message(span_danger("[user] smashes [H] with the blade's tip!"), \
+							span_userdanger("[user] smashes you with the blade's tip!"), \
+							span_notice("You hear crushing."))
+
+			user.do_attack_animation(H, ATTACK_EFFECT_KICK)
+			playsound(get_turf(user), 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE, -1)
+			H.apply_damage(25, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE))
+			var/atom/throw_target = get_edge_target_turf(H, user.dir, TRUE)
+			H.throw_at(throw_target, 4, 1)
+			log_combat(user, H, "Smashed away by a breach cleaver. (Disarm intent, Knockback)")
+
+		if(INTENT_GRAB) // Knocks down
+			H.visible_message(span_danger("[user] cleaves [H] with an overhead strike!"), \
+							span_userdanger("[user] cleaves you with an overhead strike!"), \
+							span_notice("You hear a chopping noise."))
+
+			user.do_attack_animation(H, ATTACK_EFFECT_DISARM)
+			playsound(get_turf(user), 'sound/weapons/bladeslice.ogg', 50, TRUE, -1)
+			H.apply_damage(30, BRUTE, targetlimb, H.run_armor_check(targetlimb, MELEE), TRUE)
+			H.Knockdown(4 SECONDS)
+			log_combat(user, H, "Cleaved overhead with a breach cleaver. (Grab intent, Knockdown)")
+
+		if(INTENT_HARM)
+			return ..()
+
 /obj/item/melee/emergency_forcing_tool
 	name = "emergency forcing tool"
 	desc = "Basic forcing tool, capable of prying firelocks or destroing stuff in critical situations."
@@ -854,20 +1079,20 @@
 			return
 
 		if(A.locked)
-			to_chat(user, span_warning("The airlock's bolts prevent it from being forced!"))
+			to_chat(user, span_danger("The airlock's bolts prevent it from being forced!"))
 			return
 		if(A.welded)
-			to_chat(user, span_warning("The airlock is welded shut, it won't budge!"))
+			to_chat(user, span_danger("The airlock is welded shut, it won't budge!"))
 			return
 
 		if(A.hasPower())
-			user.visible_message(span_warning("[user] jams [src] into the airlock and starts prying it open!"), span_warning("You start forcing the airlock open."), //yogs modified description
+			user.visible_message(span_danger("[user] jams [src] into the airlock and starts prying it open!"), span_danger("You start forcing the airlock open."), //yogs modified description
 			span_italics("You hear a metal screeching sound."))
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
 			if(!do_after(user, 6 SECONDS, A))
 				return
 		//user.say("Heeeeeeeeeerrre's Johnny!")
-		user.visible_message(span_warning("[user] forces the airlock to open with [user.p_their()] [src]!"), span_warning("You force the airlock to open."), //yogs modified description
+		user.visible_message(span_danger("[user] forces the airlock to open with [user.p_their()] [src]!"), span_danger("You force the airlock to open."), //yogs modified description
 		span_italics("You hear a metal screeching sound."))
 		A.open(2)
 

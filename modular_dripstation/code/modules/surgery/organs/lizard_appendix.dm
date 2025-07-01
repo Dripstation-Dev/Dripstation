@@ -4,12 +4,12 @@
 	var/hunger_reduction = 8
 	var/toxin_damage = FALSE
 
-/obj/item/organ/appendix/lizard/on_life(mob/living/carbon/human/H)
-	. = ..()
+/obj/item/organ/appendix/lizard/on_life()
+	..()
+	var/mob/living/carbon/human/H = owner
 	if(islizard(H))
 		if(inflamed)
-			var/mob/living/carbon/M = H
-			for(var/datum/disease/appendicitis/A in M.diseases)
+			for(var/datum/disease/appendicitis/A in H.diseases)
 				A.cure()
 			inflamed = FALSE
 		var/effectiveness = canheal(H)
@@ -34,13 +34,13 @@
 
 /obj/item/organ/appendix/lizard/proc/canheal(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
-		return FALSE
-	if(!H.get_damaged_bodyparts(1,1))
-		return FALSE
+		return 0
+	if(!H.get_damaged_bodyparts(TRUE,TRUE))
+		return 0
 	
 	switch(H.nutrition)
 		if(0)
-			return FALSE
+			return 0
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
 			return 0.5
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
@@ -52,7 +52,7 @@
 		
 /obj/item/organ/appendix/lizard/proc/heal(mob/living/carbon/human/H, actual_power)
 	var/heal_amt = actual_power
-	var/list/parts = H.get_damaged_bodyparts(1,1)
+	var/list/parts = H.get_damaged_bodyparts(TRUE,TRUE)
 
 	if(!parts.len)
 		return
@@ -68,12 +68,11 @@
 		H.adjustToxLoss(2)
 		if(prob(45))
 			to_chat(H, span_warning("You dont feel so well."))
-	
-	if(prob(25))
-		to_chat(H, span_notice("You feel your wounds getting warm."))
 
 	for(var/obj/item/bodypart/L in parts)
 		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len))
 			H.update_damage_overlays()
+			if(prob(25))
+				to_chat(H, span_notice("You feel your wounds getting warm."))
 
 	return TRUE

@@ -20,19 +20,24 @@
 	fire_stacks = 2
 
 /obj/projectile/bullet/c46x30mm
-	damage = 17
+	damage = 20
 	armour_penetration = 10
 
 /obj/projectile/bullet/c46x30mm/ap
-	damage = 14
+	damage = 18
 	armour_penetration = 35
 
 /obj/projectile/bullet/incendiary/c46x30mm
-	damage = 11
+	damage = 15
 	armour_penetration = 10
 
 /obj/projectile/bullet/c46x30mm/snakebite
-	damage = 7
+	damage = 10
 
 /obj/projectile/bullet/c46x30mm/kraken
+	damage = 30
+
+/obj/projectile/bullet/c57x28mm
 	damage = 24
+	armour_penetration = 30	//penetrates Level IIIA vest freely
+	wound_bonus = 5

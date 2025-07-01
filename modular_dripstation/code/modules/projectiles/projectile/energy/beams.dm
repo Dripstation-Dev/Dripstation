@@ -5,6 +5,13 @@
 	hitscan = TRUE
 	eyeblur = 0
 
+/obj/projectile/beam/laser/hitscan/spec
+	armour_penetration = 10
+	wound_bonus = -20
+	bare_wound_bonus = 40
+	damage = 30
+
+
 /obj/projectile/beam/practice/hitscan
 	tracer_type = /obj/effect/projectile/tracer/laser/hitscan
 	muzzle_type = /obj/effect/projectile/muzzle/laser/hitscan
@@ -31,13 +38,13 @@
 	return ..()
 
 /obj/projectile/beam
-	speed = 0.4
+	speed = 1
 
 /obj/projectile/beam/laser/hellfire
-	speed = 0.5
+	speed = 1
 
 /obj/projectile/beam/laser/spec	//basicly overpowered
-	speed = 1
+	speed = 1.5
 	armour_penetration = 10
 	wound_bonus = -20
 	bare_wound_bonus = 40

@@ -329,15 +329,19 @@
 
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
+			usr.face_mouse = TRUE	//dripstation edit
 
 		else if(_x<=16 && _y>=17)
 			usr.a_intent_change(INTENT_HELP)
+			usr.face_mouse = FALSE	//dripstation edit
 
 		else if(_x>=17 && _y<=16)
 			usr.a_intent_change(INTENT_GRAB)
+			usr.face_mouse = FALSE	//dripstation edit
 
 		else if(_x>=17 && _y>=17)
 			usr.a_intent_change(INTENT_DISARM)
+			usr.face_mouse = FALSE	//dripstation edit
 	else
 		return ..()
 

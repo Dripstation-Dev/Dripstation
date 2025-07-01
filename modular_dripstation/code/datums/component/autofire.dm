@@ -254,7 +254,7 @@
 		shoot_with_empty_chamber(shooter)
 		return FALSE
 	var/obj/item/bodypart/other_hand = shooter.has_hand_for_held_index(shooter.get_inactive_hand_index())
-	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_held_item() || !other_hand))
+	if(!HAS_TRAIT(shooter, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_held_item() || !other_hand))
 		to_chat(shooter, "<span class='warning'>You need two hands to fire [src]!</span>")
 		return FALSE
 	return TRUE
@@ -280,8 +280,8 @@
 /obj/item/gun/proc/do_autofire_shot(datum/source, atom/target, mob/living/shooter, params)
 	var/obj/item/gun/akimbo_gun = shooter.get_inactive_held_item()
 	var/bonus_spread = 0
-	if(istype(akimbo_gun) && weapon_weight < WEAPON_MEDIUM)
-		if(akimbo_gun.weapon_weight < WEAPON_MEDIUM && akimbo_gun.can_trigger_gun(shooter))
+	if(istype(akimbo_gun) && (weapon_weight < WEAPON_MEDIUM || HAS_TRAIT(shooter, TRAIT_BADASS)))
+		if((akimbo_gun.weapon_weight < WEAPON_MEDIUM|| HAS_TRAIT(shooter, TRAIT_BADASS)) && akimbo_gun.can_trigger_gun(shooter))
 			bonus_spread = dual_wield_spread
 			addtimer(CALLBACK(akimbo_gun, /obj/item/gun.proc/process_fire, target, shooter, TRUE, params, null, bonus_spread), 1)
 	process_fire(target, shooter, TRUE, params, null, bonus_spread)

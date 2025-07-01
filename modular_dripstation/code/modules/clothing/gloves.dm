@@ -489,6 +489,16 @@
 	if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		QDEL_NULL(tackler)
 
+/obj/item/clothing/gloves/tackler/offbrand
+	name = "improvised gripper gloves"
+	desc = "Ratty looking fingerless gloves wrapped with sticky tape. Beware anyone wearing these, for they clearly have no shame and nothing to lose."
+	icon_state = "fingerless"
+
+	tackle_stam_cost = 30
+	base_knockdown = 1.75 SECONDS
+	min_distance = 2
+	skill_mod = -1
+
 /obj/item/clothing/gloves/tackler/security
 	name = "security gripper gloves"
 	desc = "Special gloves that manipulate the blood vessels in the wearer's hands, granting them the ability to launch headfirst into walls. Fireproof to boot!"

@@ -23,6 +23,9 @@
 	can_cell = TRUE ///if the gun's cell can be replaced
 	cell_type = /obj/item/stock_parts/cell/gun/pulse/pistol	//specops grade cell
 
+/obj/item/gun/energy/e_gun/stun/mindshield
+	pin = /obj/item/firing_pin/implant/mindshield
+
 /obj/item/gun/energy/e_gun/energyrevolver
 	name = "\improper NT-S02 Revolver Energy Gun"
 	desc = "An expensive, modern recreation of the antique laser gun, and the second of the 'S' or personal defense weapons meant for the use of high ranking Nanotrasen`s Special Operations Department personnel. Like the standard energy gun, it has a stun and kill setting, but also provides specops grade taser setting."

@@ -1,6 +1,8 @@
 /// Caliber used by the pepperball gun
 #define CALIBER_PEPPERBALL "pepperball"
 
+#define CALIBER_57X28NATO "a57"
+
 #define CALIBER_545USSP "a545"
 
 #define CALIBER_762USSP "a762"

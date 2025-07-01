@@ -42,6 +42,12 @@
 	icon_state = "armorlight"
 	item_state = "armorlight"
 
+/obj/item/clothing/suit/armor/vest/alt/occupying
+	name = "peacekeeping force vest"
+	desc = "A blue armored vest worn by Peacekeepers."
+	icon_state = "occvest"
+	item_state = "occvest"
+
 /obj/item/clothing/suit/armor/vest/alt
 	name = "security armor"
 	desc = "A tactical Type I armor vest. Not designed for serious operations."
@@ -98,7 +104,7 @@
 	body_parts_partial_covered = LEGS|ARMS
 	cold_protection = CHEST|GROIN|ARMS|LEGS
 	heat_protection = CHEST|GROIN|ARMS|LEGS
-	custom_premium_price = 600
+	custom_premium_price = 400
 
 /obj/item/clothing/suit/armor/vest/rycliesarmour
 	name = "war armour"
@@ -248,7 +254,6 @@
 	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED, TRAIT_NO_STAGGER)
 	armor = list(MELEE = 40, BULLET = 40, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 90, RAD = 20, FIRE = 100, ACID = 100, WOUND = 15)
 	strip_delay = 120
-	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/suit/space/swat/syndicate
 	name = "assault armor"
@@ -282,6 +287,23 @@
 	set_holdable(list(	/obj/item/reagent_containers/autoinjector/medipen,
 						/obj/item/radio,
 						/obj/item/ammo_box/a762))
+
+/obj/item/clothing/suit/armor/slav_heavy
+	name = "bulletproof slav heavy suit"
+	desc = "A bulletproof robust armored suit with forest camo. Good thing there's plenty of forests to hide in around here, right?"
+	icon_state = "heavy_slav"
+	item_state = "riot"
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	armor = list(MELEE = 50, BULLET = 50, LASER = 0, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 80, WOUND = 25)
+	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED, TRAIT_NO_STAGGER)
+	strip_delay = 120
+	clothing_flags = THICKMATERIAL
+	body_parts_covered = CHEST|GROIN|ARMS|LEGS
+	body_parts_partial_covered = null
+	cold_protection = CHEST|GROIN|ARMS|LEGS
+	heat_protection = CHEST|GROIN|ARMS|LEGS
+	slowdown = 0.4
 
 /obj/item/clothing/head/helmet/rus_helmet
 	name = "\improper SH-77 helmet"

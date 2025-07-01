@@ -548,7 +548,53 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/extinguisher/mini(src)
 
-/obj/item/storage/toolbox/infiltrator
+/obj/item/storage/box/gunset
+	name = "gun supply box"
+	desc = "An unknown weapons supply box."
+	icon = 'modular_dripstation/icons/obj/storage/gunset.dmi'
+	icon_state = "box"
+	var/open_box_state = "box-open"
+	var/opened = FALSE
+	var/datum/corporation/corp = null
+	item_state = "sec-case"
+	lefthand_file = 'icons/mob/inhands/equipment/briefcase_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_BULKY
+	drop_sound = 'sound/items/handling/ammobox_drop.ogg'
+	pickup_sound =  'sound/items/handling/ammobox_pickup.ogg'
+	foldable = FALSE
+	illustration = null
+
+/obj/item/storage/box/gunset/Initialize(mapload)
+	. = ..()
+	if(corp)
+		name = initial(name) + " ([corp])"
+		desc = "The [corp] brand weapons supply box."
+
+/obj/item/storage/box/gunset/PopulateContents()
+	. = ..()
+	//new /obj/item/storage/pouch/shotgun(src)
+
+/obj/item/storage/box/gunset/update_icon()
+	. = ..()
+	if(opened)
+		icon_state = open_box_state
+	else
+		icon_state = initial(icon_state)
+
+/obj/item/storage/box/gunset/AltClick(mob/user)
+	. = ..()
+	opened = !opened
+	update_icon()
+
+
+/obj/item/storage/box/gunset/attack_self(mob/user)
+	. = ..()
+	opened = !opened
+	update_icon()
+
+/obj/item/storage/box/gunset/infiltrator
 	name = "insidious case"
 	desc = "Bearing the emblem of the Syndicate, this case contains a full infiltrator stealth suit, and has enough room to fit weaponry if necessary."
 	icon_state = "infiltrator_case"
@@ -559,9 +605,8 @@
 	force = 15
 	throwforce = 18
 	w_class = WEIGHT_CLASS_NORMAL
-	has_latches = FALSE
 
-/obj/item/storage/toolbox/infiltrator/Initialize(mapload)
+/obj/item/storage/box/gunset/infiltrator/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 10
@@ -571,17 +616,20 @@
 		/obj/item/clothing/suit/armor/vest/infiltrator,
 		/obj/item/clothing/under/syndicate/bloodred,
 		/obj/item/clothing/gloves/tackler/combat/infiltrator,
-		/obj/item/clothing/mask/chameleon,
+		/obj/item/clothing/mask/gas/syndicate/balaclava,
 		/obj/item/clothing/shoes/combat/sneakboots,
+		/obj/item/gun/ballistic/rifle/sniper_rifle/syndicate,
+		/obj/item/gun/ballistic/automatic/k41s,
+		/obj/item/gun/ballistic/automatic/ar,	/*ak814 & folded ak101*/
 		/obj/item/gun/ballistic/automatic/pistol,
 		/obj/item/gun/ballistic/revolver,
 		/obj/item/ammo_box
 		))
 
-/obj/item/storage/toolbox/infiltrator/PopulateContents()
+/obj/item/storage/box/gunset/infiltrator/PopulateContents()
 	new /obj/item/clothing/head/helmet/space/infiltrator(src)
 	new /obj/item/clothing/suit/armor/vest/infiltrator(src)
 	new /obj/item/clothing/under/syndicate/bloodred(src)
 	new /obj/item/clothing/gloves/tackler/combat/infiltrator(src)
-	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/mask/gas/syndicate/balaclava(src)
 	new /obj/item/clothing/shoes/combat/sneakboots(src)

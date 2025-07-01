@@ -737,7 +737,7 @@ GLOBAL_LIST_EMPTY(servant_golem_users)
 
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 /obj/effect/mob_spawn/human/oldstation
-	name = "old cryogenics pod"
+	name = "old cryogenics pod A"
 	desc = "A humming cryo pod. You can barely recognise a security uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "a security officer"
 	icon = 'icons/obj/machines/sleeper.dmi'
@@ -751,7 +751,7 @@ GLOBAL_LIST_EMPTY(servant_golem_users)
 	The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
 	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
 	important_info = "Work as a team with your fellow survivors and do not abandon them."
-	uniform = /obj/item/clothing/under/rank/security
+	uniform = /obj/item/clothing/under/rank/centcom/officer/specops_blue	//dripstation edit
 	shoes = /obj/item/clothing/shoes/jackboots
 	id = /obj/item/card/id/away/old/sec
 	r_pocket = /obj/item/restraints/handcuffs
@@ -763,6 +763,7 @@ GLOBAL_LIST_EMPTY(servant_golem_users)
 	return ..()
 
 /obj/effect/mob_spawn/human/oldstation/eng
+	name = "old cryogenics pod B"
 	desc = "A humming cryo pod. You can barely recognise an engineering uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "an engineer"
 	short_desc = "You are an engineer working for Nanotrasen, stationed onboard a state of the art research station."
@@ -779,6 +780,7 @@ GLOBAL_LIST_EMPTY(servant_golem_users)
 	assignedrole = "Ancient Crew"
 
 /obj/effect/mob_spawn/human/oldstation/science
+	name = "old cryogenics pod C"
 	desc = "A humming cryo pod. You can barely recognise a science uniform underneath the built up ice. The machine is attempting to wake up its occupant."
 	mob_name = "a scientist"
 	short_desc = "You are a scientist working for Nanotrasen, stationed onboard a state of the art research station."

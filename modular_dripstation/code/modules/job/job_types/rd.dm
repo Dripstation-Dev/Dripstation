@@ -3,6 +3,21 @@
 	alt_supervisor_corporations = list(/datum/corporation/nanotrasen/arq_tek)
 	loyalties = LOYALTY_CORP_SLAVE
 
+	mail_goodies = list(
+		/obj/effect/spawner/lootdrop/aimodule_neutral = 15,
+		/obj/item/transfer_valve = 15,
+		/obj/effect/spawner/lootdrop/aimodule_harmless = 10,
+		/obj/item/clothing/mask/facehugger/toy = 5,
+		/obj/item/autosurgeon/rd = 5,
+		/obj/item/circuitboard/machine/sleeper/party = 3,
+		/obj/item/clothing/under/rank/rnd/research_director/turtleneck/real = 3,
+		/obj/item/borg/upgrade/ai = 2,
+		/obj/effect/spawner/lootdrop/surgery_tool_alien = 2,
+		/obj/effect/spawner/lootdrop/engineering_tool_alien = 2,
+		/obj/effect/spawner/lootdrop/organ_spawner = 2,
+		/obj/item/stack/ore/bluespace_crystal/refined/nt = 1
+	)
+
 /datum/outfit/job/rd
 	id_type = /obj/item/card/id/head
 	glasses = /obj/item/clothing/glasses/sunglasses/chemical/aviator

@@ -19,24 +19,27 @@
 	planetary_atmos = TRUE
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null
-	digResult = /obj/item/stack/sheet/mineral/snow
+	digResult = /obj/item/stack/ore/glass/basalt
 	floor_variance = 80
 	max_icon_states = 7
-	dug = TRUE
+	dug = FALSE
 
 /turf/open/floor/plating/asteroid/icerock/lit
 	light_range = 2
 	light_power = 1
+	dug = TRUE
 
 /turf/open/floor/plating/asteroid/icerock/cracked
 	floor_variance = 0
 	icon_state = "icemoon_ground_cracked"
 	base_icon_state = "icemoon_ground_cracked"
+	dug = TRUE
 
 /turf/open/floor/plating/asteroid/icerock/smooth
 	floor_variance = 0
 	icon_state = "icemoon_ground_smooth"
 	base_icon_state = "icemoon_ground_smooth"
+	dug = TRUE
 
 /turf/open/floor/plating/asteroid/iceberg
 	gender = PLURAL
@@ -62,6 +65,8 @@
 	floor_variance = 40
 	max_icon_states = 7
 	flammability = -5
+	digResult = /obj/item/stack/sheet/mineral/snow
+	dug = TRUE
 
 /turf/open/floor/plating/asteroid/iceberg/lit
 	light_range = 2
@@ -100,6 +105,7 @@
 
 /turf/open/lava/plasma/ice_moon/deep
 	initial_gas_mix = FROZEN_ATMOS
+	icon = 'modular_dripstation/icons/turf/liquidplasma_deep.dmi'
 
 // Chasms for Ice moon, with planetary atmos and glow
 /turf/open/chasm/icemoon

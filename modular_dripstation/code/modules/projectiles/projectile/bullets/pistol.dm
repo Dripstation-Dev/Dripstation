@@ -1,8 +1,10 @@
 /obj/projectile/bullet/c9mm
-	armour_penetration = -5
+	damage = 17
+	armour_penetration = -10
 
 /obj/projectile/bullet/c9mm/ap
-	armour_penetration = 25
+	damage = 15
+	armour_penetration = 20
 
 /obj/projectile/bullet/c10mm
 	damage = 24

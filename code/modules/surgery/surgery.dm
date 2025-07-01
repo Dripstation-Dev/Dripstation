@@ -170,6 +170,8 @@
 		if(SB)
 			probability = SB.success_chance
 			break
+	if(HAS_TRAIT(target, TRAIT_SURGERY_PREPARED))
+		probability += 0.1
 
 	return probability + success_multiplier
 

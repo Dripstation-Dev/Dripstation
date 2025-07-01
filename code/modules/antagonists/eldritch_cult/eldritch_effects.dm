@@ -110,12 +110,14 @@
 	is_in_use = FALSE
 	to_chat(user,span_warning("Your ritual failed! You used the wrong components or are missing something important!"))
 
+/* Dripstation edit
 /obj/effect/eldritch/big
 	name = "transmutation rune"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "eldritch_rune1"
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
 	pixel_y = -32
+*/	//Dripstation edit end
 
 /**
   * #Reality smash tracker
@@ -274,6 +276,8 @@
 	var/image/img
 	///who has already used this influence
 	var/list/siphoners = list()
+	/// Whether we're currently being drained or not.	//dripstation edit
+	var/being_drained = FALSE							//dripstation edit
 
 /obj/effect/reality_smash/Initialize(mapload)
 	. = ..()
@@ -315,6 +319,51 @@
 
 	name = pick(prefix) + " " + pick(postfix)
 
+/obj/effect/reality_smash/attack_hand(mob/user, list/modifiers)
+	if(!IS_HERETIC(user)) // Shouldn't be able to do this, but just in case
+		return ..()
+
+	if(user.mind in siphoners)
+		balloon_alert(user, "have already studied this...")
+		return
+
+	if(being_drained)
+		balloon_alert(user, "already being drained!")
+	else
+		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1)
+
+	return TRUE
+
+/obj/effect/reality_smash/attackby(obj/item/weapon, mob/user, params)
+	. = ..()
+	if(.)
+		return
+
+	if(user.mind in siphoners)
+		balloon_alert(user, "have already studied this...")
+		return
+
+	// Using a codex will give you two knowledge points for draining.
+	if(!being_drained && istype(weapon, /obj/item/forbidden_book))
+		var/obj/item/forbidden_book/codex = weapon
+		codex.open_animation()
+		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 2)
+		return TRUE
+
+/obj/effect/reality_smash/proc/drain_influence(mob/user, cha)
+	if(DOING_INTERACTION(user, src))
+		return
+	balloon_alert(user, "starting study...")
+	being_drained = TRUE
+	if(!do_after(user, 10 SECONDS, src))
+		being_drained = FALSE			
+		balloon_alert(user, "interrupted!")
+		return
+	var/datum/antagonist/heretic/H = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+	H?.charge += cha		
+	balloon_alert(user, "study finished!")
+	siphoners |= user.mind
+	being_drained = FALSE
 
 /*
  *

@@ -125,7 +125,7 @@
 
 /obj/item/clothing/suit/armor/vest/light_odst/engineer
 	name = "light odst engineer vest"
-	desc = "The standard issue armor vest for TerraGov Orbital Drop Ship Troopers. Has engeneer markings."
+	desc = "The standard issue armor vest for TerraGov Orbital Drop Ship Troopers. Has engineer markings."
 	body_parts_covered = CHEST|GROIN
 	body_parts_partial_covered = null
 	cold_protection = CHEST|GROIN
@@ -163,7 +163,7 @@
 	
 /obj/item/clothing/suit/armor/vest/medium_odst/engineer
 	name = "medium odst engineer vest"
-	desc = "The standard issue armor vest for TerraGov Orbital Drop Ship Troopers. Has engeneer markings."
+	desc = "The standard issue armor vest for TerraGov Orbital Drop Ship Troopers. Has engineer markings."
 	icon_state = "odst_medium_engineer"
 	
 /obj/item/clothing/suit/armor/vest/medium_odst/medic

@@ -31,6 +31,17 @@
 	stock_max = 1
 	availability_prob = 20
 
+
+/datum/market_item/clothing/shellguard_vest
+	name = "Shellguard brand new wintercoat"
+	desc = "A fully new Shellguard brand wintercoat. Nobody knows where did it came from."
+	item = /obj/item/clothing/suit/hooded/wintercoat/security/shellguard
+
+	price_min = CARGO_CRATE_VALUE
+	price_max = CARGO_CRATE_VALUE * 2.5
+	stock_max = 1
+	availability_prob = 20
+
 /datum/market_item/clothing/slav_helmet
 	name = "SH-77 slav helmet"
 	desc = "An old helmet that keep your head covered."

@@ -430,7 +430,7 @@
 /// Gets all jobs with hud icons
 /proc/get_all_job_icons() //For all existing HUD icons
 	return get_all_jobs() + list("Prisoner", "Blueshield", "Nanotrasen Representative", "Magistrate", "Repair Worker Replika", "Bridge Assistant", "Security Consultant", "Corrections Officer",
-								"CentCom", "CentCom Officer", "CentCom Shield", "Occupying Operative", "Occupying Officer", "Amber Task Force", "Red Task Force", "Gamma Task Force", "Death Squad", "CentCom Clown", "CentCom Janitor", "CentCom Chap", "CentCom Medic", "CentCom Engeneer", "CentCom Exodimspecops", "Hephaestus", "Shellguard", "Militech", "UNN", "Freelancer")	//dripstation edit
+								"CentCom", "CentCom Officer", "CentCom Shield", "Occupying Operative", "Occupying Officer", "Amber Task Force", "Red Task Force", "Gamma Task Force", "Death Squad", "CentCom Clown", "CentCom Janitor", "CentCom Chap", "CentCom Medic", "CentCom Engineer", "CentCom Exodimspecops", "Hephaestus", "Shellguard", "Militech", "UNN", "Freelancer")	//dripstation edit
 
 /// Gets all centcom jobs
 /proc/get_all_centcom_jobs()

@@ -1,6 +1,7 @@
 /datum/species/lizard
 	name = "Unati"
 	plural_form = "Unathi"
+	possible_genders = list(MALE, FEMALE)
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,DIGITIGRADE,HAS_FLESH,HAS_BONE,HAS_TAIL)
 	default_features = list("mcolor" = "#00FF00", "tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Digitigrade Legs")
 	aiminginaccuracy = 5 //they prefer melee combat, has claws and are not skilled in long range fightsss
@@ -26,11 +27,11 @@
 		After the first contact between Terragov Exploration Corps and Unathi Navi, diplomatic team was quickly assembled, \
 		but the first diplomatic contact turned violent. Afterwards, the Terragov companies, that claimed rights on Moges Empire territories \
 		waged war to conquer them. In a year vast amounts of newly founded colonies, both unathi and human, became the grey war zone. \
-		unathi slavery became common, and most slaves were pressed into hazardous conditions in the expluatation of several colonies \
+		Unathi slavery became common, and most slaves were pressed into hazardous conditions in the expluatation of several colonies \
 		with rich plasma veins. As time went on, those companies became semyindependant and formed Trade Military Coalition. \
 		In 2463 diplomatic issues between Terra and Moges were resolved, though Trade Military Coalition continued to raid \
 		and enslave unathi. Terragov couldn`t stop the agression of the TMC because of legal toubles and lack of military strength at the right time, \
-		therefore imposed economic sanctions. Terragov space was soonly became overpopulated by unathi refugees and former slaves\
+		therefore imposed economic sanctions. Terragov space was soonly became overpopulated by unathi refugees and former slaves.\
 		Many human companies started exploit unathi as workers, as labor laws for non-humans offered significantly less privilege than \
 		what would be expected.",
  
@@ -56,7 +57,7 @@
 	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
 
 /datum/species/lizard/get_scream_sound(mob/living/carbon/user)
-	return SPECIES_DEFAULT_SCREAM_SOUND(user)
+	return UNATHI_DEFAULT_SCREAM_SOUND(user)
 
 /datum/species/lizard/get_cough_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_COUGH_SOUND(user)
@@ -68,7 +69,7 @@
 	return SPECIES_DEFAULT_SIGH_SOUND(user)
 
 /datum/species/lizard/get_sneeze_sound(mob/living/carbon/user)
-	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+	return UNATHI_DEFAULT_SNEEZE_SOUND(user)
 
 /datum/species/lizard/get_sniff_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
@@ -81,3 +82,28 @@
 
 /datum/species/lizard/get_yawn_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_YAWN_SOUND(user)
+
+/datum/species/lizard/on_species_gain(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	new /datum/bioware/lizard_scales(C)
+
+/datum/species/lizard/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	. = ..()
+	var/datum/bioware/lizard_scales/LS
+	if(LS in C.bioware)
+		QDEL_NULL(LS)
+
+/datum/bioware/lizard_scales
+	name = "Unathi Scales"
+	desc = "Scales form a primitive armor, protecting the body from melee attacks."
+	mod_type = BIOWARE_GENERIC
+	var/datum/armor/scales_armor_boost = new /datum/armor(20, 0, 0, 0, 0, 0, 0, 0, 0)
+
+/datum/bioware/lizard_scales/on_gain()
+	..()
+	owner.physiology.armor = owner.physiology.armor.attachArmor(scales_armor_boost)
+
+/datum/bioware/lizard_scales/on_lose()
+	..()
+	owner.physiology.armor = owner.physiology.armor.detachArmor(scales_armor_boost)
+	QDEL_NULL(scales_armor_boost)

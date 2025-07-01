@@ -112,7 +112,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(href_list["reload_tguipanel"])
 		nuke_chat()
 	if(href_list["reload_statbrowser"])
-		src << browse(file('html/statbrowser.html'), "window=statbrowser")
+		//src << browse(file('html/statbrowser.html'), "window=statbrowser")	//dripstation edit, fixing white stat panel
+		stat_panel.reinitialize()	//dripstation edit
 	// Log all hrefs
 	log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 

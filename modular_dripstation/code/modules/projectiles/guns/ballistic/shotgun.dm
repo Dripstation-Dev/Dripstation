@@ -10,6 +10,7 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	fire_delay = 8
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
 	can_be_sawn_off  = FALSE
@@ -25,13 +26,17 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/64x_guns_right.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/adv
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/adv
 	fire_delay = 6
 	can_be_sawn_off  = TRUE
 
-/obj/item/ammo_box/magazine/internal/shot/riot/adv
+/obj/item/ammo_box/magazine/internal/shot/adv
 	name = "riot adv shotgun internal magazine"
 	max_ammo = 8
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+
+/obj/item/ammo_box/magazine/internal/shot/adv/lethal
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
 
 /obj/item/gun/ballistic/shotgun/automatic
 	icon_state = "autoshotgun"
@@ -42,6 +47,34 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	inhand_x_dimension = 32
 	inhand_y_dimension = 32
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/adv
+	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
+	weapon_weight = WEAPON_HEAVY
+
+/obj/item/gun/ballistic/shotgun/automatic/lethal
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/adv/lethal
+
+/obj/item/gun/ballistic/shotgun/automatic/cats
+	name = "\improper C.A.T. Shotgun"
+	desc = "Combat Automatic Tactical Shotgun - a powerful automatic rifle mainly used by the Terra Government forces."
+	icon_state = "cats"
+	item_state = "autoshotgun"
+	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_MEDIUM
+	mag_type = /obj/item/ammo_box/magazine/catm12g
+	can_suppress = FALSE
+	burst_size = 2
+	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT, SELECT_FULLY_AUTOMATIC)
+	bolt_type = BOLT_TYPE_STANDARD
+	fire_delay = 6
+	fire_delay = 1
+	mag_display = TRUE
+	mag_display_ammo = FALSE
+	empty_indicator = FALSE
+	semi_auto = TRUE
+	internal_magazine = FALSE
+	tac_reloads = TRUE
+	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/shotgun/automatic/combat
 	icon_state = "cshotgun"
@@ -52,11 +85,20 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/64x_guns_right.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
+	burst_size = 2
+	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT)
+	auto_fire_delay = 0
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/compact
+	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/ballistic/shotgun/automatic/breaching
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
+	burst_size = 0
+	auto_fire_delay = 0
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'

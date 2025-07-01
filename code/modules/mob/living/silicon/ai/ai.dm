@@ -89,6 +89,7 @@
 	var/mob/living/silicon/robot/deployed_shell = null //For shell control
 	var/datum/action/innate/deploy_shell/deploy_action = new
 	var/datum/action/innate/deploy_last_shell/redeploy_action = new
+	var/datum/action/innate/choose_modules/modules_action
 	var/chnotify = 0
 
 	var/multicam_on = FALSE
@@ -1000,7 +1001,25 @@
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
 	add_verb_ai(list(/mob/living/silicon/ai/proc/choose_modules, /mob/living/silicon/ai/proc/toggle_download))
 	malf_picker = new /datum/module_picker
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
 
+/datum/action/innate/choose_modules
+	name = "Malfunction Modules"
+	desc = "Choose from a variety of insidious modules to aid you."
+	button_icon = 'icons/mob/actions/actions_AI.dmi'
+	button_icon_state = "modules_menu"
+	var/datum/module_picker/module_picker
+
+/datum/action/innate/choose_modules/New(picker)
+	. = ..()
+	if(istype(picker, /datum/module_picker))
+		module_picker = picker
+	else
+		CRASH("choose_modules action created with non module picker")
+
+/datum/action/innate/choose_modules/Activate()
+	module_picker.ui_interact(owner)
 
 /mob/living/silicon/ai/reset_perspective(atom/new_eye)
 	SHOULD_CALL_PARENT(FALSE) // I hate you all

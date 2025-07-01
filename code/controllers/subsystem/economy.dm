@@ -47,6 +47,7 @@ SUBSYSTEM_DEF(economy)
 							// tier 4
 							"rainbow" = 10)
 	var/list/bank_accounts = list() //List of normal accounts (not department accounts)
+	var/list/passport_ids = list() //List of normal accounts (not department accounts)
 	var/list/dep_cards = list()
 	///ref to moneysink. Only one should exist on the map. Has its payout() proc called every budget cycle
 	var/obj/item/energy_harvester/moneysink = null

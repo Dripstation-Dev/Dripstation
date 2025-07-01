@@ -155,3 +155,16 @@
 		Passing up self-repair for nigh-immunity to bullets, the right tool for a certain job, if you can find whatever that job may be."
 
 	return list(span_notice("<i>[msg]</i>"))
+
+/obj/item/clothing/suit/armor/vest/sacrificial/slav
+	name = "old slav armor"
+	desc = "An old robust vest with one-use ceramic plating and forest camo. Good thing there's plenty of forests to hide in around here, right?"
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	icon_state = "rus_armor"
+	body_parts_covered = CHEST|GROIN
+	max_integrity = 100
+	armor = list(MELEE = 20, BULLET = 75, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, WOUND = 15)
+
+/obj/item/clothing/head/helmet/sacrificial/examine_more(mob/user)
+	return

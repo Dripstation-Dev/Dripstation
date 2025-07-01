@@ -108,9 +108,9 @@
 
 	for(var/obj/item/I in embedded_objects)
 		phantom_owner.remove_embedded_object(I, src, TRUE, TRUE)
-	if(!phantom_owner.has_embedded_objects())
-		phantom_owner.clear_alert("embeddedobject")
-		SEND_SIGNAL(phantom_owner, COMSIG_CLEAR_MOOD_EVENT, "embedded")
+	//if(!phantom_owner.has_embedded_objects())
+		//phantom_owner.clear_alert("embeddedobject")
+		//SEND_SIGNAL(phantom_owner, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
 	if(!special)
 		if(phantom_owner.dna)

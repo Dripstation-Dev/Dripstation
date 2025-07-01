@@ -82,10 +82,20 @@
 	desc = "Developed by Roseus Galactic in conjunction with the Gorlex Marauders to produce a functional suit for urban operations, \
 			this suit proves to be cheaper than your standard issue hardsuit, with none of the movement restrictions of the outdated spacesuits employed by the company. \
 			Comes with a armor vest, helmet, sneaksuit, sneakboots, specialized combat gloves and a high-tech balaclava. The case is also rather useful as a storage container."
-	item = /obj/item/storage/toolbox/infiltrator
+	item = /obj/item/storage/box/gunset/infiltrator
 	cost = 6
 	limited_stock = 1 //you only get one so you don't end up with too many gun cases
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+
+// Stealthy tools
+/datum/uplink_item/stealthy_tools/passport
+	name = "Agent Passport"
+	desc = "Passport can be forged to display any information about user. Sometimes can be used to  \
+			gain target trust or bypass passport control. Some government forces can be abused with this if present."
+	item = /obj/item/storage/wallet/passport/agent
+	cost = 1
+	restricted_corps = list()
+
 
 // Stealthy Weapons
 
@@ -205,6 +215,20 @@
 	item = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/unathi
 	restricted_species = list("lizard", "draconid", "polysmorph")
 
+/datum/uplink_item/race_restricted/cleaver
+	name = "Breach Cleaver"
+	desc = "This massive blade harkens back to the wars on Moghes. Wielding it imbues you with the unquenchable desire for martial prowess. Requires two hands to be wielded. Comes in a scabbard. Has different effects based on intent. Help does stamina, Disarm does knockback, Grab does knockdown and Harm does high damage. "
+	cost = 8
+	item = /obj/item/melee/breach_cleaver
+	restricted_species = list("lizard", "draconid")
+
+/datum/uplink_item/race_restricted/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A holo-cigar imported from the Terra system. The full effects of looking so badass aren't understood yet, but users show an increase in precision while dual-wielding firearms."
+	cost = 2
+	item = /obj/item/clothing/mask/holo_cigar
+	restricted_species = list("human")
+
 /datum/uplink_item/race_restricted/humantofelinid
 	name = "Felinid Mutation Toxin"
 	desc = "Oh, so... You really want this?"
@@ -230,7 +254,7 @@
 	restricted_corp_property = TRUE
 	surplus = 0
 	cant_discount = TRUE	//so it does not take place of discounts for other factions
-	include_modes = list(/datum/game_mode/traitor)	//so this is for traitors
+	//include_modes = list(/datum/game_mode/traitor)	//so this is for traitors
 
 /datum/uplink_item/corp_restricted/blood_magic
 	name = "S`Sarsĥs holy rites"
@@ -242,14 +266,14 @@
 /datum/uplink_item/corp_restricted/fnx45
 	name = "FNX-45 holster"
 	desc = "Expanded holster with FNX-45 and spare .45 magazines - side arm of many modern mercs and professional operatives. Time to become one of them."
-	cost = 10
+	cost = 7
 	item = /obj/item/storage/belt/holster/syndicate/fnx45
 	manufacturer = /datum/corporation/independent/traitor
 
 /datum/uplink_item/corp_restricted/pirate_sabre
 	name = "Pirate Sabre"
 	desc = "Plastitanium sabre prefered by pirate teams alligned with Syndicate coalition corporations and frontline command officers of Gorlex security detachment`s. Good choice if you prefere ripost people."
-	cost = 8
+	cost = 7
 	item = /obj/item/storage/belt/sabre/syndie
 	manufacturer = /datum/corporation/gorlex
 
@@ -301,8 +325,8 @@
 	manufacturer = /datum/corporation/traitor/cybersun
 
 /datum/uplink_item/corp_restricted/las_carab
-	name = "C-18 Ceybersun laser carabine"
-	desc = "A carabine for damaging Nanotrasen`s reputation."
+	name = "C-18 Cybersun laser carabine"
+	desc = "An overclocked laser carabine for damaging Nanotrasen`s reputation."
 	item = /obj/item/gun/energy/laser/cybersun
 	cost = 6
 	manufacturer = /datum/corporation/traitor/cybersun
@@ -379,6 +403,34 @@
 	item = /obj/item/ammo_box/foambox/riot
 	cost = 1
 	manufacturer = /datum/corporation/traitor/donkco
+
+/datum/uplink_item/corp_restricted/caracal
+	name = "'Caracal' SA-91M anti-materiel rifle"
+	desc = "Sleek .50 sniper rifle with a reciprocating barrel. Since we have an issue with products to give to our agents, we bought a few rifles from Scarborough Arms Group. Use this one wisely, we don`t have any spare magazines."
+	item = /obj/item/gun/ballistic/rifle/sniper_rifle/syndicate
+	cost = 12
+	manufacturer = /datum/corporation/traitor/vahlen
+
+/datum/uplink_item/corp_restricted/experimental_emergency
+	name = "emergency autoinjector"
+	desc = "An atropine autoinjector with extra mix of nanite-based coagulant and antibiotics to help stabilize bad cuts and burns and rapidly reverse severe bloodloss. Used when need to run or quickly get critical patients back on their feet."
+	item = /obj/item/reagent_containers/autoinjector/medipen/ekit/traitor
+	cost = 3
+	manufacturer = /datum/corporation/traitor/vahlen
+
+/datum/uplink_item/corp_restricted/experimental_antitrauma
+	name = "anti-trauma autoinjector"
+	desc = "A experimental autoinjector for use in combat situations. Helps to reform damaged neural connections, repair bones and coagulate bleeding and rapidly reverse severe bloodloss."
+	item = /obj/item/reagent_containers/autoinjector/medipen/syndicate_trauma_repairer
+	cost = 5
+	manufacturer = /datum/corporation/traitor/vahlen
+
+/datum/uplink_item/corp_restricted/experimental_regen
+	name = "cellular restorer autoinjector"
+	desc = "A experimental autoinjector for use in combat situations. Helps to restore missing limbs, heal wounds and regenerate cellular damage. No changelings were harmed during the production process!"
+	item = /obj/item/reagent_containers/autoinjector/medipen/syndicate_cellular_repairer
+	cost = 5
+	manufacturer = /datum/corporation/traitor/vahlen
 
 
 ////////////Nanotrasen Production/////////////
@@ -625,7 +677,7 @@
 /datum/uplink_item/suits/nt_hardened_armor
 	name = "NT Hardened Armor"
 	desc = "This white and black Nanotrasen armor set is hardened for armor piercing bullets shotout. \
-			Nanotrasen crew members are trained to report red armor sightings, however."
+			Anyone will defenetly notice your alighment, however."
 	item = /obj/item/storage/box/hardarmor
 	cost = 4
 
@@ -779,6 +831,9 @@
 
 /datum/uplink_item/implants/storage
 	restricted_corps = list()
+
+/datum/uplink_item/implants/adrenal
+	cost = 20
 /////////////////////////////////////////////////
 
 

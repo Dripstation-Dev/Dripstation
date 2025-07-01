@@ -125,7 +125,7 @@
 	contains = list()
 
 /datum/supply_pack/weaponry/russian/fill(obj/structure/closet/crate/C)
-	switch (rand(0,4))
+	switch (rand(0,5))
 		if(0)
 			new /obj/item/gun/ballistic/revolver/nagant(C)
 			new /obj/item/ammo_box/no_direct/n762(C)
@@ -139,9 +139,14 @@
 			new /obj/item/ammo_box/a762(C)
 			new /obj/item/ammo_box/a762(C)
 		if(3)
-			new /obj/item/gun/ballistic/automatic/ar/ak47(C)
-			new /obj/item/ammo_box/magazine/r762x39(C)
+			new /obj/item/gun/ballistic/automatic/ar/akm/civ(C)
+			new /obj/item/ammo_box/magazine/r762x39/civ(C)
+			new /obj/item/ammo_box/magazine/r762x39/civ(C)
 		if(4)
+			new /obj/item/gun/ballistic/automatic/pistol/APS(C)
+			new /obj/item/ammo_box/magazine/pistolm9mm(C)
+			new /obj/item/ammo_box/magazine/pistolm9mm(C)
+		if(5)
 			new /obj/item/reagent_containers/food/snacks/rationpack(C)
 	for(var/i in 1 to 2)
 		//Under
@@ -154,12 +159,20 @@
 		//Gear
 		item = pick(/obj/item/clothing/shoes/russian,
 					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/mask/russian_balaclava,
-					/obj/item/clothing/head/helmet/riot/altin,
-					/obj/item/clothing/head/helmet/rus_ushanka,
+					/obj/item/storage/belt/military/army,
+					/obj/item/storage/belt/military/webbing/soviet,
 					/obj/item/clothing/suit/armor/vest/russian,
+					/obj/item/clothing/suit/armor/slav_heavy,
+					/obj/item/clothing/suit/armor/vest/sacrificial/slav,
 					/obj/item/clothing/suit/armor/vest/russian_coat)
 		new item(C)
+		//headgear
+	var/head = pick(/obj/item/clothing/mask/russian_balaclava,
+				/obj/item/clothing/head/helmet/riot/altin,
+				/obj/item/clothing/head/helmet/rus_ushanka,
+				/obj/item/clothing/head/helmet/rus_helmet,
+				/obj/item/clothing/head/helmet/tanker/slav)
+	new head(C)
 
 /datum/supply_pack/weaponry/nitro_express
 	name = "Nitro Express Rifle Crate"
@@ -190,6 +203,70 @@
 					/obj/item/ammo_casing/nitro_express,
 					/obj/item/ammo_casing/nitro_express)
 
+/datum/supply_pack/weaponry/ammo_ten
+	name = "Ammo Crate (10mm)"
+	desc = "This crate contains 3 boxes of 10mm ammo. Requires Armory access to open."
+	cost = 4000
+	contains = list(/obj/item/ammo_box/c10mm,
+					/obj/item/ammo_box/c10mm,
+					/obj/item/ammo_box/c10mm)
+
+/datum/supply_pack/weaponry/ammo_nine
+	name = "Ammo Crate (9mm)"
+	desc = "This crate contains 3 boxes of 9mm ammo. Requires Armory access to open."
+	cost = 3000
+	contains = list(/obj/item/ammo_box/c9mm,
+					/obj/item/ammo_box/c9mm,
+					/obj/item/ammo_box/c9mm)
+
+/datum/supply_pack/weaponry/ammo_ff
+	name = "Ammo Crate (.45)"
+	desc = "This crate contains 3 boxes of .45 ammo. Requires Armory access to open."
+	cost = 4000
+	contains = list(/obj/item/ammo_box/c45,
+					/obj/item/ammo_box/c45,
+					/obj/item/ammo_box/c45)
+
+/datum/supply_pack/weaponry/ammo_ff
+	name = "Ammo Crate (.45)"
+	desc = "This crate contains 3 boxes of .45 ammo. Requires Armory access to open."
+	cost = 4000
+	contains = list(/obj/item/ammo_box/c45,
+					/obj/item/ammo_box/c45,
+					/obj/item/ammo_box/c45)
+
+/datum/supply_pack/weaponry/ammo_riflenato
+	name = "Ammo Crate (5.56x39)"
+	desc = "This crate contains 3 boxes of 5.56 intermediate rifle ammo. Requires Armory access to open."
+	cost = 5500
+	contains = list(/obj/item/ammo_box/c556,
+					/obj/item/ammo_box/c556,
+					/obj/item/ammo_box/c556)
+
+/datum/supply_pack/weaponry/ammo_rifleussp
+	name = "Ammo Crate (5.45x39)"
+	desc = "This crate contains 3 boxes of 5.45 intermediate rifle ammo. Requires Armory access to open."
+	cost = 5000
+	contains = list(/obj/item/ammo_box/c545,
+					/obj/item/ammo_box/c545,
+					/obj/item/ammo_box/c545)
+
+/datum/supply_pack/weaponry/ammo_riflehussp
+	name = "Ammo Crate (7.62x39)"
+	desc = "This crate contains 3 boxes of 7.62 intermediate rifle ammo. Requires Armory access to open."
+	cost = 6000
+	contains = list(/obj/item/ammo_box/c762x39,
+					/obj/item/ammo_box/c762x39,
+					/obj/item/ammo_box/c762x39)
+
+/datum/supply_pack/weaponry/ammo_rifleclip
+	name = "Ammo Crate (7.62x54)"
+	desc = "This crate contains 3 clips of 7.62 rifle ammo. Requires Armory access to open."
+	cost = 5000
+	contains = list(/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762,
+					/obj/item/ammo_box/a762)
+
 /datum/supply_pack/security/armory/swat
 	desc = "Contains two fullbody sets of tough, fireproof, pressurized suits designed in a joint effort by Terragov and Nanotrasen. Each set contains a suit, helmet, mask, combat belt, and NT brand tackler gloves. Requires Armory access to open."
 	contains = list(/obj/item/clothing/head/helmet/swat/nanotrasen,
@@ -204,6 +281,7 @@
 					/obj/item/clothing/gloves/tackler/nt)
 
 /datum/supply_pack/security/securityclothes
+	name = "Spearhead brand Clothing Crate"
 	contains = list(/obj/item/clothing/under/rank/security/navyblue,
 					/obj/item/clothing/under/rank/security/navyblue,
 					/obj/item/clothing/suit/armor/officerjacket,
@@ -218,11 +296,37 @@
 /datum/supply_pack/security/securityarmor
 	name = "Full Security Armor Crate"
 	desc = "Contains three fullbody vests, shoulderpads and knee pads included. Requires Security access to open."
-	cost = 500
+	cost = 1000
 	contains = list(/obj/item/clothing/suit/armor/vest/alt/full,
 					/obj/item/clothing/suit/armor/vest/alt/full,
 					/obj/item/clothing/suit/armor/vest/alt/full)
 	crate_name = "full security armor crate"
+
+
+/datum/supply_pack/security/shellguardclothes
+	name = "Shellguard brand Clothing Crate"
+	desc = "Contains appropriate outfits for the PMC operatives. Contains outfits for the Guard, Warden. Each outfit comes with a rank-appropriate jumpsuit, suit, and beret. Requires Security access to open."
+	cost = 3000
+	contraband = TRUE
+	access_view = ACCESS_SECURITY
+	contains = list(/obj/item/clothing/under/shellguard/guard,
+					/obj/item/clothing/under/shellguard/warden,
+					/obj/item/clothing/head/beret/sec/shellguard,
+					/obj/item/clothing/head/beret/sec/navywarden/shellguard,
+					/obj/item/clothing/suit/armor/vest/shellguard,
+					/obj/item/clothing/suit/armor/vest/warden/shellguard)
+	crate_name = "shellguard clothing crate"
+
+/datum/supply_pack/security/shockers
+	name = "Shockers Crate"
+	desc = "Contains three shokers. Nonstandart equipment for Spearhead security. Requires Security access to open."
+	cost = 700
+	contraband = TRUE
+	access_view = ACCESS_SECURITY
+	contains = list(/obj/item/melee/shocker,
+					/obj/item/melee/shocker,
+					/obj/item/melee/shocker)
+	crate_name = "shockers crate"
 
 /datum/supply_pack/security/armory/laserarmor
 	name = "Reflective Armor Crate"
@@ -260,6 +364,19 @@
 	contains = list(/obj/item/clothing/head/helmet/HoS,
 					/obj/item/clothing/suit/armor/riot/hos)
 	crate_name = "hos supply crate"
+
+/datum/supply_pack/security/qm_rifle
+	name = "QM`s rifle"
+	desc = "Contains QM`s personal rifle."
+	cost = 5000
+	order_limit = 1
+	dangerous = TRUE
+	contraband = TRUE
+	access = ACCESS_QM
+	access_view = ACCESS_QM
+	crate_type = /obj/structure/closet/crate/secure/weapon
+	contains = list(/obj/item/gun/ballistic/rifle/boltaction/qmrifle)
+	crate_name = "qm rifle crate"
 
 /datum/supply_pack/weaponry/ballistic
 	desc = "For when the enemy absolutely needs to be replaced with lead. Contains three Militech-designed Combat Shotguns, and three Shotgun Bandoliers. Requires Armory access to open."

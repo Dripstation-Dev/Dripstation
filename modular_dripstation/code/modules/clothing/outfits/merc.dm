@@ -72,9 +72,10 @@
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/grenade/syndieminibomb/concussion/frag = 1,
 		/obj/item/clothing/glasses/night = 1,
+		/obj/item/screwdriver/nuke = 1,
 		/obj/item/ammo_box/magazine/gauss = 1,
 		/obj/item/ammo_box/magazine/gauss/lance = 1,
-		/obj/item/stock_parts/cell/gun/upgraded = 1,
+		/obj/item/stock_parts/cell/gun/upgraded = 2,
 		/obj/item/melee/emergency_forcing_tool/varyag = 1,
 		)
 

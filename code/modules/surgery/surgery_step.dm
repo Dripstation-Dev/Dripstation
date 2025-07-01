@@ -119,6 +119,8 @@
 			prob_chance = implements[implement_type]
 		if(!issilicon(user) && !HAS_TRAIT(user, TRAIT_SURGEON) && !HAS_TRAIT(user, TRAIT_MEDIC))	//dripstation edit
 			prob_chance *= 0.7																		//dripstation edit
+			if(target.stat == DEAD)
+				prob_chance += 0.1
 		prob_chance *= surgery.get_probability_multiplier()
 
 		// Blood splatters on tools and user

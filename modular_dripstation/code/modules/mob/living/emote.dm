@@ -126,3 +126,94 @@
 
 /datum/emote/living/pout
 	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/roar
+	key = "roar"
+	key_third_person = "roars"
+	message = "roars."
+	message_param = "roars at %t!"
+	emote_type = EMOTE_AUDIBLE
+	emote_length = 2 SECONDS
+	cooldown = 3 SECONDS
+	var/list/viable_tongues = list(/obj/item/organ/tongue/lizard, /obj/item/organ/tongue/polysmorph)
+
+/datum/emote/living/carbon/roar/can_run_emote(mob/living/user, status_check = TRUE, intentional)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	return is_type_in_list(T, viable_tongues)
+
+/datum/emote/living/carbon/roar/get_sound(mob/living/carbon/human/user)
+	return pick('modular_dripstation/sound/emotes/unathi/roar_1.ogg', 'modular_dripstation/sound/emotes/unathi/roar_2.ogg', 'modular_dripstation/sound/emotes/unathi/roar_3.ogg')
+
+// Tail thump! Lizard-tail exclusive emote.
+/datum/emote/living/carbon/human/tailwhip
+	key = "whip"
+	key_third_person = "whips their tail"
+	message = "whips their tail!"
+	message_param = "whips %t with their tail!"
+	emote_type = EMOTE_AUDIBLE
+	emote_length = 2 SECONDS
+	cooldown = 10 SECONDS
+
+/datum/emote/living/carbon/human/tailwhip/get_sound(mob/living/user)
+	return pick('modular_dripstation/sound/emotes/unathi/whip.ogg', 'modular_dripstation/sound/emotes/unathi/whip_short.ogg')
+
+/datum/emote/living/carbon/human/tailwhip/can_run_emote(mob/user, status_check = TRUE, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(!istype(H) || !H.dna || !H.dna.species)
+		return FALSE
+	if(H.IsParalyzed() || H.IsStun()) // No whiping allowed. Taken from can_wag_tail().
+		return FALSE
+	return ("tail_lizard" in H.dna.species.mutant_bodyparts) || ("waggingtail_lizard" in H.dna.species.mutant_bodyparts)
+
+/datum/emote/living/carbon/human/tailwhip/run_emote(mob/user, params, type_override, intentional, mob/living/carbon/human/target)
+	. = ..()
+	if(. && ishuman(target))
+		var/distance = get_dist(target, usr)
+		if(distance <= 1 && prob(30))
+			target.Knockdown(1 SECONDS)
+
+/datum/emote/living/carbon/threat
+	key = "threat"
+	key_third_person = "threats"
+	message = "threats."
+	message_param = "threats %t!"
+	emote_type = EMOTE_AUDIBLE
+	emote_length = 2 SECONDS
+	cooldown = 3 SECONDS
+	var/list/viable_tongues = list(/obj/item/organ/tongue/lizard, /obj/item/organ/tongue/polysmorph)
+
+/datum/emote/living/carbon/threat/can_run_emote(mob/living/user, status_check = TRUE, intentional)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	return is_type_in_list(T, viable_tongues)
+
+/datum/emote/living/carbon/threat/get_sound(mob/living/carbon/human/user)
+	return pick('modular_dripstation/sound/emotes/unathi/threat_1.ogg', 'modular_dripstation/sound/emotes/unathi/threat_2.ogg')
+
+/datum/emote/living/carbon/rumble
+	key = "rumble"
+	key_third_person = "rumbles"
+	message = "rumbles."
+	message_param = "rumbles at %t!"
+	emote_type = EMOTE_AUDIBLE
+	emote_length = 2 SECONDS
+	cooldown = 3 SECONDS
+	var/list/viable_tongues = list(/obj/item/organ/tongue/lizard, /obj/item/organ/tongue/polysmorph)
+
+/datum/emote/living/carbon/rumble/can_run_emote(mob/living/user, status_check = TRUE, intentional)
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	return is_type_in_list(T, viable_tongues)
+
+/datum/emote/living/carbon/rumble/get_sound(mob/living/carbon/human/user)
+	return pick('modular_dripstation/sound/emotes/unathi/rumble_1.ogg', 'modular_dripstation/sound/emotes/unathi/rumble_2.ogg')

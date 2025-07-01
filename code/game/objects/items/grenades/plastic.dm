@@ -134,7 +134,8 @@
 			var/obj/item/I = AM
 			I.throw_speed = max(1, (I.throw_speed - 3))
 			I.throw_range = max(1, (I.throw_range - 3))
-			I.embedding = I.embedding.setRating(embed_chance = 0)
+			I.embedding = list("embed_chance" = 0)
+			I.updateEmbedding()
 
 		target.add_overlay(plastic_overlay, TRUE)
 		if(!nadeassembly)

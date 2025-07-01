@@ -15,7 +15,7 @@
 	materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
 	sharpness = SHARP_POINTY
-	embedding = list("embedded_pain_chance" = 0, "embedded_pain_multiplier" = 0, "embedded_unsafe_removal_time" = 1 SECONDS, "embedded_unsafe_removal_pain_multiplier" = 0, "embed_chance" = 15, "embedded_fall_chance" = 5, "embedded_bleed_rate" = 0)
+	embedding = list("pain_chance" = 0, "pain_multiplier" = 0, "rip_time" = 1 SECONDS, "remove_pain_mult" = 0, "embed_chance" = 15, "fall_chance" = 5)
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
@@ -361,7 +361,7 @@
 /obj/item/reagent_containers/syringe/dart
 	name = "reagent dart"
 	amount_per_transfer_from_this = 10
-	embedding = list("embedded_pain_chance" = 0, "embedded_pain_multiplier" = 0, "embedded_unsafe_removal_time" = 0.25 SECONDS, "embedded_unsafe_removal_pain_multiplier" = 0, "embed_chance" = 15, "embedded_fall_chance" = 0, "embedded_bleed_rate" = 0)
+	embedding = list("pain_chance" = 0, "pain_multiplier" = 0, "rip_time" = 0.25 SECONDS, "remove_pain_mult" = 0, "embed_chance" = 15, "fall_chance" = 0, "embedded_bleed_rate" = 0)
 
 /obj/item/reagent_containers/syringe/dart/temp
 	item_flags = DROPDEL

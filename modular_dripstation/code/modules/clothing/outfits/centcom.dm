@@ -70,7 +70,7 @@
 	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
-	W.access += ACCESS_BRIG
+	W.access += ACCESS_SEC_DOORS
 	W.assignment = "CentCom Intern"
 	W.registered_name = H.real_name
 	W.update_label()
@@ -119,7 +119,7 @@
 	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
-	W.access += ACCESS_BRIG
+	W.access += ACCESS_SEC_DOORS
 	W.assignment = "CentCom Intern"
 	W.registered_name = H.real_name
 	W.update_label()
@@ -187,7 +187,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/aviators
 	head = /obj/item/clothing/head/beret/sec/centcom
 	belt = /obj/item/storage/belt/holster/centcom_laser
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/classic_baton/telescopic/gold
 	back = /obj/item/storage/backpack/satchel/centcom
 	r_pocket = /obj/item/modular_computer/tablet/pda/preset/bureaucrat
 	l_hand = /obj/item/clipboard/yog/paperwork/admin
@@ -213,7 +213,7 @@
 	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
-	W.access += ACCESS_BRIG
+	W.access += ACCESS_SEC_DOORS
 	W.assignment = "CentCom Official"
 	W.registered_name = H.real_name
 	W.update_label()
@@ -235,7 +235,7 @@
 	head = /obj/item/clothing/head/beret/sec/centcom/officer
 	belt = /obj/item/storage/belt/holster/centcom_laser
 	r_pocket = /obj/item/lighter/nt
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/classic_baton/telescopic/gold
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id/centcom/silver
 	implants = list(/obj/item/implant/mindshield/centcom, /obj/item/implant/biosig_ert, /obj/item/implant/dusting)
@@ -272,7 +272,7 @@
 	mask = /obj/item/clothing/mask/breath/tactical
 	belt = /obj/item/storage/belt/military/assault/blueshield
 	r_pocket = /obj/item/storage/pouch/pistol/pdw
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/classic_baton/telescopic/silver
 	back = /obj/item/storage/backpack/satchel/blueshield
 	id = /obj/item/card/id/centcom
 	backpack_contents = list(/obj/item/shield/riot/tele = 1)
@@ -352,7 +352,7 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id/centcom/silver
 	implants = list(/obj/item/implant/mindshield/centcom, /obj/item/implant/biosig_ert, /obj/item/implant/dusting)
-	backpack_contents = list(/obj/item/melee/classic_baton/telescopic = 1, /obj/item/lighter/nt = 1)
+	backpack_contents = list(/obj/item/melee/classic_baton/telescopic/silver = 1, /obj/item/lighter/nt = 1)
 
 /datum/outfit/centcom/sod_officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -611,7 +611,7 @@
 	head = /obj/item/clothing/head/centhat
 	belt = /obj/item/storage/belt/sabre/mono
 	r_pocket = /obj/item/lighter/nt
-	l_pocket = /obj/item/melee/classic_baton/telescopic
+	l_pocket = /obj/item/melee/classic_baton/telescopic/gold
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id/centcom/silver
 	implants = list(/obj/item/implant/mindshield/centcom, /obj/item/implant/biosig_ert, /obj/item/implant/dusting)

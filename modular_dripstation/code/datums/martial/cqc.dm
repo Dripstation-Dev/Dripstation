@@ -1,6 +1,5 @@
 /datum/martial_art/cqc
 	display_combos = TRUE
-	var/old_grab_state = null
 	var/mob/restraining_mob
 
 /datum/martial_art/cqc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -34,21 +33,24 @@
 		restraining_mob = null
 	return ..()
 
+///CQC grab, stun & disarm
 /datum/martial_art/cqc/grab_act(mob/living/A, mob/living/D)
 	if(A != D && can_use(A)) // A != D prevents grabbing yourself
 		add_to_streak("G", D)
 		if(check_streak(A, D)) //if a combo is made no grab upgrade is done
 			return TRUE
-		old_grab_state = A.grab_state
-		D.grabbedby(A, 1)
-		A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.6 Seconds instead of 1, less frustrating
-		if(old_grab_state == GRAB_PASSIVE)
-			D.drop_all_held_items()
-			A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
-			log_combat(A, D, "aggressively grabbed")
-			D.visible_message(span_warning("[A] violently grabs [D]!"), \
-							span_userdanger("You're grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
-			to_chat(A, span_danger("You violently grab [D]!"))
+		var/instantg = FALSE
+		if(A.grab_state == GRAB_AGGRESSIVE)
+			instantg = TRUE
+			log_combat(A, D, "aggressively grabbed neck")
+			D.visible_message(span_warning("[A] violently grabs [D]`s neck!"), \
+							span_userdanger("You're neck grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
+			to_chat(A, span_danger("You violently grab [D]`s neck!"))
+		else if(A.grab_state)
+			D.Immobilize(3 SECONDS)
+		D.drop_all_held_items()	
+		D.grabbedby(A, instantg, instantg) //Instant neck grab if already grabbed
+		A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.2 Seconds instead of 1, less frustrating
 		return TRUE
 	else
 		return FALSE
@@ -86,8 +88,9 @@
 							span_userdanger("[user] grabs your arm as you attack and twists it, you feel staggered!"))
 		attacker.adjust_staggered_up_to(2 SECONDS, 4 SECONDS)
 		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_2.ogg', 50, 1, -1)
-	if(user.a_intent == INTENT_GRAB)
-		grab_act(user,attacker)
+	if(user.a_intent == INTENT_GRAB || attacker.a_intent == INTENT_GRAB)
+		user.start_pulling(attacker, TRUE)
+		attacker.grabbedby(user, FALSE, TRUE)
 
 /datum/martial_art/cqc/proc/Restrain(mob/living/A, mob/living/D)
 	if(restraining_mob)
@@ -146,7 +149,7 @@
 		else
 			if(A.grab_state) //honestly with the way current grabs work this doesn't really do all that much
 				A.grab_state = min(1, A.grab_state - 1) //immediately lose grab power...
-				if(!A.grab_state || prob(BASE_GRAB_RESIST_CHANCE/A.grab_state)) //...and have a chance to lose the entire grab
+				if(!A.grab_state || prob(BASE_GRAB_RESIST_CHANCE/max(0.5, A.grab_state - 1))) //...and have a chance to lose the entire grab
 					A.visible_message(span_danger("[A] is put off balance, losing their grip on [D]!"), \
 										span_danger("You are put off balance, and you lose your grip on [D]!"))
 					A.stop_pulling()

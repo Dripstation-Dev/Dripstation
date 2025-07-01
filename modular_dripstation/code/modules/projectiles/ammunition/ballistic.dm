@@ -10,6 +10,11 @@
 	icon_state = "556ap-casing"
 	projectile_type = /obj/projectile/bullet/a556/ssaap
 
+/obj/projectile/bullet/a556/ihdf
+	name = "5.56mm TMC frag casing"
+	desc = "A 5.56mm fragmentation bullet casing."
+	projectile_type = /obj/projectile/bullet/a556/ihdf
+
 
 ///Shotgun
 /obj/item/ammo_casing/shotgun/syndie
@@ -59,6 +64,17 @@
 	desc = "A 7.62mm armor-piercing bullet casing."
 	icon_state = "556ap-casing"
 	projectile_type = /obj/projectile/bullet/a762x39/ap
+
+/obj/item/ammo_casing/a762x39/ihdf
+	name = "7.62mm frag casing"
+	desc = "A 7.62mm fragmentation bullet casing."
+	projectile_type = /obj/projectile/bullet/a762x39/ihdf
+
+/obj/item/ammo_casing/a762x39/civ
+	name = "7.62mm PS GJ bullet casing"
+	desc = "A 7.62mm PS GJ bullet casing."
+	icon_state = "556-casing"
+	projectile_type = /obj/projectile/bullet/a762x39/civ
 
 /obj/item/ammo_casing/a762x51
 	name = "7.62x51mm bullet casing"
@@ -114,3 +130,10 @@
 	projectile_type = /obj/projectile/bullet/nitro_express
 	caliber = NITRO_EXPRESS
 	icon_state = ".50"
+
+
+/obj/item/ammo_casing/a57x28
+	name = "5.7x28 FMJ AP NATO bullet casing"
+	desc = "A 5.7x28 NATO bullet casing."
+	projectile_type = /obj/projectile/bullet/c57x28mm
+	caliber = CALIBER_57X28NATO

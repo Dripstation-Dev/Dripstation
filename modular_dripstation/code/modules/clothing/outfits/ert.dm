@@ -106,6 +106,7 @@
 	W.access += ACCESS_EXTERNAL_AIRLOCKS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
+	W.access += ACCESS_SEC_DOORS
 	W.access += ACCESS_BRIG
 	W.assignment = "[name]"
 	W.registered_name = W.assignment

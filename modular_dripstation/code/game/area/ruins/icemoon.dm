@@ -21,3 +21,15 @@
 /area/ruin/powered/slimelab/cafe
 	name = "Slime Lab Cafe"
 	icon_state = "green"
+
+/area/ruin/plasma_facility/commons
+	name = "\improper Abandoned Plasma Facility Commons"
+	sound_environment = SOUND_AREA_STANDARD_STATION
+	//mood_bonus = -5
+	//mood_message = "I feel like I am being watched..."
+
+/area/ruin/plasma_facility/operations
+	name = "\improper Abandoned Plasma Facility Operations"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+	//mood_bonus = -5
+	//mood_message = "I feel like I am being watched..."

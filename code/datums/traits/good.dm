@@ -414,12 +414,14 @@
 			return "You are incapable of understanding [L.name]!"
 	return FALSE
 
+/* Dripstation edit
 /datum/quirk/multilingual/english
 	name = "Multilingual (English)"
 	desc = "You spent a portion of your life learning to understand English. You may or may not be able to speak it based on your anatomy."
 	specific = /datum/language/english
 	gain_text = span_notice("You have learned to understand English.")
 	lose_text = span_notice("You have forgotten how to understand English.")
+*/
 
 /datum/quirk/multilingual/etherean
 	name = "Multilingual (Etherean)"
@@ -435,12 +437,14 @@
 	gain_text = span_notice("You have learned to understand Mothian.")
 	lose_text = span_notice("You have forgotten how to understand Mothian.")
 
+/* Dripstation edit
 /datum/quirk/multilingual/draconic
 	name = "Multilingual (Draconic)"
 	desc = "You spent a portion of your life learning to understand Draconic. You may or may not be able to speak it based on your anatomy."
 	specific = /datum/language/draconic
 	gain_text = span_notice("You have learned to understand Draconic.")
-	lose_text = span_notice("You have forgotten how to understand Draconic.")
+	lose_text = span_notice("You have forgotten how to understand Draconic."
+*/
 
 /datum/quirk/multilingual/felinid
 	name = "Multilingual (Felinid)"

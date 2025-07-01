@@ -7,6 +7,19 @@
 		return "hud_permit"
 	return null
 
+/obj/item/card/id
+	var/cached_flat_icon
+	var/corporation
+
+/// If no cached_flat_icon exists, this proc creates it and crops it. This proc then returns the cached_flat_icon. Intended only for use displaying ID card icons in chat.
+/obj/item/card/id/proc/get_cached_flat_icon()
+	if(!cached_flat_icon)
+		cached_flat_icon = getFlatIcon(src)
+	return cached_flat_icon
+
+/obj/item/card/id/get_examine_string(mob/user, thats = FALSE)
+	return "[icon2html(get_cached_flat_icon(), user)] [thats? "That's ":""][get_examine_name(user)]"
+
 /obj/item/card/id/departmental_budget
 	icon = 'modular_dripstation/icons/obj/card.dmi'
 	icon_state = "budgetcard"

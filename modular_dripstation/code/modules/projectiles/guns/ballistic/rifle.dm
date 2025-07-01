@@ -11,13 +11,19 @@
 	weapon_weight = WEAPON_HEAVY
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper.ogg'
 	dry_fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_empty.ogg'
+	zoom_amt = 0
+	zoom_out_amt = 0
+	available_attachments = list(
+		/obj/item/attachment/scope/sniper,
+	)
+	zoomable = FALSE
 	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/rifle/sniper_rifle/syndicate
 	name = "\improper 'Caracal' SA-91M anti-materiel rifle"
 	desc = "A sleek .50 sniper rifle with a reciprocating barrel, nicknamed 'Caracal' by Scarborough Arms. Its compact folding parts make it able to fit into a backpack, and its modular barrel can have a suppressor installed within it rather than as a muzzle extension. Its advanced scope accounts for all ballistic inaccuracies of a reciprocating barrel."
 	icon_state = "antimaterial_rifle_blc"
-	rack_delay = 40 //Delay reduced thanks to recoil absorption
+	rack_delay = 0.7 SECONDS //Delay reduced thanks to recoil absorption
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 
@@ -28,7 +34,7 @@
 	name = "\improper 'Caracal' SA-91M anti-materiel rifle"
 	desc = "A sleek .50 sniper rifle with a reciprocating barrel, nicknamed 'Caracal' by Scarborough Arms. Its compact folding parts make it able to fit into a backpack, and its modular barrel can have a suppressor installed within it rather than as a muzzle extension. Its advanced scope accounts for all ballistic inaccuracies of a reciprocating barrel."
 	icon_state = "antimaterial_rifle_blc"
-	rack_delay = 40 //Delay reduced thanks to recoil absorption
+	rack_delay = 0.7 SECONDS //Delay reduced thanks to recoil absorption
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 	can_suppress = TRUE
@@ -42,7 +48,7 @@
 	can_suppress = TRUE
 	can_unsuppress = TRUE
 	recoil = 1.8
-	rack_delay = 55 //Slightly smaller than standard sniper
+	rack_delay = 0.6 SECONDS //Slightly smaller than standard sniper
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	eject_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
@@ -58,13 +64,35 @@
 	name = "\improper 'Catalyst' MR-5 anti-material sniper rifle"
 	desc = "An Militech legal copy of SA-91R Scarborough Arms sniper rifle. This one has been fitted with a heavy duty scope and a sturdier stock."
 	icon_state = "militech_catalyst"
-	rack_delay = 50 //Smaller than standard sniper
+	rack_delay = 0.7 SECONDS //Smaller than standard sniper
 	eject_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
 	eject_empty_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
 	load_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_reload.ogg'
 	pin = /obj/item/firing_pin/dna/secure
 	manufacturer = /datum/corporation/hephaestus/militech
 
+/obj/item/gun/ballistic/rifle/sniper_rifle/sv98
+	name = "\improper SV-98 anti-material sniper rifle"
+	desc = "A Vostok-manufactured anti-material sniper rifle. Robust, presise."
+	icon_state = "sv-98"
+	rack_delay = 0.4 SECONDS //360 no scope
+	pin = /obj/item/firing_pin/dna/secure
+	fire_sound = 'modular_dripstation/sound/weapons/tgmc/svd.ogg'
+	dry_fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_empty.ogg'
+	fire_sound_volume = 90
+	vary_fire_sound = FALSE
+	zoom_amt = 0
+	zoom_out_amt = 0
+	zoomable = FALSE
+	available_attachments = list(
+		/obj/item/attachment/scope/sniper_slav,
+	)
+	eject_sound = 'modular_dripstation/sound/weapons/tgmc/svd_unload.ogg'
+	eject_empty_sound = 'modular_dripstation/sound/weapons/tgmc/svd_unload.ogg'
+	load_sound = 'modular_dripstation/sound/weapons/tgmc/svd_reload.ogg'
+	rack_sound = 'modular_dripstation/sound/weapons/tgmc/svd_rack.ogg'
+	mag_type = /obj/item/ammo_box/magazine/svd
+	manufacturer = /datum/corporation/vostok
 
 ///Nitro Express///
 /obj/item/gun/ballistic/nitro_express

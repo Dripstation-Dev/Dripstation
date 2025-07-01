@@ -1,33 +1,35 @@
 //Human Overlays Indexes/////////
-#define MUTATIONS_LAYER			28		//mutations. Tk headglows, cold resistance glow, etc
-#define BODY_BEHIND_LAYER		27		//certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODYPARTS_LAYER			26		//Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODY_ADJ_LAYER			25		//certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_LAYER				24		//underwear, undershirts, socks, eyes, lips(makeup)
-#define FRONT_MUTATIONS_LAYER	23		//mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define DAMAGE_LAYER			22		//damage indicators (cuts and burns)
-#define UNIFORM_LAYER			21
-#define ID_LAYER				20 //lmao at the idiot who put both ids and hands on the same layer
-#define HANDS_PART_LAYER		19
-#define GLOVES_LAYER			18
-#define SHOES_LAYER				17
-#define EARS_LAYER				16
-#define SUIT_LAYER				15
-#define GLASSES_LAYER			14
-#define BELT_LAYER				13		//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		12
-#define BACK_LAYER				11
-#define NECK_LAYER				10
-#define HAIR_LAYER				9		//TODO: make part of head layer?
-#define HANDCUFF_LAYER			8
-#define LEGCUFF_LAYER			7
-#define HANDS_LAYER				6
-#define BODY_FRONT_LAYER		5
-#define FACEMASK_LAYER			4
-#define HEAD_LAYER				3
+#define MUTATIONS_LAYER			30		//mutations. Tk headglows, cold resistance glow, etc
+#define BODY_BEHIND_LAYER		29		//certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODYPARTS_LAYER			28		//Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODY_ADJ_LAYER			27		//certain mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_LAYER				26		//underwear, undershirts, socks, eyes, lips(makeup)
+#define FRONT_MUTATIONS_LAYER	25		//mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define DAMAGE_LAYER			24		//damage indicators (cuts and burns)
+#define UNIFORM_LAYER			23
+#define ID_LAYER				22 //lmao at the idiot who put both ids and hands on the same layer
+#define HANDS_PART_LAYER		21
+#define HANDS_SPRITE_LAYER		20	//I need this for literally one sprite accessory
+#define GLOVES_LAYER			19
+#define SHOES_LAYER				18
+#define EARS_LAYER				17
+#define SUIT_LAYER				16
+#define GLASSES_LAYER			15
+#define BELT_LAYER				14		//Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		13
+#define BACK_LAYER				12
+#define NECK_LAYER				11
+#define HAIR_LAYER				10		//TODO: make part of head layer?
+#define HANDCUFF_LAYER			9
+#define LEGCUFF_LAYER			8
+#define HANDS_LAYER				7
+#define BODY_FRONT_LAYER		6
+#define FACEMASK_LAYER			5
+#define HEAD_LAYER				4
+#define SIDE_HEAD_LAYER			3		//because i want freels over helmet
 #define HALO_LAYER				2		//blood cult ascended halo, because there's currently no better solution for adding/removing
 #define FIRE_LAYER				1		//If you're on fire
-#define TOTAL_LAYERS			28		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS			30		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 
 //Human Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"

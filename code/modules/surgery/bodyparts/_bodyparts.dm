@@ -1047,6 +1047,8 @@
 /obj/item/bodypart/proc/get_bleed_rate()
 	if(status != BODYPART_ORGANIC) // maybe in the future we can bleed oil from aug parts, but not now
 		return
+	if(!owner)	//bodypart has no owner
+		return
 
 	var/bleed_rate = 0
 	if(generic_bleedstacks > 0)
@@ -1056,7 +1058,7 @@
 		//We want an accurate reading of .len
 		listclearnulls(embedded_objects)
 		for(var/obj/item/embeddies in embedded_objects)
-			bleed_rate += embeddies.embedding.embedded_bleed_rate
+			bleed_rate += 0.5
 
 	for(var/thing in wounds)
 		var/datum/wound/W = thing
@@ -1071,6 +1073,28 @@
 	if(!bleed_rate)
 		QDEL_NULL(grasped_by)
 	return bleed_rate
+
+/// INTERNAL PROC, DO NOT USE
+/// Properly sets us up to manage an inserted embeded object
+/obj/item/bodypart/proc/_embed_object(obj/item/embed)
+	if(embed in embedded_objects) // go away
+		return
+	// We don't need to do anything with projectile embedding, because it will never reach this point
+	RegisterSignal(embed, COMSIG_ITEM_EMBEDDING_UPDATE, PROC_REF(embedded_object_changed))
+	embedded_objects += embed
+	get_bleed_rate()
+
+/// INTERNAL PROC, DO NOT USE
+/// Cleans up any attachment we have to the embedded object, removes it from our list
+/obj/item/bodypart/proc/_unembed_object(obj/item/unembed)
+	UnregisterSignal(unembed, COMSIG_ITEM_EMBEDDING_UPDATE)
+	embedded_objects -= unembed
+	get_bleed_rate()
+
+/obj/item/bodypart/proc/embedded_object_changed(obj/item/embedded_source)
+	SIGNAL_HANDLER
+	/// Embedded objects effect bleed rate, gotta refresh lads
+	get_bleed_rate()
 
 /**
   * apply_gauze() is used to- well, apply gauze to a bodypart

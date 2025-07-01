@@ -1272,6 +1272,14 @@
 	if(!HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		to_chat(user, span_warning("[target] doesn't have a mindshield for you to turn off!"))
 		return
+	var/shield = FALSE														//dripstation edit start
+	for(var/obj/item/implant/all_implants as anything in target.implants)
+		if(all_implants.type == /obj/item/implant/mindshield)
+			shield = TRUE
+	if(!shield)
+		to_chat(user, span_warning("[target] have a mindshield protection that you can`t turn off!"))
+		return																//dripstation edit end
+			
 	/// Good to go - Buckle them!
 	if(do_after(user, 5 SECONDS, target))
 		attach_mob(target, user)

@@ -897,11 +897,8 @@
 
 		if(iscarbon(carbon))
 			var/obj/item/bodypart/part = carbon.get_embedded_part(arrow)
-			if(part)
-				if(!carbon.remove_embedded_object(src, unsafe = TRUE))
-					to_chat(carbon, span_notice("You feel [arrow] tugging on you."))
-					return
-				to_chat(carbon, span_userdanger("[arrow] suddenly rips out of you!"))
+			part.receive_damage(brute=10, sharpness=SHARP_EDGED, wound_bonus = 10)	//dripstation edit
+			carbon.remove_embedded_object(arrow)	//dripstation edit
 	else if(istype(arrow.loc, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = arrow.loc
 		box.stored_ammo -= arrow

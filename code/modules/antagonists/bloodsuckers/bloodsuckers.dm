@@ -85,6 +85,7 @@
 	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/bloodsucker,
 		/datum/antagonist/monsterhunter,
+		/datum/antagonist/mindslave, /* Dripstation edit, mindslave resists*/
 	)
 	///Default Bloodsucker traits
 	var/static/list/bloodsucker_traits = list(
@@ -283,6 +284,20 @@
 		old_body.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 	new_body.add_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 
+
+/datum/antagonist/bloodsucker/process()	//dripstation edit start
+	addtimer(CALLBACK(src, PROC_REF(bloodsucker_process)), 10 SECONDS, TIMER_UNIQUE)
+
+/datum/antagonist/bloodsucker/proc/bloodsucker_process()
+	if(owner && owner.current && owner.current.stat!=DEAD)
+		for(var/objective_ in objectives)
+			if(!istype(objective_, /datum/objective/vassal))
+				continue
+			var/datum/objective/vassal/objective = objective_
+			if(!objective.target)
+				continue
+			if(objective.target.current && ishuman(objective.target.current) && !objective.check_mindshield_we_cant_remove(objective.target.current))	//finding new target if this shits somehow
+				objective.find_target()		//dripstation edit end
 
 /datum/antagonist/bloodsucker/greet()
 	. = ..()

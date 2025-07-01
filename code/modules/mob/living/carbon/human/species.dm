@@ -821,12 +821,14 @@ GLOBAL_LIST_EMPTY(features_by_species)
 
 /datum/species/proc/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
 	var/list/bodyparts_to_add = mutant_bodyparts.Copy()
-	var/list/relevent_layers = list(BODY_BEHIND_LAYER, BODY_ADJ_LAYER, BODY_FRONT_LAYER)
+	var/list/relevent_layers = list(BODY_BEHIND_LAYER, BODY_ADJ_LAYER, BODY_FRONT_LAYER, HANDS_SPRITE_LAYER, SIDE_HEAD_LAYER)	//dripstation edit
 	var/list/standing	= list()
 
 	H.remove_overlay(BODY_BEHIND_LAYER)
 	H.remove_overlay(BODY_ADJ_LAYER)
 	H.remove_overlay(BODY_FRONT_LAYER)
+	H.remove_overlay(HANDS_SPRITE_LAYER)	//dripstation edit
+	H.remove_overlay(SIDE_HEAD_LAYER)		//dripstation edit
 
 	if(!mutant_bodyparts)
 		return
@@ -1156,6 +1158,8 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	H.apply_overlay(BODY_BEHIND_LAYER)
 	H.apply_overlay(BODY_ADJ_LAYER)
 	H.apply_overlay(BODY_FRONT_LAYER)
+	H.apply_overlay(HANDS_SPRITE_LAYER)	//dripstation edit
+	H.apply_overlay(SIDE_HEAD_LAYER)	//dripstation edit
 
 
 //This exists so sprite accessories can still be per-layer without having to include that layer's
@@ -1168,6 +1172,10 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			return "ADJ"
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
+		if(HANDS_SPRITE_LAYER)	//dripstation edit
+			return "HANDS"		//dripstation edit
+		if(SIDE_HEAD_LAYER)	//dripstation edit
+			return "SIDE"		//dripstation edit
 
 /datum/species/proc/spec_life(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))

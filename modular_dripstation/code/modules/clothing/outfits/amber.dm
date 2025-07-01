@@ -157,6 +157,7 @@
 	W.access += ACCESS_MAINT_TUNNELS
 	W.access += ACCESS_WEAPONS
 	W.access += ACCESS_HEADS
+	W.access += ACCESS_SEC_DOORS
 	W.access += ACCESS_BRIG
 	W.assignment = "[assi] - Amber Task Force"
 	W.registered_name = W.assignment

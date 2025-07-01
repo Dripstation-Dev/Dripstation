@@ -223,7 +223,7 @@
 
 	if(user.grab_state == GRAB_PASSIVE)
 		to_chat(user, span_warning("You must have [victim] in an aggressive grab to manipulate [victim.p_their()] [lowertext(name)]!"))
-		return TRUE
+		return FALSE	//so we don`t try to fix this while in active martial combat, you know?
 
 	if(user.grab_state >= GRAB_AGGRESSIVE)
 		user.visible_message(span_danger("[user] begins twisting and straining [victim]'s dislocated [limb.name]!"), span_notice("You begin twisting and straining [victim]'s dislocated [limb.name]..."), ignored_mobs=victim)

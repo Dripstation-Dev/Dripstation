@@ -48,3 +48,8 @@
 
 /obj/effect/landmark/start/yogs
 	icon = 'modular_dripstation/icons/mob/landmarks.dmi'
+
+/obj/effect/landmark/lone_op
+	icon = 'modular_dripstation/icons/mob/landmarks.dmi'
+	name = "Lone op"
+	icon_state = "snukeop_spawn"

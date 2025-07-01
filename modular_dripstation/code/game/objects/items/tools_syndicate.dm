@@ -173,3 +173,52 @@
 	for(var/obj/item/I in contents)
 		I.toolspeed = 0.33
 		I.name = "syndicate [I.name]"
+
+/obj/item/crowbar/mechremoval
+	name = "mech removal tool"
+	desc = "A... really big crowbar. You're pretty sure it could pry open a mech, but it seems unwieldy otherwise."
+	icon_state = "mechremoval0"
+	base_icon_state = "mechremoval"
+	item_state = "crowbar_syndie"
+	icon = 'modular_dripstation/icons/obj/mechremoval.dmi'
+	w_class = WEIGHT_CLASS_HUGE
+	slot_flags = NONE
+	toolspeed = 1.25
+	armor = list(BOMB = 100, FIRE = 100)
+	resistance_flags = FIRE_PROOF
+	force = 5
+	bare_wound_bonus = 15
+	wound_bonus = 10
+
+/obj/item/crowbar/mechremoval/Initialize(mapload)
+	. = ..()
+	transform = transform.Translate(0, -8)
+	AddComponent(/datum/component/two_handed, force_wielded = 19, icon_wielded = "[base_icon_state]1")
+
+/obj/item/crowbar/mechremoval/update_icon_state()
+	icon_state = "[base_icon_state]0"
+	return ..()
+
+/obj/item/crowbar/mechremoval/proc/empty_mech(obj/mecha/mech, mob/user)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		mech.balloon_alert(user, "not wielded!")
+		return
+	if(!mech.occupant || isAI(mech.occupant)) //if no occupant, or only an ai
+		mech.balloon_alert(user, "it's empty!")
+		return
+	user.log_message("tried to pry open [mech], located at [loc_name(mech)], which is currently occupied by [mech.occupant].", LOG_ATTACK)
+	var/mech_dir = mech.dir
+	mech.balloon_alert(user, "prying open...")
+	playsound(mech, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
+	if(!use_tool(mech, user, mech.enclosed ? 5 SECONDS : 3 SECONDS, volume = 0, extra_checks = CALLBACK(src, PROC_REF(extra_checks), mech, mech_dir)))
+		mech.balloon_alert(user, "interrupted!")
+		return
+	user.log_message("pried open [mech], located at [loc_name(mech)], which is currently occupied by [mech.occupant].", LOG_ATTACK)
+	var/mob/M = mech.occupant
+	mech.go_out(TRUE)
+	var/turf/target_turf = get_step(M.loc, pick(GLOB.cardinals))
+	M.throw_at(target_turf, 5, 10)
+	playsound(mech, 'sound/machines/airlockforced.ogg', 75, TRUE)
+
+/obj/item/crowbar/mechremoval/proc/extra_checks(obj/mecha/mech, mech_dir)
+	return HAS_TRAIT(src, TRAIT_WIELDED) && mech.occupant && mech.dir == mech_dir

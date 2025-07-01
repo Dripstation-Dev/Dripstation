@@ -9,7 +9,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/qm
 
 /obj/item/clothing/suit/hooded/wintercoat/qm/attackby(obj/item/I, params)
-	if(!istype(I, /obj/item/clothing/suit/armor/vest/alt))
+	if(I in typecacheof(/obj/item/clothing/suit/armor/vest/alt, only_root_path = TRUE))
 		return
 	if(!usr.canUseTopic(src, BE_CLOSE))
 		return

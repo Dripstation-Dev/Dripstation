@@ -135,6 +135,8 @@
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "warden_jacket"
+	body_parts_partial_covered = ARMS
+	partial_armor_coeff = 0.6
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
@@ -181,6 +183,13 @@
 /obj/item/clothing/under/rank/security/officer
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/security/security.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/security/security.dmi'
+
+/obj/item/clothing/under/rank/security/officer/old
+	name = "old blue NT Defence Unit`s turtleneck"
+	desc = "A turtleneck made of strong material, providing robust protection."
+	icon_state = "specops_blue"
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/corporate/nanotrasen.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/corporate/nanotrasen.dmi'
 
 /obj/item/clothing/under/rank/security/officer/skirt
 	can_adjust = TRUE
@@ -254,6 +263,17 @@
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'	
 	pocket_storage_component_path = null
+
+/obj/item/clothing/suit/hooded/wintercoat/security/alt
+	icon_state = "coatalt_sec"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/alt
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+
+/obj/item/clothing/head/hooded/winterhood/security/alt
+	icon_state = "winterhoodalt_sec"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
 
 /*
  *Physician
@@ -404,7 +424,7 @@
 					/obj/item/storage/pouch/magazine = 2,
 					/obj/item/storage/pouch/shotgun = 2,
 					/obj/item/storage/pouch/explosive = 2,
-					/obj/item/storage/pouch/flare = 2,
+					/obj/item/storage/pouch/flare/full = 2,
 					/obj/item/storage/belt/bandolier = 2)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,
 					/obj/item/storage/fancy/donut_box = 2)
@@ -432,7 +452,7 @@
 					/obj/item/clothing/under/rank/security/officer/redshirt = 3,
 					/obj/item/clothing/under/rank/security/officer/classic = 3,
 					/obj/item/clothing/under/rank/security/officer/corporate = 3,
-					/obj/item/clothing/suit/hooded/wintercoat/security = 3,					
+					/obj/item/clothing/suit/hooded/wintercoat/security/alt = 3,					
 					/obj/item/clothing/suit/armor/vest/secmiljacket = 2,
 					/obj/item/clothing/suit/toggle/bomber/secbomber/soft = 2,
 					/obj/item/clothing/suit/poncho/sec = 2,	

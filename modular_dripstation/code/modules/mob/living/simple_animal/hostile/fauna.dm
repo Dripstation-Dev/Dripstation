@@ -82,20 +82,22 @@
 				violating = TRUE
 				H.apply_effect(4 SECONDS, EFFECT_PARALYZE)
 				H.apply_effect(10 SECONDS, EFFECT_KNOCKDOWN)
-				if(do_after(src, 3 SECONDS))
-					visible_message(span_notice("[src] in a few quick moves violates [H] and leaves some liquid on their skin!"), span_notice("You violate [H]!"))
-					do_attack_animation(H, ATTACK_EFFECT_BITE)
-					for(var/thing in diseases)
-						var/datum/disease/D = thing
-						if(D.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS)
-							H.ForceContractDisease(D)
-				violating = FALSE
+				violate_proc(H)
+				return
 			else if(H.stat != DEAD)
 				visible_message(span_notice("[src] bites off a piece of meat from [H]!"), span_notice("You bite [H]!"))
 				do_attack_animation(H, ATTACK_EFFECT_BITE)
-				return ..()
-	else
-		return ..()
+	return ..()
+
+/mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin/proc/violate_proc(mob/living/carbon/human/H)
+	if(do_after(src, 3 SECONDS))
+		visible_message(span_notice("[src] in a few quick moves violates [H] and leaves some liquid on their skin!"), span_notice("You violate [H]!"))
+		do_attack_animation(H, ATTACK_EFFECT_BITE)
+		for(var/thing in diseases)
+			var/datum/disease/D = thing
+			if(D.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS)
+				H.ForceContractDisease(D)
+		violating = FALSE
 
 /mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin/handle_automated_action()
 	if(violating)

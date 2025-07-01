@@ -54,6 +54,10 @@
 	on = TRUE
 	toggle_hardsuit_mode(user)
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_hand(mob/user)
+	to_chat(user, span_warning("You cannot strip your helmet manually!") )
+	return
+
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle hardsuit mode
 	if(!isturf(user.loc))
 		to_chat(user, span_warning("You cannot toggle your helmet while in this [user.loc]!") )
@@ -65,6 +69,7 @@
 	playsound(src.loc, 'modular_dripstation/sound/servo_motor.ogg', 50, 1)
 	if(!do_after(user, 1.8 SECONDS, user, timed_action_flags = (mobility ? IGNORE_ALL : IGNORE_HELD_ITEM), extra_checks = CALLBACK(src, PROC_REF(CheckCanToggle), user)))
 		user.balloon_alert(user, "interrupted!")
+		processing = FALSE
 		return
 	processing = FALSE
 	on = !on

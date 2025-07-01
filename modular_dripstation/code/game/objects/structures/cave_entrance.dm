@@ -466,7 +466,7 @@
 				new /obj/
 				new /mob/living/simple_animal/hostile/swarmer/ai(loc)
 			if(prob(25))
-				new /obj/item/storage/toolbox/infiltrator(loc)
+				new /obj/item/storage/box/gunset/infiltrator(loc)
 				new /mob/living/simple_animal/hostile/swarmer/ai(loc)
 				new /mob/living/simple_animal/hostile/swarmer/ai(loc)
 			if(prob(25))

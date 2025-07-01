@@ -224,7 +224,8 @@
 		w_class = initial(w_class)
 		name = initial(name)
 		hitsound = initial(hitsound)
-		embedding = embedding.setRating(embed_chance = EMBED_CHANCE)
+		embedding = list("embed_chance" = EMBED_CHANCE)	// dripstation edit
+		updateEmbedding()	// dripstation edit
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, span_warning("[src] can now be concealed."))
@@ -241,7 +242,8 @@
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		hitsound = 'sound/weapons/blade1.ogg'
-		embedding = embedding.setRating(embed_chance = 100) //rule of cool
+		embedding = list("embed_chance" = 100)//rule of cool
+		updateEmbedding()	// dripstation edit
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, span_warning("[src] is now active."))

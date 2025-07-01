@@ -359,6 +359,7 @@
 		else
 			C.assignment = J.title
 		C.originalassignment = J.title
+		C.corporation = J.supervisor_corporation.name
 		if(H.age)
 			C.registered_age = H.age
 		C.update_label()
@@ -472,6 +473,8 @@
 // 	return SSjob.get_last_resort_spawn_points()
 
 
+//So, this proc DOES NOT WORK since it isn`t in /mob/dead/new_player/proc/create_character(transfer_after) where it should be
+/*
 // Spawns the mob to be played as, taking into account preferences and the desired spawn point.
 /datum/job/proc/get_spawn_mob(client/player_client, atom/spawn_point)
 	var/mob/living/spawn_instance
@@ -486,11 +489,44 @@
 		qdel(spawn_instance)
 		return // Disconnected while checking for the appearance ban.
 	return spawn_instance
+*/
 
 
 /// Applies the preference options to the spawning mob, taking the job into account. Assumes the client has the proper mind.
 /mob/living/proc/apply_prefs_job(client/player_client, datum/job/job)
 
+
+/*
+/mob/living/carbon/human/apply_prefs_job(client/player_client, datum/job/job)
+	if(job.loyalties != LOYALTY_SYNTH)
+		var/passport_type = player_client.prefs.read_preference(/datum/preference/choiced/passport)
+		var/obj/item/storage/wallet/passport/P
+		switch (passport_type)
+			if(PASSPORT_NONE)
+				P = null
+			if(PASSPORT_TERRALOW)
+				P = new /obj/item/storage/wallet/passport/terragovlow(src.loc)
+			if(PASSPORT_TERRAMIL)
+				P = new /obj/item/storage/wallet/passport/terragovmilitary(src.loc)
+			if(PASSPORT_TMC)
+				P = new /obj/item/storage/wallet/passport/tmc(src.loc)
+			if(PASSPORT_LIZARD)
+				P = new /obj/item/storage/wallet/passport/lizard(src.loc)
+			if(PASSPORT_USSP)
+				P = new /obj/item/storage/wallet/passport/ussp(src.loc)
+			if(PASSPORT_ANCAP)
+				P = new /obj/item/storage/wallet/passport/ancap(src.loc)
+		if(istype(P))
+			to_chat(src, span_notice("Found [P]."))
+			P.whos = real_name
+			var/obj/item/card/id/C = get_item_by_slot(ITEM_SLOT_ID)
+			if(istype(C))
+				C.attack_hand(src)
+				P.InsertID(C)
+			equip_to_slot_if_possible(P, ITEM_SLOT_ID)
+		else 
+			to_chat(src, span_notice("No passport found."))
+*/
 /**
  * Called after a successful roundstart spawn.
  * Client is not yet in the mob.
@@ -499,6 +535,9 @@
 /datum/job/proc/after_roundstart_spawn(mob/living/spawning, client/player_client)
 	SHOULD_CALL_PARENT(TRUE)
 
+	if(loyalties != LOYALTY_SYNTH)
+		var/passport_type = player_client.prefs.read_preference(/datum/preference/choiced/passport)
+		documents_spawn(passport_type, spawning)
 
 /**
  * Called after a successful latejoin spawn.
@@ -508,6 +547,151 @@
 /datum/job/proc/after_latejoin_spawn(mob/living/spawning)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_LATEJOIN_SPAWN, src, spawning)
+
+	if(loyalties != LOYALTY_SYNTH)
+		var/passport_type = spawning.client?.prefs?.read_preference(/datum/preference/choiced/passport)
+		documents_spawn(passport_type, spawning)
+
+/obj/item/paper/work_order
+	name = "Work order document (Form NT-012)"
+	desc = "Work order document, containing information about emploee."
+	var/corp_specific = null
+
+/obj/item/paper/work_order/tmc
+	corp_specific = "Trade Military Coalition"
+
+/obj/item/paper/work_order/proc/update_text(signature, datum/job/j, corp)
+	var/D = ""
+	if(j.department_for_prefs && j.department_for_prefs?.department_name == DEPARTMENT_CENTRAL_COMMAND || j.department_for_prefs?.department_name == DEPARTMENT_CAPTAIN)
+		D = "Supervisor"
+	else if(j.department_for_prefs)
+		D = "[j.department_for_prefs?.department_name]"
+	else
+		var/first = TRUE
+		for(var/department in j.departments_list)
+			var/datum/job_department/place = department
+			if(!first)
+				D += " and "
+			if(place != /datum/job_department/command)
+				D += "[place.department_name]"
+	written = list()
+	written += new/datum/langtext("<center><B>Work order</B></center>" ,/datum/language/common)
+	written += new/datum/langtext("<BR><BR><BR>",/datum/language/common)
+	written += new/datum/langtext("This work order confirms that emploee is licensed specialist ordered to perform tasks at [station_name()] at [j.title] position at [D] Department.", /datum/language/common)
+	written += new/datum/langtext("<BR><BR><BR>", /datum/language/common)
+	written += new/datum/langtext("Issued for ", /datum/language/common)
+	written += new/datum/langtext("<i>[signature]</i>",/datum/language/common)
+	written += new/datum/langtext(" by ", /datum/language/common)
+	written += new/datum/langtext("<i>[corp_specific ? corp_specific : corp].</i>",/datum/language/common)
+	written += new/datum/langtext("<br><br>",/datum/language/common)
+	written += new/datum/langtext("<b>Stamp Below if Approved</b>",/datum/language/common)
+	update_appearance(UPDATE_ICON)
+	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	if (isnull(stamps))
+		stamps = sheet.css_tag()
+	stamps += sheet.icon_tag("stamp-cent")
+	var/mutable_appearance/stampoverlay = mutable_appearance('modular_dripstation/icons/obj/bureaucracy.dmi', "paper_stamp-cent")
+	stampoverlay.pixel_x = rand(-2, 2)
+	stampoverlay.pixel_y = rand(-3, 2)
+
+	LAZYADD(stamped, "stamp-cent")
+	add_overlay(stampoverlay)
+
+/obj/item/paper/carry_permit
+	name = "Weapon carry permit (Form NT-073S)"
+	desc = "Weapon carry permit, containing confirmation that emploee can carry guns."
+
+/obj/item/paper/carry_permit/proc/update_text(signature)
+	written = list()
+	written += new/datum/langtext("<center><h3>Weapon carry permit NT-073S</h3></center><hr>",/datum/language/common)
+	written += new/datum/langtext("<b>Name: [signature]</b> ",/datum/language/common)
+	written += new/datum/langtext("<br><br>",/datum/language/common)
+	written += new/datum/langtext("<b>Service weapon carry confirmation permit. </b> ",/datum/language/common)
+	written += new/datum/langtext("<br><br>",/datum/language/common)
+	written += new/datum/langtext("<b>Sign Here: </b>",/datum/language/common)
+	written += new/datum/langtext("<i>[signature]</i>",/datum/language/common)
+	written += new/datum/langtext("<br><hr>",/datum/language/common)
+	written += new/datum/langtext("<b>Reviewed By: Centcom</b>",/datum/language/common)
+	written += new/datum/langtext("<br>",/datum/language/common)
+	written += new/datum/langtext("<b>Stamp Below if Approved</b>",/datum/language/common)
+	update_appearance(UPDATE_ICON)
+	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	if (isnull(stamps))
+		stamps = sheet.css_tag()
+	stamps += sheet.icon_tag("stamp-cent")
+	var/mutable_appearance/stampoverlay = mutable_appearance('modular_dripstation/icons/obj/bureaucracy.dmi', "paper_stamp-cent")
+	stampoverlay.pixel_x = rand(-2, 2)
+	stampoverlay.pixel_y = rand(-3, 2)
+
+	LAZYADD(stamped, "stamp-cent")
+	add_overlay(stampoverlay)
+
+/datum/job/proc/documents_spawn(passport_type, mob/living/spawning)
+	if(istype(spawning, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = spawning
+		var/obj/item/storage/wallet/passport/P = null
+		var/obj/item/paper/work_order/WO = null
+		var/list/slots = list("In your left pocket" = ITEM_SLOT_LPOCKET, "In your right pocket" = ITEM_SLOT_RPOCKET, "In your backpack" = ITEM_SLOT_BACKPACK)
+		switch (passport_type)
+			if(PASSPORT_NONE)
+				WO = new /obj/item/paper/work_order(H.loc)
+			if(PASSPORT_TERRALOW)
+				P = new /obj/item/storage/wallet/passport/terragovlow(H.loc)
+				WO = new /obj/item/paper/work_order(H.loc)
+			if(PASSPORT_TERRAMIL)
+				if(ishumanbasic(H))
+					P = new /obj/item/storage/wallet/passport/terragovmilitary(H.loc)
+					WO = new /obj/item/paper/work_order(H.loc)
+				else
+					P = new /obj/item/storage/wallet/passport/terragovlow(H.loc)
+					WO = new /obj/item/paper/work_order(H.loc)
+			if(PASSPORT_TMC)
+				if(!islizard(H))
+					//P = new /obj/item/storage/wallet/passport/tmc(H.loc) //this existing, but not used
+					WO = new /obj/item/paper/work_order/tmc(H.loc)
+				else
+					P = new /obj/item/storage/wallet/passport/terragovlow(H.loc)	//no lizards, sorry
+					WO = new /obj/item/paper/work_order(H.loc)
+			if(PASSPORT_LIZARD)
+				P = new /obj/item/storage/wallet/passport/lizard(H.loc)
+				WO = new /obj/item/paper/work_order(H.loc)
+			if(PASSPORT_USSP)
+				P = new /obj/item/storage/wallet/passport/ussp(H.loc)
+				WO = new /obj/item/paper/work_order(H.loc)
+				if(ishumanbasic(H))
+					H.set_species(/datum/species/human/slavic)
+			if(PASSPORT_ANCAP)
+				//P = new /obj/item/storage/wallet/passport/ancap(H.loc) //this existing, but not used
+				WO = new /obj/item/paper/work_order(H.loc)
+				if(ishumanbasic(H))
+					H.set_species(/datum/species/human/slavic)
+		if(P)
+			to_chat(H, span_notice("Issued [P.name]."))
+			P.generate_pass_data(H)
+			var/obj/item/card/id/C = H.get_item_by_slot(ITEM_SLOT_ID)
+			if(istype(C))
+				C.attack_hand(H)
+				P.InsertID(C)
+				H.equip_to_slot_if_possible(P, ITEM_SLOT_ID)
+		else 
+			to_chat(H, span_notice("No passport issued."))
+		if(WO)
+			to_chat(H, span_notice("Issued [WO.name]."))
+			WO.update_text(H.real_name, src, supervisor_corporation.name)
+			if(istype(P))
+				P.attackby(WO, H)
+			else
+				H.equip_in_one_of_slots(WO, slots)
+		else
+			to_chat(H, span_notice("No work order issued."))
+		if(ACCESS_WEAPONS in get_access())
+			var/obj/item/paper/carry_permit/WP = new(H.loc)
+			WP.update_text(H.real_name)
+			if(istype(P))
+				P.attackby(WP, H)
+			else
+				H.equip_in_one_of_slots(WP, slots)
+
 
 //Warden and regular officers add this result to their get_access()
 /datum/job/proc/check_config_for_sec_maint()

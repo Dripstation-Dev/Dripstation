@@ -89,6 +89,10 @@
 /obj/item/clothing/under/rank/rnd/research_director/turtleneck/skirt
 	can_adjust = TRUE
 
+/obj/item/clothing/under/rank/rnd/research_director/turtleneck/real
+	mutantrace_variation = DIGITIGRADE_VARIATION
+	icon_state = "rdtactturtle"
+
 // ###### SCIENTIST ######
 
 /obj/item/clothing/shoes/sandal/white

@@ -110,6 +110,22 @@
 	cost = 20
 	allow_duplicates = FALSE	
 
+/datum/map_template/ruin/icemoon/plasma_facility
+	name = "Plasma facility"
+	id = "plasma_facility"
+	description =  "Who knows what lies within?"
+	suffix = "icemoon_surface_abandoned_plasma_facility.dmm"
+	cost = 15
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/icemoon/frozen_comms
+	name = "Frozen comms"
+	id = "frozen_comms"
+	description =  "Who knows what lies within?"
+	suffix = "/datum/map_template/ruin/icemoon/frozen_comms.dmm"
+	cost = 5
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/icemoon/underground/arctic_station
 	name = "Abandoned Arctic Station"
 	id = "arctic_station"

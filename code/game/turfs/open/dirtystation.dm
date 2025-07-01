@@ -35,6 +35,20 @@
 		new /obj/effect/decal/cleanable/dirt(src)	//vanilla, but it works
 		return
 
+	//high dirt - 1/3 chance. Nobody will ever clear maintenance, so start crying
+	var/static/list/maintenance_dirt_areas = typecacheof(list(
+		/area/maintenance,
+		/area/procedurally_generated/maintenance
+	))
+	if(is_type_in_typecache(A, maintenance_dirt_areas))
+		if(prob(10))
+			if(prob(5))
+				new /obj/effect/decal/cleanable/robot_debris/old(src)
+			else
+				new /obj/effect/decal/cleanable/oil(src)
+		else
+			new /obj/effect/decal/cleanable/dirt(src)
+		return
 
 	if(prob(80))	//mid dirt  - 1/15
 		return
@@ -44,11 +58,9 @@
 		/area/engine,
 		/area/crew_quarters/heads/chief,
 		/area/science/robotics,
-		/area/maintenance,
 		/area/construction,
 		/area/vacant_room/commissary,
 		/area/survivalpod,
-		/area/procedurally_generated/maintenance,
 	))
 	if(is_type_in_typecache(A, engine_dirt_areas))
 		if(prob(3))
@@ -81,6 +93,35 @@
 	if(is_type_in_typecache(A, oily_areas))
 		if(prob(25))
 			new /obj/effect/decal/cleanable/oil(src)
+		return
+
+	var/static/list/maintenance_blood_areas = typecacheof(list(
+		/area/maintenance,
+		/area/procedurally_generated/maintenance,
+	))
+	if(is_type_in_typecache(A, maintenance_blood_areas))
+		if(prob(70))
+			if(prob(75))
+				new /obj/effect/decal/cleanable/blood/old(src)
+			if(prob(75))
+				new /obj/effect/decal/cleanable/blood(src)
+			else
+				new /obj/effect/decal/cleanable/xenoblood(src)
+		else
+			if(prob(80))
+				if(prob(70))
+					new /obj/effect/decal/cleanable/blood/gibs/old(src)
+				else
+					new /obj/effect/decal/remains/human(src)
+			else 
+				if(prob(40))
+					new /obj/effect/decal/remains/plasma(src)
+				else if(prob(30))
+					new /obj/effect/decal/remains/xeno(src)
+				else if(prob(30))
+					new /obj/effect/decal/cleanable/xenoblood/xgibs(src)
+				else
+					new /obj/effect/decal/cleanable/robot_debris(src)
 		return
 
 

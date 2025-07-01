@@ -23,6 +23,14 @@
 ///tracks the number of knowledges to next tier, currently 3
 	var/tier_counter = 0
 ///order these from main path ability (will choose the color in the UI) to minor abilities below them (will once again, make sense if you look at the in game UI)
+	//Dripstation edit start
+	/// Whether we're drawing a rune or not
+	var/drawing_rune = FALSE
+	/// A static typecache of all tools we can scribe with.
+	var/static/list/scribing_tools = typecacheof(list(/obj/item/pen, /obj/item/toy/crayon))
+	/// A blacklist of turfs we cannot scribe on.
+	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava, /turf/open/chasm))
+	//Dripstation edit end
 
 	var/static/list/path_to_ui_color = list(
 		PATH_START = "grey",
@@ -35,6 +43,17 @@
 		PATH_BLADE = "label", // my favorite color is label
 		PATH_COSMIC = "purple",
 		PATH_KNOCK = "yellow",
+	)
+	var/static/list/path_to_rune_color = list(
+		PATH_START = COLOR_LIME,
+		PATH_RUST = COLOR_CARGO_BROWN,
+		PATH_FLESH = COLOR_SOFT_RED,
+		PATH_ASH = COLOR_VIVID_RED,
+		PATH_VOID = COLOR_CYAN,
+		PATH_MIND = COLOR_PINK,
+		PATH_BLADE = COLOR_SILVER,
+		PATH_COSMIC = COLOR_PURPLE,
+		PATH_KNOCK = COLOR_VIVID_YELLOW,
 	)
 
 /datum/antagonist/heretic/ui_data(mob/user)
@@ -233,6 +252,7 @@
 	var/mob/living/current = owner.current
 	if(mob_override)
 		current = mob_override
+		RegisterSignal(current, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))//dripstation edit
 	handle_clown_mutation(current, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	current.faction |= "heretics"
 
@@ -241,6 +261,9 @@
 	var/mob/living/current = owner.current
 	if(mob_override)
 		current = mob_override
+	UnregisterSignal(current, list(
+		COMSIG_MOB_ITEM_AFTERATTACK
+	))			//dripstation edit
 	current.faction -= "heretics"
 
 /datum/antagonist/heretic/get_admin_commands()
@@ -840,3 +863,141 @@
 	hooded.MakeHood() // This is usually created on Initialize, but we run before atoms
 	hooded.ToggleHood()
 
+
+///Dripstation edit start
+/*
+ * Signal proc for [COMSIG_MOB_ITEM_AFTERATTACK].
+ *
+ * If a heretic is holding a pen in their main hand,
+ * and have mansus grasp active in their offhand,
+ * they're able to draw a transmutation rune.
+ */
+/datum/antagonist/heretic/proc/on_item_afterattack(mob/living/source, atom/target, obj/item/weapon, proximity_flag, click_parameters)
+	SIGNAL_HANDLER
+
+	if(!is_type_in_typecache(weapon, scribing_tools))
+		return
+	if(!isturf(target) || !isliving(source) || !proximity_flag)
+		return
+
+	var/obj/item/offhand = source.get_inactive_held_item()
+	if(QDELETED(offhand) || !istype(offhand, /obj/item/melee/touch_attack/mansus_fist))
+		return
+
+	try_draw_rune(source, target, additional_checks = CALLBACK(src, PROC_REF(check_mansus_grasp_offhand), source))
+	return //COMPONENT_CANCEL_ATTACK_CHAIN
+
+/**
+ * Attempt to draw a rune on [target_turf].
+ *
+ * Arguments
+ * * user - the mob drawing the rune
+ * * target_turf - the place the rune's being drawn
+ * * drawing_time - how long the do_after takes to make the rune
+ * * additional checks - optional callbacks to be ran while drawing the rune
+ */
+/datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
+	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
+		if(!isopenturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
+			target_turf.balloon_alert(user, "invalid placement for rune!")
+			return
+
+	if(locate(/obj/effect/eldritch/big) in range(3, target_turf))
+		target_turf.balloon_alert(user, "to close to another rune!")
+		return
+
+	if(drawing_rune)
+		target_turf.balloon_alert(user, "already drawing a rune!")
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(draw_rune), user, target_turf, drawing_time, additional_checks)
+
+/**
+ * The actual process of drawing a rune.
+ *
+ * Arguments
+ * * user - the mob drawing the rune
+ * * target_turf - the place the rune's being drawn
+ * * drawing_time - how long the do_after takes to make the rune
+ * * additional checks - optional callbacks to be ran while drawing the rune
+ */
+/datum/antagonist/heretic/proc/draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
+	drawing_rune = TRUE
+
+	var/rune_colour = path_to_rune_color[lore]
+	target_turf.balloon_alert(user, "drawing rune...")
+	var/obj/effect/temp_visual/drawing_eldritch/drawing_effect
+	if (drawing_time >= (30 SECONDS))
+		drawing_effect = new(target_turf, rune_colour)
+	else
+		drawing_effect = new /obj/effect/temp_visual/drawing_eldritch/fast(target_turf, rune_colour)
+
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
+		target_turf.balloon_alert(user, "interrupted!")
+		new /obj/effect/temp_visual/drawing_eldritch/fail(target_turf, rune_colour)
+		qdel(drawing_effect)
+		drawing_rune = FALSE
+		return
+
+	qdel(drawing_effect)
+	target_turf.balloon_alert(user, "rune created")
+	new /obj/effect/eldritch/big(target_turf, rune_colour)
+	drawing_rune = FALSE
+
+/**
+ * Callback to check that the user's still got their Mansus Grasp out when drawing a rune.
+ *
+ * Arguments
+ * * user - the mob drawing the rune
+ */
+/datum/antagonist/heretic/proc/check_mansus_grasp_offhand(mob/living/user)
+	var/obj/item/offhand = user.get_inactive_held_item()
+	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
+
+/// A 3x3 heretic rune. The kind heretics actually draw in game.
+/obj/effect/eldritch/big
+	icon = 'modular_dripstation/icons/effects/96x96.dmi'
+	icon_state = "transmutation_rune"
+	pixel_x = -33 //So the big ol' 96x96 sprite shows up right
+	pixel_y = -32
+	greyscale_config = /datum/greyscale_config/eldritch
+
+/obj/effect/eldritch/big/Initialize(mapload, path_colour)
+	. = ..()
+	if (path_colour)
+		set_greyscale(colors = list(path_colour))
+
+/obj/effect/temp_visual/drawing_eldritch
+	duration = 30 SECONDS
+	icon = 'modular_dripstation/icons/effects/96x96.dmi'
+	icon_state = "transmutation_rune"
+	pixel_x = -33
+	pixel_y = -32
+	plane = GAME_PLANE
+	layer = SIGIL_LAYER
+	greyscale_config = /datum/greyscale_config/eldritch
+	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
+	var/animation_state = "transmutation_rune_draw"
+
+/obj/effect/temp_visual/drawing_eldritch/Initialize(mapload, path_colour = COLOR_WHITE)
+	. = ..()
+	set_greyscale(colors = list(path_colour))
+	icon_state = animation_state
+	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
+	silicon_image.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "eldritch", silicon_image)
+
+/obj/effect/temp_visual/drawing_eldritch/fast
+	duration = 12 SECONDS
+	animation_state = "transmutation_rune_fast"
+
+/obj/effect/temp_visual/drawing_eldritch/fail
+	duration = 0.25 SECONDS
+	animation_state = "transmutation_rune_fail"
+
+/datum/greyscale_config/eldritch
+	name = "Transmutation Rune"
+	icon_file = 'modular_dripstation/icons/effects/96x96.dmi'
+	json_config = 'code/datums/greyscale/json_configs/eldritch.json'
+
+///Dripstation edit end

@@ -20,6 +20,8 @@
 	var/list/spawn_locs = list()
 	for(var/obj/effect/landmark/carpspawn/L in GLOB.landmarks_list)
 		spawn_locs += L.loc
+	for(var/obj/effect/landmark/lone_op/Lo in GLOB.landmarks_list)		//dripstation edit
+		spawn_locs += Lo.loc												//dripstation edit
 	if(!spawn_locs.len)
 		return MAP_ERROR
 

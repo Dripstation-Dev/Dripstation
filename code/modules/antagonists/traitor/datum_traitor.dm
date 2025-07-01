@@ -44,6 +44,7 @@
 		company = /datum/corporation/self
 		allowed_factions = list(TRAITOR_FACTION_SELF)							//dripstation edit
 		starting_faction = TRAITOR_FACTION_SELF									//dripstation edit
+		antag_hud_name = "malfai"												//dripstation edit
 	if(nt_scum || (traitor_kind == TRAITOR_HUMAN && !company && prob(10)))		//dripstation edit
 		roundend_category = "NT Internal Security Devision agents"				//dripstation edit
 		name = "Agent"															//dripstation edit
@@ -94,6 +95,8 @@
 			if(ai_action.from_traitor)
 				ai_action.Remove(A)
 		if(malf)
+			A.modules_action.Remove(A)
+			qdel(A.modules_action)
 			remove_verb(A, /mob/living/silicon/ai/proc/choose_modules)
 			A.malf_picker.remove_malf_verbs(A)
 			qdel(A.malf_picker)

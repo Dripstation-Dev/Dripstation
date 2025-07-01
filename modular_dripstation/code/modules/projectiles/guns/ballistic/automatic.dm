@@ -266,21 +266,24 @@
 
 /obj/item/gun/ballistic/automatic/p90
 	name = "\improper P-90 Personal Defense Weapon"
-	desc = "A full-auto 5.56 toploading rifle, designated 'P-90PDW'. Cheap yeat effective it can be finded in hands of PMC operatives across all the space. Ward-Takahashi design."
+	desc = "A full-auto 5.7 toploading rifle, designated 'P-90PDW'. Cheap yeat effective it can be finded in hands of PMC operatives across all the space. Ward-Takahashi design."
 	icon_state = "p90"
-	item_state = "m90"
+	item_state = "p90"
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
-	mag_type = /obj/item/ammo_box/magazine/m556
+	mag_type = /obj/item/ammo_box/magazine/m57x28
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/smg_heavy.ogg'
 	can_suppress = FALSE
+	spread = 15
+	semi_auto_spread = 5
 	burst_size = 3
-	fire_delay = 2
+	fire_delay = 1
 	slot_flags = ITEM_SLOT_BELT
-	auto_fire_delay = 0.2 SECONDS
+	auto_fire_delay = 0.09 SECONDS
 	pin = /obj/item/firing_pin
 	mag_display = TRUE
+	mag_display_ammo = TRUE
 	empty_indicator = TRUE
 	muzzleflash_iconstate = "muzzle_flash_medium"
 	manufacturer = /datum/corporation/wardtakhashi
@@ -332,6 +335,13 @@
 	semi_auto_spread = 2
 	manufacturer = /datum/corporation/hephaestus/militech
 
+/obj/item/gun/ballistic/automatic/ar/mk4/semiauto
+	name = "\improper Militech M-K4S Semi-Auto Rifle"
+	desc = "A robust export rifle modified for hunter purposes."
+	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
+	burst_size = 1
+	pin = /obj/item/firing_pin
+
 /obj/item/gun/ballistic/automatic/ar/mk4/attachments
 	initial_attachments = list(/obj/item/attachment/scope/holo, /obj/item/attachment/grip/magnetic_harness)
 
@@ -357,6 +367,7 @@
 /obj/item/gun/ballistic/automatic/ar/famas
 	name = "\improper Famas Infantry Assault Rifle"
 	desc = "A robust assault rifle used by free companies."
+	icon_state = "famas"
 	can_suppress = FALSE
 	spread = 14
 	semi_auto_spread = 6
@@ -423,7 +434,8 @@
 	mag_type = /obj/item/ammo_box/magazine/r762x39
 	starting_mag_type = /obj/item/ammo_box/magazine/r762x39
 	recoil = 1.5
-	spread = 25
+	spread = 30
+	semi_auto_spread = 5
 	burst_size = 1
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin
@@ -431,7 +443,7 @@
 
 /obj/item/gun/ballistic/automatic/ar/akm
 	name = "\improper AKM Assault Rifle"
-	desc = "An obsolete assault rifle seized from some frontier armory. Chambered in 7.62x39mm."
+	desc = "A timeless human design of a carbine chambered in the 7.62x39mm ammo. A weapon so simple that even a child could use it - and they often did."
 	icon_state = "akm"
 	item_state = "akm"
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/ak47.ogg'
@@ -442,15 +454,23 @@
 	mag_type = /obj/item/ammo_box/magazine/r762x39
 	starting_mag_type = /obj/item/ammo_box/magazine/r762x39
 	recoil = 1.2
-	spread = 20
+	spread = 25
+	semi_auto_spread = 5
 	burst_size = 1
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin
 	manufacturer = /datum/corporation/vostok
 
+/obj/item/gun/ballistic/automatic/ar/akm/civ
+	icon_state = "akm_civ"
+	desc = "A timeless human design of a carbine chambered in the 7.62x39mm ammo. A weapon so simple that even a child could use it - and they often did. The internal modifications made to the firearm in order to accommodate for non-military use and gave it the inability to fire fully automatic. It's purpose-built to fire from low-grade civilian magazines."
+	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
+	mag_type = /obj/item/ammo_box/magazine/r762x39/civ
+	starting_mag_type = /obj/item/ammo_box/magazine/r762x39/civ
+
 /obj/item/gun/ballistic/automatic/ar/akm_tactical
 	name = "\improper TMCAR-47M Tactical Assault Rifle"
-	desc = "An obsolete assault rifle seized from some frontier armory and extensively modified to TMC standards. Chambered in 7.62x39mm."
+	desc = "An obsolete assault rifle seized from some frontier armory and extensively modified to TMC standards: improving weight, handling, and accuracy. Chambered in 7.62x39mm."
 	icon_state = "akm_tactical"
 	item_state = "ak101"
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/ak47.ogg'
@@ -460,6 +480,7 @@
 	rack_sound = 'modular_dripstation/sound/weapons/tgmc/ak47_rack.ogg'
 	recoil = 0.8
 	spread = 15
+	semi_auto_spread = 3
 	burst_size = 1
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin
@@ -482,7 +503,7 @@
 	recoil = 1.2
 	burst_size = 1
 	var/folded = FALSE
-	var/unfolded_spread = 15
+	var/unfolded_spread = 10
 	var/unfolded_item_state = "ak101"
 	var/folded_spread = 35
 	var/folded_item_state = "ak101_stockless"
@@ -569,7 +590,11 @@
 /obj/item/gun/ballistic/automatic/lwt650
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
 	muzzleflash_iconstate = "muzzle_flash_medium"
-	manufacturer = /datum/corporation/scarborough
+	manufacturer = /datum/corporation/wardtakhashi
+
+/obj/item/gun/ballistic/automatic/lwt650/combat
+	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	initial_attachments = list(/obj/item/attachment/grip/angled, /obj/item/attachment/scope/sniper, /obj/item/attachment/trigger/iff_module)
 
 /obj/item/gun/ballistic/automatic/svd
 	name = "\improper SR-33 Dragunov sniper rifle"
@@ -587,7 +612,7 @@
 	rack_sound = 'modular_dripstation/sound/weapons/tgmc/svd_rack.ogg'
 	fire_delay = 6
 	burst_size = 1
-	spread = 2
+	spread = 4
 	mag_type = /obj/item/ammo_box/magazine/svd
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC)
 	mag_display = TRUE

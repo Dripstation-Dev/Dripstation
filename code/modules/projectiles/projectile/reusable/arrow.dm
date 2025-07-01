@@ -6,7 +6,9 @@
 	speed = 0.6
 	armor_flag = MELEE
 	icon_state = "arrow"
-	var/embed_chance = 0.4
+	//var/embed_chance = 0.4
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 40, "fall_chance" = 20, "impact_pain_multiplier" = 1)
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow
 	var/break_chance = 0
 	var/fauna_damage_bonus = 10
 
@@ -61,10 +63,13 @@
 
 	if(iscarbon(target))
 		ammo_type = ispath(ammo_type) ? new ammo_type(ammo_type) : ammo_type
-		var/mob/living/carbon/embede = target
-		var/obj/item/bodypart/part = embede.get_bodypart(def_zone)
+		//var/mob/living/carbon/embede = target
+		//var/obj/item/bodypart/part = embede.get_bodypart(def_zone)
 		var/obj/item/ammo_casing/reusable/arrow/arrow = ammo_type
+		/* Dripstation edit
 		if(!(istype(arrow) && arrow.explosive) && prob(embed_chance * clamp((100 - (embede.getarmor(part, armor_flag) - armour_penetration)), 0, 100)) && embede.embed_object(ammo_type, part, TRUE))
+		*/
+		if(!(istype(arrow) && arrow.explosive))
 			arrow.on_land(src)
 			dropped = TRUE
 	return ..()
@@ -75,18 +80,22 @@
 /obj/projectile/bullet/reusable/arrow/wood
 	name = "wooden arrow"
 	desc = "A wooden arrow, quickly made."
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/wood
 
 /obj/projectile/bullet/reusable/arrow/ash //Fire-tempered head makes it tougher; more damage, but less likely to embed
 	name = "ashen arrow"
 	desc = "A wooden arrow tempered by fire. It's tougher, but less likely to embed."
 	damage = 40
-	embed_chance = 0.3
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/ash
+	//embed_chance = 0.3
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 30, "fall_chance" = 20, "impact_pain_multiplier" = 1)
 
 /obj/projectile/bullet/reusable/arrow/bone_tipped //A fully upgraded normal arrow; it's got the stats to show. Still less damage than a slug, resolving against melee, fired less often, slower, and with negative AP
 	name = "bone-tipped arrow"
 	desc = "An arrow made from bone, wood, and sinew. Sturdy and sharp."
 	damage = 45
 	armour_penetration = -10
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/bone_tipped
 
 /obj/projectile/bullet/reusable/arrow/bone //Cheap, easy to make in bulk but mostly used for hunting fauna
 	name = "bone arrow"
@@ -94,7 +103,9 @@
 	damage = 25
 	armour_penetration = -10 //So it's not as terrible against miners; still bad
 	fauna_damage_bonus = 35 //Significantly better for hunting fauna, but you don't get to instantly recharge your shots
-	embed_chance = 0.33
+	//embed_chance = 0.33
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 33, "fall_chance" = 20, "impact_pain_multiplier" = 1)
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/bone
 
 /obj/projectile/bullet/reusable/arrow/chitin //Most expensive arrow time and resource-wise, simply because of ash resin. Should be good
 	name = "chitin-tipped arrow"
@@ -102,25 +113,31 @@
 	damage = 35
 	armour_penetration = 30 //Basically an AP arrow
 	fauna_damage_bonus = 40 //Even better, since they're that much harder to make
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/chitin
 
 /obj/projectile/bullet/reusable/arrow/bamboo //Very brittle, very fragile, but very potent at splintering into targets assuming it isn't broken on impact
 	name = "bamboo arrow"
 	desc = "An arrow made from bamboo. Incredibly fragile and weak, but prone to shattering in unarmored targets."
 	damage = 20
 	armour_penetration = -40
-	embed_chance = 0.6 //Reminder that this resolves against melee armor
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 60, "fall_chance" = 20, "impact_pain_multiplier" = 1)
+	//embed_chance = 0.6 //Reminder that this resolves against melee armor
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/bamboo
 	break_chance = 33 //Doesn't embed if it breaks
 
 /obj/projectile/bullet/reusable/arrow/bronze //Bronze > iron, that's why they called it the bronze age
 	name = "bronze arrow"
 	desc = "An arrow tipped with bronze. Better against armor than iron."
 	armour_penetration = -10
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/bamboo
 
 /obj/projectile/bullet/reusable/arrow/glass //Basically just a downgrade for people who can't get their hands on wood/cloth
 	name = "glass arrow"
 	desc = "A shoddy arrow with a broken glass shard as its tip. Can break upon impact."
 	damage = 25
-	embed_chance = 0.3
+	//embed_chance = 0.3
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 30, "fall_chance" = 20, "impact_pain_multiplier" = 1)
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/glass
 	break_chance = 10
 
 /obj/projectile/bullet/reusable/arrow/glass/plasma //It's HARD to get plasmaglass shards without an axe, so this should be GOOD
@@ -128,13 +145,16 @@
 	desc = "An arrow with a plasmaglass shard affixed to its head. Incredibly capable of puncturing armor."
 	damage = 25
 	armour_penetration = 45 //18.75 damage against elite hardsuit assuming chest shot (and that's a long reload, draw, projectile speed, etc.)
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/glass/plasma
 
 /obj/projectile/bullet/reusable/arrow/magic
 	name = "magic arrow"
 	desc = "A magic arrow thats probably tracking you, how nice!"
 	icon_state = "arrow_magic"
 	damage = 40
-	embed_chance = 0.6
+	//embed_chance = 0.6
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 60, "fall_chance" = 20, "impact_pain_multiplier" = 1)
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/magic
 	armour_penetration = 0
 
 // Toy //
@@ -142,7 +162,9 @@
 /obj/projectile/bullet/reusable/arrow/toy //Toy arrow with velcro tip that safely embeds into target
 	name = "toy arrow"
 	damage = 0
-	embed_chance = 0.9
+	//embed_chance = 0.9
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 90, "fall_chance" = 20, "pain_stam_pct" = 1, "impact_pain_multiplier" = 1)
+	shrapnel_type = null
 	break_chance = 0
 
 /obj/projectile/bullet/reusable/arrow/toy/on_hit(atom/target, blocked)
@@ -228,17 +250,21 @@
 	damage = 40
 	wound_bonus = -60
 	speed = 0.6
-	var/embed_chance = 0.4
-	var/obj/item/embed_type = /obj/item/ammo_casing/reusable/arrow/energy
+	shrapnel_type =/obj/item/ammo_casing/reusable/arrow/energy
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 40, "fall_chance" = 20, "impact_pain_multiplier" = 1)
+	//var/embed_chance = 0.4
+	//var/obj/item/embed_type = /obj/item/ammo_casing/reusable/arrow/energy
 	
 /obj/projectile/energy/arrow/on_hit(atom/target, blocked = FALSE)
 	if(istype(target, /obj/structure/blob))
 		damage = damage / 2
+	/* Dripstation edit
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/embede = target
 		var/obj/item/bodypart/part = embede.get_bodypart(def_zone)
 		if(prob(embed_chance * clamp((100 - (embede.getarmor(part, armor_flag) - armour_penetration)), 0, 100)))
 			embede.embed_object(new embed_type(), part, FALSE)
+	*/
 	return ..()
 
 /obj/projectile/energy/arrow/disabler //Hardlight projectile. Much more draining than a standard disabler. Needs to be competitive in DPS
@@ -247,14 +273,17 @@
 	light_color = LIGHT_COLOR_BLUE
 	damage = 50
 	damage_type = STAMINA
-	embed_type = /obj/item/ammo_casing/reusable/arrow/energy/disabler
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 90, "fall_chance" = 20, "pain_stam_pct" = 1, "impact_pain_multiplier" = 1)
+	shrapnel_type =/obj/item/ammo_casing/reusable/arrow/energy/disabler
+	//embed_type = /obj/item/ammo_casing/reusable/arrow/energy/disabler
 
 /obj/projectile/energy/arrow/pulse //Hardlight projectile. Woe to your enemies.
 	name = "pulse bolt"
 	icon_state = "arrow_pulse"
 	light_color = LIGHT_COLOR_BLUE
 	damage = 75
-	embed_type = /obj/item/ammo_casing/reusable/arrow/energy/pulse
+	shrapnel_type =/obj/item/ammo_casing/reusable/arrow/energy/pulse
+	//embed_type = /obj/item/ammo_casing/reusable/arrow/energy/pulse
 
 /obj/projectile/energy/arrow/pulse/on_hit(atom/target, blocked = FALSE)
 	. = ..()
@@ -273,7 +302,8 @@
 	irradiate = 500
 	range = 20
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINES | PASSSTRUCTURE | PASSDOOR
-	embed_type = /obj/item/ammo_casing/reusable/arrow/energy/xray
+	shrapnel_type =/obj/item/ammo_casing/reusable/arrow/energy/xray
+	//embed_type = /obj/item/ammo_casing/reusable/arrow/energy/xray
 
 /obj/projectile/energy/arrow/shock //Hardlight projectile. Replicable tasers are fair and balanced.
 	name = "shock bolt"
@@ -284,7 +314,9 @@
 	stutter = 5
 	jitter = 20
 	damage_type = STAMINA
-	embed_type = /obj/item/ammo_casing/reusable/arrow/energy/shock
+	embedding = list("pain_multiplier" = 1, "embed_chance" = 90, "fall_chance" = 20, "pain_stam_pct" = 1, "impact_pain_multiplier" = 1)
+	shrapnel_type =/obj/item/ammo_casing/reusable/arrow/energy/shock
+	//embed_type = /obj/item/ammo_casing/reusable/arrow/energy/shock
 
 /obj/projectile/energy/arrow/shock/on_hit(atom/target, blocked = FALSE)
 	. = ..()
@@ -295,15 +327,21 @@
 		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "tased", /datum/mood_event/tased)
 		SEND_SIGNAL(C, COMSIG_LIVING_MINOR_SHOCK)
 		if(C.dna && (C.dna.check_mutation(HULK)))
-			C.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ), forced = "hulk")
+			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced = "hulk")
 		else if((C.status_flags & CANKNOCKDOWN) && !HAS_TRAIT(C, TRAIT_STUNIMMUNE))
-			addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), jitter), 5)
-		if(istype(C.getorganslot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/cell/ethereal))
-			C.adjust_nutrition(40)
-			to_chat(C,span_notice("You get charged by [src]."))
+			C.set_confusion_if_lower(10 SECONDS)
+			C.set_stutter_if_lower(16 SECONDS)
+			addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 1.5 SECONDS), 0.5 SECONDS)
+			addtimer(CALLBACK(C, TYPE_PROC_REF(/mob/living/carbon, apply_stun_effect)), 2 SECONDS)
+			//yogstation edit begin -------------------------------------------
+			if(istype(C.getorganslot(ORGAN_SLOT_STOMACH), /obj/item/organ/stomach/cell/ethereal))
+				C.adjust_nutrition(40)
+				to_chat(C,span_notice("You get charged by [src]."))
+			//yogstation edit end 
 
 /obj/projectile/energy/arrow/clockbolt
 	name = "redlight bolt"
 	damage = 20
 	wound_bonus = 5
-	embed_type = /obj/item/ammo_casing/reusable/arrow/energy/clockbolt
+	shrapnel_type =/obj/item/ammo_casing/reusable/arrow/energy/clockbolt
+	//embed_type = /obj/item/ammo_casing/reusable/arrow/energy/clockbolt

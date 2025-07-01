@@ -254,6 +254,14 @@
 		remove_all(fade_in_time)
 	enabled = should_be_enabled
 
+/datum/music/sourced/nether
+	sound_file = null
+	priority = 90
+	does_loop = TRUE
+	full_range = 3
+	soft_range = 7
+	range_fade_speed = 0.04
+
 /datum/music/sourced/battle
 	does_loop = TRUE
 

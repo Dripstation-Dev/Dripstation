@@ -10,7 +10,6 @@
 	display_combos = TRUE //for style points literally
 	var/chokehold_active = FALSE
 	var/mob/restraining_mob
-	var/old_grab_state = null
 
 /datum/martial_art/trained/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(can_use(A) || can_use(D)))
@@ -31,7 +30,7 @@
 		D.visible_message(span_warning("[A] locks [D] into a restraining position!"), \
 							span_userdanger("[A] locks you into a restraining position!"))
 		A.do_attack_animation(D, ATTACK_EFFECT_GRAB)
-		D.Stun(3 SECONDS)
+		D.Immobilize(4 SECONDS)
 		D.adjustStaminaLoss(20)
 		restraining_mob = D
 		addtimer(VARSET_CALLBACK(src, restraining_mob, null), 25, TIMER_UNIQUE)
@@ -60,7 +59,7 @@
 		else
 			if(A.grab_state) //honestly with the way current grabs work this doesn't really do all that much
 				A.grab_state = min(1, A.grab_state - 1) //immediately lose grab power...
-				if(!A.grab_state || prob(BASE_GRAB_RESIST_CHANCE/A.grab_state)) //...and have a chance to lose the entire grab
+				if(!A.grab_state || prob(BASE_GRAB_RESIST_CHANCE/max(0.5, A.grab_state - 1))) //...and have a chance to lose the entire grab, minimum will be like 60%
 					A.visible_message(span_danger("[A] is put off balance, losing their grip on [D]!"), \
 										span_danger("You are put off balance, and you lose your grip on [D]!"))
 					A.stop_pulling()
@@ -126,7 +125,7 @@
 		span_userdanger("[A] attempts to advance restrain on you!")
 	)
 	A.do_attack_animation(D, ATTACK_EFFECT_GRAB)
-	if(!do_after(A, 1.7 SECONDS, D))
+	if(!do_after(A, 1 SECONDS, D))
 		return FALSE
 	if(isipc(D))
 		var/datum/effect_system/spark_spread/s = new
@@ -139,7 +138,8 @@
 	D.Immobilize(7 SECONDS)	//time to handcuff target or do something to them
 	D.Knockdown(12 SECONDS) //+5 seconds to punch him in his guts
 	D.apply_damage(A.get_punchdamagehigh() + 5, STAMINA)	//15 damage
-	A.forceMove(get_turf(D))
+	A.Move(get_turf(D))
+	D.grabbedby(A, FALSE, TRUE) //Instant neck grab if already grabbed
 	A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//grants free 0.2 seconds, swag
 	D.visible_message(
 		span_danger("[A] successfully armlocks [D]!"),
@@ -157,15 +157,15 @@
 		add_to_streak("G", D)
 		if(check_streak(A, D)) //if a combo is made no grab upgrade is done
 			return TRUE
-		old_grab_state = A.grab_state
-		D.grabbedby(A, 1)
-		A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.6 Seconds instead of 1, less frustrating
-		if(old_grab_state == GRAB_PASSIVE)
-			A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
-			log_combat(A, D, "aggressively grabbed")
-			D.visible_message(span_warning("[A] violently grabs [D]!"), \
-							span_userdanger("You're grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
-			to_chat(A, span_danger("You violently grab [D]!"))
+		var/instantg = FALSE
+		if(A.grab_state == GRAB_AGGRESSIVE)
+			instantg = TRUE
+			log_combat(A, D, "aggressively grabbed neck")
+			D.visible_message(span_warning("[A] violently grabs [D]`s neck!"), \
+							span_userdanger("You're neck grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
+			to_chat(A, span_danger("You violently grab [D]`s neck!"))
+		D.grabbedby(A, instantg, instantg) //Instant neck grab if already grabbed
+		A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.2 Seconds instead of 1, less frustrating
 		return TRUE
 	else
 		return FALSE
@@ -208,6 +208,9 @@
 							span_userdanger("[user] grabs your arm as you attack and twists it, you feel staggered!"))
 		attacker.adjust_staggered_up_to(2 SECONDS, 4 SECONDS)
 		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_2.ogg', 50, 1, -1)
+	if(attacker.a_intent == INTENT_GRAB)
+		user.start_pulling(attacker, TRUE)
+		attacker.grabbedby(user, FALSE, TRUE)
 
 /mob/living/carbon/human/proc/trained_help()
 	set name = "Remember The Basics"

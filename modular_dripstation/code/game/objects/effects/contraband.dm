@@ -212,6 +212,12 @@
 	icon_state = "poster83"
 	icon = 'modular_dripstation/icons/obj/contraband.dmi'
 
+/obj/structure/sign/poster/contraband/shell_revolver
+	name = "Shellguard Armory"
+	desc = "Some Shellguard production advertisement, nothing special."
+	icon_state = "poster84"
+	icon = 'modular_dripstation/icons/obj/contraband.dmi'
+
 
 //Legit
 /obj/structure/sign/poster/official/enlist
@@ -415,3 +421,9 @@
 	name = "erotic poster"
 	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
 	icon_state = "poster16_erotic"
+
+/obj/structure/sign/poster/erotic/v17
+	name = "erotic poster"
+	desc = "This poster`s vulgar themes have marked it illegal aboard Nanotrasen space facilities."
+	icon_state = "poster17_erotic"
+

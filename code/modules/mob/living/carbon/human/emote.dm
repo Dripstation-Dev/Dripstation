@@ -273,7 +273,7 @@
 	var/mob/living/carbon/human/H = user
 	if(!istype(H) || !H.dna || !H.dna.species) // Here to prevent a runtime when a silicon does *help.
 		return FALSE
-	return (H.dna.species["wings"] != "None")
+	return (H.dna.features["wings"] != "None")
 
 /mob/living/carbon/human/proc/OpenWings()
 	if(!dna || !dna.species)

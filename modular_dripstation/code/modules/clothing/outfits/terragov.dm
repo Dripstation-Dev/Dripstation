@@ -18,7 +18,8 @@
 	suit_store = /obj/item/gun/ballistic/automatic/ar/tgaf416
 	backpack_contents = list(
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/ammo_box/magazine/r556 = 1
+		/obj/item/ammo_box/magazine/r556 = 1,
+		/obj/item/lighter/terragov = 1
 	)
 
 /datum/outfit/terragov/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -71,7 +72,8 @@
 
 /datum/outfit/terragov/desert_st/fullbelt
 	backpack_contents = list(
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/lighter/terragov = 1
 	)
 /datum/outfit/terragov/desert_st/fullbelt/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -131,6 +133,7 @@
 	box = /obj/item/storage/box/militech
 	suit_store = /obj/item/gun/ballistic/automatic/ar/mk4/attachments
 	backpack_contents = list(
+		/obj/item/lighter/terragov = 1
 		)
 
 /datum/outfit/terragov/tgmc/medic
@@ -200,3 +203,6 @@
 	id = /obj/item/card/id/idtags
 	back = /obj/item/storage/backpack/unknown
 	box = /obj/item/storage/box/forcing
+	backpack_contents = list(
+		/obj/item/lighter/terragov = 1
+		)

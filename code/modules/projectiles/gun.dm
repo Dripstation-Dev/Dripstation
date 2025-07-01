@@ -237,9 +237,11 @@
 		playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 		if(message)
 			if(pointblank)
-				user.visible_message(span_danger("[user] fires [src] point blank at [pbtarget]!"), null, null, COMBAT_MESSAGE_RANGE)
+				//user.visible_message(span_danger("[user] fires [src] point blank at [pbtarget]!"), null, null, COMBAT_MESSAGE_RANGE)
+				user.balloon_alert_to_viewers("fires point blank!", "you fire point blank!", vision_distance = COMBAT_MESSAGE_RANGE)
 			else
-				user.visible_message(span_danger("[user] fires [src]!"), null, null, COMBAT_MESSAGE_RANGE)
+				//user.visible_message(span_danger("[user] fires [src]!"), null, null, COMBAT_MESSAGE_RANGE)
+				user.balloon_alert_to_viewers("fires!", "you fire!", vision_distance = COMBAT_MESSAGE_RANGE)
 
 /obj/item/gun/emp_act(severity)
 	. = ..()
@@ -291,7 +293,7 @@
 	if(check_botched(user))
 		return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_held_item())
+	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_held_item() && !HAS_TRAIT(user, TRAIT_BADASS))
 		to_chat(user, span_userdanger("You need both hands free to fire \the [src]!"))
 		return
 
@@ -303,7 +305,7 @@
 	
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user
-		if(weapon_weight < WEAPON_MEDIUM && istype(H.held_items[H.get_inactive_hand_index()], /obj/item/gun) && can_trigger_gun(user))
+		if((weapon_weight < WEAPON_MEDIUM || HAS_TRAIT(user, TRAIT_BADASS)) && istype(H.held_items[H.get_inactive_hand_index()], /obj/item/gun) && can_trigger_gun(user))
 			bonus_spread += 18 * weapon_weight
 			cd_mod = cd_mod * 0.75
 			H.swap_hand()

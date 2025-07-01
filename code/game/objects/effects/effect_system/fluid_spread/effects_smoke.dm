@@ -400,7 +400,7 @@
 
 	var/fraction = (delta_time SECONDS) / initial(lifetime)
 	reagents.copy_to(smoker, reagents.total_volume, fraction)
-	reagents.reaction(smoker, INGEST, fraction)
+	reagents.reaction(smoker, VAPOR, fraction)			//WHY THE FUCK THEY WILL INGEST?
 	return TRUE
 
 

@@ -252,11 +252,18 @@
 	. = ..()
 	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
 
+/obj/item/radio/headset/headset_cent
+	keyslot = new /obj/item/encryptionkey/headset_cent
+	keyslot2 = new /obj/item/encryptionkey/headset_com
+
+/obj/item/radio/headset/headset_cent/alt
+	keyslot2 = new /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/headset_cent/commander
 	name = "\improper CentCom command bowman headset"
 	desc = "A headset especially for command personnel. Protects ears from flashbangs."
 	command = TRUE
+	keyslot2 = new /obj/item/encryptionkey/heads/captain
 
 
 //////Military type radios, funny hearing and talking on different channels///////

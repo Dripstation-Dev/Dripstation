@@ -45,7 +45,7 @@
 	if(visor_vars_to_toggle & VISOR_NIGHTVISION)	//dripstation edit
 		lighting_cutoff ^= initial(lighting_cutoff)	//dripstation edit
 		color_cutoffs ^= initial(color_cutoffs)		//dripstation edit
-		glass_colour_type ^= initial(glass_colour_type)	//dripstation edit
+		//glass_colour_type ^= initial(glass_colour_type)	//dripstation edit
 
 /obj/item/clothing/glasses/weldingvisortoggle(mob/user)
 	. = ..()

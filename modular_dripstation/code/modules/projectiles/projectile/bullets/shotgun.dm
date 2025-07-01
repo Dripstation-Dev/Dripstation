@@ -1,6 +1,6 @@
 
 /obj/projectile/bullet/shotgun/slug
-	speed = 0.35 //Shotgun = slower
+	speed = 1 //Shotgun = slower
 
 /obj/projectile/bullet/shotgun/slug/uranium
 	icon_state = "bullet"
@@ -8,11 +8,12 @@
 /obj/projectile/bullet/pellet
 	icon_state = "buckshot"
 	icon = 'modular_dripstation/icons/effects/projectiles/projectiles.dmi'
-	speed = 0.35 //Shotgun = slower
+	speed = 1 //Shotgun = slower
+	weak_against_armour = TRUE
 
 /obj/projectile/bullet/pellet/shotgun_flechette
 	icon_state = "flechette"
-	speed = 0.29
+	speed = 1.2
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/syndie
 	name = "12/70 RIP-S"
@@ -33,7 +34,7 @@
 
 /obj/projectile/bullet/pellet/syndieshot
 	damage = 17.5
-	speed = 0.6 //FAAAST
+	speed = 1.2 //FAAAST
 	wound_bonus = 5
 	bare_wound_bonus = 10
 	tile_dropoff = 0.3 //Ranged pellet because I guess?

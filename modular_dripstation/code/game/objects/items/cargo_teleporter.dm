@@ -41,8 +41,8 @@ GLOBAL_LIST_EMPTY(cargo_marks)
 			/obj/item/tank/jetpack/oxygen/captain,
 			/obj/item/aicard,
 			/obj/item/hypospray/deluxe/cmo,
-			/obj/item/clothing/suit/armor/reactive/teleport,
-			/obj/item/clothing/suit/armor/laserproof,
+			/obj/item/clothing/suit/armor/reactive,
+			/obj/item/clothing/suit/hooded/ablative,
 			/obj/item/blackbox,
 			/obj/item/holotool,
 			/obj/item/areaeditor/blueprints)

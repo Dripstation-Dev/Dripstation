@@ -16,8 +16,8 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "d" = (
-/turf/open/openspace/icemoon,
-/area/icemoon/surface/outdoors)
+/turf/open/openspace/icemoon/ruins,
+/area/icemoon/surface/outdoors/explored)
 "e" = (
 /obj/item/clothing/suit/hooded/explorer,
 /obj/item/clothing/mask/gas/explorer,

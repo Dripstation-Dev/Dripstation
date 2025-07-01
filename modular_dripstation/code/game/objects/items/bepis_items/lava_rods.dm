@@ -15,15 +15,26 @@
 /obj/item/stack/rods/lava/thirty
 	amount = 30
 
+/obj/structure/lattice
+	var/list/give_turf_traits = list()
+
+/obj/structure/lattice/Initialize(mapload)
+	. = ..()
+	if(length(give_turf_traits))
+		give_turf_traits = string_list(give_turf_traits)
+		AddElement(/datum/element/give_turf_traits, give_turf_traits)
+
 /obj/structure/lattice/lava
 	name = "heatproof support lattice"
 	desc = "A specialized support beam for building across lava. Watch your step."
 	icon = 'icons/obj/smooth_structures/catwalk.dmi'
-	icon_state = "catwalk"
+	icon_state = "catwalk-0"
+	base_icon_state = "catwalk"
 	number_of_rods = 1
 	color = "#5286b9ff"
 	obj_flags = CAN_BE_HIT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
+	give_turf_traits = list(TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/lava/over
 	layer = CATWALK_LAYER

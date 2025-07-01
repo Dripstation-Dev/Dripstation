@@ -35,6 +35,7 @@
 	wound_bonus = -10		//So it`s somewhat combat
 	bare_wound_bonus = 20	//So it`s somewhat combat
 	force_wielded_twohand = 20	//It shouldn`t be like better then thunder one
+	demolition_mod = 5	//so it`s DESTROING things since it is only one on station
 
 /obj/item/melee/sledgehammer/attack(mob/living/M, mob/living/user)
 	var/current_stamina_damage = user.getStaminaLoss()
@@ -46,9 +47,11 @@
 /obj/item/melee/sledgehammer/security/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	user.changeNext_move(1.4 SECONDS)
-	if(ishuman(user))
+	if(ishuman(user) && isliving(target))
 		var/mob/living/carbon/human/U = user
-		U.adjustStaminaLoss(20)
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			U.adjustStaminaLoss(20)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))

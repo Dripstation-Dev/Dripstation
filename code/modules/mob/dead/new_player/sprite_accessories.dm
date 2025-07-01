@@ -1991,6 +1991,25 @@
 	icon_state = "lbelly"
 	gender_specific = 1
 
+/datum/sprite_accessory/body_markings/ctiger
+	name = "Collored Tiger Body"
+	icon_state = "ltiger"
+	gender_specific = 1
+	color_src = FACEHAIR
+
+/datum/sprite_accessory/body_markings/cbelly
+	name = "Collored Belly"
+	icon_state = "lbelly"
+	gender_specific = 1
+	color_src = FACEHAIR
+
+/datum/sprite_accessory/body_markings/points_una
+	name = "Collored Limbs"
+	icon_state = "points"
+	//gender_specific = 1
+	color_src = FACEHAIR
+	//icon = 'modular_dripstation/icons/mob/unathi_body_markings.dmi'
+
 /datum/sprite_accessory/tails
 	icon = 'icons/mob/mutant_bodyparts.dmi'
 
@@ -2297,6 +2316,7 @@
 
 /datum/sprite_accessory/frills
 	icon = 'icons/mob/mutant_bodyparts.dmi'
+	color_src = HAIR
 
 /datum/sprite_accessory/frills/none
 	name = "None"

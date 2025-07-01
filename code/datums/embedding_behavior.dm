@@ -1,3 +1,4 @@
+/* Dripstation edit
 #define EMBEDID "embed-[embed_chance]-[embedded_fall_chance]-[embedded_pain_chance]-[embedded_pain_multiplier]-[embedded_fall_pain_multiplier]-[embedded_impact_pain_multiplier]-[embedded_unsafe_removal_pain_multiplier]-[embedded_unsafe_removal_time]-[embedded_ignore_throwspeed_threshold]"
 
 /proc/getEmbeddingBehavior(embed_chance = EMBED_CHANCE,
@@ -59,3 +60,4 @@
                   (isnull(embedded_ignore_throwspeed_threshold) ? src.embedded_ignore_throwspeed_threshold : embedded_ignore_throwspeed_threshold))
 
 #undef EMBEDID
+*/

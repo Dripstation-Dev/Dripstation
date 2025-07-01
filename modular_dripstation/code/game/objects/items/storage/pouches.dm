@@ -531,6 +531,19 @@
 		/obj/item/grenade/flare,
 	)
 
+/obj/item/storage/pouch/flare/full
+	custom_price = 40
+
+/obj/item/storage/pouch/flare/full/Initialize()
+	. = ..()
+	new /obj/item/flashlight/flare/emergency (src)
+	new /obj/item/flashlight/flare/emergency (src)
+	new /obj/item/flashlight/flare/emergency (src)
+	new /obj/item/flashlight/flare/emergency (src)
+	new /obj/item/flashlight/flare/emergency (src)
+	new /obj/item/flashlight/flare/emergency (src)
+	new /obj/item/flashlight/flare/emergency (src)
+
 /obj/item/storage/pouch/radio
 	name = "radio pouch"
 	storage_slots = 2

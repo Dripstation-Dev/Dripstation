@@ -16,6 +16,10 @@
 /obj/item/modular_computer/tablet/pda/preset/security/warden
 	finish_color = "warden"
 
+/obj/item/modular_computer/tablet/pda/preset/syndicate
+	finish_color = "syndie"
+	device_theme = "syndicate"
+
 /obj/item/modular_computer/tablet/pda/preset/robo
 	finish_color = "robo"
 

@@ -218,6 +218,11 @@
 		ammo_resupply(W, user)
 		return
 	
+	if(istype(W, /obj/item/crowbar/mechremoval))
+		var/obj/item/crowbar/mechremoval/remover = W
+		remover.empty_mech(src, user)
+		return	
+	
 	if(istype(W, /obj/item/stack) || istype(W, /obj/item/rcd_ammo) || istype(W, /obj/item/rcd_upgrade))
 		if(matter_resupply(W, user))
 			return

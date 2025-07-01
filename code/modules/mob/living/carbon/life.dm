@@ -37,9 +37,11 @@
 		if(stat != DEAD)
 			handle_liver()
 
+		/* Dripstation edit
 		if(stat != DEAD)
 			//Stuff jammed in your limbs hurts
 			handle_embedded_objects()
+		*/
 
 	else
 		. = ..()
@@ -509,6 +511,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 // EMBEDS //
 ////////////
 
+/* Dripstation edit start
 /mob/living/carbon/proc/handle_embedded_objects()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
@@ -533,6 +536,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 				BP.receive_damage(I.w_class*I.embedding.embedded_fall_pain_multiplier, wound_bonus = CANT_WOUND) // can wound
 				remove_embedded_object(I, drop_location(), FALSE)
 				visible_message(span_danger("[I] falls out of [name]'s [BP.name]!"), span_userdanger("[I] falls out of your [BP.name]!"))
+*/ // Dripstation edit end
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//

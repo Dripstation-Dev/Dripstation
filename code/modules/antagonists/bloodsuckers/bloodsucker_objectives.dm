@@ -55,7 +55,7 @@
 	var/target_department_type = FALSE
 
 /// Look at all crew members, and for/loop through.
-/datum/objective/vassal/proc/return_possible_targets()
+/datum/objective/vassal/find_target()
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in get_crewmember_minds())
 		// Check One: Default Valid User
@@ -63,17 +63,29 @@
 			// Check Two: Am Bloodsucker?
 			if(IS_BLOODSUCKER(possible_target.current))
 				continue
+			if(isreplica(possible_target.current))
+				continue
+			if(!check_mindshield_we_cant_remove(possible_target.current))
+				continue
 			possible_targets += possible_target
 
-	return possible_targets
+	if(possible_targets.len > 0)
+		target = pick(possible_targets)
+	update_explanation_text()
+	return target
 
-	#define VASSALIZE_COMMAND "command_vassalization"
+/datum/objective/vassal/proc/check_mindshield_we_cant_remove(mob/living/carbon/human/target)
+	if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
+		for(var/obj/item/implant/all_implants as anything in target.implants)
+			if(all_implants.type == /obj/item/implant/mindshield)
+				return TRUE
+		return FALSE
+	else
+		return TRUE
 
 // GENERATE
 /datum/objective/vassal/New()
-	var/list/possible_targets = return_possible_targets()
-	find_target(possible_targets)
-	update_explanation_text()
+	find_target()
 	..()
 
 // EXPLANATION

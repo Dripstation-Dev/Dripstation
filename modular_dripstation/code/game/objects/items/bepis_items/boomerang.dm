@@ -21,14 +21,17 @@
 	var/caught = hit_atom.hitby(src, skipcatch = FALSE, hitpush = FALSE, throwingdatum = throwingdatum)
 	if(isliving(hit_atom) && !iscyborg(hit_atom) && !caught && prob(throw_hit_chance))//if they are a living creature and they didn't catch it
 		baton_stun(hit_atom, thrownby)
-	throw_at(thrownby, throw_range+3, throw_speed, null)
-	..()
+	if(thrownby && !caught)
+		addtimer(CALLBACK(src, /atom/movable.proc/throw_at, thrownby, throw_range+3, throw_speed, null, TRUE), 1)
+		thrownby = null
 
+/*
 /obj/item/melee/baton/boomerang/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(iscarbon(thrower))
 		var/mob/living/carbon/C = thrower
 		C.throw_mode_on()
 	..()
+*/
 
 /obj/item/melee/baton/boomerang/loaded //Same as above, comes with a cell.
 	preload_cell_type = /obj/item/stock_parts/cell/high

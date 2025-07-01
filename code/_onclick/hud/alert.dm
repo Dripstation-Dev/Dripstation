@@ -256,8 +256,11 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 		var/mob/living/carbon/C = usr
 		if (C.incapacitated())
 			to_chat(C, span_warning("You can't do that while disabled!"))
+		else if(ishuman(C))	//dripstation edit
+			INVOKE_ASYNC(C, /mob/living/carbon/human.proc/check_self_for_injuries)	//dripstation edit
+			return	//dripstation edit
 		else
-			return C.try_remove_embedded_object(C)
+			return	//dripstation edit
 
 /atom/movable/screen/alert/weightless
 	name = "Weightless"
