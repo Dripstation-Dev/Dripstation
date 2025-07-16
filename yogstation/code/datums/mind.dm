@@ -8,7 +8,7 @@
 	if(SSticker.mode.config_tag == "vampire")
 		text = uppertext(text)
 	text = "<i><b>[text]</b></i>: "
-	if(IS_VAMPIRE(current))
+	if(is_vampire(current))
 		text += "<b>VAMPIRE</b> | <a href='byond://?src=\ref[src];vampire=clear'>human</a> | <a href='byond://?src=\ref[src];vampire=full'>full-power</a>"
 	else
 		text += "<a href='byond://?src=\ref[src];vampire=vampire'>vampire</a> | <b>HUMAN</b> | <a href='byond://?src=\ref[src];vampire=full'>full-power</a>"
