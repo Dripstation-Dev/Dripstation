@@ -290,11 +290,11 @@
 		new /obj/item/gun/energy/laser(src)
 
 /obj/structure/closet/secure_closet/tac
-	name = "armory tac locker"
+	name = "militech armory locker"
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "tac"
 
-/obj/structure/closet/secure_closet/tac/PopulateContents()
+/obj/structure/closet/secure_closet/tac/full/PopulateContents()
 	..()
 	new /obj/item/gun/ballistic/automatic/wt550(src)
 	new /obj/item/clothing/head/helmet/alt(src)

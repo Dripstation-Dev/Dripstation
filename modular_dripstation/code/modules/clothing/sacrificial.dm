@@ -166,5 +166,10 @@
 	max_integrity = 100
 	armor = list(MELEE = 20, BULLET = 75, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, WOUND = 15)
 
-/obj/item/clothing/head/helmet/sacrificial/examine_more(mob/user)
+/obj/item/clothing/suit/armor/vest/sacrificial/slav/examine_more(mob/user)
 	return
+
+/obj/item/clothing/suit/armor/vest/sacrificial/slav/pcarrier
+	name = "desert slav armor"
+	desc = "An old robust vest with one-use ceramic plating and desert camo. Good thing there's plenty of deserts to hide in around here, right?"
+	icon_state = "pcarrier"

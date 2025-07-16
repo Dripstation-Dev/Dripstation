@@ -95,6 +95,8 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 		new /obj/item/storage/box/laserbuckshot(src)
 		new /obj/item/ammo_box/magazine/wt550m9(src)
 		new /obj/item/reagent_containers/glass/beaker/large/gunpowder(src)
+	new /obj/item/storage/box/incendiary(src)
+	new /obj/item/storage/box/ion(src)
 
 /obj/structure/closet/attackby(obj/item/attacking_item, mob/user, params)
 	if(user in src)

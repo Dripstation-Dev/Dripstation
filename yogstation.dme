@@ -234,6 +234,7 @@
 #include "code\__DEFINES\{dripstation_defines}\emotes.dm"
 #include "code\__DEFINES\{dripstation_defines}\firemodes.dm"
 #include "code\__DEFINES\{dripstation_defines}\hud_defines.dm"
+#include "code\__DEFINES\{dripstation_defines}\icemoon.dm"
 #include "code\__DEFINES\{dripstation_defines}\is_helpers.dm"
 #include "code\__DEFINES\{dripstation_defines}\layers.dm"
 #include "code\__DEFINES\{dripstation_defines}\loyalty.dm"

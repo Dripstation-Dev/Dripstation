@@ -75,20 +75,21 @@
 		/turf/open/floor/plating/rust = 1
 		)
 	weighted_possible_wall_types = list(
-		/turf/closed/wall = 30,
+		/turf/closed/wall = 25,
+		/turf/closed/wall/rust = 2,
 		/obj/structure/falsewall = 1,
-		/obj/effect/spawner/lootdrop/grille = 1,
+		/obj/structure/grille = 2,
 		
 	)
 
 	weighted_againstwall_spawn_list = list(
-		/obj/machinery/space_heater = 1,
-		/obj/structure/closet/emcloset = 2,
-		/obj/structure/closet/firecloset = 2,
-		/obj/structure/closet/toolcloset = 1,
-		list(/obj/structure/table, /obj/effect/spawner/lootdrop/maintenance) = 1,
-		list(/obj/structure/table, /obj/effect/spawner/lootdrop/maintenance) = 1,
-		list(/obj/effect/spawner/lootdrop/crate_empty, /obj/effect/spawner/lootdrop/maintenance) = 1
+		/obj/machinery/space_heater = 3,
+		/obj/structure/closet/emcloset = 6,
+		/obj/structure/closet/firecloset = 6,
+		/obj/structure/closet/toolcloset = 3,
+		list(/obj/structure/table, /obj/effect/spawner/lootdrop/maintenance) = 3,
+		list(/obj/structure/rack, /obj/effect/spawner/lootdrop/maintenance) = 3,
+		list(/obj/effect/spawner/lootdrop/crate_empty, /obj/effect/spawner/lootdrop/maintenance) = 3
 		)
 
 	weighted_openfloor_spawn_list = list(
@@ -107,6 +108,50 @@
 		/obj/structure/girder/displaced = 2
 		)
 
+
+//cold fuckos
+/datum/generator_theme/cold
+	weight = 10
+	weighted_possible_floor_types = list(
+		/turf/open/floor/plating/snowed = 2,
+		/turf/open/floor/plating/snowed/smoothed = 2
+		)
+
+	weighted_possible_wall_types  = list(
+		/turf/closed/wall = 1,
+		/turf/closed/wall/rust = 1,
+		/turf/closed/wall/ice = 2,
+		/obj/structure/grille = 2,
+		)
+
+	weighted_againstwall_spawn_list = list(
+		/obj/machinery/space_heater = 5,
+		/obj/structure/closet/emcloset = 4,
+		/obj/structure/closet/firecloset = 4,
+		/obj/structure/closet/toolcloset = 3,
+		/obj/machinery/suit_storage_unit/mining/winter = 1,
+		list(/obj/structure/table, /obj/effect/spawner/lootdrop/maintenance) = 2,
+		list(/obj/structure/rack, /obj/effect/spawner/lootdrop/maintenance) = 2,
+		list(/obj/effect/spawner/lootdrop/crate_empty, /obj/effect/spawner/lootdrop/maintenance) = 2,
+		list(/obj/effect/spawner/lootdrop/random_meat, /obj/effect/gibspawner/generic) = 2,
+		/obj/effect/decal/remains/human = 2,
+		/obj/effect/gibspawner/human = 2,
+		)
+
+	weighted_openfloor_spawn_list = list(
+		/obj/effect/spawner/lootdrop/grille = 5,
+		/obj/effect/spawner/lootdrop/maintenance = 2,
+		/obj/effect/spawner/lootdrop/garbage = 3,
+		/obj/structure/girder/displaced = 1
+		)
+
+	weighted_hallway_spawn_list = list(
+		/obj/effect/spawner/lootdrop/grille = 6,
+		/obj/effect/spawner/lootdrop/maintenance = 3,
+		/obj/effect/spawner/lootdrop/maint_fauna = 2,
+		/obj/effect/spawner/lootdrop/anomaly = 1,
+		/obj/structure/girder/displaced = 2
+		)
 
 
 //dungeon themed

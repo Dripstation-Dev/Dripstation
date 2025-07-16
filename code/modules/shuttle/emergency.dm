@@ -638,7 +638,7 @@
 
 /obj/machinery/computer/shuttle/pod
 	name = "pod control computer"
-	admin_controlled = TRUE
+	//admin_controlled = TRUE
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
@@ -652,8 +652,10 @@
 	return ..()
 */
 
+/*
 /obj/machinery/computer/shuttle/pod/proc/update_security_level(_, datum/security_level/new_level)
 	admin_controlled = !new_level.pod_access
+*/
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user, obj/item/card/emag/emag_card)
 	if(obj_flags & EMAGGED)
@@ -682,6 +684,69 @@
 			return
 
 		possible_destinations += shuttle_destination
+
+/obj/machinery/computer/shuttle/pod/ui_data(mob/user)
+	var/list/data = list()
+	var/list/options = params2list(possible_destinations)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
+	data["docked_location"] = M ? M.get_status_text_tgui() : "Unknown"
+	data["locations"] = list()
+	data["locked"] = FALSE
+	data["authorization_required"] = admin_controlled
+	data["timer_str"] = M ? M.getTimerStr() : "00:00"
+	data["destination"] = destination
+	if(!M)
+		data["status"] = "Missing"
+		return data
+	if(admin_controlled)
+		data["status"] = "Unauthorized Access"
+	else
+		switch(M.mode)
+			if(SHUTTLE_IGNITING)
+				data["status"] = "Igniting"
+			if(SHUTTLE_IDLE)
+				data["status"] = "Idle"
+			if(SHUTTLE_RECHARGING)
+				data["status"] = "Recharging"
+			else
+				data["status"] = "In Transit"
+	for(var/obj/docking_port/stationary/S in SSshuttle.stationary_docking_ports)
+		if(!options.Find(S.port_destinations))
+			continue
+		if(!M.check_dock(S, silent = TRUE))
+			continue
+		var/list/location_data = list(
+			id = S.shuttle_id,
+			name = S.name
+		)
+		data["locations"] += list(location_data)
+	if(length(data["locations"]) == 1)
+		for(var/location in data["locations"])
+			destination = location["id"]
+			data["destination"] = destination
+	if(SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_RED && !(obj_flags & EMAGGED))
+		data["locked"] = TRUE
+		data["status"] = "Locked"
+	return data
+
+/obj/machinery/computer/shuttle/pod/ui_act(action, params, datum/tgui/ui)
+	if(.)
+		return
+
+	if(!allowed(usr))
+		to_chat(usr, span_danger("Access denied."))
+		return
+
+	switch(action)
+		if("request")
+			if(!COOLDOWN_FINISHED(src, request_cooldown))
+				to_chat(usr, span_warning("CentCom is still processing last authorization request!"))
+				return
+			COOLDOWN_START(src, request_cooldown, 1 MINUTES)
+			to_chat(usr, span_notice("Your request has been received by CentCom."))
+			to_chat(GLOB.permissions.admins, "<b>ESCAPE POD: <font color='#3d5bc3'>[ADMIN_LOOKUPFLW(usr)] (<A HREF='?_src_=holder;[HrefToken()];secrets=move[shuttleId]'>Move Pod</a>)</b> is requesting to move the transport Pod to CentCom.</font>")
+			return TRUE
+	..()
 
 /obj/docking_port/stationary/random
 	name = "escape pod"

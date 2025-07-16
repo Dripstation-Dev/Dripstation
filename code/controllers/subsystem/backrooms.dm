@@ -14,6 +14,7 @@ SUBSYSTEM_DEF(backrooms)
 		/obj/item/bigspoon = 4000,
 		/obj/item/reagent_containers/food/snacks/burger/rat = 1200,
 		/obj/item/extinguisher = 2500,
+		/obj/item/melee/spear/grey_tide = 6000,
 		/obj/item/toy/plush/lizard/azeel = 5000
 	)
 

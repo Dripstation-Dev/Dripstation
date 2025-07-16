@@ -48,6 +48,7 @@
 
 	id = /obj/item/card/id/nanotrasen
 	uniform = /obj/item/clothing/under/rank/centcom
+	head = /obj/item/clothing/head/soft/nt
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/melee/classic_baton/blc
 	ears = /obj/item/radio/headset/headset_cent
@@ -132,15 +133,39 @@
 	id = /obj/item/card/id
 	suit = /obj/item/clothing/suit/hoodie/pizza
 	head = /obj/item/clothing/head/soft/red
-	mask = /obj/item/clothing/mask/fakemoustache/italian
 	uniform = /obj/item/clothing/under/pizza
 	ears = /obj/item/radio/headset/alt
 	back = /obj/item/storage/backpack/unknown
+	belt = null
+	l_pocket = null
+	r_pocket = null
+	l_hand = null
 	backpack_contents = list(
 		/obj/item/storage/box/survival,\
 		/obj/item/kitchen/knife/combat/survival,\
 		/obj/item/storage/box/ingredients/italian,\
 		)
+	var/gend = MALE
+
+/datum/outfit/centcom/intern/pizza/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.gender = gend	//sorry, gendered
+	H.facial_hair_style = "None"
+
+/datum/outfit/centcom/intern/pizza/girl //comming in hot
+	name = "Pizza Delivery Girl"
+	suit = null
+	uniform = /obj/item/clothing/under/lewd/pizza
+	gend = FEMALE
+
+/datum/outfit/centcom/intern/pizza/girl/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	var/list/hairs_for_girls = list("Drillruru", "Jade", "Kusanagi Hair", "Long Hair 1", "Long Over Eye", "Messy")	//i duno, just droped some
+	H.hair_style = pick(hairs_for_girls)
 
 /datum/outfit/centcom/intern/pizza/leader //da pizza for you and me
 	name = "Pizza Delivery Manager"

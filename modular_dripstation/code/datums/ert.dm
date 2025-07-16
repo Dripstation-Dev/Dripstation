@@ -119,6 +119,11 @@
 	leader_role = /datum/antagonist/ert/intern/leader/unarmed
 	rename_team = "Unarmed Horde of Interns"
 
+/datum/ert/intern/pizza
+	roles = list(/datum/antagonist/ert/intern/pizza, /datum/antagonist/ert/intern/pizza_girl)
+	leader_role = /datum/antagonist/ert/intern/leader/pizza
+	rename_team = "Nanotrasen Pizza Delivery"
+
 /datum/ert/official
 	code = "Green"
 	teamsize = 1

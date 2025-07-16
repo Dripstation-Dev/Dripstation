@@ -92,8 +92,7 @@
 	adjustmask(user)
 
 /obj/item/clothing/mask/russian_balaclava
-	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
-	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
+	name = "slavic balaclava"
 
 /obj/item/clothing/mask/russian_balaclava/no_ru
 	name = "green balaclava"
@@ -101,14 +100,20 @@
 /obj/item/clothing/mask/russian_balaclava/syndicate
 	name = "syndicate balaclava"
 	icon_state = "syndicate_balaclava"
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
 
 /obj/item/clothing/mask/russian_balaclava/black
 	name = "black balaclava"
 	icon_state = "balaclava_black"
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
 
 /obj/item/clothing/mask/russian_balaclava/black_skull
 	name = "skull balaclava"
 	icon_state = "black_skull_balaclava"
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
 
 /obj/item/clothing/mask/neck_gaiter
 	name = "neck gaiter"
@@ -304,3 +309,6 @@ GLOBAL_LIST_INIT(balaclava_style_list, list(
 	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
 	icon_state = "hecu2"
 	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR
+
+/obj/item/clothing/mask/gas/sechailer/swat/spacepol
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'

@@ -101,15 +101,71 @@
 	wound_bonus = -30
 	armour_penetration = -40	//any armor will fucking nullify this bullet
 
+///Standart 9x39
+/obj/projectile/bullet/a939
+	name = "9x39mm bullet"
+	damage = 30
+	armour_penetration = 20
+	bare_wound_bonus = 10
+	wound_bonus = -20
+	ap_falloff_tile = 5
+	speed = 1
+
+/obj/projectile/bullet/a939/rubber
+	name = "9x39mm rubber bullet"
+	damage = 7
+	stamina = 40
+	bare_wound_bonus = 0
+
+/obj/projectile/bullet/a127
+	name = "12.7x55mm Light bullet"
+	damage = 50
+	stamina = 27
+	armour_penetration = 20
+	bare_wound_bonus = 0
+	wound_bonus = -10
+	ap_falloff_tile = 2.5
+
+/obj/projectile/bullet/a127/ap
+	name = "12.7x55mm Armor-Piercing bullet"
+	damage = 60
+	armour_penetration = 100
+	wound_bonus = -40
+	speed = 1.7
+
+/obj/projectile/bullet/a127/heavy
+	name = "12.7x55mm Heavy bullet"
+	damage = 70
+	stamina = 40
+	armour_penetration = 40
+	bare_wound_bonus = 20
+	wound_bonus = 0
+	speed = 1
+
 ///Standart 7.62x51
 /obj/projectile/bullet/a762x51
 	name = "7.62x51mm bullet"
-	damage = 35
+	damage = 47
 	stamina = 27
-	bare_wound_bonus = 10
-	wound_bonus = -20
+	bare_wound_bonus = 0
+	wound_bonus = -40
 	armour_penetration = 20
 	ap_falloff_tile = 2.5
+	wound_falloff_tile = 0
+
+/obj/projectile/bullet/m308
+	damage = 50
+	stamina = 28
+	armour_penetration = 10
+
+/obj/projectile/bullet/a4570
+	name = "heavy impact rifle bullet"
+	damage = 60
+	stamina = 27
+	wound_bonus = -50
+	armour_penetration = 20
+	ap_falloff_tile = 5
+	wound_falloff_tile = 2.5
 
 /////Nitro Express/////
 /obj/projectile/bullet/nitro_express
@@ -134,4 +190,5 @@
 	ap_falloff_tile = 2.5
 
 /obj/projectile/bullet/mm712x82
+	damage = 54
 	ap_falloff_tile = 2.5

@@ -56,15 +56,15 @@
 		/datum/reagent/silver,
 		/datum/reagent/sodium,
 		/datum/reagent/iron,
-		/datum/reagent/water,
-		/datum/reagent/oil,
+		//datum/reagent/water,
+		//datum/reagent/oil,
 		/datum/reagent/uranium/radium,
-		/datum/reagent/stable_plasma,
+		//datum/reagent/stable_plasma,
 		/datum/reagent/sulphur
 	)
 	var/list/t2_upgrade_reagents = list(
 		/datum/reagent/consumable/sugar,
-		/datum/reagent/fuel,
+		//datum/reagent/fuel,
 		/datum/reagent/toxin/acid
 	)
 	var/list/t3_upgrade_reagents = list(

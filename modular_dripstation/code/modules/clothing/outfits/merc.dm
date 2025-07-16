@@ -36,9 +36,6 @@
 
 	if(istype(H.belt, /obj/item/storage/belt/military/assault))
 		var/obj/item/storage/belt/military/assault/milbelt_store = H.belt
-		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/f556, null, TRUE, TRUE)
-		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/f556, null, TRUE, TRUE)
-		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/f556, null, TRUE, TRUE)
 		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/pistolm9mm/pmag, null, TRUE, TRUE)
 		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/melee/emergency_forcing_tool/varyag, null, TRUE, TRUE)
 		SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/extinguisher/mini, null, TRUE, TRUE)
@@ -58,7 +55,7 @@
 	if(istype(H.belt, /obj/item/storage/belt/military/assault))
 		var/obj/item/storage/belt/military/assault/milbelt_store = H.belt
 		for(var/i = 2 to 0 step -1)
-			SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/r556, null, TRUE, TRUE)
+			SEND_SIGNAL(milbelt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/f556, null, TRUE, TRUE)
 
 /datum/outfit/merc/officer
 	name = "Freelancer Mercenary - Officer"
@@ -79,7 +76,7 @@
 		/obj/item/melee/emergency_forcing_tool/varyag = 1,
 		)
 
-/datum/outfit/merc/operative/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/merc/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return

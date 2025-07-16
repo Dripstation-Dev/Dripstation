@@ -161,7 +161,7 @@
 	if(!no_pin_required)
 		if(pin)
 			. += "It has \a [pin] installed."
-			. += "The [pin] is [pin.jammed ? "malfunctioning" : "combat ready"]."
+			. += " \a [pin] is [pin.jammed ? "malfunctioning" : "combat ready"]."
 		else
 			. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
 

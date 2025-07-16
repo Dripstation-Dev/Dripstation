@@ -2,6 +2,30 @@
 	muzzleflash_iconstate = "muzzle_flash_medium"
 	manufacturer = /datum/corporation/wardtakhashi
 
+/obj/item/gun/ballistic/shotgun/lever
+	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+
+/obj/item/gun/ballistic/shotgun/lever/chamber_round()
+	..()
+	flick("wintonrifle_flick", src)
+
+/obj/item/gun/ballistic/shotgun/repeater
+	name = "Leicester Repeater"
+	desc = "The gun that won the west or so they say. But space is a very different kind of frontier all together. Chambered for .45-70 Governemnt."
+	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+	icon_state = "repeater"
+	fire_sound = "sound/weapons/leverfire.ogg"
+	fire_sound_volume = 50
+	rack_sound = "sound/weapons/leverrack.ogg"
+	load_sound = "sound/weapons/leverload.ogg"
+	fire_delay = 10
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/lever
+
+/obj/item/ammo_box/magazine/internal/shot/lever/adv
+	max_ammo = 13
+	ammo_type = /obj/item/ammo_casing/m4570
+	caliber = CALIBER_4570
+
 /obj/item/gun/ballistic/shotgun/riot
 	desc = "A sturdy shotgun with a standart magazine and a fixed tactical stock designed for non-lethal riot control."
 	icon_state = "policeshotgun"
@@ -77,6 +101,7 @@
 	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/shotgun/automatic/combat
+	name = "\improper CS-16A Shotgun"
 	icon_state = "cshotgun"
 	item_state = "cshotgun"
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
@@ -88,8 +113,10 @@
 	burst_size = 2
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT)
 	auto_fire_delay = 0
+	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/compact
+	name = "\improper CS-16C Shotgun"
 	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/ballistic/shotgun/automatic/breaching
@@ -101,8 +128,13 @@
 	auto_fire_delay = 0
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube
+	name = "\improper AD-12 DualTube Assault Shotgun"
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
 	icon_state = "cycler"
+
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/chamber_round()
+	..()
+	flick("cycler_flick", src)
 
 /obj/item/gun/ballistic/shotgun/bulldog
 	desc = "A semi-auto, mag-fed Scarborough Arms shotgun for combat in narrow corridors, nicknamed the 'Bulldog' by boarding parties. Only compatible with specialized 8-round drum magazines."

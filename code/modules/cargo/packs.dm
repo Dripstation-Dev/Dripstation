@@ -518,7 +518,9 @@
 	group = "Armory"
 	access = ACCESS_ARMORY
 	access_view = ACCESS_ARMORY
+	/* dripstation edit
 	crate_type = /obj/structure/closet/crate/secure/weapon
+	*/
 
 /datum/supply_pack/security/armory/bulletarmor
 	name = "Bulletproof Armor Crate"

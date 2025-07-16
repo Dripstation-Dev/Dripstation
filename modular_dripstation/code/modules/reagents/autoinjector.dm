@@ -70,6 +70,11 @@
 	amount_per_transfer_from_this = 40
 	list_reagents = list(/datum/reagent/drug/red_eye = 5, /datum/reagent/medicine/morphine = 5, /datum/reagent/medicine/oxandrolone = 4, /datum/reagent/medicine/sal_acid = 4, /datum/reagent/drug/methamphetamine = 3, /datum/reagent/medicine/atropine = 10, /datum/reagent/medicine/coagulant/blood_restoring_nanites = 2.5, /datum/reagent/medicine/spaceacillin = 0.5, /datum/reagent/iron = 3, /datum/reagent/medicine/salglu_solution = 3)
 
+/obj/item/reagent_containers/autoinjector/medipen/ekit/traitor/export
+	name = "emergency autoinjector RE-7 'Vahlen Pharma'"
+	icon_state = "medipenemergencysyndie_e"
+	icon = 'modular_dripstation/icons/obj/syringe.dmi'
+
 /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor
 	name = "syndicate combat autoinjector"
 	desc = "A superior stimulants autoinjector for use in combat situations. Has healing effect, can coagulate bleeding and rapidly reverse severe bloodloss."
@@ -78,7 +83,7 @@
 	list_reagents = list(/datum/reagent/medicine/stimulants = 5, /datum/reagent/medicine/morphine = 5, /datum/reagent/medicine/salbutamol = 5, /datum/reagent/medicine/tricordrazine = 5, /datum/reagent/medicine/omnizine = 10, /datum/reagent/medicine/coagulant/blood_restoring_nanites = 2.5, /datum/reagent/iron = 3.5, /datum/reagent/medicine/salglu_solution = 4)
 
 /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor/export
-	name = "combat autoinjector 'Vahlen Pharma'"
+	name = "combat autoinjector S-7 'Vahlen Pharma'"
 	icon_state = "medipenemergencysyndie_e"
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
 
@@ -92,6 +97,7 @@
 	list_reagents = list(/datum/reagent/medicine/neurine = 5, /datum/reagent/medicine/morphine = 5, /datum/reagent/medicine/bone_restoring_nanites = 10, /datum/reagent/medicine/coagulant/blood_restoring_nanites = 2.5, /datum/reagent/iron = 3.5, /datum/reagent/medicine/salglu_solution = 4)
 
 /obj/item/reagent_containers/autoinjector/medipen/syndicate_trauma_repairer/export
+	name = "anti-trauma autoinjector R-4 'Vahlen Pharma'"
 	icon_state = "medipentraumasyndie_e"
 
 /obj/item/reagent_containers/autoinjector/medipen/syndicate_cellular_repairer
@@ -102,3 +108,48 @@
 	volume = 15
 	amount_per_transfer_from_this = 15
 	list_reagents = list(/datum/reagent/medicine/cellular_restoring_nanites = 15)
+
+/obj/item/reagent_containers/autoinjector/medipen/propithal
+	name = "propithal autoinjector"
+	desc = "An autoinjector for use in combat situations. Helps to live a few more seconds before innevitable death. Numbs pain, heals wounds, reverts critical, restores blood. All in a bit."
+	icon_state = "propithal"
+	icon = 'modular_dripstation/icons/obj/syringe.dmi'
+	volume = 30
+	amount_per_transfer_from_this = 30
+	list_reagents = list(/datum/reagent/medicine/morphine = 5,  /datum/reagent/iron = 5, /datum/reagent/medicine/omnizine/protozine = 10, /datum/reagent/medicine/atropine = 10)
+
+/obj/item/reagent_containers/autoinjector/medipen/morphine
+	name = "morphine autoinjector"
+	desc = "An autoinjector for use in combat situations. Used as a high-strength painkiller. Overdose will cause uncontious state."
+	icon_state = "morphine"
+	icon = 'modular_dripstation/icons/obj/syringe.dmi'
+	volume = 10
+	amount_per_transfer_from_this = 10
+	list_reagents = list(/datum/reagent/medicine/morphine = 10)
+
+/obj/item/reagent_containers/autoinjector/medipen/tramadol
+	name = "tramadol autoinjector"
+	desc = "An autoinjector for use in combat situations. Used as a medium-strength painkiller."
+	icon_state = "tramadol"
+	icon = 'modular_dripstation/icons/obj/syringe.dmi'
+	volume = 30
+	amount_per_transfer_from_this = 30
+	list_reagents = list(/datum/reagent/medicine/tramadol = 30)
+
+/obj/item/reagent_containers/autoinjector/medipen/pen_acid
+	name = "pentetic acid autoinjector"
+	desc = "An autoinjector for use in combat situations. Quickly purges the body of all chemicals and toxins."
+	icon_state = "pen_acid"
+	icon = 'modular_dripstation/icons/obj/syringe.dmi'
+	volume = 30
+	amount_per_transfer_from_this = 30
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 20)
+
+/obj/item/reagent_containers/autoinjector/medipen/meldonin
+	name = "meldonin autoinjector"
+	desc = "An autoinjector for use in combat situations. It allows the body's tissues to suffer less damage during physical exertion. Stimulates stamina regeneration and applied force."
+	icon_state = "meldonin"
+	icon = 'modular_dripstation/icons/obj/syringe.dmi'
+	volume = 30
+	amount_per_transfer_from_this = 30
+	list_reagents = list(/datum/reagent/medicine/meldonin = 20)

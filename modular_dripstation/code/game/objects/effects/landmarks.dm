@@ -31,6 +31,26 @@
 	icon_state = "Explorer"
 	icon = 'modular_dripstation/icons/mob/landmarks.dmi'
 
+/obj/effect/landmark/start/security_consultant
+	name = "Security Consultant"
+	icon_state = "Security Consultant"
+	icon = 'modular_dripstation/icons/mob/landmarks.dmi'
+
+/obj/effect/landmark/start/corrections_officer
+	name = "Corrections Officer"
+	icon_state = "Corrections Officer"
+	icon = 'modular_dripstation/icons/mob/landmarks.dmi'
+
+/obj/effect/landmark/start/bridge_assistant
+	name = "Bridge Assistant"
+	icon_state = "Bridge Assistant"
+	icon = 'modular_dripstation/icons/mob/landmarks.dmi'
+
+/obj/effect/landmark/start/prisoner
+	name = "Prisoner"
+	icon_state = "Prisoner"
+	icon = 'modular_dripstation/icons/mob/landmarks.dmi'
+
 /obj/effect/landmark/ert_spawn
 	icon = 'modular_dripstation/icons/mob/landmarks.dmi'
 

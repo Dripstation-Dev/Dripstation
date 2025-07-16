@@ -1,8 +1,9 @@
 /obj/item/badge/security
+	name = "spearhead security sign"
 	icon = 'modular_dripstation/icons/obj/clothing/accessories.dmi'
-	icon_state = "silverbadge"
+	icon_state = "spearhead"
 	item_state = ""
-	accessory_state = "silverbadge"
+	accessory_state = "spearhead"
 	worn_icon = 'modular_dripstation/icons/mob/clothing/accessories.dmi'
 	var/can_be_adjusted = FALSE
 	var/cord_state = FALSE
@@ -116,8 +117,8 @@
 		to_chat(user, "Waving around a badge without your name would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Security Legal Authorization Badge.\nIt reads: [owner_string], NT Security.</span>",
-		"<span class='warning'>You display your Nanotrasen Security Legal Authorization Badge.\nIt reads: [owner_string], NT Security.</span>")
+		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Spearhead Security Legal Authorization Badge.\nIt reads: [owner_string], Spearhead Security.</span>",
+		"<span class='warning'>You display your Spearhead Security Legal Authorization Badge.\nIt reads: [owner_string], Spearhead Security.</span>")
 
 /obj/item/badge/security/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))

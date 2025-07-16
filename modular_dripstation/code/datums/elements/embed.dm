@@ -152,6 +152,8 @@
 		limb = C.get_bodypart()
 
 	payload.tryEmbed(limb) // at this point we've created our shrapnel baby and set them up to embed in the target, we can now die in peace as they handle their embed try on their own
+	payload.embedding = list("embed_chance" = 0)	//at this point bullet will stop embeding and became just junk
+	payload.updateEmbedding()
 	Detach(P)
 
 /**

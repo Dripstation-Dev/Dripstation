@@ -311,6 +311,7 @@
 	},
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plating/snowed,
 /area/ruin/plasma_facility/operations)
 "eO" = (
@@ -575,7 +576,8 @@
 	},
 /mob/living/simple_animal/hostile/retaliate/frog{
 	name = "Peter Jr.";
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	unsuitable_atmos_damage = 0
 	},
 /turf/open/floor/plating/snowed,
 /area/ruin/plasma_facility/operations)
@@ -1699,7 +1701,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/turf/open/lava/plasma/ice_moon,
+/turf/open/floor/plating/snowed,
 /area/icemoon/underground/explored)
 "Hq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2327,7 +2329,7 @@
 /obj/effect/turf_decal/tile/neutral/full,
 /obj/effect/turf_decal/bot_red,
 /obj/machinery/suit_storage_unit/mining/winter,
-/turf/open/space/basic,
+/turf/open/floor/plating,
 /area/ruin/plasma_facility/commons)
 "Qh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2548,7 +2550,6 @@
 /area/icemoon/underground/explored)
 "Ue" = (
 /obj/structure/transit_tube/horizontal,
-/obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -2558,7 +2559,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/lava/plasma/ice_moon,
+/turf/open/floor/catwalk_floor,
 /area/icemoon/underground/explored)
 "Ug" = (
 /obj/effect/decal/cleanable/glass,
@@ -3818,7 +3819,7 @@ hR
 hR
 rk
 hR
-nk
+KV
 HS
 SV
 AT
@@ -3850,7 +3851,7 @@ PZ
 oS
 YC
 qW
-KV
+nk
 HS
 TY
 HS
@@ -3955,7 +3956,7 @@ rs
 Ue
 rs
 Yx
-KV
+nk
 nk
 vz
 rk

@@ -3,28 +3,66 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	muzzleflash_iconstate = "muzzle_flash_medium"
+	manufacturer = /datum/corporation/scarborough
 
-/obj/item/gun/ballistic/revolver/mateba
+/obj/item/gun/ballistic/revolver/ipcmartial
+	manufacturer = null
+
+/obj/item/gun/ballistic/revolver/detective
+	manufacturer = /datum/corporation/wardtakhashi
+
+/obj/item/gun/ballistic/revolver/nagant
+	manufacturer = /datum/corporation/vostok
+
+/obj/item/gun/ballistic/revolver/russian
+	manufacturer = /datum/corporation/vostok
+
+/obj/item/gun/ballistic/revolver/rh9
+	name = "\improper Vostok RH-9"
+	desc = "Modern revolver chambered in 9x39. Pricy autorevolver typically worn by regular contracted slav military alike."
+	icon_state = "revolver-rh9"
+	item_state = "revolver-rh9"
+	fire_delay = 25 //Chunky as hell, but somewhat powerful
+	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/mateba.ogg'
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev9
+	manufacturer = /datum/corporation/vostok
+
+/obj/item/gun/ballistic/revolver/rh12
+	name = "\improper Vostok RH-12"
+	desc = "Modern revolver chambered in 12.7x55. Pricy autorevolver typically worn by madman."
+	icon_state = "revolver-rh12"
+	item_state = "revolver-rh9"
+	recoil = 2
+	fire_delay = 30 //Chunky as hell, but powerful
+	fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper.ogg'	//it`s like BOOOM
+	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev12
+	manufacturer = /datum/corporation/vostok
 
 /obj/item/gun/ballistic/revolver/mateba/shellguard
 	name = "\improper Shellhuard MA-7"
 	desc = "Modern revolver chambered in .44 in Shellguard Arms painting. Property of Shellguard Co."
 	icon_state = "revolver-shellguard"
+	item_state = "shelg_lawyer"
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
 	manufacturer = /datum/corporation/shellguard
 
-/obj/item/ammo_box/magazine/internal/cylinder/grenademulti/sec
-	ammo_type = /obj/item/ammo_casing/a40mm/gas
-
 /obj/item/gun/ballistic/revolver/grenadelauncher/multi
-	name = "multi grenade launcher"
-	desc = "A 6-shot grenade launcher."
-	icon = 'modular_dripstation/icons/mecha/mecha_equipment.dmi'
-	icon_state = "mecha_grenadelnchr"
-	item_state = "carbine"
+	name = "\improper GL-70 grenade launcher"
+	desc = "The GL-70 is the standard grenade launcher used by the government police forces and PMC for area denial and big explosions."
+	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+	icon_state = "t70"
+	item_state = "t70"
+	fire_delay = 20
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenademulti
 	pin = /obj/item/firing_pin
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/multi/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	. = ..()
+	if(!.)
+		return
+	flick("t70_f", src)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/multi/sec
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenademulti/sec

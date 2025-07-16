@@ -80,6 +80,7 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/shield_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/shield_righthand.dmi'
+	alternate_worn_layer = SIDE_HEAD_LAYER
 	max_integrity = 200
 	transparent = FALSE
 	antithrow_bonus = 0
@@ -115,14 +116,48 @@
 	return ..()
 
 /obj/item/shield/energy
+	name = "energy combat shield"
+	desc = "A shield that reflects almost all energy projectiles, but is useless against conventional strong and armor piercing projectiles. It can be retracted, expanded, and stored anywhere."
 	base_icon_state = "syndieeshield"
+	icon_state = "syndieeshield1"
 	icon = 'modular_dripstation/icons/obj/weapons/shield.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/shield_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/shield_righthand.dmi'
 	block_chance = 40
 	antithrow_bonus = 0
+	alternate_worn_layer = SIDE_HEAD_LAYER
 	block_sound = 'modular_dripstation/sound/shield_drained.ogg'
 	block_color = COLOR_RED
+	light_color = COLOR_RED
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 1
+	light_on = FALSE
+
+/obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		to_chat(user, span_warning("You beat yourself in the head with [src]."))
+		user.take_bodypart_damage(5)
+	active = !active
+	icon_state = "[base_icon_state][active]"
+
+	if(active)
+		force = on_force
+		throwforce = on_throwforce
+		throw_speed = on_throw_speed
+		set_light_on(TRUE)
+		w_class = WEIGHT_CLASS_BULKY
+		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
+		to_chat(user, span_notice("[src] is now active."))
+	else
+		force = initial(force)
+		throwforce = initial(throwforce)
+		throw_speed = initial(throw_speed)
+		set_light_on(FALSE)
+		w_class = WEIGHT_CLASS_TINY
+		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
+		to_chat(user, span_notice("[src] can now be concealed."))
+	add_fingerprint(user)
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
@@ -141,13 +176,20 @@
 /obj/item/shield/energy/IsReflect()
 	return (active*(block_chance+35)/100)
 
+/obj/item/shield/energy/security
+	name = "energy security shield"
+	desc = "A shield that reflects almost all energy projectiles, but is useless against conventional strong and armor piercing projectiles. It can be retracted, expanded, and stored anywhere. Probably trophy taken from some unfortunate bastard."
+
 /obj/item/shield/energy/advanced
+	name = "energy advanced shield"
 	base_icon_state = "eshield"
+	icon_state = "eshield1"
 	icon = 'modular_dripstation/icons/obj/weapons/shield.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/shield_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/shield_righthand.dmi'
 	block_chance = 65
 	block_color = COLOR_BLUE
+	light_color = COLOR_BLUE
 
 /obj/item/shield/energy/bananium
 	base_icon_state = "bananaeshield"
@@ -155,3 +197,4 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/shield_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/shield_righthand.dmi'
 	block_color = COLOR_YELLOW
+	light_color = COLOR_YELLOW

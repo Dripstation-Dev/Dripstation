@@ -2,9 +2,24 @@
 	icon = 'modular_dripstation/icons/obj/crates.dmi'
 
 /obj/structure/closet/crate/secure/nanotrasen
-	desc = "A secure crate. Best in the Space. Probably."
+	desc = "A secure crate. Best in the whole Space. Probably."
 	name = "Nanotrasen Brand secure crate"
 	icon_state = "nanotrasencrate"
+
+/obj/structure/closet/crate/secure/militech
+	desc = "A secure weapons crate. Militech property."
+	name = "Militech Brand secure crate"
+	icon_state = "militechcrate"
+
+/obj/structure/closet/crate/secure/shellguard
+	desc = "A secure crate. Secure as hell. Probably."
+	name = "Shellguard Brand secure crate"
+	icon_state = "shellguardcrate"
+
+/obj/structure/closet/crate/secure/zeng_hu
+	desc = "A secure crate. Secure as hell. Probably."
+	name = "Zeng Hu Brand secure crate"
+	icon_state = "zeng_hucrate"
 
 /obj/structure/closet/crate/secure/syndicate
 	desc = "A secure crate. Deffinetly NOT Nanotrasen`s."

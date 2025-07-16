@@ -73,6 +73,9 @@
 /obj/machinery/suit_storage_unit/security/dualmode
 	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/security
 
+/obj/machinery/suit_storage_unit/security/dualmode_brigmed
+	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/security/brigmed
+
 /obj/machinery/suit_storage_unit/warden
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/warden
 	mask_type = /obj/item/clothing/mask/gas/sechailer

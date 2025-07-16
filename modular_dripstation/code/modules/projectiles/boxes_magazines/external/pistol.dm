@@ -7,16 +7,6 @@
 	name = "ammo box (9mm Armor-Piercing)"
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
 
-/obj/item/ammo_box/no_direct/c38
-	name = "ammo box (.38 special)"
-	icon_state = "38box"
-	ammo_type = /obj/item/ammo_casing/c38
-	max_ammo = 20
-
-/obj/item/ammo_box/no_direct/c38/rubber
-	name = "ammo box (.38 rubber)"
-	ammo_type = /obj/item/ammo_casing/c38/rubber
-
 //APS, Glock, STM-9 Mag
 /obj/item/ammo_box/magazine/pistolm9mm/ap
 	name = "pistol magazine (9mm Armor-Piercing)"

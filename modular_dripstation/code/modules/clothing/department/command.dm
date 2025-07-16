@@ -270,8 +270,8 @@
 	name = "spare bear pelt"
 	desc = "It shimmers in the light"
 	icon_state = "sparebearpelt"
-	icon = 'icons/obj/clothing/hats/hats.dmi'
-	worn_icon = 'icons/mob/clothing/head/head.dmi'	
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
 
 /obj/item/clothing/mask/gas/captain
 	name = "captain's gas mask"

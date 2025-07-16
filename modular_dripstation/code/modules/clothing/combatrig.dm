@@ -767,7 +767,7 @@
 	AddComponent(/datum/component/armor_plate)
 
 /obj/item/clothing/suit/space/hardsuit/syndi/mining
-	name = "mining RIG helmet"
+	name = "mining RIG"
 	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by mining groups across human space. Expensive in production and maintaining."
 	icon_state = "mining_rig"
 	//item_state = "mining_rig"
@@ -804,6 +804,7 @@
 	//item_state = "sec_rig"
 	item_state = "sec_hardsuit"
 	hardsuit_type = "sec"
+	combat_slowdown = 0.4	//we need some extra speed here
 	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by paramilitary groups and PMC alike affiliated with or contracted by Nanotrasen across human space. Expensive in production and maintaining. Has NT logo on it`s back."
 	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/security
@@ -828,7 +829,7 @@
 	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by paramedics of paramilitary groups and PMC alike across human space. Expensive in production and maintaining."
 	armor = list(MELEE = 25, BULLET = 15, LASER = 20, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/security/brigmed
-	combat_slowdown = 0.4
+	combat_slowdown = 0.35
 
 
 

@@ -86,7 +86,7 @@
 	//item_state = "haze"
 	density = FALSE
 	anchored = TRUE
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
 	alpha = 75
 	layer = FLY_LAYER
 	var/infino_timer = 60
@@ -106,7 +106,7 @@
 	addtimer(CALLBACK(src, PROC_REF(nonchemical_reaction)), infino_timer)
 	addtimer(CALLBACK(src, PROC_REF(loop_timer)), infino_reppeater_timer)
 
-/obj/structure/anomalies_diet/haze/Crossed(atom/movable/AM)
+/obj/structure/anomalies_diet/haze/Cross(atom/movable/AM)
 	if(isliving(AM))
 		var/turf/T = get_turf(src)
 		heatwave(T, heavy_range, weak_range, heat_damage, fire_stacks, penetration)
@@ -129,7 +129,7 @@
 	//item_state = "fairy_light"
 	density = FALSE
 	anchored = TRUE
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
 	layer = FLY_LAYER
 	var/starting_culter = TRUE
 	var/is_growing = TRUE
@@ -220,7 +220,7 @@
 	//item_state = "ball_lightning"
 	density = TRUE
 	anchored = TRUE
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
 	layer = FLY_LAYER
 	var/movement_range = 3
 	var/movement_speed_as_in_when_it_moves_not_how_active_it_moves = 2
@@ -282,7 +282,7 @@
 	light_power = 3
 	light_range = 6
 	light_color = "#FEA91A"
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
 	var/temp_for_bump_subtractor = 270
 	//We add all 3 together
 	var/temp_for_far_area_subtractor = 20
@@ -338,7 +338,7 @@
 	//item_state = "crusher_cloud"
 	density = FALSE
 	anchored = TRUE
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
 	layer = FLY_LAYER
 	var/apple_timer = 60
 	var/apple_timer_growing = 90
@@ -357,8 +357,8 @@
 	addtimer(CALLBACK(src, PROC_REF(check_for_newtons)), apple_timer)
 	addtimer(CALLBACK(src, PROC_REF(growing_season)), apple_timer_growing)
 
-/obj/structure/anomalies_diet/thumper/Crossed(atom/movable/AM)
-	..()
+/obj/structure/anomalies_diet/thumper/Cross(atom/movable/AM)
+	. = ..()
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		to_chat(H, span_notice("\The [src] knocks you down when try to walk under it!"))
@@ -449,7 +449,8 @@
 	if(!scan_mobs)
 		return
 
-/obj/structure/anomalies_diet/echo/Crossed(atom/M)
+/obj/structure/anomalies_diet/echo/Cross(atom/M)
+	..()
 	if(istype(M, /mob/dead/observer) || istype(M, /obj/projectile))
 		return
 
@@ -602,7 +603,7 @@
 	//item_state = "whirli"
 	density = FALSE
 	anchored = TRUE
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
 	layer = FLY_LAYER
 	var/witch = 50
 	var/kansists = 2
@@ -610,7 +611,7 @@
 	var/black_and_white = 1
 	alpha = 75
 
-/obj/structure/anomalies_diet/whirli/Crossed(atom/movable/AM)
+/obj/structure/anomalies_diet/whirli/Cross(atom/movable/AM)
 	AM.SpinAnimation(10,5)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
@@ -638,7 +639,7 @@
 	//item_state = "razer"
 	density = FALSE
 	anchored = TRUE
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
 	layer = FLY_LAYER
 	var/starting_culter = TRUE
 	var/is_growing = TRUE
@@ -668,7 +669,7 @@
 /obj/structure/anomalies_diet/razer/spreaded
 	starting_culter = FALSE
 
-/obj/structure/anomalies_diet/razer/Crossed(atom/movable/AM)
+/obj/structure/anomalies_diet/razer/Cross(atom/movable/AM)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/our_cutting = AM
 		if(our_cutting.m_intent != MOVE_INTENT_WALK)
@@ -728,33 +729,101 @@
 
 
 /obj/structure/anomalies_diet/backrooms
-	name = "catwalk"
-	desc = "Flooring that shows its contents underneath. Engineers love it!.. Stop, something isn`t right...?"
-	icon = 'icons/obj/smooth_structures/catwalk.dmi'
-	icon_state = "catwalk-0"
-	//item_state = "icepeak"
+	name = "..?"
+	desc = "Stop, something isn`t right?.."
+	icon = 'modular_dripstation/icons/turf/floors.dmi'
+	icon_state = "backrooms_observer"
 	density = FALSE
 	anchored = TRUE
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
+	invisibility = INVISIBILITY_OBSERVER
+	plane = GHOST_PLANE
 	layer = CATWALK_LAYER
 	pixel_x = 0
 	pixel_y = 0
+	var/obj/effect/temp_visual/backrooms_manifest/falsetile
+
+/obj/effect/temp_visual/backrooms_manifest
+	name = "..?"
+	desc = "Stop, something isn`t right?.."
+	//icon = 'modular_dripstation/icons/turf/floors.dmi'
+	//icon_state = "backrooms"
+	plane = FLOOR_PLANE
+	layer = BELOW_OPEN_DOOR_LAYER
+	duration = 10 SECONDS
+	randomdir = FALSE
+
+/obj/effect/temp_visual/backrooms_manifest/Initialize(mapload)
+	. = ..()
+	var/turf/T = get_turf(src)
+	src.icon = T.icon
+	src.icon_state = T.icon_state
+
+/obj/structure/anomalies_diet/backrooms/Destroy()
+	if(falsetile)
+		falsetile = null
+		qdel(falsetile)
+	..()
 
 /obj/structure/anomalies_diet/backrooms/New()
 	..()
 	set_awake()
 
-/obj/structure/anomalies_diet/backrooms/Crossed(atom/movable/AM)
-	..()
-	if(ishuman(AM))
+/obj/structure/anomalies_diet/backrooms/Cross(atom/movable/AM)
+	. = ..()
+	if(ishuman(AM) && active)
 		var/mob/living/carbon/human/H = AM
-		INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living, clip_into_backrooms))
-		var/y_diff = 32
-		animate(src, pixel_x = 0, pixel_y = y_diff, 3, easing = EASE_OUT, time = 0.5 SECONDS, flags = ANIMATION_RELATIVE)
-		addtimer(CALLBACK(src, PROC_REF(src_anim_end), y_diff), 0.3 SECONDS)
+		prepare_to_send(H)
 
-/obj/structure/anomalies_diet/backrooms/proc/src_anim_end(y_diff)
-	animate(src, pixel_x = 0, pixel_y = -y_diff, 3, easing = EASE_OUT, time = 0.5 SECONDS, flags = ANIMATION_RELATIVE)
+/obj/structure/anomalies_diet/backrooms/proc/prepare_to_send(mob/living/carbon/human/H)
+	var/x_diff = 32
+	var/turf/T = get_turf(src)
+
+	H.density = FALSE
+	H.anchored = TRUE
+	H.Stun(2.1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(human_anim), H, T), 1 SECONDS)
+
+	T.layer = TURF_LAYER-0.03
+	for(var/C in T.contents)
+		var/atom/movable/A = C
+		if(A.loc != T)
+			continue
+		if(A == H)
+			continue
+		if(A == src)
+			continue
+		animate(A, pixel_x = x_diff, pixel_y = 0, 3, easing = EASE_OUT, time = 0.8 SECONDS, flags = ANIMATION_RELATIVE)
+		addtimer(CALLBACK(src, PROC_REF(atom_anim_end), A, x_diff), 1 SECONDS)
+
+	plane = FLOOR_PLANE
+	layer = TURF_LAYER-0.02
+	icon_state = "backrooms"
+	invisibility = 0
+
+	falsetile = new(src.loc)
+	animate(falsetile, pixel_x = x_diff, pixel_y = 0, 3, easing = EASE_OUT, time = 0.8 SECONDS, flags = ANIMATION_RELATIVE)
+	addtimer(CALLBACK(src, PROC_REF(atom_anim_end), falsetile, x_diff), 1 SECONDS)
+
+/obj/structure/anomalies_diet/backrooms/proc/human_anim(mob/living/carbon/human/H, turf/T)
+	H.plane = FLOOR_PLANE
+	H.layer = TURF_LAYER-0.01
+	animate(H, pixel_x = 0, pixel_y = -32, 3, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)
+	addtimer(CALLBACK(src, PROC_REF(human_to_backrooms), H, T), 1 SECONDS)
+
+/obj/structure/anomalies_diet/backrooms/proc/atom_anim_end(A, x_diff)
+	animate(A, pixel_x = -x_diff, pixel_y = 0, 3, easing = EASE_OUT, time = 0.8 SECONDS, flags = ANIMATION_RELATIVE)
+
+/obj/structure/anomalies_diet/backrooms/proc/human_to_backrooms(mob/living/carbon/human/H, turf/T)
+	H.sendToBackrooms()
+	H.plane = initial(H.plane)
+	H.layer = initial(H.layer)
+	H.density = TRUE
+	H.anchored = FALSE
+	H.pixel_x = 0
+	H.pixel_y = 0
+	T.layer = initial(T.layer)
+	qdel(src)
 
 /obj/structure/anomalies_diet/glacier
 	name = "Glacier"
@@ -763,7 +832,7 @@
 	//item_state = "icepeak"
 	density = FALSE
 	anchored = TRUE
-	//throwpass = 1
+	pass_flags = LETPASSTHROW
 	layer = FLY_LAYER
 	var/grab_timer = 90
 	var/grab_timer_repeater = 120
@@ -784,8 +853,8 @@
 	addtimer(CALLBACK(src, PROC_REF(dramatics)), grab_timer)
 	addtimer(CALLBACK(src, PROC_REF(scateing_season)), grab_timer_repeater)
 
-/obj/structure/anomalies_diet/glacier/Crossed(atom/movable/AM)
-	..()
+/obj/structure/anomalies_diet/glacier/Cross(atom/movable/AM)
+	. = ..()
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		H.slip("\the [src.name]", fresh_ice)

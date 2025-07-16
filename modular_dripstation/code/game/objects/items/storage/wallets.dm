@@ -185,6 +185,7 @@
 	name = "passport"
 	desc = "Some passport. It is obvious that something with it isn`t right."
 	icon_state = "passport"
+	base_icon_state = "passport"
 	var/datum/passport/pass_datum
 	var/pass_datum_type = /datum/passport
 
@@ -263,28 +264,34 @@
 	name = "terragov passport (Citizenship Rank 4)"
 	desc = "Terra Government official passport. Lowest rank Citizenship."
 	icon_state = "passport_terragov4"
+	base_icon_state = "passport_terragov4"
 
 /obj/item/storage/wallet/passport/terragovmilitary
 	name = "terragov passport (Citizenship Rank 3)"
 	desc = "Terra Government official passport. Report for duty."
 	icon_state = "passport_terragov3"
+	base_icon_state = "passport_terragov3"
 
 /obj/item/storage/wallet/passport/tmc
 	name = "tmc passport"
 	desc = "Trade Military Coalition official passport. Probably made from some kind of lizard skin."
 	icon_state = "passport_tmc"
+	base_icon_state = "passport_tmc"
 
 /obj/item/storage/wallet/passport/lizard
 	name = "empire passport"
 	desc = "Moges Empire official passport. Behold, Mogesss forever!"
 	icon_state = "passport_lizard"
+	base_icon_state = "passport_lizard"
 
 /obj/item/storage/wallet/passport/ussp
 	name = "ussp passport"
 	desc = "Union of Soviet Socialist Planets official passport. Unionize against corporate scum!"
 	icon_state = "passport_ussp"
+	base_icon_state = "passport_ussp"
 
 /obj/item/storage/wallet/passport/ancap
 	name = "ACC passport"
 	desc = "Anarchic Capitalist Confederation official passport. Unionize against socialist scum!"
 	icon_state = "passport_ancap"
+	base_icon_state = "passport_ancap"

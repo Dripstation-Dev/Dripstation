@@ -42,6 +42,10 @@
 	heat_protection = CHEST|GROIN|ARMS|HANDS
 	cold_protection = CHEST|GROIN|ARMS|HANDS
 
+/obj/item/clothing/suit/jacket/leather/overcoat
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+
 /obj/item/clothing/suit/poncho
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_lefthand.dmi'

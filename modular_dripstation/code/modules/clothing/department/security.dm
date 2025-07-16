@@ -194,6 +194,20 @@
 /obj/item/clothing/under/rank/security/officer/skirt
 	can_adjust = TRUE
 	fitted = NO_FEMALE_UNIFORM
+	alternate_worn_layer = ABOVE_SHOES_LAYER
+
+/obj/item/clothing/under/rank/security/officer/skirt/lewd
+	name = "striped sec skirt"
+	icon_state = "striped_skirt"
+	mutantrace_variation = NONE
+	fitted = NO_FEMALE_UNIFORM
+	alternate_worn_layer = ABOVE_SHOES_LAYER
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/civilian/civilian.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/civilian/civilian.dmi'
+
+/obj/item/clothing/under/rank/security/officer/skirt/lewd/alt
+	name = "sec skirt"
+	icon_state = "red_skirt"
 
 /obj/item/clothing/under/rank/security/officer/alt
 	name = "black security uniform"
@@ -223,7 +237,13 @@
 	icon_state = "officertanclothes"
 	icon = 'icons/obj/clothing/uniforms.dmi'
 	worn_icon = 'icons/mob/clothing/uniform/uniform.dmi'
-	
+
+/obj/item/clothing/head/soft/sec
+	icon_state = "secsoft"
+	soft_type = "sec"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
+
 /obj/item/clothing/head/soft/sec/corp
 	name = "corporate security cap"
 	desc = "It's a baseball hat in corporate colours."
@@ -245,6 +265,14 @@
 
 /obj/item/clothing/head/beret/sec
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
+	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
+
+/obj/item/clothing/head/beret/spearhead
+	name = "spearhead operative`s beret"
+	desc = "A robust beret with the Sperhead security insignia emblazoned on it. Uses reinforced fabric to offer sufficient protection."
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	icon_state = "beret_spearhead"
 	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 20, ACID = 50)
 
 /obj/item/clothing/head/beret/corpsec
@@ -425,7 +453,8 @@
 					/obj/item/storage/pouch/shotgun = 2,
 					/obj/item/storage/pouch/explosive = 2,
 					/obj/item/storage/pouch/flare/full = 2,
-					/obj/item/storage/belt/bandolier = 2)
+					/obj/item/storage/belt/bandolier = 2,
+					/obj/item/watertank/pepperspray = 1)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,
 					/obj/item/storage/fancy/donut_box = 2)
 	premium = list(/obj/item/storage/belt/security/webbing = 5,
@@ -459,10 +488,12 @@
 					/obj/item/clothing/glasses/hud/security/ballistic = 2,	
 					/obj/item/clothing/gloves/color/black/tactifool = 3,		
 					/obj/item/clothing/shoes/jackboots = 3,
+					/obj/item/clothing/shoes/jackboots/tall = 3,
 					/obj/item/clothing/shoes/jackboots/jacksandal = 3,
 					/obj/item/clothing/shoes/xeno_wraps/jackboots = 3,
-					/obj/item/clothing/head/beret/sec = 3,
-					/obj/item/clothing/head/officer = 3,
+					/obj/item/clothing/head/beret/spearhead = 3,
+					/obj/item/clothing/head/beret/corpsec = 3,
+					//obj/item/clothing/head/officer = 3,
 					/obj/item/clothing/head/soft/sec = 3,
 					/obj/item/clothing/head/soft/sec/corp = 3,
 					/obj/item/clothing/mask/sec_clava = 3,
@@ -472,7 +503,12 @@
 					/obj/item/clothing/under/rank/security/navyblue/russian = 3,
 					/obj/item/clothing/suit/armor/officerjacket = 3,
 					/obj/item/clothing/head/beret/sec/navyofficer = 3,
-					/obj/item/clothing/head/yogs/cowboy/sec = 3)
+					/obj/item/clothing/head/yogs/cowboy/sec = 3,
+					/obj/item/badge/security = 3)
+	contraband = list(/obj/item/clothing/under/rank/security/officer/skirt/lewd = 1,
+					/obj/item/clothing/under/rank/security/officer/skirt/lewd/alt = 1,
+					/obj/item/clothing/neck/stripedredscarf = 1,
+					)
 
 /obj/machinery/vending/wardrobe/det_wardrobe
 	name = "\improper DetDrobe"

@@ -19,16 +19,17 @@
 
 /mob/living/simple_animal/hostile/nanotrasen/Aggro()
 	..()
-	summon_backup(15)
-	say("609 in progress, requesting backup!")
-	playsound(src, "yogstation/sound/voice/dispatch_please_respond.ogg", 100)
+	if(prob(30))	//stop spamming
+		summon_backup(15)
+		say("609 in progress, requesting backup!")
+		playsound(src, "yogstation/sound/voice/dispatch_please_respond.ogg", 100)
 
 /mob/living/simple_animal/hostile/nanotrasen/handle_automated_speech(override)
 	set waitfor = FALSE
 	if(speak_chance)
 		if(prob(speak_chance) || override)
 			var/saypick = pick(speak)
-			say(saypick, forced = "poly")
+			say(saypick, forced = "simplehuman")
 			if(saypick == "YOU CALL THIS RESISTING ARREST?!")
 				playsound(src, 'modular_dripstation/sound/voice/resisting_arrest.wav', 60)
 			if(saypick == "WE CALL THIS A DIFFICULTY TWEAK!")

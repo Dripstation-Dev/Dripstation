@@ -52,6 +52,21 @@
 	name = "terragov marine squad officer jumpsuit"
 	icon_state = "marine_command"
 
+/obj/item/clothing/head/beret/sec/terran
+	name = "terran beret"
+	desc = "A beret, a terran's favorite headwear."
+	icon_state = "solgovcberet"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/beret/captain/terran
+	name = "terran elite beret"
+	desc = "A beret, a terran's favorite headwear."
+	icon_state = "solgovceliteberet"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+
 ////Terragov Armed Forces////
 /obj/item/clothing/under/syndicate/camo
 	name = "terragov standart camouflage fatigues"

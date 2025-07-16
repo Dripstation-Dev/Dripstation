@@ -62,6 +62,10 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
 	min_cold_protection_temperature = JACKBOOTS_MIN_TEMP_PROTECT
 
+/obj/item/clothing/shoes/jackboots/tall
+	name = "tall jackboots"
+	icon_state = "jackboots-tall"
+
 /obj/item/clothing/shoes/bhop
 	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
@@ -135,3 +139,11 @@
 
 /obj/item/clothing/shoes/winterboots
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+
+/obj/item/clothing/shoes/russian
+	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'
+
+/obj/item/clothing/shoes/cowboy
+	icon = 'modular_dripstation/icons/obj/clothing/shoes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/shoes.dmi'

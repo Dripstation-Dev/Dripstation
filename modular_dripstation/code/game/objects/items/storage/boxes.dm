@@ -58,6 +58,40 @@
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/laserbuckshot(src)
 
+/obj/item/storage/box/ion
+	name = "box of ion shotgun shots"
+	desc = "A box full of ion shots designed for shotguns. The box itself is designed for holding any kind of shotgun shell."
+	icon_state = "ion_box"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
+	illustration = null
+
+/obj/item/storage/box/ion/Initialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.set_holdable(list(/obj/item/ammo_casing/shotgun/ion))
+
+/obj/item/storage/box/ion/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/ion(src)
+
+/obj/item/storage/box/pulseslug
+	name = "box of pulse slug shotgun shots"
+	desc = "A box full of pulse slug shots designed for shotguns. The box itself is designed for holding any kind of shotgun shell."
+	icon_state = "pulseslug_box"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
+	illustration = null
+
+/obj/item/storage/box/pulseslug/Initialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.set_holdable(list(/obj/item/ammo_casing/shotgun/pulseslug))
+
+/obj/item/storage/box/pulseslug/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/pulseslug(src)
+
 /obj/item/storage/box
 	icon = 'modular_dripstation/icons/obj/storage.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/misc/boxes_lefthand.dmi'

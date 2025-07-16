@@ -79,9 +79,44 @@
 /obj/item/ammo_casing/a762x51
 	name = "7.62x51mm bullet casing"
 	desc = "A 7.62x51mm bullet casing."
-	icon_state = "556-casing"
+	icon_state = "762-casing"
 	projectile_type = /obj/projectile/bullet/a762x51
 	caliber = CALIBER_762X51
+
+/obj/item/ammo_casing/m4570
+	name = ".45-70 bullet casing"
+	desc = "A .45-70 Government bullet casing."
+	icon_state = "762-casing"
+	projectile_type = /obj/projectile/bullet/a4570
+	caliber = CALIBER_762X51
+
+/obj/item/ammo_casing/a939
+	name = "9x39mm bullet casing"
+	desc = "A 9x39mm bullet casing."
+	projectile_type = /obj/projectile/bullet/a939
+	caliber = CALIBER_9X39
+
+/obj/item/ammo_casing/a939/rubber
+	name = "9x39mm rubber bullet casing"
+	desc = "A 9x39mm rubber bullet casing."
+	projectile_type = /obj/projectile/bullet/a939/rubber
+
+/obj/item/ammo_casing/a127
+	name = "12.7x55mm Light bullet casing"
+	desc = "A 12.7x55mm Light bullet casing."
+	icon_state = "762-casing"
+	projectile_type = /obj/projectile/bullet/a127
+	caliber = CALIBER_127X55
+
+/obj/item/ammo_casing/a127/rubber
+	name = "12.7x55mm Armor-Piercing bullet casing"
+	desc = "A 12.7x55mm bullet casing."
+	projectile_type = /obj/projectile/bullet/a127/ap
+
+/obj/item/ammo_casing/a127/heavy
+	name = "12.7x55mm Heavy bullet casing"
+	desc = "A 12.7x55mm Heavy bullet casing."
+	projectile_type = /obj/projectile/bullet/a127/heavy
 
 ///GAUSS///
 /obj/item/ammo_casing/caseless/gauss

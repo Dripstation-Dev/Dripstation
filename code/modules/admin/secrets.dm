@@ -198,6 +198,38 @@
 				message_admins("[key_name_admin(mob_user)] moved the CentCom ferry")
 				log_admin("[key_name(mob_user)] moved the CentCom ferry")
 
+		if("movepod1")
+			if(!check_rights_for(rights, R_ADMIN))
+				return
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Send Pod One"))
+			if(!SSshuttle.toggleShuttle("pod1","pod1_icemoon","pod1_away"))
+				message_admins("[key_name_admin(mob_user)] moved the  Pod One")
+				log_admin("[key_name(mob_user)] moved the  Pod One")
+
+		if("movepod2")
+			if(!check_rights_for(rights, R_ADMIN))
+				return
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Send Pod Two"))
+			if(!SSshuttle.toggleShuttle("pod2","pod2_icemoon","pod2_away"))
+				message_admins("[key_name_admin(mob_user)] moved the  Pod Two")
+				log_admin("[key_name(mob_user)] moved the  Pod Two")
+
+		if("movepod3")
+			if(!check_rights_for(rights, R_ADMIN))
+				return
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Send Pod Three"))
+			if(!SSshuttle.toggleShuttle("pod3","pod3_icemoon","pod3_away"))
+				message_admins("[key_name_admin(mob_user)] moved the  Pod Three")
+				log_admin("[key_name(mob_user)] moved the  Pod Three")
+
+		if("movepod4")
+			if(!check_rights_for(rights, R_ADMIN))
+				return
+			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Send Pod Four"))
+			if(!SSshuttle.toggleShuttle("pod4","pod4_icemoon","pod4_away"))
+				message_admins("[key_name_admin(mob_user)] moved the  Pod Four")
+				log_admin("[key_name(mob_user)] moved the  Pod Four")
+
 		if("togglearrivals")
 			if(!check_rights_for(rights, R_ADMIN))
 				return

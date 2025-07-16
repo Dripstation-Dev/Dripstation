@@ -177,6 +177,7 @@
 	bullet_bounce_sound = null
 	digResult = /obj/item/stack/sheet/mineral/snow
 	flammability = -5
+	floor_variance = 40
 
 /turf/open/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
@@ -198,10 +199,50 @@
 	..()
 	slowdown = 0
 
+/turf/open/floor/plating/asteroid/snow/deep
+	floor_variance = 0
+	slowdown = 1
+	var/obj/effect/overlay/snow/snow_overlay
+
+/turf/open/floor/plating/asteroid/snow/deep/getDug()
+	..()
+	vis_contents -= snow_overlay
+	qdel(snow_overlay)
+
+/turf/open/floor/plating/asteroid/snow/deep/Initialize()
+	..()
+	vis_contents += snow_overlay
+
+/obj/effect/overlay/snow
+	name = "snow"
+	icon = 'modular_dripstation/icons/effects/deep_snow.dmi'
+	icon_state = "deep_snow"
+	density = 0
+	mouse_opacity = 0
+	layer = ABOVE_MOB_LAYER
+	anchored = TRUE
+	vis_flags = NONE
+
+/turf/open/floor/plating/asteroid/snow/deep/icemoon 
+	baseturfs = /turf/open/openspace/icemoon
+	initial_gas_mix = ICEMOON_DEFAULT_ATMOS
+	slowdown = 0
+
 /turf/open/floor/plating/asteroid/snow/icemoon
 	baseturfs = /turf/open/openspace/icemoon
 	initial_gas_mix = ICEMOON_DEFAULT_ATMOS
 	slowdown = 0
+	var/ore_present = ORE_EMPTY
+
+/turf/open/floor/plating/asteroid/snow/icemoon/getDug()
+	..()
+	if(ore_present == ORE_EMPTY)
+		return
+	var/datum/ore_patch/ore = GLOB.icemoon_ores[ ore_present ]
+	if(ore)
+		ore.spawn_at(src)
+		for(var/i in 0 to 2)
+			new /obj/item/stack/ore/glass(src)
 
 /turf/open/floor/plating/asteroid/snow/icemoon/do_not_chasm
 	flags_1 = CAN_BE_DIRTY_1

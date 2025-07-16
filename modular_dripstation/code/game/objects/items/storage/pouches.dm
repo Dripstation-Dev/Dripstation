@@ -81,6 +81,7 @@
 	. = ..()
 	new /obj/item/megaphone(src)
 	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/assembly/flash/handheld(src)
 
 /obj/item/storage/pouch/general/large/command/Initialize()
 	. = ..()
@@ -178,18 +179,39 @@
 	new /obj/item/stack/medical/gauze(src)
 	new /obj/item/storage/pill_bottle/bica(src)
 	new /obj/item/storage/pill_bottle/kelo(src)
-	new /obj/item/storage/pill_bottle/charcoal(src)
-	new /obj/item/storage/pill_bottle/psicodine(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/propithal(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/tramadol(src)
 	new /obj/item/reagent_containers/autoinjector/medipen/blood_loss(src)
 
-/obj/item/storage/pouch/firstaid/unn/Initialize()
+/obj/item/storage/pouch/medical_injectors
+	name = "medical injector pouch"
+	desc = "A specialized medical pouch that can only hold auto-injectors."
+	icon_state = "firstaid_injector"
+	storage_slots = 8
+	max_w_class = 14
+	can_hold = list(/obj/item/reagent_containers/autoinjector)
+
+/obj/item/storage/pouch/medical_injectors/unn/Initialize()
 	. = ..()
-	new /obj/item/stack/medical/gauze(src)
 	new /obj/item/reagent_containers/autoinjector/mixi(src)
 	new /obj/item/reagent_containers/autoinjector/derm(src)
-	new /obj/item/storage/pill_bottle/charcoal(src)
-	new /obj/item/storage/pill_bottle/psicodine(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/pen_acid(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/propithal(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/tramadol(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/morphine(src)
 	new /obj/item/reagent_containers/autoinjector/medipen/syndicate_trauma_repairer/export(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/ekit/traitor/export(src)
+
+/obj/item/storage/pouch/medical_injectors/slav/Initialize()
+	. = ..()
+	new /obj/item/reagent_containers/autoinjector/medipen/ekit/traitor/export(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/ekit/traitor/export(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/morphine(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/morphine(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/tramadol(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/propithal(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/propithal(src)
+	new /obj/item/reagent_containers/autoinjector/medipen/meldonin(src)
 
 /obj/item/storage/pouch/pistol
 	name = "sidearm pouch"
@@ -518,7 +540,7 @@
 
 /obj/item/storage/pouch/flare
 	name = "flare pouch"
-	desc = "A pouch designed to hold flares and a single flaregun. Refillable with a M94 flare pack."
+	desc = "A pouch designed to hold flares and a single flaregun."
 	max_w_class = 2
 	storage_slots = 7
 	draw_mode = 1
@@ -536,9 +558,9 @@
 
 /obj/item/storage/pouch/flare/full/Initialize()
 	. = ..()
-	new /obj/item/flashlight/flare/emergency (src)
-	new /obj/item/flashlight/flare/emergency (src)
-	new /obj/item/flashlight/flare/emergency (src)
+	new /obj/item/gun/grenadelauncher/flare (src)
+	new /obj/item/grenade/flare (src)
+	new /obj/item/grenade/flare (src)
 	new /obj/item/flashlight/flare/emergency (src)
 	new /obj/item/flashlight/flare/emergency (src)
 	new /obj/item/flashlight/flare/emergency (src)

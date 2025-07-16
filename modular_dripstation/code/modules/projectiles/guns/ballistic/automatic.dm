@@ -39,7 +39,8 @@
 	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/automatic/proto
-	desc = "A fullauto 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
+	name = "\improper NB-9 'SBR' SMG"
+	desc = "A fullauto 9mm submachine gun, designated 'Saber'. Has a threaded barrel for suppressors."
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
@@ -47,8 +48,8 @@
 	burst_size = 1
 	selector_switch_icon = TRUE
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
-	auto_fire_delay = 0.2 SECONDS 
-	manufacturer = /datum/corporation/nanotrasen/arq_tek
+	auto_fire_delay = 0.17 SECONDS 
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/c20r
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
@@ -116,8 +117,8 @@
 	manufacturer = /datum/corporation/unn
 
 /obj/item/gun/ballistic/automatic/c20r/aegis
-	name = "\improper NB-20A 'Aegis'"
-	desc = "An SMG manufactured for Nanotrasen`s Special Operations Department. Chambered in .45."
+	name = "\improper NB-20A 'AGS' SMG"
+	desc = "An SMG manufactured for Nanotrasen`s Special Operations Department by Ward-Takahashi Arms Group, designated 'Aegis'. Chambered in .45."
 	can_bayonet = FALSE
 	can_suppress = FALSE
 	mag_display_ammo = FALSE
@@ -128,8 +129,8 @@
 	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/wt550
-	name = "\improper WT-550 security auto carbine"
-	desc = "An outdated personal defence weapon manufactured by Ward-Takahashi Arms Group. Uses 4.6x30mm rounds. Has a two-round burst, auto or a semi-automatic firing mode."
+	name = "\improper WT-550 'SCR' SMG"
+	desc = "An outdated personal defence weapon manufactured by Ward-Takahashi Arms Group, designated 'Security'. Uses 4.6x30mm rounds. Has a two-round burst, auto or a semi-automatic firing mode."
 	item_state = "wt550"
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
@@ -150,8 +151,8 @@
 	initial_attachments = list(/obj/item/attachment/grip/angled, /obj/item/attachment/scope/holo, /obj/item/attachment/trigger/iff_module)
 
 /obj/item/gun/ballistic/automatic/sa450
-	name = "\improper Shellguard security auto carbine"
-	desc = "A personal defence weapon that uses 4.6x30mm rounds, designated the SA-450 Automatic Carbine. Has a full auto and semi-automatic firing mode."
+	name = "\improper SA-450 SMG"
+	desc = "A personal defence weapon that uses 4.6x30mm rounds, designated the SA-450 SMG, manufactured by Shellguard Arms branch. Has a full auto and semi-automatic firing mode."
 	icon_state = "shelg_smg"
 	item_state = "shelg_smg"
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
@@ -302,7 +303,7 @@
 	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/automatic/ar
-	name = "\improper NT ARG-63"
+	name = "\improper NB ARG-63"
 	desc = "Nanotrasen's prime ballistic option based on the Ward-Takahashi design, fitted with a light polymer frame and other tactical furniture, and chambered in 5.56 - nicknamed 'Boarder' by Nanotrasen Special Operations teams."
 	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_BULKY
@@ -808,6 +809,9 @@
 
 /obj/item/gun/ballistic/automatic/l6_saw/m60/unrestricted
 	pin = /obj/item/firing_pin
+
+/obj/item/gun/ballistic/automatic/l6_saw/m60/ultrasecure
+	pin = /obj/item/firing_pin/fucked
 
 ///Borg L6
 /obj/item/gun/energy/printer

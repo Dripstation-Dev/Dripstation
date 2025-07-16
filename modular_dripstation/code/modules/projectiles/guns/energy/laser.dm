@@ -8,11 +8,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice/hitscan)
 
 /obj/item/gun/energy/laser/tactical
-	name = "NT-L5 laser gun"
-	desc = "The NT-L5 is a basic energy-based laser gun that uses full potential of beam guns and hits targets through glass and thin metal at the speed of light. Has a preinstalled mindshield pin."
-	icon_state = "laser-new"
+	name = "NT-L5T laser gun"
+	desc = "The NT-L5T is an energy-based laser gun that uses full potential of beam guns and hits targets through glass and thin metal at the speed of light. Has a preinstalled mindshield pin and spec-ops grade gun cell."
+	icon_state = "laser-newalt"
 	cell_type = /obj/item/stock_parts/cell/gun/pulse/pistol	//specops grade cell
-	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/laser/cybersun
 	name = "laser carbine C-18"

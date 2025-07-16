@@ -77,7 +77,7 @@
 /area/awaymission/spacebattle/syndicate2)
 "at" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/ballistic/automatic/c20r,
+/obj/item/gun/ballistic/automatic/c20r/ultrasecure,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "aw" = (
@@ -292,7 +292,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "bt" = (
 /obj/structure/table/reinforced,
-/obj/item/melee/transforming/energy/sword/saber/red,
+/obj/item/storage/belt/sabre/syndie,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
 "bu" = (
@@ -1003,11 +1003,11 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
 "ei" = (
-/obj/structure/closet/l3closet/security,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/structure/closet/l3closet/security,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "ej" = (
@@ -1227,8 +1227,8 @@
 /area/awaymission/spacebattle/cruiser)
 "eW" = (
 /obj/effect/mob_spawn/human/syndicatesoldier,
-/obj/item/melee/transforming/energy/sword/saber/red,
 /obj/effect/decal/cleanable/blood,
+/obj/item/katana,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "eX" = (
@@ -1293,11 +1293,8 @@
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "fe" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/syndicate,
-/turf/open/floor/mineral/plastitanium/red,
+/mob/living/simple_animal/hostile/syndicate/melee/sword/space/stormtrooper,
+/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "ff" = (
 /obj/machinery/button/door{
@@ -1323,7 +1320,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/syndicate,
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/cruiser)
 "fj" = (
@@ -1356,7 +1353,6 @@
 /area/awaymission/spacebattle/cruiser)
 "fp" = (
 /obj/effect/mob_spawn/human/syndicatesoldier,
-/obj/item/gun/ballistic/automatic/c20r,
 /obj/item/ammo_casing/c10mm,
 /obj/item/ammo_casing/c10mm,
 /obj/effect/decal/cleanable/blood,
@@ -1366,6 +1362,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/item/gun/ballistic/automatic/c20r/waffle,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "fq" = (
@@ -1392,14 +1389,14 @@
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "ft" = (
-/obj/item/ammo_casing/m44,
-/obj/item/ammo_casing/m44,
-/obj/item/gun/ballistic/revolver/mateba,
 /obj/effect/mob_spawn/human/commander{
 	mob_name = "Aaron Bowden";
 	name = "Aaron Bowden"
 	},
 /obj/effect/decal/cleanable/blood,
+/obj/item/ammo_casing/c38,
+/obj/item/ammo_casing/c38,
+/obj/item/gun/ballistic/revolver/detective,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "fu" = (
@@ -1535,7 +1532,6 @@
 /area/awaymission/spacebattle/cruiser)
 "fN" = (
 /obj/effect/mob_spawn/human/syndicatesoldier,
-/obj/item/gun/ballistic/automatic/c20r,
 /obj/item/ammo_casing/c10mm,
 /obj/item/ammo_casing/c10mm,
 /obj/effect/decal/cleanable/blood,
@@ -1543,6 +1539,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/gun/ballistic/automatic/c20r/ultrasecure,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "fO" = (
@@ -1784,12 +1781,12 @@
 /turf/open/floor/wood,
 /area/awaymission/spacebattle/cruiser)
 "gz" = (
-/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/lethal,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "gC" = (
 /obj/structure/closet/crate/secure/weapon,
-/obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser/tactical,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "gD" = (
@@ -1818,8 +1815,8 @@
 /turf/open/floor/wood,
 /area/awaymission/spacebattle/cruiser)
 "gJ" = (
-/mob/living/simple_animal/hostile/syndicate,
-/turf/open/floor/mineral/plastitanium/red,
+/mob/living/simple_animal/hostile/syndicate/ranged/smg/space/stormtrooper,
+/turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "gK" = (
 /obj/machinery/computer/security{
@@ -2018,8 +2015,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hq" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit,
-/obj/item/clothing/head/helmet/space/hardsuit,
+/obj/item/clothing/suit/space/hardsuit/syndi/military,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "hr" = (
@@ -2069,6 +2065,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hA" = (
 /obj/structure/closet/crate/medical,
+/obj/item/storage/firstaid/advanced,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "hB" = (
@@ -2110,7 +2107,14 @@
 /turf/open/floor/wood,
 /area/awaymission/spacebattle/cruiser)
 "hK" = (
-/obj/structure/closet/secure_closet/captains,
+/obj/structure/closet/secure_closet{
+	name = "\proper captain's locker";
+	icon_state = "cap"
+	},
+/obj/item/pen/fountain/captain,
+/obj/item/storage/backpack/captain,
+/obj/item/clothing/suit/armor/vest/capcarapace/alt/centcom/alt,
+/obj/item/clothing/under/rank/centcom/commander,
 /turf/open/floor/wood,
 /area/awaymission/spacebattle/cruiser)
 "hL" = (
@@ -2224,8 +2228,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser/tactical,
+/obj/item/gun/energy/laser/tactical,
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "ii" = (
@@ -2298,7 +2302,7 @@
 /area/awaymission/spacebattle/cruiser)
 "iu" = (
 /obj/effect/mob_spawn/human/syndicatesoldier,
-/obj/item/gun/ballistic/automatic/c20r,
+/obj/item/gun/ballistic/automatic/c20r/ultrasecure,
 /turf/open/floor/plasteel{
 	icon_state = "damaged2"
 	},
@@ -2472,13 +2476,13 @@
 /area/awaymission/spacebattle/cruiser)
 "jt" = (
 /obj/structure/rack,
-/obj/item/gun/energy/disabler,
+/obj/item/gun/energy/disabler/secure,
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "ju" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced,
-/obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser/tactical,
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "jv" = (
@@ -2531,9 +2535,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "jz" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/mecha/combat/gygax/dark/loaded
-	},
+/mob/living/simple_animal/hostile/syndicate/ranged/smg/space,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "jA" = (
@@ -2541,10 +2543,8 @@
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "jB" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced,
-/obj/item/gun/energy/disabler,
-/turf/open/floor/engine,
+/mob/living/simple_animal/hostile/nanotrasen/melee/sword,
+/turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "jC" = (
 /obj/structure/chair{
@@ -2595,13 +2595,13 @@
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "jK" = (
-/mob/living/simple_animal/hostile/syndicate/melee/sword,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun/space,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "jL" = (
@@ -2668,15 +2668,11 @@
 /turf/open/floor/plasteel/airless,
 /area/awaymission/spacebattle/cruiser)
 "jV" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/mecha/combat/gygax/dark/loaded
-	},
+/mob/living/simple_animal/hostile/syndicate/melee/sword/space/stormtrooper,
 /turf/open/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
 "jW" = (
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot{
-	spawn_mecha_type = /obj/mecha/combat/gygax/dark/loaded
-	},
+/mob/living/simple_animal/hostile/syndicate/melee/sword/space/stormtrooper,
 /turf/open/floor/plasteel/airless,
 /area/awaymission/spacebattle/cruiser)
 "jX" = (
@@ -2684,8 +2680,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/gun/energy/pulse/pistol/loyalpin,
-/obj/item/gun/energy/pulse/pistol/loyalpin,
+/obj/item/gun/energy/laser/centcom,
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "jY" = (
@@ -2708,7 +2703,7 @@
 /area/awaymission/spacebattle/cruiser)
 "kc" = (
 /obj/structure/rack,
-/obj/item/gun/energy/laser/scatter,
+/obj/item/gun/energy/laser/tactical,
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "kd" = (
@@ -2719,10 +2714,8 @@
 /turf/open/floor/engine/vacuum,
 /area/awaymission/spacebattle/cruiser)
 "kf" = (
-/obj/structure/rack,
-/obj/structure/window/reinforced,
-/obj/item/gun/energy/laser/scatter,
-/turf/open/floor/engine,
+/mob/living/simple_animal/hostile/nanotrasen/melee,
+/turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "kg" = (
 /obj/structure/rack,
@@ -2730,7 +2723,7 @@
 /turf/open/floor/engine,
 /area/awaymission/spacebattle/cruiser)
 "kh" = (
-/mob/living/simple_animal/hostile/syndicate,
+/mob/living/simple_animal/hostile/syndicate/melee/space,
 /turf/open/floor/plasteel/white,
 /area/awaymission/spacebattle/cruiser)
 "ki" = (
@@ -2889,18 +2882,102 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
+"lh" = (
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/security,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"nZ" = (
+/obj/structure/rack,
+/obj/item/gun/ballistic/bow/energy/advanced,
+/turf/open/floor/engine,
+/area/awaymission/spacebattle/cruiser)
+"uD" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/item/gun/energy/disabler/secure,
+/turf/open/floor/engine,
+/area/awaymission/spacebattle/cruiser)
 "vw" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate5)
+"wU" = (
+/mob/living/simple_animal/hostile/syndicate/melee/sword/space,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"xu" = (
+/obj/structure/closet/crate,
+/obj/item/clothing/under/rank/centcom/officer/ert,
+/obj/item/clothing/under/rank/centcom/officer/ert,
+/turf/open/floor/plating,
+/area/awaymission/spacebattle/cruiser)
 "zS" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate6)
+"Ad" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/smg/space,
+/turf/open/floor/plasteel/white,
+/area/awaymission/spacebattle/cruiser)
 "BO" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate2)
 "Dv" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate3)
+"Ev" = (
+/obj/structure/table/reinforced,
+/obj/item/gun/ballistic/automatic/pistol/fn45,
+/turf/open/floor/mineral/plastitanium/red,
+/area/awaymission/spacebattle/syndicate2)
+"Jq" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/space/hardsuit/medical/rescue,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"KX" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/syndicate/melee/sword/space,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"LB" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/ionrifle/pistol,
+/turf/open/floor/engine,
+/area/awaymission/spacebattle/cruiser)
+"MI" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/syndicate/melee/sword/space,
+/turf/open/floor/mineral/plastitanium/red,
+/area/awaymission/spacebattle/cruiser)
+"Sc" = (
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot,
+/turf/open/floor/mineral/plastitanium/red,
+/area/awaymission/spacebattle/cruiser)
+"Sl" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/space/hardsuit/syndi/engineering,
+/turf/open/floor/plasteel,
+/area/awaymission/spacebattle/cruiser)
+"SV" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/suit/space/swat/syndicate,
+/turf/open/floor/mineral/plastitanium/red,
+/area/awaymission/spacebattle/syndicate1)
 "UZ" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate1)
@@ -21478,7 +21555,7 @@ bf
 bo
 bo
 bf
-bf
+SV
 bx
 aU
 bh
@@ -22804,8 +22881,8 @@ ab
 ab
 bI
 bN
+MI
 bQ
-fe
 bQ
 bQ
 bO
@@ -23575,8 +23652,8 @@ ab
 ab
 bK
 bP
-bR
 fi
+bR
 bR
 bR
 dN
@@ -24635,7 +24712,7 @@ jD
 jA
 ik
 kc
-kf
+ju
 el
 ht
 dj
@@ -25133,7 +25210,7 @@ cc
 cc
 dk
 ht
-hN
+LB
 el
 el
 el
@@ -25390,7 +25467,7 @@ cO
 cO
 dk
 ht
-hP
+nZ
 el
 el
 el
@@ -26162,10 +26239,10 @@ cc
 dl
 ht
 el
-ik
+uD
 jt
 jt
-jB
+kg
 el
 ht
 jD
@@ -28228,7 +28305,7 @@ jJ
 fn
 jN
 jN
-eT
+xu
 eT
 cK
 cK
@@ -28997,7 +29074,7 @@ cK
 cK
 cK
 cK
-cK
+kf
 cK
 cK
 cK
@@ -29251,12 +29328,12 @@ cK
 cK
 cK
 cK
+jB
 cK
 cK
 cK
 cK
-cK
-cK
+jB
 cK
 cK
 cK
@@ -30264,7 +30341,7 @@ ab
 ab
 bT
 cc
-fm
+fe
 cc
 cc
 cc
@@ -30300,7 +30377,7 @@ cc
 cc
 cc
 cc
-fm
+fe
 bT
 ab
 ab
@@ -30528,6 +30605,7 @@ cc
 cc
 cc
 cc
+fe
 cc
 cc
 cc
@@ -30537,8 +30615,7 @@ cc
 cc
 cc
 cc
-cc
-fm
+wU
 cc
 cc
 cc
@@ -32345,7 +32422,7 @@ gH
 gH
 gW
 gW
-kh
+Ad
 gH
 gH
 gH
@@ -35158,7 +35235,7 @@ bT
 dB
 dV
 ei
-ei
+lh
 cn
 cm
 cm
@@ -35677,7 +35754,7 @@ eC
 cn
 fL
 cp
-jK
+KX
 fs
 fO
 jK
@@ -35687,8 +35764,8 @@ eM
 gY
 bT
 hq
-dh
-dh
+Jq
+Sl
 bT
 cp
 cc
@@ -40213,7 +40290,7 @@ ah
 an
 an
 an
-an
+Ev
 an
 aA
 ah
@@ -51595,7 +51672,7 @@ ab
 ab
 bI
 bN
-fe
+bQ
 bQ
 bQ
 bQ
@@ -51856,15 +51933,15 @@ bO
 bO
 bO
 bO
-gJ
+bO
 bO
 bO
 dr
 cn
 cp
 cn
+gJ
 cc
-jz
 cc
 cc
 cc
@@ -52115,7 +52192,7 @@ bO
 bO
 hy
 bO
-bO
+Sc
 dr
 ca
 ea

@@ -1,12 +1,5 @@
 //////intermediate bullets//////
 ///Standart 5.56
-/obj/item/ammo_box/c556
-	name = "ammo box (5.56mm)"
-	icon_state = "10mmbox"
-	ammo_type = /obj/item/ammo_casing/a556
-	caliber = CALIBER_556NATO
-	max_ammo = 20
-
 /obj/item/ammo_box/magazine/r556
 	desc = "A standard 30-round magazine filled with 5.56 rounds, designed for assault rifles."
 	icon_state = "ar556"
@@ -95,13 +88,6 @@
 	sprite_designation = "A"
 
 ///Standart 5.45
-/obj/item/ammo_box/c545
-	name = "ammo box (5.45mm)"
-	icon_state = "10mmbox"
-	ammo_type = /obj/item/ammo_casing/a545
-	caliber = CALIBER_545USSP
-	max_ammo = 20
-
 /obj/item/ammo_box/magazine/r545
 	name = "rifle magazine (5.45mm)"
 	desc = "A standard 30-round magazine filled with 5.45 rounds, designed for assault rifles."
@@ -137,13 +123,6 @@
 	sprite_designation = "A"
 
 ///Standart 7.62x39
-/obj/item/ammo_box/c762x39
-	name = "ammo box (7.62mm)"
-	icon_state = "10mmbox"
-	ammo_type = /obj/item/ammo_casing/a762x39
-	caliber = CALIBER_762USSP
-	max_ammo = 20
-
 /obj/item/ammo_box/magazine/r762x39
 	name = "rifle magazine (7.62mm)"
 	desc = "A standard 30-round magazine filled with 7.62 rounds, designed for assault rifles."

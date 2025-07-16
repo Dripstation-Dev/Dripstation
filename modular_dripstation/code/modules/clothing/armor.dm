@@ -3,6 +3,9 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	flags_cover = null	//HEADCOVERSEYES
 
+/obj/item/clothing/head/helmet/police
+	icon = 'icons/obj/clothing/hats/hats.dmi'
+
 /obj/item/clothing/suit/armor
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
@@ -286,7 +289,9 @@
 	. = ..()
 	set_holdable(list(	/obj/item/reagent_containers/autoinjector/medipen,
 						/obj/item/radio,
-						/obj/item/ammo_box/a762))
+						/obj/item/ammo_box/a762,
+						/obj/item/ammo_box/magazine/r762x39,
+						/obj/item/ammo_box/magazine/r545))
 
 /obj/item/clothing/suit/armor/slav_heavy
 	name = "bulletproof slav heavy suit"

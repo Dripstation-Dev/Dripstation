@@ -384,6 +384,21 @@
 /datum/antagonist/ert/intern/leader/unarmed
 	outfit = /datum/outfit/centcom/intern/leader/unarmed
 
+/datum/antagonist/ert/intern/pizza
+	name = "CentCom Pizza Delivery"
+	outfit = /datum/outfit/centcom/intern/pizza
+	role = "Delivery Boy"
+
+/datum/antagonist/ert/intern/pizza_girl
+	name = "CentCom Pizza Delivery Girl"
+	outfit = /datum/outfit/centcom/intern/pizza/girl
+	role = "Delivery Girl"
+
+/datum/antagonist/ert/intern/leader/pizza
+	name = "CentCom Pizza Delivery Manager"
+	outfit = /datum/outfit/centcom/intern/pizza/girl
+	role = "Manager"
+
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
 		ert_team = new_team

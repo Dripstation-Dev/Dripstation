@@ -174,6 +174,15 @@
 				/obj/item/clothing/head/helmet/tanker/slav)
 	new head(C)
 
+/datum/supply_pack/weaponry/rusrevolver
+	name = "Vostok Revolvers Crate"
+	desc = "Hello Comrade, we have the best revolvers, for the right price of course. Comes with lethal rounds. Sadly we couldnt remove the lock so it requires Armory access to open."
+	cost = 4000
+	contraband = TRUE
+	contains = list(/obj/item/gun/ballistic/revolver/rh9,
+					/obj/item/gun/ballistic/revolver/rh9)
+	crate_name = "rh9 crate"
+
 /datum/supply_pack/weaponry/nitro_express
 	name = "Nitro Express Rifle Crate"
 	desc = "This crate contains one BW-5 Nitro Express Rifle and 6 rounds of .700 Nitro Express. Requires Armory access to open."
@@ -210,6 +219,30 @@
 	contains = list(/obj/item/ammo_box/c10mm,
 					/obj/item/ammo_box/c10mm,
 					/obj/item/ammo_box/c10mm)
+
+/datum/supply_pack/weaponry/ammo_mateba
+	name = "Ammo Crate (.44mm)"
+	desc = "This crate contains 3 Shellguard Brand boxes of .44. Requires Armory access to open."
+	cost = 8000
+	contraband = TRUE
+	access_view = ACCESS_SECURITY
+	/obj/item/ammo_box/m44
+	contains = list(/obj/item/ammo_box/m44,
+					/obj/item/ammo_box/m44,
+					/obj/item/ammo_box/m44)
+	crate_type = /obj/structure/closet/crate/secure/shellguard
+
+/datum/supply_pack/weaponry/ammo_syndirevolver
+	name = "Ammo Crate (.357mm)"
+	desc = "This crate contains 3 unknown Brand boxes of .357. Requires Armory access to open."
+	cost = 6000
+	hidden = TRUE
+	access_view = ACCESS_SECURITY
+	contains = list(/obj/item/ammo_box/no_direct/a357,
+					/obj/item/ammo_box/no_direct/a357,
+					/obj/item/ammo_box/no_direct/a357)
+	crate_type = /obj/structure/closet/crate/secure/shellguard
+
 
 /datum/supply_pack/weaponry/ammo_nine
 	name = "Ammo Crate (9mm)"
@@ -259,6 +292,15 @@
 					/obj/item/ammo_box/c762x39,
 					/obj/item/ammo_box/c762x39)
 
+/datum/supply_pack/weaponry/ammo_civriflehussp
+	name = "Ammo Crate (PS GJ 7.62x39)"
+	desc = "This crate contains 3 boxes of 7.62 intermediate PS GJ rifle ammo. Requires Security access to open."
+	cost = 3000
+	access = ACCESS_SECURITY
+	contains = list(/obj/item/ammo_box/c762x39/civ,
+					/obj/item/ammo_box/c762x39/civ,
+					/obj/item/ammo_box/c762x39/civ)
+
 /datum/supply_pack/weaponry/ammo_rifleclip
 	name = "Ammo Crate (7.62x54)"
 	desc = "This crate contains 3 clips of 7.62 rifle ammo. Requires Armory access to open."
@@ -266,6 +308,36 @@
 	contains = list(/obj/item/ammo_box/a762,
 					/obj/item/ammo_box/a762,
 					/obj/item/ammo_box/a762)
+
+/datum/supply_pack/weaponry/ammo_9x39
+	name = "Ammo Crate (9x39)"
+	desc = "This crate contains 3 ammo boxes of 9x39 rifle ammo. Requires Armory access to open."
+	cost = 4000
+	contains = list(/obj/item/ammo_box/no_direct/a939,
+					/obj/item/ammo_box/no_direct/a939,
+					/obj/item/ammo_box/no_direct/a939)
+	crate_name = "9x39 ammo crate"
+
+/datum/supply_pack/weaponry/ammo_9x39rubber
+	name = "Ammo Crate (9x39 rubber)"
+	desc = "This crate contains 3 ammo boxes of 9x39 rifle ammo. Requires Armory access to open."
+	cost = 3000
+	contains = list(/obj/item/ammo_box/no_direct/a939/rubber,
+					/obj/item/ammo_box/no_direct/a939/rubber,
+					/obj/item/ammo_box/no_direct/a939/rubber)
+	crate_name = "9x39 rubber ammo crate"
+
+/datum/supply_pack/weaponry/ammo_127x55
+	name = "Ammo Crate (12.7x55)"
+	desc = "This crate contains 3 ammo boxes of 12.7x55 rifle ammo. Requires Armory access to open."
+	cost = 10000
+	contains = list(/obj/item/ammo_box/no_direct/a127,
+					/obj/item/ammo_box/no_direct/a127,
+					/obj/item/ammo_box/no_direct/a127)
+	crate_name = "12.7x55 ammo crate"
+
+/datum/supply_pack/security/armory
+	crate_type = /obj/structure/closet/crate/secure/nanotrasen
 
 /datum/supply_pack/security/armory/swat
 	desc = "Contains two fullbody sets of tough, fireproof, pressurized suits designed in a joint effort by Terragov and Nanotrasen. Each set contains a suit, helmet, mask, combat belt, and NT brand tackler gloves. Requires Armory access to open."
@@ -316,6 +388,7 @@
 					/obj/item/clothing/suit/armor/vest/shellguard,
 					/obj/item/clothing/suit/armor/vest/warden/shellguard)
 	crate_name = "shellguard clothing crate"
+	crate_type = /obj/structure/closet/crate/secure/shellguard
 
 /datum/supply_pack/security/shockers
 	name = "Shockers Crate"
@@ -379,18 +452,20 @@
 	crate_name = "qm rifle crate"
 
 /datum/supply_pack/weaponry/ballistic
-	desc = "For when the enemy absolutely needs to be replaced with lead. Contains three Militech-designed Combat Shotguns, and three Shotgun Bandoliers. Requires Armory access to open."
+	desc = "For when the enemy absolutely needs to be replaced with lead. Contains three Militech-designed CS-16A Shotguns, and three pouches. Requires Armory access to open."
 	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat,
 					/obj/item/gun/ballistic/shotgun/automatic/combat,
 					/obj/item/gun/ballistic/shotgun/automatic/combat,
 					/obj/item/storage/pouch/shotgun/full,
 					/obj/item/storage/pouch/shotgun/full,
 					/obj/item/storage/pouch/shotgun/full)
+	crate_type = /obj/structure/closet/crate/secure/militech
 
 /datum/supply_pack/weaponry/ballistic_single
-	desc = "For when the enemy absolutely needs to be replaced with lead. Contains one Militech-designed Combat Shotgun, and one Shotgun Bandolier. Requires Armory access to open."
+	desc = "For when the enemy absolutely needs to be replaced with lead. Contains one Militech-designed CS-16A Shotgun, and one pouch. Requires Armory access to open."
 	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat,
 					/obj/item/storage/pouch/shotgun/full)
+	crate_type = /obj/structure/closet/crate/secure/militech
 
 /datum/supply_pack/weaponry/riotshotgun
 	name = "Riot Shotguns Crate"
@@ -461,3 +536,20 @@
 					/obj/item/reagent_containers/food/snacks/synthrationpack,
 					/obj/item/reagent_containers/food/snacks/synthrationpack)
 	crate_name = "ratiopapack crate"
+
+/datum/supply_pack/medical/medipen_variety_zenghu
+	name = "Combat Medipen Variety-Pak (Zeng Hu Brand)"
+	desc = "Contains nine different medipens in three different varieties, to assist in regeneration and overall combat performing."
+	cost = 10000
+	contains = list(/obj/item/reagent_containers/autoinjector/medipen/propithal,
+					/obj/item/reagent_containers/autoinjector/medipen/propithal,
+					/obj/item/reagent_containers/autoinjector/medipen/propithal,
+					/obj/item/reagent_containers/autoinjector/medipen/tramadol,
+					/obj/item/reagent_containers/autoinjector/medipen/tramadol,
+					/obj/item/reagent_containers/autoinjector/medipen/tramadol,
+					/obj/item/reagent_containers/autoinjector/medipen/meldonin,
+					/obj/item/reagent_containers/autoinjector/medipen/meldonin,
+					/obj/item/reagent_containers/autoinjector/medipen/meldonin,
+	)
+	crate_name = "medipen crate"
+	crate_type = /obj/structure/closet/crate/secure/zeng_hu

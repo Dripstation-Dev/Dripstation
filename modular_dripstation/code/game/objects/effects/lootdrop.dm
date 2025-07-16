@@ -182,6 +182,7 @@
 		/obj/structure/anomalies_diet/spidersilk/non_spreader = 1,
 		/obj/structure/anomalies_diet/ball_lightning = 1,
 		/obj/structure/anomalies_diet/hell = 1,
+		/obj/structure/spawner/nether = 1
 	)
 
 /obj/effect/spawner/lootdrop/graffiti
@@ -226,3 +227,37 @@
 	var/item = pick(typesof(/obj/item/reagent_containers/food/snacks/meat/slab))
 	new item(loc)
 	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/lootdrop/backrooms
+	name = "backrooms trap spawner"
+	icon = 'modular_dripstation/icons/turf/floors.dmi'
+	icon_state = "backrooms_observer"
+	loot = list(
+		/obj/structure/anomalies_diet/backrooms = 1,
+	)
+
+/obj/effect/spawner/lootdrop/backrooms/twenty
+	name = "20% backrooms trap spawner"
+	spawn_loot_chance = 20
+
+/obj/effect/spawner/lootdrop/minor/maidoutfit
+	name = "maid outfit spawner"
+	loot = list(
+		/obj/item/clothing/under/syndicate/donk/maid = 15,
+		/obj/item/clothing/under/lewdmaid = 15,
+		/obj/item/clothing/under/rank/civilian/janitor/maid = 15,
+		/obj/item/clothing/under/maid = 15,
+		/obj/item/clothing/under/wench = 15,
+		"" = 25)
+
+/obj/effect/spawner/lootdrop/minor/tacticool
+	name = "tacticool outfit spawner"
+	loot = list(
+		/obj/item/clothing/under/hephaestus/militech/turtle = 5,
+		/obj/item/clothing/under/blackops = 15,
+		/obj/item/clothing/under/syndicate/tacticool/bandit = 15,
+		/obj/item/clothing/under/syndicate/tacticool/ert = 15,
+		/obj/item/clothing/under/freemerk = 15,
+		/obj/item/clothing/under/syndicate/soviet = 10,
+		/obj/item/clothing/under/syndicate/tacticool = 25)
+

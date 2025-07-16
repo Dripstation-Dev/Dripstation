@@ -91,3 +91,43 @@
 	mutantrace_variation = NONE
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/spaceslav/spaceslav.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/spaceslav/spaceslav.dmi'
+
+/obj/item/clothing/head/beret/sec/slav
+	name = "slav beret"
+	desc = "A beret, a slav's favorite headwear."
+	icon_state = "russobluecamohat"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/sovietsidecap
+	name = "\improper Soviet side cap"
+	desc = "A simple military cap with a Soviet star on the front. What it lacks in protection it makes up for in revolutionary spirit."
+	icon_state = "sovietsidecap"
+	item_state = "sovietsidecap"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/sovietofficerhat
+	name = "\improper Soviet officer hat"
+	desc = "A military officer hat designed to stand out so the conscripts know who is in charge."
+	icon_state = "sovietofficerhat"
+	item_state = "sovietofficerhat"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/sovietadmiralhat
+	name = "\improper Soviet admiral hat"
+	desc = "This hat clearly belongs to someone very important."
+	icon_state = "sovietadmiralhat"
+	item_state = "sovietadmiralhat"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/bearpelt
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
+/obj/item/clothing/head/bearpelt/white
+	name = "white bear pelt"
+	desc = "It shimmers in the light"
+	icon_state = "whitebearpelt"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'

@@ -105,3 +105,7 @@
 #define UNATHI_DEFAULT_SNEEZE_SOUND(user) user.gender == FEMALE ? pick(\
 		'modular_dripstation/sound/emotes/unathi/female/sneeze_female.ogg') : pick(\
 		'modular_dripstation/sound/emotes/unathi/male/sneeze_male.ogg')
+
+#define CAT_DEFAULT_CRY_SOUND(user) user.gender == FEMALE ? pick(\
+		'modular_dripstation/sound/emotes/cat/merowr.ogg') : pick(\
+		'modular_dripstation/sound/emotes/cat/merowr.ogg')

@@ -27,3 +27,29 @@
 
 /area/lawoffice
 	name = "Internal Affair`s Office"
+
+/area/centcom/syndicate_mothership
+	static_lighting = TRUE
+
+/area/centcom/syndicate_mothership/bombthreat
+	name = "Syndicate Ordnance Laboratory"
+	icon_state = "syndie-elite"
+	static_lighting = TRUE
+	ambience_index = AMBIENCE_ENGI
+
+/area/centcom/syndicate_mothership/bioterrorism
+	name = "Syndicate Bio-Weapon Laboratory"
+	icon_state = "syndie-elite"
+	static_lighting = TRUE
+	ambience_index = AMBIENCE_MEDICAL
+
+/area/centcom/syndicate_mothership/chemicalwarfare
+	name = "Syndicate Chemical Weapon Manufacturing Plant"
+	icon_state = "syndie-elite"
+	static_lighting = TRUE
+	ambience_index = AMBIENCE_REEBE
+
+/area/centcom/syndicate_mothership/fridgerummage
+	name = "Syndicate Perishables and Foodstuffs Storage"
+	icon_state = "syndie-elite"
+	static_lighting = TRUE

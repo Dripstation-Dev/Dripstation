@@ -1560,7 +1560,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/found = FALSE
 	while (!found)
 		var/area/dropoff_area = pick(GLOB.areas)
-		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors && !istype(dropoff_area, /area/ruin))	//dripstation edit, a little bit of sanity here
+		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors && !istype(dropoff_area, /area/ruin) && !istype(dropoff_area, /area/shuttle))	//dripstation edit, a little bit of sanity here
 			dropoff = dropoff_area
 			found = TRUE
 

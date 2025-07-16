@@ -53,7 +53,7 @@
 	if(!istype(M))
 		return FALSE
 
-	if(check_loc && M.loc != loc)
+	if(check_loc && !M.Adjacent(src))	//dripstation edit, checking Adjacent - ablility to touch, not literally loc
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (buckled_mobs.len >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
@@ -67,6 +67,9 @@
 		M.buckling = null
 		return FALSE
 
+	if(M != usr)
+		if(!do_after(usr, 0.7 SECONDS, M))
+			to_chat(usr, span_warning("You failed to buckle [M] to [src]!"))
 	// This signal will check if the mob is mounting this atom to ride it. There are 3 possibilities for how this goes
 	// 1. This movable doesn't have a ridable element and can't be ridden, so nothing gets returned, so continue on
 	// 2. There's a ridable element but we failed to mount it for whatever reason (maybe it has no seats left, for example), so we cancel the buckling
@@ -81,8 +84,11 @@
 			var/mob/living/L = M.pulledby
 			L.reset_pull_offsets(M, TRUE)
 
+	/* either way we move mob on loc, dripstation edit
 	if(!check_loc && M.loc != loc)
 		M.forceMove(loc)
+	*/
+	M.Move(loc)
 
 	M.buckling = null
 	M.buckled = src
@@ -165,6 +171,8 @@
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	if(unbuckle_mob(buckled_mob))
 		if(buckled_mob != user)
+			if(!do_after(user, 0.7 SECONDS, buckled_mob))
+				to_chat(usr, span_warning("You failed to unbuckle [buckled_mob] from [src]!"))
 			buckled_mob.visible_message(\
 				span_notice("[user] unbuckles [buckled_mob] from [src]."),\
 				span_notice("[user] unbuckles you from [src]."),\

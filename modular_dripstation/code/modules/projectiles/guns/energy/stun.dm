@@ -19,3 +19,12 @@
 	pin = /obj/item/firing_pin/implant/mindshield
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+
+/obj/item/gun/energy/disabler/ak
+	name = "DK-244"
+	desc = "The DK-244 is a self-defense weapon that exhausts organic targets, weakening them until they collapse."
+	icon_state = "ak_244disabler"
+	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_MEDIUM
+	manufacturer = /datum/corporation/vostok

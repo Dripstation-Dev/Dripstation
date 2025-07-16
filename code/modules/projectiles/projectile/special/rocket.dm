@@ -8,6 +8,7 @@
 	explosion(target, -1, 0, 2)
 	return BULLET_ACT_HIT
 
+/* Dripstation edit
 /obj/projectile/bullet/a84mm
 	name ="\improper HEDP rocket"
 	desc = "USE A WEEL GUN."
@@ -69,6 +70,7 @@
 			return BULLET_ACT_HIT
 	//if(istype(target, /turf/closed) || ismecha(target))
 	new /obj/item/broken_missile(get_turf(src), 1)
+*/
 
 /obj/projectile/bullet/cball
 	name = "cannonball"

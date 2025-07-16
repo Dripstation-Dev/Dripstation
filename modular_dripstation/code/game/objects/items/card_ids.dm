@@ -247,6 +247,9 @@
 /obj/item/card/id/idtags/AltClick(mob/living/user)
 	return FALSE
 
+/obj/item/card/id/idtags/slav
+	desc = "A slav dog tag."
+
 /obj/item/card/id/idtags/response_911
 	assignment = "TerraGov 911 Response"
 	originalassignment = "Terragov"

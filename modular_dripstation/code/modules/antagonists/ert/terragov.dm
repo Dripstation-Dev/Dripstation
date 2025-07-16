@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 	back = /obj/item/storage/backpack/unknown
 	uniform = /obj/item/clothing/under/rank/security/spacepol
 	suit = /obj/item/clothing/suit/armor/vest/police
-	shoes = /obj/item/clothing/shoes/cowboy
+	shoes = /obj/item/clothing/shoes/cowboy/black
 	glasses = /obj/item/clothing/glasses/sunglasses/aviators
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset/headset_sec/alt
@@ -310,8 +310,15 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 	var/obj/item/card/id/ID_to_give = H.wear_id
 	if(istype(ID_to_give))
 		ID_to_give.access += ACCESS_WEAPONS
-		ID_to_give.access += ACCESS_HEADS
-		ID_to_give.access += ACCESS_BRIG
+		ID_to_give.access += ACCESS_SEC_DOORS
+		ID_to_give.access += ACCESS_MAINT_TUNNELS
+		ID_to_give.access += ACCESS_EXTERNAL_AIRLOCKS
+	
+	
+	var/obj/item/badge/badge = new /obj/item/badge/security/warden1
+	badge.owner_string = H.real_name
+	var/obj/item/clothing/suit/my_suit = H.wear_suit
+	my_suit.attach_badge(badge)
 
 /*
 *	BREACH CONTROL
@@ -486,12 +493,11 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 
 	//Could use a type
 	var/obj/item/storage/belt/military/webbing/terragov/belt_store = H.belt
-	for(var/i = 2 to 0 step -1)
-		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/m45, null, TRUE, TRUE)
 	for(var/i = 3 to 0 step -1)
 		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/r556, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/m45, null, TRUE, TRUE)
 	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/flashlight/glowstick/blue, null, TRUE, TRUE)
-	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade, null, TRUE, TRUE)
+	SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade/syndieminibomb/concussion/frag, null, TRUE, TRUE)
 
 /obj/item/terragov_reporter
 	name = "TerraGov reporter"

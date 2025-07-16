@@ -266,6 +266,7 @@
 	body_parts_partial_covered = 0
 	armor = list(MELEE = 45, BULLET = 40, LASER = 40, ENERGY = 35, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 80, WOUND = 10, ELECTRIC = 100)
 	slowdown = 0.5
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/marine
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/emergency_forcing_tool, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 
 /obj/item/clothing/head/helmet/space/hardsuit/marine/medic
@@ -276,6 +277,7 @@
 /obj/item/clothing/suit/space/hardsuit/marine/medic
 	name = "terragov marine medic hardsuit"
 	icon_state = "marine_terragov_medic_hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/marine/medic
 
 /obj/item/clothing/head/helmet/space/hardsuit/marine/command
 	name = "terragov marine command helmet"
@@ -285,6 +287,7 @@
 /obj/item/clothing/suit/space/hardsuit/marine/command
 	name = "terragov marine command hardsuit"
 	icon_state = "marine_terragov_command_hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/marine/command
 
 //ERT
 /obj/item/clothing/head/helmet/space/hardsuit/ert

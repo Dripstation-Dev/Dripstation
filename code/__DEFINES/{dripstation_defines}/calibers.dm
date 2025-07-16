@@ -9,6 +9,12 @@
 
 #define CALIBER_762X51 "a762x51"
 
+#define CALIBER_9X39 "a9x39"
+
+#define CALIBER_127X55 "a127x55"
+
+#define CALIBER_4570 "a45_70"
+
 #define GAUSS_PELLET "gauss_pellet"
 
 #define RAIL_PELLET "railgun_pellet"

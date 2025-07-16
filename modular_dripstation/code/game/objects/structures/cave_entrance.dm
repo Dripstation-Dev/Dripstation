@@ -1,3 +1,37 @@
+GLOBAL_LIST_INIT(ore_probability, list(
+	/obj/item/stack/ore/glass = 100,
+	/obj/item/stack/ore/uranium = 50,
+	/obj/item/stack/ore/iron = 100,
+	/obj/item/stack/ore/plasma = 75,
+	/obj/item/stack/ore/silver = 50,
+	/obj/item/stack/ore/gold = 50,
+	/obj/item/stack/ore/diamond = 25,
+	/obj/item/stack/ore/bananium = 5,
+	/obj/item/stack/ore/titanium = 75,
+	))
+
+/obj/structure/spawner/ice_moon
+	resistance_flags = null
+	var/has_ore = TRUE
+
+/obj/structure/spawner/ice_moon/deconstruct(disassembled)
+	if(has_ore)
+		drop_ore()
+	return ..()
+
+/**
+ * Drops items after the spawner is destroyed
+ *
+ */
+/obj/structure/spawner/ice_moon/proc/drop_ore()
+	playsound(loc,'sound/effects/explosionfar.ogg', 200, TRUE)
+	visible_message(span_boldannounce("[src] collapses, sealing everything inside!</span>\n<span class='warning'>Ores fall out of the cave as it is destroyed!"))
+	for(var/type in GLOB.ore_probability)
+		var/chance = GLOB.ore_probability[type]
+		if(!prob(chance))
+			continue
+		new type(loc, rand(5, 10))
+
 /obj/structure/spawner/ice_moon/demonic_portal
 	name = "demonic portal"
 	desc = "A portal that goes to another world, normal creatures couldn't survive there. When it collapses, who knows where it will go?"
@@ -9,6 +43,7 @@
 	light_color = COLOR_SOFT_RED
 	spawn_time = 500
 	resistance_flags = null
+	has_ore = FALSE
 
 /obj/structure/spawner/ice_moon/demonic_portal/clear_rock()
 	for(var/turf/F in RANGE_TURFS(3, src))
@@ -413,23 +448,23 @@
 			if(prob(45))
 				new /obj/item/warp_cube/red(loc)
 				new /obj/item/warp_cube(loc)
-				new /mob/living/simple_animal/hostile/asteroid/ice_demon(loc)
+				new /mob/living/simple_animal/hostile/asteroid/old_demon(loc)
 			if(prob(45))
 				new /obj/item/clothing/suit/drfreeze_coat(loc)
 				new /obj/item/clothing/under/costume/drfreeze(loc)
-				new /mob/living/simple_animal/hostile/asteroid/ice_demon(loc)
+				new /mob/living/simple_animal/hostile/asteroid/old_demon(loc)
 			if(prob(35))
 				new /obj/item/gun/magic/wand/teleport(loc)
-				new /mob/living/simple_animal/hostile/asteroid/ice_demon(loc)
+				new /mob/living/simple_animal/hostile/asteroid/old_demon(loc)
 				new /mob/living/simple_animal/hostile/bear/snow(loc)
 			if(prob(45))
 				new /obj/item/freeze_cube(loc)
-				new /mob/living/simple_animal/hostile/asteroid/ice_demon(loc)
+				new /mob/living/simple_animal/hostile/asteroid/old_demon(loc)
 			if(prob(55))
 				new /obj/item/clothing/shoes/winterboots/ice_boots(loc)
 				new /mob/living/simple_animal/hostile/bear/snow(loc)
 				new /obj/effect/decal/remains/human(loc)
-			new /mob/living/simple_animal/hostile/asteroid/ice_demon(loc)
+			new /mob/living/simple_animal/hostile/asteroid/old_demon(loc)
 			new /turf/open/floor/plating/ice/smooth(loc)
 		if(8)//FUCK FUCK HELP SWARMERS IN VAULT
 			visible_message("<span class='userdanger'>Something beeps. Small, glowing forms spill out of the portal en masse!</span>")

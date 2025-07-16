@@ -243,6 +243,26 @@
 /obj/item/storage/backpack/duffelbag/syndie/hitman
 	item_state = "duffel-syndiammo"
 
+/obj/item/storage/backpack/duffelbag/nt
+	name = "nanotrasen's duffel bag"
+	desc = "A large duffel bag for holding extra \[REDACTED\]."
+	icon = 'modular_dripstation/icons/obj/storage/backpacks.dmi'
+	icon_state = "duffel-nt"
+	item_state = "duffel-nt"
+	slowdown = 0
+	resistance_flags = FIRE_PROOF
+
+/obj/item/storage/backpack/duffelbag/nt/rockets/PopulateContents()
+	new /obj/item/ammo_casing/caseless/rocket(src)
+	new /obj/item/ammo_casing/caseless/rocket(src)
+	new /obj/item/ammo_casing/caseless/rocket(src)
+	new /obj/item/ammo_casing/caseless/rocket(src)
+	new /obj/item/ammo_casing/caseless/rocket/aa(src)
+	new /obj/item/ammo_casing/caseless/rocket/aa(src)
+	new /obj/item/ammo_casing/caseless/rocket/aa(src)
+	new /obj/item/ammo_casing/caseless/rocket/hedp(src)
+	new /obj/item/ammo_casing/caseless/rocket/termobaric(src)
+
 /obj/item/storage/backpack/duffelbag/hydroponics
 	name = "hydroponic's duffel bag"
 	desc = "A large duffel bag for holding extra gardening tools."

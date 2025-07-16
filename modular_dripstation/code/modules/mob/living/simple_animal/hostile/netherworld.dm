@@ -18,10 +18,7 @@
 /obj/structure/spawner/nether/Initialize(mapload)
 	.=..()
 	if(music_component && music_path)
-		var/pathm = "[global.config.directory]/sound/portal_nightrealm_loop.ogg"
-		var/datum/music/n = music_path
-		n.sound_file = pathm
-		AddComponent(music_component, n)
+		AddComponent(music_component, music_path)
 	START_PROCESSING(SSprocessing, src)
 
 /obj/structure/spawner/nether/examine(mob/user)

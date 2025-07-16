@@ -167,7 +167,7 @@
 		if(medical_professional)
 			//I AM A SURGEON DR HAN
 			medical_professional.faction |= "surgeon"
-			if(istype(medical_professional, /mob/living/simple_animal/hostile/zombie) && prob(1))
+			if(istype(medical_professional, /mob/living/simple_animal/hostile/zombie) && prob(10))
 				medical_professional.desc = "Oh my god he IS a surgeon..."
 
 ///we can rebuild him.
@@ -355,14 +355,26 @@
 		else
 			weighted_feature_spawn_list[/obj/item/melee/spear/bonespear/chitinspear]++
 
-///these don't actually spawn inside the suit storage and I think thats funny
+
+/datum/dungeon_room_theme/maintenance/hardsuit/pre_initialize()
+	. = ..()
+	for(var/i in 1 to pick(1,2,3))
+		if(prob(10))
+			weighted_feature_spawn_list[/obj/machinery/suit_storage_unit/syndicate]++
+		else if(prob(20))
+			weighted_feature_spawn_list[/obj/machinery/suit_storage_unit/mining]++
+		else if(prob(20))
+			weighted_feature_spawn_list[/obj/machinery/suit_storage_unit/miningdualmod]++
+		else if(prob(20))
+			weighted_feature_spawn_list[/obj/machinery/suit_storage_unit/explorerhard]++
+		else if(prob(40))
+			weighted_feature_spawn_list[/obj/machinery/suit_storage_unit/explorereva]++
+		else if(prob(10))
+			weighted_feature_spawn_list[list(/obj/structure/rack , /obj/item/clothing/suit/space/fragile/elite, /obj/item/clothing/head/helmet/space/fragile)]++
+		else
+			weighted_feature_spawn_list[list(/obj/structure/rack , /obj/item/clothing/suit/space/fragile, /obj/item/clothing/head/helmet/space/fragile)]++
+
 /datum/dungeon_room_theme/maintenance/hardsuit
-	weighted_feature_spawn_list = list(
-		list(/obj/machinery/suit_storage_unit,/obj/item/clothing/suit/space/hardsuit/mining),
-		list(/obj/machinery/suit_storage_unit,/obj/item/clothing/suit/space/hardsuit/ancient),
-		list(/obj/machinery/suit_storage_unit,/obj/item/clothing/suit/space/hardsuit/engine),
-		list(/obj/machinery/suit_storage_unit,/obj/item/clothing/suit/space/hardsuit/medical)
-		)
 
 	weighted_mob_spawn_list = list(
 		/mob/living/simple_animal/hostile/robot/burst = 2,
@@ -379,11 +391,15 @@
 
 /datum/dungeon_room_theme/maintenance/lasgun/pre_initialize()
 	. = ..()
-	for(var/i in 1 to 5)
+	for(var/i in 1 to 3)
 		if(prob(10))
 			weighted_feature_spawn_list[/obj/item/gun/energy/lasercannon]++
-		else
+		else if(prob(10))
+			weighted_feature_spawn_list[/obj/item/gun/energy/laser/hellgun]++
+		else if(prob(20))
 			weighted_feature_spawn_list[/obj/item/gun/energy/laser]++
+		else
+			weighted_feature_spawn_list[/obj/item/gun/energy/laser/retro]++
 
 ///lathes, nough said
 /datum/dungeon_room_theme/maintenance/autolathe
@@ -469,7 +485,7 @@
 		)
 
 	weighted_feature_spawn_list = list(
-		/obj/item/storage/firstaid/regular = 1,
+		/obj/item/storage/firstaid/ancient = 1,
 		/obj/item/storage/firstaid/toxin = 1,
 		/obj/machinery/computer/operating = 1, 
 		/obj/structure/table/optable = 1,

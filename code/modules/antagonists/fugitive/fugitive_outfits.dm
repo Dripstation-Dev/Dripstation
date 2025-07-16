@@ -77,6 +77,7 @@
 	var/obj/item/organ/eyes/robotic/glow/eyes = new()
 	eyes.Insert(H, drop_if_replaced = FALSE)
 
+/* dripstation edit
 /datum/outfit/spacepol
 	name = "Spacepol Officer"
 	uniform = /obj/item/clothing/under/rank/security/spacepol
@@ -114,3 +115,4 @@
 	W.originalassignment = "Police Officer"
 	W.registered_name = H.real_name
 	W.update_label()
+*/

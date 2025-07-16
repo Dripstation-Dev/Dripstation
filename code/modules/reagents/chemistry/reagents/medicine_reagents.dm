@@ -765,11 +765,11 @@
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/carbon/M)
 	switch(current_cycle)
-		if(11)
+		if(15)
 			to_chat(M, span_warning("You start to feel tired...") )
-		if(12 to 24)
+		if(16 to 34)
 			M.adjust_drowsiness(1 SECONDS)
-		if(24 to INFINITY)
+		if(34 to INFINITY)
 			M.Sleeping(40, 0)
 			. = 1
 	if(M.stat > CONSCIOUS)
@@ -1043,6 +1043,7 @@
 		var/mob/living/carbon/human/H = L
 		H.physiology.brute_mod *= 0.8
 		H.physiology.burn_mod *= 0.8
+		H.physiology.do_after_speed *= 0.8
 
 /datum/reagent/medicine/stimulants/proc/apply_tripping_effect(mob/living/M)	//Dripstation edit
 	M.adjust_tripping_up_to(10 SECONDS * REM, 20 SECONDS)//dripstation edit
@@ -1055,6 +1056,7 @@
 		var/mob/living/carbon/human/H = L
 		H.physiology.brute_mod /= 0.8
 		H.physiology.burn_mod /= 0.8
+		H.physiology.do_after_speed /= 0.8
 	..()
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/carbon/M)

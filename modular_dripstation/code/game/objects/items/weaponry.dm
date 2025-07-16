@@ -235,6 +235,10 @@
 /obj/item/storage/belt/sabre
 	name = "rapier sheath"
 	desc = "An ornate sheath designed to hold an officer's rapier."
+	icon_state = "silversheath"
+	item_state = "silversheath"
+	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	hit_reaction_chance = 20
@@ -284,8 +288,7 @@
 	name = "rapier sheath"
 	desc = "An ornate sheath designed to preserve molecular edge of combat rapier."
 	icon_state = "msheath"
-	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
-	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
+	item_state = "sheath"
 
 /obj/item/storage/belt/sabre/mono/PopulateContents()
 	new /obj/item/melee/sabre/mono(src)
@@ -307,10 +310,6 @@
 	desc = "An red and black sheath designed to preserve edge of combat sabre."
 	icon_state = "ssheath"
 	item_state = "ssheath"
-	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
-	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
-	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
-	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 
 /obj/item/storage/belt/sabre/syndie/PopulateContents()
 	new /obj/item/melee/sabre/syndie(src)
@@ -712,6 +711,7 @@
 		deductcharge(100 * severity)
 
 /obj/item/melee/classic_baton
+	worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/security_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/security_righthand.dmi'
 
@@ -987,7 +987,7 @@
 		H.do_attack_animation(O)
 		H.visible_message(span_danger("[H] has hit [O] with [src]!"), span_danger("You hit [O] with [src]!"))
 		var/damage = force_wield
-		damage += H.physiology.force_multiplier
+		damage *= H.physiology.force_multiplier
 		O.take_damage(damage * 3, BRUTE, MELEE, TRUE, get_dir(src, H), 30) // Multiplied to do big damage to doors, closets, windows, and machines, but normal damage to mobs.
 		return
 

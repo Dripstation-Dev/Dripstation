@@ -113,6 +113,12 @@
 	name = "centcom admiral`s hat"
 	icon_state = "grand_admiral"
 
+/obj/item/clothing/head/soft/nt
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	icon_state = "ntsoft"
+	soft_type = "nt"
+
 /obj/item/clothing/gloves/color/captain/centcom
 	desc = "Regal dark blue gloves, with a nice gold trim, a diamond anti-shock coating, and an integrated thermal barrier. Swanky."
 	icon_state = "centcom_officer"

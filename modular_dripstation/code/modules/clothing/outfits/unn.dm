@@ -100,7 +100,7 @@
 	belt = /obj/item/storage/belt/military/assault
 	gloves = /obj/item/clothing/gloves/fingerless/combat
 	l_pocket = /obj/item/storage/pouch/pistol/flash
-	r_pocket = /obj/item/storage/pouch/firstaid/unn
+	r_pocket = /obj/item/storage/pouch/medical_injectors/unn
 
 	box = /obj/item/storage/box/unn
 	implants = list(/obj/item/implant/mindshield)
