@@ -234,11 +234,11 @@ GLOBAL_LIST_INIT(hoodie_style_list, list(
 	var/list/options = list()
 	var/list/radial_display = list()
 	for(var/check_style as anything in toggled_type)
-		options[initial(check_style)] = check_style
+		options[check_style] = check_style
 		var/datum/radial_menu_choice/option = new
 		option.image = image(icon = icon, icon_state = GLOB.hoodie_style_list[check_style])
 		//option.info = "[check_style]"
-		radial_display[initial(check_style)] = option
+		radial_display[check_style] = option
 
 	var/choice = show_radial_menu(user, user, radial_display)
 	var/chosen_style = options[choice]

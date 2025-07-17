@@ -380,10 +380,10 @@
 		if(FALSE)
 			onunzoom(user)
 			zoomed = FALSE
-		else if(TRUE)
+		if(TRUE)
 			onzoom(user, direc)
 			zoomed = TRUE
-		else
+		if(null)
 			if(zoomed)
 				if(!do_after(user, zooming_time, src, timed_action_flags = IGNORE_USER_LOC_CHANGE))
 					zoomed = FALSE

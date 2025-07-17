@@ -394,7 +394,7 @@
 			SSchat.handle_resend(client, payload)
 
 /datum/tgui_window/proc/reinitialize()
-	Initialize(
+	initialize(
 		fancy = initial_fancy,
 		assets = initial_assets,
 		inline_html = initial_inline_html,
