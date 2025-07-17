@@ -30,7 +30,10 @@
 	///Is it being bought from a departmental budget?
 	var/budget_order = FALSE
 	///If this is true, unlock the ability to order through budgets
+	/*	dripstation edit
 	var/unlock_budget = TRUE
+	*/
+	var/unlock_budget = FALSE
 
 /datum/computer_file/program/budgetorders/proc/get_export_categories()
 	. = EXPORT_CARGO
@@ -75,15 +78,31 @@
 	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	var/obj/item/card/id/id_card = card_slot?.GetID()
 	if(id_card?.registered_account)
+		/*	//dripstation edit
 		unlock_budget = TRUE
+		*/
+		if(ACCESS_HEADS in id_card.access)	//you are head, you can purchase with dep budget, dripstation edit
+			unlock_budget = TRUE	//dripstation edit
 		if(id_card?.registered_account?.account_job?.paycheck_department == ACCOUNT_CAR)
 			unlock_budget = FALSE //cargo tech is already using the same budget.
 		if(id_card?.registered_account?.account_job?.paycheck_department && budget_order)
 			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_job.paycheck_department)
+		if(id_card?.registered_account && self_paid)	//dripstation edit
+			buyer = id_card.registered_account	//dripstation edit
+		if(ACCESS_QM in id_card.access)	//dripstation edit
+			requestonly = FALSE	//dripstation edit
+			can_approve_requests = TRUE	//dripstation edit
+			can_send = TRUE	//dripstation edit
+		else if(ACCESS_CARGO in id_card.access)	//dripstation edit
+			requestonly = FALSE		//dripstation edit
+			can_approve_requests = FALSE	//dripstation edit
+			can_send = FALSE	//dripstation edit
+		/*	dripstation edit
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access) || (ACCESS_CARGO in id_card.access))
 			requestonly = FALSE
 			can_approve_requests = TRUE
 			can_send = TRUE
+		*/
 		else
 			requestonly = TRUE
 			can_approve_requests = FALSE

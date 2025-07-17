@@ -61,6 +61,26 @@
 	else
 		return ..()
 
+///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE
+/obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
+	var/obj/item/computer_hardware/hard_drive/role/job_disk = all_components[MC_HDD_JOB]
+	if(istype(job_disk) && !job_disk.process_pre_attack(target, user, params))
+		return FALSE
+	return ..()
+
+// Eject Job Disk
+/obj/item/modular_computer/tablet/CtrlShiftClick(mob/user)
+	..()
+	// We want to allow the user to drag the tablet still
+	if(isturf(loc) || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
+		return
+	var/obj/item/computer_hardware/hard_drive/role/disk = all_components[MC_HDD_JOB]
+	if(istype(disk))
+		uninstall_component(disk, user, TRUE)
+		user.put_in_hands(disk)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE///MOVE TO MODULE
+
 /obj/item/modular_computer/tablet/update_icon_state()
 	. = ..()
 	if (!isnull(variants))
