@@ -215,7 +215,7 @@ Temperature: 126.85 °C (400 K)
 		return
 	
 	if(prob(chance * 0.33))
-		humie.reagents.add_reagent(/datum/reagent/toxic_metabolities,7.5)
+		humie.reagents.add_reagent(/datum/reagent/toxic_metabolites,7.5)
 	
 	if(prob((chance * 0.15 ) + 10 ))
 		humie.acid_act(5,7.5)
@@ -250,7 +250,7 @@ Temperature: 126.85 °C (400 K)
 	if(HAS_TRAIT(humie,TRAIT_TOXIMMUNE) || HAS_TRAIT(humie,TRAIT_TOXINLOVER))
 		return
 	
-	humie.reagents.add_reagent(/datum/reagent/toxic_metabolities,15)
+	humie.reagents.add_reagent(/datum/reagent/toxic_metabolites,15)
 	humie.adjustFireLoss(33)
 	humie.acid_act(15,15)
 

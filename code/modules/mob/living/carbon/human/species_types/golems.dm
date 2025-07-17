@@ -257,7 +257,7 @@
 
 /datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.weather_immunities -= WEATHER_ASH
+	C.weather_immunities &= ~WEATHER_ASH
 
 //Immune to ash storms and lava
 /datum/species/golem/plastitanium
@@ -278,8 +278,8 @@
 
 /datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	C.weather_immunities -= WEATHER_ASH
-	C.weather_immunities -= WEATHER_LAVA
+	C.weather_immunities &= ~WEATHER_ASH
+	C.weather_immunities &= ~WEATHER_LAVA
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
@@ -1015,7 +1015,7 @@
 
 /datum/species/golem/snow/on_species_gain(mob/living/carbon/grant_to, datum/species/old_species)
 	. = ..()
-	grant_to.weather_immunities |= "snow"
+	grant_to.weather_immunities |= WEATHER_SNOW
 	snowball = new(grant_to)
 	snowball.StartCooldown()
 	snowball.Grant(grant_to)
@@ -1026,7 +1026,7 @@
 
 /datum/species/golem/snow/on_species_loss(mob/living/carbon/remove_from)
 	. = ..()
-	remove_from.weather_immunities -= "snow"
+	remove_from.weather_immunities &= ~WEATHER_SNOW
 	QDEL_NULL(snowball)
 	QDEL_NULL(cryo)
 	return ..()

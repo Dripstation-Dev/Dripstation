@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(lockers)
 	var/icon_welded = "welded"
 	var/icon_broken = "sparking"
 	/// Protection against weather that being inside of it provides.
-	var/list/weather_protection = null
+	var/weather_protection = NONE
 	/// How close being inside of the thing provides complete pressure safety. Must be between 0 and 1!
 	contents_pressure_protection = 0
 	/// How insulated the thing is, for the purposes of calculating body temperature. Must be between 0 and 1!
@@ -688,16 +688,16 @@ GLOBAL_LIST_EMPTY(lockers)
 		return air_contents.return_temperature()
 	return ..()
 
-/obj/structure/closet/CanAStarPass(ID, dir, caller)
+/obj/structure/closet/CanAStarPass(ID, dir, caller_but_not_a_byond_built_in_proc)
 	//The parent function just checks if it's not dense, and if a closet is open then it's not dense 
 	. = ..()
 	if(!.)
-		if(ismob(caller))
+		if(ismob(caller_but_not_a_byond_built_in_proc))
 			//i'm hilarious, but fr only mobs should be passed to allowed()
-			var/mob/mobchamp = caller
+			var/mob/mobchamp = caller_but_not_a_byond_built_in_proc
 			return can_open(mobchamp) && allowed(mobchamp)
 		else
-			return can_open(caller) && check_access(ID)
+			return can_open(caller_but_not_a_byond_built_in_proc) && check_access(ID)
 	
 	/// Signal proc for [COMSIG_ATOM_MAGICALLY_UNLOCKED]. Unlock and open up when we get knock casted.
 /obj/structure/closet/proc/on_magic_unlock(datum/source, datum/action/cooldown/spell/aoe/knock/spell, mob/living/caster)

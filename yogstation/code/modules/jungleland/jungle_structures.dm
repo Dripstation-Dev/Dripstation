@@ -362,6 +362,7 @@
 	icon = 'yogstation/icons/obj/jungle.dmi'
 	icon_state = "nest"
 	faction = list("mining")
+	resistance_flags = UNACIDABLE
 	max_mobs = 3
 	max_integrity = 250
 	move_resist = INFINITY

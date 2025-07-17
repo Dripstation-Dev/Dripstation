@@ -305,7 +305,7 @@
 	attack_sound = 'sound/weapons/pierce_slow.ogg'
 	speak_emote = list("buzzes")
 	faction = list("mining")
-	weather_immunities = list("lava","ash")
+	weather_immunities = WEATHER_STORM
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/staldrone/Initialize(mapload)
 	. = ..()

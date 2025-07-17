@@ -217,7 +217,7 @@
 					continue
 			else if(isliving(buckle_check))
 				var/mob/living/live = buckle_check
-				if("lava" in live.weather_immunities)
+				if(live.weather_immunities & WEATHER_LAVA)
 					continue
 
 			if(!L.on_fire)
@@ -231,7 +231,7 @@
 				if(S && H && S.clothing_flags & LAVAPROTECT && H.clothing_flags & LAVAPROTECT)
 					return
 
-			if("lava" in L.weather_immunities)
+			if(L.weather_immunities & WEATHER_LAVA)
 				continue
 
 			L.adjustFireLoss(20 * delta_time)
