@@ -102,9 +102,9 @@ SUBSYSTEM_DEF(statpanels)
 
 /datum/controller/subsystem/statpanels/proc/set_status_tab(client/target)
 #if MIN_COMPILER_VERSION > 515
-	#warn 516 is most certainly out of beta, remove this beta notice if you haven't already
+	#warn Remove this beta notice when i fix all the issues
 #endif
-	var/static/list/beta_notice = list("", "You are on the BYOND 516 beta, various UIs and such may be broken!", "Please report issues, and switch back to BYOND 515 if things are causing too many issues for you.")
+	var/static/list/beta_notice = list("", "You are on the BYOND 516, various UIs and such may be broken!", "Please report issues in Discord, and switch back to BYOND 515 if things are causing too many issues for you.")
 	if(!global_data)//statbrowser hasnt fired yet and we were called from immediate_send_stat_data()
 		return
 	target.stat_panel.send_message("update_stat", list(
