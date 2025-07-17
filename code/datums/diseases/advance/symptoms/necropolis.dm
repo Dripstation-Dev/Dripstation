@@ -66,8 +66,8 @@
 				if(fireproof)
 					ADD_TRAIT(H, TRAIT_RESISTHEAT, DISEASE_TRAIT)
 					ADD_TRAIT(H, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
-					M.weather_immunities |= "ash"
-					M.weather_immunities |= "lava"
+					M.weather_immunities |= WEATHER_ASH
+					M.weather_immunities |= WEATHER_LAVA
 		else
 			if(prob(base_message_chance))
 				to_chat(M, span_notice("[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]"))
@@ -111,6 +111,6 @@
 		if(fireproof)
 			REMOVE_TRAIT(H, TRAIT_RESISTHIGHPRESSURE, DISEASE_TRAIT)
 			REMOVE_TRAIT(H, TRAIT_RESISTHEAT, DISEASE_TRAIT)
-			H.weather_immunities -= "ash"
-			H.weather_immunities -= "lava"
+			H.weather_immunities &= ~WEATHER_ASH
+			H.weather_immunities &= ~WEATHER_LAVA
 

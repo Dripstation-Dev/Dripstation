@@ -969,6 +969,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// this object has been frozen
 #define TRAIT_FROZEN "frozen"
 
+/// Is runechat for this atom/movable currently disabled, regardless of prefs or anything?
+#define TRAIT_RUNECHAT_HIDDEN "runechat_hidden"
+
 /// Currently fishing
 #define TRAIT_GONE_FISHING "fishing"
 
@@ -980,9 +983,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// Makes a species be better/worse at defending against tackling depending on their tail's status
 #define TRAIT_TACKLING_TAILED_DEFENDER "tackling_tailed_defender"
-
-/// Is runechat for this atom/movable currently disabled, regardless of prefs or anything?
-#define TRAIT_RUNECHAT_HIDDEN "runechat_hidden"
 
 /// the object has a label applied
 #define TRAIT_HAS_LABEL "labeled"

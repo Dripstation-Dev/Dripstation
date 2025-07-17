@@ -1010,7 +1010,7 @@ GLOBAL_LIST_EMPTY(aide_list)
 	to_chat(user, "You call out for aid, attempting to summon spirits to your side.")
 
 	notify_ghosts("[user] is raising [user.p_their()] [src], calling for your help!",
-		enter_link="<a href=?src=[REF(src)];orbit=1>(Click to help)</a>",
+		enter_link="<a href=byond://?src=[REF(src)];orbit=1>(Click to help)</a>",
 		source = user, action=NOTIFY_ORBIT, ignore_key = POLL_IGNORE_SPECTRAL_BLADE)
 
 	summon_cooldown = world.time + 600
@@ -1089,8 +1089,8 @@ GLOBAL_LIST_EMPTY(aide_list)
 			dragon_shapeshift.Grant(user)
 		if(3)
 			to_chat(user, span_danger("You feel like you could walk straight through lava now."))
-			H.weather_immunities |= "lava"
-			H.weather_immunities |= "ash"
+			H.weather_immunities |= WEATHER_LAVA
+			H.weather_immunities |= WEATHER_ASH
 
 	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	qdel(src)
