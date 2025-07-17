@@ -512,8 +512,8 @@
 		if (stat == DEAD)
 			time_mod = 0 //we don`t care
 		if(affecting.embedded_objects.len) 
-			for(var/obj/item/I in affecting.embedded_objects)
-				SEND_SIGNAL(M, COMSIG_CARBON_EMBED_RIP, I, affecting, time_mod)
+			var/obj/item/I = pick(affecting.embedded_objects)
+			SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, affecting, M, time_mod)
 			return
 
 	if(!(mobility_flags & MOBILITY_STAND))

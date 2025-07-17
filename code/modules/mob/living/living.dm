@@ -379,8 +379,7 @@
 	return TRUE
 
 /mob/living/verb/succumb(whispered as num|null)
-	//set hidden = TRUE
-	set hidden = FALSE
+	set hidden = TRUE
 	set name = "Succumb"
 	set category = "IC"
 	if (!CAN_SUCCUMB(src))

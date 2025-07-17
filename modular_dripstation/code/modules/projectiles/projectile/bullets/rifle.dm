@@ -33,7 +33,7 @@
 	name = "5.56mm frag bullet"
 	damage = 20
 	bare_wound_bonus = 50
-	embedding = list("pain_multiplier" = 3, "embed_chance" = 65, "fall_chance" = 0, "impact_pain_multiplier" = 6, "ignore_throwspeed_threshold" = 1, "remove_pain_mult" = 4)
+	embedding = list("pain_multiplier" = 3, "embed_chance" = 65, "jostle_chance" = 2, "rip_time" = -1, "fall_chance" = 0, "impact_pain_multiplier" = 6, "ignore_throwspeed_threshold" = TRUE, "remove_pain_mult" = 4)
 
 // 5.45mm (AK)
 ///Standart 5.45
@@ -92,7 +92,7 @@
 	name = "7.62x39mm Frag bullet"
 	damage = 18
 	bare_wound_bonus = 50
-	embedding = list("pain_multiplier" = 3, "embed_chance" = 65, "fall_chance" = 0, "impact_pain_multiplier" = 6, "ignore_throwspeed_threshold" = 1, "remove_pain_mult" = 4)
+	embedding = list("pain_multiplier" = 3, "embed_chance" = 65, "jostle_chance" = 2, "rip_time" = -1, "fall_chance" = 0, "impact_pain_multiplier" = 6, "ignore_throwspeed_threshold" = TRUE, "remove_pain_mult" = 4)
 
 /obj/projectile/bullet/a762x39/civ	//you can hunt wolfs with this
 	name = "7.62x39mm PS GJ bullet"

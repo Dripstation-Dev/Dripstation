@@ -4,7 +4,7 @@
 	icon_state = "bullet"
 	icon = 'modular_dripstation/icons/effects/projectiles/projectiles.dmi'
 	shrapnel_type = /obj/item/shrapnel/bullet
-	embedding = list("pain_multiplier" = 3, "embed_chance" = 45, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "remove_pain_mult" = 3)
+	embedding = list("pain_multiplier" = 3, "embed_chance" = 45, "jostle_chance" = 1, "rip_time" = -1, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "remove_pain_mult" = 3)
 	ap_falloff_tile = 5
 	embed_falloff_tile = 2
 

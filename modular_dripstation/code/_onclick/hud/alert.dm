@@ -10,6 +10,7 @@
 		"End Of The Road",
 		"Live Long And Prosper",
 		"See You Space Cowboy...",
+		"The last shift",
 		"It's Been An Honor",
 		"The Curtains Close",
 		"All Good Things Must End"

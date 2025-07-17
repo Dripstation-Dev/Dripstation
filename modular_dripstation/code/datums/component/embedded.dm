@@ -193,18 +193,24 @@
 
 
 /// Called when a carbon with an object embedded/stuck to them inspects themselves and clicks the appropriate link to begin ripping the item out. This handles the ripping attempt, descriptors, and dealing damage, then calls safe_remove()
-/datum/component/embedded/proc/ripOut(datum/source, obj/item/I, obj/item/bodypart/limb, time_mod)
+/datum/component/embedded/proc/ripOut(datum/source, obj/item/I, obj/item/bodypart/limb, mob/living/carbon/riper, time_mod = 1)
 	SIGNAL_HANDLER
 
-	if(I != weapon || src.limb != limb)
+	if(I != weapon || src.limb != limb || rip_time < 0)
 		return
 	var/mob/living/carbon/victim = parent
+	if(!riper)
+		riper = victim
 	var/time_taken = rip_time * weapon.w_class * time_mod
-	INVOKE_ASYNC(src, PROC_REF(complete_rip_out), victim, I, limb, time_taken)
+	INVOKE_ASYNC(src, PROC_REF(complete_rip_out), riper, victim, I, limb, time_taken)
 
 /// everything async that ripOut used to do
-/datum/component/embedded/proc/complete_rip_out(mob/living/carbon/victim, obj/item/I, obj/item/bodypart/limb, time_taken)
-	victim.visible_message(span_warning("[victim] attempts to remove [weapon] from [victim.p_their()] [limb.name]."),span_notice("You attempt to remove [weapon] from your [limb.name]... (It will take [DisplayTimeText(time_taken)].)"))
+/datum/component/embedded/proc/complete_rip_out(mob/living/carbon/riper, mob/living/carbon/victim, obj/item/I, obj/item/bodypart/limb, time_taken)
+	if(victim == riper)
+		victim.visible_message(span_warning("[victim] attempts to remove [weapon] from [victim.p_their()] [limb.name]."), span_notice("You attempt to remove [weapon] from your [limb.name]... (It will take [DisplayTimeText(time_taken)].)"))
+	else
+		victim.visible_message(span_warning("[riper] attempts to remove [weapon] from [victim.p_their()] [limb.name]."), span_notice("[riper] attempt to remove [weapon] from your [limb.name]... (It will take [DisplayTimeText(time_taken)].)"))
+		to_chat(riper, span_warning("It will take [DisplayTimeText(time_taken)]."))
 	if(!do_after(victim, time_taken, target = victim))
 		return
 	if(!weapon || !limb || weapon.loc != victim || !(weapon in limb.embedded_objects))
@@ -216,7 +222,10 @@
 		victim.adjustStaminaLoss(pain_stam_pct * damage)
 		victim.emote("scream")
 
-	victim.visible_message(span_notice("[victim] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!"), span_notice("You successfully remove [weapon] from your [limb.name]."))
+	if(victim == riper)
+		victim.visible_message(span_warning("[victim] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!"), span_notice("You successfully remove [weapon] from your [limb.name]."))
+	else
+		victim.visible_message(span_notice("[riper] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!"), span_notice("[riper] successfully remove [weapon] from your [limb.name]."))
 	safeRemove(victim)
 
 /// This proc handles the final step and actual removal of an embedded/stuck item from a carbon, whether or not it was actually removed safely.
