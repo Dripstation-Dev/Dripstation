@@ -4,7 +4,7 @@
 	loyalties = LOYALTY_CORP_SLAVE
 	base_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_BRIG, ACCESS_SEC_DOORS, ACCESS_WEAPONS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MECH_MEDICAL, ACCESS_BRIG_PHYS)	//ACCESS_WEAPONS giving brigphys the ability to be armed
 
-/datum/job/officer/GetIngameDesc(corp, stationname)
+/datum/job/brigphysician/GetIngameDesc(corp, stationname)
 	return "You are a highly trained specialist within [corp]. You were probably a medical student or inexperienced doctor when you joined [corp], and you thusly have a combination of medical and military training. You are not quite as knowledgeable as a civilian career doctor, not quite as much of a fighter as a dedicated operative, but strike a balance inbetween. Balance is the nature of your existence.<br>\
 	<br>\
 	Within [corp], you have three roles to undertake. All of your roles can be delegated to others when needed - station medical stuff for roles 1 and 2, the [corp] detective for role 3. But you are often the best positioned to carry out these tasks, especially when time is short.<br>\

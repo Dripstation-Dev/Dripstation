@@ -60,6 +60,20 @@
 		return FALSE
 	. = ..()
 
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered
+	var/uncoveredchance = 10
+	icon_state = "maint_below"
+
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered/Initialize(mapload)
+	. = ..()
+	if(prob(uncoveredchance))
+		covered = FALSE
+		underfloor_accessibility = UNDERFLOOR_INTERACTABLE
+		layer = TURF_LAYER
+		icon_state = "[catwalk_type]_below"
+	else
+		icon_state = "[catwalk_type]_above"
+
 //Reskins! More fitting with most of our tiles, and appear as a radial on the base type
 /turf/open/floor/catwalk_floor/iron
 	name = "iron plated catwalk floor"

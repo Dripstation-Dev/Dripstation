@@ -100,7 +100,10 @@
 	desc = "A large-bore double-barelled break-action hunting rifle. Fires armor-piercing .700 'Nitro Express' ammunition. The recoil feels strong enough to break your shoulder."
 	icon_state = "nitro_express"
 	mag_type = /obj/item/ammo_box/magazine/internal/nitro_express
-	fire_sound = 'sound/weapons/sniper_shot.ogg'
+	fire_sound = 'modular_dripstation/sound/weapons/rifle/700_nitro_express.ogg'
+	var/open_sound = 'modular_dripstation/sound/weapons/rifle/700N-Open.wav'
+	var/close_sound = 'modular_dripstation/sound/weapons/rifle/700N-Close.wav'
+	eject_sound = SFX_700EJECT
 	fire_sound_volume = 80
 	can_suppress = FALSE
 	var/select
@@ -147,8 +150,10 @@
 /obj/item/gun/ballistic/nitro_express/attack_self(mob/living/user)
 	if(locked)
 		to_chat(user, span_notice("You open the barell of \the [src]."))
+		playsound(user, open_sound, 60, FALSE)
 	else
 		to_chat(user, span_notice("You return the barell of \the [src] back."))
+		playsound(user, close_sound, 60, FALSE)
 		chamber_round()
 	locked = !locked
 	update_appearance(UPDATE_ICON|UPDATE_DESC)

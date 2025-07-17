@@ -59,7 +59,6 @@
 	harm_intent_damage = 8
 	melee_damage_lower = 8
 	melee_damage_upper = 8
-	r_hand = /obj/item/crowbar/red
 	attack_sound = "swing_hit"
 	loot = list(/obj/effect/mob_spawn/human/corpse/scav/classic, /obj/item/crowbar/red)
 
@@ -77,7 +76,6 @@
 	harm_intent_damage = 6
 	melee_damage_lower = 6
 	melee_damage_upper = 6
-	r_hand = /obj/item/scalpel
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	loot = list(/obj/effect/mob_spawn/human/corpse/scav/medic, /obj/item/scalpel)
 
@@ -98,7 +96,6 @@
 	melee_damage_upper = 10
 	maxHealth = 120
 	health = 120
-	r_hand = /obj/item/storage/toolbox/syndicate
 	attack_sound = "swing_hit"
 	loot = list(/obj/effect/mob_spawn/human/corpse/scav/rogue, /obj/item/storage/toolbox/syndicate)
 
@@ -203,7 +200,6 @@
 	icon_state = "slav_bandit_ranged"
 	icon_living = "slav_bandit_ranged"
 	projectilesound = 'sound/weapons/gunshot.ogg'
-	r_hand = /obj/item/gun/ballistic/automatic/pistol/glock17
 	casingtype = /obj/item/ammo_casing/c9mm
 	loot = list(/obj/effect/mob_spawn/human/corpse/bandit/ranged, /obj/item/gun/ballistic/automatic/pistol/glock17)
 
@@ -226,7 +222,6 @@
 	icon_living = "slav_bandit_shotgun"
 	projectilesound = 'sound/weapons/shotgunshot.ogg'
 	casingtype = /obj/item/ammo_casing/shotgun/buckshot
-	r_hand = /obj/item/gun/ballistic/shotgun/automatic
 	armor = list(MELEE = 30, BULLET = 0, LASER = 10, ENERGY = 20, BOMB = 20)
 	loot = list(/obj/effect/mob_spawn/human/corpse/bandit/ranged/shotgun, /obj/item/gun/ballistic/shotgun/automatic)
 
@@ -251,7 +246,6 @@
 	icon_living = "killa"
 	projectilesound = 'sound/weapons/rifleshot.ogg'
 	casingtype = /obj/item/ammo_casing/mm712x82
-	r_hand = /obj/item/gun/ballistic/automatic/l6_saw/m60/ultrasecure
 	armor = list(MELEE = 20, BULLET = 75, LASER = 10, ENERGY = 10, BOMB = 50)
 	loot = list(/obj/effect/mob_spawn/human/corpse/bandit/ranged/killa, /obj/item/gun/ballistic/automatic/l6_saw/m60/ultrasecure)
 
@@ -274,7 +268,6 @@
 	icon_state = "tagilla"
 	icon_living = "tagilla"
 	attack_sound = 'sound/weapons/smash.ogg'
-	r_hand = /obj/item/melee/sledgehammer/security
 	armor = list(MELEE = 20, BULLET = 75, LASER = 10, ENERGY = 10, BOMB = 50)
 	loot = list(/obj/effect/mob_spawn/human/corpse/bandit/tagilla, /obj/item/melee/sledgehammer/security)
 

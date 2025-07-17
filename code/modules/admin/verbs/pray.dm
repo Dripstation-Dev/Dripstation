@@ -73,7 +73,7 @@
 /// Specifies CENTCOM/SYNDICATE: to indicate both receive the message
 /proc/message_redphone_syndicate(text, mob/sender)
 	var/msg = copytext_char(sanitize(text), 1, MAX_MESSAGE_LEN)
-	msg = span_adminnotice("<b><font color=orange>CENTCOM</font>/<font color=crimson>SYNDICATE:</font>[ADMIN_FULLMONTY(sender)] [ADMIN_SYNDICATE_REPLY(sender)]:</b> [msg]")
+	msg = span_adminnotice("<b><font color=orange>CENTCOM</font>/<font color=crimson>SYNDICATE:</font>[ADMIN_CENTCOM_REPLY(sender)] [ADMIN_SYNDICATE_REPLY(sender)]:</b> [msg]")
 	to_chat(GLOB.permissions.admins, msg, confidential = TRUE)
 	for(var/obj/machinery/computer/communications/console in GLOB.machines)
 		console.override_cooldown()
@@ -86,8 +86,8 @@
 	for(var/obj/machinery/computer/communications/console in GLOB.machines)
 		console.override_cooldown()
 
-#define ADMIN_CALL_ERT "(<a href='?_src_=holder;[HrefToken(TRUE)];makeAntag=centcom'>Make CentCom Response Team</a>)"
-#define ADMIN_CALL_UPLINK_ERT "(<a href='?_src_=holder;[HrefToken(TRUE)];makeAntag=centcom_custom'>Make Uplink CentCom Response Team</a>)"
+#define ADMIN_CALL_ERT "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];makeAntag=centcom'>Make CentCom Response Team</a>)"
+#define ADMIN_CALL_UPLINK_ERT "(<a href='byond://?_src_=holder;[HrefToken(TRUE)];makeAntag=centcom_custom'>Make Uplink CentCom Response Team</a>)"
 /proc/ERT_Announce(text, mob/sender)	//dripstation edit start
 	var/msg = copytext_char(sanitize(text), 1, MAX_MESSAGE_LEN)
 	msg = span_adminnotice("<b><font color=orange>ERT REQUEST: </font>[ADMIN_FULLMONTY(sender)] [ADMIN_CENTCOM_REPLY(sender)] [ADMIN_CALL_ERT] [ADMIN_CALL_UPLINK_ERT]:</b> [msg]</span>")

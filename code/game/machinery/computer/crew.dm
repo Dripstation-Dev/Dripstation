@@ -36,7 +36,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 	var/list/jobs = new/list()
 	jobs["Captain"] = 00
-	jobs["Head of Personnel"] = 50
+	jobs["Blueshield"] = 01
+	jobs["Magistrate"] = 02
+	jobs["Nanotrasen Representative"] = 03
+	jobs["Head of Personnel"] = 60
 	jobs["Head of Security"] = 10
 	jobs["Warden"] = 11
 	jobs["Security Officer"] = 12
@@ -53,13 +56,15 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	jobs["Research Director"] = 30
 	jobs["Scientist"] = 31
 	jobs["Roboticist"] = 32
+	jobs["Repair Worker Replika"] = 33
 	jobs["Chief Engineer"] = 40
 	jobs["Station Engineer"] = 41
 	jobs["Atmospheric Technician"] = 42
 	jobs["Network Admin"] = 43 //Yogs: Added IDs for this job
-	jobs["Quartermaster"] = 51
-	jobs["Shaft Miner"] = 52
-	jobs["Cargo Technician"] = 53
+	jobs["Quartermaster"] = 50
+	jobs["Shaft Miner"] = 51
+	jobs["Cargo Technician"] = 52
+	jobs["Explorer"] = 53
 	jobs["Bartender"] = 61
 	jobs["Cook"] = 62
 	jobs["Botanist"] = 63
@@ -199,11 +204,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			//species check
 			if (ishumanbasic(tracked_mob))
 				species = "Human"
-			if (ispreternis(tracked_mob))
 				/*	Dripstation edit
+			if (ispreternis(tracked_mob))
 				species = "Robot"
 				*/
-				species = "Replica"	//	Dripstation edit
 			if (isipc(tracked_mob))
 				species = "IPC"
 			if (ispodperson(tracked_mob))
@@ -234,6 +238,8 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 				species = "Alien"
 			if (isandroid(tracked_mob))
 				species = "Android"
+			if (isreplica(tracked_mob))
+				species = "Robot"
 
 			for(var/obj/item/bodypart/part in tracked_mob.bodyparts)
 				if(part.bodypart_disabled == TRUE) //check if has disabled limbs

@@ -744,7 +744,7 @@
 				return
 			COOLDOWN_START(src, request_cooldown, 1 MINUTES)
 			to_chat(usr, span_notice("Your request has been received by CentCom."))
-			to_chat(GLOB.permissions.admins, "<b>ESCAPE POD: <font color='#3d5bc3'>[ADMIN_LOOKUPFLW(usr)] (<A HREF='?_src_=holder;[HrefToken()];secrets=move[shuttleId]'>Move Pod</a>)</b> is requesting to move the transport Pod to CentCom.</font>")
+			to_chat(GLOB.permissions.admins, "<b>ESCAPE POD: <font color='#3d5bc3'>[ADMIN_LOOKUPFLW(usr)] (<A HREF='byond://?_src_=holder;[HrefToken()];secrets=move[shuttleId]'>Move Pod</a>)</b> is requesting to move the transport Pod to CentCom.</font>")
 			return TRUE
 	..()
 

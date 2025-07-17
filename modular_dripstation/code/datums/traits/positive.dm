@@ -29,12 +29,12 @@
 	spesslife.remove(H)
 
 /obj/item/paper/combattesting
-	name = "Martial arts test cetificate (Form NT-114S)"
+	name = "Martial arts cetificate (Form NT-114S)"
 	desc = "Cetificate that confirms that somebody has trained to perform standart issue martial techniques."
 	var/mtype = "standart"
 
 /obj/item/paper/combattesting/cqc
-	name = "Martial arts test cetificate (Form NT-114A)"
+	name = "Martial arts cetificate (Form NT-114A)"
 	desc = "Cetificate that confirms that somebody has trained to perform advanced martial techniques."
 	mtype = "advanced"
 

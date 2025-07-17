@@ -228,6 +228,8 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 				soundin = pick('modular_dripstation/sound/effects/pen1.ogg', 'modular_dripstation/sound/effects/pen2.ogg', 'modular_dripstation/sound/effects/pen3.ogg')
 			if(SFX_POURING)
 				soundin = pick('modular_dripstation/sound/effects/pour1.ogg','modular_dripstation/sound/effects/pour2.ogg')
+			if(SFX_700EJECT)
+				soundin = pick('modular_dripstation/sound/weapons/rifle/700N-Shell1.wav', 'modular_dripstation/sound/weapons/rifle/700N-Shell2.wav')
 			//DRIPSTATION EDIT END
 			if(SFX_SHATTER)
 				soundin = pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg')

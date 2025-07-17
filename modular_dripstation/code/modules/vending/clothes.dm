@@ -193,6 +193,8 @@
 					/obj/item/clothing/under/yogs/soviet_dress_uniform = 1,
 					/obj/item/clothing/under/syndicate/soviet/gorka = 1,
 					/obj/item/clothing/under/syndicate/soviet/pants = 1,
+					/obj/item/clothing/head/sovietsidecap = 1,
+					/obj/item/clothing/head/sovietofficerhat = 1,
 					/obj/item/storage/belt/fannypack/black = 2,
 					/obj/item/clothing/under/syndicate/waffle/cargo = 1,
 					/obj/item/clothing/under/syndicate/donk = 1,

@@ -181,3 +181,4 @@ GLOBAL_LIST_INIT(announcer_keys, list(
 #define SFX_STAMPING "stamp_sounds"
 #define SFX_WRITING "writing_sounds"
 #define SFX_POURING "pouring_sounds"
+#define SFX_700EJECT "eject_700"
