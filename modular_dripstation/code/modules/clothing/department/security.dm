@@ -353,6 +353,19 @@
 	mutantrace_variation = NONE
 	fitted = FEMALE_UNIFORM_TOP
 
+/obj/item/clothing/suit/hooded/wintercoat/security/physician
+	name = "brig physician's winter coat"
+	desc = "A red, armour-padded winter coat. It glitters with a mild ablative coating and a robust air of authority."
+	icon_state = "coatalt_brigphys"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/physician
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+
+/obj/item/clothing/head/hooded/winterhood/security/physician
+	icon_state = "winterhoodalt_brigphys"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'	
+
 ////Detective////
 /obj/item/clothing/under/rank/security/detective
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/security/detective.dmi'

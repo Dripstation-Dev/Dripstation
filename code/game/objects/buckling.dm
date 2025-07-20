@@ -67,7 +67,7 @@
 		M.buckling = null
 		return FALSE
 
-	if(M != usr)
+	if(usr && M != usr)
 		if(!do_after(usr, 0.7 SECONDS, M))
 			to_chat(usr, span_warning("You failed to buckle [M] to [src]!"))
 	// This signal will check if the mob is mounting this atom to ride it. There are 3 possibilities for how this goes

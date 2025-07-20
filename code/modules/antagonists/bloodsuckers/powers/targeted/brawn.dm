@@ -14,6 +14,7 @@
 	bloodcost = 8
 	cooldown_time = 9 SECONDS
 	target_range = 1
+	sol_multiplier = 5
 	power_activates_immediately = TRUE
 	prefire_message = "Select a target."
 	ascended_power = /datum/action/cooldown/bloodsucker/targeted/brawn/shadow

@@ -16,6 +16,7 @@
 	purchase_flags = BLOODSUCKER_CAN_BUY|VASSAL_CAN_BUY
 	bloodcost = 10
 	cooldown_time = 10 SECONDS
+	sol_multiplier = 15
 	power_activates_immediately = FALSE
 	ascended_power = /datum/action/cooldown/bloodsucker/targeted/lunge/shadow
 

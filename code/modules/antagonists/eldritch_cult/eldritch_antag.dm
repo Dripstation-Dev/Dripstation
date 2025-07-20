@@ -249,22 +249,18 @@
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	var/mob/living/current = owner.current
-	if(mob_override)
-		current = mob_override
-		RegisterSignal(current, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))//dripstation edit
-	handle_clown_mutation(current, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-	current.faction |= "heretics"
+	var/mob/living/our_mob = mob_override || owner.current
+	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))//dripstation edit
+	handle_clown_mutation(our_mob, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+	our_mob.faction |= "heretics"
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-	var/mob/living/current = owner.current
-	if(mob_override)
-		current = mob_override
-	UnregisterSignal(current, list(
+	var/mob/living/our_mob = mob_override || owner.current
+	UnregisterSignal(our_mob, list(
 		COMSIG_MOB_ITEM_AFTERATTACK
 	))			//dripstation edit
-	current.faction -= "heretics"
+	our_mob.faction -= "heretics"
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
@@ -956,6 +952,7 @@
 
 /// A 3x3 heretic rune. The kind heretics actually draw in game.
 /obj/effect/eldritch/big
+	name = "forbidden rune"
 	icon = 'modular_dripstation/icons/effects/96x96.dmi'
 	icon_state = "transmutation_rune"
 	pixel_x = -33 //So the big ol' 96x96 sprite shows up right

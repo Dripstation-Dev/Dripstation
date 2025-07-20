@@ -1107,7 +1107,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return
 	to_chat(src, span_userdanger("Statpanel failed to load, click <a href='byond://?src=[REF(src)];reload_statbrowser=1'>here</a> to reload the panel "))
 */
-	to_chat(src, span_userdanger("If statpanel failed to load, click <a href='byond://?src=[REF(src)];reload_statbrowser=1'>here</a> to reload it."))
+	to_chat(src, span_userdanger("If statpanel failed to load, click <a href='byond://?src=[REF(src)];reload_tguipanel=1'>here</a> to reload it.")) //ah hell no, people just press this and have white statpannel, will fix this later, for now reload_statbrowser removed
 
 /client/verb/reload_statpanel()
 	set name = "Reload Statpanel"

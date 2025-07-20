@@ -188,6 +188,7 @@
 #include "code\game\objects\items\toys.dm"
 #include "code\game\objects\items\trash.dm"
 #include "code\game\objects\items\twohanded\dualsaber.dm"
+#include "code\game\objects\items\umbrella.dm"
 #include "code\game\objects\items\weaponry.dm"
 #include "code\game\objects\items\wielded\sledgehammer.dm"
 #include "code\game\objects\items\wirecutters.dm"

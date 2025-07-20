@@ -832,6 +832,7 @@
 					/obj/item/ammo_box/magazine/wt550m9/wtr,
 					/obj/item/ammo_box/magazine/wt550m9/wtr)
 
+/* Dripstation edit
 /datum/supply_pack/weaponry/wt550
 	name = "Surplus Security Autocarbine Crate"
 	desc = "Contains two high-powered, semiautomatic carbines chambered in 4.6x30mm rounds. Requires Armory access to open."
@@ -846,6 +847,7 @@
 	cost = 2000
 	contains = list(/obj/item/gun/ballistic/automatic/wt550)
 	small_item = TRUE
+*/
 
 /datum/supply_pack/weaponry/wintonrifle
 	name = "Winton Mk. VI Repeating Rifles Crate"

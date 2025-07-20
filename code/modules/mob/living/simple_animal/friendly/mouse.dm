@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	move_force = MOVE_FORCE_EXTREMELY_WEAK
 	faction = list("neutral", "rat") //while they aren't rats, we don't want ai controlled rats killing these because rat king can convert them
-	var/chew_probability = 1
+	var/chew_probability = 50	//fucking eat the wires already FUCK
 	var/full = FALSE
 	var/eating = FALSE
 	var/cheesed = FALSE
@@ -116,9 +116,9 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability))
 		var/turf/open/floor/F = get_turf(src)
-		if(istype(F) && !F.underfloor_accessibility >= UNDERFLOOR_INTERACTABLE)
+		if(istype(F) && F.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)
 			var/obj/structure/cable/C = locate() in F
-			if(C && prob(15))
+			if(C)	//if(C && prob(15))
 				if(C.avail())
 					visible_message(span_warning("[src] chews through the [C]. It's toast!"))
 					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
@@ -129,7 +129,7 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 					visible_message(span_warning("[src] chews through the [C]."))
 
 			var/obj/structure/ethernet_cable/E = locate() in F
-			if(E && prob(15))
+			if(E)	//if(E && prob(15))
 				E.deconstruct()
 				visible_message(span_warning("[src] chews through the [E]."))
 	for(var/obj/item/reagent_containers/food/snacks/cheesewedge/cheese in range(1, src))

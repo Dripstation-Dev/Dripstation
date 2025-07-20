@@ -23544,6 +23544,7 @@
 /obj/item/transfer_valve{
 	pixel_x = -5
 	},
+/obj/structure/table/glass,
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_mothership/bombthreat)
 "krq" = (
@@ -24099,6 +24100,7 @@
 	pixel_x = 18;
 	pixel_y = 5
 	},
+/obj/structure/table/glass,
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_mothership/bombthreat)
 "mWi" = (
@@ -24532,13 +24534,6 @@
 /obj/machinery/camera{
 	network = list("nukie");
 	c_tag = "Toxins"
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/centcom/syndicate_mothership/bombthreat)
-"oHD" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_mothership/bombthreat)
@@ -39254,7 +39249,7 @@ aqa
 alm
 aqa
 xzH
-oHD
+njc
 the
 iqg
 njc

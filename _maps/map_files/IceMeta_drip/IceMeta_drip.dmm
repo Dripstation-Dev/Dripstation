@@ -3651,8 +3651,7 @@
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	name = "Infirmary";
-	red_alert_access = 1;
-	req_access_txt = "5"
+	req_one_access = list(74, 5)
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -7993,8 +7992,11 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/port/aft)
 "cje" = (
@@ -20928,6 +20930,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/starboard/fore)
 "fQt" = (
@@ -22497,8 +22502,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/starboard)
 "gjN" = (
@@ -23301,7 +23309,7 @@
 	icon_state = "0-8"
 	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/starboard/fore)
 "gvL" = (
@@ -24643,15 +24651,13 @@
 /turf/open/floor/catwalk_floor,
 /area/maintenance/aft)
 "gMu" = (
-/obj/machinery/computer/prisoner{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/suit_storage_unit/warden,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "gMx" = (
@@ -25302,7 +25308,7 @@
 	},
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/starboard/secondary)
 "gTi" = (
@@ -25855,7 +25861,7 @@
 "gZX" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/port/fore)
 "hat" = (
@@ -29809,8 +29815,11 @@
 	},
 /obj/structure/cable/yellow,
 /obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/starboard)
 "igc" = (
@@ -32312,6 +32321,13 @@
 /obj/item/clothing/suit/armor/hos/trenchcoat/winter,
 /turf/open/floor/carpet,
 /area/crew_quarters/heads/hos)
+"iOa" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered,
+/area/maintenance/port/aft)
 "iOi" = (
 /obj/machinery/computer/station_alert{
 	dir = 1
@@ -33827,8 +33843,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/port/fore)
 "jhQ" = (
@@ -38559,8 +38578,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/fore)
 "ksR" = (
@@ -38672,7 +38694,7 @@
 	},
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/port/aft)
 "kup" = (
@@ -40297,6 +40319,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/starboard/aft)
@@ -43389,11 +43414,11 @@
 	},
 /area/hallway/primary/central)
 "lIO" = (
-/obj/machinery/computer/crew{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/machinery/computer/prisoner{
+	dir = 8
 	},
 /turf/open/floor/plasteel/dark/side{
 	icon_state = "textured_dark_edge"
@@ -46075,7 +46100,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered{
+	uncoveredchance = 80
+	},
 /area/maintenance/port/fore)
 "mqE" = (
 /obj/structure/disposalpipe/segment{
@@ -50215,8 +50242,11 @@
 	},
 /obj/structure/cable/yellow,
 /obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/port/fore)
 "ntL" = (
@@ -50808,14 +50838,6 @@
 	},
 /obj/structure/filingcabinet/chestdrawer{
 	pixel_y = 2
-	},
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/obj/item/pen{
-	pixel_x = -2;
-	pixel_y = 13
 	},
 /turf/open/floor/plasteel/dark/side{
 	icon_state = "textured_dark_edge"
@@ -52738,7 +52760,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/lootdrop/maint_fauna,
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered{
+	uncoveredchance = 80
+	},
 /area/maintenance/starboard/fore)
 "nZl" = (
 /obj/structure/disposalpipe/segment{
@@ -53082,7 +53106,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/port/aft)
 "odX" = (
 /obj/structure/sign/warning/securearea,
@@ -56512,7 +56536,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/machinery/modular_computer/console/preset/security{
+/obj/machinery/modular_computer/console/preset/warden{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
@@ -60677,8 +60701,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/port)
 "qkW" = (
@@ -61410,8 +61437,11 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/department/cargo)
 "qsy" = (
@@ -62683,8 +62713,7 @@
 	dir = 4;
 	icon_state = "right";
 	name = "Infirmary";
-	red_alert_access = 1;
-	req_access_txt = "5"
+	req_one_access = list(74, 5)
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -71134,6 +71163,9 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/lootdrop/grille_or_trash,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/port/fore)
 "tam" = (
@@ -71396,6 +71428,14 @@
 	dir = 9
 	},
 /area/security/prison/hallway)
+"tcT" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered{
+	uncoveredchance = 80
+	},
+/area/maintenance/starboard/fore)
 "tcV" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -71584,7 +71624,15 @@
 	pixel_x = 21;
 	pixel_y = 32
 	},
-/obj/machinery/suit_storage_unit/warden,
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/pen{
+	pixel_x = -2;
+	pixel_y = 13
+	},
 /turf/open/floor/plasteel/dark/side{
 	icon_state = "textured_dark_edge";
 	dir = 1
@@ -74654,6 +74702,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/port/aft)
 "tWJ" = (
@@ -75761,6 +75812,9 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/port/aft)
 "unz" = (
@@ -79037,6 +79091,9 @@
 	icon_state = "0-2"
 	},
 /obj/effect/spawner/lootdrop/grille,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/port/aft)
 "vdm" = (
@@ -81823,7 +81880,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered{
+	uncoveredchance = 80
+	},
 /area/maintenance/port/fore)
 "vQG" = (
 /obj/machinery/door/airlock{
@@ -83953,7 +84012,7 @@
 	},
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/wire_splicing/thirty,
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/port/fore)
 "wqi" = (
 /obj/structure/table,
@@ -85993,8 +86052,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered{
-	uncoveredchance = 100
+	uncoveredchance = 80
 	},
 /area/maintenance/starboard/fore)
 "wPV" = (
@@ -89101,7 +89163,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/catwalk_floor,
+/turf/open/floor/catwalk_floor/chance_to_be_uncovered{
+	uncoveredchance = 80
+	},
 /area/maintenance/port/fore)
 "xEm" = (
 /obj/machinery/door/poddoor/preopen{
@@ -240519,7 +240583,7 @@ nhh
 nhh
 fSP
 uYo
-xLq
+xLz
 xLq
 unt
 xLq
@@ -241818,7 +241882,7 @@ qMy
 cZD
 raW
 qTQ
-uQT
+iOa
 uQT
 dcY
 fSP
@@ -242256,7 +242320,7 @@ rxE
 rNk
 rNk
 nRF
-erT
+asD
 brT
 alw
 tKR
@@ -258214,7 +258278,7 @@ gak
 uqV
 cTm
 qBu
-rzS
+tcT
 rzS
 xZp
 kLJ

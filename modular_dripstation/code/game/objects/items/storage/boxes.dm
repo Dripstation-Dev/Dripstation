@@ -628,6 +628,23 @@
 	opened = !opened
 	update_icon()
 
+/obj/item/storage/box/gunset/wt550
+	name = "WT-550 case"
+	desc = "This case contains a WT-550 and enough ammo."
+
+/obj/item/storage/box/gunset/wt550/Initialize(mapload)
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 10
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.set_holdable(list(
+		/obj/item/gun/ballistic/automatic/wt550,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/ammo_box/magazine/wt550m9,
+		/obj/item/attachment/grip/angled, 
+		/obj/item/attachment/scope/holo
+		))
+
 /obj/item/storage/box/gunset/infiltrator
 	name = "insidious case"
 	desc = "Bearing the emblem of the Syndicate, this case contains a full infiltrator stealth suit, and has enough room to fit weaponry if necessary."

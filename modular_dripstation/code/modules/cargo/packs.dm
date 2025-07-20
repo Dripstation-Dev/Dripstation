@@ -339,6 +339,21 @@
 /datum/supply_pack/security/armory
 	crate_type = /obj/structure/closet/crate/secure/nanotrasen
 
+/datum/supply_pack/security/armory/wt550
+	name = "Surplus Security Autocarbine Crate"
+	desc = "Contains two cases of high-powered, semiautomatic carbines chambered in 4.6x30mm rounds. Requires Armory access to open."
+	cost = 4500
+	contains = list(/obj/item/storage/box/gunset/wt550,
+					/obj/item/storage/box/gunset/wt550)
+	crate_name = "autocarbine crate"
+
+/datum/supply_pack/security/armory/wt550_single
+	name = "Surplus Security Autocarbine Single-Pack"
+	desc = "Contains one cases of high-powered, semiautomatic carbine chambered in 4.6x30mm rounds. Requires Armory access to open."
+	cost = 3000
+	contains = list(/obj/item/storage/box/gunset/wt550)
+	small_item = TRUE
+
 /datum/supply_pack/security/armory/swat
 	desc = "Contains two fullbody sets of tough, fireproof, pressurized suits designed in a joint effort by Terragov and Nanotrasen. Each set contains a suit, helmet, mask, combat belt, and NT brand tackler gloves. Requires Armory access to open."
 	contains = list(/obj/item/clothing/head/helmet/swat/nanotrasen,
@@ -351,6 +366,18 @@
 					/obj/item/storage/belt/military/assault,
 					/obj/item/clothing/gloves/tackler/nt,
 					/obj/item/clothing/gloves/tackler/nt)
+
+/datum/supply_pack/security/armory/sacrificial
+	name = "Sacrificial Armor Crate"
+	desc = "Contains two pieces of sacrificial armored vest. Requires Security access to open."
+	cost = 8000
+	contains = list(/obj/item/clothing/suit/armor/vest/sacrificial,
+					/obj/item/clothing/suit/armor/vest/sacrificial,
+					/obj/item/clothing/under/syndicate/camo/peacekeeper,
+					/obj/item/clothing/under/syndicate/camo/peacekeeper,
+					/obj/item/clothing/head/helmet/sacrificial,
+					/obj/item/clothing/head/helmet/sacrificial)
+	crate_name = "sacrificial armor crate"
 
 /datum/supply_pack/security/securityclothes
 	name = "Spearhead brand Clothing Crate"

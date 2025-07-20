@@ -18,6 +18,7 @@
 	bloodcost = 6
 	cooldown_time = 12 SECONDS
 	target_range = 15
+	sol_multiplier = 10
 	power_activates_immediately = TRUE
 	ascended_power = /datum/action/cooldown/bloodsucker/targeted/haste/shadow
 	/// Current hit, set while power is in use as we can't pass the list as an extra calling argument in registersignal.

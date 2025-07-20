@@ -181,6 +181,7 @@
 	new /obj/item/clothing/under/yogs/rank/physician/turtle/skirt(src)
 	new /obj/item/clothing/suit/toggle/labcoat/physician(src)
 	new /obj/item/clothing/suit/toggle/labcoat/emt/physician(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/security/physician(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile/black(src)
 	new /obj/item/clothing/head/beret/med/phys(src)
 	new /obj/item/clothing/head/beret/corpsec/phys(src)

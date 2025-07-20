@@ -125,7 +125,7 @@
 /obj/item/radio/headset/headset_cargo/explorer
 	name = "explorer`s radio headset"
 	desc = "Headset used by explorers."
-	icon_state = "expl_headset_alt"
+	icon_state = "expl_headset"
 	keyslot = new /obj/item/encryptionkey/headset_mining
 
 /obj/item/radio/headset/headset_medcargo

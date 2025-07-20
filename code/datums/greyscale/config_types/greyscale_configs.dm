@@ -299,3 +299,19 @@
 	icon_file = 'icons/mob/clothing/head/winterhood.dmi'
 	json_config = 'code/datums/greyscale/json_configs/wintercoats_hood_worn.json' 
 */
+
+//Dripstation edit
+/datum/greyscale_config/umbrella
+	name = "Umbrella"
+	icon_file = 'modular_dripstation/icons/obj/weapons/umbrellas.dmi'
+	json_config = 'code/datums/greyscale/json_configs/umbrella.json'
+
+/datum/greyscale_config/umbrella_inhand_left
+	name = "Held Umbrella, Left, Closed"
+	icon_file = 'modular_dripstation/icons/mob/inhands/umbrellas_inhand_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/umbrella_inhand.json'
+
+/datum/greyscale_config/umbrella_inhand_right
+	name = "Held Umbrella, Right, Closed"
+	icon_file = 'modular_dripstation/icons/mob/inhands/umbrellas_inhand_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/umbrella_inhand.json'

@@ -59,6 +59,9 @@
 		// an audible terminal_on click.
 		if(is_living)
 			concurrent_users += user_ref
+		// Open UI
+		ui = new(user, src, tgui_id, filedesc)
+		ui.open()
 		// Register map objects
 		cam_screen.display_to(user, ui.window)
 		return ..()

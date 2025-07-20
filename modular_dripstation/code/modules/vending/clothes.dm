@@ -182,7 +182,9 @@
 					/obj/item/clothing/shoes/singery = 1,
 					/obj/item/clothing/shoes/singerb = 1,
 					/obj/item/clothing/shoes/yogs/trainers = 1,
-					/obj/item/clothing/shoes/yogs/fuzzy_slippers = 3)
+					/obj/item/clothing/shoes/yogs/fuzzy_slippers = 3,
+					/obj/item/umbrella = 3,
+					/obj/item/umbrella/parasol = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/mask/scarf = 1,

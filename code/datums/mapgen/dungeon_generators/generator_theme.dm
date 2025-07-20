@@ -77,8 +77,6 @@
 	weighted_possible_wall_types = list(
 		/turf/closed/wall = 25,
 		/turf/closed/wall/rust = 2,
-		/obj/structure/falsewall = 1,
-		/obj/structure/grille = 2,
 		
 	)
 
@@ -121,7 +119,6 @@
 		/turf/closed/wall = 1,
 		/turf/closed/wall/rust = 1,
 		/turf/closed/wall/ice = 2,
-		/obj/structure/grille = 2,
 		)
 
 	weighted_againstwall_spawn_list = list(

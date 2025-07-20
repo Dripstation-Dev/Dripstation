@@ -108,6 +108,7 @@
 
 		return
 	is_in_use = FALSE
+	loc.balloon_alert(user, "ritual failed, missing components!")
 	to_chat(user,span_warning("Your ritual failed! You used the wrong components or are missing something important!"))
 
 /* Dripstation edit

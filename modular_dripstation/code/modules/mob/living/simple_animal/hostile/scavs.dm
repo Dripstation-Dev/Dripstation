@@ -232,10 +232,32 @@
 	armor = list(MELEE = 30, BULLET = 0, LASER = 10, ENERGY = 20, BOMB = 20)
 
 /datum/outfit/banditcorpse/ranged/shotgun
-	name = "Bandit Corpse Ranged"
+	name = "Bandit Corpse Shotgun"
 	suit = /obj/item/clothing/suit/jacket/leather/overcoat/bandit
 	mask = /obj/item/clothing/mask/cigarette/space_cigarette
 	head = /obj/item/clothing/head/beret/black/bandit
+
+/mob/living/simple_animal/hostile/bandit/ranged/elite
+	maxHealth = 120
+	health = 120
+	ranged = 3
+	retreat_distance = 4
+	minimum_distance = 4
+	icon_state = "slav_bandit_ak"
+	icon_living = "slav_bandit_ak"
+	projectilesound = 'sound/weapons/rifleshot.ogg'
+	casingtype = /obj/item/ammo_casing/a762x39
+	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 30)
+	loot = list(/obj/effect/mob_spawn/human/corpse/bandit/ranged/elite, /obj/item/gun/ballistic/automatic/ar/ak47)
+
+/obj/effect/mob_spawn/human/corpse/bandit/ranged/elite
+	outfit = /datum/outfit/banditcorpse/ranged/elite
+
+/datum/outfit/banditcorpse/ranged/elite
+	name = "Bandit Corpse Elite"
+	suit = /obj/item/clothing/suit/armor/vest
+	mask = /obj/item/clothing/mask/cigarette/space_cigarette
+	head = /obj/item/clothing/head/helmet
 
 
 /mob/living/simple_animal/hostile/bandit/ranged/killa

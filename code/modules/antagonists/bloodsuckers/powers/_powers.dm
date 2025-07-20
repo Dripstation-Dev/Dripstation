@@ -23,7 +23,7 @@
 
 	// FLAGS //
 	/// The effects on this Power (Toggled/Single Use/Static Cooldown)
-	var/power_flags = BP_AM_TOGGLE|BP_AM_SINGLEUSE|BP_AM_STATIC_COOLDOWN|BP_AM_COSTLESS_UNCONSCIOUS
+	var/power_flags = BP_AM_TOGGLE|BP_AM_SINGLEUSE|BP_AM_STATIC_COOLDOWN|BP_AM_COSTLESS_UNCONSCIOUS|BP_CANT_USE_DURING_SOL
 	/// Requirement flags for checks
 	check_flags = BP_CANT_USE_IN_TORPOR|BP_CANT_USE_IN_FRENZY|BP_CANT_USE_WHILE_STAKED|BP_CANT_USE_WHILE_INCAPACITATED|BP_CANT_USE_WHILE_UNCONSCIOUS
 	/// Who can purchase the Power
@@ -38,6 +38,8 @@
 	var/bloodcost = 0
 	///The cost to MAINTAIN this Power - Only used for Constant Cost Powers
 	var/constant_bloodcost = 0
+	/// A multiplier for the bloodcost during sol.
+	var/sol_multiplier
 	///If the Power has any additional descriptions coming from either 3rd partys or the power itself
 	var/additional_text = ""
 	///Path to the ascended version of the power. For Lasombra bloodsucker powers
@@ -46,6 +48,7 @@
 // Modify description to add cost.
 /datum/action/cooldown/bloodsucker/New(Target)
 	. = ..()
+	RegisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN, PROC_REF(on_sol_warning))
 	UpdateDesc()
 
 /datum/action/cooldown/bloodsucker/proc/UpdateDesc()
@@ -65,7 +68,25 @@
 
 /datum/action/cooldown/bloodsucker/Destroy()
 	bloodsuckerdatum_power = null
+	UnregisterSignal(SSsunlight, COMSIG_SOL_WARNING_GIVEN)
 	return ..()
+
+/datum/action/cooldown/bloodsucker/proc/on_sol_warning(datum/source, danger_level, vampire_warning_message, vassal_warning_message)
+	SIGNAL_HANDLER
+	if(danger_level != DANGER_LEVEL_SOL_ROSE || !active)
+		return
+	if(check_flags & BP_CANT_USE_DURING_SOL)
+		if(can_deactivate())
+			to_chat(owner, span_userdanger("Sol prevents you from using [name]!"), type = MESSAGE_TYPE_WARNING)
+			DeactivatePower()
+	else if(sol_multiplier)
+		to_chat(owner, span_userdanger("Sol burdens your body, [name] now costs more blood to upkeep!"), type = MESSAGE_TYPE_WARNING)
+
+// Gets the current cost of the ability, accounting for `sol_multiplier` during Sol.
+/datum/action/cooldown/bloodsucker/proc/get_blood_cost(constant = FALSE)
+	. = constant ? constant_bloodcost : bloodcost
+	if(bloodsuckerdatum_power && sol_multiplier && SSsunlight.sunlight_active)
+		. *= sol_multiplier
 
 /datum/action/cooldown/bloodsucker/IsAvailable(feedback = FALSE)
 	return next_use_time <= world.time
@@ -97,6 +118,7 @@
 		owner.balloon_alert(owner, "power unavailable!")
 		to_chat(owner, "[src] on cooldown!")
 		return FALSE
+	var/bloodcost = get_blood_cost()
 	if(!bloodsuckerdatum_power)
 		var/mob/living/living_owner = owner
 		if(living_owner.blood_volume < bloodcost)
@@ -142,6 +164,8 @@
 	if((check_flags & BP_CANT_USE_WHILE_INCAPACITATED) && (user.incapacitated(ignore_restraints = TRUE, ignore_grab = TRUE)))
 		to_chat(user, span_warning("Not while you're incapacitated!"))
 		return FALSE
+	var/bloodcost = get_blood_cost()
+	var/constant_bloodcost = get_blood_cost(constant = TRUE)
 	// Constant Cost (out of blood)
 	if(!bloodsuckerdatum_power)
 		var/mob/living/living_owner = owner
@@ -172,6 +196,7 @@
 
 /datum/action/cooldown/bloodsucker/proc/pay_cost()
 	// Non-bloodsuckers will pay in other ways.
+	var/bloodcost = get_blood_cost()
 	if(!bloodsuckerdatum_power)
 		var/mob/living/carbon/living_owner = owner
 		if(!LAZYFIND(living_owner.dna.species.species_traits, NOBLOOD))
@@ -188,6 +213,7 @@
 	if(power_flags & BP_AM_TOGGLE)
 		START_PROCESSING(SSprocessing, src)
 
+	var/bloodcost = get_blood_cost()
 	owner.log_message("used [src][bloodcost != 0 ? " at the cost of [bloodcost]" : ""].", LOG_ATTACK, color="red")
 	build_all_button_icons()
 
@@ -212,6 +238,7 @@
 		return FALSE
 	// We can keep this up (For now), so Pay Cost!
 	if(!(power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && owner.stat != CONSCIOUS)
+		var/constant_bloodcost = get_blood_cost(constant = TRUE)
 		if(bloodsuckerdatum_power)
 			bloodsuckerdatum_power.AddBloodVolume(-constant_bloodcost)
 		else
@@ -223,13 +250,17 @@
 /datum/action/cooldown/bloodsucker/proc/ContinueActive(mob/living/user, mob/living/target)
 	if(!user)
 		return FALSE
-	if(!constant_bloodcost > 0)
+	var/constant_bloodcost = get_blood_cost(constant = TRUE)
+	if(constant_bloodcost <= 0)
 		return TRUE
-	if(bloodsuckerdatum_power?.bloodsucker_blood_volume)
+	if((power_flags & BP_AM_COSTLESS_UNCONSCIOUS) && user.stat != CONSCIOUS)
 		return TRUE
-	if(user.blood_volume)
+	if(bloodsuckerdatum_power)
+		if(bloodsuckerdatum_power.bloodsucker_blood_volume >= constant_bloodcost)
+			return TRUE
+	else if(user.blood_volume >= max(constant_bloodcost, BLOOD_VOLUME_OKAY(user)))
 		return TRUE
-
+	return FALSE
 /// Used to unlearn Single-Use Powers
 /datum/action/cooldown/bloodsucker/proc/remove_after_use()
 	bloodsuckerdatum_power?.powers -= src

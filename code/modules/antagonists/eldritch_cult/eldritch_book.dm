@@ -1,8 +1,9 @@
 /obj/item/forbidden_book
 	name = "Codex Cicatrix"
 	desc = "A book with a peculiar lock on it, there's no keyhole."
-	icon = 'icons/obj/eldritch.dmi'
+	icon = 'modular_dripstation/icons/obj/eldritch.dmi'
 	icon_state = "book"
+	base_icon_state = "book"
 	worn_icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
 	///Last person that touched this
@@ -51,9 +52,16 @@
 /obj/item/forbidden_book/interact(mob/user)
 	. = ..()
 	if(!IS_HERETIC(user))
-		to_chat(user,span_userdanger("The book starts gnawing at your fingers!"))
+		balloon_alert(user, "the book starts gnawing at your fingers!")
 		return
-	open_animation()	//Dripstation edit
+	if(book_open)
+		balloon_alert(user, "book is already opened!")
+		return
+	open_animation()
+	if(!istype(user) || !user.can_read(src))
+		balloon_alert(user, "you can`t read anything!")
+		return
+	//open_animation()	//Dripstation edit
 	var/list/datum/eldritch_knowledge/recall_list = list()
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/list/transmutations = cultie.get_all_transmutations()
@@ -62,7 +70,7 @@
 		if(!ET.required_shit_list)
 			continue
 		recall_list[ET.name] = ET.required_shit_list
-	var/ctrlf = input(user, "Select a ritual to recall its reagents.", "Recall Knowledge") as null | anything in recall_list
+	var/ctrlf = tgui_input_list(user, "Select a ritual to recall its reagents.", "Recall Knowledge", recall_list)
 	if(ctrlf)
 		to_chat(user, span_cult("Transmutation requirements for [ctrlf]: [recall_list[ctrlf]]"))
 
@@ -106,17 +114,6 @@
 	if(do_after(user, 2 SECONDS, target))
 		qdel(target)
 
-
-
-/obj/item/forbidden_book/attack_self(mob/user, modifiers)
-	. = ..()
-	if(.)
-		return
-
-	if(book_open)
-		close_animation()
-	else
-		open_animation()
 
 /// Plays a little animation that shows the book opening and closing.
 /obj/item/forbidden_book/proc/open_animation()

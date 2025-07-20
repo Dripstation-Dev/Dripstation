@@ -349,7 +349,7 @@
 	if(!owner)
 		return
 
-	if(!istype(owner.current.loc, /obj/structure))
+	if(!istype(owner.current.loc, /obj/structure) && !HAS_TRAIT(owner.current, TRAIT_SHADED))
 		if(COOLDOWN_FINISHED(src, bloodsucker_spam_sol_burn))
 			if(bloodsucker_level > 0)
 				to_chat(owner, span_userdanger("The solar flare sets your skin ablaze!"))
@@ -377,7 +377,7 @@
 		return
 
 	if(COOLDOWN_FINISHED(src, bloodsucker_spam_sol_burn)) // Closets offer SOME protection
-		to_chat(owner, span_warning("Your skin sizzles. [owner.current.loc] doesn't protect well against UV bombardment."))
+		to_chat(owner, span_warning("Your skin sizzles. [HAS_TRAIT(owner.current, TRAIT_SHADED) ? "umbrella" : owner.current.loc] doesn't protect well against UV bombardment."))
 		COOLDOWN_START(src, bloodsucker_spam_sol_burn, BLOODSUCKER_SPAM_SOL) //This should happen twice per Sol
 	owner.current.adjustFireLoss(0.5 + (bloodsucker_level / 4))
 	owner.current.updatehealth()
@@ -584,7 +584,7 @@
 	timeout = 6 MINUTES
 
 /datum/mood_event/daylight_1
-	description = "<span class='boldwarning'>I slept poorly in a makeshift coffin during the day.</span>\n"
+	description = "<span class='boldwarning'>I feel terrible after beeng particaly exposed to UV lights during the day.</span>\n"
 	mood_change = -3
 	timeout = 6 MINUTES
 

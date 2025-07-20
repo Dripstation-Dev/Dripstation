@@ -75,6 +75,11 @@
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/terragov/terragov.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/terragov/terragov.dmi'
 
+/obj/item/clothing/under/syndicate/camo/peacekeeper
+	name = "terragov peacekeeper fatigues"
+	desc = "A sleek urban military camouflage uniform worn by terragov peacekeepers."
+	icon_state = "peacekeeper"
+
 /obj/item/clothing/under/syndicate/camo/urban
 	name = "terragov urban camouflage fatigues"
 	desc = "A urban military camouflage uniform. You can find this on T.G.A.F. soldiers."

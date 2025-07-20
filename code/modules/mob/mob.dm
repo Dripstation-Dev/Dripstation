@@ -881,12 +881,12 @@
 	var/list/objectives = mind?.get_all_objectives()
 	if(LAZYLEN(objectives))
 		var/obj_count = 1
-		. += "<B>Objectives:</B>"
+		. += "Objectives:"
 		for(var/datum/objective/objective in mind?.get_all_objectives())
 /*	Dripstation edit start
 			. += "<B>[obj_count]</B>: <font color=[objective.check_completion() ? "green" : "red"]>[objective.explanation_text][objective.check_completion() ? " (COMPLETED)" : ""]</font>"
 */
-			. += "<B>[obj_count]</B>: [objective.explanation_text]"	//	Dripstation edit end
+			. += "[obj_count]: [objective.explanation_text]"	//	Dripstation edit end
 			obj_count++
 
 /**

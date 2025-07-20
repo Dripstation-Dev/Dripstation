@@ -424,6 +424,30 @@
 		/turf/open/floor/fakepit = 5,
 		/turf/open/floor/fakepit= 3, 
 		)
+///Bandit rest
+/datum/dungeon_room_theme/maintenance/bandit_camp
+	weighted_feature_spawn_list = list(
+		/obj/structure/bonfire/prelit = 1
+		)
+	mob_spawn_chance = 90
+	weighted_mob_spawn_list = list(
+		/mob/living/simple_animal/hostile/bandit/ranged = 10,
+		/mob/living/simple_animal/hostile/bandit/ranged/elite = 6,
+		/mob/living/simple_animal/hostile/bandit/ranged/shotgun = 8,
+		/mob/living/simple_animal/hostile/bandit/ranged/killa = 1,
+		/mob/living/simple_animal/hostile/bandit/tagilla = 1,
+		)
+///Stalker rest
+/datum/dungeon_room_theme/maintenance/scav_camp
+	weighted_feature_spawn_list = list(
+		/obj/structure/bonfire/prelit = 1
+		)
+	mob_spawn_chance = 70
+	weighted_mob_spawn_list = list(
+		/mob/living/simple_animal/hostile/scav/classic = 10,
+		/mob/living/simple_animal/hostile/scav/medic = 8,
+		/mob/living/simple_animal/hostile/scav/rogue = 5
+		)
 ///im so adding more mines
 /datum/dungeon_room_theme/maintenance/mine_room
 	weighted_feature_spawn_list = list(
