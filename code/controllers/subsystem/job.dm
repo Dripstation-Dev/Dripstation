@@ -914,7 +914,7 @@ SUBSYSTEM_DEF(job)
 /obj/structure/chair/JoinPlayerHere(mob/M, buckle)
 	. = ..()
 	// Placing a mob in a chair will attempt to buckle it, or else fall back to default.
-	if (buckle && isliving(M) && buckle_mob(M, FALSE, FALSE))
+	if (buckle && isliving(M) && buckle_mob(M, FALSE, FALSE, TRUE))
 		return
 
 /obj/machinery/cryopod/JoinPlayerHere(mob/M, buckle)

@@ -162,6 +162,46 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 		return TRUE
 	return FALSE
 
+/obj/structure/closet/proc/animate_break_out(mob/living/user)
+	if(!user || user.stat != CONSCIOUS || user.loc != src)
+		return
+	shaking_anim(TRUE)
+
+/obj/structure
+	var/shaking_restart_timer 
+
+/obj/structure/proc/shaking_anim(repeatable = FALSE)
+	if(anchored)
+		return
+	var/matrix/rtransform = matrix(transform) //aka transform.Copy()
+	var/matrix/ltransform = matrix(transform) //aka transform.Copy()
+	var/oldtransform = transform
+	rtransform.Turn(25)
+	ltransform.Turn(-25)
+	visible_message(message = span_warning("\The [src] begins to shake violently!"), \
+		blind_message = span_italics("You hear banging from \the [src]."))
+	for(var/i in 0 to 1)
+		addtimer(CALLBACK(src, PROC_REF(anim_left), rtransform), 0.2+i SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, -1), 0.4+i SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(anim_right), ltransform), 0.6+i SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, 1), 0.8+i SECONDS)
+	if(repeatable)
+		shaking_restart_timer = addtimer(CALLBACK(src, PROC_REF(shaking_anim)), 2 SECONDS, TIMER_STOPPABLE)
+
+/obj/structure/closet/shaking_anim(repeatable = FALSE)
+	if(opened)
+		return
+	return ..()
+
+/obj/structure/proc/anim_left(rtransform)
+	animate(src, transform = rtransform, time = 0.2 SECONDS, pixel_y = 1, pixel_x = 1, easing = EASE_IN|EASE_OUT)
+
+/obj/structure/proc/anim_normalise(oldtransform, px)
+	animate(src, transform = oldtransform, time = 0.2 SECONDS, pixel_y = -1, pixel_x = px, easing = EASE_IN|EASE_OUT)
+
+/obj/structure/proc/anim_right(ltransform)
+	animate(src, transform = ltransform, time = 0.2 SECONDS, pixel_y = 1, pixel_x = -1, easing = EASE_IN|EASE_OUT)
+
 // ###### HOS ######
 /obj/structure/closet/secure_closet/hos
 	anchored = TRUE	//i`ve commited crime with this

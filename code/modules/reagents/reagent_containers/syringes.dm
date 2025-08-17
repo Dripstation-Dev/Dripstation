@@ -361,7 +361,7 @@
 /obj/item/reagent_containers/syringe/dart
 	name = "reagent dart"
 	amount_per_transfer_from_this = 10
-	embedding = list("pain_chance" = 0, "pain_multiplier" = 0, "rip_time" = 0.25 SECONDS, "remove_pain_mult" = 0, "embed_chance" = 15, "fall_chance" = 0, "embedded_bleed_rate" = 0)
+	embedding = list("pain_chance" = 0, "pain_multiplier" = 0, "rip_time" = 0.25 SECONDS, "remove_pain_mult" = 0, "embed_chance" = 15, "fall_chance" = 0)
 
 /obj/item/reagent_containers/syringe/dart/temp
 	item_flags = DROPDEL

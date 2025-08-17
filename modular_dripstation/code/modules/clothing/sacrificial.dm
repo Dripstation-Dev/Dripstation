@@ -78,8 +78,8 @@
 	//var/damage_dealt = clothing_parent.take_damage(total_damage, BRUTE, hitting_projectile.armour_penetration, FALSE)
 	clothing_parent.take_damage(total_damage, BRUTE, BULLET, null, hitting_projectile.armour_penetration)
 
-	//if(clothing_parent.limb_integrity)	//It just don`t work, I`m tired
-	//	clothing_parent.take_damage_zone(def_zone, total_damage, BRUTE)
+	if(clothing_parent.limb_integrity)	//It just don`t work, I`m tired
+		clothing_parent.take_damage_zone(def_zone, total_damage, BRUTE)
 	
 
 /// Warns any examiner that the clothing we're stuck to will be damaged by piercing bullets
@@ -102,7 +102,7 @@
 	blood_overlay_type = "armor"
 	armor = list(MELEE = 30, BULLET = 90, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, WOUND = 10) // When the level IV plates stop the bullet but not the energy transfer
 	max_integrity = 200
-	limb_integrity = 200
+	limb_integrity = 30
 
 /obj/item/clothing/suit/armor/vest/sacrificial/Initialize(mapload)
 	. = ..()
@@ -139,7 +139,7 @@
 	dog_fashion = null
 	armor = list(MELEE = 30, BULLET = 75, LASER = 10, ENERGY = 10, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 30, WOUND = 10)
 	max_integrity = 200
-	limb_integrity = 200
+	limb_integrity = 0
 
 /obj/item/clothing/head/helmet/sacrificial/Initialize(mapload)
 	. = ..()

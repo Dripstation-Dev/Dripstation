@@ -18,7 +18,6 @@
 	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOLIMBDISABLE,TRAIT_EAT_MORE)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | ERT_SPAWN
 	var/info_text = "You are a <span class='danger'>Nanotrasen Cloned Operative</span>. You have an accelerated metabolism due to the fact that you were cloned by means of low cost growth boosters. Fulfill your duty or die trying."
-	var/list/female_screams = list('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg', 'sound/voice/human/femalescream_5.ogg')
 	var/list/male_screams = list('sound/voice/human/malescream_1.ogg', 'sound/voice/human/malescream_2.ogg', 'sound/voice/human/malescream_3.ogg', 'sound/voice/human/malescream_4.ogg', 'sound/voice/human/malescream_5.ogg')
 	smells_like = "corpo scum"
 
@@ -26,12 +25,9 @@
 	return TRUE
 
 /datum/species/corporate/get_scream_sound(mob/living/carbon/human/H)
-	if(H.gender == FEMALE)
-		return pick(female_screams)
-	else
-		if(prob(1))
-			return 'sound/voice/human/wilhelm_scream.ogg'
-		return pick(male_screams)
+	if(prob(1))
+		return 'sound/voice/human/wilhelm_scream.ogg'
+	return pick(male_screams)
 
 /datum/species/corporate/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
 	. = ..()
@@ -40,3 +36,36 @@
 
 /mob/living/carbon/human/species/corporate
 	race = /datum/species/corporate
+
+/datum/species/corporate/get_laugh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_LAUGH_SOUND(user)
+
+/datum/species/corporate/get_giggle_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
+
+/datum/species/corporate/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/corporate/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/corporate/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/corporate/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/corporate/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/corporate/get_cry_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_CRY_SOUND(user)
+
+/datum/species/corporate/get_moan_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_MOAN_SOUND(user)
+
+/datum/species/corporate/get_lewd_moan_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_LEWD_MOAN_SOUND(user)
+
+/datum/species/corporate/get_yawn_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_YAWN_SOUND(user)

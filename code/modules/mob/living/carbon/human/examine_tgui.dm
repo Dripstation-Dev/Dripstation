@@ -10,7 +10,7 @@
 
 
 /datum/examine_panel/ui_close(mob/user)
-	user.client.clear_map(examine_panel_screen.assigned_map)
+	user?.client?.clear_map(examine_panel_screen.assigned_map)	//there can be no client on closing
 
 
 /atom/movable/screen/map_view/examine_panel_screen

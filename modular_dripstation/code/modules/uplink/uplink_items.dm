@@ -124,7 +124,7 @@
 	name = "Cursed Katana"
 	desc = "Edgy looking katana that has a posibility to kill humans in one blow. Wield with caution -\
 			blade is coated with poison - one pierce of the skin will end your life, agent."
-	item = /obj/item/katana/murasame
+	item = /obj/item/melee/katana/murasame
 	cost = 20
 	surplus = 0
 	player_minimum = 25
@@ -331,7 +331,7 @@
 	cost = 6
 	manufacturer = /datum/corporation/traitor/cybersun
 
-/datum/uplink_item/corp_restricted/aps
+/datum/uplink_item/corp_restricted/altin
 	name = "Altin Striped helmet"
 	desc = "Black Altin helmet with stripes. Extra drip."
 	item = /obj/item/clothing/head/helmet/riot/altin/kill
@@ -356,7 +356,7 @@
 	name = "Real Ak-47"
 	desc = "A faimous automatic rifle of AK system. Older than your grandfather`s grandfather, comrade. But still relible."
 	item = /obj/item/gun/ballistic/automatic/ar/ak47
-	cost = 16
+	cost = 20
 	manufacturer = /datum/corporation/vostok
 
 /datum/uplink_item/corp_restricted/ak47_mag
@@ -364,6 +364,34 @@
 	desc = "A faimous magazine for automatic rifle of AK system. Still relible."
 	item = /obj/item/ammo_box/magazine/r762x39
 	cost = 3
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/rh12
+	name = "RH-12"
+	desc = "Pricy autorevolver typically worn by madman."
+	item = /obj/item/gun/ballistic/revolver/rh12
+	cost = 10
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/rh12_ammo
+	name = "RH-12 Regular Ammo"
+	desc = "20 pricy autorevolver bullet casings in one box."
+	item = /obj/item/ammo_box/no_direct/a127
+	cost = 3
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/rh12_rammo
+	name = "RH-12 AP Ammo"
+	desc = "20 pricy autorevolver bullet casings in one box."
+	item = /obj/item/ammo_box/no_direct/a127/ap
+	cost = 4
+	manufacturer = /datum/corporation/vostok
+
+/datum/uplink_item/corp_restricted/rh12_heavyammo
+	name = "RH-12 Heavy Ammo"
+	desc = "20 pricy autorevolver bullet casings in one box."
+	item = /obj/item/ammo_box/no_direct/a127/heavy
+	cost = 5
 	manufacturer = /datum/corporation/vostok
 
 /datum/uplink_item/corp_restricted/foamsmg_traitor

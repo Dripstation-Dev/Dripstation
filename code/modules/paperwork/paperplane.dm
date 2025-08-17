@@ -117,7 +117,7 @@
 		H.adjust_eye_blur(6)
 		eyes.applyOrganDamage(rand(6,8))
 		H.Paralyze(40)
-		H.emote("scream")
+		H.pain(100, TRUE)
 
 /obj/item/paper/examine(mob/user)
 	. = ..()

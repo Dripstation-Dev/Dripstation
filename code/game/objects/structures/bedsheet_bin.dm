@@ -4,6 +4,10 @@ BEDSHEETS
 LINEN BINS
 */
 
+#define BEDSHEET_ABSTRACT "abstract"
+#define BEDSHEET_SINGLE "single"
+#define BEDSHEET_DOUBLE "double"
+
 /obj/item/bedsheet
 	name = "bedsheet"
 	desc = "A surprisingly soft linen bedsheet."
@@ -23,6 +27,7 @@ LINEN BINS
 	dying_key = DYE_REGISTRY_BEDSHEET
 	var/newbedpath = null
 	var/randomizable = TRUE //can appear via random bedsheets
+	var/bedsheet_type = BEDSHEET_SINGLE
 
 	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
@@ -278,7 +283,11 @@ LINEN BINS
 	icon_state = "random_bedsheet"
 	name = "random bedsheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
+	var/static/list/bedsheet_list
+	var/spawn_type = BEDSHEET_SINGLE
+	bedsheet_type = BEDSHEET_ABSTRACT
 
+/* Dripstation edit
 /obj/item/bedsheet/random/Initialize(mapload)
 	..()
 	var/list/sheets = list(typesof(/obj/item/bedsheet) - /obj/item/bedsheet/random)
@@ -292,11 +301,26 @@ LINEN BINS
 	if(!actualsheet)
 		log_game("Random bedsheet failed to spawn")
 	return INITIALIZE_HINT_QDEL
+*/
+/obj/item/bedsheet/random/Initialize(mapload)
+	..()
+	if(!LAZYACCESS(bedsheet_list, spawn_type))
+		var/list/spawn_list = list()
+		var/list/possible_types = typesof(/obj/item/bedsheet)
+		for(var/obj/item/bedsheet/sheet as anything in possible_types)
+			if(initial(sheet.bedsheet_type) == spawn_type)
+				spawn_list += sheet
+		LAZYSET(bedsheet_list, spawn_type, spawn_list)
+	var/chosen_type = pick(bedsheet_list[spawn_type])
+	var/obj/item/bedsheet = new chosen_type(loc)
+	bedsheet.dir = dir
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/bedsheet/dorms
 	icon_state = "random_bedsheet"
 	name = "random dorms bedsheet"
 	desc = "If you're reading this description ingame, something has gone wrong! Honk!"
+	bedsheet_type = BEDSHEET_ABSTRACT
 
 /obj/item/bedsheet/dorms/Initialize(mapload)
 	..()
@@ -521,3 +545,8 @@ LINEN BINS
 
 /obj/item/bedsheet/adjusted/brown
 	oldbedpath = /obj/item/bedsheet/brown
+
+
+#undef BEDSHEET_ABSTRACT
+#undef BEDSHEET_SINGLE
+#undef BEDSHEET_DOUBLE

@@ -27,9 +27,9 @@ It is possible to destroy the net by the occupant or someone else.
 /obj/structure/energy_net/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(src, 'sound/weapons/slash.ogg', 80, 1)
+			playsound(src, SFX_SLASH, 80, 1)
 		if(BURN)
-			playsound(src, 'sound/weapons/slash.ogg', 80, 1)
+			playsound(src, SFX_SLASH, 80, 1)
 
 /obj/structure/energy_net/Destroy()
 	if(!success)

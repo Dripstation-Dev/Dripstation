@@ -529,7 +529,7 @@
 		ADD_TRAIT(H, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		for(var/i in H.bodyparts)
 			var/obj/item/bodypart/BP = i
-			BP.generic_bleedstacks += 5
+			BP.adjustBleedStacks(5)
 		H.gib_animation()
 		sleep(0.3 SECONDS)
 		H.adjustBruteLoss(1000) //to make the body super-bloody

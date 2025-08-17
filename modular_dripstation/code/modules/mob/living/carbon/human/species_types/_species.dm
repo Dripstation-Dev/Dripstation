@@ -28,5 +28,8 @@
 /datum/species/proc/get_moan_sound(mob/living/carbon/user)
 	return
 
+/datum/species/proc/get_lewd_moan_sound(mob/living/carbon/user)
+	return
+
 /datum/species/proc/get_yawn_sound(mob/living/carbon/user)
 	return

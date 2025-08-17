@@ -48,7 +48,7 @@
 		else
 			to_chat(user, "[span_heavy_brass("\"Do you have a hole in your head? You're about to.\"")]")
 			to_chat(user, span_userdanger("The helmet tries to drive a spike through your head as you scramble to remove it!"))
-			user.emote("scream")
+			user.pain(100, TRUE)
 			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
 			user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 30)
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, dropItemToGround), src, TRUE), 1) //equipped happens before putting stuff on(but not before picking items up), 1). thus, we need to wait for it to be on before forcing it off.
@@ -114,7 +114,7 @@
 		else
 			to_chat(user, "[span_heavy_brass("\"I think this armor is too hot for you to handle.\"")]")
 			to_chat(user, span_userdanger("The cuirass emits a burst of flame as you scramble to get it off!"))
-			user.emote("scream")
+			user.pain(100, TRUE)
 			user.apply_damage(15, BURN, BODY_ZONE_CHEST)
 			user.adjust_fire_stacks(2)
 			user.ignite_mob()
@@ -177,7 +177,7 @@
 		else
 			to_chat(user, "[span_heavy_brass("\"Did you like having arms?\"")]")
 			to_chat(user, span_userdanger("The gauntlets suddenly squeeze tight, crushing your arms before you manage to get them off!"))
-			user.emote("scream")
+			user.pain(100, TRUE)
 			user.apply_damage(7, BRUTE, BODY_ZONE_L_ARM)
 			user.apply_damage(7, BRUTE, BODY_ZONE_R_ARM)
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, dropItemToGround), src, TRUE), 1)
@@ -227,7 +227,7 @@
 		else
 			to_chat(user, "[span_heavy_brass("\"Let's see if you can dance with these.\"")]")
 			to_chat(user, span_userdanger("The treads turn searing hot as you scramble to get them off!"))
-			user.emote("scream")
+			user.pain(100, TRUE)
 			user.apply_damage(7, BURN, BODY_ZONE_L_LEG)
 			user.apply_damage(7, BURN, BODY_ZONE_R_LEG)
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, dropItemToGround), src, TRUE), 1)

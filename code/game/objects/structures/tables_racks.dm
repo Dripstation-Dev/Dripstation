@@ -44,29 +44,30 @@
 	)
 
 /** Performs a complex check for toe stubbing as people would scream "IMPROVE DONT REMOVE" if I had my way.
-  * Uses an early probability based return for to save cycles which is perfectly valid since the highest probability is 20 anyway.
-  * Chance of getting your toe stubbed: (regular = 0.033%, running = 0.1%, blind = 20%, blurry_eyes = 2%, congenitally blind = 1%  )
+  * Uses an early probability based return for to save cycles which is perfectly valid since the highest probability is 40 anyway.
+  * Chance of getting your toe stubbed: (regular = 0.132%, running = 0.4%, blind = 40%, blurry_eyes = 20%, congenitally blind = 4%  )
   * Chance goes up if you go fast, such as with meth. So does damage.
   */
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
-	if(prob(80))
+	if(prob(60))
 		return
 	if(!istype(H) || H.shoes || !(H.mobility_flags & MOBILITY_STAND) || !H.dna.species.has_toes())
 		return
-	var/speed_multiplier = 2/H.cached_multiplicative_slowdown
+	var/speed_multiplier = 4/H.cached_multiplicative_slowdown
 	var/blindness_multiplier = 1
 	if(H.eye_blurry)
-		blindness_multiplier = 4
+		blindness_multiplier = 100
 	if(H.eye_blind)
 		blindness_multiplier = 200
 	if(HAS_TRAIT_FROM(H, "blind", ROUNDSTART_TRAIT))
-		blindness_multiplier = 2
+		blindness_multiplier = 4
 	var/chance = 0.5*blindness_multiplier*speed_multiplier
 	if(prob(chance))
 		to_chat(H, span_warning("You stub your toe on the [name]!"))
 		H.visible_message("[H] stubs their toe on the [name].")
-		H.emote("scream")
+		balloon_alert(H, "stubbed toe")
+		H.pain(100, TRUE)
 		var/shiddedleg = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 		H.apply_damage(2*speed_multiplier, BRUTE, def_zone = shiddedleg)
 		H.apply_damage(30*speed_multiplier, STAMINA, def_zone = shiddedleg)

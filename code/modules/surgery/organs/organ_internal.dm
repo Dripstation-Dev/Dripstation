@@ -22,6 +22,7 @@
 	var/life_tick	 	= 0
 	var/high_threshold	= STANDARD_ORGAN_THRESHOLD * 0.45		//when severe organ damage occurs
 	var/low_threshold	= STANDARD_ORGAN_THRESHOLD * 0.1		//when minor organ damage occurs
+	var/emp_vulnerability = 8
 
 	///Organ variables for determining what we alert the owner with when they pass/clear the damage thresholds
 	var/prev_damage = 0
@@ -58,6 +59,14 @@
 		var/datum/action/A = X
 		A.Grant(M)
 	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src, special)
+
+/**
+ * Proc that gets called when the organ is surgically removed by someone, can be used for special effects
+ * Currently only used so surplus organs can explode when surgically removed.
+ */
+/obj/item/organ/proc/on_surgical_removal(mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_REMOVED, user, old_owner, target_zone, tool)
 
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/M, special = FALSE)
@@ -102,9 +111,23 @@
 				return
 			damage = min(maxHealth, damage + (maxHealth * decay_factor))
 
+/obj/item/organ/emp_act(severity)
+	. = ..()
+	if(!(. & EMP_PROTECT_SELF))
+		if(status == ORGAN_ROBOTIC && prob(emp_vulnerability*severity))	//Chance of permanent effects
+			organ_flags |= ORGAN_EMP //Starts organ faliure - gonna need replacing soon.
+
 /obj/item/organ/proc/on_life()	//repair organ damage if the organ is not failing
 	var/mob/living/carbon/C = owner
 	if(!C)
+		return
+	if(organ_flags & ORGAN_EMP) //Robotic organ has been emped, is now failing.
+		//apply_organ_damage(decay_factor * maxHealth * seconds_per_tick)
+		damage -= maxHealth * decay_factor
+		return
+	if(!damage) // No sense healing if you're not even hurt bro
+		return
+	if(organ_flags & ORGAN_SYNTHETIC) // Synthetic organs don't naturally heal
 		return
 	if(damage >= maxHealth)
 		organ_flags |= ORGAN_FAILING

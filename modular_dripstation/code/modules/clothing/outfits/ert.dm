@@ -152,7 +152,7 @@
 	belt = /obj/item/storage/belt/military/webbing/nt/amber
 	l_pocket = /obj/item/storage/pouch/pistol/centcom_laser
 	suit_store = /obj/item/gun/ballistic/automatic/laser
-	back = /obj/item/katana/monomolecular
+	back = /obj/item/melee/katana/monomolecular
 
 /datum/outfit/ert/trooper/red/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

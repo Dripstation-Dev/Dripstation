@@ -102,6 +102,7 @@
 
 /atom/movable/screen/fullscreen/brute
 	icon_state = "brutedamageoverlay"
+	icon = 'modular_dripstation/icons/mob/fullscreen.dmi'
 	layer = UI_DAMAGE_LAYER
 	plane = FULLSCREEN_PLANE
 
@@ -145,6 +146,7 @@
 	plane = FULLSCREEN_PLANE
 
 /atom/movable/screen/fullscreen/impaired
+	icon = 'modular_dripstation/icons/mob/fullscreen.dmi'
 	icon_state = "impairedoverlay"
 
 /atom/movable/screen/fullscreen/flash

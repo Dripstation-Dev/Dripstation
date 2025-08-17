@@ -483,7 +483,7 @@
 	icon_state = "plushie_lizard"
 	item_state = "plushie_lizard"
 	attack_verb = list("clawed", "hissed", "tail slapped")
-	squeak_override = list('sound/weapons/slash.ogg' = 1)
+	squeak_override = list(SFX_SLASH = 1)
 
 /obj/item/toy/plush/snakeplushie
 	name = "snake plushie"

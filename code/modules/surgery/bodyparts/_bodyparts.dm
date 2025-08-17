@@ -5,7 +5,8 @@
 	desc = "Why is it detached..."
 	force = 3
 	throwforce = 3
-	icon = 'yogstation/icons/mob/human_parts.dmi' // yogs -- use yog icons instead of tg
+	//icon = 'yogstation/icons/mob/human_parts.dmi' // yogs -- use yog icons instead of tg
+	icon = 'modular_dripstation/icons/mob/human_parts.dmi' // dripstation -- use dripstation icons instead of tg
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = ""
 	layer = BELOW_MOB_LAYER //so it isn't hidden behind objects when on the floor
@@ -107,6 +108,11 @@
 	var/bandaged = FALSE
 	/// Prevents resetting of the species_id
 	var/limb_override = FALSE
+	
+	/// Our current level of infection of the limb
+	var/infestation = 0
+	/// Our current level of sanitization/anti-infection, from disinfectants/alcohol/UV lights. While positive, totally pauses and slowly reverses infestation effects each tick
+	var/sanitization = 0
 
 /obj/item/bodypart/Initialize(mapload)
 	. = ..()
@@ -121,6 +127,26 @@
 	if(burn_dam > DAMAGE_PRECISION)
 		. += span_warning("This limb has [burn_dam > 30 ? "severe" : "minor"] burns.")
 
+	for(var/datum/wound/W in wounds)
+		if(W.severity != WOUND_SEVERITY_HIDDEN)
+			switch(W.wound_type)
+				if(WOUND_BLUNT)
+					if(owner.get_biological_state() == BIO_JUST_BONE)
+						. += span_warning("The bones in this limb appear badly cracked.")
+					else
+						. += span_warning("The flesh in this limb formed bad swelling.")
+				if(WOUND_SLASH)
+					. += span_warning("The flesh on this limb appears badly lacerated.")
+				if(WOUND_PIERCE)
+					. += span_warning("The flesh on this limb appears badly perforated.")
+				if(WOUND_BURN)
+					. += span_warning("The flesh on this limb appears badly cooked.")
+				if(WOUND_BLOOD_VESSEL)
+					. += span_warning("The blood vessel on this limb appears badly torn open.")
+				if(WOUND_INFECTION)
+					. += span_warning("The flesh on this limb appears badly infected.")
+
+	/*
 	if(locate(/datum/wound/blunt) in wounds)
 		. += span_warning("The bones in this limb appear badly cracked.")
 	if(locate(/datum/wound/slash) in wounds)
@@ -129,6 +155,41 @@
 		. += span_warning("The flesh on this limb appears badly perforated.")
 	if(locate(/datum/wound/burn) in wounds)
 		. += span_warning("The flesh on this limb appears badly cooked.")
+	*/
+
+/obj/item/bodypart/proc/check_infection()
+	var/datum/wound/I = get_wound_type(/datum/wound/infected)
+	if(I || infestation < WOUND_INFECTION_MODERATE)
+		return
+	var/datum/wound/infected/new_wound = new
+	new_wound.apply_wound(src, silent = TRUE)
+
+/obj/item/bodypart/proc/applyInfestation(amount)
+	if(status == BODYPART_ROBOTIC)
+		return
+	infestation = max(0, infestation - amount)
+
+/obj/item/bodypart/proc/process_infection_status()
+	if(infestation <= 0 && sanitization <= 0)
+		return
+	if(status == BODYPART_ROBOTIC)
+		return
+	if(infestation >= WOUND_INFECTION_SEPTIC)
+		return
+	if(owner?.reagents && owner?.reagents.has_reagent(/datum/reagent/medicine/spaceacillin))
+		sanitization += 2
+	if(infestation > 0 && current_gauze)
+		seep_gauze(WOUND_BURN_SANITIZATION_RATE*infestation)
+
+	// sanitization is checked after the clearing check but before the actual ill-effects, because we freeze the effects of infection while we have sanitization
+	if(sanitization > 0)
+		var/bandage_factor = (current_gauze ? current_gauze.splint_factor : 1)
+		infestation = applyInfestation(-WOUND_BURN_SANITIZATION_RATE)
+		sanitization = max(0, sanitization - (WOUND_BURN_SANITIZATION_RATE * bandage_factor))
+		return
+	if(infestation)
+		infestation += 0.03	//passive infestation if already started
+		check_infection()
 
 /obj/item/bodypart/blob_act()
 	take_damage(max_damage)
@@ -149,7 +210,7 @@
 			ADD_TRAIT(src, TRAIT_PARALYSIS, "EMP")
 			addtimer(CALLBACK(src, PROC_REF(after_emp)), min((severity / 2) SECONDS, 5 SECONDS), TIMER_UNIQUE | TIMER_OVERRIDE)
 		if(owner && emp_message)
-			owner.emote("scream")
+			owner.pain(100, TRUE)
 			to_chat(src, span_userdanger("You feel a sharp pain as your robotic limbs overload."))
 
 	if(!(. & EMP_PROTECT_CONTENTS))
@@ -332,6 +393,7 @@
 	// now we have our wounding_type and are ready to carry on with wounds and dealing the actual damage
 	if(owner && wounding_dmg >= WOUND_MINIMUM_DAMAGE && wound_bonus != CANT_WOUND)
 		check_wounding(wounding_type, wounding_dmg, wound_bonus, bare_wound_bonus, attack_direction)
+		check_and_apply_organ_damage(wounding_type, wounding_dmg, wound_bonus)
 
 	for(var/i in wounds)
 		var/datum/wound/iter_wound = i
@@ -382,6 +444,72 @@
 				owner.stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 				. = TRUE
 	return update_bodypart_damage_state() || .
+
+/obj/item/bodypart/proc/check_and_apply_organ_damage(wounding_type, wounding_dmg, wound_bonus)	//no bare_wound_bonus since your flesh and bones at this point are considered as your clothes
+	if(wounding_type ==  WOUND_BURN && !owner)	//ah hell no, i don`t wanna check this for no owner bodyparts and lasers, fuck this shit. When special fire failures for organs will be implemented - i will think about it
+		return
+	if(wounding_type == WOUND_SLASH)
+		wounding_dmg *= 0.7	//it is harder to damage organs with slash weapon
+
+	var/armor_ablation = 0
+	var/injury_mod = 0
+
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+
+		if(H?.physiology?.armor?.wound)//if there is any innate wound armor
+			armor_ablation += H.physiology.armor.getRating(WOUND)
+
+		var/list/clothing = H.clothingonpart(body_part)
+		for(var/c in clothing)
+			var/obj/item/clothing/C = c
+			armor_ablation += C.armor.getRating(WOUND)
+
+	injury_mod -= armor_ablation
+	injury_mod += wound_bonus
+
+	for(var/thing in wounds)
+		var/datum/wound/W = thing
+		injury_mod += W.threshold_penalty
+
+	injury_mod -= wound_resistance
+
+
+	var/list/zone_list_priority = list("" = 100)
+	if(body_zone == BODY_ZONE_HEAD)
+		zone_list_priority = list(
+			ORGAN_SLOT_BRAIN = 65,
+			ORGAN_SLOT_EARS = 5,
+			ORGAN_SLOT_EYES = 5,
+			ORGAN_SLOT_TONGUE = 10,
+			"" = 15
+		)
+	if(body_zone == BODY_ZONE_CHEST)
+		zone_list_priority = list(
+			ORGAN_SLOT_HEART = 20,
+			ORGAN_SLOT_LUNGS = 50,
+			"" = 30
+		)
+	if(body_zone == BODY_ZONE_PRECISE_GROIN)
+		zone_list_priority = list(
+			ORGAN_SLOT_STOMACH = 25,
+			ORGAN_SLOT_LIVER = 30,
+			ORGAN_SLOT_APPENDIX = 15,
+			"" = 30
+		)
+
+	var/damaged_organ_zone = pick_weight(zone_list_priority)
+	if(damaged_organ_zone == "")
+		for(var/obj/item/organ/other_organs in get_organs())	//checking for implants
+			if(other_organs.zone in zone_list_priority)
+				continue
+			if(prob(10))
+				owner.adjustOrganLoss(other_organs.slot, wounding_dmg)//low chance - full damage
+				break
+		return
+
+	var/injury_roll = pick(0.5, 0.75, 1, 1.25)	//keep rolling-rolling-rolling...
+	owner.adjustOrganLoss(damaged_organ_zone, wounding_dmg*injury_roll, hard = (wounding_dmg > 15) ? TRUE : FALSE)
 
 /// Allows us to roll for and apply a wound without actually dealing damage. Used for aggregate wounding power with pellet clouds
 /obj/item/bodypart/proc/painless_wound_roll(wounding_type, phantom_wounding_dmg, wound_bonus, bare_wound_bonus, sharpness=SHARP_NONE)
@@ -504,6 +632,20 @@
 				new_wound = new possible_wound
 				new_wound.apply_wound(src, attack_direction = attack_direction)
 				log_wound(owner, new_wound, damage, wound_bonus, bare_wound_bonus, base_roll)
+
+			if(woundtype != WOUND_BURN)
+				var/list/blwounds_checking = GLOB.global_all_blood_wounds_types[woundtype]
+				var/give_new_vessel_wound = TRUE
+				var/datum/wound/blood_vessel/po_wound = pick(blwounds_checking)
+				for(var/i in wounds)
+					var/datum/wound/existing_wound = i
+					if(existing_wound == po_wound)
+						give_new_vessel_wound = FALSE	//one is enough
+
+				if(give_new_vessel_wound && injury_roll - new_wound.threshold_minimum > po_wound.threshold_minimum && prob(injury_roll))	//so generally if you has 5-15 additional injury roll than you have a high chance to get your blood vessel torn apart
+					var/datum/wound/blood_vessel/bloody_wound = new po_wound
+					bloody_wound.apply_wound(src, silent = TRUE, attack_direction = attack_direction)
+					log_wound(owner, bloody_wound, damage, wound_bonus, bare_wound_bonus, base_roll)
 			return new_wound
 
 // try forcing a specific wound, but only if there isn't already a wound of that severity or greater for that type on this bodypart
@@ -714,6 +856,7 @@
 				SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE),
 				SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE),
 				))
+		UnregisterSignal(old_owner, COMSIG_CARBON_SANITISATION, PROC_REF(process_infection_status))
 	if(owner)
 		if(initial(can_be_disabled))
 			if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -721,6 +864,7 @@
 				needs_update_disabled = FALSE
 			RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_loss))
 			RegisterSignal(owner, SIGNAL_ADDTRAIT(TRAIT_NOLIMBDISABLE), PROC_REF(on_owner_nolimbdisable_trait_gain))
+		RegisterSignal(owner, COMSIG_CARBON_SANITISATION, PROC_REF(process_infection_status))
 		if(needs_update_disabled)
 			update_disabled()
 
@@ -1054,15 +1198,18 @@
 	if(generic_bleedstacks > 0)
 		bleed_rate += generic_bleedstacks
 
-	if(embedded_objects)
+	if(embedded_objects)	//so i don`t wanna embeddies to bleed right now
 		//We want an accurate reading of .len
 		listclearnulls(embedded_objects)
 		for(var/obj/item/embeddies in embedded_objects)
-			bleed_rate += 0.5
+			bleed_rate -= 0.5	//so probably if this shit is in you - it will prevent bleeding
 
 	for(var/thing in wounds)
 		var/datum/wound/W = thing
 		bleed_rate += W.blood_flow
+		if(istype(thing, /datum/wound/blood_vessel))
+			var/datum/wound/blood_vessel/BV = thing
+			bleed_rate += BV.get_external_bleed()
 
 	if(owner.mobility_flags & ~MOBILITY_STAND)
 		bleed_rate *= 0.75
@@ -1070,9 +1217,25 @@
 	if(grasped_by)
 		bleed_rate *= 0.7
 
+	if(current_gauze && current_gauze.absorption_capacity)
+		seep_gauze(bleed_rate)
+		return 0
+
+	if(HAS_TRAIT(src, TRAIT_COMPLETELY_STOPED_BLOOD_FLOW))
+		bleed_rate = 0
+
 	if(!bleed_rate)
 		QDEL_NULL(grasped_by)
+	if(bleed_rate < 0)	//sanity check for some magic can happened
+		return 0
 	return bleed_rate
+
+/// Modifies our generic bleedstacks. You must use this to change the variable
+/// Takes the amount to adjust by
+/obj/item/bodypart/proc/adjustBleedStacks(adjust_by)
+	if(!adjust_by)
+		return
+	generic_bleedstacks = max(generic_bleedstacks + adjust_by, 0)
 
 /// INTERNAL PROC, DO NOT USE
 /// Properly sets us up to manage an inserted embeded object

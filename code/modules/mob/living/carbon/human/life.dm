@@ -54,10 +54,10 @@
 			var/datum/wound/iter_wound = i
 			iter_wound.on_stasis()
 
-		//yogs start - bandage memes
-		if(stat != DEAD)
-			handle_bandaged_limbs()
-		//yogs end
+	//yogs start - bandage memes
+	if(stat != DEAD)
+		handle_bandaged_limbs()
+	//yogs end
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
@@ -329,6 +329,11 @@
 	// Tissues die without blood circulation
 	adjustBruteLoss(2)
 
+/mob/living/carbon/human/get_body_temp_heat_damage_limit()
+	return dna.species.bodytemp_heat_damage_limit
+
+/mob/living/carbon/human/get_body_temp_cold_damage_limit()
+	return dna.species.bodytemp_cold_damage_limit
 
 #undef THERMAL_PROTECTION_HEAD
 #undef THERMAL_PROTECTION_CHEST

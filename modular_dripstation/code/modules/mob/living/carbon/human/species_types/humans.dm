@@ -31,6 +31,9 @@
 /datum/species/human/get_moan_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_MOAN_SOUND(user)
 
+/datum/species/human/get_lewd_moan_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_LEWD_MOAN_SOUND(user)
+
 /datum/species/human/get_yawn_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_YAWN_SOUND(user)
 

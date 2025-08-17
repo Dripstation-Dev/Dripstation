@@ -11,6 +11,7 @@
 				/datum/surgery_step/clamp_bleeders,
 				/datum/surgery_step/incise,
 				/datum/surgery_step/dissection,
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 	target_mobtypes = list(/mob/living) //Feel free to dissect devils but they're magic.

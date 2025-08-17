@@ -249,6 +249,8 @@
 #define MADE_UNCLONEABLE "made-uncloneable"
 /// Source trait for Bloodsuckers-related traits
 #define BLOODSUCKER_TRAIT "bloodsucker_trait"
+/// Source trait for stuff related to bloodsuckers in coffins.
+#define BLOODSUCKER_COFFIN_TRAIT "bloodsucker_coffin_trait"
 /// Source trait for Monster Hunter-related traits
 #define HUNTER_TRAIT "monsterhunter_trait"
 /// Source trait during a Frenzy

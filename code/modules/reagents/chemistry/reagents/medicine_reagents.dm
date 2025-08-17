@@ -175,10 +175,10 @@
 	taste_description = "spicy jelly"
 
 /datum/reagent/medicine/pyroxadone/on_mob_life(mob/living/carbon/M)
-	if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
-		var/power = 0
+	if(M.bodytemperature > M.dna.species.bodytemp_heat_damage_limit)
+		var/power = 1
 		switch(M.bodytemperature)
-			if(BODYTEMP_HEAT_DAMAGE_LIMIT to 400)
+			if(BODYTEMP_HEAT_DAMAGE_LIMIT  to 400)
 				power = 2
 			if(400 to 460)
 				power = 3
@@ -246,7 +246,7 @@
 			M.adjustFireLoss(-heal_amt)
 			if(show_message)
 				to_chat(M, span_danger("You feel your burns healing! It stings like hell!"))
-			M.emote("scream")
+			M.pain(100, TRUE)
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 			if(methods & TOUCH)
 				M.reagents.add_reagent(/datum/reagent/medicine/silver_sulfadiazine, reac_volume * permeability)
@@ -297,7 +297,7 @@
 			M.adjustBruteLoss(-heal_amt)
 			if(show_message)
 				to_chat(M, span_danger("You feel your bruises healing! It stings like hell!"))
-			M.emote("scream")
+			M.pain(100, TRUE)
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 			if(methods & TOUCH)
 				M.reagents.add_reagent(/datum/reagent/medicine/styptic_powder, reac_volume * permeability)
@@ -375,10 +375,12 @@
 				to_chat(M, span_warning("Your stomach feels empty and cramps!"))
 		else
 			var/mob/living/carbon/C = M
-			for(var/s in C.surgeries)
-				var/datum/surgery/S = s
-				S.success_multiplier = max(0.1, S.success_multiplier)
+			//for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
+				//var/datum/surgery/S = s
+				//S.success_multiplier = max(0.1, S.success_multiplier)
 				// +10% success propability on each step, useful while operating in less-than-perfect conditions
+			for(var/datum/wound/W in C.all_wounds)
+				W.applySanitization(0.07 * reac_volume)
 
 			if(show_message)
 				to_chat(M, span_danger("You feel your injuries fade away to nothing!") )
@@ -395,6 +397,7 @@
 	description = "Has a 100% chance of instantly healing brute and burn damage on corpses. The chemical will heal up to 120 points of damage at 60 units applied. Touch application only."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
+	compatible_biotypes = ALL_NON_ROBOTIC
 
 /datum/reagent/medicine/synthflesh/on_mob_add(mob/living/L)
 	if(ishuman(L))
@@ -767,9 +770,10 @@
 	switch(current_cycle)
 		if(15)
 			to_chat(M, span_warning("You start to feel tired...") )
-		if(16 to 34)
+		if(16 to 67)
 			M.adjust_drowsiness(1 SECONDS)
-		if(34 to INFINITY)
+			to_chat(M, span_warning("You start to feel very tired...") )
+		if(68 to INFINITY)
 			M.Sleeping(40, 0)
 			. = 1
 	if(M.stat > CONSCIOUS)

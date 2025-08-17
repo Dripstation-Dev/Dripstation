@@ -679,9 +679,9 @@
 	tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
 		become_blind(EYES_COVERED)
-	else if(tinttotal >= TINT_DARKENED)
+	else if(tinttotal > 0)
 		cure_blind(EYES_COVERED)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, tinttotal)
 	else
 		cure_blind(EYES_COVERED)
 		clear_fullscreen("tint", 0)
@@ -846,6 +846,8 @@
 				hud_used.healths.icon_state = "health5"
 			else
 				hud_used.healths.icon_state = "health6"
+			if(stat == UNCONSCIOUS)
+				hud_used.healths.icon_state = "health_numb"
 		else
 			hud_used.healths.icon_state = "health7"
 
@@ -1036,6 +1038,7 @@
 				limb_list += B.body_zone
 			if(edit_action == "remove")
 				limb_list -= BODY_ZONE_CHEST
+				limb_list -= BODY_ZONE_PRECISE_GROIN
 		else
 			limb_list = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 			for(var/obj/item/bodypart/B in bodyparts)

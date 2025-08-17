@@ -25,12 +25,90 @@
 	icon_vend = "med-vend"
 	req_access = list(ACCESS_MEDICAL)
 	light_mask = "med-light-mask"
+	products = list(/obj/item/stack/medical/gauze = 8,
+					/obj/item/reagent_containers/syringe = 12,
+					/obj/item/reagent_containers/dropper = 3,
+					/obj/item/reagent_containers/pill/patch/styptic = 5,
+					/obj/item/reagent_containers/pill/patch/silver_sulf = 5,
+					/obj/item/reagent_containers/syringe/perfluorodecalin = 2,
+					/obj/item/reagent_containers/pill/insulin = 5,
+					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
+					/obj/item/reagent_containers/glass/bottle/epinephrine = 3,
+					/obj/item/reagent_containers/glass/bottle/morphine = 4,
+					/obj/item/reagent_containers/glass/bottle/potass_iodide = 1,
+					/obj/item/reagent_containers/glass/bottle/salglu_solution = 3,
+					/obj/item/reagent_containers/glass/bottle/toxin = 3,
+					/obj/item/reagent_containers/syringe/antiviral = 6,
+					/obj/item/sensor_device = 2,
+					/obj/item/pinpointer/crew = 2,
+					/obj/item/stack/medical/ointment = 2,
+					/obj/item/stack/medical/ointment/antiseptic = 4,
+					/obj/item/stack/medical/bone_gel = 4)
+	contraband = list(/obj/item/reagent_containers/pill/tox = 3,
+					/obj/item/reagent_containers/pill/morphine = 4,
+					/obj/item/reagent_containers/pill/charcoal = 6,
+					/obj/item/storage/pill_bottle/gummies/mindbreaker = 2,
+					/obj/item/storage/box/hug/medical = 1)
+	premium = list(/obj/item/reagent_containers/medspray/synthflesh = 4,
+				/obj/item/reagent_containers/medspray/fluorosurfactant = 2,
+				/obj/item/reagent_containers/medspray/sterilizine = 2,
+				/obj/item/storage/pill_bottle/psicodine = 2,
+				/obj/item/reagent_containers/autoinjector/medipen = 3,
+				/obj/item/healthanalyzer/wound = 1,
+				/obj/item/storage/pouch/surgery/full = 2,
+				/obj/item/storage/belt/medical = 3,
+				/obj/item/wrench/medical = 1,
+				/obj/item/storage/pill_bottle/gummies/vitamin = 2,
+				/obj/item/storage/firstaid/advanced = 2)
 
 /obj/machinery/vending/medical/syndicate_access
 	icon_state = "syndi-big-med"
 	icon_vend = "syndi-big-med-vend"
 	icon_deny = "syndi-big-med-deny"
 	light_color = LIGHT_COLOR_INTENSE_RED
+	products = list(/obj/item/stack/medical/gauze = 8,
+					/obj/item/reagent_containers/syringe = 12,
+					/obj/item/reagent_containers/dropper = 3,
+					/obj/item/reagent_containers/pill/patch/styptic = 5,
+					/obj/item/reagent_containers/pill/patch/silver_sulf = 5,
+					/obj/item/reagent_containers/syringe/perfluorodecalin = 2,
+					/obj/item/reagent_containers/pill/insulin = 5,
+					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
+					/obj/item/reagent_containers/glass/bottle/epinephrine = 3,
+					/obj/item/reagent_containers/glass/bottle/morphine = 4,
+					/obj/item/reagent_containers/glass/bottle/potass_iodide = 1,
+					/obj/item/reagent_containers/glass/bottle/salglu_solution = 3,
+					/obj/item/reagent_containers/glass/bottle/toxin = 3,
+					/obj/item/reagent_containers/glass/bottle/vial/combat = 2,
+					/obj/item/reagent_containers/syringe/antiviral = 6,
+					/obj/item/sensor_device = 2,
+					/obj/item/stack/medical/ointment = 2,
+					/obj/item/stack/medical/ointment/antiseptic = 4,
+					/obj/item/stack/medical/bone_gel = 4,
+					/obj/item/reagent_containers/pill/tox = 3,
+					/obj/item/reagent_containers/pill/morphine = 4,
+					/obj/item/reagent_containers/pill/charcoal = 6,
+					/obj/item/storage/box/hug/medical = 1)
+	premium = list(/obj/item/reagent_containers/medspray/synthflesh = 4,
+				/obj/item/reagent_containers/medspray/fluorosurfactant = 2,
+				/obj/item/reagent_containers/medspray/sterilizine = 2,
+				/obj/item/storage/pill_bottle/psicodine = 2,
+				/obj/item/reagent_containers/autoinjector/medipen = 3,
+				/obj/item/reagent_containers/autoinjector/medipen/morphine = 3,
+				/obj/item/reagent_containers/autoinjector/medipen/tramadol = 3,
+				/obj/item/reagent_containers/autoinjector/medipen/propithal = 3,
+				/obj/item/reagent_containers/autoinjector/medipen/meldonin = 3,
+				/obj/item/healthanalyzer/wound = 1,
+				/obj/item/healthanalyzer = 1,
+				/obj/item/pinpointer/crew = 2,
+				/obj/item/storage/pouch/surgery/full = 2,
+				/obj/item/storage/belt/medical = 3,
+				/obj/item/wrench/medical = 1,
+				/obj/item/storage/pill_bottle/gummies/vitamin = 2,
+				/obj/item/storage/pill_bottle/gummies/omnizine = 2,
+				/obj/item/storage/pill_bottle/gummies/mindbreaker = 2,
+				/obj/item/storage/pill_bottle/gummies/meth = 2,
+				/obj/item/storage/firstaid/tactical/alt = 2)
 
 /obj/machinery/vending/wallhypo
 	req_access = list(ACCESS_MEDICAL)

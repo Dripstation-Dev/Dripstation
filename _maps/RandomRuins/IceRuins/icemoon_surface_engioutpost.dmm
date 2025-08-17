@@ -323,7 +323,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "bj" = (
@@ -360,7 +360,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "bm" = (
@@ -433,7 +433,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "bt" = (
@@ -543,7 +543,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "bI" = (
@@ -554,7 +554,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "bJ" = (
@@ -897,7 +897,7 @@
 "cI" = (
 /obj/machinery/modular_computer/console/preset/civilian,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "cJ" = (
@@ -908,7 +908,7 @@
 /obj/item/rcd_upgrade/frames,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "cK" = (
@@ -916,7 +916,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "cL" = (
@@ -937,7 +937,7 @@
 	},
 /obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "cN" = (
@@ -989,7 +989,7 @@
 "cV" = (
 /obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "cW" = (
@@ -1008,7 +1008,7 @@
 "cY" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "cZ" = (
@@ -1055,7 +1055,7 @@
 "de" = (
 /obj/machinery/rnd/production/circuit_imprinter/department,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "df" = (
@@ -1065,13 +1065,13 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "dg" = (
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "dh" = (
@@ -1090,7 +1090,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "dj" = (
@@ -1146,7 +1146,7 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "du" = (
@@ -1158,14 +1158,14 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "dv" = (
 /obj/machinery/airalarm/directional/north,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "dw" = (
@@ -1200,7 +1200,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "dB" = (
@@ -1209,7 +1209,7 @@
 	dir = 5
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "dC" = (
@@ -1218,7 +1218,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "dD" = (
@@ -1228,7 +1228,7 @@
 "dE" = (
 /obj/structure/door_assembly/door_assembly_eng,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "em" = (
@@ -1242,7 +1242,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "eO" = (
@@ -1303,7 +1303,7 @@
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "iq" = (
@@ -1312,7 +1312,7 @@
 /area/icemoon/surface/outdoors/explored)
 "jP" = (
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "kp" = (
@@ -1385,14 +1385,14 @@
 "zZ" = (
 /obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "Fg" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/power/tesla_coil,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "Fp" = (
@@ -1421,7 +1421,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/microwave,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "Jh" = (
@@ -1468,7 +1468,7 @@
 	name = "Storage"
 	},
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "Pn" = (
@@ -1513,14 +1513,14 @@
 /obj/machinery/space_heater,
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "Xl" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/turf_decal/box,
 /turf/open/floor/plasteel/dark{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/surface/outdoors/explored)
 "XP" = (

@@ -32,12 +32,12 @@
 	var/sound_effect
 
 	/// Either WOUND_SEVERITY_TRIVIAL (meme wounds like stubbed toe), WOUND_SEVERITY_MODERATE, WOUND_SEVERITY_SEVERE, or WOUND_SEVERITY_CRITICAL (or maybe WOUND_SEVERITY_LOSS)
-	var/severity = WOUND_SEVERITY_MODERATE
+	var/severity = WOUND_SEVERITY_NON_EXISTENT
 	/// The list of wounds it belongs in, WOUND_LIST_BLUNT, WOUND_LIST_SLASH, or WOUND_LIST_BURN
 	var/wound_type
 
 	/// What body zones can we affect
-	var/list/viable_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/list/viable_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	/// Who owns the body part that we're wounding
 	var/mob/living/carbon/victim = null
 	/// The bodypart we're parented to
@@ -89,6 +89,11 @@
 
 	/// What flags apply to this wound
 	var/wound_flags = (FLESH_WOUND | BONE_WOUND | ACCEPTS_GAUZE)
+
+	// Infestation vars (only for severe and critical)
+	/// How quickly infection breeds on this wound if we don't have disinfectant
+	var/infestation_rate
+
 
 /datum/wound/Destroy()
 	if(attached_surgery)
@@ -145,7 +150,7 @@
 	if(old_wound)
 		demoted = (severity <= old_wound.severity)
 
-	if(severity == WOUND_SEVERITY_TRIVIAL)
+	if(severity == WOUND_SEVERITY_NON_EXISTENT)
 		return
 
 	if(!(silent || demoted))
@@ -159,10 +164,26 @@
 		victim.visible_message(msg, span_userdanger("Your [limb.name] [occur_text]!"), vision_distance = vis_dist)
 		if(sound_effect)
 			playsound(L.owner, sound_effect, 70 + 20 * severity, TRUE)
+		switch(severity)
+			if(WOUND_SEVERITY_TRIVIAL)
+				L.owner.pain(100, TRUE, TRUE)
+			if(WOUND_SEVERITY_MODERATE)
+				L.owner.pain(30, TRUE)
+			if(WOUND_SEVERITY_SEVERE)
+				L.owner.pain(70, TRUE)
+			if(WOUND_SEVERITY_CRITICAL)
+				L.owner.pain(100, TRUE)
+			if(WOUND_SEVERITY_LOSS)
+				L.owner.pain(100, TRUE, TRUE)
+			if(WOUND_SEVERITY_BLOOD_VESSEL)
+				L.owner.pain(40, TRUE)
 
 	if(!demoted)
 		wound_injury(old_wound, attack_direction = attack_direction)
 		second_wind()
+
+	if(wound_flags & CAN_BE_INFESTED)
+		RegisterSignal(victim, COMSIG_CARBON_FLATLINE_INFECT, PROC_REF(infect))
 
 // Updates descriptive texts for the wound, in case it can get altered for whatever reason
 /datum/wound/proc/update_descriptions()
@@ -180,6 +201,7 @@
 		LAZYREMOVE(victim.all_wounds, src)
 		if(!victim.all_wounds)
 			victim.clear_alert("wound")
+		UnregisterSignal(victim, COMSIG_CARBON_FLATLINE_INFECT)
 		SEND_SIGNAL(victim, COMSIG_CARBON_LOSE_WOUND, src, limb)
 	if(limb && !ignore_limb)
 		LAZYREMOVE(limb.wounds, src)
@@ -249,6 +271,8 @@
 			victim.reagents.add_reagent(/datum/reagent/determination, WOUND_DETERMINATION_CRITICAL)
 		if(WOUND_SEVERITY_LOSS)
 			victim.reagents.add_reagent(/datum/reagent/determination, WOUND_DETERMINATION_LOSS)
+		if(WOUND_SEVERITY_BLOOD_VESSEL)
+			victim.reagents.add_reagent(/datum/reagent/determination, WOUND_DETERMINATION_SEVERE)
 
 /**
   * try_treating() is an intercept run from [/mob/living/carbon/proc/attackby] right after surgeries but before anything else. Return TRUE here if the item is something that is relevant to treatment to take over the interaction.
@@ -283,6 +307,10 @@
 				break
 
 	// if none of those apply, we return false to avoid interrupting
+	if(limb.infestation > 0)
+		infestation_treat(I, user)
+		return TRUE
+
 	if(!allowed)
 		return FALSE
 
@@ -310,9 +338,35 @@
 /datum/wound/proc/treat(obj/item/I, mob/user)
 	return
 
+/datum/wound/proc/infestation_treat(obj/item/I, mob/user)
+	if(istype(I, /obj/item/flashlight/pen/paramedic))
+		uv(I, user)
+
+/datum/wound/proc/uv(obj/item/flashlight/pen/paramedic/I, mob/user)
+	if(!COOLDOWN_FINISHED(I, uv_cooldown))
+		to_chat(user, span_notice("[I] is still recharging!"))
+		return
+	if(limb.infestation <= 0 || limb.infestation < limb.sanitization)
+		to_chat(user, span_notice("There's no infection to treat on [victim]'s [limb.name]!"))
+		return
+
+	user.visible_message(span_notice("[user] flashes the burns on [victim]'s [limb] with [I]."), span_notice("You flash the burns on [user == victim ? "your" : "[victim]'s"] [limb.name] with [I]."), vision_distance=COMBAT_MESSAGE_RANGE)
+	limb.sanitization += I.uv_power
+	COOLDOWN_START(I, uv_cooldown, I.uv_cooldown_length)
+
+/datum/wound/proc/applySanitization(amount)
+	limb.sanitization += amount
+	return
+
 /// If var/processing is TRUE, this is run on each life tick
 /datum/wound/proc/handle_process()
+	if(wound_flags & CAN_BE_INFESTED && limb.sanitization <= 0)
+		limb.infestation += infestation_rate	//infestation from wounds
 	return
+
+/datum/wound/proc/infect(amount)
+	SIGNAL_HANDLER
+	limb.applyInfestation(amount * severity)
 
 /// For use in do_after callback checks
 /datum/wound/proc/still_exists()
@@ -376,7 +430,7 @@
 	. = severity <= WOUND_SEVERITY_MODERATE ? "[.]." : "<B>[.]!</B>"
 
 /datum/wound/proc/get_scanner_description(mob/user)
-	return "Type: [name]\nSeverity: [severity_text()]\nDescription: [desc]\nRecommended Treatment: [treat_text]"
+	return "Type: [name]\nSeverity: [severity_text()]\nDescription: [desc]\nRecommended Treatment: [treat_text]\n[infestation_rate ? span_green("Not compatible with passive infestation.") : span_smalldanger("Is compatible with passive infestation.")]"
 
 /datum/wound/proc/severity_text()
 	switch(severity)
@@ -388,3 +442,5 @@
 			return "Severe"
 		if(WOUND_SEVERITY_CRITICAL)
 			return "Critical"
+		if(WOUND_SEVERITY_BLOOD_VESSEL)
+			return "Blood Vessel"

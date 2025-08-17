@@ -7,6 +7,7 @@
 				/datum/surgery_step/clamp_bleeders, 
 				/datum/surgery_step/retract_skin, 
 				/datum/surgery_step/manipulate_implant, 
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 	target_mobtypes = list(/mob/living)
 	possible_locs = list(BODY_ZONE_CHEST)

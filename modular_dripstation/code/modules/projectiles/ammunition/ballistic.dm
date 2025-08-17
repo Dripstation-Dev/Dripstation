@@ -108,7 +108,7 @@
 	projectile_type = /obj/projectile/bullet/a127
 	caliber = CALIBER_127X55
 
-/obj/item/ammo_casing/a127/rubber
+/obj/item/ammo_casing/a127/ap
 	name = "12.7x55mm Armor-Piercing bullet casing"
 	desc = "A 12.7x55mm bullet casing."
 	projectile_type = /obj/projectile/bullet/a127/ap

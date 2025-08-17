@@ -220,7 +220,7 @@
 		var/damage = weapon.w_class * remove_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, sharpness=SHARP_EDGED, wound_bonus = 10) //It hurts to rip it out, get surgery you dingus. unlike the others, this CAN wound + increase slash bloodflow
 		victim.adjustStaminaLoss(pain_stam_pct * damage)
-		victim.emote("scream")
+		victim.pain(100, TRUE, TRUE)
 
 	if(victim == riper)
 		victim.visible_message(span_warning("[victim] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!"), span_notice("You successfully remove [weapon] from your [limb.name]."))

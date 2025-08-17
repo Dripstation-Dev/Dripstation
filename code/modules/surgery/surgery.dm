@@ -33,7 +33,7 @@
 	/// Surgery available only when a bodypart is present, or only when it is missing.
 	var/requires_bodypart = TRUE
 	/// Step success propability multiplier
-	var/success_multiplier = 0
+	//var/success_multiplier = 0	//dripstation edit - remove success_multipliers
 	/// Some surgeries don't work on limbs that don't really exist
 	var/requires_real_bodypart = 0
 	/// Does the vicitm needs to be lying down.
@@ -75,7 +75,7 @@
 	if(replaced_by == /datum/surgery)
 		return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user.mind, TRAIT_SURGEON))
+	if(HAS_TRAIT_FROM(user, TRAIT_SURGEON, ABDUCTOR_ANTAGONIST))
 		if(replaced_by)
 			return FALSE
 		else
@@ -171,9 +171,11 @@
 			probability = SB.success_chance
 			break
 	if(HAS_TRAIT(target, TRAIT_SURGERY_PREPARED))
+		probability += 0.2
+	else if(HAS_TRAIT(target, TRAIT_NUMBED))
 		probability += 0.1
 
-	return probability + success_multiplier
+	return probability //+ success_multiplier	//dripstation edit - remove success_multipliers
 
 /datum/surgery/proc/get_icon()
 	var/mutable_appearance/new_icon = mutable_appearance(icon, icon_state)

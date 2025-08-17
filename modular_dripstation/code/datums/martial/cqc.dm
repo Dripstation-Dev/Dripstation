@@ -182,6 +182,6 @@
 	else	//kick him in his balls
 		D.visible_message(span_warning("[A] delivers a firm blow to [D]'s head, totally paralising them!"), \
 							span_userdanger("[A] delivers a firm blow to your head, causing you to scream in agony!"))
-		D.emote("scream")
+		D.pain(100, TRUE, TRUE)
 		D.Paralyze(150)	//okey, so you are on the floor
 	return TRUE

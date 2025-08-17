@@ -87,6 +87,12 @@
 		'modular_dripstation/sound/emotes/human/male/moan_male_2.ogg',\
 		'modular_dripstation/sound/emotes/human/male/moan_male_3.ogg')
 
+#define SPECIES_DEFAULT_LEWD_MOAN_SOUND(user) pick(\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_1.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_2.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_3.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_4.ogg')
+
 #define SPECIES_DEFAULT_YAWN_SOUND(user) user.gender == FEMALE ? pick(\
 		'modular_dripstation/sound/emotes/human/female/yawn_female_1.ogg',\
 		'modular_dripstation/sound/emotes/human/female/yawn_female_2.ogg',\

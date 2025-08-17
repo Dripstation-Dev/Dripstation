@@ -6,18 +6,18 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 			/obj/item/hand_tele,
 			/obj/item/clothing/accessory/medal/gold/captain,
 			/obj/item/melee/sabre,
+			/obj/item/clothing/gloves/krav_maga/sec,
 			/obj/item/gun/energy/e_gun/hos,
 			/obj/item/card/id/captains_spare,
 			/obj/item/tank/jetpack/oxygen/captain,
 			/obj/item/aicard,
 			/obj/item/hypospray/deluxe/cmo,
-			/obj/item/clothing/suit/armor/reactive/teleport,
-			/obj/item/clothing/suit/armor/laserproof,
+			/obj/item/cargo_teleporter,
+			/obj/item/clothing/suit/hooded/ablative,
 			/obj/item/blackbox,
 			/obj/item/holotool,
 			/obj/item/areaeditor/blueprints), only_root_path = TRUE))
-			///obj/item/clothing/gloves/krav_maga/sec,
-			///obj/item/cargo_teleporter,
+
 /obj/item/pinpointer/adv
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/obj/item/highrisk_rem = null
@@ -79,6 +79,8 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 	..()
 
 /obj/item/pinpointer/adv/AltClick(mob/user)
+	if(modelocked)
+		return
 	if(isliving(user))
 		if(is_syndicate(user) || unlocked)
 			if(!user.is_holding(src))

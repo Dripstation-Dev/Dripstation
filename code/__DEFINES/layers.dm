@@ -166,7 +166,6 @@
 #define TRAM_STRUCTURE_LAYER 2.57
 #define TRAM_FLOOR_LAYER 2.58
 #define TRAM_WALL_LAYER 2.59
-#define CLEANABLE_FLOOR_OBJECT_LAYER 2.599
 
 #define BELOW_OPEN_DOOR_LAYER 2.6
 ///Anything below this layer is to be considered completely (visually) under water by the immerse layer.

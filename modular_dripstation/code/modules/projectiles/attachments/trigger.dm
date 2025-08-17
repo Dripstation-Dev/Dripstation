@@ -45,7 +45,7 @@
 					att = A
 					break
 	att?.toggle_on()
-	build_all_button_icons()
+	build_all_button_icons(UPDATE_BUTTON_ICON)
 
 /datum/action/item_action/toggle_iff_module/apply_button_icon(atom/movable/screen/movable/action_button/button, force)
 	var/obj/item/attachment/trigger/iffthing = target

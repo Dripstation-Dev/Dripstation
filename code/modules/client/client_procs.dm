@@ -1102,9 +1102,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
 
 /client/proc/check_panel_loaded()
-/* //in case the window is "ready" but didn't load properly, we'll always give the button, subject to change.
 	if(stat_panel.is_ready())
 		return
+/* //in case the window is "ready" but didn't load properly, we'll always give the button, subject to change.
 	to_chat(src, span_userdanger("Statpanel failed to load, click <a href='byond://?src=[REF(src)];reload_statbrowser=1'>here</a> to reload the panel "))
 */
 	to_chat(src, span_userdanger("If statpanel failed to load, click <a href='byond://?src=[REF(src)];reload_tguipanel=1'>here</a> to reload it.")) //ah hell no, people just press this and have white statpannel, will fix this later, for now reload_statbrowser removed

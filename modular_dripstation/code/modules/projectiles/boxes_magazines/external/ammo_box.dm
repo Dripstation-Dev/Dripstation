@@ -88,17 +88,20 @@
 /obj/item/ammo_box/no_direct/a127
 	name = "ammo box (12.7x55mm casing)"
 	icon_state = "127mmbox"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
 	ammo_type = /obj/item/ammo_casing/a127
 	caliber = CALIBER_127X55
 	max_ammo = 20
 
-/obj/item/ammo_box/no_direct/a127/rubber
-	name = "ammo box (12.7x55mm rubber casing)"
-	icon_state = "127Rmmbox"
-	ammo_type = /obj/item/ammo_casing/a127/rubber
+/obj/item/ammo_box/no_direct/a127/ap
+	name = "ammo box (12.7x55mm AP casing)"
+	icon_state = "127APmmbox"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
+	ammo_type = /obj/item/ammo_casing/a127/ap
 
 /obj/item/ammo_box/no_direct/a127/heavy
 	name = "ammo box (12.7x55mm heavy casing)"
 	icon_state = "127Hmmbox"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
 	ammo_type = /obj/item/ammo_casing/a127/heavy
 

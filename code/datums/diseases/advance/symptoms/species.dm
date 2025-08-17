@@ -34,3 +34,4 @@
 		return
 	A.infectable_biotypes |= MOB_INORGANIC
 	A.infectable_biotypes |= MOB_ROBOTIC
+	A.infectable_biotypes |= MOB_PSEVDOORGANIC

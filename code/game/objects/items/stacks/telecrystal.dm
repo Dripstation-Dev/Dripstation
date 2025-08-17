@@ -21,12 +21,15 @@
 		return
 
 	L.visible_message(span_warning("[L] crushes [src]!"), span_danger("You crush [src]!"))
-	new /obj/effect/particle_effect/sparks(loc)
+	new /obj/effect/temp_visual/cult/sparks(loc)
 	playsound(loc, "sparks", 50, 1)
 
-	if(!do_teleport(L, destination, asoundin = 'sound/effects/phaseinred.ogg', channel = TELEPORT_CHANNEL_BLUESPACE))
+	if(!do_teleport(L, destination, asoundin = 'sound/effects/phaseinred.ogg', channel = TELEPORT_CHANNEL_CULT))
 		L.visible_message(span_warning("[src] refuses to be crushed by [L]! There must be something interfering!"), span_danger("[src] suddenly hardens in your hand! There must be something interfering!"))
 		return
+	SEND_SOUND(L, 'sound/hallucinations/im_here1.ogg')
+	L.visible_message(span_warning("Red dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!"), \
+				span_cultitalic("You speak unknown words as you crush the [src] and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
 
 	// Throws you one additional tile, giving it that cool "exit portal" effect and also throwing people very far if they are in space
 	L.throw_at(get_edge_target_turf(L, L.dir), 1, 3, spin = FALSE, diagonals_first = TRUE)

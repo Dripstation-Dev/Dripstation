@@ -446,7 +446,7 @@
 				mob_occupant.adjustFireLoss(rand(20, 36))
 			else
 				mob_occupant.adjustFireLoss(rand(2, 8))
-			mob_occupant.emote("scream")
+			mob_occupant.pain(100, TRUE)
 		decon.start()
 		addtimer(CALLBACK(src, PROC_REF(cook)), 50)
 	else

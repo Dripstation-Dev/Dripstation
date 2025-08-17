@@ -208,7 +208,7 @@ GLOBAL_LIST_INIT(battleroyale_weapon, list(
 		/obj/item/melee/chainsaw = 1,
 		/obj/item/fireaxe/metal_h2_axe = 1,
 		/obj/item/nullrod/whip = 1,
-		/obj/item/katana/basalt = 1,
+		/obj/item/melee/katana/basalt = 1,
 
 		/obj/item/melee/spear/bonespear/stalwartpike = 0,
 		/obj/item/fireaxe = 0,

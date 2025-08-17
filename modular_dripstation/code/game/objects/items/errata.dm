@@ -9,6 +9,7 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	pickup_sound =  'modular_dripstation/sound/weapons/Katana_Select01.ogg'
 	drop_sound = 'modular_dripstation/sound/weapons/metal_drop.ogg'
+	hitsound = SFX_KATANA_SWING
 	flags_1 = CONDUCT_1
 	obj_flags = UNIQUE_RENAME
 	w_class = WEIGHT_CLASS_BULKY

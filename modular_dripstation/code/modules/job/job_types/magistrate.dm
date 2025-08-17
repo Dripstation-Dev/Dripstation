@@ -18,7 +18,7 @@
 	exp_requirements = 360 //6 hours on command jobs
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_COMMAND
-	alt_titles = list("TerraGov Judge",	"Nanotrasen Internal Affairs Representative")
+	alt_titles = list("TerraGov Judge",	"Internal Affairs Representative")
 
 	outfit = /datum/outfit/job/magistrate
 

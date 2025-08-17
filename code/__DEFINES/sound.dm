@@ -182,3 +182,8 @@ GLOBAL_LIST_INIT(announcer_keys, list(
 #define SFX_WRITING "writing_sounds"
 #define SFX_POURING "pouring_sounds"
 #define SFX_700EJECT "eject_700"
+#define SFX_SLICE "slice"
+#define SFX_SLASH "slash"
+#define SFX_SLASHMISS "slashmiss"
+#define SFX_KATANA_SWING "katana_swing"
+#define SFX_FELINE_HISS "feline_hiss"

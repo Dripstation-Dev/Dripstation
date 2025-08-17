@@ -183,6 +183,9 @@
 	rebuild_parts()
 	AddComponent(/datum/component/ntnet_interface)
 
+	if(mapload && is_station_level(z) && prob(3))
+		wires.cut(WIRE_SAFETY)
+
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/door/airlock/connect_to_shuttle(mapload, obj/docking_port/mobile/port, obj/docking_port/stationary/dock)

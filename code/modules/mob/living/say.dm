@@ -179,7 +179,7 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 	if(!language)
 		language = get_selected_language()
 
-	if(!(can_speak_vocal(message) || (saymode && saymode.bypass_mute))) //yogs change - mindlink is mental, not vocal
+	if(!(can_speak_vocal(message) || (saymode && saymode.bypass_mute) || HAS_TRAIT(src, TRAIT_SIGN_LANG))) //yogs change - mindlink is mental, not vocal
 		to_chat(src, span_warning("You find yourself unable to speak!"))
 		return
 
@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
 	var/pressure = (environment)? environment.return_pressure() : 0
-	if(pressure < SOUND_MINIMUM_PRESSURE)
+	if(pressure < SOUND_MINIMUM_PRESSURE && !HAS_TRAIT(src, TRAIT_SIGN_LANG))
 		message_range = 1
 	//yogs end
 
@@ -228,11 +228,13 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 				else if(V.does_say_message())
 					V.say_message(message,message_range)
 					return on_say_success(message,message_range,succumbed, spans, language, message_mods) // Yogs end
-	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
-	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
-		message = uppertext(message)
-	if(!message)
-		return
+	if(!HAS_TRAIT(src, TRAIT_SIGN_LANG)) // if using sign language skip sending the say signal
+		// Make sure the arglist is passed exactly - don't pass a copy of it. Say signal handlers will modify some of the parameters.
+		var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+		if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
+			message = uppertext(message)
+		if(!message)
+			return
 
 	spans |= speech_span
 
@@ -305,6 +307,8 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 	// Recompose message for AI hrefs, language incomprehension.
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
+	if(HAS_TRAIT(speaker, TRAIT_SIGN_LANG)) //Checks if speaker is using sign language
+		deaf_message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods, TRUE)
 
 	show_message(message, 2, deaf_message, deaf_type, avoid_highlight)
 	return message
@@ -452,11 +456,20 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 		. = verb_sing
 	// Any subtype of slurring in our status effects make us "slur"
 	else if(locate(/datum/status_effect/speech/slurring) in status_effects)
-		. = "slurs"
+		if (HAS_TRAIT(src, TRAIT_SIGN_LANG))
+			. = "loosely signs"
+		else
+			. = "slurs"
 	else if(has_status_effect(/datum/status_effect/speech/stutter))
-		. = "stammers"
+		if(HAS_TRAIT(src, TRAIT_SIGN_LANG))
+			. = "shakily signs"
+		else
+			. = "stammers"
 	else if(has_status_effect(/datum/status_effect/speech/stutter/derpspeech))
-		. = "gibbers"
+		if(HAS_TRAIT(src, TRAIT_SIGN_LANG))
+			. = "incoherently signs"
+		else
+			. = "gibbers"
 	else
 		. = ..()
 

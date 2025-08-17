@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 
 //PLANETARY ATMOS MIXES
 #define LAVALAND_DEFAULT_ATMOS "o2=14;n2=23;TEMP=300"
-#define ICEMOON_DEFAULT_ATMOS "o2=14;n2=23;TEMP=180"
+#define ICEMOON_DEFAULT_ATMOS "o2=33;n2=124;TEMP=180"	//dripstation edit, normal atmos on icemoon
 #define JUNGLELAND_DEFAULT_ATMOS "o2=44;n2=164;TEMP=300" //yogs edit
 
 //ATMOSIA GAS MONITOR TAGS

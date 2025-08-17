@@ -13,6 +13,7 @@
 	display_results(user, target, span_notice("You begin to make an incision in [target]'s [parse_zone(target_zone)]..."),
 		"[user] begins to make an incision in [target]'s [parse_zone(target_zone)].",
 		"[user] begins to make an incision in [target]'s [parse_zone(target_zone)].")
+	display_pain(target, "You feel a stabbing in your [parse_zone(target_zone)].")
 
 /datum/surgery_step/incise/tool_check(mob/user, obj/item/tool)
 	if(implement_type == /obj/item && !tool.is_sharp())
@@ -29,7 +30,8 @@
 				"")
 			var/obj/item/bodypart/BP = target.get_bodypart(target_zone)
 			if(BP)
-				BP.generic_bleedstacks += bleeding
+				BP.adjustBleedStacks(bleeding)
+		target.apply_damage(5, BRUTE, "[target_zone]", wound_bonus = CANT_WOUND)	//	dripstation edit
 	return TRUE
 
 /datum/surgery_step/incise/nobleed
@@ -40,6 +42,7 @@
 	display_results(user, target, span_notice("You begin to <i>carefully</i> make an incision in [target]'s [parse_zone(target_zone)]..."),
 		span_notice("[user] begins to <i>carefully</i> make an incision in [target]'s [parse_zone(target_zone)]."),
 		span_notice("[user] begins to <i>carefully</i> make an incision in [target]'s [parse_zone(target_zone)]."))
+	display_pain(target, "You feel a <i>careful</i> stabbing in your [parse_zone(target_zone)].")
 
 //clamp bleeders
 /datum/surgery_step/clamp_bleeders
@@ -52,16 +55,19 @@
 	display_results(user, target, span_notice("You begin to clamp bleeders in [target]'s [parse_zone(target_zone)]..."),
 		"[user] begins to clamp bleeders in [target]'s [parse_zone(target_zone)].",
 		"[user] begins to clamp bleeders in [target]'s [parse_zone(target_zone)].")
+	display_pain(target, "You feel a pinch as the bleeding in your [parse_zone(target_zone)] is slowed.")
 
 /datum/surgery_step/clamp_bleeders/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	/*	dripstation edit
 	if(locate(/datum/surgery_step/saw) in surgery.steps)
 		var/obj/item/bodypart/affecting = target.get_bodypart(target_zone)
 		affecting?.heal_damage(20,0)
+	*/
 	if (ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/bodypart/BP = H.get_bodypart(target_zone)
 		if(BP)
-			BP.generic_bleedstacks -= 3
+			BP.adjustBleedStacks(-5)
 	return ..()
 
 //retract skin
@@ -76,6 +82,7 @@
 	display_results(user, target, span_notice("You begin to retract the skin in [target]'s [parse_zone(target_zone)]..."),
 		"[user] begins to retract the skin in [target]'s [parse_zone(target_zone)].",
 		"[user] begins to retract the skin in [target]'s [parse_zone(target_zone)].")
+	display_pain(target, "You feel a severe stinging pain spreading across your [parse_zone(target_zone)] as the skin is pulled back!")
 
 
 
@@ -94,6 +101,7 @@
 	display_results(user, target, span_notice("You begin to mend the incision in [target]'s [parse_zone(target_zone)]..."),
 		"[user] begins to mend the incision in [target]'s [parse_zone(target_zone)].",
 		"[user] begins to mend the incision in [target]'s [parse_zone(target_zone)].")
+	display_pain(target, "Your [parse_zone(target_zone)] is being burned!")
 
 /datum/surgery_step/close/tool_check(mob/user, obj/item/tool)
 	if(implement_type == TOOL_WELDER || implement_type == /obj/item)
@@ -102,14 +110,19 @@
 	return TRUE
 
 /datum/surgery_step/close/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	/*	dripstation edit
 	if(locate(/datum/surgery_step/saw) in surgery.steps)
 		var/obj/item/bodypart/affecting = target.get_bodypart(target_zone)
 		affecting?.heal_damage(45,0)
+	*/
 	if (ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/bodypart/BP = H.get_bodypart(target_zone)
 		if(BP)
-			BP.generic_bleedstacks -= 10
+	/*	dripstation edit
+			BP.adjustBleedStacks(-10)
+	*/
+			BP.adjustBleedStacks(-4)
 	return ..()
 
 /datum/surgery_step/close/nofail
@@ -130,20 +143,32 @@
 		/obj/item/kitchen/knife/butcher = 'sound/surgery/scalpel1.ogg',
 		/obj/item = 'sound/surgery/scalpel1.ogg',
 	) 
+	/* Dripstation edit - since we crack it anyway
 	success_sound = 'sound/surgery/bone3.ogg'
+	*/
 	fuckup_damage = 20
 
 /datum/surgery_step/saw/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to saw through the bone in [target]'s [parse_zone(target_zone)]..."),
 		"[user] begins to saw through the bone in [target]'s [parse_zone(target_zone)].",
 		"[user] begins to saw through the bone in [target]'s [parse_zone(target_zone)].")
+	display_pain(target, "You feel a horrid ache spread through the inside of your [parse_zone(target_zone)]!")
 
 /datum/surgery_step/saw/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	target.apply_damage(50, BRUTE, "[target_zone]", wound_bonus=CANT_WOUND)
+	target.apply_damage(30, BRUTE, "[target_zone]", wound_bonus = -10, sharpness = SHARP_EDGED)
+	var/datum/wound/blunt/severe/fracture = new
+	fracture.apply_wound("[target_zone]", silent = FALSE, attack_direction = target.dir)
 	display_results(user, target, span_notice("You saw [target]'s [parse_zone(target_zone)] open."),
 		"[user] saws [target]'s [parse_zone(target_zone)] open!",
 		"[user] saws [target]'s [parse_zone(target_zone)] open!")
+	display_pain(target, "It feels like something just broke in your [parse_zone(target_zone)]!")
+	target.balloon_alert_to_viewers("finished!")
 	return TRUE
+
+/datum/surgery_step/saw/skip_surgery_step(mob/user)	//	dripstation edit
+	if(locate(/datum/wound/blunt/critical) in parse_zone(user.zone_selected)?.wounds || locate(/datum/wound/blunt/severe) in parse_zone(user.zone_selected)?.wounds)
+		return TRUE
+	return FALSE
 
 //drill bone
 /datum/surgery_step/drill
@@ -158,9 +183,15 @@
 	display_results(user, target, span_notice("You begin to drill into the bone in [target]'s [parse_zone(target_zone)]..."),
 		"[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)].",
 		"[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)].")
+	display_pain(target, "You feel a horrible piercing pain in your [parse_zone(target_zone)]!")
 
 /datum/surgery_step/drill/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You drill into [target]'s [parse_zone(target_zone)]."),
 		"[user] drills into [target]'s [parse_zone(target_zone)]!",
 		"[user] drills into [target]'s [parse_zone(target_zone)]!")
 	return TRUE
+
+/datum/surgery_step/drill/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)	//	dripstation edit
+	var/datum/wound/blunt/severe/fracture = new
+	fracture.apply_wound("[target_zone]", silent = FALSE, attack_direction = target.dir)
+	return ..()

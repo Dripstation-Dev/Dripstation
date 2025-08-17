@@ -4663,7 +4663,7 @@
 /area/medical/paramedic)
 "bma" = (
 /obj/effect/spawner/lootdrop/maint_fauna,
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -5013,7 +5013,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port)
 "bsp" = (
@@ -11135,7 +11135,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port/aft)
 "dda" = (
@@ -11604,7 +11604,7 @@
 	icon_state = "2-4"
 	},
 /obj/item/cigbutt,
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/fore)
 "dld" = (
@@ -34487,7 +34487,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/department/cargo)
 "jrm" = (
@@ -46819,7 +46819,7 @@
 /area/hallway/primary/aft)
 "mBz" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port/aft)
 "mBK" = (
@@ -53781,7 +53781,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/fore)
 "omA" = (
@@ -71626,12 +71626,12 @@
 	},
 /obj/structure/table,
 /obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 11
+	pixel_x = 3;
+	pixel_y = 6
 	},
 /obj/item/pen{
-	pixel_x = -2;
-	pixel_y = 13
+	pixel_x = 3;
+	pixel_y = 9
 	},
 /turf/open/floor/plasteel/dark/side{
 	icon_state = "textured_dark_edge";
@@ -75667,7 +75667,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/lootdrop/garbage,
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard)
 "ulP" = (
@@ -76976,7 +76976,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/aft)
 "uDP" = (
@@ -80109,7 +80109,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor/chance_to_be_uncovered,
 /area/maintenance/starboard)
 "vsH" = (
@@ -84758,7 +84758,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port/fore)
 "wzK" = (
@@ -88565,7 +88565,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port/fore)
 "xxE" = (
@@ -89385,7 +89385,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/backrooms/twenty,
+/obj/effect/spawner/lootdrop/backrooms/five,
 /turf/open/floor/catwalk_floor,
 /area/maintenance/port/fore)
 "xGj" = (

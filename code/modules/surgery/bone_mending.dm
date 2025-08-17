@@ -40,6 +40,56 @@
 
 //SURGERY STEPS
 
+//general bone repair 
+/datum/surgery_step/repair_bone
+	name = "repair bone (bonesetter/bone gel/tape)"
+	implements = list(TOOL_BONESET = 100, /obj/item/stack/medical/bone_gel = 100, /obj/item/stack/tape = 30)
+	preop_sound = list(
+		/obj/item/stack/medical/bone_gel = 'sound/effects/ointment.ogg',
+		/obj/item/stack/tape = 'sound/effects/tape.ogg',
+		/obj/item = 'sound/surgery/bone1.ogg'
+	) 
+	success_sound = list(
+		/obj/item/stack/medical/bone_gel = FALSE,
+		/obj/item = 'sound/surgery/bone3.ogg'
+	) 
+	failure_sound = 'sound/effects/wounds/crack1.ogg'
+	time = 4 SECONDS
+
+/datum/surgery_step/repair_bone/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(locate(/datum/wound/blunt/critical) in parse_zone(user.zone_selected)?.wounds || locate(/datum/wound/blunt/severe) in parse_zone(user.zone_selected)?.wounds)
+		display_results(user, target, span_notice("You begin to repair the bone damage in [target]'s [parse_zone(user.zone_selected)]..."),
+			span_notice("[user] begins to repair the bone damage in [target]'s [parse_zone(user.zone_selected)] with [tool]."),
+			span_notice("[user] begins to repair the bone damage in [target]'s [parse_zone(user.zone_selected)]."))
+	else
+		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
+
+/datum/surgery_step/repair_bone/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
+	if(locate(/datum/wound/blunt/critical) in parse_zone(user.zone_selected)?.wounds || locate(/datum/wound/blunt/severe) in parse_zone(user.zone_selected)?.wounds)
+		if(istype(tool, /obj/item/stack))
+			var/obj/item/stack/used_stack = tool
+			used_stack.use(1)
+		var/datum/wound/W
+		W = parse_zone(user.zone_selected).get_wound_type(/datum/wound/blunt/critical)
+		if(W)
+			W.remove_wound()
+		else 
+			W = parse_zone(user.zone_selected).get_wound_type(/datum/wound/blunt/severe)
+			W.remove_wound()
+		display_results(user, target, span_notice("You successfully repair the [W.name] in [target]'s [parse_zone(target_zone)]."),
+			span_notice("[user] successfully repairs the [W.name] in [target]'s [parse_zone(target_zone)] with [tool]!"),
+			span_notice("[user] successfully repairs the [W.name] in [target]'s [parse_zone(target_zone)]!"))
+		log_combat(user, target, "repaired a hairline [W.name] in", addition="INTENT: [uppertext(user.a_intent)]")
+	else
+		to_chat(user, span_warning("[target] has no bone damage there!"))
+	return ..()
+
+/datum/surgery_step/repair_bone/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, fail_prob = 0)
+	..()
+	if(istype(tool, /obj/item/stack))
+		var/obj/item/stack/used_stack = tool
+		used_stack.use(1)
+
 ///// Repair Hairline Fracture (Severe)
 /datum/surgery_step/repair_bone_hairline
 	name = "repair hairline fracture (bonesetter/bone gel/tape)"

@@ -16,7 +16,7 @@
 	exp_requirements = 360 //6 hours on command jobs
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_COMMAND
-	alt_titles = list("Nanotrasen Consultant", "Central Command Representative")
+	alt_titles = list("Staff Consultant", "Central Command Representative")
 
 	outfit = /datum/outfit/job/ntrep
 

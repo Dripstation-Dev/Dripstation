@@ -105,9 +105,7 @@
 				mob_occupant.radiation += 500
 				mob_occupant.adjust_fire_stacks(2)
 				mob_occupant.ignite_mob()
-			if(iscarbon(mob_occupant) && mob_occupant.stat < UNCONSCIOUS)
-				//Awake, organic and screaming
-				mob_occupant.emote("scream")
+				mob_occupant.pain(100, TRUE) //Awake, organic and screaming
 		else
 			decon.start()
 		addtimer(CALLBACK(src, PROC_REF(cook)), 50)

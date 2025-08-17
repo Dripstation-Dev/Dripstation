@@ -77,14 +77,36 @@
 		damaged = TRUE
 		if((organ_flags & ORGAN_FAILING))
 			C.become_blind(EYE_DAMAGE)
-		else if(damage > 30)
-			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 2)
-		else
-			C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 1)
-	//called once since we don't want to keep clearing the screen of eye damage for people who are below 20 damage
-	else if(damaged)
-		damaged = FALSE
-		C.clear_fullscreen("eye_damage")
+	switch(damage)
+		if(50 to INFINITY)
+			damaged = TRUE
+			if((organ_flags & ORGAN_FAILING))
+				C.become_blind(EYE_DAMAGE)
+		if(0 to 3)	//3 like kinda 
+			damaged = FALSE
+			//C.clear_fullscreen("eye_damage")
+			tint = initial(tint)
+		if(40 to 50)
+			damaged = TRUE
+			//C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 5)
+			tint = initial(tint) + 5
+		if(30 to 40)
+			damaged = TRUE
+			//C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 4)
+			tint = initial(tint) + 4
+		if(20 to 30)
+			damaged = TRUE
+			//C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 3)
+			tint = initial(tint) + 3
+		if(10 to 20)
+			damaged = TRUE
+			//C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 2)
+			tint = initial(tint) + 2
+		if(3 to 10)
+			damaged = TRUE
+			//C.overlay_fullscreen("eye_damage", /atom/movable/screen/fullscreen/impaired, 1)
+			tint = initial(tint) + 1
+	C.update_tint()
 	return
 
 #define OFFSET_X 1
@@ -212,7 +234,15 @@
 	owner.flash_act(override_blindness_check = 1)
 	owner.blind_eyes(5)
 	owner.adjust_eye_blur(8)
-	eyes.applyOrganDamage(20 / severity)
+	eyes.applyOrganDamage(2 * severity)
+
+/obj/item/organ/eyes/robotic/ipc
+	compatible_biotypes = MOB_ROBOTIC
+
+/obj/item/organ/eyes/robotic/ipc/emp_act(severity)
+	if(prob(30))
+		return
+	..()
 
 /obj/item/organ/eyes/robotic/xray
 	name = "\improper meson eyes"

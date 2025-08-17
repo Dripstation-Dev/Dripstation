@@ -1,3 +1,21 @@
+/obj/item/melee
+	var/stamina_cost_to_attack = 7
+
+/obj/item/melee/attack(mob/living/M, mob/living/user)
+	var/current_stamina_damage = user.getStaminaLoss()
+	if(current_stamina_damage >= 75)
+		to_chat(user, span_warning("You muscles seize, you can`t attack with \the [src] again!"))
+		return
+	return ..()
+
+/obj/item/melee/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(ishuman(user) && isliving(target))
+		var/mob/living/carbon/human/U = user
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			U.adjustStaminaLoss(stamina_cost_to_attack)
+
 /obj/item/ectoplasm
 	icon = 'modular_dripstation/icons/obj/wizard.dmi'
 
@@ -10,6 +28,7 @@
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	w_class_on = WEIGHT_CLASS_NORMAL
+	hitsound = SFX_KATANA_SWING
 
 /obj/item/melee/transforming/vib_blade/afterattack(atom/target, mob/user, blocked)
 	. = ..()
@@ -28,6 +47,8 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_block_blade.ogg'
 	block_color = COLOR_GREEN
+	hitsound = SFX_KATANA_SWING
+	drop_sound = 'modular_dripstation/sound/weapons/metal_drop.ogg'
 
 /obj/item/energy_katana/equipped(mob/user, slot)
 	. = ..()
@@ -39,7 +60,7 @@
 	//	worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
 	update_appearance(UPDATE_ICON)
 
-/obj/item/katana
+/obj/item/melee/katana
 	name = "modern katana"
 	desc = "Modern recreation of ancient terran weapon, capable to slice through variety of materials."
 	icon_state = "modern_katana"
@@ -49,10 +70,12 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	block_chance = 50
+	hitsound = SFX_KATANA_SWING
+	drop_sound = 'modular_dripstation/sound/weapons/metal_drop.ogg'
 	var/block_projectile_mod = 0.5
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 
-/obj/item/katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/melee/katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block bullets
 			to_chat(owner, span_userdanger("<b><i>You're too off balance to try block bullets!</i></b>"))
@@ -74,7 +97,7 @@
 		return 1
 	return 0
 
-/obj/item/katana/equipped(mob/user, slot)
+/obj/item/melee/katana/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_BELT)
 		worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
@@ -84,7 +107,7 @@
 	//	worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
 	update_appearance(UPDATE_ICON)
 
-/obj/item/katana/traditional
+/obj/item/melee/katana/traditional
 	name = "traditional katana"
 	desc = "Ancient terran weapon, capable to slice through variety of materials."
 	icon_state = "traditional_katana"
@@ -94,7 +117,7 @@
 	block_chance = 60
 	block_projectile_mod = 1.5	//75%
 
-/obj/item/katana/bloody
+/obj/item/melee/katana/bloody
 	name = "bloody katana"
 	desc = "Modern katana covered in blood. And thirsts for even more of it..."
 	icon_state = "bloody_katana"
@@ -102,7 +125,7 @@
 	slot_flags = null
 	block_projectile_mod = 1	//here for more
 
-/obj/item/katana/basalt
+/obj/item/melee/katana/basalt
 	icon_state = "basalt_katana"
 	item_state = "basalt_katana"
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
@@ -111,7 +134,7 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	block_projectile_mod = 0	//too heavy
 
-/obj/item/katana/cursed
+/obj/item/melee/katana/cursed
 	icon_state = "cursed"
 	item_state = "cursed"
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
@@ -120,7 +143,7 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	block_projectile_mod = 0.2	//curse uppon ya
 
-/obj/item/katana/monomolecular
+/obj/item/melee/katana/monomolecular
 	name = "molecular katana"
 	icon_state = "monomolecular"
 	item_state = "monomolecular"
@@ -130,7 +153,7 @@
 	block_projectile_mod = 1.5	// 50 projectile block chance in throwmode
 	armour_penetration = 75
 
-/obj/item/katana/murasame
+/obj/item/melee/katana/murasame
 	name = "\improper Murasame"
 	icon_state = "murasame"
 	item_state = "murasame"
@@ -141,7 +164,7 @@
 	var/death_imminent = FALSE
 	var/mob/living/death_wisher = null
 
-/obj/item/katana/murasame/afterattack(atom/target, blocked)
+/obj/item/melee/katana/murasame/afterattack(atom/target, blocked)
 	. = ..()
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/victim = target
@@ -152,7 +175,7 @@
 		victim.reagents.add_reagent(/datum/reagent/toxin/venom, 5)
 		victim.reagents.add_reagent(/datum/reagent/toxin/acid/fluacid, 5)
 
-/obj/item/katana/murasame/attack_self(mob/living/user)
+/obj/item/melee/katana/murasame/attack_self(mob/living/user)
 	if(world.time > next_blow && (istype(user, death_wisher)|| !death_wisher))
 		balloon_alert(user, "you starting to cut yourself with [src]!")
 		if(do_after(user, 0.5 SECONDS, src))
@@ -175,7 +198,7 @@
 	else
 		to_chat(user, span_notice("You catch your breath and can`s blow yourself now!"))
 
-/obj/item/katana/murasame/proc/user_death(mob/living/user)
+/obj/item/melee/katana/murasame/proc/user_death(mob/living/user)
 	user.reagents.add_reagent(/datum/reagent/toxin/cyanide, 5)
 	user.reagents.add_reagent(/datum/reagent/toxin/venom, 5)
 	sleep(10 SECONDS)
@@ -190,6 +213,7 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
+	hitsound = SFX_KATANA_SWING
 
 /obj/item/toy/katana/equipped(mob/user, slot)
 	. = ..()

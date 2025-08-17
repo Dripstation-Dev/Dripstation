@@ -82,7 +82,7 @@
 		update_appearance(UPDATE_ICON)
 
 	if(storedpaper)
-		playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1)
+		playsound(src.loc, SFX_SLASH, 50, 1)
 		to_chat(user, span_notice("You neatly cut [storedpaper]."))
 		storedpaper = null
 		qdel(storedpaper)

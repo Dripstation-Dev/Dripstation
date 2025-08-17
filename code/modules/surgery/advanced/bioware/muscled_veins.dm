@@ -8,6 +8,7 @@
 				/datum/surgery_step/incise,
 				/datum/surgery_step/incise,
 				/datum/surgery_step/muscled_veins,
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 	bioware_target = BIOWARE_CIRCULATION

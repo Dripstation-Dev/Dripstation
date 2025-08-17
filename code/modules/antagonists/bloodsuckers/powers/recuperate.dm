@@ -48,7 +48,7 @@
 	// Stop Bleeding
 	if(istype(user) && user.is_bleeding())
 		for(var/obj/item/bodypart/part in user.bodyparts)
-			part.generic_bleedstacks--
+			part.adjustBleedStacks(-1)
 
 /datum/action/cooldown/bloodsucker/recuperate/ContinueActive(mob/living/user, mob/living/target)
 	if(user.stat >= DEAD)

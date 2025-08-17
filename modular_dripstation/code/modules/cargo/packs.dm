@@ -88,7 +88,11 @@
 					/obj/item/flashlight/emp,
 					/obj/item/multitool/ai_detect,
 					/obj/item/stamp/syndiround,
-					/obj/item/suppressor)
+					/obj/item/suppressor,
+					/obj/item/storage/box/syndie_kit/imp_uplink,
+					/obj/item/storage/box/syndie_kit/imp_freedom,
+					/obj/item/storage/box/syndie_kit/imp_microbomb,
+					/obj/item/storage/box/syndie_kit/imp_storage)
 		new item(C)
 
 /datum/supply_pack/costumes_toys/randomised/syndicate
@@ -121,6 +125,8 @@
 
 /datum/supply_pack/weaponry/russian
 	name = "Vostok Surplus Crate"
+	order_limit_in_one_order = 2
+	order_limit = 3
 	desc = "Hello Comrade, we have the most reliable military equipment the soviet space can offer, for the right price of course. Sadly we couldnt remove the lock so it requires Armory access to open."
 	contains = list()
 
@@ -580,3 +586,53 @@
 	)
 	crate_name = "medipen crate"
 	crate_type = /obj/structure/closet/crate/secure/zeng_hu
+
+/datum/supply_pack/medical/replica_heart
+	name = "Licensed Replica Spare Part (TMC-17H)"
+	desc = "Contains one replica spare part in the shape of a heart."
+	cost = 4000
+	contains = list(/obj/item/organ/heart/replica)
+	small_item = TRUE
+
+/datum/supply_pack/medical/replica_controller
+	name = "Licensed Replica Spare Part (TMC-89C)"
+	desc = "Contains one replica spare behaviour controller cyberimplant."
+	cost = 4000
+	contains = list(/obj/item/organ/cyberimp/brain/replica_controller)
+	small_item = TRUE
+
+/datum/supply_pack/medical/replica_eyes
+	name = "Licensed Replica Spare Part (TMC-11Y)"
+	desc = "Contains one replica spare part in the shape of a eyes."
+	cost = 4000
+	contains = list(/obj/item/organ/eyes/robotic/preternis/replica)
+	small_item = TRUE
+
+/datum/supply_pack/medical/replica_tongue
+	name = "Licensed Replica Spare Part (TMC-19T)"
+	desc = "Contains one replica spare part in the shape of a tongue."
+	cost = 1000
+	contains = list(/obj/item/organ/tongue/replica)
+	small_item = TRUE
+
+/datum/supply_pack/medical/replica_ears
+	name = "Licensed Replica Spare Part (TMC-16E)"
+	desc = "Contains one replica spare part in the shape of a ears."
+	cost = 1000
+	contains = list(/obj/item/organ/ears/replica)
+	small_item = TRUE
+
+/datum/supply_pack/medical/replica_stomach
+	name = "Licensed Replica Spare Part (TMC-24S)"
+	desc = "Contains one replica spare part in the shape of a stomach."
+	cost = 1000
+	contains = list(/obj/item/organ/stomach/cell/preternis/replica)
+	small_item = TRUE
+
+/datum/supply_pack/medical/replica_lungs
+	name = "Licensed Replica Spare Part (TMC-32L)"
+	desc = "Contains one replica spare part in the shape of the lungs."
+	cost = 4000
+	contains = list(/obj/item/organ/lungs/replica)
+	small_item = TRUE
+

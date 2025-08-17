@@ -15,7 +15,7 @@
 	exp_requirements = 6000 //100 hours on security jobs
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SECURITY
-	alt_titles = list("Nanotrasen Defense Team Member", "Nanotrasen Fighting Force Veteran")
+	alt_titles = list("Defense Team Member", "Fighting Force Veteran", "Defence Analitic")
 
 	outfit = /datum/outfit/job/security_consultant
 
@@ -40,6 +40,7 @@
 		/obj/item/clothing/accessory/medal/conduct = 1,
 		/obj/item/clothing/under/rank/security/consultant/tactical = 5,
 		/obj/item/clothing/under/rank/security/consultant/skirt/tactical = 5,
+		/obj/item/storage/briefcase/nt_mantis = 4,
 		/obj/item/instrument/trumpet = 5,
 		/obj/item/storage/fancy/cigarettes/cigars = 10
 	)

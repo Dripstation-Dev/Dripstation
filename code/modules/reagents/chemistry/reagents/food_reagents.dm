@@ -143,7 +143,7 @@
 		M.visible_message(span_warning("The boiling oil sizzles as it covers [M]!"), \
 		span_userdanger("You're covered in boiling oil!"))
 		if(FryLoss)
-			M.emote("scream")
+			M.pain(100, TRUE)
 		playsound(M, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
 		ADD_TRAIT(M, TRAIT_OIL_FRIED, "cooking_oil_react")
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, unfry_mob)), 3)
@@ -607,12 +607,14 @@
 	..()
 
 /datum/reagent/consumable/honey/reaction_mob(mob/living/M, methods=TOUCH, reac_volume)
-  if(iscarbon(M) && (methods & (TOUCH|VAPOR|PATCH)))
-    var/mob/living/carbon/C = M
-    for(var/s in C.surgeries)
-      var/datum/surgery/S = s
-      S.success_multiplier = max(0.6, S.success_multiplier) // +60% success probability on each step, compared to bacchus' blessing's ~46%
-  ..()
+	if(iscarbon(M) && (methods & (TOUCH|VAPOR|PATCH)))
+		var/mob/living/carbon/C = M
+		//for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
+			//var/datum/surgery/S = s
+			//S.success_multiplier = max(0.6, S.success_multiplier) // +60% success probability on each step, compared to bacchus' blessing's ~46%
+		for(var/datum/wound/W in C.all_wounds)
+			W.applySanitization(0.5 * reac_volume)
+	..()
 
 /datum/reagent/consumable/mayonnaise
 	name = "Mayonnaise"

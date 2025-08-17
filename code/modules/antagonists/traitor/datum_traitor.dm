@@ -223,18 +223,51 @@
 		backstab_objective.set_faction(pick("red", "blue"))
 		backstab_objective.owner = owner
 		add_objective(backstab_objective)
-		objective_count += 1					//Exchange counts towards number of objectives
-	if(SSticker.mode.traitors.len > 1)	//don`t count yourself
-		var/list/traitor_list = list()
-		for(var/datum/mind/tr in SSticker.mode.traitors)
-			if(tr.current == owner.current)
+	var/list/traitor_list = list()
+	var/list/brothers_team_list = list()
+	var/milf_confirmed
+	for(var/mob/living/tr in SSticker.mode.living_antag_player)
+		if(tr.mind == owner)		//don`t count yourself
+			continue
+		if(IS_TRAITOR(tr))
+			var/datum/antagonist/traitor/td = tr.mind.has_antag_datum(/datum/antagonist/traitor)
+			if(td.traitor_kind == TRAITOR_AI)	//AI poorly handled by assasination obj
+				milf_confirmed = tr.mind
 				continue
-			traitor_list += tr
+			else if(td.nt_scum)	//we don`t want to kill each other, it`s not fun I guess
+				continue
+		if(is_blood_brother(tr))	//since you are not vamp hunter and no one really knows who is changeling your only other major objective can be only disrupting the bloodbrother cell
+			var/datum/antagonist/brother/br = tr.mind.has_antag_datum(/datum/antagonist/brother)
+			brothers_team_list += br.team
+		traitor_list += tr.mind
+	
+	//Primary objective time, baby
+	if(milf_confirmed)
+		var/datum/objective/destroy/des_obj = new
+		des_obj.owner = owner
+		des_obj.target = milf_confirmed
+		des_obj.explanation_text = "Any malfunctional AI`s incident is damaging Nanotrasen`s reputation. In this case malfunction caused by morality core degradation is beyond any repair attempt. Prioritize destruction of [des_obj.target.current.name], the malfunctional AI, and leave no evidence."
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), ANNOUNCER_AIMALF, 40, FALSE), 6 SECONDS)
+		add_objective(des_obj)
+		objective_count += 1
+	else if(brothers_team_list.len)
+		var/datum/team/brother_team/br_team = pick(brothers_team_list)
+		for(var/datum/mind/M in br_team.members)
+			var/datum/objective/assassinate/ass_brother_obj = new
+			ass_brother_obj.owner = owner
+			ass_brother_obj.target = M
+			ass_brother_obj.explanation_text = "Terminate \the [ass_brother_obj.target.current.real_name], the [ass_brother_obj.target.assigned_role], confirmed active Syndicate agent cell member."
+			add_objective(ass_brother_obj)
+		objective_count += 1	//they all count as one since your real objective to eleminate all of them
+	else if(traitor_list.len)	//don`t count yourself, your kind, brothers and milf AI
 		var/datum/objective/assassinate/ass_obj = new
 		ass_obj.owner = owner
 		ass_obj.target = pick(traitor_list)
-		ass_obj.explanation_text = "Terminate \the [ass_obj.target.current.real_name], the [ass_obj.target.assigned_role], confirmed Syndicate operative."
+		ass_obj.explanation_text = "Terminate \the [ass_obj.target.current.real_name], the [ass_obj.target.assigned_role], confirmed active Syndicate agent."
 		add_objective(ass_obj)
+		objective_count += 1
+
+	//giving them extra bit objectives
 	var/toa = CONFIG_GET(number/traitor_objectives_amount)
 	for(var/i = objective_count, i < toa, i++)
 		forge_single_isd_objective()
@@ -346,7 +379,7 @@
 		steal_objective.find_target()
 		add_objective(steal_objective)
 	else
-		var/N = pick(/datum/objective/assassinate/once, /datum/objective/assassinate, /datum/objective/maroon)
+		var/N = pick(/datum/objective/assassinate/once/isd, /datum/objective/assassinate/isd, /datum/objective/assassinate/cloned/isd, /datum/objective/maroon)
 		var/datum/objective/kill_objective = new N
 		kill_objective.owner = owner
 		kill_objective.find_target()

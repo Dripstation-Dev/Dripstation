@@ -97,6 +97,7 @@
 	var/ignore_source_check = FALSE
 
 	var/damage = 10
+	var/simplemob_additional_damage = 0
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 
 	///Determines if the projectile will skip any damage inflictions
@@ -277,6 +278,8 @@
 				L.add_splatter_floor(target_loca)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
+		if(isanimal(L))
+			damage += simplemob_additional_damage
 
 		var/organ_hit_text = ""
 		var/limb_hit = L.check_limb_hit(def_zone)//to get the correct message info.

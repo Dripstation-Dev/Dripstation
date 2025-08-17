@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/bananium/eaten(mob/living/carbon/human/H)//why are you eating bananium ore?
 	H.visible_message(span_notice("[H] takes a bite of [src], crunching happily."), span_userdanger("The [src] rapidly starts permeating you until there's nothing left!"))
-	H.emote("scream")
+	H.pain(100, TRUE)
 	playsound(H, 'sound/effects/supermatter.ogg', 100)
 	var/petrified = H.petrify(5 MINUTES, TRUE)
 	if(petrified)

@@ -239,7 +239,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			if (isandroid(tracked_mob))
 				species = "Android"
 			if (isreplica(tracked_mob))
-				species = "Robot"
+				species = "Replica"
 
 			for(var/obj/item/bodypart/part in tracked_mob.bodyparts)
 				if(part.bodypart_disabled == TRUE) //check if has disabled limbs

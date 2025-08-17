@@ -334,43 +334,56 @@
 			var/mob/living/carbon/human/H = usr
 			var/perpname = get_face_name(get_id_name(""))
 			if(istype(H.glasses, /obj/item/clothing/glasses/hud) || istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud))
-				var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.general)
+				var/datum/data/record/gen_record = find_record("name", perpname, GLOB.data_core.general)
+				var/datum/data/record/med_record = find_record("name", perpname, GLOB.data_core.medical)
+				var/datum/data/record/sec_record = find_record("name", perpname, GLOB.data_core.security)
 				if(href_list["photo_front"] || href_list["photo_side"])
-					if(R)
+					if(gen_record)
 						if(!H.canUseHUD())
 							return
 						else if(!istype(H.glasses, /obj/item/clothing/glasses/hud) && !istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/medical))
 							return
 						var/obj/item/photo/P = null
 						if(href_list["photo_front"])
-							P = R.fields["photo_front"]
+							P = gen_record.fields["photo_front"]
 						else if(href_list["photo_side"])
-							P = R.fields["photo_side"]
+							P = gen_record.fields["photo_side"]
 						if(P)
 							P.show(H)
 
 				if(href_list["hud"] == "m")
 					if(istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/medical))
 						if(href_list["p_stat"])
-							var/health_status = input(usr, "Specify a new physical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("Active", "Physically Unfit", "*Unconscious*", "*Deceased*", "Cancel")
-							if(R)
+							var/health_status = input(usr, "Specify a new physical status for this person.", "Medical HUD", gen_record.fields["p_stat"]) in list("Active", "Physically Unfit", "*Unconscious*", "*Deceased*", "Cancel")
+							if(gen_record)
 								if(!H.canUseHUD())
 									return
 								else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/health) && !istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/medical))
 									return
 								if(health_status && health_status != "Cancel")
-									R.fields["p_stat"] = health_status
+									gen_record.fields["p_stat"] = health_status
 							return
 						if(href_list["m_stat"])
-							var/health_status = input(usr, "Specify a new mental status for this person.", "Medical HUD", R.fields["m_stat"]) in list("Stable", "*Watch*", "*Unstable*", "*Insane*", "Cancel")
-							if(R)
+							var/health_status = input(usr, "Specify a new mental status for this person.", "Medical HUD", gen_record.fields["m_stat"]) in list("Stable", "*Watch*", "*Unstable*", "*Insane*", "Cancel")
+							if(gen_record)
 								if(!H.canUseHUD())
 									return
 								else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/health) && !istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/medical))
 									return
 								if(health_status && health_status != "Cancel")
-									R.fields["m_stat"] = health_status
+									gen_record.fields["m_stat"] = health_status
 							return
+						/////Dripstation edit - RP records
+						if(href_list["medrecords"])
+							if(med_record)
+								to_chat(usr, "<b>Medical Record:</b> [med_record.fields["past_records"]]")
+							else
+								to_chat(usr, "<b>Medical Record:</b> No past records!")
+						if(href_list["genrecords"])
+							if(gen_record)
+								to_chat(usr, "<b>General Record:</b> [gen_record.fields["past_records"]]")
+							else
+								to_chat(usr, "<b>General Record:</b> No past records!")
 						if(href_list["evaluation"])
 							if(!getBruteLoss() && !getFireLoss() && !getOxyLoss() && getToxLoss() < 20)
 								to_chat(usr, "[span_notice("No external injuries detected.")]<br>")
@@ -434,46 +447,66 @@
 							return
 
 						if(perpname)
-							R = find_record("name", perpname, GLOB.data_core.security)
-							if(R)
+							if(sec_record)
 								if(href_list["status"])
 									var/setcriminal = tgui_input_list(usr, "Specify a new criminal status for this person.", "Security HUD", list(WANTED_NONE, WANTED_ARREST, WANTED_SEARCH, WANTED_PRISONER, WANTED_SUSPECT, WANTED_PAROLE, WANTED_DISCHARGED, "Cancel"))
 									if(setcriminal != "Cancel")
-										if(R)
+										if(sec_record)
 											if(H.canUseHUD())
 												if(istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/security))
-													investigate_log("[key_name(src)] has been set from [R.fields["criminal"]] to [setcriminal] by [key_name(usr)].", INVESTIGATE_RECORDS)
-													R.fields["comments"] |= GLOB.data_core.createCommentEntry("Criminal status set to [setcriminal].", allowed_access)
-													R.fields["criminal"] = setcriminal
+													investigate_log("[key_name(src)] has been set from [sec_record.fields["criminal"]] to [setcriminal] by [key_name(usr)].", INVESTIGATE_RECORDS)
+													sec_record.fields["comments"] |= GLOB.data_core.createCommentEntry("Criminal status set to [setcriminal].", allowed_access)
+													sec_record.fields["criminal"] = setcriminal
 													sec_hud_set_security_status()
 									return
 
 								if(href_list["view"])
-									if(R)
+									if(sec_record)
 										if(!H.canUseHUD())
 											return
 										else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security) && !istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/security))
 											return
-										to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Criminal Status:</b> [R.fields["criminal"]]")
+										to_chat(usr, "<b>Name:</b> [sec_record.fields["name"]]	<b>Criminal Status:</b> [sec_record.fields["criminal"]]")
 										to_chat(usr, "<b>Crimes:</b>")
-										for(var/datum/data/crime/c in R.fields["crimes"])
+										for(var/datum/data/crime/c in sec_record.fields["crimes"])
 											to_chat(usr, "<b>Crime:</b> [c.crimeName]")
 											to_chat(usr, "<b>Details:</b> [c.crimeDetails]")
 											to_chat(usr, "Added by [c.author] at [c.time]")
 											to_chat(usr, "----------")
 										to_chat(usr, "<b>Comments:</b>")
-										for(var/datum/data/comment/c in R.fields["comments"])
+										for(var/datum/data/comment/c in sec_record.fields["comments"])
 											to_chat(usr, "<b>Comment:</b> [c.commentText]")
 											to_chat(usr, "Added by [c.author] at [c.time]")
 											to_chat(usr, "----------")
-										to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
+										to_chat(usr, "<b>Notes:</b> [sec_record.fields["notes"]]")
 									return
 
+								////Dripstation edit - RP records
+								if(href_list["genrecords"])
+									if(gen_record)
+										if(!H.canUseHUD())
+											return
+										//if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
+										//	return
+										to_chat(usr, "<b>General Record:</b> [gen_record.fields["past_records"]]")
+									else
+										to_chat(usr, "<b>General Record:</b> No past records!")
+
+								if(href_list["secrecords"])
+									if(sec_record)
+										if(!H.canUseHUD())
+											return
+									//if(!HAS_TRAIT(human_user, TRAIT_SECURITY_HUD))
+									//	return
+										to_chat(usr, "<b>Security Record:</b> [sec_record.fields["past_records"]]")
+									else
+										to_chat(usr, "<b>Security Record:</b> No past records!")
+
 								if(href_list["add_crime"])
-									if(R)
+									if(sec_record)
 										var/crimeName = stripped_input("Please input crime name:", "Security HUD", "")
 										var/crimeDetails = stripped_multiline_input("Please input crime details:", "Security HUD", "")
-										if(R)
+										if(sec_record)
 											if (!crimeName || !crimeDetails || !allowed_access)
 												return
 											else if(!H.canUseHUD())
@@ -481,27 +514,27 @@
 											else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security) && !istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/security))
 												return
 											var/crime = GLOB.data_core.createCrimeEntry(crimeName, crimeDetails, allowed_access, station_time_timestamp())
-											GLOB.data_core.addCrime(R.fields["id"], crime)
-											investigate_log("New Crime: <strong>[crimeName]</strong>: [crimeDetails] | Added to [R.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
+											GLOB.data_core.addCrime(sec_record.fields["id"], crime)
+											investigate_log("New Crime: <strong>[crimeName]</strong>: [crimeDetails] | Added to [sec_record.fields["name"]] by [key_name(usr)]", INVESTIGATE_RECORDS)
 											to_chat(usr, span_notice("Successfully added a crime."))
 									return
 
 								if(href_list["view_comment"])
-									if(R)
+									if(sec_record)
 										if(!H.canUseHUD())
 											return
 										else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security) && !istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/security))
 											return
 										to_chat(usr, "<b>Comments/Log:</b>")
-										for(var/datum/data/comment/C in R.fields["comments"])
+										for(var/datum/data/comment/C in sec_record.fields["comments"])
 											to_chat(usr, text("Made by [] on []<BR>[]", C.author, C.time, C.commentText))
 											to_chat(usr, "----------")
 										return
 
 								if(href_list["add_comment"])
-									if(R)
+									if(sec_record)
 										var/commentValue = stripped_multiline_input("Add Comment:", "Security records")
-										if(R)
+										if(sec_record)
 											if (!commentValue || !allowed_access)
 												return
 											else if(!H.canUseHUD())
@@ -509,10 +542,16 @@
 											else if(!istype(H.glasses, /obj/item/clothing/glasses/hud/security) && !istype(H.getorganslot(ORGAN_SLOT_HUD), /obj/item/organ/cyberimp/eyes/hud/security))
 												return
 											var/comment = GLOB.data_core.createCommentEntry(commentValue, allowed_access)
-											GLOB.data_core.addComment(R.fields["id"], comment)
+											GLOB.data_core.addComment(sec_record.fields["id"], comment)
 											to_chat(usr, span_notice("Successfully added comment."))
 											return
-							to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
+							else
+								to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
+		if(href_list["exprecords"])
+			if(isobserver(usr) || usr.mind?.special_role)
+				var/examined_name = get_face_name(get_id_name("")) //Named as such because this is the name we see when we examine
+				var/datum/data/record/target_general_records = find_record("name", examined_name, GLOB.data_core.locked)
+				to_chat(usr, "<b>Exploitable information:</b> [target_general_records.fields["exploitable_records"]]")
 
 	..() //end of this massive fucking chain. TODO: make the hud chain not spooky.
 
@@ -594,9 +633,9 @@
 	//Check for arrest warrant
 	if(judgement_criteria & JUDGE_RECORDCHECK)
 		var/perpname = get_face_name(get_id_name())
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(R && R.fields["criminal"])
-			switch(R.fields["criminal"])
+		var/datum/data/record/sec_record = find_record("name", perpname, GLOB.data_core.security)
+		if(sec_record && sec_record.fields["criminal"])
+			switch(sec_record.fields["criminal"])
 				if(WANTED_ARREST)
 					threatcount += 5
 				if(WANTED_PRISONER)
@@ -881,6 +920,8 @@
 						hud_used.healths.icon_state = "health7"
 					if(SCREWYHUD_HEALTHY)
 						hud_used.healths.icon_state = "health0"
+					if(SCREWYHUD_NUMB)
+						hud_used.healths.icon_state = "health_numb"
 		if(hud_used.healthdoll)
 			hud_used.healthdoll.cut_overlays()
 			if(stat != DEAD)
@@ -901,6 +942,8 @@
 					if(damage > (comparison*4))
 						icon_num = 5
 					if(hal_screwyhud == SCREWYHUD_HEALTHY)
+						icon_num = 0
+					if(hal_screwyhud == SCREWYHUD_NUMB)
 						icon_num = 0
 					if(icon_num)
 						hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone][icon_num]"))

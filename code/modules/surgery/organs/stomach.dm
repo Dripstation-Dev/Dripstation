@@ -5,7 +5,7 @@
 	icon_state = "stomach"
 	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	zone = BODY_ZONE_CHEST
+	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_STOMACH
 	attack_verb = list("gored", "squished", "slapped", "digested")
 	desc = "Onaka ga suite imasu."
@@ -133,7 +133,7 @@
 /obj/item/organ/stomach/cell
 	name = "micro-cell"
 	icon_state = "microcell"
-	zone = "chest"
+	zone = BODY_ZONE_CHEST
 	slot = "stomach"
 	attack_verb = list("assault and battery'd")
 	desc = "A micro-cell, for IPC use only. Do not swallow."

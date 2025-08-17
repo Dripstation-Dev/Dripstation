@@ -12,7 +12,8 @@
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/incise,
 		/datum/surgery_step/manipulate_organs,
-		//there should be bone fixing
+		/datum/surgery_step/repair_bone,
+		/datum/surgery_step/patch_incise,
 		/datum/surgery_step/close
 		)
 
@@ -24,6 +25,7 @@
 		/datum/surgery_step/clamp_bleeders,
 		/datum/surgery_step/incise,
 		/datum/surgery_step/manipulate_organs,
+		/datum/surgery_step/patch_incise,
 		/datum/surgery_step/close
 		)
 
@@ -37,6 +39,7 @@
 		/datum/surgery_step/retract_skin,
 		/datum/surgery_step/saw,
 		/datum/surgery_step/manipulate_organs,
+		/datum/surgery_step/patch_incise,
 		/datum/surgery_step/close
 		)
 
@@ -180,6 +183,7 @@
 			log_combat(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
 			I.Remove(target)
 			I.forceMove(get_turf(target))
+			I.on_surgical_removal(user, target, target_zone, tool)
 		else
 			display_results(user, target, span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!"),
 				"[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",

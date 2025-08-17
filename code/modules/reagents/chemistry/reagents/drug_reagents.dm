@@ -42,7 +42,7 @@
 	addiction_threshold = 10
 	taste_description = "smoke"
 	trippy = FALSE
-	overdose_threshold=15
+	overdose_threshold = 15
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
 
 /datum/reagent/drug/nicotine/on_mob_life(mob/living/carbon/M)
@@ -58,6 +58,11 @@
 	..()
 	. = 1
 
+/datum/reagents/drug/nicotine/metabolize(mob/living/carbon/C, can_overdose = FALSE, liverless = FALSE)
+	if(HAS_TRAIT(C, TRAIT_BADASS))
+		can_overdose = FALSE
+	..()
+
 /datum/reagent/drug/nicotine/overdose_start(mob/living/M)
 	if(HAS_TRAIT(M, TRAIT_BADASS))
 		return
@@ -65,31 +70,33 @@
 
 /datum/reagent/drug/nicotine/overdose_process(mob/living/M)
 	M.adjustToxLoss(0.1*REM, 0)
-	M.adjustOxyLoss(1.1*REM, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 2*REM)
-	M.adjustOrganLoss(ORGAN_SLOT_HEART, 1.25*REM)
+	//M.adjustOxyLoss(1.1*REM, 0)	//we just kill ourselves with oxyloss
+	var/list/O = list(ORGAN_SLOT_LUNGS = 4, ORGAN_SLOT_HEART = 1, ORGAN_SLOT_LIVER = 1, "" = 4)
+	var/otd = pick_weight(O)
+	if(O != "")
+		M.adjustOrganLoss(otd, pick(0.5, 0.75, 1, 1.5, 2)*REM)
 	..()
 	. = 1
 
 /datum/reagent/drug/nicotine/addiction_act_stage1(mob/living/M)
-	if(prob(5) && iscarbon(M) && !HAS_TRAIT(M, TRAIT_BADASS))
+	if(prob(5) && iscarbon(M))
 		M.adjust_jitter(10 SECONDS)
 	..()
 
 /datum/reagent/drug/nicotine/addiction_act_stage2(mob/living/M)
-	if(prob(20) && iscarbon(M) && !HAS_TRAIT(M, TRAIT_BADASS))
+	if(prob(20) && iscarbon(M))
 		M.adjust_jitter(10 SECONDS)
 	..()
 	. = 1
 
 /datum/reagent/drug/nicotine/addiction_act_stage3(mob/living/M)
-	if(prob(20) && iscarbon(M) && !HAS_TRAIT(M, TRAIT_BADASS))
+	if(prob(20) && iscarbon(M))
 		M.adjust_jitter(10 SECONDS)
 	..()
 	. = 1
 
 /datum/reagent/drug/nicotine/addiction_act_stage4(mob/living/M)
-	if(prob(40) && iscarbon(M) && !HAS_TRAIT(M, TRAIT_BADASS))
+	if(prob(40) && iscarbon(M))
 		M.adjust_jitter(10 SECONDS)
 	..()
 	. = 1
@@ -486,6 +493,7 @@
 /datum/reagent/drug/ketamine/on_mob_metabolize(mob/living/L)
 	ADD_TRAIT(L, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	ADD_TRAIT(L, TRAIT_SURGERY_PREPARED, type)
+	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "[type]_high", /datum/mood_event/high)
 	. = ..()
 
 /datum/reagent/drug/ketamine/on_mob_delete(mob/living/L)
@@ -498,9 +506,9 @@
 	switch(current_cycle)
 		if(10)
 			to_chat(M, span_warning("You start to feel tired...") )
-		if(11 to 25)
+		if(11 to 67)
 			M.adjust_drowsiness(2 SECONDS)
-		if(26 to INFINITY)
+		if(68 to INFINITY)
 			M.Sleeping(60, 0)
 			. = 1
 	//Providing a Mood Boost
@@ -545,23 +553,28 @@
 //traitor only drug made with telecrystals
 /datum/reagent/drug/red_eye
 	name = "Red-Eye" //i love cowboy bebop
-	description = "An experimental drug developed by the Syndicate in attempt to recreate wizards"
+	description = "An experimental drug developed by the Syndicate in attempt to recreate Nar`Sie cultists"
 	reagent_state = GAS
 	color = "#fd1a5e"
 	addiction_threshold = 20
 	overdose_threshold = 40
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	can_synth = FALSE
+	var/original_eye_color = "000"
+	var/datum/action/cooldown/spell/touch/blood/stun/new_spell
 
 //Teleport like normal telecrystals
 /datum/reagent/drug/red_eye/proc/tele_teleport(mob/living/L)
 	var/turf/destination = get_teleport_loc(L.loc, L, rand(3,6))
 	if(!istype(destination))
 		return
-	new /obj/effect/particle_effect/sparks(L.loc)
+	new /obj/effect/temp_visual/cult/sparks(L.loc)
 	playsound(L.loc, "sparks", 50, 1)
-	if(!do_teleport(L, destination, asoundin = 'sound/effects/phaseinred.ogg', channel = TELEPORT_CHANNEL_BLUESPACE))
+	if(!do_teleport(L, destination, asoundin = 'sound/effects/phaseinred.ogg', channel = TELEPORT_CHANNEL_CULT))
 		return
+	SEND_SOUND(L, 'sound/hallucinations/im_here1.ogg')
+	L.visible_message(span_warning("Red dust flows from [L]'s mouth, and [L.p_they()] disappear[L.p_s()] with a sharp crack!"), \
+				span_cultitalic("You speak unknown words as you taste the dust on your teeth and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
 	L.throw_at(get_edge_target_turf(L, L.dir), 1, 3, spin = FALSE, diagonals_first = TRUE)
 	if(iscarbon(L))
 		var/mob/living/carbon/C = L
@@ -570,19 +583,31 @@
 /datum/reagent/drug/red_eye/on_mob_metabolize(mob/living/L)
 	L.next_move_modifier *= 0.8
 	L.action_speed_modifier *= 0.5
+	new_spell = new /datum/action/cooldown/spell/touch/blood/stun(L.mind)
+	new_spell.Grant(L)
 	tele_teleport(L)
 	..()	
 
 /datum/reagent/drug/red_eye/on_mob_end_metabolize(mob/living/L)
 	L.next_move_modifier *= 1.25
 	L.action_speed_modifier *= 2
+	new_spell.Remove(L)
+	qdel(new_spell)
+	var/mob/living/carbon/human/H = L
+	if(istype(H))
+		H.eye_color = original_eye_color
+		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
+		REMOVE_TRAIT(H, CULT_EYES, "red_eye_trait")
 	..()
 
 /datum/reagent/drug/red_eye/on_mob_life(mob/living/carbon/M)
 	var/mob/living/carbon/human/H = M
-	H.eye_color = "fd1a5e"
-	H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
-	H.update_body()
+	if(istype(H))
+		original_eye_color = H.eye_color
+		H.eye_color = "fd1a5e"
+		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
+		ADD_TRAIT(H, CULT_EYES, "red_eye_trait")
+		H.updateappearance()
 
 	M.adjust_red_eye_up_to(15,40)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, rand(0,1))
@@ -723,10 +748,11 @@
 /datum/reagent/drug/blue_eye/on_mob_life(mob/living/carbon/M)
 	if(!M?.mind?.has_antag_datum(/datum/antagonist/cult))
 		var/mob/living/carbon/human/H = M
-		original_eye_color = H.eye_color
-		H.eye_color = "5b5beb"
-		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
-		H.update_body()
+		if(istype(H))
+			original_eye_color = H.eye_color
+			H.eye_color = "5b5beb"
+			H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
+			H.updateappearance()
 	if(!is_wizard(M))
 		M.set_blue_eye(17)
 		M.adjust_jitter(2 SECONDS)
@@ -746,6 +772,13 @@
 		M.AdjustParalyzed(-7, FALSE)
 		if(prob(25))
 			to_chat(M, span_notice("[pick("SCYAR NILA!!", "NEC CANTIO.", "EI NATH!!!", "AULIE OXIN FIERA.", "TARCOL MINTI ZHERI.", "STI KALY!")]"))
+	..()
+
+/datum/reagent/drug/blue_eye/on_mob_end_metabolize(mob/living/L)
+	var/mob/living/carbon/human/H = L
+	if(istype(H))
+		H.eye_color = original_eye_color
+		H.dna.update_ui_block(DNA_EYE_COLOR_BLOCK)
 	..()
 
 /datum/reagent/drug/blue_eye/overdose_process(mob/living/M)

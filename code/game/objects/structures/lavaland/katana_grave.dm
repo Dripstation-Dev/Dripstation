@@ -4,7 +4,7 @@
 	icon = 'icons/obj/lavaland/misc.dmi'
 	icon_state = "grave_katana"
 	anchored = TRUE
-	var/obj/item/dropping_item = /obj/item/katana/cursed
+	var/obj/item/dropping_item = /obj/item/melee/katana/cursed
 
 /obj/structure/katana_grave/attack_hand(mob/user)
 	. = ..()
@@ -23,5 +23,5 @@
 	qdel(src)
 
 /obj/structure/katana_grave/basalt
-	dropping_item = /obj/item/katana/basalt
+	dropping_item = /obj/item/melee/katana/basalt
 	icon_state = "grave_katana_basalt"

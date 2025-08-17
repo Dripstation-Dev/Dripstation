@@ -107,7 +107,7 @@
 		var/obj/item/close_tool = user.get_active_held_item()
 		if(close_tool.tool_behaviour == (S.requires_bodypart_type == BODYPART_ROBOTIC ? TOOL_SCREWDRIVER : TOOL_CAUTERY) || iscyborg(user))
 			if(S.operated_bodypart)
-				S.operated_bodypart.generic_bleedstacks -= 10
+				S.operated_bodypart.adjustBleedStacks(-4)
 			M.surgeries -= S
 			user.visible_message("[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool].", \
 				span_notice("You close [M]'s [parse_zone(selected_zone)] with [close_tool]."))

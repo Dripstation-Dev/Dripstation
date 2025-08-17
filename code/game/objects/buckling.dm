@@ -46,7 +46,7 @@
 		return TRUE
 
 //procs that handle the actual buckling and unbuckling
-/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
+/atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, instant = FALSE)
 	if(!buckled_mobs)
 		buckled_mobs = list()
 
@@ -67,9 +67,10 @@
 		M.buckling = null
 		return FALSE
 
-	if(usr && M != usr)
+	if((usr && M != usr) || instant)
 		if(!do_after(usr, 0.7 SECONDS, M))
 			to_chat(usr, span_warning("You failed to buckle [M] to [src]!"))
+			return FALSE
 	// This signal will check if the mob is mounting this atom to ride it. There are 3 possibilities for how this goes
 	// 1. This movable doesn't have a ridable element and can't be ridden, so nothing gets returned, so continue on
 	// 2. There's a ridable element but we failed to mount it for whatever reason (maybe it has no seats left, for example), so we cancel the buckling
@@ -171,8 +172,12 @@
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	if(unbuckle_mob(buckled_mob))
 		if(buckled_mob != user)
+			buckled_mob.visible_message(\
+				span_notice("[user] starting to unbuckle [buckled_mob] from [src]."),\
+				span_notice("[user] starting to unbuckle you from [src]."))
 			if(!do_after(user, 0.7 SECONDS, buckled_mob))
 				to_chat(usr, span_warning("You failed to unbuckle [buckled_mob] from [src]!"))
+				return FALSE
 			buckled_mob.visible_message(\
 				span_notice("[user] unbuckles [buckled_mob] from [src]."),\
 				span_notice("[user] unbuckles you from [src]."),\

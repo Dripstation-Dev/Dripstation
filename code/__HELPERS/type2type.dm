@@ -344,7 +344,9 @@
 /proc/body_zone2cover_flags(def_zone)
 	switch(def_zone)
 		if(BODY_ZONE_CHEST)
-			return list(CHEST, GROIN)
+			return list(CHEST)
+		if(BODY_ZONE_PRECISE_GROIN)
+			return list(GROIN)
 		if(BODY_ZONE_HEAD)
 			return list(HEAD)
 		if(BODY_ZONE_L_ARM)
@@ -368,7 +370,7 @@
 	if(bpc & FULL_BODY)
 */
 	if(bpc == FULL_BODY)	//Dripstation edit
-		covered_parts |= list(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_HEAD,BODY_ZONE_CHEST,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG)
+		covered_parts |= list(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM,BODY_ZONE_HEAD,BODY_ZONE_CHEST,BODY_ZONE_PRECISE_GROIN,BODY_ZONE_L_LEG,BODY_ZONE_R_LEG)
 
 	else
 		if(bpc & HEAD)
@@ -376,7 +378,7 @@
 		if(bpc & CHEST)
 			covered_parts |= list(BODY_ZONE_CHEST)
 		if(bpc & GROIN)
-			covered_parts |= list(BODY_ZONE_CHEST)
+			covered_parts |= list(BODY_ZONE_PRECISE_GROIN)
 
 		if(bpc & ARMS)
 			covered_parts |= list(BODY_ZONE_L_ARM,BODY_ZONE_R_ARM)
@@ -414,13 +416,16 @@
 
 /proc/slot2body_zone(slot)
 	switch(slot)
-		if(ITEM_SLOT_BACK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_ICLOTHING, ITEM_SLOT_BELT, ITEM_SLOT_ID)
+		if(ITEM_SLOT_BACK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_ICLOTHING, ITEM_SLOT_ID)
+			return BODY_ZONE_CHEST
+
+		if(ITEM_SLOT_BELT)
 			return BODY_ZONE_CHEST
 
 		if(ITEM_SLOT_GLOVES, ITEM_SLOT_HANDS, ITEM_SLOT_HANDCUFFED)
 			return pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 
-		if(ITEM_SLOT_HEAD, ITEM_SLOT_NECK, ITEM_SLOT_NECK, ITEM_SLOT_EARS)
+		if(ITEM_SLOT_HEAD, ITEM_SLOT_NECK, ITEM_SLOT_EARS)
 			return BODY_ZONE_HEAD
 
 		if(ITEM_SLOT_MASK)

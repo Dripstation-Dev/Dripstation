@@ -236,9 +236,9 @@
 		/obj/structure/anomalies_diet/backrooms = 1,
 	)
 
-/obj/effect/spawner/lootdrop/backrooms/twenty
-	name = "20% backrooms trap spawner"
-	spawn_loot_chance = 20
+/obj/effect/spawner/lootdrop/backrooms/five
+	name = "5% backrooms trap spawner"
+	spawn_loot_chance = 5
 
 /obj/effect/spawner/lootdrop/minor/maidoutfit
 	name = "maid outfit spawner"

@@ -32,6 +32,8 @@
 	. += ..()
 	if(floorbuffer)
 		. += "It has been upgraded with a floor buffer."
+	else
+		. += "Can be upgraded with a floor buffer to wash turfs."
 
 /obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))

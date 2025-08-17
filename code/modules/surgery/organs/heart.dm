@@ -239,6 +239,7 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
+	to_chat(owner, "<span class='warning'>Alert: Cybernetic heart failed one heartbeat</span>")
 	if(severity > EMP_LIGHT)
 		Stop()
 		addtimer(CALLBACK(src, PROC_REF(Restart)), restartTimer * min(severity / EMP_HEAVY, 1)) //Can restart itself after an EMP so it isnt an insta death
@@ -266,13 +267,13 @@
 
 /obj/item/organ/heart/cybernetic/ipc
 	desc = "An electronic device that appears to mimic the functions of an organic heart."
+	compatible_biotypes = MOB_ROBOTIC // for IPCs
 
 /obj/item/organ/heart/cybernetic/ipc/emp_act(severity)
 	if(prob(30))
 		return
-	. = ..()
-	to_chat(owner, "<span class='warning'>Alert: Cybernetic heart failed one heartbeat</span>")
-	addtimer(CALLBACK(src, PROC_REF(Restart)), severity SECONDS)
+	restartTimer = severity/2 SECONDS
+	..()
 
 /obj/item/organ/heart/freedom
 	name = "heart of freedom"

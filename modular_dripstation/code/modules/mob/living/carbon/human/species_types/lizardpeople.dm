@@ -2,6 +2,11 @@
 	name = "Unati"
 	plural_form = "Unathi"
 	possible_genders = list(MALE, FEMALE)
+	coldmod = 1.33 	//hates beeng cold
+	heatmod = 0.67	//greatly appreciate heat, just not too much
+	tempmod = 1.5	//heat like swoosh
+	bodytemp_cold_damage_limit = BODYTEMP_NORMAL - 30
+	bodytemp_heat_damage_limit = BODYTEMP_NORMAL + 70
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,DIGITIGRADE,HAS_FLESH,HAS_BONE,HAS_TAIL)
 	default_features = list("mcolor" = "#00FF00", "tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Digitigrade Legs")
 	aiminginaccuracy = 5 //they prefer melee combat, has claws and are not skilled in long range fightsss
@@ -79,6 +84,9 @@
 
 /datum/species/lizard/get_moan_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_MOAN_SOUND(user)
+
+/datum/species/lizard/get_lewd_moan_sound(mob/living/carbon/user)
+	return SFX_HISS
 
 /datum/species/lizard/get_yawn_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_YAWN_SOUND(user)

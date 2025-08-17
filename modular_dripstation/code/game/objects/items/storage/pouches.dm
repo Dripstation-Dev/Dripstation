@@ -490,6 +490,9 @@
 		/obj/item/reagent_containers/autoinjector/combat,
 	)
 
+/obj/item/storage/pouch/surgery/full
+	custom_premium_price = 200
+
 /obj/item/storage/pouch/surgery/full/Initialize()
 	. = ..()
 	new /obj/item/scalpel(src)

@@ -42,7 +42,7 @@
 		for(var/mob/living/carbon/human/seymour as anything in GLOB.carbon_list)
 			if(seymour.mind && istype(seymour.mind.assigned_role, /datum/job/cook))
 				seymour.say("My roast is ruined!!!", forced = "ruined roast")
-				seymour.emote("scream")
+				seymour.pain(100, TRUE)
 
 /datum/round_event/aurora_caelus/tick()
 	if(activeFor % 8 != 0)

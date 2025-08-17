@@ -1228,7 +1228,7 @@
 "eW" = (
 /obj/effect/mob_spawn/human/syndicatesoldier,
 /obj/effect/decal/cleanable/blood,
-/obj/item/katana,
+/obj/item/melee/katana,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "eX" = (

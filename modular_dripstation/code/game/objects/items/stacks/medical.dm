@@ -56,3 +56,6 @@
 	can_fill_from_container = FALSE
 	amount_per_transfer_from_this = 25
 	volume = 100
+
+/obj/item/stack/medical/suture
+	apply_sounds = 'modular_dripstation/sound/item/snip.ogg'

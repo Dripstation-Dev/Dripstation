@@ -407,7 +407,7 @@ GENE SCANNER
 				var/datum/wound/W = k
 				render_list += "<div class='ml-2'>Type: [W.name]\nSeverity: [W.severity_text()]\nRecommended Treatment: [W.treat_text]</div>\n" // less lines than in woundscan() so we don't overload people trying to get basic med info
 			render_list += "</span>"
-			to_chat(render_list)
+			combined_msg += render_list
 
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing

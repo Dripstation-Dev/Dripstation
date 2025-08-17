@@ -3,6 +3,7 @@
 
 // common trait sources
 #define TRAIT_GENERIC "generic"
+#define ACTION_TRAIT "action"
 #define UNCONSCIOUS_TRAIT "unconscious"
 #define EYE_DAMAGE "eye_damage"
 #define EAR_DAMAGE "ear_damage"
@@ -229,6 +230,7 @@
 #define BODYPART_TRAIT "bodypart"
 #define HEAD_TRAIT "head"
 #define CHEST_TRAIT "chest"
+#define GROIN_TRAIT "groin"
 #define RIGHT_ARM_TRAIT "right_arm"
 #define LEFT_ARM_TRAIT "left_arm"
 #define RIGHT_LEG_TRAIT "right_leg"

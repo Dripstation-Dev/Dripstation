@@ -103,7 +103,7 @@
 /datum/martial_art/gardern_warfare/proc/splinter_stab(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak, SPLINTER_COMBO))
 		A.do_attack_animation(D, ATTACK_EFFECT_SLASH)
-		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, TRUE, -1)
+		playsound(get_turf(D), SFX_SLASH, 50, TRUE, -1)
 		D.visible_message(span_danger("[A] impales [D]!"), \
 					span_userdanger("[A] impales you!"))
 		log_combat(A, D, "impales(Garden Warfare)")		
@@ -121,7 +121,7 @@
 		streak = ""
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_SLASH)
-		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, TRUE, -1)
+		playsound(get_turf(D), SFX_SLASH, 50, TRUE, -1)
 		D.visible_message(span_danger("[A] stabs [D]!"), \
 					span_userdanger("[A] stabs you!"))
 		log_combat(A, D, "stabs(Garden Warfare)")		
@@ -210,7 +210,7 @@
 	if(!user.in_throw_mode)
 		return
 	user.do_attack_animation(attacker, ATTACK_EFFECT_SLASH)
-	playsound(get_turf(attacker), 'sound/weapons/slash.ogg', 50, TRUE, -1)
+	playsound(get_turf(attacker), SFX_SLASH, 50, TRUE, -1)
 	attacker.visible_message(span_danger("[user] stabs [attacker]!"), \
 				span_userdanger("[user] stabs you!"))
 	log_combat(user, attacker, "counterattacks(Garden Warfare)")		

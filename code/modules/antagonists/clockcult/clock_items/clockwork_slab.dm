@@ -151,7 +151,7 @@
 		user.visible_message(span_warning("A sizzling sound comes from [user]'s hands!"), span_userdanger("[src] suddenly grows extremely hot in your hands!"))
 		playsound(get_turf(user), 'sound/weapons/sear.ogg', 50, 1)
 		user.dropItemToGround(src)
-		user.emote("scream")
+		user.pain(100, TRUE)
 		user.apply_damage(5, BURN, BODY_ZONE_L_ARM)
 		user.apply_damage(5, BURN, BODY_ZONE_R_ARM)
 		return 0

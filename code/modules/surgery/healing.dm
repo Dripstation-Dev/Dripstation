@@ -2,6 +2,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	steps = list(/datum/surgery_step/incise,
 				/datum/surgery_step/heal,
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
@@ -16,6 +17,7 @@
 	if(healing_step_type)
 		steps = list(/datum/surgery_step/incise/nobleed,
 					healing_step_type, //hehe cheeky
+					/datum/surgery_step/patch_incise,
 					/datum/surgery_step/close/nofail)
 
 /datum/surgery_step/heal

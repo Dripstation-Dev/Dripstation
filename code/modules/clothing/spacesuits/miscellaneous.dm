@@ -233,5 +233,5 @@ Contains:
 		name = "torn [src]."
 		desc = "A bulky suit meant to protect the user during emergency situations, at least until someone tore a hole in the suit."
 		torn = TRUE
-		playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1)
+		playsound(loc, SFX_SLASHMISS, 50, 1)
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)

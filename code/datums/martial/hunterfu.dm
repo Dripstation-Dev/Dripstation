@@ -128,7 +128,7 @@
 		span_hear("You hear a sickening sound of flesh hitting flesh!"),
 	)
 	to_chat(A, span_danger("You holy kick [D]!"))
-	playsound(get_turf(A), 'sound/weapons/slash.ogg', 50, TRUE, -1)
+	playsound(get_turf(A), SFX_SLASH, 50, TRUE, -1)
 	log_combat(A, D, "holy kicked (Hunter-Fu)")
 	var/holykick_staminadamage = A.get_punchdamagehigh() * 3 + 30 //60 damage (holy shit)
 	var/holykick_hereticburn = A.get_punchdamagehigh() * 1.5 + 10	//25 damage

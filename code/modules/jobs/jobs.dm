@@ -168,10 +168,10 @@ GLOBAL_LIST_INIT(alt_command_positions, list(
 	"Chief Science Officer", "Head of Research", "Chief Technology Officer",
 	"Medical Director", "Head of Medical",
 	"Stock Controller", "Cargo Coordinator", "Shipping Overseer",							/*dripstation edit*/
-	"Nanotrasen Consultant", "Central Command Representative",								/*dripstation edit*/
-	"TerraGov Judge",	"Nanotrasen Internal Affairs Representative",						/*dripstation edit*/
+	"Staff Consultant", "Central Command Representative",								/*dripstation edit*/
+	"TerraGov Judge",	"Internal Affairs Representative",						/*dripstation edit*/
 	"Blueshield Lieutenant", "Close Protection Specialist", "Executive Protection Agent",	/*dripstation edit*/
-	"Internal Affair`s Observer", "Corporate Defense Attorney",								/*dripstation edit*/
+	"Internal Affairs Observer", "Corporate Defense Attorney",								/*dripstation edit*/
 	"Captain`s Secretary",))//dripstation edit
 
 GLOBAL_LIST_INIT(alt_engineering_positions, list(
@@ -231,11 +231,11 @@ GLOBAL_LIST_INIT(alt_civilian_positions, list(
 
 GLOBAL_LIST_INIT(alt_security_positions, list(
 	"Security Commander", "Security Chief",
-	"Brig Watchman", "Brig Superintendent", "Security Staff Sergeant", "Security Dispatcher", "Prison Supervisor",
+	"Brig Watchman", "Brig Intendent", "Security Staff Sergeant", "Security Dispatcher", "Prison Supervisor",
 	"Investigator", "Forensic Analyst", "Investigative Cadet", "Private Eye", "Inspector",
 	"Threat Response Officer", "Civilian Protection Officer", "Security Cadet", "Corporate Officer", "Peacekeeper",
-	"Brig Enforcer",														/*dripstation edit*/
-	"Nanotrasen Defense Team Member", "Nanotrasen Fighting Force Veteran",	/*dripstation edit*/
+	"Brig Enforcer", "Brig Technician",									/*dripstation edit*/
+	"Defense Team Member", "Fighting Force Veteran", "Defence Analitic",	/*dripstation edit*/
 	))
 
 GLOBAL_LIST_INIT(alt_nonhuman_positions, list(

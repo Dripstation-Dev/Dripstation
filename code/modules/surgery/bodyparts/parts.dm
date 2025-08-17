@@ -5,7 +5,7 @@
 	icon_state = "default_human_chest"
 	max_damage = 200
 	body_zone = BODY_ZONE_CHEST
-	body_part = CHEST|GROIN
+	body_part = CHEST
 	px_x = 0
 	px_y = 0
 	stam_damage_coeff = 1
@@ -52,6 +52,37 @@
 	dismemberable = 0
 	max_damage = 50
 	animal_origin = LARVA_BODYPART
+
+/obj/item/bodypart/groin
+	name = BODY_ZONE_PRECISE_GROIN
+	desc = "Myfical bodypart."
+	icon_state = "default_human_groin"
+	max_damage = 100
+	body_zone = BODY_ZONE_PRECISE_GROIN
+	body_part = GROIN
+	px_x = 0
+	px_y = 0
+	stam_damage_coeff = 1
+	max_stamina_damage = 60
+	wound_resistance = 0
+
+/obj/item/bodypart/groin/can_dismember(obj/item/I)
+	if(!((owner.stat == DEAD) || owner.InFullCritical()) || !get_organs())
+		return FALSE
+	return ..()
+
+/obj/item/bodypart/groin/monkey
+	icon = 'icons/mob/animal_parts.dmi'
+	icon_state = "default_monkey_groin"
+	animal_origin = MONKEY_BODYPART
+	wound_resistance = -10
+
+/obj/item/bodypart/groin/alien
+	icon = 'icons/mob/animal_parts.dmi'
+	icon_state = "alien_groin"
+	dismemberable = 0
+	max_damage = 250
+	animal_origin = ALIEN_BODYPART
 
 /obj/item/bodypart/l_arm
 	name = "left arm"

@@ -1,9 +1,12 @@
+#define TRAITOR_AI	  "AI"
+
 /datum/antagonist/traitor/malf //inheriting traitor antag datum since traitor AIs use it.
 	malf = TRUE
 	roundend_category = "malfunctioning AIs"
 	name = "Malfunctioning AI"
 	show_to_ghosts = TRUE
 	antag_hud_name = "malfai"
+	traitor_kind = TRAITOR_AI
 
 /datum/antagonist/traitor/malf/forge_ai_objectives()
 	var/datum/objective/block/block_objective = new

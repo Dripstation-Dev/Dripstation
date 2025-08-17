@@ -5,14 +5,14 @@
 
 /datum/wound/slash
 	name = "Slashing (Cut) Wound"
-	sound_effect = 'sound/weapons/slice.ogg'
+	sound_effect = SFX_SLICE	//dripstation edit
 	processes = TRUE
 	wound_type = WOUND_SLASH
 	treatable_by = list(/obj/item/stack/medical/suture)
 	treatable_by_grabbed = list(/obj/item/gun/energy/laser)
 	treatable_tool = TOOL_CAUTERY
 	base_treat_time = 3 SECONDS
-	wound_flags = (FLESH_WOUND | ACCEPTS_GAUZE)
+	wound_flags = (FLESH_WOUND | ACCEPTS_GAUZE | CAN_BE_INFESTED)
 
 	/// How much blood we start losing when this wound is first applied
 	var/initial_flow
@@ -74,6 +74,7 @@
 		blood_flow += 0.05 * wounding_dmg
 
 /datum/wound/slash/drag_bleed_amount()
+	. = ..()
 	// say we have 3 severe cuts with 3 blood flow each, pretty reasonable
 	// compare with being at 100 brute damage before, where you bled (brute/100 * 2), = 2 blood per tile
 	var/bleed_amt = min(blood_flow * 0.1, 1) // 3 * 3 * 0.1 = 0.9 blood total, less than before! the share here is .3 blood of course.
@@ -181,7 +182,7 @@
 	lasgun.chambered.BB.damage *= self_penalty_mult
 	if(!lasgun.process_fire(victim, victim, TRUE, null, limb.body_zone))
 		return
-	victim.emote("scream")
+	victim.pain(100, TRUE)
 	blood_flow -= damage / (5 * self_penalty_mult) // 20 / 5 = 4 bloodflow removed, p good
 	victim.visible_message(span_warning("The cuts on [victim]'s [limb.name] scar over!"))
 
@@ -201,8 +202,7 @@
 	playsound(I, 'sound/surgery/cautery2.ogg', 75, TRUE, falloff_exponent = 1)
 	user.visible_message(span_green("[user] cauterizes some of the bleeding on [victim]."), span_green("You cauterize some of the bleeding on [victim]."))
 	limb.receive_damage(burn = 2 + severity, wound_bonus = CANT_WOUND)
-	if(prob(30))
-		victim.emote("scream")
+	victim.pain(30, TRUE)
 	var/blood_cauterized = (0.6 / (self_penalty_mult * improv_penalty_mult))
 	blood_flow -= blood_cauterized
 
@@ -283,7 +283,7 @@
 	demotes_to = /datum/wound/slash/severe
 	status_effect_type = /datum/status_effect/wound/slash/critical
 	scar_keyword = "slashcritical"
-	wound_flags = (FLESH_WOUND | ACCEPTS_GAUZE | MANGLES_FLESH)
+	wound_flags = (FLESH_WOUND | ACCEPTS_GAUZE | MANGLES_FLESH | CAN_BE_INFESTED)
 
 // Subtype for cleave (heretic spell)
 /datum/wound/slash/critical/cleave

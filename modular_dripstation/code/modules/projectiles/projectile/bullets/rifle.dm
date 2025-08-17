@@ -65,6 +65,7 @@
 /obj/projectile/bullet/a762x39
 	name = "7.62x39mm bullet"
 	damage = 32
+	simplemob_additional_damage = 23
 	stamina = 27
 	bare_wound_bonus = 10
 	wound_bonus = -20
@@ -120,6 +121,7 @@
 /obj/projectile/bullet/a127
 	name = "12.7x55mm Light bullet"
 	damage = 50
+	simplemob_additional_damage = 50
 	stamina = 27
 	armour_penetration = 20
 	bare_wound_bonus = 0
@@ -146,6 +148,7 @@
 /obj/projectile/bullet/a762x51
 	name = "7.62x51mm bullet"
 	damage = 47
+	simplemob_additional_damage = 53
 	stamina = 27
 	bare_wound_bonus = 0
 	wound_bonus = -40
@@ -155,12 +158,14 @@
 
 /obj/projectile/bullet/m308
 	damage = 50
+	simplemob_additional_damage = 50
 	stamina = 28
 	armour_penetration = 10
 
 /obj/projectile/bullet/a4570
 	name = "heavy impact rifle bullet"
 	damage = 60
+	simplemob_additional_damage = 140
 	stamina = 27
 	wound_bonus = -50
 	armour_penetration = 20
@@ -172,10 +177,12 @@
 	name = ".700 NE bullet"
 	speed = 1.2
 	damage = 75
+	simplemob_additional_damage = 100
 	wound_bonus = -50	//25% wound chance I guess?
 	wound_falloff_tile = -2.5
 	paralyze = 40
-	dismemberment = 4	//like normal arm/leg(50hp) needs to receve 49+ damage by this bullet to dismember instantly. Probably any limb will dismember while it hasn`t like 55+ bullet armor on it.
+	dismemberment = 1	//like normal arm/leg(50hp) needs to receve 49+ damage by this bullet to dismember instantly. 
+	///Probably any limb will dismember while it hasn`t like 65+ bullet armor on it. Practically we has BULLET_DISMEMBER_THRESHOLD = 60, that prevents dismember if we have like 60 effective armor.
 	armour_penetration = 25
 	icon_state = "gaussstrong"
 	penetrations = 2
@@ -185,10 +192,15 @@
 
 /obj/projectile/bullet/p50
 	ap_falloff_tile = 2.5
+	simplemob_additional_damage = 70
+
+/obj/projectile/bullet/a762
+	simplemob_additional_damage = 50
 
 /obj/projectile/bullet/a546
 	ap_falloff_tile = 2.5
 
 /obj/projectile/bullet/mm712x82
 	damage = 54
+	simplemob_additional_damage = 46
 	ap_falloff_tile = 2.5

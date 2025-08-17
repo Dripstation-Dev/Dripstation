@@ -120,19 +120,17 @@
 
 	if(user.a_intent == INTENT_HELP && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(isreplica(H) && H == user)				//dripstation edit
-			to_chat(user, span_warning("Replika`s can`t weld themselfes."))	//dripstation edit
-			return FALSE				//dripstation edit
 		var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 		if(affecting?.status == BODYPART_ROBOTIC)
 			if(affecting.brute_dam <= 0)
 				to_chat(user, span_warning("[affecting] is already in good condition!"))
 				return FALSE
-			if(DOING_INTERACTION_WITH_TARGET(user, H))
+			if(DOING_INTERACTION_WITH_TARGET_LIMIT(user, H, 1))
+				balloon_alert(user, "you're already repairing!")
 				return FALSE
 			if(!tool_start_check(user, 1))
 				return FALSE
-			user.changeNext_move(CLICK_CD_MELEE)
+			//user.changeNext_move(CLICK_CD_MELEE)
 			user.visible_message(span_notice("[user] starts to fix some of the dents on [M]'s [affecting.name]."), span_notice("You start fixing some of the dents on [M == user ? "your" : "[M]'s"] [affecting.name]."))
 			heal_robo_limb(src, H, user, 10, 0, 1, 50)
 			user.visible_message(span_notice("[user] fixes some of the dents on [M]'s [affecting.name]."), span_notice("You fix some of the dents on [M == user ? "your" : "[M]'s"] [affecting.name]."))

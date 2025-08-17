@@ -245,7 +245,7 @@
 
 /// PM9 rocket - projectile code below
 /obj/projectile/bullet/a84mm
-	name ="\improper HE missile"
+	name ="\improper HE 84mm missile"
 	desc = "Boom."
 	icon_state = "missile"
 	damage = 50
@@ -264,6 +264,8 @@
 		explosion(target, heavy_impact_range = 1, light_impact_range = 2, flame_range = 3, flash_range = 4)
 	else
 		explosion(target, light_impact_range = 2, flame_range = 3, flash_range = 4)
+	var/turf/detonation_turf = get_turf(src)
+	log_game("A [name] detonated at [AREACOORD(detonation_turf)]")
 
 /obj/projectile/bullet/a84mm/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target) && prob(1) && random_crits_enabled)
@@ -278,6 +280,8 @@
 			if(istype(target, i))
 				do_boom(target)
 				return BULLET_ACT_HIT
+		new /obj/item/broken_missile(get_turf(src), 1)
+		return BULLET_ACT_BLOCK
 	do_boom(target)
 	if(anti_armour_damage && ismecha(target))
 		var/obj/mecha/M = target
@@ -288,7 +292,7 @@
 	return BULLET_ACT_HIT
 
 /obj/projectile/bullet/a84mm/hedp
-	name ="\improper HEDP rocket"
+	name ="\improper HEDP 84mm missile"
 	desc = "USE A WEEL GUN."
 	icon_state= "84mm-hedp"
 	armor_flag = BOMB
@@ -299,10 +303,13 @@
 
 /obj/projectile/bullet/a84mm/he/do_boom(atom/target, blocked = FALSE)
 	explosion(target, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flame_range = 4, flash_range = 1)
+	var/turf/detonation_turf = get_turf(src)
+	log_game("A [name] detonated at [AREACOORD(detonation_turf)]")
 
 /obj/projectile/bullet/a84mm/anti_armor
-	name ="\improper tandem cumulative rocket"
+	name ="\improper tandem cumulative 84mm missile"
 	desc = "Boom."
+	icon_state = "atrocket"
 	demolition_mod = 3
 	armour_penetration = 100
 	anti_armour_damage = 200
@@ -310,13 +317,21 @@
 
 /// PM9 weak rocket - just kind of a failure
 /obj/projectile/bullet/a84mm/weak
-	name = "low-yield rocket"
+	name = "low-yield 84mm missile"
 	desc = "Boom, but less so."
 	damage = 30
 	random_crits_enabled = FALSE //no fun
 
+/obj/projectile/bullet/a84mm/weak/do_boom(atom/target)
+	if(!isliving(target)) //if the target isn't alive, so is a wall or something
+		explosion(target, heavy_impact_range = 0, light_impact_range = 1, flame_range = 2, flash_range = 3)
+	else
+		explosion(target, light_impact_range = 1, flame_range = 2, flash_range = 3)
+	var/turf/detonation_turf = get_turf(src)
+	log_game("A [name] detonated at [AREACOORD(detonation_turf)]")
+
 /obj/projectile/bullet/a84mm/br
-	name ="\improper BR missile"
+	name ="\improper BR 84mm missile"
 	desc = "Boom."
 	icon_state = "missile"
 	damage = 30
@@ -330,7 +345,7 @@
 	)
 
 /obj/item/broken_missile
-	name = "\improper broken missile"
+	name = "\improper broken 84mm missile"
 	desc = "A missile that did not detonate. The tail has snapped and it is in no way fit to be used again."
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "missile_broken"
@@ -338,8 +353,12 @@
 
 /obj/projectile/bullet/a84mm/br/do_boom(atom/target, blocked = FALSE)
 	explosion(target, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 1, flash_range = 2)
+	var/turf/detonation_turf = get_turf(src)
+	log_game("A [name] detonated at [AREACOORD(detonation_turf)]")
 
 /obj/projectile/bullet/a84mm/termobaric
+	name = "\improper termobaric 84mm missile"
+	icon_state= "84mm-termobaric"
 	damage = 20
 	var/list/beakers = list()
 
@@ -371,7 +390,7 @@
 				qdel(O)
 			beakers = list()
 		return
-//	logs from custom assemblies priming are handled by the wire component
-	log_game("A termobaric rocket detonated at [AREACOORD(detonation_turf)]")
+	explosion(target, light_impact_range = 2, flash_range = 6)
+	log_game("A [name] detonated at [AREACOORD(detonation_turf)]")
 
 

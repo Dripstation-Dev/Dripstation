@@ -2,15 +2,34 @@
 	var/antithrow_bonus = 30
 	var/leap_block = TRUE
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_block_shield.ogg'
+	attack_verb = list("shielded", "bashed")
+	var/bash = FALSE
+	var/bash_sound 
+	COOLDOWN_DECLARE(bash_cooldown)
+	var/bash_cooldown_time = 30 SECONDS
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSGLASS))
 		return FALSE
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += antithrow_bonus
-	if(attack_type == LEAP_ATTACK)
-		final_block_chance = leap_block
+	if(attack_type == LEAP_ATTACK && leap_block)
+		final_block_chance = 100
 	return ..()
+
+/obj/item/shield/afterattack(atom/target, mob/user, proximity)
+	if(!bash || !COOLDOWN_FINISHED(src, bash_cooldown))
+		return ..()
+	var/mob/living/carbon/C = target
+	var/mob/living/carbon/U = user
+	if(istype(C) && istype(U) && user.zone_selected == BODY_ZONE_HEAD)
+		C.adjust_staggered_up_to(1 SECONDS, 3 SECONDS)
+		C.adjust_confusion_up_to(1 SECONDS, 3 SECONDS)
+		C.adjust_eye_blur_up_to(0.5 SECONDS, 1.5 SECONDS)
+		C.say("Ugh-")
+		U.adjustStaminaLoss(10)
+		playsound(C.loc, bash_sound, 50, 2)
+		COOLDOWN_START(src, bash_cooldown, bash_cooldown_time)
 
 /obj/item/shield/riot/on_shield_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(!damage)
@@ -34,6 +53,8 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/shield_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/shield_righthand.dmi'
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_block_shield.ogg'
+	bash_sound = 'modular_dripstation/sound/weapons/wpn_bash_shield_light.wav'
+	bash = TRUE
 
 /obj/item/shield/riot/robust
 	name = "riot control shield"
@@ -88,6 +109,8 @@
 	throwforce = 20
 	throw_speed = 1
 	throw_range = 2
+	bash_cooldown_time = 1 MINUTES
+	bash_sound = 'modular_dripstation/sound/weapons/wpn_bash_shield_heavy.wav'
 
 /obj/item/shield/bulletproof/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(istype(hitby, /obj/projectile/bullet))
@@ -124,6 +147,9 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/shield_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/shield_righthand.dmi'
 	block_chance = 40
+	on_force = 17
+	wound_bonus = 5
+	leap_block = FALSE
 	antithrow_bonus = 0
 	alternate_worn_layer = SIDE_HEAD_LAYER
 	block_sound = 'modular_dripstation/sound/shield_drained.ogg'
@@ -142,6 +168,7 @@
 	icon_state = "[base_icon_state][active]"
 
 	if(active)
+		leap_block = TRUE
 		force = on_force
 		throwforce = on_throwforce
 		throw_speed = on_throw_speed
@@ -150,6 +177,7 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1)
 		to_chat(user, span_notice("[src] is now active."))
 	else
+		leap_block = initial(leap_block)
 		force = initial(force)
 		throwforce = initial(throwforce)
 		throw_speed = initial(throw_speed)

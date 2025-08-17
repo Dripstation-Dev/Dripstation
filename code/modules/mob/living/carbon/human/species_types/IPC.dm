@@ -258,7 +258,7 @@
 	if(H.particles)
 		var/particles/P = H.particles
 		if(P.spawning)
-			P.spawning = H.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT ? 4 : 0
+			P.spawning = H.bodytemperature > bodytemp_heat_damage_limit ? 4 : 0
 
 	if(H.oxyloss)
 		H.setOxyLoss(0)
@@ -352,9 +352,11 @@ ipc martial arts stuff
 
 /datum/species/ipc/proc/add_empproof(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_EMPPROOF_SELF, "IPC_martial")
+	ADD_TRAIT(H, TRAIT_EMPPROOF_CONTENTS, "IPC_martial")
 
 /datum/species/ipc/proc/remove_empproof(mob/living/carbon/human/H)
 	REMOVE_TRAIT(H, TRAIT_EMPPROOF_SELF, "IPC_martial")
+	REMOVE_TRAIT(H, TRAIT_EMPPROOF_CONTENTS, "IPC_martial")
 
 /datum/species/ipc/apply_damage(damage, damagetype, def_zone, blocked, mob/living/carbon/human/H, wound_bonus, bare_wound_bonus, sharpness, attack_direction)
 	if(..())

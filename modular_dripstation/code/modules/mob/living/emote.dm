@@ -59,6 +59,27 @@
 	if(!.)
 		return ..()
 
+/datum/emote/living/carbon/lewd_moan
+	key = "lewd"
+	message = "moans lewdly."
+	emote_type = EMOTE_AUDIBLE //| EMOTE_ANIMATED
+	emote_length = 2 SECONDS
+	cooldown = 1 SECONDS
+	//overlay_icon_state = "blush"
+	//emote_length = 5 SECONDS
+	//directional = TRUE
+	//emote_layer = BODY_LAYER
+	//sound = 'modular_dripstation/sound/emotes/blush.ogg'
+
+/datum/emote/living/carbon/lewd_moan/get_sound(mob/living/carbon/human/user)
+	if(ishuman(user) && user?.dna?.species)
+		return user.dna.species?.get_lewd_moan_sound(user)
+	if(!.)
+		return ..()
+
+/datum/emote/living/carbon/moan
+	stat_allowed = SOFT_CRIT	//you can moan in crit
+
 /datum/emote/living/carbon/moan/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user) && user?.dna?.species)
 		return user.dna.species?.get_moan_sound(user)
@@ -217,3 +238,10 @@
 
 /datum/emote/living/carbon/rumble/get_sound(mob/living/carbon/human/user)
 	return pick('modular_dripstation/sound/emotes/unathi/rumble_1.ogg', 'modular_dripstation/sound/emotes/unathi/rumble_2.ogg')
+
+/datum/emote/living/carbon/human/cough/can_run_emote(mob/living/user, status_check = TRUE, intentional)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.failed_last_breath)
+			return FALSE
+	return ..()

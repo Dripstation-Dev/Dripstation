@@ -7,3 +7,4 @@
 /obj/item/wirecutters/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/cuffsnapping, snap_time_weak_handcuffs, snap_time_strong_handcuffs)
+	AddElement(/datum/element/tourniquetsnapping, snap_time_weak_handcuffs)

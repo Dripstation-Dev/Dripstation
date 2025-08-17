@@ -21286,7 +21286,7 @@
 /obj/item/rune_scimmy,
 /obj/item/vibro_weapon,
 /obj/item/melee/ghost_sword,
-/obj/item/katana,
+/obj/item/melee/katana,
 /obj/item/energy_katana,
 /obj/item/gun/magic/staff/spellblade,
 /turf/open/floor/wood,

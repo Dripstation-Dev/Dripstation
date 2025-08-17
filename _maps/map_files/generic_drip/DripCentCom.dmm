@@ -21272,7 +21272,7 @@
 /obj/item/rune_scimmy,
 /obj/item/vibro_weapon,
 /obj/item/melee/ghost_sword,
-/obj/item/katana,
+/obj/item/melee/katana,
 /obj/item/energy_katana,
 /obj/item/gun/magic/staff/spellblade,
 /turf/open/floor/wood,
@@ -22123,8 +22123,8 @@
 /area/centcom/syndicate_mothership/control)
 "ebX" = (
 /obj/structure/rack,
-/obj/item/katana/bloody,
-/obj/item/katana,
+/obj/item/melee/katana/bloody,
+/obj/item/melee/katana,
 /turf/open/floor/catwalk_floor/iron_dark,
 /area/centcom/syndicate_mothership/control)
 "ecW" = (

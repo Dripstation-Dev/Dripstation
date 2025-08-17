@@ -62,7 +62,7 @@
 
 /obj/mecha/attack_alien(mob/living/user)
 	log_message("Attack by alien. Attacker - [user].", LOG_MECHA, color="red")
-	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	playsound(src.loc, SFX_SLASH, 100, 1)
 	attack_generic(user, 15, BRUTE, MELEE, 0)
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
@@ -111,7 +111,7 @@
 	/*Dripstation edit
 	if ((!enclosed || istype(Proj, /obj/projectile/bullet/shotgun/slug/uranium))&& occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
 	*/
-	if ((!enclosed || ((Proj.armour_penetration >= getArmor(Proj.armor_flag) && Proj.penetrations > 0))) && occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of mecha, dripstation edit
+	if ((!enclosed || ((Proj.armour_penetration >= getArmor(Proj.armor_flag) && Proj.penetrations > 0))) && occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST || Proj.def_zone == BODY_ZONE_PRECISE_GROIN)) //allows bullets to hit the pilot of mecha, dripstation edit
 		if(enclosed)	//dripstation edit
 			Proj.armour_penetration -= getArmor(Proj.armor_flag)	//modifies bullet penetration, dripstation edit
 			Proj.penetrations -= 1

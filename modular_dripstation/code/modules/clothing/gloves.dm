@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves
+	//equip_sound = 'modular_dripstation/sound/item/latex_equip.ogg'
+
 /obj/item/clothing/gloves/cargo_gauntlet
 	name = "\improper cargo gauntlets"
 	desc = "These rubberized gauntlets have high adhesion to the metal surface that allows you to drag crates and lockers with more confidence on them not getting nabbed from you."
@@ -122,6 +125,42 @@
 /obj/item/clothing/gloves/color/yellow
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	equip_sound = 'modular_dripstation/sound/item/rubber_equip.ogg'
+
+/obj/item/clothing/gloves/color/red/insulated
+	equip_sound = 'modular_dripstation/sound/item/rubber_equip.ogg'
+
+/obj/item/clothing/gloves/color/fyellow
+	equip_sound = 'modular_dripstation/sound/item/rubber_equip.ogg'
+
+/obj/item/clothing/gloves/radio
+	name = "translation gloves"
+	desc = "A pair of electronic gloves which connect to nearby radios wirelessly. Allows for sign language users to 'speak' over comms."
+	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	icon_state = "radio_g"
+	item_state = null
+	clothing_traits = list(TRAIT_CAN_SIGN_ON_COMMS)
+
+/obj/item/clothing/gloves/color/plasmaman
+	desc = "Covers up those scandalous boney hands."
+	name = "plasma envirogloves"
+	icon_state = "shadowling"
+	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list(BIO = 100, FIRE = 95, ACID = 95)
+	equip_sound = 'modular_dripstation/sound/item/rubber_equip.ogg'
+
+/obj/item/clothing/gloves/color/plasmaman/radio
+	name = "translation envirogloves"
+	desc = "Allows the less vocally-capable plasmamen to use sign language over comms."
+	icon_state = "radio_g"
+	clothing_traits = list(TRAIT_CAN_SIGN_ON_COMMS)
 
 /obj/item/clothing/gloves/atmos/ce
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
@@ -254,6 +293,7 @@
 	desc = "Cheap sterile gloves made from latex. Assists in carrying people around and helps performing surgery a bit quicker."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	equip_sound = 'modular_dripstation/sound/item/latex_equip.ogg'
 
 /obj/item/clothing/gloves/color/latex/black
 	icon_state = "latex_black"

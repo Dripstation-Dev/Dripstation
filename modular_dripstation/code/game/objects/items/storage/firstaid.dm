@@ -23,6 +23,9 @@
 /obj/item/storage/firstaid/tactical
 	item_state = "syndieaid"
 
+/obj/item/storage/firstaid/tactical/alt
+	custom_premium_price = 200
+
 /obj/item/storage/firstaid/tactical/alt/PopulateContents()
 	new /obj/item/stack/medical/gauze(src)
 	new /obj/item/hypospray/combat(src)

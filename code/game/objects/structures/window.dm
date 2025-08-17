@@ -912,9 +912,9 @@
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	knock_sound = SFX_PAGE_TURN
-	bash_sound = 'sound/weapons/slashmiss.ogg'
+	bash_sound = 'modular_dripstation/sound/effects/torn.ogg'
 	break_sound = 'sound/items/poster_ripped.ogg'
-	hit_sound = 'sound/weapons/slashmiss.ogg'
+	hit_sound = 'modular_dripstation/sound/effects/torn.ogg'
 	var/static/mutable_appearance/torn = mutable_appearance('icons/obj/smooth_structures/structure_variations.dmi',icon_state = "paper-torn", layer = ABOVE_OBJ_LAYER - 0.1)
 	var/static/mutable_appearance/paper = mutable_appearance('icons/obj/smooth_structures/structure_variations.dmi',icon_state = "paper-whole", layer = ABOVE_OBJ_LAYER - 0.1)
 
@@ -1048,7 +1048,7 @@
 	if(damage_amount)
 		switch(damage_type)
 			if(BRUTE)
-				playsound(src.loc, 'sound/weapons/slash.ogg', 80, 1)
+				playsound(src.loc, 'modular_dripstation/sound/effects/torn.ogg', 80, 1)
 			if(BURN)
 				playsound(loc, 'sound/items/welder.ogg', 80, 1)
 	else

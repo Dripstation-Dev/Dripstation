@@ -364,7 +364,7 @@
 	if(!do_after(user, 10 SECONDS, sacrifice))
 		balloon_alert(user, "interrupted!")
 		return
-	playsound(get_turf(sacrifice), 'sound/weapons/slash.ogg', 50, TRUE, -1)
+	playsound(get_turf(sacrifice), SFX_SLASH, 50, TRUE, -1)
 	sacrifice.adjustBruteLoss(200)
 	balloon_alert(user, "success!")
 	new /obj/item/bloodsucker/abyssal_essence(get_turf(src))
@@ -1053,7 +1053,7 @@
 	if(!do_after(user, 5 SECONDS, src))
 		to_chat(user, span_danger("<i>The ritual has been interrupted!</i>"))
 		return
-	playsound(target.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
+	playsound(target.loc, SFX_SLASH, 50, TRUE, -1)
 	switch(answer)
 		if(HUSK_MONSTER)
 			if(HAS_TRAIT(target, TRAIT_HUSK))
@@ -1061,7 +1061,7 @@
 				return
 			if(!do_after(user, 1 SECONDS, target))
 				return
-			playsound(target.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
+			playsound(target.loc, SFX_SLASH, 50, TRUE, -1)
 			if(!do_after(user, 1 SECONDS, target))
 				return
 			to_chat(user, span_notice("You suck all the blood out of [target], turning them into a Living Husk!"))
@@ -1084,7 +1084,7 @@
 				return
 			if(!do_after(user, 1 SECONDS, target))
 				return
-			playsound(target.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
+			playsound(target.loc, SFX_SLASH, 50, TRUE, -1)
 			to_chat(user, span_notice("You transfer your blood and toy with [target]'s flesh, leaving their body as a head and arm almalgam."))
 			to_chat(target, span_notice("Your master has mutated you into a tiny arm monster!"))
 			B.blood_volume -= 100
@@ -1104,7 +1104,7 @@
 				return
 			if(!do_after(user, 1 SECONDS, target))
 				return
-			playsound(target.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
+			playsound(target.loc, SFX_SLASH, 50, TRUE, -1)
 			to_chat(user, span_notice("You transfer your blood and toy with [target]'s flesh and bones, leaving their body as a boney and flesh amalgam."))
 			to_chat(target, span_notice("Your master has mutated you into a fractured monster!"))
 			B.blood_volume -= 150
@@ -1123,7 +1123,7 @@
 				return
 			if(!do_after(user, 1 SECONDS, target))
 				return
-			playsound(target.loc, 'sound/weapons/slash.ogg', 50, TRUE, -1)
+			playsound(target.loc, SFX_SLASH, 50, TRUE, -1)
 			if(!do_after(user, 1 SECONDS, target))
 				return
 			to_chat(user, span_notice("You transfer your blood and toy with [target]'s flesh and bones, leaving their body as a huge pile of flesh and organs."))

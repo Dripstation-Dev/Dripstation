@@ -42,7 +42,7 @@
 		return our_armor
 
 	if(our_armor <= 0)
-		balloon_alert_to_viewers("no armor!", "no armor!", COMBAT_MESSAGE_RANGE, "", COLOR_RED_LIGHT)
+		balloon_alert_to_viewers("no armor!", "no armor!", COMBAT_MESSAGE_RANGE, new_color = COLOR_RED_LIGHT)
 		return our_armor
 	if(weak_against_armour && our_armor >= 0)
 		our_armor *= 2
@@ -51,9 +51,9 @@
 	if(armour_penetration)
 		our_armor = max(0, our_armor - armour_penetration)
 		if(penetrated_text)
-			balloon_alert_to_viewers("armor penetrated!", "[penetrated_text]", COMBAT_MESSAGE_RANGE, "", COLOR_RED_LIGHT)
+			balloon_alert_to_viewers("armor penetrated!", "[penetrated_text]", COMBAT_MESSAGE_RANGE, new_color = COLOR_RED_LIGHT)
 		else
-			balloon_alert_to_viewers("armor penetrated!", "your armor penetrated!", COMBAT_MESSAGE_RANGE, "", COLOR_RED_LIGHT)
+			balloon_alert_to_viewers("armor penetrated!", "your armor penetrated!", COMBAT_MESSAGE_RANGE, new_color = COLOR_RED_LIGHT)
 	else if(our_armor >= 100)
 		if(absorb_text)
 			balloon_alert_to_viewers("armor absorbs!", "[absorb_text]", COMBAT_MESSAGE_RANGE)
@@ -61,9 +61,9 @@
 			balloon_alert_to_viewers("armor absorbs!", "your armor absorbs the blow!", COMBAT_MESSAGE_RANGE)
 	else
 		if(soften_text)
-			balloon_alert_to_viewers("armor effective!", "[soften_text]", COMBAT_MESSAGE_RANGE, "", COLOR_VERY_SOFT_YELLOW)
+			balloon_alert_to_viewers("armor effective!", "[soften_text]", COMBAT_MESSAGE_RANGE, new_color = COLOR_VERY_SOFT_YELLOW)
 		else
-			balloon_alert_to_viewers("armor effective!", "your armor softens the blow!", COMBAT_MESSAGE_RANGE, "", COLOR_VERY_SOFT_YELLOW)
+			balloon_alert_to_viewers("armor effective!", "your armor softens the blow!", COMBAT_MESSAGE_RANGE, new_color = COLOR_VERY_SOFT_YELLOW)
 	return our_armor	//Dripstation edit end
 
 

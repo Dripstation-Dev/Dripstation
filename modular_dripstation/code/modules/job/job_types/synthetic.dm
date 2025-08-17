@@ -54,12 +54,14 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 	forced_species = /datum/species/replica
 
 /datum/job/replica/after_roundstart_spawn(mob/living/spawning, client/player_client)
+	. = ..()
 	spawning.remove_all_quirks()
 	to_chat(spawning, span_notice("All quirks removed."))
 	var/start_sound = "[global.config.directory]/sound/TurnedAround.ogg"
 	SEND_SOUND(spawning, sound(start_sound))
 
 /datum/job/replica/after_latejoin_spawn(mob/living/spawning)
+	. = ..()
 	spawning.remove_all_quirks()
 	to_chat(spawning, span_notice("All quirks removed."))
 

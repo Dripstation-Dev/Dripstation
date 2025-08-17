@@ -9,6 +9,7 @@
 /obj/item/clothing/suit/armor
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	body_parts_covered = CHEST|GROIN
 
 /obj/item/clothing/suit/armor/examine(mob/user)
 	. = ..()
@@ -22,6 +23,8 @@
 		if(body_parts_covered || body_parts_partial_covered)
 			if((body_parts_covered & CHEST) || (body_parts_partial_covered & CHEST))
 				readout += "\nIt has <b>CHEST</b> [(body_parts_partial_covered & CHEST) ? "partial " : ""]covered."
+			if((body_parts_covered & GROIN) || (body_parts_partial_covered & GROIN))
+				readout += "\nIt has <b>CHEST</b> [(body_parts_partial_covered & GROIN) ? "partial " : ""]covered."
 			if((body_parts_covered & ARMS) || (body_parts_partial_covered & ARMS))
 				readout += "\nIt has <b>ARMS</b> [(body_parts_partial_covered & ARMS) ? "partial " : ""]covered."
 			if((body_parts_covered & LEGS) || (body_parts_partial_covered & LEGS))
@@ -45,16 +48,13 @@
 	icon_state = "armorlight"
 	item_state = "armorlight"
 
-/obj/item/clothing/suit/armor/vest/alt/occupying
-	name = "peacekeeping force vest"
-	desc = "A blue armored vest worn by Peacekeepers."
-	icon_state = "occvest"
-	item_state = "occvest"
-
 /obj/item/clothing/suit/armor/vest/alt
 	name = "security armor"
-	desc = "A tactical Type I armor vest. Not designed for serious operations."
+	desc = "A tactical Type II armor vest. You probably should not take hits in your groin, really."
 	icon_state = "armor_security"
+	body_parts_partial_covered = GROIN
+	partial_armor_coeff = 0.25	//it`s like 10 melee/bullet/laser armor in groin
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 30, BIO = 0, RAD = 0, FIRE = 50, ACID = 50, WOUND = 20)
 
 /obj/item/clothing/suit/armor/vest/alt/examine(mob/user)
 	. = ..()
@@ -89,24 +89,43 @@
 		var/datum/action/A = X
 		A.build_all_button_icons()
 
+/obj/item/clothing/suit/armor/vest/alt/occupying
+	name = "peacekeeping force vest"
+	desc = "A blue armored vest worn by Peacekeepers."
+	icon_state = "occvest"
+	item_state = "occvest"
+	body_parts_partial_covered = null	//THEY HAS NO GROIN PUNISHMENT WOW
 
 /obj/item/clothing/suit/armor/vest/alt/med
 	name = "brig med armor"
-	desc = "A tactical armor vest, but with shoulderpads included to cover arms. Has additional medical patches on it. Not designed for serious operations."
+	desc = "A tactical Type II armor vest, but with shoulderpads included to give some protection to arms. Has additional medical patches on it. Not designed for serious operations."
 	icon_state = "armor_secmed"
 	body_parts_covered = CHEST|GROIN|ARMS
-	body_parts_partial_covered = ARMS
+	body_parts_partial_covered = GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	heat_protection = CHEST|GROIN|ARMS
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/medrig
+
+/datum/component/storage/concrete/pockets/medrig
+	quickdraw = TRUE
+	max_combined_w_class = 2
+
+/datum/component/storage/concrete/pockets/medrig/Initialize()
+	. = ..()
+	set_holdable(list(	/obj/item/reagent_containers/autoinjector/medipen,
+						/obj/item/radio,
+						/obj/item/reagent_containers/glass/bottle,
+						/obj/item/stack/medical))
 
 /obj/item/clothing/suit/armor/vest/alt/full
 	name = "full security armor"
-	desc = "A tactical armor vest, but with shoulderpads and knee pads included to cover all parts of the body. Not designed for serious operations."
+	desc = "A tactical Type II armor vest, but with shoulderpads and knee pads included to cover all parts of the body. Not designed for serious operations."
 	icon_state = "armor_security_fullbody"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	body_parts_partial_covered = LEGS|ARMS
+	body_parts_partial_covered = GROIN|LEGS|ARMS
 	cold_protection = CHEST|GROIN|ARMS|LEGS
 	heat_protection = CHEST|GROIN|ARMS|LEGS
+	partial_armor_coeff = 0.5	//it`s like 20 melee/bullet/laser armor in groin/arms/legs, worse then actual rig, but no speed punish
 	custom_premium_price = 400
 
 /obj/item/clothing/suit/armor/vest/rycliesarmour

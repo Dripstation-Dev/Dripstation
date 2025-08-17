@@ -426,6 +426,14 @@
 /mob/living/proc/calculate_affecting_pressure(pressure)
 	return pressure
 
+///Returns the body temperature at which this mob will start taking heat damage.
+/mob/living/proc/get_body_temp_heat_damage_limit()
+	return BODYTEMP_HEAT_DAMAGE_LIMIT
+
+///Returns the body temperature at which this mob will start taking cold damage.
+/mob/living/proc/get_body_temp_cold_damage_limit()
+	return BODYTEMP_COLD_DAMAGE_LIMIT
+
 /mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
 	var/temperature = actual
 	var/difference = abs(actual-desired)	//get difference
@@ -456,12 +464,28 @@
 	set name = "Sleep"
 	set category = "IC"
 
-	if(IsSleeping())
-		to_chat(src, span_notice("You are already sleeping."))
+	var/quiet_enviromnent = TRUE
+	for(var/mob/living/loud_people in view(3, src))
+		if(loud_people != src && loud_people.stat < CONSCIOUS)
+			quiet_enviromnent = FALSE
+			break
+
+	if(AmountSleeping() == -1)
+		to_chat(src, span_notice("You try to wake up!"))
+		SetSleeping(10)
 		return
-	else
+	else if(!quiet_enviromnent)
+		to_chat(src, span_notice("Too loud to sleep."))
+		return
+	else if(!IsSleeping())
 		if(tgui_alert(usr, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
-			SetSleeping(400) //Short nap
+			//SetSleeping(400) //Short nap
+			if(!resting)
+				set_resting(TRUE, FALSE)
+			addtimer(CALLBACK(src, PROC_REF(PermaSleeping)), 0.3 SECONDS)
+	else
+		to_chat(src, span_notice("You can`t wake up."))
+		return
 	update_mobility()
 
 /mob/proc/get_contents()
@@ -676,7 +700,7 @@
 	if(active_storage && !(CanReach(active_storage.parent,view_only = TRUE)))
 		active_storage.close(src)
 
-	if(!(mobility_flags & MOBILITY_STAND) && !buckled && prob(getBruteLoss()*200/maxHealth))
+	if(!(mobility_flags & MOBILITY_STAND) && !buckled /*&& prob(getBruteLoss()*200/maxHealth)*/)	//dripstation edit, we don`t need prob here
 		makeTrail(newloc, T, old_direction)
 
 /mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
@@ -689,6 +713,7 @@
 		return
 
 	var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
+	SEND_SIGNAL(src, COMSIG_CARBON_FLATLINE_INFECT, amount = 0.1)	//dripstation edit
 	if(blood_volume < max(BLOOD_VOLUME_NORMAL(src)*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
 		return
 
@@ -743,7 +768,7 @@
 	if(buckled)
 		return
 	if(client && client.move_delay >= world.time + world.tick_lag*2)
-		pressure_resistance_prob_delta -= 10
+		pressure_resistance_prob_delta -= 30
 
 	var/list/turfs_to_check = list()
 
@@ -759,11 +784,11 @@
 		for(var/t in turfs_to_check)
 			T = t
 			if(T.density)
-				pressure_resistance_prob_delta -= 5
+				pressure_resistance_prob_delta -= 10
 				continue
 			for (var/atom/movable/AM in T)
 				if (AM.density && AM.anchored)
-					pressure_resistance_prob_delta -= 5
+					pressure_resistance_prob_delta -= 20
 					break
 	if(!force_moving)
 		..(pressure_difference, direction, pressure_resistance_prob_delta)

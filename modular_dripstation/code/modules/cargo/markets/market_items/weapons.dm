@@ -77,7 +77,7 @@
 /datum/market_item/weapon/katana
 	name = "Modern katana"
 	desc = "Modern katana forged by some space ninja clan, capable to slice through variety of materials."
-	item = /obj/item/katana
+	item = /obj/item/melee/katana
 
 	price_min = CARGO_CRATE_VALUE * 5
 	price_max = CARGO_CRATE_VALUE * 7

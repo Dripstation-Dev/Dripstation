@@ -16,7 +16,7 @@
 	exp_requirements = 180 //3 hours on security jobs
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SECURITY
-	alt_titles = list("Brig Enforcer")
+	alt_titles = list("Brig Enforcer", "Brig Technician")
 
 	outfit = /datum/outfit/job/corrections_officer
 

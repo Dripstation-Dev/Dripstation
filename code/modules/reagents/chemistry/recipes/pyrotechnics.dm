@@ -466,7 +466,7 @@
 	name = "Firefighting Foam"
 	id = /datum/reagent/firefighting_foam
 	results = list(/datum/reagent/firefighting_foam = 3)
-	required_reagents = list(/datum/reagent/stabilizing_agent = 1,/datum/reagent/fluorosurfactant = 1,/datum/reagent/carbon = 1)
+	required_reagents = list(/datum/reagent/stabilizing_agent = 1,/datum/reagent/medicine/coagulant/fluorosurfactant = 1,/datum/reagent/carbon = 1)
 	required_temp = 200
 	is_cold_recipe = TRUE
 

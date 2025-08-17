@@ -129,8 +129,13 @@
 	var/fireheal = 0 // BURN: Heal in Coffin while Fakedeath, or when damage above maxhealth (you can never fully heal fire)
 	/// Checks if you're in a coffin here, additionally checks for Torpor right below it.
 	var/amInCoffin = istype(user.loc, /obj/structure/closet/crate/coffin)
+	if(amInCoffin && HAS_TRAIT(user, TRAIT_NODEATH)) // if we're in a coffin, in torpor, stabilize our body temperature.
+		if(user.bodytemperature < user.dna.species.bodytemp_cold_damage_limit)
+			user.adjust_bodytemperature(-BODYTEMP_AUTORECOVERY_DIVISOR)
+		else if(user.bodytemperature >user.dna.species.bodytemp_heat_damage_limit)
+			user.adjust_bodytemperature(BODYTEMP_AUTORECOVERY_DIVISOR)
 	if(amInCoffin && HAS_TRAIT(user, TRAIT_NODEATH))
-		if(HAS_TRAIT(owner.current, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, bloodsucker_spam_healing)))
+		if(HAS_TRAIT(user, TRAIT_MASQUERADE) && (COOLDOWN_FINISHED(src, bloodsucker_spam_healing)))
 			to_chat(user, span_alert("You do not heal while your Masquerade ability is active."))
 			COOLDOWN_START(src, bloodsucker_spam_healing, BLOODSUCKER_SPAM_MASQUERADE)
 			return
@@ -283,10 +288,12 @@
 		owner.current.remove_status_effect(STATUS_EFFECT_FRENZY)
 	// BLOOD_VOLUME_BAD: [224] - Jitter
 	if(bloodsucker_blood_volume < BLOOD_VOLUME_BAD(owner.current) && prob(0.5) && !HAS_TRAIT(owner.current, TRAIT_NODEATH) && !HAS_TRAIT(owner.current, TRAIT_MASQUERADE))
-		owner.current.adjust_jitter(3 SECONDS)
-	// BLOOD_VOLUME_SURVIVE: [122] - Blur Vision
+		owner.current.set_jitter_if_lower(3 SECONDS)
+	// BLOOD_VOLUME_SURVIVE: [122] - Permastaggered effect
 	if(bloodsucker_blood_volume < BLOOD_VOLUME_SURVIVE(owner.current))
-		owner.current.adjust_eye_blur((8 - 8 * (bloodsucker_blood_volume / BLOOD_VOLUME_BAD(owner.current)))* 2 SECONDS)
+		owner.current.set_staggered_if_lower(3 SECONDS)
+		if(prob(0.5))
+			owner.current.set_eye_blur_if_lower((8 - 8 * (bloodsucker_blood_volume / BLOOD_VOLUME_BAD(owner.current)))* 2 SECONDS)
 
 	// The more blood, the better the Regeneration, get too low blood, and you enter Frenzy.
 	if(bloodsucker_blood_volume < (FRENZY_THRESHOLD_ENTER + humanity_lost * 10) && !frenzied)
@@ -302,10 +309,10 @@
 					owner.current.apply_status_effect(STATUS_EFFECT_FRENZY)
 				if(2 to INFINITY)
 					if(do_after(user, 2 SECONDS, user, IGNORE_ALL))
-						playsound(user.loc, 'sound/weapons/slash.ogg', 25, 1)
+						playsound(user.loc, SFX_SLASH, 25, 1)
 						to_chat(user, span_warning("<i><b>You skin rips and tears.</b></i>"))
 						if(do_after(user, 1 SECONDS, user, IGNORE_ALL))
-							playsound(user.loc, 'sound/weapons/slashmiss.ogg', 25, 1)
+							playsound(user.loc, SFX_SLASHMISS, 25, 1)
 							to_chat(user, span_warning("<i><b>You heart pumps blackened blood into your veins as your skin turns into fur.</b></i>"))
 							if(do_after(user, 1 SECONDS, user, IGNORE_ALL))
 								playsound(user.loc, 'sound/weapons/slice.ogg', 25, 1)

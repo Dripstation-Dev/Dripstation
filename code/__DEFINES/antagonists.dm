@@ -189,4 +189,4 @@
 #define IS_HEAD_REVOLUTIONARY(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/rev/head))
 
 /// Checks if the given mob is a malf ai.
-#define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/malf_ai))
+#define IS_MALF_AI(mob) (mob?.mind?.has_antag_datum(/datum/antagonist/traitor/malf))

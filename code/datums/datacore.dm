@@ -338,6 +338,9 @@
 			G.fields["gender"]  = "Other"
 		G.fields["photo_front"]	= photo_front
 		G.fields["photo_side"]	= photo_side
+		// DRIPSTATION EDIT - RP RECORDS
+		G.fields["past_records"] = C?.prefs?.read_preference(/datum/preference/text/general) || ""
+		// DRIPSTATION EDIT END
 		general += G
 
 		//Medical Record
@@ -355,6 +358,12 @@
 		M.fields["cdi"]			= "None"
 		M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
 		M.fields["notes"]		= H.get_trait_string(medical)
+		// DRIPSTATION EDIT - RP RECORDS
+		if(C && C.prefs && C.prefs.read_preference(/datum/preference/text/medical))
+			M.fields["past_records"] = C.prefs.read_preference(/datum/preference/text/medical)
+		else
+			M.fields["past_records"] = ""
+		// DRIPSTATION EDIT END
 		medical += M
 
 		//Security Record
@@ -366,6 +375,12 @@
 		S.fields["crimes"]		= list()
 		S.fields["comments"]	= list()
 		S.fields["notes"]		= "No notes."
+		// DRIPSTATION EDIT - RP RECORDS
+		if(C && C.prefs && C.prefs.read_preference(/datum/preference/text/security))
+			S.fields["past_records"] = C.prefs.read_preference(/datum/preference/text/security)
+		else
+			S.fields["past_records"] = ""
+		// DRIPSTATION EDIT END
 		security += S
 
 		//Locked Record
@@ -388,6 +403,7 @@
 		L.fields["features"]	= H.dna.features
 		L.fields["image"]		= image
 		L.fields["mindref"]		= H.mind
+		L.fields["exploitable_records"] = C?.prefs?.read_preference(/datum/preference/text/exploitable) || ""
 		locked += L
 	return
 

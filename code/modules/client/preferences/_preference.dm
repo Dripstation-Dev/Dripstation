@@ -105,6 +105,15 @@ GLOBAL_LIST_INIT(preference_entries_by_key, init_preference_entries_by_key())
 	/// For example, this is used for for podperson hair_color since it overwrites human hair_color
 	var/unique = FALSE
 
+	//Dripstation edit - records
+	// BACKGROUND STUFF
+	//var/general_record = ""
+	//var/security_record = ""
+	//var/medical_record = ""
+	//var/exploitable_info = ""
+
+	//var/headshot = ""	//okey, I don`t know why are we storing it here, but whatever
+
 /// Called on the saved input when retrieving.
 /// Also called by the value sent from the user through UI. Do not trust it.
 /// Input is the value inside the savefile, output is to tell other code

@@ -65,7 +65,7 @@
 		else
 			squirrel.visible_message(span_boldwarning("A massive brass spike erupts from the ground, impaling [squirrel]!"), \
 			span_userdanger("A massive brass spike rams through your chest, hoisting you into the air!"))
-			squirrel.emote("scream")
+			squirrel.pain(100, TRUE)
 			playsound(squirrel, 'sound/effects/splat.ogg', 50, TRUE)
 			playsound(squirrel, 'sound/misc/desceration-03.ogg', 50, TRUE)
 			squirrel.apply_damage(20, BRUTE, BODY_ZONE_CHEST)
@@ -105,7 +105,7 @@
 		wiggle_wiggle = TRUE
 		if(!do_after(user, 6 SECONDS, user))
 			user.visible_message(span_warning("[user] slides back down [src]!"))
-			user.emote("scream")
+			user.pain(100, TRUE)
 			user.apply_damage(10, BRUTE, BODY_ZONE_CHEST)
 			playsound(user, 'sound/misc/desceration-03.ogg', 50, TRUE)
 			wiggle_wiggle = FALSE

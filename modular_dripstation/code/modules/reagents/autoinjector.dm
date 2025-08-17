@@ -119,13 +119,8 @@
 	list_reagents = list(/datum/reagent/medicine/morphine = 5,  /datum/reagent/iron = 5, /datum/reagent/medicine/omnizine/protozine = 10, /datum/reagent/medicine/atropine = 10)
 
 /obj/item/reagent_containers/autoinjector/medipen/morphine
-	name = "morphine autoinjector"
-	desc = "An autoinjector for use in combat situations. Used as a high-strength painkiller. Overdose will cause uncontious state."
 	icon_state = "morphine"
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
-	volume = 10
-	amount_per_transfer_from_this = 10
-	list_reagents = list(/datum/reagent/medicine/morphine = 10)
 
 /obj/item/reagent_containers/autoinjector/medipen/tramadol
 	name = "tramadol autoinjector"

@@ -9,11 +9,11 @@
 
 /datum/reagent/medicine/tramadol/on_mob_metabolize(mob/living/L)
 	..()
-	ADD_TRAIT(L, TRAIT_RESISTDAMAGESLOWDOWN, type)
+	ADD_TRAIT(L, TRAIT_NUMBED, type)
 	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "[type]_high", /datum/mood_event/high)
 
 /datum/reagent/medicine/tramadol/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_RESISTDAMAGESLOWDOWN, type)
+	REMOVE_TRAIT(L, TRAIT_NUMBED, type)
 	..()
 
 /datum/reagent/medicine/tramadol/overdose_process(mob/living/M)

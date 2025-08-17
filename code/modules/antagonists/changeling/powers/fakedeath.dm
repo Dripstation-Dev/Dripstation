@@ -53,7 +53,7 @@
 		span_userdanger("Your limbs regrow, making a loud, crunchy sound and giving you great pain!"),
 		span_hear("You hear organic matter ripping and tearing!"),
 	)
-	user.emote("scream")
+	user.pain(100, TRUE, TRUE)
 	// Manually call this (outside of revive/fullheal) so we can pass our blacklist
 	user.regenerate_limbs(dont_regenerate)
 	user.regenerate_organs()

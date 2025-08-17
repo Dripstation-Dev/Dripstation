@@ -372,13 +372,13 @@
 /datum/chemical_reaction/surfactant
 	name = "Foam surfactant"
 	id = "foam surfactant"
-	results = list(/datum/reagent/fluorosurfactant = 5)
+	results = list(/datum/reagent/medicine/coagulant/fluorosurfactant = 5)
 	required_reagents = list(/datum/reagent/fluorine = 2, /datum/reagent/carbon = 2, /datum/reagent/toxin/acid = 1)
 
 /datum/chemical_reaction/foam
 	name = "Foam"
 	id = "foam"
-	required_reagents = list(/datum/reagent/fluorosurfactant = 1, /datum/reagent/water = 1)
+	required_reagents = list(/datum/reagent/medicine/coagulant/fluorosurfactant = 1, /datum/reagent/water = 1)
 	mob_react = FALSE
 
 /datum/chemical_reaction/foam/on_reaction(datum/reagents/holder, created_volume)

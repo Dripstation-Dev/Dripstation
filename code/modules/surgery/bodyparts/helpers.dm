@@ -7,8 +7,10 @@
 		zone = BODY_ZONE_CHEST
 	if(zone == BODY_ZONE_PRECISE_MOUTH || zone == BODY_ZONE_PRECISE_EYES) //yes this is required.
 		zone = BODY_ZONE_HEAD
+	/* Dripstation edit
 	if(zone == BODY_ZONE_PRECISE_GROIN)
 		zone = BODY_ZONE_CHEST
+	*/
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/L = X
 		if(L.body_zone == zone)
@@ -183,6 +185,8 @@
 			L = new /obj/item/bodypart/r_leg()
 		if(BODY_ZONE_CHEST)
 			L = new /obj/item/bodypart/chest()
+		if(BODY_ZONE_PRECISE_GROIN)
+			L = new /obj/item/bodypart/groin()
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)
@@ -204,6 +208,8 @@
 			L = new /obj/item/bodypart/r_leg/monkey()
 		if(BODY_ZONE_CHEST)
 			L = new /obj/item/bodypart/chest/monkey()
+		if(BODY_ZONE_PRECISE_GROIN)
+			L = new /obj/item/bodypart/groin/monkey()
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)
@@ -238,6 +244,8 @@
 			L = new /obj/item/bodypart/r_leg/alien()
 		if(BODY_ZONE_CHEST)
 			L = new /obj/item/bodypart/chest/alien()
+		if(BODY_ZONE_PRECISE_GROIN)
+			L = new /obj/item/bodypart/groin/alien()
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)

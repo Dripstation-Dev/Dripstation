@@ -134,8 +134,8 @@
 #define MASKCOVERSMOUTH		(1<<3)		// on other items, these are just for mask/head
 #define HEADCOVERSMOUTH		(1<<4)
 
-#define TINT_DARKENED 2			//Threshold of tint level to apply weld mask overlay
-#define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
+#define TINT_DARKENED 5			//Threshold of tint level to apply weld mask overlay
+#define TINT_BLIND 6			//Threshold of tint level to obscure vision fully
 
 //Allowed equipment lists for security vests and hardsuits.
 
@@ -213,3 +213,20 @@ GLOBAL_LIST_INIT(security_wintercoat_allowed, typecacheof(list(
 	/obj/item/tank/internals/plasmaman,
 	/obj/item/tank/internals/ipc_coolant,
 	/obj/item/toy)))
+
+/// String for items placed into the left pocket.
+#define LOCATION_LPOCKET "in your left pocket"
+/// String for items placed into the right pocket
+#define LOCATION_RPOCKET "in your right pocket"
+/// String for items placed into the backpack.
+#define LOCATION_BACKPACK "in your backpack"
+/// String for items placed into the hands.
+#define LOCATION_HANDS "in your hands"
+/// String for items placed in the glove slot.
+#define LOCATION_GLOVES "on your hands"
+/// String for items placed in the eye/glasses slot.
+#define LOCATION_EYES "covering your eyes"
+/// String for items placed on the head/hat slot.
+#define LOCATION_HEAD "on your head"
+/// String for items placed in the neck slot.
+#define LOCATION_NECK "around your neck"

@@ -40,17 +40,19 @@
 			covering_part += cover
 	return covering_part
 
-/mob/living/carbon/human/on_hit(obj/projectile/P)
+/mob/living/carbon/human/on_hit(obj/projectile/P, block, def_zone)
 	if(dna && dna.species)
-		dna.species.on_hit(P, src)
+		dna.species.on_hit(P, src, def_zone)
 
 
 /mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone)
 	var/obj/item/W = get_item_by_slot(ITEM_SLOT_ID)	//dripstation edit
 	var/obj/item/card/id/I = W?.GetID()				//dripstation edit
 	if(istype(I) && (I?.iff_signal & P.iff_signal))	//dripstation edit
+		playsound(src, SFX_BULLET_MISS, 75, 1)		//dripstation edit
 		return BULLET_ACT_FORCE_PIERCE				//dripstation edit
 	if(P.precise && get_dist(P.firer, src) <= 2)	//dripstation edit
+		playsound(src, SFX_BULLET_MISS, 75, 1)		//dripstation edit
 		return BULLET_ACT_FORCE_PIERCE				//dripstation edit
 	if(dna && dna.species)
 		var/spec_return = dna.species.bullet_act(P, src)
@@ -69,7 +71,7 @@
 						visible_message(span_danger("[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!"), span_userdanger("You deflect the projectile!"))
 					else
 						visible_message(span_danger("[src] deflects the projectile!"), span_userdanger("You deflect the projectile!"))
-					playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
+					playsound(src, SFX_BULLET_MISS, 75, 1)		//dripstation edit
 					if(!mind.martial_art.reroute_deflection)
 						return BULLET_ACT_BLOCK
 					else
@@ -259,7 +261,7 @@
 	if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stunned instead.
 		var/obj/item/I = get_active_held_item()
 		if(I && dropItemToGround(I))
-			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+			playsound(loc, SFX_SLASH, 25, 1, -1)
 			visible_message(span_danger("[M] disarmed [src]!"), \
 					span_userdanger("[M] disarmed [src]!"))
 		else if(!M.client || prob(5)) // only natural monkeys get to stun reliably, (they only do it occasionaly)
@@ -298,7 +300,7 @@
 				w_uniform.add_fingerprint(M)
 			var/damage = prob(90) ? 20 : 0
 			if(!damage)
-				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1, -1)
+				playsound(loc, SFX_SLASHMISS, 50, 1, -1)
 				visible_message(span_danger("[M] has lunged at [src]!"), \
 					span_userdanger("[M] has lunged at [src]!"))
 				return 0
@@ -318,7 +320,7 @@
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
 			var/obj/item/I = get_active_held_item()
 			if(I && dropItemToGround(I))
-				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+				playsound(loc, SFX_SLASH, 25, 1, -1)
 				visible_message(span_danger("[M] disarmed [src]!"), \
 						span_userdanger("[M] disarmed [src]!"))
 			else
@@ -464,6 +466,7 @@
 						if(EXPLODE_LIGHT)
 							SSexplosions.low_mov_atom += thing
 				gib()
+				investigate_log("has been gibbed by an explosion.", INVESTIGATE_DEATHS)
 				return
 			else
 				brute_loss = 200*(2 - round(bomb_armor/100, 0.05))	//0-50% damage reduction because this should still kill you
@@ -478,24 +481,31 @@
 			if(bomb_armor)
 				brute_loss = 30*(2 - round(bomb_armor/60, 0.05))	//0-83% damage reduction
 				burn_loss = brute_loss					//40-120 total combined brute + burn
+			if(prob(brute_loss))
+				gain_trauma(/datum/brain_trauma/mild/concussion)
 			damage_clothes(200 - bomb_armor, BRUTE, BOMB)
 			if (!istype(ears, /obj/item/clothing/ears/earmuffs))
 				adjustEarDamage(30, 120)
 			if(bomb_armor < 60)
 				Unconscious(20)						//Sufficient protection will stop you from being knocked out
 			Knockdown(200 - (bomb_armor * 1.6)) 	//between ~4 and ~20 seconds of knockdown depending on bomb armor
+			adjust_staggered_up_to(STAGGERED_SLOWDOWN_LENGTH * (300 - (bomb_armor * 1.6)), 30 SECONDS)
 
 		if (EXPLODE_LIGHT)
 			brute_loss = 24
 			if(bomb_armor)
 				brute_loss = 12*(2 - round(bomb_armor/60, 0.05))	//4-24 damage total depending on bomb armor
+			if(prob(brute_loss))
+				gain_trauma(/datum/brain_trauma/mild/concussion)
 			damage_clothes(max(40 - bomb_armor, 0), BRUTE, BOMB)
 			if (!istype(ears, /obj/item/clothing/ears/earmuffs))
 				adjustEarDamage(15,60)
 			Knockdown(max(120 - (bomb_armor * 2),0))	//60 bomb armor prevents knockdown entirely
+			adjust_staggered_up_to(STAGGERED_SLOWDOWN_LENGTH * max(180 - (bomb_armor * 3),0), 10 SECONDS)
 
 		if (EXPLODE_NONE)						//dripstation edit
 			Knockdown(max(60 - bomb_armor,0))	//short knock, 60 bomb armor prevents knockdown entirely, dripstation edit
+			adjust_staggered_up_to(STAGGERED_SLOWDOWN_LENGTH * max(120 - (bomb_armor * 2),0), 10 SECONDS)
 
 	take_overall_damage(brute_loss,burn_loss)
 //dripstation edit start, tg-like bomb defence, more violent
@@ -704,7 +714,7 @@
 		if(affecting.name == BODY_ZONE_HEAD)
 			if(prob(min(acidpwr*acid_volume*damagemod/10, 90))) //Applies disfigurement
 				affecting.receive_damage(acidity*damagemod, 2*acidity*damagemod) // yogs - Old Plant People
-				emote("scream")
+				pain(100, TRUE)
 				facial_hair_style = "Shaved"
 				hair_style = "Bald"
 				update_hair()
@@ -848,6 +858,8 @@
 				if(WOUND_SEVERITY_SEVERE)
 					msg = "\t <span class='warning'><b>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!</b></span>"
 				if(WOUND_SEVERITY_CRITICAL)
+					msg = "\t <span class='warning'><b>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!!</b></span>"
+				if(WOUND_SEVERITY_BLOOD_VESSEL)
 					msg = "\t <span class='warning'><b>Your [LB.name] is suffering [W.a_or_from] [lowertext(W.name)]!!</b></span>"
 			to_chat(src, msg)
 

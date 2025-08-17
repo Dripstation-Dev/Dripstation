@@ -9,7 +9,9 @@
 	zone = BODY_ZONE_HEAD
 	icon = 'modular_dripstation/icons/obj/surgery.dmi'
 	icon_state = "replicabrain"
-	compatible_biotypes = MOB_INORGANIC // do not incert in IPC, really
+	compatible_biotypes = MOB_PSEVDOORGANIC // do not incert in IPC, really
+	organ_flags = ORGAN_SYNTHETIC
+	status = ORGAN_ORGANIC
 
 /obj/item/organ/cyberimp/brain/replica_controller
 	name = "CNS Behavior Controller implant"
@@ -17,7 +19,7 @@
 	implant_color = "#333640"
 	var/mindshield_status = TRUE
 	slot = ORGAN_SLOT_BRAIN_IMPLANT
-	compatible_biotypes = MOB_INORGANIC // IT`S REPLIKA`S, DO NOT INCERT IN HUMANS
+	compatible_biotypes = MOB_PSEVDOORGANIC // IT`S REPLIKA`S, DO NOT INCERT IN HUMANS
 	//var/mulfunction_duration = 4 SECONDS
 
 /obj/item/organ/cyberimp/brain/replica_controller/syndicate/Initialize(mapload)
@@ -63,29 +65,102 @@
 	return TRUE
 
 /obj/item/organ/stomach/cell/preternis/replica
-	name = "replika cell-stomach"
+	name = "\improper TMC brand cell-stomach"
 
 /obj/item/organ/lungs/replica
-	name = "advanced cooling biocomponent"
-	desc = "A bioradiator in the shape of a lung, that uses advanced cooling to protect biocomponents from overheat."
+	name = "advanced air oxidation biocomponent"
+	desc = "A bioradiator in the shape of a lung, that uses advanced air oxidation to preserve biocomponents from degradation."
 	icon_state = "lungs-c"
 	organ_flags = ORGAN_SYNTHETIC
-	compatible_biotypes = MOB_INORGANIC // do not incert in IPC, really
-	status = ORGAN_ROBOTIC
+	compatible_biotypes = MOB_PSEVDOORGANIC // do not incert in IPC, really
+	safe_breath_min = 6
+	safe_breath_max = 100
+	organ_efficiency = 2
 
-/obj/item/organ/lungs/replica/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-	if(HAS_TRAIT(H, TRAIT_NOBREATH))
-		return
-	else
-		H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.failed_last_breath = TRUE
+	SA_para_min = 3
+	SA_sleep_min = 6
+	BZ_trip_balls_min = 2
+
+	cold_level_1_threshold = 200
+	cold_level_2_threshold = 140
+	cold_level_3_threshold = 80
+
+	heat_level_1_threshold = 500
+	heat_level_2_threshold = 800
+	heat_level_3_threshold = 1400
+	
+	gas_min = list(
+		GAS_O2 = 15,
+		GAS_N2 = 5,
+	)
+	gas_max = list(
+		GAS_CO2 = 50, // Yes it's an arbitrary value who cares?
+		GAS_PLASMA = 20,
+	)
+	gas_damage = list(
+		"default" = list(
+			min = MIN_TOXIC_GAS_DAMAGE/2,
+			max = MAX_TOXIC_GAS_DAMAGE/2,
+			damage_type = OXY,
+		),
+		GAS_PLASMA = list(
+			min = MIN_TOXIC_GAS_DAMAGE/2,
+			max = MAX_TOXIC_GAS_DAMAGE/2,
+			damage_type = TOX,
+		)
+	)
 
 /obj/item/organ/lungs/replica/handle_helium_speech(owner, list/speech_args)
 	return FALSE
 
+/obj/item/organ/heart/replica
+	name = "advanced oxidant pump"
+	desc = "A pump in the shape of a heart, that pumps oxidant through replicas microtubes."
+	icon_state = "heart-c"
+	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
+	organ_efficiency = 3
+	organ_flags = ORGAN_SYNTHETIC
+	compatible_biotypes = MOB_PSEVDOORGANIC // do not incert in IPC, really
+	//status = ORGAN_ROBOTIC
+	var/restartTimer = 8 SECONDS
+
+/obj/item/organ/heart/replica/Stop()
+	if(owner && owner.stat != DEAD)
+		addtimer(CALLBACK(src, PROC_REF(Restart), TRUE), restartTimer)	
+	..()
+
+/obj/item/organ/heart/replica/Restart(forced = FALSE)
+	if(forced)
+		applyOrganDamage(20)
+	..()
+
+/obj/item/organ/ears/replica
+	name = "auditory biocomponents"
+	icon_state = "robotic_ears"
+	desc = "A pair of biocomponents, that grant the ability to hear."
+	zone = "head"
+	slot = "ears"
+	gender = PLURAL
+	//status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
+	compatible_biotypes = MOB_PSEVDOORGANIC // not for IPCs
+
+/obj/item/organ/tongue/replica
+	name = "speach biocomponent"
+	desc = "A biocomponent in the shape of a regular tongue that can interface with organic lifeforms."
+	compatible_biotypes = MOB_PSEVDOORGANIC
+	organ_flags = ORGAN_SYNTHETIC
+	taste_sensitivity = NO_TASTE_SENSITIVITY // not as good as an organic tongue
+
+/obj/item/organ/tongue/replica/can_speak_language(language)
+	return TRUE // THE MAGIC OF ELECTRONICS
+
 /obj/item/organ/eyes/robotic/preternis/replica
-	name = "replika eyes"
-	desc = "Advanced robotic eyes that can see in the dark."
+	name = "augmented vision biocomponent"
+	desc = "Advanced synthetic biocomponent that grants ability to see. Additional augmentations provides night vision."
+	organ_flags = ORGAN_SYNTHETIC
+	status = ORGAN_ORGANIC
+	compatible_biotypes = MOB_PSEVDOORGANIC // not for IPCs
 	
 	flash_protect = 1
 
@@ -107,7 +182,7 @@
 /obj/item/organ/cyberimp/chest/replica
 	name = "replika`s coverings"
 	desc = "Chest protection. Defends vulnerable biocomponents from harm."
-	compatible_biotypes = MOB_INORGANIC
+	compatible_biotypes = MOB_PSEVDOORGANIC
 	slot = ORGAN_SLOT_TORSO_IMPLANT
 	icon_state = "imp_jetpack-on"
 	// Used to store a list of all items inside, for multi-item implants.
@@ -258,27 +333,37 @@
 	id = "replica"
 
 	limbs_id = "replica"
-//	damage_overlay_type = "robotic"
+	damage_overlay_type = "robotic"
+	bubble_icon = BUBBLE_MACHINE
 
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
-	species_traits = list(EYECOLOR, HAIR, LIPS, HAS_FLESH, NOHUSK, NO_UNDERWEAR, NO_DNA_COPY, NOTRANSSTING, NOZOMBIE)
-	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOBREATH, TRAIT_LIMBATTACHMENT, TRAIT_EASYDISMEMBER, TRAIT_NOCRITDAMAGE, TRAIT_NOSOFTCRIT, TRAIT_GENELESS, TRAIT_MEDICALIGNORE, TRAIT_NOCLONE, TRAIT_NO_BLOOD_REGEN, TRAIT_POWERHUNGRY, TRAIT_REDUCED_DAMAGE_SLOWDOWN)
-	inherent_biotypes = MOB_ORGANIC|MOB_ROBOTIC|MOB_HUMANOID|MOB_INORGANIC
+	species_traits = list(EYECOLOR, HAIR, LIPS, HAS_FLESH, HAS_BONE, NOHUSK, NO_UNDERWEAR, NO_DNA_COPY, NOTRANSSTING, NOZOMBIE)
+	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_LIMBATTACHMENT, TRAIT_EASYDISMEMBER, TRAIT_NOCRITDAMAGE, TRAIT_NOSOFTCRIT, TRAIT_GENELESS, TRAIT_MEDICALIGNORE, TRAIT_NOCLONE, TRAIT_NO_BLOOD_REGEN, TRAIT_POWERHUNGRY, TRAIT_REDUCED_DAMAGE_SLOWDOWN, NO_PAIN_EMOTE)
+	inherent_biotypes = MOB_HUMANOID|MOB_PSEVDOORGANIC
 	no_equip = list(ITEM_SLOT_FEET)
 
 	mutanteyes = /obj/item/organ/eyes/robotic/preternis/replica
-	mutantlungs = /obj/item/organ/lungs/replica //ah hell no, they don`t actually breath
+	mutantlungs = /obj/item/organ/lungs/replica
 	mutantstomach = /obj/item/organ/stomach/cell/preternis/replica
 	mutantbrain = /obj/item/organ/brain/positron/replica
+	mutantears = /obj/item/organ/ears/replica
+	mutantliver = /obj/item/organ/liver/cybernetic/upgraded
+	mutantheart = /obj/item/organ/heart/replica
+	mutanttongue = /obj/item/organ/tongue/replica
 
 	say_mod = "intones"
+	//ask_mod = "questions"
+	//exclaim_mod = "emphatically intones"
+	//whisper_mod = "subtly intones"
+	//sing_mod = "rythmically intones"
+	//yell_mod = "loudly intones"
 	attack_verbs = list("assault")
 	toxic_food = MEAT | VEGETABLES | RAW | JUNKFOOD | GRAIN | FRUIT | DAIRY | FRIED | SUGAR | GROSS | PINEAPPLE | BREAKFAST | CLOTH | GRILLED | EGG | SEAFOOD | MICE | NUTS
 	liked_food = CHOCOLATE | ALCOHOL
 	disliked_food = TOXIC
 	possible_genders = list(MALE, FEMALE) //replicates people
 	
-	yogs_virus_infect_chance = 0 //NORMALY never infected
+	//yogs_virus_infect_chance = 0 //NORMALY never infected
 	burnmod = 1.2 
 	pressuremod = 0.75 // from the moment i understood the weakness of my flesh it disgusted me
 	tempmod = 0.3 //The high heat capacity of the biocomponents makes it take far longer to heat up or cool down
@@ -318,8 +403,8 @@
 
 	//sounds
 	special_step_sounds = list('sound/effects/footstep/catwalk1.ogg', 'sound/effects/footstep/catwalk2.ogg', 'sound/effects/footstep/catwalk3.ogg', 'sound/effects/footstep/catwalk4.ogg')
-	attack_sound = 'sound/items/trayhit2.ogg'
-	screamsound = 'goon/sound/robot_scream.ogg'
+	attack_sound = 'modular_dripstation/sound/replica_attack.ogg'
+	//screamsound = 'goon/sound/robot_scream.ogg'
 	//deathsound =
 
 	wings_icon = "Elytra"
@@ -346,12 +431,15 @@
 	state_laws.Grant(C)
 
 	for(var/obj/item/bodypart/BP in C.bodyparts)
-		BP.change_bodypart_status(BODYPART_ROBOTIC,FALSE,TRUE)
-		BP.render_like_organic = TRUE 	// Makes limbs render like organic limbs instead of augmented limbs, check bodyparts.dm
-
-		BP.emp_reduction = EMP_LIGHT
-		BP.burn_reduction = 1
-		BP.brute_reduction = 1
+		if(BP.body_zone == BODY_ZONE_L_LEG || BP.body_zone == BODY_ZONE_R_LEG)
+			BP.change_bodypart_status(BODYPART_ROBOTIC,FALSE,FALSE)
+			BP.render_like_organic = TRUE 	// Makes limbs render like organic limbs instead of augmented limbs, check bodyparts.dm
+			BP.emp_reduction = EMP_LIGHT
+			BP.burn_reduction = 4
+			BP.brute_reduction = 4
+		else		
+			BP.burn_reduction = 2
+			BP.brute_reduction = 2
 		if(BP.body_zone == BODY_ZONE_CHEST)
 			continue
 		if(BP.body_zone == BODY_ZONE_HEAD)
@@ -387,8 +475,9 @@
 	. = ..()
 	for (var/V in C.bodyparts)
 		var/obj/item/bodypart/BP = V
-		BP.change_bodypart_status(ORGAN_ORGANIC,FALSE,TRUE)
-		BP.emp_reduction = initial(BP.emp_reduction)
+		if(BP.body_zone == BODY_ZONE_L_LEG || BP.body_zone == BODY_ZONE_R_LEG)
+			BP.change_bodypart_status(ORGAN_ORGANIC,FALSE,TRUE)
+			BP.emp_reduction = initial(BP.emp_reduction)
 		BP.burn_reduction = initial(BP.burn_reduction)
 		BP.brute_reduction = initial(BP.brute_reduction)
 
@@ -404,17 +493,22 @@
 		maglock.Remove(C)
 
 
-/datum/species/replica/proc/handle_speech(datum/source, list/speech_args)
+/datum/species/replica/proc/handle_speech(mob/living/carbon/C, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
+	C.verb_ask = "questions"
+	C.verb_exclaim = "emphatically intones"
+	C.verb_whisper = "softly intones"
+	C.verb_sing = "rythmically intones"
+	C.verb_yell = "loudly intones"
 
 /datum/species/replica/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	if(H.stat == DEAD)
 		return
 
-	if(H.oxyloss)
-		H.setOxyLoss(0)
-		H.losebreath = 0
+	//if(H.oxyloss)
+	//	H.setOxyLoss(0)
+	//	H.losebreath = 0
 
 	if(H.health <= HEALTH_THRESHOLD_FULLCRIT && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHARDCRIT)) // So they die eventually instead of being stuck in crit limbo.
 		H.adjustFireLoss(2)
@@ -457,13 +551,13 @@
 	return TRUE
 
 /datum/species/replica/spec_revival(mob/living/carbon/human/H, admin_revive)
-	var/obj/item/organ/stomach/CE = H.getorganslot(ORGAN_SLOT_STOMACH)	
-	if(!istype(CE, /obj/item/organ/stomach/cell/preternis/replica))
-		CE.Remove(H)
-		QDEL_NULL(CE)
-		var/obj/item/organ/stomach/cell/preternis/replica/NCE = new /obj/item/organ/stomach/cell/preternis/replica
-		NCE.Insert(H)
 	if(admin_revive)
+		var/obj/item/organ/stomach/CE = H.getorganslot(ORGAN_SLOT_STOMACH)	
+		if(!istype(CE, /obj/item/organ/stomach/cell/preternis/replica))
+			CE.Remove(H)
+			QDEL_NULL(CE)
+			var/obj/item/organ/stomach/cell/preternis/replica/NCE = new /obj/item/organ/stomach/cell/preternis/replica
+			NCE.Insert(H)
 		return ..()
 	H.Stun(20 SECONDS) // No moving either
 	H.update_body()
@@ -600,6 +694,19 @@
 		else
 			M.adjustToxLoss(toxpwr*REM, 0)
 
+/obj/item/reagent_containers/medspray/fluorosurfactant
+	name = "medical spray (fluorosurfactant)"
+	desc = "A single use medical spray bottle, designed for precision application. This one contains fluorosurfactant, a bleeding stopper for replicas."
+	icon_state = "synthspray"
+	list_reagents = list(/datum/reagent/medicine/coagulant/fluorosurfactant = 100)
+	can_fill_from_container = FALSE
+	amount_per_transfer_from_this = 25
+	volume = 100
+	custom_premium_price = 80
+
+/obj/item/reagent_containers/medspray/sterilizine
+	custom_premium_price = 40
+
 /datum/species/replica/spec_fully_heal(mob/living/carbon/human/H)
 	. = ..()
 	emag_lvl = 0
@@ -661,5 +768,42 @@
 			CONSCIOUSAY(H.say("[law]"))
 			sleep(1 SECONDS)
 		return TRUE
+
+
+/datum/species/replica/get_laugh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_LAUGH_SOUND(user)
+
+/datum/species/replica/get_giggle_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GIGGLE_SOUND(user)
+
+/datum/species/replica/get_scream_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SCREAM_SOUND(user)
+
+/datum/species/replica/get_cough_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_COUGH_SOUND(user)
+
+/datum/species/replica/get_gasp_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_GASP_SOUND(user)
+
+/datum/species/replica/get_sigh_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SIGH_SOUND(user)
+
+/datum/species/replica/get_sneeze_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNEEZE_SOUND(user)
+
+/datum/species/replica/get_sniff_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_SNIFF_SOUND(user)
+
+/datum/species/replica/get_cry_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_CRY_SOUND(user)
+
+/datum/species/replica/get_moan_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_MOAN_SOUND(user)
+
+/datum/species/replica/get_lewd_moan_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_LEWD_MOAN_SOUND(user)
+
+/datum/species/replica/get_yawn_sound(mob/living/carbon/user)
+	return SPECIES_DEFAULT_YAWN_SOUND(user)
 
 #undef CONSCIOUSAY

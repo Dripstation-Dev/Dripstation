@@ -41,8 +41,10 @@
 	//tool_behaviour = (active ? TOOL_KNIFE : NONE)
 	if(active)
 		AddElement(/datum/element/cuffsnapping, snap_time_weak_handcuffs, snap_time_strong_handcuffs)
+		AddElement(/datum/element/tourniquetsnapping, snap_time_weak_handcuffs)
 	else
 		RemoveElement(/datum/element/cuffsnapping, snap_time_weak_handcuffs, snap_time_strong_handcuffs)
+		RemoveElement(/datum/element/tourniquetsnapping, snap_time_weak_handcuffs)
 	return COMPONENT_NO_DEFAULT_MESSAGE
 
 /obj/item/boxcutter/attack(mob/living/carbon/M, mob/living/carbon/user)

@@ -60,7 +60,7 @@
 		var/datum/brain_trauma/mild/reality_dissociation/T = new()
 		var/obj/item/organ/brain/B = locate(/obj/item/organ/brain) in C.internal_organs
 		B.name = "nether-minded [B.name]"
-		C.emote("scream")
+		C.pain(100, TRUE)
 		C.visible_message(span_danger("[C.name] screams in horror as [C.p_their()] mind is consumed by [src]!"))
 		C.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
 		to_chat(C, span_userdanger("That was a really dense idea."))

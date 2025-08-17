@@ -183,7 +183,7 @@
 /area/ruin/powered/walker_village)
 "gA" = (
 /turf/open/floor/plating/snowed/temperatre{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/underground/explored)
 "gC" = (
@@ -1329,7 +1329,7 @@
 "Wi" = (
 /obj/structure/marker_beacon,
 /turf/open/floor/plating/snowed/temperatre{
-	initial_gas_mix = "ICEMOON_ATMOS"
+	initial_gas_mix = "ICEMOON_DEFAULT_ATMOS"
 	},
 /area/icemoon/underground/explored)
 "WK" = (

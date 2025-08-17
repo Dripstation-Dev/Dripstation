@@ -424,7 +424,7 @@
 	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-	B1.reagents.add_reagent(/datum/reagent/fluorosurfactant, 40)
+	B1.reagents.add_reagent(/datum/reagent/medicine/coagulant/fluorosurfactant, 40)
 	B2.reagents.add_reagent(/datum/reagent/water, 40)
 	B2.reagents.add_reagent(/datum/reagent/space_cleaner, 10)
 
@@ -443,7 +443,7 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent(/datum/reagent/fluorosurfactant, 40)
+	B1.reagents.add_reagent(/datum/reagent/medicine/coagulant/fluorosurfactant, 40)
 	B2.reagents.add_reagent(/datum/reagent/water, 40)
 	B2.reagents.add_reagent(/datum/reagent/space_cleaner/ez_clean, 60) //ensures a  t h i c c  distribution
 
@@ -553,7 +553,7 @@
 	var/obj/item/reagent_containers/glass/beaker/bluespace/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/bluespace/B2 = new(src)
 
-	B1.reagents.add_reagent(/datum/reagent/fluorosurfactant, 250)
+	B1.reagents.add_reagent(/datum/reagent/medicine/coagulant/fluorosurfactant, 250)
 	B1.reagents.add_reagent(/datum/reagent/clf3, 50)
 	B2.reagents.add_reagent(/datum/reagent/water, 250)
 	B2.reagents.add_reagent(/datum/reagent/clf3, 50)
@@ -576,7 +576,7 @@
 	B1.reagents.add_reagent(/datum/reagent/toxin/mutetoxin, 50)
 	B1.reagents.add_reagent(/datum/reagent/toxin/spore, 75)
 	B1.reagents.add_reagent(/datum/reagent/itching_powder, 50)
-	B2.reagents.add_reagent(/datum/reagent/fluorosurfactant, 150)
+	B2.reagents.add_reagent(/datum/reagent/medicine/coagulant/fluorosurfactant, 150)
 	B2.reagents.add_reagent(/datum/reagent/toxin/mutagen, 150)
 	beakers += B1
 	beakers += B2
@@ -628,7 +628,7 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-	B1.reagents.add_reagent(/datum/reagent/fluorosurfactant, 30)
+	B1.reagents.add_reagent(/datum/reagent/medicine/coagulant/fluorosurfactant, 30)
 	B2.reagents.add_reagent(/datum/reagent/water, 30)
 	B2.reagents.add_reagent(/datum/reagent/water/holywater, 30)
 	B2.reagents.add_reagent(/datum/reagent/consumable/sodiumchloride, 30)

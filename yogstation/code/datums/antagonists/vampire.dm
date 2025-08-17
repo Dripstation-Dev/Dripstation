@@ -202,7 +202,7 @@
 	else if(L.health < 50)
 		if(!L.on_fire)
 			L.visible_message(span_warning("[L] catches fire!"), span_danger("Your skin catches fire!"))
-			L.emote("scream")
+			L.pain(100, TRUE)
 		else
 			L.visible_message(span_warning("[L] continues to burn!"), span_danger("Your continue to burn!"))
 		L.adjust_fire_stacks(5)

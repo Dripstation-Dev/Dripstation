@@ -132,7 +132,7 @@
 	// Handle the Ballmer Peak.
 	// If our owner is a scientist (has the trait "TRAIT_BALLMER_SCIENTIST"), there's a 5% chance
 	// that they'll say one of the special "ballmer message" lines, depending their drunk-ness level.
-	REMOVE_TRAIT(owner, TRAIT_SURGERY_PREPARED, "drunk")
+	REMOVE_TRAIT(owner, TRAIT_NUMBED, "drunk")
 	var/obj/item/organ/liver/liver_organ = owner.getorganslot(ORGAN_SLOT_LIVER)
 	if(liver_organ && HAS_TRAIT(liver_organ, TRAIT_BALLMER_SCIENTIST) && prob(5))
 		if(drunk_value >= BALLMER_PEAK_LOW_END && drunk_value <= BALLMER_PEAK_HIGH_END)
@@ -161,7 +161,7 @@
 			owner.adjust_confusion(2 SECONDS)
 
 		owner.set_dizzy_if_lower(20 SECONDS)
-		ADD_TRAIT(src, TRAIT_SURGERY_PREPARED, "drunk")
+		ADD_TRAIT(src, TRAIT_NUMBED, "drunk")
 		if(HAS_TRAIT(owner, TRAIT_DRUNK_HEALING))
 		/*	Dripstation edit start
 			owner.adjustBruteLoss(-0.2, FALSE)

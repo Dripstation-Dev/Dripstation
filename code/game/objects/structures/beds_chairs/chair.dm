@@ -401,7 +401,7 @@
 	item_state = "beanbag"
 	desc = "Pillow fight!"
 	damtype = STAMINA
-	hitsound = 'sound/weapons/slash.ogg'
+	hitsound = SFX_SLASH
 	origin_type = /obj/structure/chair/stool/beanbag
 
 /obj/item/chair/wood

@@ -38,11 +38,11 @@
 	var/obj/item/bodypart/affecting = get_bodypart(def_zone)
 	if(P.damtype == BRUTE)	// dripstation edit start
 		var/brute_armor = getarmor(affecting, BULLET)	// so here we hardblocking projectile-based dismemberment if the armor protection is 60 and more. On station it`s only bulletproof helmet, that protects head from violent falling
-		if(brute_armor >= BULLET_DISMEMBER_THRESHOLD)
+		if(brute_armor - P.armour_penetration >= BULLET_DISMEMBER_THRESHOLD)
 			return ..()
 	if(P.damtype == BURN)
 		var/burn_armor = getarmor(affecting, LASER)
-		if(burn_armor >= LASER_DISMEMBER_THRESHOLD)
+		if(burn_armor - P.armour_penetration >= LASER_DISMEMBER_THRESHOLD)
 			return ..()	// dripstation edit end
 	if(affecting && affecting.dismemberable && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		affecting.dismember(P.damtype)
@@ -375,7 +375,7 @@
 		var/list/things_to_ruin = shuffle(bodyparts.Copy())
 		for(var/B in things_to_ruin)
 			var/obj/item/bodypart/bodypart = B
-			if(bodypart.body_zone == BODY_ZONE_HEAD || bodypart.body_zone == BODY_ZONE_CHEST)
+			if(bodypart.body_zone == BODY_ZONE_HEAD || bodypart.body_zone == BODY_ZONE_CHEST || bodypart.body_zone == BODY_ZONE_PRECISE_GROIN)
 				continue
 			if(!affecting || ((affecting.get_damage() / affecting.max_damage) < (bodypart.get_damage() / bodypart.max_damage)))
 				affecting = bodypart

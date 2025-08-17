@@ -228,7 +228,7 @@
 			NP.receive_comm_signal(comm_code, comm_message, comm_source)
 
 /datum/component/nanites/proc/check_viable_biotype()
-	if(!(host_mob.mob_biotypes & (MOB_ORGANIC|MOB_UNDEAD)) && !((host_mob.mob_biotypes & MOB_ROBOTIC) && (host_mob.mob_biotypes & MOB_HUMANOID)))
+	if(!(host_mob.mob_biotypes & (MOB_ORGANIC|MOB_UNDEAD|MOB_PSEVDOORGANIC)) && !((host_mob.mob_biotypes & MOB_ROBOTIC) && (host_mob.mob_biotypes & MOB_HUMANOID)))
 		qdel(src) //bodytype no longer sustains nanites
 
 /datum/component/nanites/proc/check_access(datum/source, obj/O)

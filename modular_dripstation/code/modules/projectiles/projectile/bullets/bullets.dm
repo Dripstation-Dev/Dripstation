@@ -7,6 +7,9 @@
 	embedding = list("pain_multiplier" = 3, "embed_chance" = 45, "jostle_chance" = 1, "rip_time" = -1, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "remove_pain_mult" = 3)
 	ap_falloff_tile = 5
 	embed_falloff_tile = 2
+	light_system = MOVABLE_LIGHT
+	light_range = 0.6
+	light_color = LIGHT_COLOR_YELLOW
 
 /obj/item/shrapnel // frag grenades
 	name = "shrapnel shard"
