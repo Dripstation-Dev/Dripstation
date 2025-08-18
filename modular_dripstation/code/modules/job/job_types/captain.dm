@@ -4,6 +4,7 @@
 	supervisor_corporation = /datum/corporation/nanotrasen
 
 	loyalties = LOYALTY_NANOTRASEN_CAPTAIN
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ILLEGAL_IDENTIFICATION_BASIC)
 
 /datum/job/captain/GetIngameDesc(corp, stationname)
 	return "<center>You are a high ranking corporate and governer of the vast rusting hulk that is this station. At least, as long as you keep up business.<br>\

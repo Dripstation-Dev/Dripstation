@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(HIGHRISK, typecacheof(list(/obj/item/disk/nuclear,
 	var/remember_target = null
 	var/setting = SETTING_DISK
 	var/unlocked = FALSE
+	syndicate = TRUE
 
 /obj/item/pinpointer/adv/examine(mob/user)
 	. = ..()

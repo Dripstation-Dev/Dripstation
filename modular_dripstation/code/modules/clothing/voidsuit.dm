@@ -22,6 +22,8 @@
 
 /obj/item/clothing/suit/space/examine(mob/user)
 	. = ..()
+	if(!in_range(user, src) && !isobserver(user))
+		return
 	if(body_parts_covered || body_parts_partial_covered)
 		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_parts=1'>tag</a> listing its protected parts.</span>"
 

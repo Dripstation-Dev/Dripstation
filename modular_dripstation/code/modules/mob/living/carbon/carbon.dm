@@ -214,9 +214,11 @@
 		if(90 to INFINITY)
 			hard = TRUE
 			msg = span_userdanger("OH GOD! Your body is hurting terribly!")
+
 	var/M = may_be_painfull/10
-	if(prob(M))
-		to_chat(src, msg)
+	if(may_be_painfull > 5)
+		if(prob(M) && may_be_painfull)
+			to_chat(src, msg)
 
 	var/head_pain = getOrganLoss(ORGAN_SLOT_BRAIN) + getOrganLoss(ORGAN_SLOT_EARS) * 0.4 + getOrganLoss(ORGAN_SLOT_EYES) * 0.4
 	var/headMsg
@@ -231,9 +233,11 @@
 		if(40 to INFINITY)
 			hard = TRUE
 			headMsg = span_userdanger("OH GOD! Your head is hurting terribly!")
+	
 	var/H = head_pain/5
-	if(prob(H))
-		to_chat(src, headMsg)
+	if(head_pain > 5)
+		if(prob(H))
+			to_chat(src, headMsg)
 
 	var/intDamageMsg = null
 	var/internal_damage = getToxLoss()*0.5 + getOrganLoss(ORGAN_SLOT_STOMACH)
@@ -246,11 +250,11 @@
 			intDamageMsg = span_userdanger("Your inner aches all over, it's driving you mad!")
 
 	var/I = internal_damage/10
-	if(prob(I))
-		to_chat(src, intDamageMsg)
+	if(internal_damage > 20)
+		if(prob(I))
+			to_chat(src, intDamageMsg)
 	
-	var/pain_mult = I + H + M
-	if(pain_mult > 1)	//putting here some treshold, so mob wouldn`t just moan for nothing
+	if((I + H + M) > 1)	//putting here some treshold, so mob wouldn`t just moan for nothing
 		pain(I + H + M, hard)
 
 /mob/living/carbon/proc/flash_pain(var/target)

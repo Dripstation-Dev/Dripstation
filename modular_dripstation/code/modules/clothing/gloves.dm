@@ -417,6 +417,7 @@
 	resistance_flags = NONE
 	body_parts_covered = ARMS|HANDS
 	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 5, FIRE = 80, ACID = 50, WOUND = 0, ELECTRIC = 0)
+	syndicate = FALSE
 
 /obj/item/clothing/gloves/combat/energy_knuclers
 	name = "Combat gloves"

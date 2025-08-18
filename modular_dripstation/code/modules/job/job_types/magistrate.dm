@@ -31,7 +31,7 @@
 			            ACCESS_RC_ANNOUNCE, ACCESS_GATEWAY, ACCESS_MAGISTRATE)
 	paycheck = PAYCHECK_COMMAND
 	paycheck_department = ACCOUNT_CAR
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ILLEGAL_IDENTIFICATION_BASIC)
 
 	display_order = JOB_DISPLAY_ORDER_MAGISTRATE
 	minimal_character_age = 30 //Baseline age requirement and competency, as well as ability to assume leadership in shite situations

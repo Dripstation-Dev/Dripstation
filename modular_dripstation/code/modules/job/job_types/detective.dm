@@ -1,10 +1,11 @@
 /datum/job/detective
 	supervisor_corporation = /datum/corporation/spearhead
 	loyalties = LOYALTY_SPEARHEAD_DETECTIVE
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED)
 
 
-/datum/job/brigphysician/GetIngameDesc(corp, stationname)
-	description = "You are the station's detective, here to take care of the cases that aren't always what they seem, and suspects that aren't always caught red handed or ready to confess.<br>\
+/datum/job/detective/GetIngameDesc(corp, stationname)
+	return "You are the station's detective, here to take care of the cases that aren't always what they seem, and suspects that aren't always caught red handed or ready to confess.<br>\
 	The detective's job is to interrogate suspects, gather witness statements, harvest evidence and reach a conclusion about the nature and culprit of a crime.<br>\
 	<br>\
 	You are a higher ranking [corp] officer, and you can give commands to other officers. But this doesn't mean you should be commanding assaults. You're not any kind of tactical commander<br>\

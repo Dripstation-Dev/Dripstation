@@ -6,6 +6,8 @@
 #define TRAIT_NOGUNS_QUIRK		"nogun_quirk"
 #define TRAIT_BADASS 		"trait_badass"
 #define HOLO_CIGAR 			"holo_cigar"
+#define TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED 		"advanced_illegal"
+#define TRAIT_ILLEGAL_IDENTIFICATION_BASIC 			"basic_illegal"
 
 /// Prevents shovies and some strong blows such as unarmed punches and (unreliably) tackles the owner down
 #define TRAIT_BRAWLING_KNOCKDOWN_BLOCKED "brawling_knockdown_blocked"

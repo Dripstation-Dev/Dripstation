@@ -176,6 +176,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/canMouseDown = FALSE
 	/// Does this item have syndicate only functionality via hud buttons? Needs to be in this scope to encompass all Chameleon items - Hopek
 	var/syndicate = FALSE
+	//dripstation edit - probably later this will be flag with something, i`m lasy for now
+	//var/illegal_thing = FALSE
 	/// item hover FX
 	var/outline_filter
 
@@ -243,6 +245,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		CRASH("An action ([source.type]) was deleted that was associated with an item ([src]), but was not found in the item's actions list.")
 
 	LAZYREMOVE(actions, source)
+
+//dripstation edit start
+/obj/item/proc/is_illegal()
+	if(is_type_in_typecache(src, GLOB.illegal_items))
+		return TRUE
+	return FALSE
+
+/obj/item/proc/is_restricted()
+	return FALSE
 
 /// Adds an item action to our list of item actions.
 /// Item actions are actions linked to our item, that are granted to mobs who equip us.
@@ -339,8 +350,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	loc = null
 	loc = T
 
+/obj/item/get_examine_string(mob/user, thats = FALSE)
+	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)][(HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED) || isobserver(user)) && !syndicate && is_illegal()? span_warning(" (illegal)"):""]"
+
+/obj/item/get_examine_desc_string(mob/user)
+	if(!can_see(user, src, 3) && !isobserver(user))
+		return "It is too far away!"
+	else
+		return ..()
+
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	. = ..()
+
+	if(!can_see(user, src, 2) && !isobserver(user))
+		return
 
 	. += "[gender == PLURAL ? "They are" : "It is"] a [weightclass2text(w_class)] item."
 
@@ -365,6 +388,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of fire-retardant materials."
 	if(taped)
 		. += "[src] seems to be covered in tape."
+	if((in_range(user, src) && (HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_BASIC) && !syndicate) || (HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED) && (!syndicate || isinhands))) || isobserver(user))
+		if(is_illegal())
+			. += span_warning("Illegal under Nanotrasen Corporate Law.")
+		if(is_restricted())
+			. += span_notice("Restricted under Nanotrasen Corporate Law.")
 	if(!user.research_scanner)
 		return
 

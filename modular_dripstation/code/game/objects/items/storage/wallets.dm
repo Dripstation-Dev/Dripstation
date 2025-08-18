@@ -221,6 +221,7 @@
 
 /obj/item/storage/wallet/passport/agent
 	pass_datum_type = /datum/passport/agent
+	syndicate = TRUE
 
 /obj/item/storage/wallet/passport/agent/examine(mob/user)
 	. = ..()

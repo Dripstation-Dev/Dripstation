@@ -66,6 +66,8 @@
 
 /obj/item/gun/ballistic/revolver/examine(mob/user)
 	. = ..()
+	if(!in_range(user, src) && !isobserver(user))			//dripstation edit
+		return
 	var/live_ammo = get_ammo(FALSE, FALSE)
 	. += "[live_ammo ? live_ammo : "None"] of those are live rounds."
 	if (current_skin)

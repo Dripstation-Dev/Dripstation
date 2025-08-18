@@ -247,6 +247,10 @@
 	fill_type = /obj/item/gun/ballistic/automatic/pistol/glock17
 	fill_number = 1
 
+/obj/item/storage/pouch/pistol/glock17/quirk
+	fill_type = /obj/item/gun/ballistic/automatic/pistol/glock17/quirk
+	fill_number = 1
+
 /obj/item/storage/pouch/pistol/flash
 	fill_type = /obj/item/gun/energy/e_gun/flash
 	fill_number = 1

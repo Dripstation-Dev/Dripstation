@@ -13,6 +13,10 @@
 	var/obj/item/implant/imp = null
 	var/imp_type
 
+/obj/item/implantcase/is_illegal()
+	if(imp && is_type_in_typecache(imp, GLOB.illegal_items))
+		return TRUE
+	return FALSE
 
 /obj/item/implantcase/update_icon(updates=ALL)
 	. = ..()

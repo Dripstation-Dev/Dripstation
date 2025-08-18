@@ -505,6 +505,8 @@
 
 /obj/item/gun/ballistic/examine(mob/user)
 	. = ..()
+	if(!in_range(user, src) && !isobserver(user))			//dripstation edit
+		return
 	var/count_chambered = !(bolt_type == BOLT_TYPE_NO_BOLT || bolt_type == BOLT_TYPE_OPEN)
 	. += "It has [get_ammo(count_chambered)] round\s remaining."
 	if (!chambered)
@@ -557,10 +559,10 @@
 #define BRAINS_BLOWN_THROW_SPEED 1
 /obj/item/gun/ballistic/suicide_act(mob/user)
 	var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
-	if (B && chambered && chambered.BB && can_trigger_gun(user) && !chambered.BB.nodamage)
+	if (B && can_trigger_gun(user))
 		user.visible_message(span_suicide("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
 		sleep(2.5 SECONDS)
-		if(user.is_holding(src))
+		if(user.is_holding(src) && chambered && chambered.BB && !chambered.BB.nodamage)
 			var/turf/T = get_turf(user)
 			process_fire(user, user, FALSE, null, BODY_ZONE_HEAD)
 			user.visible_message(span_suicide("[user] blows [user.p_their()] brain[user.p_s()] out with [src]!"))
@@ -571,8 +573,8 @@
 			B.throw_at(target, BRAINS_BLOWN_THROW_RANGE, BRAINS_BLOWN_THROW_SPEED, callback=gibspawner)
 			return(BRUTELOSS)
 		else
-			user.visible_message(span_suicide("[user] panics and starts choking to death!"))
-			return(OXYLOSS)
+			user.visible_message(span_suicide("[user] panics realising how shamefull it was!"))
+			return(SHAME)
 	else
 		user.visible_message(span_suicide("[user] is pretending to blow [user.p_their()] brain[user.p_s()] out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b>"))
 		playsound(src, dry_fire_sound, 30, TRUE)

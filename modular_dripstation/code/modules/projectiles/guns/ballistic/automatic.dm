@@ -673,6 +673,9 @@
 	fire_delay = 1
 	manufacturer = /datum/corporation/scarborough
 
+/obj/item/gun/ballistic/automatic/pistol/glock17/quirk
+	starting_mag_type = /obj/item/ammo_box/magazine/pistolm9mm
+
 /obj/item/gun/ballistic/automatic/pistol/glock17/ancile
 	name = "\improper NB-2 'Ancile'"
 	desc = "Nanotrasen`s easily concealable servise pistol. Chambered in 9x19mm."

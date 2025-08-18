@@ -210,6 +210,9 @@
 		span_notice("You toggle [src]'s safety [safety ? "<font color='#00ff15'>ON</font>" : "<font color='#ff0000'>OFF</font>"].")
 	)
 
+/obj/item/gun/is_restricted()
+	return TRUE
+
 /obj/item/gun/proc/fire_select(force)
 	var/mob/living/carbon/human/user = usr
 

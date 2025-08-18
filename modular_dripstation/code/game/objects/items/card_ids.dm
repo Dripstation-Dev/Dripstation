@@ -38,6 +38,7 @@
 /obj/item/card/emag
 	icon = 'modular_dripstation/icons/obj/card.dmi'
 	icon_state = "emag"
+	syndicate = TRUE
 
 /obj/item/card/emag/improvised
 	icon_state = "emag_shitty"
@@ -45,6 +46,9 @@
 /obj/item/card/cmag
 	icon = 'modular_dripstation/icons/obj/card.dmi'
 	icon_state = "cmag"
+
+/obj/item/card/id/syndicate
+	syndicate = TRUE
 
 /obj/item/card/id/syndicate/nuke
 	name = "operative card"

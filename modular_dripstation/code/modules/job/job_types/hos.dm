@@ -10,6 +10,7 @@
 		/obj/item/clothing/mask/holo_cigar = 1,
 		/obj/item/gun/ballistic/revolver/mateba/shellguard = 1
 	)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ILLEGAL_IDENTIFICATION_BASIC)
 
 
 /datum/job/hos/GetIngameDesc(corp, stationname)

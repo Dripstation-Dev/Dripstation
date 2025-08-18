@@ -158,10 +158,12 @@
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
+	if(!in_range(user, src) && !isobserver(user))			//dripstation edit
+		return
 	if(!no_pin_required)
 		if(pin)
 			. += "It has \a [pin] installed."
-			. += " \a [pin] is [pin.jammed ? "malfunctioning" : "combat ready"]."
+			. += "\The [pin] is [pin.jammed ? "malfunctioning" : "combat ready"]."			//dripstation edit
 		else
 			. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
 

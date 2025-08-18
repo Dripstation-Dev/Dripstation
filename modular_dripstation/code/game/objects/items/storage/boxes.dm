@@ -620,17 +620,18 @@
 /obj/item/storage/box/gunset/AltClick(mob/user)
 	. = ..()
 	opened = !opened
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 
 /obj/item/storage/box/gunset/attack_self(mob/user)
 	. = ..()
 	opened = !opened
-	update_icon()
+	update_appearance(UPDATE_ICON)
 
 /obj/item/storage/box/gunset/wt550
 	name = "WT-550 case"
 	desc = "This case contains a WT-550 and enough ammo."
+	corp = /datum/corporation/wardtakhashi
 
 /obj/item/storage/box/gunset/wt550/Initialize(mapload)
 	. = ..()
@@ -648,9 +649,9 @@
 /obj/item/storage/box/gunset/infiltrator
 	name = "insidious case"
 	desc = "Bearing the emblem of the Syndicate, this case contains a full infiltrator stealth suit, and has enough room to fit weaponry if necessary."
-	icon_state = "infiltrator_case"
+	icon_state = "box_syndicate"
 	item_state = "infiltrator_case"
-	icon = 'modular_dripstation/icons/obj/storage.dmi'
+	//icon = 'modular_dripstation/icons/obj/storage.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/misc/boxes_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/misc/boxes_righthand.dmi'
 	force = 15

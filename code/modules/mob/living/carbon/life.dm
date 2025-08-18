@@ -111,7 +111,10 @@
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
 	var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
-	var/next_breath = max(4 * L.get_organ_efficiency(), 1)
+	var/organ_efficiency = 0
+	if(L)
+		organ_efficiency = L.get_organ_efficiency()
+	var/next_breath = max(4 * organ_efficiency, 1)
 
 	if((times_fired % next_breath) == 0 || failed_last_breath || isipc(src)) //IPCs breathe every tick to stabilize cooling
 		breathe() //Breathe per 4 ticks if healthy, down to 1 based on lung damage, unless suffocating

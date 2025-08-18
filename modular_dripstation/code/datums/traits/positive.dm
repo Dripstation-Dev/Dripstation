@@ -250,7 +250,7 @@
 /datum/quirk/glock/post_add()
 	var/mob/living/carbon/C = quirk_holder
 	var/obj/item/paper/carry_permit_glock/glockpermit = new
-	var/obj/item/storage/pouch/pistol/glock17/gun = new(C.loc)
+	var/obj/item/storage/pouch/pistol/glock17/quirk/gun = new(C.loc)
 	var/obj/item/ammo_box/magazine/pistolm9mm/ammo = new(C.loc)
 	var/list/slots = list("In your left pocket" = ITEM_SLOT_LPOCKET, "In your right pocket" = ITEM_SLOT_RPOCKET, "In your backpack" = ITEM_SLOT_BACKPACK)
 	glockpermit.update_text(C.real_name)

@@ -208,7 +208,7 @@
 	if (istype(user) && can_shoot() && can_trigger_gun(user) && user.get_bodypart(BODY_ZONE_HEAD))
 		user.visible_message(span_suicide("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
 		sleep(2.5 SECONDS)
-		if(user.is_holding(src))
+		if(user.is_holding(src) && chambered && chambered.BB && !chambered.BB.nodamage)
 			user.visible_message(span_suicide("[user] melts [user.p_their()] face off with [src]!"))
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -216,8 +216,8 @@
 			update_appearance(UPDATE_ICON)
 			return(FIRELOSS)
 		else
-			user.visible_message(span_suicide("[user] panics and starts choking to death!"))
-			return(OXYLOSS)
+			user.visible_message(span_suicide("[user] panics realising how shamefull it was!"))
+			return(SHAME)
 	else
 		user.visible_message(span_suicide("[user] is pretending to melt [user.p_their()] face off with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b>"))
 		playsound(src, dry_fire_sound, 30, TRUE)
