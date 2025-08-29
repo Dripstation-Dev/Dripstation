@@ -181,13 +181,13 @@
 						GLOB.barefootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.barefootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
-				else if(FOOTSTEP_MOB_CLAW)			//dripstation edit
+				if(FOOTSTEP_MOB_CLAW)			//dripstation edit
 					heard_clients = playsound(source.loc, pick(GLOB.clawfootstep[barefoot_type][1]),
 						GLOB.clawfootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.clawfootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
 					sound_type = "clawstep"	//dripstation edit
-				else if(FOOTSTEP_MOB_PAW)			//dripstation edit
+				if(FOOTSTEP_MOB_PAW)			//dripstation edit
 					heard_clients = playsound(source.loc, pick(GLOB.clawfootstep[barefoot_type][1]),
 						GLOB.clawfootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
