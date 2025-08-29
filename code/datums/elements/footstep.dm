@@ -176,23 +176,23 @@
 			heard_clients = playsound(source.loc, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary)
 		else
 			switch(source.dna.species.barefoot_step_sound)
-				if(FOOTSTEP_MOB_BAREFOOT)
+				if(FOOTSTEP_MOB_BAREFOOT)			//dripstation edit
 					heard_clients = playsound(source.loc, pick(GLOB.barefootstep[barefoot_type][1]),
 						GLOB.barefootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.barefootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
-				if(FOOTSTEP_MOB_CLAW)
+				else if(FOOTSTEP_MOB_CLAW)			//dripstation edit
 					heard_clients = playsound(source.loc, pick(GLOB.clawfootstep[barefoot_type][1]),
 						GLOB.clawfootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.clawfootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
-						sound_type = "clawstep"	//dripstation edit
-				if(FOOTSTEP_MOB_PAW)			//dripstation edit
+					sound_type = "clawstep"	//dripstation edit
+				else if(FOOTSTEP_MOB_PAW)			//dripstation edit
 					heard_clients = playsound(source.loc, pick(GLOB.clawfootstep[barefoot_type][1]),
 						GLOB.clawfootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.clawfootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)	//dripstation edit
-						sound_type = "pawstep"	//dripstation edit
+					sound_type = "pawstep"	//dripstation edit
 				else	//Emergency backup shoe step sound if it's not either of these other two types for some reason
 					heard_clients = playsound(source.loc, pick(GLOB.footstep[prepared_steps[FOOTSTEP_MOB_SHOE]][1]),
 						GLOB.footstep[prepared_steps[FOOTSTEP_MOB_SHOE]][2] * volume * volume_multiplier,

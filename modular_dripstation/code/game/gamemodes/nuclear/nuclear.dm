@@ -38,7 +38,7 @@
 	l_hand = /obj/item/gun/ballistic/automatic/pistol/fn45
 	internals_slot = ITEM_SLOT_SUITSTORE
 	//backpack_contents = list(/obj/item/gun/ballistic/automatic/pistol/fn45=1,\
-		/obj/item/kitchen/knife/combat/survival = 1)
+	//	/obj/item/kitchen/knife/combat/survival = 1)
 
 /datum/antagonist/nukeop/lone/equip_op()
 	if(!ishuman(owner.current))
