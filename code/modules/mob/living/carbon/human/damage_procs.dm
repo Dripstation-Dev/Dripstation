@@ -12,5 +12,5 @@
 	var/obj/item/organ/O = getorganslot(slot)
 	if(O && !(status_flags & GODMODE))
 		O.applyOrganDamage(amount, maximum)
-	if(hard && prob(amount))
-		O.rupture()
+		if(hard && prob(amount))	//dripstation edit
+			O.rupture()				//dripstation edit

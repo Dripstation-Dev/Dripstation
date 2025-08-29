@@ -446,16 +446,18 @@
 	return update_bodypart_damage_state() || .
 
 /obj/item/bodypart/proc/update_organ_damage()
-	if(get_organs().len)
-		var/injury_mod
-		for(var/thing in wounds)
-			var/datum/wound/W = thing
-			injury_mod += W.threshold_penalty
-		if((get_damage() + injury_mod) / max_damage >= 1)
-			for(var/obj/item/organ/other_organs in get_organs())
-				if(other_organs.status == ORGAN_ORGANIC && prob(33))
-					owner.adjustOrganLoss(other_organs.slot, 0.2)
-					break
+	if(!(locate(/obj/item/organ) in get_organs()))
+		return
+	var/injury_mod
+	for(var/thing in wounds)
+		var/datum/wound/W = thing
+		injury_mod += W.threshold_penalty
+	if((get_damage() + injury_mod) / max_damage < 1)
+		return
+	for(var/obj/item/organ/other_organs in get_organs())
+		if(other_organs.status == ORGAN_ORGANIC && prob(33))
+			owner.adjustOrganLoss(other_organs.slot, 0.2)
+			break
 
 /obj/item/bodypart/proc/check_and_apply_organ_damage(wounding_type, wounding_dmg, wound_bonus)	//no bare_wound_bonus since your flesh and bones at this point are considered as your clothes
 	if(wounding_type ==  WOUND_BURN && !owner)	//ah hell no, i don`t wanna check this for no owner bodyparts and lasers, fuck this shit. When special fire failures for organs will be implemented - i will think about it
