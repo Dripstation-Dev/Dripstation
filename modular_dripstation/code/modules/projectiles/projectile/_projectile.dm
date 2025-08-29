@@ -3,3 +3,4 @@
 	var/iff_having = FALSE	//bullet has IFF itself
 	var/iff_signal = NONE	//type of signal that projectile taking from firer
 	var/precise = FALSE
+	plane = GAME_PLANE_FOV_HIDDEN

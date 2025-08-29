@@ -170,7 +170,7 @@
 
 /datum/outfit/ert/trooper/gamma
 	name = "ERT Operative - Gamma Alert"
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert
 	mask = /obj/item/clothing/mask/gas/sechailer/task_force/swat
 	glasses = /obj/item/clothing/glasses/thermal
 	uniform = /obj/item/clothing/under/rank/centcom/officer/specops_combat
@@ -273,7 +273,7 @@
 	name = "ERT Officer - Gamma Alert"
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer/specops_combat
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/com
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/com
 	glasses = /obj/item/clothing/glasses/thermal
 	mask = /obj/item/clothing/mask/gas/sechailer/task_force/swat
 	belt = /obj/item/storage/belt/military/webbing/nt/gamma_com
@@ -360,7 +360,7 @@
 /datum/outfit/ert/security/gamma
 	name = "ERT Detaining Specialist - Gamma Alert"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/sec
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/sec
 	glasses = /obj/item/clothing/glasses/thermal
 	mask = /obj/item/clothing/mask/gas/sechailer/task_force/swat
 	uniform = /obj/item/clothing/under/rank/centcom/officer/specops_combat
@@ -467,7 +467,7 @@
 	name = "ERT Medic - Gamma Alert"
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer/specops_combat
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/med
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/med
 	suit_store = /obj/item/gun/energy/laser/centcom
 	glasses = /obj/item/clothing/glasses/thermal
 	back = /obj/item/storage/backpack/unknown
@@ -561,7 +561,7 @@
 	name = "ERT Engineer - Gamma Alert"
 	
 	uniform = /obj/item/clothing/under/rank/centcom/officer/specops_combat
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/engi
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/engi
 	suit_store = /obj/item/gun/energy/laser/centcom
 	back = /obj/item/storage/backpack/unknown
 	id = /obj/item/card/id/ert/gamma

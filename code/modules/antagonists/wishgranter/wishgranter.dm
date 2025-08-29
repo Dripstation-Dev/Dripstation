@@ -26,5 +26,7 @@
 		return
 	H.dna.add_mutation(HULK)
 	H.dna.add_mutation(XRAY)
-	H.dna.add_mutation(SPACEMUT)
+	H.dna.add_mutation(COLDMUT)
 	H.dna.add_mutation(TK)
+	ADD_TRAIT(H, TRAIT_RESISTLOWPRESSURE, "wishgranter")
+	ADD_TRAIT(H, TRAIT_RESISTHIGHPRESSURE, "wishgranter")

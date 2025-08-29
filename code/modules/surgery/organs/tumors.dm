@@ -51,7 +51,7 @@
 			owner.regenerate_limb(limb_to_regenerate,TRUE)
 			var/obj/item/bodypart/new_limb = owner.get_bodypart(limb_to_regenerate)
 			new_limb.receive_damage(45); //45 brute damage should be fine I think??????
-			owner.pain(100, TRUE)
+			owner.flick_pain(100, TRUE)
 			owner.visible_message(span_warning("Gnarly tumors burst out of [owner]'s stump and form into a [parse_zone(limb_to_regenerate)]!"), span_notice("You scream as your [parse_zone(limb_to_regenerate)] reforms."))
 	if(prob(spread_chance))
 		owner_symptom?.spread(owner, TRUE)

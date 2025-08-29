@@ -1,8 +1,8 @@
 GLOBAL_LIST_INIT(illegal_items, typecacheof(list(
-				/obj/item/clothing/suit/space/hardsuit/syndi/bloodred,
-				/obj/item/clothing/suit/space/hardsuit/syndi/bloodred/waffle,
-				/obj/item/clothing/suit/space/hardsuit/syndi/bloodred/winter,
-				/obj/item/clothing/suit/space/hardsuit/syndi/elite,
+				/obj/item/clothing/suit/space/hardsuit/dualmode/bloodred,
+				/obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle,
+				/obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/winter,
+				/obj/item/clothing/suit/space/hardsuit/dualmode/elite,
 				/obj/item/module/shield/syndicate,
 				/obj/item/storage/box/gunset/infiltrator,
 				/obj/item/clothing/head/helmet/space/infiltrator,
@@ -133,7 +133,7 @@ proc/generate_illegal_stuff()
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
 			Nanotrasen crew who spot these suits are known to panic."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred
 	cost = 8
 	manufacturer = /datum/corporation/gorlex
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/infiltration) //you can't buy it in nuke, because the elite hardsuit costs the same while being better // yogs: infiltration
@@ -145,7 +145,7 @@ proc/generate_illegal_stuff()
 			Toggling the suit in and out of	combat mode will allow you all the mobility of a loose fitting uniform \
 			without sacrificing armoring. Additionally the suit is collapsible, making it small enough to fit within a backpack."
 	manufacturer = /datum/corporation/traitor/waffleco
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/waffle
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle
 	cost = 6
 
 /datum/uplink_item/suits/hardsuit/winter
@@ -155,7 +155,7 @@ proc/generate_illegal_stuff()
 			Toggling the suit in and out of	combat mode will allow you all the mobility of a loose fitting uniform \
 			without sacrificing armoring. Additionally the suit is collapsible, making it small enough to fit within a backpack."
 	manufacturer = /datum/corporation/gorlex
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/winter
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/winter
 	cost = 9
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/infiltration) //you can't buy it in nuke, because the elite hardsuit costs the same while being better // yogs: infiltration
 
@@ -163,7 +163,7 @@ proc/generate_illegal_stuff()
 	name = "Elite Syndicate RIG"
 	desc = "An upgraded, elite version of the Syndicate RIG. It features fireproofing, and also \
 			provides the user with superior armor and mobility compared to the blood-red RIG."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/elite
 	cost = 8
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	exclude_modes = list()
@@ -298,14 +298,14 @@ proc/generate_illegal_stuff()
 /datum/uplink_item/role_restricted/hardsuit
 	name = "GEC Blood-Red RIG"
 	desc = "Hardsuit of Global Engineering Consortium, represented in Syndicate as a minor force. Freedom for Engineers!"
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/engineering/syndicate
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/engineering/syndicate
 	cost = 4
 	restricted_roles = list("Station Engineer","Atmospheric Technician","Network Admin","Chief Engineer")
 
 /datum/uplink_item/role_restricted/hardsuit/winter
 	name = "White GEC RIG"
 	desc = "Cold-proof hardsuit of Global Engineering Consortium, represented in Syndicate as a minor force. Unite the Engineers!"
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/engineering/syndicate/winter
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/engineering/syndicate/winter
 	cost = 5
 
 /datum/uplink_item/race_restricted/digirig
@@ -313,7 +313,7 @@ proc/generate_illegal_stuff()
 	desc = "Recently Gorlex started to employ degitagrade specimen in their ranks. This suit constructed for this kind of agents within Syndicate."
 	cost = 8
 	manufacturer = /datum/corporation/gorlex
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/unathi
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/unathi
 	restricted_species = list("lizard", "draconid", "polysmorph")
 
 /datum/uplink_item/race_restricted/cleaver
@@ -742,12 +742,6 @@ proc/generate_illegal_stuff()
 	restricted_corps = list()
 	cost = 6
 
-/obj/item/grenade/syndieminibomb/nt
-	name = "\improper nanotrasen minibomb"
-	desc = "A nanotrasen manufactured explosive used to sow destruction and chaos."
-	icon = 'modular_dripstation/icons/obj/weapons/grenade.dmi'
-	icon_state = "nanotrasen"
-
 /datum/uplink_item/corp_restricted/teargas
 	name = "Teargas Grenade"
 	desc = "A grenade containing teargas."
@@ -797,7 +791,7 @@ proc/generate_illegal_stuff()
 	desc = "The feared suit of a free mercenary unit. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Additionally the suit is collapsible, making it small enough to fit within a backpack."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/merk
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/merk
 	cost = 8
 	illegal_tech = FALSE
 	manufacturer = /datum/corporation/nanotrasen/isd
@@ -1058,41 +1052,41 @@ proc/generate_illegal_stuff()
 /datum/uplink_item/nt/hardsuit/standard
 	name = "ERT RIG"
 	desc = "Trully NT Marine."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert
 	cost = 5
 
 /datum/uplink_item/nt/hardsuit/cmd
 	name = "ERT Commander RIG"
 	desc = "Show them who's boss."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/com
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/com
 	cost = 5
 	required_ert_uplink = list(NT_ERT_COMMANDER)
 
 /datum/uplink_item/nt/hardsuit/sec
 	name = "ERT Security RIG"
 	desc = "Make them fear the long arm of law."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/sec
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/sec
 	cost = 5
 	required_ert_uplink = list(NT_ERT_TROOPER)
 
 /datum/uplink_item/nt/hardsuit/engi
 	name = "ERT Engineering RIG"
 	desc = "HOW DID YOU DELAMINATE THE SM 5 MINUTES IN?"
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/engi
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/engi
 	cost = 5
 	required_ert_uplink = list(NT_ERT_ENGINEER)
 
 /datum/uplink_item/nt/hardsuit/med
 	name = "ERT Medical RIG"
 	desc = "Dying is illegal."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/med
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/med
 	cost = 5
 	required_ert_uplink = list(NT_ERT_MEDIC)
 
 /datum/uplink_item/nt/hardsuit/ds
 	name = "SWAT MKV Deathsquad"
 	desc = "A prototype rig. Black ops here."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/deathsquad
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/deathsquad
 	cost = 80
 	cant_discount = TRUE
 

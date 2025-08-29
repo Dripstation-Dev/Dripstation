@@ -6,6 +6,9 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	disease_prob = 5
 	disease_type = /datum/disease/rabies
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2,
+		/obj/item/stack/sheet/sinew/wolf = 2,
+		/obj/item/stack/sheet/bone = 2)
 
 /mob/living/simple_animal/hostile/asteroid/wolf/examine(mob/user)
 	. = ..()
@@ -13,6 +16,11 @@
 		var/datum/disease/D
 		if(istype(D, "The Rabies"))
 			. += span_warning("It strangely drools!")
+
+/obj/item/stack/sheet/sinew/wolf
+	name = "wolf sinew"
+	merge_type = /obj/item/stack/sheet/sinew/wolf
+	desc = "Long stringy filaments which came from the insides of a wolf."
 
 /mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin
 	name = "ice vulpkanin"
@@ -137,7 +145,7 @@
 	deathsound = 'sound/magic/demon_dies.ogg'
 	stat_attack = UNCONSCIOUS
 	robust_searching = TRUE
-	footstep_type = FOOTSTEP_MOB_CLAW
+	footstep_type = FOOTSTEP_MOB_PAW
 	/// How far the whelps fire can go
 	var/fire_range = 3
 

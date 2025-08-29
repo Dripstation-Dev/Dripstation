@@ -146,7 +146,7 @@
 	playsound(I, 'sound/surgery/cautery2.ogg', 75, TRUE, falloff_exponent = 1)
 	user.visible_message(span_green("[user] cauterizes some of the bleeding on [victim]."), span_green("You cauterize some of the bleeding on [victim]."))
 	limb.receive_damage(burn = 2 + severity, wound_bonus = CANT_WOUND)
-	victim.pain(30, TRUE)
+	victim.flick_pain(30, TRUE)
 	var/blood_cauterized = (0.6 / (self_penalty_mult * improv_penalty_mult))
 	blood_flow -= blood_cauterized
 

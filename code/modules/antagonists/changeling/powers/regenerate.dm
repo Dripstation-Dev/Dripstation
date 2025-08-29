@@ -22,7 +22,7 @@
 				loud, crunchy sound and giving you great pain!</span>",
 				"<span class='italics'>You hear organic matter ripping \
 				and tearing!</span>")
-			C.pain(100, TRUE)
+			C.flick_pain(100, TRUE)
 			C.regenerate_limbs(1)
 		if(!user.getorganslot(ORGAN_SLOT_BRAIN))
 			var/obj/item/organ/brain/B

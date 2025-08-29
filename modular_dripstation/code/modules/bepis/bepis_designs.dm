@@ -64,3 +64,32 @@
 	build_path = /obj/item/circuitboard/machine/hypnochair
 	category = list("Misc. Machinery")
 	departmental_flags =  DEPARTMENTAL_FLAG_SECURITY
+
+/*
+/datum/design/tackle_dolphin
+	name = "Dolphin Gloves"
+	id = "tackle_dolphin"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 2500)
+	build_path = /obj/item/clothing/gloves/tackler/dolphin
+	category = list("Equipment")
+	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
+
+/datum/design/tackle_rocket
+	name = "Rocket Gloves"
+	id = "tackle_rocket"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plasma = 1000, /datum/material/plastic = 2000)
+	build_path = /obj/item/clothing/gloves/tackler/rocket
+	category = list("Equipment")
+	departmental_flags = DEPARTMENT_BITFLAG_SECURITY
+*/
+
+/datum/design/tackle_tactical
+	name = "Tactical Gloves"
+	id = "tackle_tactical"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/silver = 1000, /datum/material/plastic = 2000)
+	build_path = /obj/item/clothing/gloves/tackler/tactical
+	category = list("Equipment")
+	departmental_flags = DEPARTMENT_BITFLAG_SECURITY

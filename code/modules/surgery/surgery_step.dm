@@ -360,7 +360,7 @@
  * * pain_message - The message to be displayed
  * * mechanical_surgery - Boolean flag that represents if a surgery step is done on a mechanical limb (therefore does not force scream)
  */
-/datum/surgery_step/proc/display_pain(mob/living/target, pain_message)
+/datum/surgery_step/proc/display_flick_pain(mob/living/target, pain_message)
 	if(!HAS_TRAIT(target, TRAIT_SURGERY_PREPARED))
 		to_chat(target, span_userdanger(pain_message))
 		if(!mechanical_surgery)
@@ -369,6 +369,6 @@
 				var/hard = TRUE
 				if(HAS_TRAIT(target, TRAIT_NUMBED))
 					hard = FALSE
-				C.pain(30, hard)
+				C.flick_pain(30, hard)
 			else if(prob(30))
 				target.emote("scream")

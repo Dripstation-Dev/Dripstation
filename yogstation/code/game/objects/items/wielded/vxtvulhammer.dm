@@ -181,7 +181,7 @@
 			if(toy)
 				if(user == target)
 					victim.Paralyze(2 SECONDS)
-					victim.pain(100, TRUE)
+					victim.flick_pain(100, TRUE)
 					to_chat(victim, span_userdanger("That was stupid."))
 				else
 					ADD_TRAIT(victim, TRAIT_IMPACTIMMUNE, "Toy Hammer")
@@ -191,7 +191,7 @@
 				victim.Paralyze(2 SECONDS)
 				user.visible_message(span_danger("The hammer thunders as it viscerally strikes [target.name]!"))
 				to_chat(victim, span_userdanger("Agony sears through you as [user]'s blow cracks your body off its feet!"))
-				victim.pain(100, TRUE)
+				victim.flick_pain(100, TRUE)
 
 /obj/item/melee/vxtvulhammer/proc/afterimpact(mob/living/victim)
 	REMOVE_TRAIT(victim, TRAIT_IMPACTIMMUNE, "Toy Hammer")

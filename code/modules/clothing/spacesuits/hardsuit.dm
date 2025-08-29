@@ -1186,7 +1186,7 @@
 	. = ..()
 	AddComponent(/datum/component/armor_plate,10,/obj/item/stack/sheet/animalhide/weaver_chitin, list(MELEE = 0.5, BULLET = 3, LASER = 0.5, ENERGY = 2.5, BOMB = 5, BIO = 10, RAD = 8, FIRE = 10, ACID = 9, WOUND = 0.1))
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/debug // reused code so I dont have to make new procs
+/obj/item/clothing/head/helmet/space/hardsuit/dualmode/debug // reused code so I dont have to make new procs
 	name = "debug hardsuit helmet"
 	desc = "A debug hardsuit helmet. It is in EVA mode."
 	alt_desc = "A debug hardsuit helmet. It is in combat mode."
@@ -1197,13 +1197,13 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/clothing/suit/space/hardsuit/syndi/debug
+/obj/item/clothing/suit/space/hardsuit/dualmode/debug
 	name = "debug hardsuit"
 	desc = "A debug hardsuit. It is in travel mode."
 	alt_desc = "A debug hardsuit. It is in combat mode."
 	icon_state = "hardsuit0-syndielite"
 	hardsuit_type = "syndielite"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi/debug
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/debug
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, ELECTRIC = 100)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT

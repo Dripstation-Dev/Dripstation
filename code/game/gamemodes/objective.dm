@@ -270,7 +270,7 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/assassinate/once/isd/update_explanation_text()
 	START_PROCESSING(SSprocessing, src)
-	var/generated_funny_explanation = pick("who seeks posibilities to betray Nanotrasen", "who wants to retire", "who probably sold shuttle to the rival corporation", "who become unusefull", "who probably provides technical support", "who unconfirmed sleeper agent", "who has insulted Internal Security Department")
+	var/generated_funny_explanation = pick("who seeks posibilities to betray Nanotrasen", "who wants to retire", "who probably sold shuttle to the rival corporation", "who become unusefull", "who probably provides technical support", "who is unconfirmed sleeper agent", "who has insulted Internal Security Department")
 	if(target && target.current)
 		if(ishuman(target.current))
 			var/mob/living/carbon/human/H = target.current

@@ -46,7 +46,7 @@
 /area/awaymission/spacebattle/syndicate2)
 "am" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/space/hardsuit/syndi,
+/obj/item/clothing/suit/space/hardsuit/dualmode,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "an" = (
@@ -126,7 +126,7 @@
 /area/awaymission/spacebattle/syndicate2)
 "aI" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/space/hardsuit/syndi,
+/obj/item/clothing/suit/space/hardsuit/dualmode,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate3)
 "aJ" = (
@@ -224,7 +224,7 @@
 /area/awaymission/spacebattle/syndicate3)
 "be" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/suit/space/hardsuit/syndi,
+/obj/item/clothing/suit/space/hardsuit/dualmode,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
 "bf" = (
@@ -2015,7 +2015,7 @@
 /area/awaymission/spacebattle/cruiser)
 "hq" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/syndi/military,
+/obj/item/clothing/suit/space/hardsuit/dualmode/military,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "hr" = (
@@ -2970,7 +2970,7 @@
 /area/awaymission/spacebattle/cruiser)
 "Sl" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/syndi/engineering,
+/obj/item/clothing/suit/space/hardsuit/dualmode/engineering,
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "SV" = (

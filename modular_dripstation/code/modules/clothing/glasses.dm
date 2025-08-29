@@ -1,6 +1,7 @@
 /obj/item/clothing/glasses/meson
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	tint = 2
 
 /obj/item/clothing/glasses/meson/gar
 	icon = 'icons/obj/clothing/glasses.dmi'
@@ -36,6 +37,7 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_NIGHTVISION | VISOR_VISIONFLAGS
+	tint = 1
 	var/hud_type = null
 
 /obj/item/clothing/glasses/night/equipped(mob/living/carbon/human/user, slot)
@@ -78,14 +80,17 @@
 /obj/item/clothing/glasses/night/security
 	icon_state = "tact-securityhudnight"
 	hud_type = DATA_HUD_SECURITY_ADVANCED
+	tint = 2
 
 /obj/item/clothing/glasses/night/health
 	icon_state = "tact-healthhudnight"
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
+	tint = 2
 
 /obj/item/clothing/glasses/night/diagnostic
 	icon_state = "tact-diagnostichudnight"
 	hud_type = DATA_HUD_DIAGNOSTIC_ADVANCED
+	tint = 2
 
 /obj/item/clothing/glasses/night/unn
 	icon_state = "unn-nvg-blc"
@@ -108,11 +113,13 @@
 	icon_state = "thermal"
 	icon = 'modular_dripstation/icons/obj/clothing/eyes.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/eyes.dmi'
+	tint = 1
 
 /obj/item/clothing/glasses/thermal/tactical
 	name = "tactical thermal goggles"
 	desc = "A pair of thermal goggles manufactured by the Cybersun Virtual Solutions."
 	icon_state = "tact-thermal_nvg"
+	tint = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_NIGHTVISION | VISOR_VISIONFLAGS
 
@@ -133,6 +140,7 @@
 	name = "tactical xray goggles"
 	desc = "A pair of xray goggles manufactured by the Cybersun Virtual Solutions."
 	icon_state = "tact-xray_nvg"
+	tint = 0
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_NIGHTVISION | VISOR_VISIONFLAGS
 
@@ -151,10 +159,12 @@
 
 /obj/item/clothing/glasses/thermal/monocle
 	flags_cover = null //GLASSESCOVERSEYES
+	tint = 0
 
 /obj/item/clothing/glasses/thermal/eyepatch
 	icon_state = "thermalpatch_combat"
 	flags_cover = null //GLASSESCOVERSEYES
+	tint = 0
 
 /obj/item/clothing/glasses/sunglasses/night
 	name = "tactical sunglasses"
@@ -222,6 +232,7 @@
 /obj/item/clothing/glasses/hud/health/night/cultblind
 	icon = 'icons/obj/clothing/glasses.dmi'
 	worn_icon = 'icons/mob/clothing/eyes/eyes.dmi'
+	tint = 2
 
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
@@ -356,7 +367,7 @@
 	visor_toggling()
 
 
-/obj/item/clothing/glasses/night/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/glasses/hud/security/ballistic/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if(user.glasses == src && hud_type)
 		if(!up)

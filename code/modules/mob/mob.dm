@@ -277,6 +277,15 @@
 		else if(!HAS_TRAIT(M, TRAIT_HEAR_THROUGH_DARKNESS) && M.lighting_cutoff < LIGHTING_CUTOFF_HIGH && T.is_softly_lit() && !in_range(T,M)) //if it is too dark, unless we're right next to them.
 			msg = blind_message
 			msg_type = MSG_AUDIBLE
+		//DRIPSTATION EDIT BEGIN
+		var/signal = SEND_SIGNAL(M, COMSIG_MOB_VISIBLE_MESSAGE, src, message, vision_distance, ignored_mobs)
+		if(signal & COMPONENT_NO_VISIBLE_MESSAGE)
+			msg = null
+		else if(signal & COMPONENT_VISIBLE_MESSAGE_BLIND)
+			msg = blind_message
+			msg_type = MSG_AUDIBLE
+		//DRIPSTATION EDIT END
+
 		if(!msg)
 			continue
 
@@ -521,6 +530,18 @@
 		return
 
 	face_atom(A)
+
+	/*
+	//dripstation edit start
+	var/flags = SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
+	if(flags & COMPONENT_NO_EXAMINATE)
+		return
+	else if(flags & COMPONENT_EXAMINATE_BLIND)
+		to_chat(src, span_warning("Something is there but i can't see it!"))
+		return
+	//dripstation edit end
+	*/
+
 	var/list/result
 	if(client)
 		if(istype(src, /mob/living/silicon/ai) && istype(A, /mob/living/carbon/human)) //Override for AI's examining humans
@@ -536,6 +557,37 @@
 				result = A.examine(src)
 				addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), A), RECENT_EXAMINE_MAX_WINDOW)
 				handle_eye_contact(A)
+		if(HAS_TRAIT(A, TRAIT_THIRD_EYE) && src != A && !HAS_TRAIT(src, TRAIT_DETECTIVE_EYE) && istype(A, /mob/living/carbon))	//dripstation edit start
+			var/mob/living/carbon/C = A
+			if(C.stat < UNCONSCIOUS)
+				if(istype(src, /mob/living/silicon/ai))
+					var/list/possible_turfs = list()
+					for(var/turf/T in view(2, C))
+						if(isclosedturf(T))
+							continue
+						possible_turfs |= T
+					if(possible_turfs.len)
+						var/turf/end_turf = pick(possible_turfs)
+						var/image/fov_image/inverse/examiner_mob = new()
+						examiner_mob.loc = end_turf
+						examiner_mob.icon_state = "whatwasthat"
+						flick_overlay_global(examiner_mob, list(C), 5.5 SECONDS)
+					to_chat(C, span_notice("You feel like something or somebody is watching you..."))
+				else if(!isobserver(src))
+					if(!C.in_fow(src, TRUE))
+						var/image/fov_image/inverse/examiner_mob = new()
+						examiner_mob.loc = get_turf(src)
+						examiner_mob.icon_state = "whoswatchingme"
+						flick_overlay_global(examiner_mob, list(C), 5.5 SECONDS)
+						to_chat(C, span_notice("You sense [src.name] examining you. You can perform eye cotact with [p_them()] if you want by examining [p_them()] back."))
+					else
+						to_chat(C, span_notice("You feel like something or somebody is watching you..."))
+						play_fov_effect(src, 5, "whatwasthat", ignore_self = TRUE, override_list = list(C))
+				else if(prob(7))
+					to_chat(C, span_notice("You feel like something or somebody is watching you..."))
+					play_fov_effect(src, 5, "whatwasthat", ignore_self = TRUE, override_list = list(C))
+					if(prob(33) && !HAS_TRAIT(C, TRAIT_NO_ABNORMAL_FEAR) && !C.has_status_effect(/datum/status_effect/terrified))	//you`ve sensed something abnormal, shit
+						C.apply_status_effect(/datum/status_effect/terrified)						//dripstation edit end
 	else
 		result = A.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
 

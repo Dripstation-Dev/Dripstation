@@ -39,3 +39,12 @@
 /obj/item/clothing/accessory/medal/silver/legal
 	name = "meritous legal medal"
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+
+/obj/item/clothing/accessory/talisman
+	name = "bone talisman"
+	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
+	icon_state = "talisman"
+	//attachment_slot = NONE
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
+	icon = 'icons/obj/clothing/accessories.dmi'
+	worn_icon = 'icons/mob/clothing/accessories.dmi'

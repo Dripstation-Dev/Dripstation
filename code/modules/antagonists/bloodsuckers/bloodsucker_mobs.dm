@@ -7,7 +7,7 @@
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = FALSE
 	movement_type = GROUND
-	attack_sound = SFX_SLASH
+	attack_sound = SFX_CLAWS
 	faction = list("hostile", "bloodhungry")
 	response_help = "touches"
 	response_disarm = "flails at"
@@ -137,7 +137,7 @@
 /mob/living/simple_animal/hostile/bloodsucker/Destroy() //makes us alive again
 	if(bloodsucker && mind)
 		visible_message(span_warning("[src] rapidly transforms into a humanoid figure!"), span_warning("You forcefully return to your normal form."))
-		playsound(src, SFX_SLASH, 50, TRUE)
+		playsound(src, SFX_CLAWS, 50, TRUE)
 		mind.transfer_to(bloodsucker)
 		if(bloodsucker.status_flags & GODMODE)
 			bloodsucker.status_flags -= GODMODE

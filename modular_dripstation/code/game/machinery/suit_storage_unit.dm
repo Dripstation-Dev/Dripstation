@@ -71,10 +71,10 @@
 	department = "sec"	
 
 /obj/machinery/suit_storage_unit/security/dualmode
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/security
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/security
 
 /obj/machinery/suit_storage_unit/security/dualmode_brigmed
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/security/brigmed
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/security/brigmed
 
 /obj/machinery/suit_storage_unit/warden
 	suit_type = /obj/item/clothing/suit/space/hardsuit/security/warden
@@ -111,7 +111,7 @@
 	department = "med"
 
 /obj/machinery/suit_storage_unit/miningdualmod
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/mining
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/mining
 	mask_type = /obj/item/clothing/mask/gas/explorer
 	department = "cargo"	
 
@@ -180,57 +180,57 @@
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/syndicate
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/jetpack/oxygen/harness
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/syndicate/nuclear
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/internals/oxygen/syndicate
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/syndicate/winter
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/winter
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/winter
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/internals/oxygen/syndicate
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/syndicate/engi
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/engineering/syndicate
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/engineering/syndicate
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/jetpack/oxygen/harness
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/syndicate/winter/engi
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/engineering/syndicate/winter
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/engineering/syndicate/winter
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/jetpack/oxygen/harness
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/syndicate/waffle
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/waffle
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/jetpack/oxygen/harness
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/elite
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/elite
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/jetpack/oxygen/harness
 	magboots_type = /obj/item/clothing/shoes/magboots/security/advanced/synd
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/elite/sbo
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/elite/sbo
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/elite/sbo
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/jetpack/oxygen/harness
 	magboots_type = /obj/item/clothing/shoes/magboots/security/advanced/synd
 	department = "synd"	
 
 /obj/machinery/suit_storage_unit/elite/commsoff
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/elite/sbo/commsoff
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/elite/sbo/commsoff
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	tank_type = /obj/item/tank/jetpack/oxygen/harness
 	magboots_type = /obj/item/clothing/shoes/magboots/security/advanced/synd
@@ -280,35 +280,35 @@
 	department = "ntmed"	
 
 /obj/machinery/suit_storage_unit/ert/highalert
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	tank_type = /obj/item/tank/internals/emergency_oxygen/double
 	magboots_type = /obj/item/clothing/shoes/magboots/security/advanced
 	department = "ntblackops"	
 
 /obj/machinery/suit_storage_unit/ert/highalert/command
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/com
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/com
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	tank_type = /obj/item/tank/internals/emergency_oxygen/double
 	magboots_type = /obj/item/clothing/shoes/magboots/security/advanced
 	department = "ntblackops"	
 
 /obj/machinery/suit_storage_unit/ert/highalert/security
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/sec
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/sec
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	tank_type = /obj/item/tank/internals/emergency_oxygen/double
 	magboots_type = /obj/item/clothing/shoes/magboots/security/advanced
 	department = "ntblackops"	
 
 /obj/machinery/suit_storage_unit/ert/highalert/engineer
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/engi
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/engi
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	tank_type = /obj/item/tank/internals/emergency_oxygen/double
 	magboots_type = /obj/item/clothing/shoes/magboots/security/advanced
 	department = "ntblackops"	
 
 /obj/machinery/suit_storage_unit/ert/highalert/medical
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/med
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/med
 	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
 	tank_type = /obj/item/tank/internals/emergency_oxygen/double
 	magboots_type = /obj/item/clothing/shoes/magboots/security/advanced
@@ -446,7 +446,7 @@
 				mob_occupant.adjustFireLoss(rand(20, 36))
 			else
 				mob_occupant.adjustFireLoss(rand(2, 8))
-			mob_occupant.pain(100, TRUE)
+			mob_occupant.flick_pain(100, TRUE)
 		decon.start()
 		addtimer(CALLBACK(src, PROC_REF(cook)), 50)
 	else

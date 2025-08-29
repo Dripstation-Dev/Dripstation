@@ -50,9 +50,9 @@
 	if(ishuman(user) && isliving(target))
 		var/mob/living/carbon/human/U = user
 		var/mob/living/L = target
-		if(L.stat != DEAD)
+		if(istype(L) && L.stat != DEAD)
 			U.adjustStaminaLoss(20)
-	if(ishuman(target))
+	if(ishuman(target) && !HAS_TRAIT(target, TRAIT_BRAWLING_KNOCKDOWN_BLOCKED))
 		var/mob/living/carbon/human/H = target
 		var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 		H.throw_at(throw_target, 2, 4)
@@ -69,6 +69,8 @@
 	. = ..()
 	if(ishuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
+		if(HAS_TRAIT(H, TRAIT_BRAWLING_KNOCKDOWN_BLOCKED))
+			return
 		var/atom/throw_target = get_edge_target_turf(H, get_dir(src, get_step_away(H, src)))
 		H.throw_at(throw_target, 2, 4)
 		to_chat(H, span_danger("\The [src] hits you very hard and throws you back!"))

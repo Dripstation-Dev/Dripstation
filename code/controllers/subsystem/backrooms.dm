@@ -89,12 +89,15 @@ SUBSYSTEM_DEF(backrooms)
 	var/backrooms_level = SSmapping.levels_by_trait(ZTRAIT_PROCEDURAL_MAINTS)
 	if(!LAZYLEN(backrooms_level))
 		return
-	var/number = rand(20, 50)
+	var/number = rand(30, 60)
 	var/turf/destination
 	var/item_path
 	var/value
 	for(var/i in 1 to number)
 		destination = find_safe_turf(zlevels = backrooms_level, dense_atoms = FALSE)
+		if(prob(33))
+			new /obj/item/research_notes(destination, pick(2000, 5000, 7000, 10000), pick(TECHWEB_POINT_TYPE_MEDICAL, TECHWEB_POINT_TYPE_WEAPONRY), "lost study")
+			continue
 		item_path = pick(golden_loot)
 		value = golden_loot[item_path]
 

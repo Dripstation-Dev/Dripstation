@@ -7,10 +7,10 @@
 	icon_state = "nether"
 	max_integrity = 50
 	spawn_time = 600 //1 minute
-	max_mobs = 15
+	max_mobs = 10
 	icon = 'modular_dripstation/icons/mob/nether.dmi'
 	spawn_text = "crawls through"
-	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody, /mob/living/simple_animal/hostile/netherworld/fcult/wretch, /mob/living/simple_animal/hostile/netherworld/fcult/pentarox)
+	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody, /mob/living/simple_animal/hostile/netherworld/fcult/wretch, /mob/living/simple_animal/hostile/netherworld/fcult/pentarox, /mob/living/simple_animal/hostile/netherworld/fcult/blindone, /mob/living/simple_animal/hostile/netherworld/fcult/thrall)
 	faction = list("nether")
 	var/music_component = /datum/component/music_player
 	var/music_path = /datum/music/sourced/nether
@@ -60,7 +60,7 @@
 		var/datum/brain_trauma/mild/reality_dissociation/T = new()
 		var/obj/item/organ/brain/B = locate(/obj/item/organ/brain) in C.internal_organs
 		B.name = "nether-minded [B.name]"
-		C.pain(100, TRUE)
+		C.flick_pain(100, TRUE)
 		C.visible_message(span_danger("[C.name] screams in horror as [C.p_their()] mind is consumed by [src]!"))
 		C.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
 		to_chat(C, span_userdanger("That was a really dense idea."))

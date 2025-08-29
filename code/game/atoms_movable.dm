@@ -1160,6 +1160,8 @@
 	else if(direction & WEST)
 		pixel_x_diff = -8
 
+	play_fov_effect(A, 5, "attack")	//dripstation edit
+
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 0.2 SECONDS)
 	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 0.2 SECONDS)
 

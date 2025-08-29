@@ -3,6 +3,7 @@
 	clicksound = null
 	/// How long vendor takes to vend one item.
 	var/vend_delay = 12
+	var/can_be_shaken = FALSE
 
 /obj/machinery/vending/update_overlays()
 	. = ..()
@@ -11,6 +12,86 @@
 	if(panel_open)
 		. += mutable_appearance(icon, panel_type)
 		. += emissive_blocker(icon, panel_type, src, alpha = src.alpha)
+
+/obj/machinery/vending/attack_hand(mob/living/user)
+	if(can_be_shaken && !tilted && user.a_intent == INTENT_DISARM)
+		user.visible_message(span_notice("[user.name] begins to shake [src]!"), \
+		span_notice("You shake [src]!"))
+		shaking_anim()
+		addtimer(CALLBACK(src, PROC_REF(shake_results), user), 0.75 SECONDS, TIMER_STOPPABLE)
+		return
+	return ..()
+
+/obj/machinery/vending/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK| ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, can_be_rotated=CALLBACK(src, PROC_REF(can_be_rotated)), after_rotation=CALLBACK(src, PROC_REF(after_rotation)))
+
+/obj/machinery/vending/proc/can_be_rotated(mob/user)
+	var/silent = FALSE
+	if(!Adjacent(user))
+		silent = TRUE
+
+	if(anchored)
+		if (!silent)
+			to_chat(user, span_warning("[src] cannot be rotated while it is fastened to the floor!"))
+		return FALSE
+
+	return TRUE
+
+/obj/machinery/vending/proc/after_rotation(mob/user)
+	update_appearance(UPDATE_OVERLAYS)
+	add_fingerprint(user)
+
+/obj/machinery/vending/cola
+	can_be_shaken = TRUE
+
+/obj/machinery/vending/coffee
+	can_be_shaken = TRUE
+
+/obj/machinery/vending/snack
+	can_be_shaken = TRUE
+
+/obj/machinery/vending/cigarette
+	can_be_shaken = TRUE
+
+/obj/machinery/vending/proc/shake_results(mob/living/user)
+	switch(rand(0,10))
+		if(0 to 1)
+			tilt(user, crit=TRUE)
+		if(2 to 3)
+			shock(user, 100)
+		if(4 to 6)
+			give_item(user)
+
+/obj/machinery/vending/proc/give_item(mob/living/carbon/target)
+	var/obj/give_item = null
+	if(!istype(target))
+		return 0
+
+	finish_vend()
+	for(var/datum/data/vending_product/R in shuffle(product_records))
+		if(R.amount <= 0) //Try to use a record that actually has something to dump.
+			continue
+		var/dump_path = R.product_path
+		if(!dump_path)
+			continue
+		if(R.amount > LAZYLEN(R.returned_products)) //always throw new stuff that costs before free returned stuff, because of the hacking effort and time between throws involved
+			give_item = new dump_path(loc)
+		else
+			give_item = LAZYACCESS(R.returned_products, LAZYLEN(R.returned_products)) //first in, last out
+			give_item.forceMove(loc)
+			LAZYREMOVE(R.returned_products, give_item)
+		R.amount--
+		break
+	if(!give_item)
+		return 0
+	if(target.CanReach(src) && target.put_in_hands(give_item))
+		to_chat(usr, span_warning("[src] launches [give_item.name] out of the slot into your hands!"))
+	else
+		to_chat(usr, span_warning("[src] launches [give_item.name] out of the slot onto the turf!"))
+
+	SSblackbox.record_feedback("nested tally", "vending_machine_shake_exploit", 1, list("[type]", "[give_item]"))
+	return 1
 
 /obj/machinery/vending/cart
 	icon_vend = "cart-vend"
@@ -43,6 +124,7 @@
 					/obj/item/pinpointer/crew = 2,
 					/obj/item/stack/medical/ointment = 2,
 					/obj/item/stack/medical/ointment/antiseptic = 4,
+					/obj/item/stack/medical/tourniquet = 4,
 					/obj/item/stack/medical/bone_gel = 4)
 	contraband = list(/obj/item/reagent_containers/pill/tox = 3,
 					/obj/item/reagent_containers/pill/morphine = 4,
@@ -85,6 +167,7 @@
 					/obj/item/stack/medical/ointment = 2,
 					/obj/item/stack/medical/ointment/antiseptic = 4,
 					/obj/item/stack/medical/bone_gel = 4,
+					/obj/item/stack/medical/tourniquet/tactical = 4,
 					/obj/item/reagent_containers/pill/tox = 3,
 					/obj/item/reagent_containers/pill/morphine = 4,
 					/obj/item/reagent_containers/pill/charcoal = 6,
@@ -123,6 +206,12 @@
 /obj/machinery/vending/wallmed
 	icon_vend = "wallmed-vend"
 	light_mask = "wallmed-light-mask"
+	products = list(/obj/item/stack/medical/gauze = 2,
+					/obj/item/stack/medical/tourniquet/emergency = 1,
+					/obj/item/reagent_containers/syringe = 3,
+					/obj/item/reagent_containers/pill/patch/styptic = 5,
+					/obj/item/reagent_containers/pill/patch/silver_sulf = 5,
+					/obj/item/reagent_containers/pill/charcoal = 2)
 
 /obj/machinery/vending/wallgene
 	req_access = list(ACCESS_GENETICS)

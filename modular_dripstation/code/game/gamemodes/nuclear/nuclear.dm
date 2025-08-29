@@ -3,7 +3,8 @@
 	back = /obj/item/storage/backpack/syndie
 	belt = /obj/item/storage/belt/holster/syndicate/fnx45
 	box = /obj/item/storage/box/syndie/nuke	//box for syndicate`s MODERN COMBAT personel
-	backpack_contents = list(/obj/item/kitchen/knife/combat/survival = 1)
+	shoes = /obj/item/clothing/shoes/combat/combat_knife
+	//backpack_contents = list(/obj/item/kitchen/knife/combat/survival = 1)
 
 /datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
 	..()
@@ -30,12 +31,13 @@
 	icon = 'modular_dripstation/icons/obj/tank.dmi'	
 
 /datum/outfit/syndicate/full
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred
 	belt = /obj/item/storage/belt/military/webbing/syndicate/gorlex
 	back = /obj/item/storage/backpack/syndie
 	suit_store = /obj/item/tank/internals/oxygen/syndicate
+	l_hand = /obj/item/gun/ballistic/automatic/pistol/fn45
 	internals_slot = ITEM_SLOT_SUITSTORE
-	backpack_contents = list(/obj/item/gun/ballistic/automatic/pistol/fn45=1,\
+	//backpack_contents = list(/obj/item/gun/ballistic/automatic/pistol/fn45=1,\
 		/obj/item/kitchen/knife/combat/survival = 1)
 
 /datum/antagonist/nukeop/lone/equip_op()
@@ -44,20 +46,16 @@
 	var/mob/living/carbon/human/H = owner.current
 
 	H.set_species(/datum/species/human) //Plasamen burn up otherwise, and lizards are vulnerable to asimov AIs
-
 	H.equipOutfit(nukeop_outfit)
-	var/obj/item/clothing/head/helmet/space/hardsuit/syndi/HE = H.get_item_by_slot(ITEM_SLOT_HEAD)
-	if(istype(HE, /obj/item/clothing/head/helmet/space/hardsuit/syndi))
-		HE.spaceready(H)
 	return TRUE
 
 /datum/outfit/nuclear_operative
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/bloodred/preview
-	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi/bloodred/preview
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/preview
+	head = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/preview
 
 /datum/outfit/nuclear_operative_elite
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite/preview
-	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/preview
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/elite/preview
+	head = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite/preview
 
 /datum/outfit/syndicate/no_crystals
 	var/faction = "an agent of The Syndicate"

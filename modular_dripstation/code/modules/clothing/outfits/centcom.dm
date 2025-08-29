@@ -478,7 +478,7 @@
 /datum/outfit/centcom/death_commando/striker	//funny quicker people with deathsquad loadout
 	name = "Black Ops Strike Operative"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/military/ert/deathsquad
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/deathsquad
 
 /datum/outfit/centcom/death_commando/striker/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

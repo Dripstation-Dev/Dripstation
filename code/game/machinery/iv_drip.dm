@@ -137,7 +137,7 @@
 	if(!(get_dist(src, attached) <= 1 && isturf(attached.loc)))
 		to_chat(attached, span_userdanger("The IV drip needle is ripped out of you!"))
 		attached.apply_damage(3, BRUTE, pick(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM))
-		attached.pain(60)  //Dripstation edit
+		attached.flick_pain(60)  //Dripstation edit
 		attached = null
 		update_beam() //Dripstation edit
 		update_appearance(UPDATE_ICON)

@@ -210,7 +210,7 @@
 			ADD_TRAIT(src, TRAIT_PARALYSIS, "EMP")
 			addtimer(CALLBACK(src, PROC_REF(after_emp)), min((severity / 2) SECONDS, 5 SECONDS), TIMER_UNIQUE | TIMER_OVERRIDE)
 		if(owner && emp_message)
-			owner.pain(100, TRUE)
+			owner.flick_pain(100, TRUE)
 			to_chat(src, span_userdanger("You feel a sharp pain as your robotic limbs overload."))
 
 	if(!(. & EMP_PROTECT_CONTENTS))
@@ -445,6 +445,18 @@
 				. = TRUE
 	return update_bodypart_damage_state() || .
 
+/obj/item/bodypart/proc/update_organ_damage()
+	if(get_organs().len)
+		var/injury_mod
+		for(var/thing in wounds)
+			var/datum/wound/W = thing
+			injury_mod += W.threshold_penalty
+		if((get_damage() + injury_mod) / max_damage >= 1)
+			for(var/obj/item/organ/other_organs in get_organs())
+				if(other_organs.status == ORGAN_ORGANIC && prob(33))
+					owner.adjustOrganLoss(other_organs.slot, 0.2)
+					break
+
 /obj/item/bodypart/proc/check_and_apply_organ_damage(wounding_type, wounding_dmg, wound_bonus)	//no bare_wound_bonus since your flesh and bones at this point are considered as your clothes
 	if(wounding_type ==  WOUND_BURN && !owner)	//ah hell no, i don`t wanna check this for no owner bodyparts and lasers, fuck this shit. When special fire failures for organs will be implemented - i will think about it
 		return
@@ -474,6 +486,8 @@
 
 	injury_mod -= wound_resistance
 
+	if(injury_mod < 50)
+		return
 
 	var/list/zone_list_priority = list("" = 100)
 	if(body_zone == BODY_ZONE_HEAD)
@@ -731,6 +745,7 @@
 	if(owner)
 		if(can_be_disabled)
 			update_disabled()
+		update_organ_damage()
 		if(updating_health)
 			owner.updatehealth()
 	return update_bodypart_damage_state()

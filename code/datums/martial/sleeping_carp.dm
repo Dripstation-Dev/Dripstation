@@ -44,7 +44,7 @@
 		D.visible_message(span_warning("[A] grabs [D]'s wrist and wrenches it sideways!"), \
 						  span_userdanger("[A] grabs your wrist and violently wrenches it to the side!"))
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-		D.pain(100, TRUE)
+		D.flick_pain(100, TRUE)
 		D.dropItemToGround(D.get_active_held_item())
 		D.apply_damage(A.get_punchdamagehigh() / 2, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM), wound_bonus = CANT_WOUND)	//5 damage
 		D.Stun(60)

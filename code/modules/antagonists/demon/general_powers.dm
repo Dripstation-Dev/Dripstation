@@ -118,7 +118,7 @@
 	victim.Stun(1 SECONDS)
 	victim.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
 	victim.visible_message(span_danger("[victim] cringes in pain as they hold their head for a second!"))
-	victim.pain(100, TRUE)
+	victim.flick_pain(100, TRUE)
 	to_chat(victim, span_warning("You feel an explosion of pain erupt in your mind!"))
 	return TRUE
 

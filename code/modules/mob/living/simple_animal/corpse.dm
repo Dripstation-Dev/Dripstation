@@ -37,7 +37,7 @@
 /datum/outfit/syndicatecommandocorpse
 	name = "Syndicate Commando Corpse"
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset
@@ -57,7 +57,7 @@
 /datum/outfit/syndicatestormtroopercorpse
 	name = "Syndicate Stormtrooper Corpse"
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/elite
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset

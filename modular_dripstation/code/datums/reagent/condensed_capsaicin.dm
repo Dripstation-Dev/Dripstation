@@ -12,7 +12,7 @@
 		if ( eyes_covered && mouth_covered )
 			return
 		else if ( mouth_covered )	// Reduced effects if partially protected
-			victim.pain(50, TRUE)
+			victim.flick_pain(50, TRUE)
 			victim.adjust_eye_blur(14)
 			victim.blind_eyes(10)
 			victim.set_confusion_if_lower(10 SECONDS)
@@ -30,7 +30,7 @@
 			return
 		else // Oh dear :D
 			if(prob(60))
-				victim.pain(100, TRUE)
+				victim.flick_pain(100, TRUE)
 			else
 				victim.emote("cough")
 			victim.adjust_eye_blur(14)

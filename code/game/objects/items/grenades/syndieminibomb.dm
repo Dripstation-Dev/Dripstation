@@ -6,20 +6,24 @@
 	item_state = "flashbang"
 
 
+/* Dripstation edit
 /obj/item/grenade/syndieminibomb/prime()
 	update_mob()
 	explosion(src.loc,1,2,4,flame_range = 2)
 	qdel(src)
+*/
 
 /obj/item/grenade/syndieminibomb/concussion
 	name = "HE Grenade"
 	desc = "A compact shrapnel grenade meant to devastate nearby organisms and cause some damage in the process. Pull pin and throw opposite direction."
 	icon_state = "concussion"
 
+/* Dripstation edit
 /obj/item/grenade/syndieminibomb/concussion/prime()
 	update_mob()
 	explosion(src.loc,0,2,4,flame_range = 3)
 	qdel(src)
+*/
 
 /obj/item/grenade/syndieminibomb/concussion/frag
 	name = "frag grenade"
@@ -36,7 +40,8 @@
 	var/rad_damage = 350
 	var/stamina_damage = 30
 
-/obj/item/grenade/gluon/prime()
+/obj/item/grenade/gluon/prime(mob/lanced_by)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
 	radiation_pulse(src, rad_damage)

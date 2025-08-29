@@ -44,7 +44,7 @@
 /datum/outfit/merc/operative
 	name = "Freelancer Mercenary - Operative"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/merk
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/merk
 	suit_store = /obj/item/gun/ballistic/automatic/ar/famas
 
 /datum/outfit/merc/operative/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -60,7 +60,7 @@
 /datum/outfit/merc/officer
 	name = "Freelancer Mercenary - Officer"
 
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/merk
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/merk
 	suit_store = /obj/item/gun/ballistic/automatic/powered/gauss_rifle
 	belt = /obj/item/storage/belt/holster/syndicate/fnx45
 	r_pocket = /obj/item/storage/pouch/general/large/pmc

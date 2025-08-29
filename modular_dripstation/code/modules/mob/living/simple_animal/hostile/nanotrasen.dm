@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/nanotrasen
 	name = "Nanotrasen Amber Officer"
-	desc = "An officer part of Nanotrasen's private security force, he seems rather unpleased to meet you."
+	desc = "An officer part of Nanotrasen's private Special Operation`s force, he seems rather unpleased to meet you."
 	icon = 'modular_dripstation/icons/mob/simple_human.dmi'
 	speak = list("YOU CALL THIS RESISTING ARREST?!", "WE CALL THIS A DIFFICULTY TWEAK!", "WHO`S THE CLOWN NOW?!", "STOP HITTING YOURSELF!")
 	var/static/list/death_sounds = list(
@@ -12,6 +12,7 @@
 	speed = -1	//inhuman speed
 	check_friendly_fire = 1
 	del_on_death = 1
+	COOLDOWN_DECLARE(backup_cd)
 
 /mob/living/simple_animal/hostile/nanotrasen/Initialize(mapload)
 	..()
@@ -19,10 +20,11 @@
 
 /mob/living/simple_animal/hostile/nanotrasen/Aggro()
 	..()
-	if(prob(30))	//stop spamming
+	if(COOLDOWN_FINISHED(src, backup_cd) && prob(30))	//stop spamming
 		summon_backup(15)
 		say("609 in progress, requesting backup!")
 		playsound(src, "yogstation/sound/voice/dispatch_please_respond.ogg", 100)
+		COOLDOWN_START(src, backup_cd, 20 SECONDS)
 
 /mob/living/simple_animal/hostile/nanotrasen/handle_automated_speech(override)
 	set waitfor = FALSE
@@ -67,8 +69,8 @@
 	icon_living = "nanotrasen_sword"
 
 /mob/living/simple_animal/hostile/nanotrasen/ranged
-	maxHealth = 150
-	health = 150
+	maxHealth = 180
+	health = 180
 	rapid = 2
 	retreat_distance = 6
 	minimum_distance = 6
@@ -80,11 +82,47 @@
 				/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)
 
 /mob/living/simple_animal/hostile/nanotrasen/ranged/smg
-	maxHealth = 150
-	health = 150
+	maxHealth = 180
+	health = 180
 	vision_range = 9
 	aggro_vision_range = 9
 	casingtype = /obj/item/ammo_casing/a556
-	projectilesound = 'sound/weapons/gunshot_smg.ogg'
+	projectilesound = 'modular_dripstation/sound/weapons/tgmc/smg_heavy.ogg'
 	loot = list(/obj/item/gun/ballistic/automatic/pistol/m1911,
 				/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)
+
+/mob/living/simple_animal/hostile/nanotrasen/ranged/ablative
+	icon_state = "nanotrasen_ablative"
+	icon_living = "nanotrasen_ablative"
+	maxHealth = 200
+	health = 200
+	vision_range = 9
+	aggro_vision_range = 9
+	casingtype = /obj/item/ammo_casing/a556
+	projectilesound = 'modular_dripstation/sound/weapons/tgmc/ak47.ogg'
+	loot = list(/obj/item/gun/ballistic/automatic/pistol/m1911,
+				/obj/item/clothing/head/helmet/laserproof,
+				/obj/item/clothing/suit/armor/laserproof,
+				/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)
+
+/mob/living/simple_animal/hostile/nanotrasen/ranged/ablative/bullet_act(obj/projectile/P)
+	if(P.reflectable & REFLECT_NORMAL)
+		visible_message(span_danger("The [P.name] gets reflected by [src]!"), \
+						span_userdanger("The [P.name] gets reflected by [src]!"))
+		if(P.hitscan) // hitscan check
+			P.store_hitscan_collision(P.trajectory.copy_to())
+		if(P.starting)
+			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+			var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+			var/turf/curloc = get_turf(src)
+			// redirect the projectile
+			P.original = locate(new_x, new_y, P.z)
+			P.starting = curloc
+			P.firer = src
+			P.yo = new_y - curloc.y
+			P.xo = new_x - curloc.x
+			var/new_angle_s = P.Angle + rand(120,240)
+			while(new_angle_s > 180)	// Translate to regular projectile degrees
+				new_angle_s -= 360
+			P.setAngle(new_angle_s)
+		return BULLET_ACT_FORCE_PIERCE // complete projectile permutation

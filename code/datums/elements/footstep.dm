@@ -40,6 +40,8 @@
 			return
 		if(FOOTSTEP_MOB_CLAW)
 			footstep_sounds = GLOB.clawfootstep
+		if(FOOTSTEP_MOB_PAW)
+			footstep_sounds = GLOB.clawfootstep
 		if(FOOTSTEP_MOB_BAREFOOT)
 			footstep_sounds = GLOB.barefootstep
 		if(FOOTSTEP_MOB_HEAVY)
@@ -99,7 +101,7 @@
 	if(steps != 0 && !source.has_gravity(turf)) // don't need to step as often when you hop around
 		return
 
-	. = list(FOOTSTEP_MOB_SHOE = turf.footstep, FOOTSTEP_MOB_BAREFOOT = turf.barefootstep, FOOTSTEP_MOB_HEAVY = turf.heavyfootstep, FOOTSTEP_MOB_CLAW = turf.clawfootstep, STEP_SOUND_PRIORITY = STEP_SOUND_NO_PRIORITY)
+	. = list(FOOTSTEP_MOB_SHOE = turf.footstep, FOOTSTEP_MOB_BAREFOOT = turf.barefootstep, FOOTSTEP_MOB_HEAVY = turf.heavyfootstep, FOOTSTEP_MOB_CLAW = turf.clawfootstep, FOOTSTEP_MOB_PAW = turf.clawfootstep, STEP_SOUND_PRIORITY = STEP_SOUND_NO_PRIORITY)
 	
 	//The turf has no footstep sound (e.g. open space) and none of the objects on that turf (e.g. catwalks) overrides it
 	if(!(SEND_SIGNAL(turf, COMSIG_TURF_PREPARE_STEP_SOUND, .) & FOOTSTEP_OVERRIDDEN) && isnull(turf.footstep))
@@ -124,6 +126,15 @@
 	if(!turf_footstep)
 		return
 	playsound(source.loc, pick(footstep_sounds[turf_footstep][1]), footstep_sounds[turf_footstep][2] * volume, TRUE, footstep_sounds[turf_footstep][3] + e_range, falloff_distance = 1, vary = sound_vary)
+	var/sound_type				//dripstation edit start
+	switch(footstep_type)
+		if(FOOTSTEP_MOB_CLAW)
+			sound_type = "clawstep"
+		if(FOOTSTEP_MOB_PAW)
+			sound_type = "pawstep"
+	if(!sound_type)
+		sound_type = "footstep"
+	play_fov_effect(source, 5, sound_type, direction, ignore_self = TRUE)		//dripstation edit end
 
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source, atom/oldloc, direction)
 	SIGNAL_HANDLER
@@ -147,36 +158,50 @@
 
 	//cache for sanic speed (lists are references anyways)
 	var/static/list/footstep_sounds = GLOB.footstep
+	///list returned by playsound() filled by client mobs who heard the footstep. given to play_fov_effect()
+	var/list/heard_clients	//dripstation edit
+	var/sound_type
 
 	if (((source.wear_suit?.body_parts_covered | source.w_uniform?.body_parts_covered) & FEET) || (source.shoes && !istype(source.shoes, /obj/item/clothing/shoes/xeno_wraps)) || (source.dna.species.barefoot_step_sound == FOOTSTEP_MOB_SHOE))
 		// we are wearing shoes or have shoes for feet
 
 		var/shoestep_type = prepared_steps[FOOTSTEP_MOB_SHOE]
-		playsound(source.loc, pick(footstep_sounds[shoestep_type][1]),
+		heard_clients = playsound(source.loc, pick(footstep_sounds[shoestep_type][1]),
 			footstep_sounds[shoestep_type][2] * volume * volume_multiplier,
 			TRUE,
 			footstep_sounds[shoestep_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
 	else
 		var/barefoot_type = prepared_steps[source.dna.species.barefoot_step_sound]
 		if(source.dna.species.special_step_sounds)
-			playsound(source.loc, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary)
+			heard_clients = playsound(source.loc, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary)
 		else
 			switch(source.dna.species.barefoot_step_sound)
 				if(FOOTSTEP_MOB_BAREFOOT)
-					playsound(source.loc, pick(GLOB.barefootstep[barefoot_type][1]),
+					heard_clients = playsound(source.loc, pick(GLOB.barefootstep[barefoot_type][1]),
 						GLOB.barefootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.barefootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
 				if(FOOTSTEP_MOB_CLAW)
-					playsound(source.loc, pick(GLOB.clawfootstep[barefoot_type][1]),
+					heard_clients = playsound(source.loc, pick(GLOB.clawfootstep[barefoot_type][1]),
 						GLOB.clawfootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.clawfootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
+						sound_type = "clawstep"	//dripstation edit
+				if(FOOTSTEP_MOB_PAW)			//dripstation edit
+					heard_clients = playsound(source.loc, pick(GLOB.clawfootstep[barefoot_type][1]),
+						GLOB.clawfootstep[barefoot_type][2] * volume * volume_multiplier,
+						TRUE,
+						GLOB.clawfootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)	//dripstation edit
+						sound_type = "pawstep"	//dripstation edit
 				else	//Emergency backup shoe step sound if it's not either of these other two types for some reason
-					playsound(source.loc, pick(GLOB.footstep[prepared_steps[FOOTSTEP_MOB_SHOE]][1]),
+					heard_clients = playsound(source.loc, pick(GLOB.footstep[prepared_steps[FOOTSTEP_MOB_SHOE]][1]),
 						GLOB.footstep[prepared_steps[FOOTSTEP_MOB_SHOE]][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.footstep[prepared_steps[FOOTSTEP_MOB_SHOE]][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
+	if(heard_clients.len)	//dripstation edit start
+		if(!sound_type)
+			sound_type = "footstep"
+		play_fov_effect(source, 6, sound_type, direction, ignore_self = TRUE, override_list = heard_clients)		//dripstation edit end	
 					
 
 ///Prepares a footstep for machine walking
@@ -191,5 +216,6 @@
 		return
 
 	playsound(source_loc, footstep_sounds, 50, falloff_distance = 1, vary = sound_vary)
+	play_fov_effect(source, 6, "footstep", direction, ignore_self = TRUE)
 
 #undef SHOULD_DISABLE_FOOTSTEPS

@@ -88,6 +88,15 @@
 	icon = "anchor"
 	value = 4
 	mob_trait = TRAIT_DIVER
+	medical_record_text = "The patient has an ability to hold breath longer."
+
+/datum/quirk/thirdeye
+	name = "Surveillance Sense"
+	desc = "You has an ability to sense when people are staring at you. Even from behind. Sometimes it causes issues, when you sense something you should not..."
+	icon = "eye"
+	value = 4
+	mob_trait = TRAIT_THIRD_EYE
+	medical_record_text = "The patient has an unnatural sense of other beengs examining him."
 
 /datum/quirk/signer
 	name = "Signer"
@@ -95,7 +104,7 @@
 	icon = "hands"
 	value = 4
 	//quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_CHANGES_APPEARANCE
-	//medical_record_text = "Patient can communicate with sign language."
+	medical_record_text = "Patient can communicate with sign language."
 	//mail_goodies = list(/obj/item/clothing/gloves/radio)
 
 /datum/quirk/signer/add(client/client_source)

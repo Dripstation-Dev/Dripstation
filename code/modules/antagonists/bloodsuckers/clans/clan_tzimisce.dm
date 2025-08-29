@@ -23,7 +23,7 @@
 	var/mob/living/carbon/human/vassal = vassaldatum.owner.current
 	if(!INVOKE_ASYNC(src, PROC_REF(slash_vassal), bloodsuckerdatum.owner.current, 1 SECONDS, vassal))
 		return
-	playsound(vassal.loc, SFX_SLASH, 50, TRUE, -1)
+	playsound(vassal.loc, SFX_CLAWS, 50, TRUE, -1)
 	if(!INVOKE_ASYNC(src, PROC_REF(slash_vassal), bloodsuckerdatum.owner.current, 1 SECONDS, vassal))
 		return
 	playsound(vassal.loc, 'sound/effects/splat.ogg', 50, TRUE)

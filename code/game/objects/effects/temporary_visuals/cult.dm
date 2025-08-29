@@ -9,6 +9,14 @@
 	name = "blood sparks"
 	icon_state = "bloodsparkles"
 
+/obj/effect/temp_visual/cult/sparks/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/temp_visual/cult/sparks/LateInitialize()
+	. = ..()
+	play_fov_effect(src, 5, "sparkles", ignore_self = TRUE)
+
 /obj/effect/temp_visual/cult/blood  // The traditional teleport
 	name = "blood jaunt"
 	duration = 1.2 SECONDS

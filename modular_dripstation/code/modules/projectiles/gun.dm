@@ -151,7 +151,7 @@
 	harness_check(user)
 	..()
 
-/obj/item/gun/throw_at(atom/target, range, speed, thrower)
+/obj/item/gun/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(harness_check(thrower))
 		visible_message(span_warning("\The [src] clanks on the ground."))
 	else

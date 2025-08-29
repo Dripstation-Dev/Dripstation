@@ -10,7 +10,7 @@
 	default_features = list("moth_wings" = "Plain")
 	attack_verbs = list("slash")
 	attack_effect = ATTACK_EFFECT_CLAW
-	attack_sound = SFX_SLASH
+	attack_sound = SFX_CLAWS
 	miss_sound = SFX_SLASHMISS
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/moth
 	liked_food = VEGETABLES | SUGAR

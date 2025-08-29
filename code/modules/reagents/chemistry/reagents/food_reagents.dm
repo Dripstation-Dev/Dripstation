@@ -143,7 +143,7 @@
 		M.visible_message(span_warning("The boiling oil sizzles as it covers [M]!"), \
 		span_userdanger("You're covered in boiling oil!"))
 		if(FryLoss)
-			M.pain(100, TRUE)
+			M.flick_pain(100, TRUE)
 		playsound(M, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
 		ADD_TRAIT(M, TRAIT_OIL_FRIED, "cooking_oil_react")
 		addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living, unfry_mob)), 3)

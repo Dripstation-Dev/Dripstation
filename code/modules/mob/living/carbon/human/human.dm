@@ -34,6 +34,7 @@
 
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_FACE_ACT, PROC_REF(clean_face))
 	AddComponent(/datum/component/personal_crafting)
+	AddComponent(/datum/component/regeneration)	//dripstation edit - regeneration component
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
 	AddComponent(/datum/component/bloodysoles/feet, FOOTPRINT_SPRITE_SHOES)
 	var/static/list/loc_connections = list(
@@ -762,6 +763,9 @@
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(dna && (dna.check_mutation(HULK)))
 		say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ), forced = "hulk")
+		if(..(I, cuff_break = FAST_CUFFBREAK))
+			dropItemToGround(I)
+	else if(HAS_TRAIT(src, TRAIT_HULK))
 		if(..(I, cuff_break = FAST_CUFFBREAK))
 			dropItemToGround(I)
 	else

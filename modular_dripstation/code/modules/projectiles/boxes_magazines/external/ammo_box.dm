@@ -41,9 +41,16 @@
 	start_empty = TRUE
 
 /obj/item/ammo_box/c45/ap
-	name = "ammo box (.45 ACP armor-piercing)"
+	name = "ammo box (.45 ACP Armor-Piercing)"
 	icon_state = "45box"
 	ammo_type = /obj/item/ammo_casing/c45/ap
+	caliber = CALIBER_45ACP
+	max_ammo = 20
+
+/obj/item/ammo_box/c45/hp
+	name = "ammo box (.45 ACP Hollow-Point)"
+	icon_state = "45box"
+	ammo_type = /obj/item/ammo_casing/c45/hp
 	caliber = CALIBER_45ACP
 	max_ammo = 20
 

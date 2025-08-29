@@ -10,6 +10,7 @@
 	icon = 'modular_dripstation/icons/effects/projectiles/projectiles.dmi'
 	speed = 1 //Shotgun = slower
 	weak_against_armour = TRUE
+	light_system = NO_LIGHT_SUPPORT
 
 /obj/projectile/bullet/pellet/shotgun_flechette
 	icon_state = "flechette"
@@ -39,3 +40,4 @@
 	bare_wound_bonus = 10
 	tile_dropoff = 0.3 //Ranged pellet because I guess?
 	armour_penetration = 10 //Big flechette (it's for nukies only)
+	weak_against_armour = FALSE

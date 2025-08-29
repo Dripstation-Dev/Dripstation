@@ -30,6 +30,7 @@
 
 /obj/effect/particle_effect/sparks/LateInitialize()
 	flick(icon_state, src) // replay the animation
+	play_fov_effect(src, 5, "sparkles", ignore_self = TRUE)
 	playsound(src, sound, volume, TRUE)
 	var/turf/T = loc
 	if(isturf(T))

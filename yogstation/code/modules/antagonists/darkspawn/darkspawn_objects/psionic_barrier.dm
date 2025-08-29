@@ -16,6 +16,7 @@
 	START_PROCESSING(SSprocessing, src)
 	QDEL_IN(src, time)
 	update_appearance(UPDATE_OVERLAYS)
+	play_fov_effect(src, 5, "forcefield")	//dripstation edit
 
 /obj/structure/psionic_barrier/Destroy()
 	if(!atom_integrity)

@@ -1,3 +1,4 @@
 /datum/species/polysmorph
 	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, MUTCOLORS, NOCOLORCHANGE, DIGITIGRADE, HAS_FLESH, HAS_BONE, HAS_TAIL)
 	default_features = list("tail_polysmorph" = "Polys", "dome" = "None", "dorsal_tubes" = "No", "teeth" = "None", "legs" = "Digitigrade Legs")
+	inherent_traits = list(TRAIT_ACIDBLOOD, TRAIT_SKINNY, TRAIT_NO_ABNORMAL_FEAR)

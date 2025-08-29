@@ -24,6 +24,7 @@
 	if(changed)
 		animate(src, transform = ntransform, time = 0.2 SECONDS, pixel_y = final_pixel_y, dir = final_dir, easing = EASE_IN|EASE_OUT)
 		setMovetype(movement_type & ~FLOATING)  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
+		addtimer(CALLBACK(src, .proc/update_shadow), 0.2 SECONDS) //dripstation - shadows
 
 /mob/living/carbon
 	var/list/overlays_standing[TOTAL_LAYERS]

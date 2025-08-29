@@ -452,7 +452,7 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src.loc, SFX_SLASH, 80, 1)
+				playsound(src.loc, get_sfx(SFX_SLASH), 80, 1)
 			else
 				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)

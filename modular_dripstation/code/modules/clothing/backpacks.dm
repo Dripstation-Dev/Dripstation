@@ -23,12 +23,11 @@
 	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK, ITEM_SLOT_SUITSTORE))
 		return TRUE
 
-	if(species_restricted && istype(M,/mob/living/carbon/human))
+	var/mob/living/carbon/human/H = M
 
+	if(istype(H) && species_restricted)
 		var/wearable = FALSE
 		var/exclusive = FALSE
-		var/mob/living/carbon/human/H = M
-
 		if("exclude" in species_restricted)
 			exclusive = TRUE
 
@@ -43,6 +42,10 @@
 			if(!wearable)
 				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
 				return FALSE
+
+	if(istype(H) && H.wear_suit && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/dualmode))
+		to_chat(M, "<span class='warning'>You can`t wear [src] while wearing [H.wear_suit.name].</span>")
+		return FALSE
 
 	return TRUE
 

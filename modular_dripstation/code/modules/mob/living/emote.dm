@@ -22,6 +22,16 @@
 	if(!.)
 		return ..()
 
+/datum/emote/living/choke
+	muzzle_ignore = TRUE
+	emote_length = 2 SECONDS
+
+/datum/emote/living/choke/get_sound(mob/living/carbon/human/user)	//gasp sounds for now
+	if(ishuman(user) && user?.dna?.species)
+		return user.dna.species?.get_gasp_sound(user)
+	if(!.)
+		return ..()
+
 /datum/emote/living/cough/get_sound(mob/living/carbon/human/user)
 	if(ishuman(user) && user?.dna?.species)
 		return user.dna.species?.get_cough_sound(user)
@@ -30,7 +40,7 @@
 
 /datum/emote/living/sigh
 	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
-	emote_length = 3 SECONDS
+	emote_length = 3 SECONDS 
 	overlay_y_offset = -1
 	overlay_icon_state = "sigh"
 	directional = TRUE

@@ -1,7 +1,7 @@
 /mob/living/carbon/human/gib_animation()
 	switch(dna.species.species_gibs)
 		if("human")
-			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
+			new /obj/effect/temp_visual/gib_animation/human(loc, "gibbed-h")	//dripstation edit
 		if("robotic")
 			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
 		if("plasma")

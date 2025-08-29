@@ -58,6 +58,7 @@
 	..()
 
 /obj/item/grenade/plastic/prime()
+	. = ..()
 	var/turf/location
 	var/density_check = FALSE
 	if(target)
@@ -178,6 +179,7 @@
 	user.visible_message(span_suicide("[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
 	shout_syndicate_crap(user)
 	explosion(user,0,2,0) //Cheap explosion imitation because putting prime() here causes runtimes
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, user)
 	user.gib(1, 1)
 	qdel(src)
 
@@ -216,7 +218,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [name] at [ADMIN_VERBOSEJMP(src)]")
 	log_game("[key_name(user)] suicided with [name] at [AREACOORD(user)]")
 	sleep(1 SECONDS)
-	prime()
+	prime(user)
 	user.gib(1, 1)
 
 /obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, params)
@@ -231,6 +233,7 @@
 /obj/item/grenade/plastic/c4/prime()
 	if(QDELETED(src))
 		return
+	..()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))

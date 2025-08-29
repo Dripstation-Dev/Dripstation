@@ -1,6 +1,9 @@
 /obj/item/radio
 	icon = 'modular_dripstation/icons/obj/radio.dmi'
 
+/obj/item/radio/intercom
+	plane = GAME_PLANE
+
 /obj/item/radio/examine(mob/user)
 	. = ..()
 	if((item_flags & IN_INVENTORY && loc == user) || (src in view(1, user)))

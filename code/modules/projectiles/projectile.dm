@@ -20,7 +20,7 @@
 	var/def_zone = ""	//Aiming at
 	var/atom/movable/firer = null//Who shot it
 	var/atom/fired_from = null // the atom that the projectile was fired from (gun, turret)
-	var/suppressed = FALSE	//Attack message
+	var/suppressed = SUPPRESSED_NONE	//Attack message
 	var/yo = null
 	var/xo = null
 	var/atom/original = null // the original target clicked
@@ -196,6 +196,7 @@
 		on_range()
 
 /obj/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_RANGE_OUT)
 	qdel(src)
 
 //to get the correct limb (if any) for the projectile hit message
@@ -286,9 +287,10 @@
 		SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, limb_hit)
 		if(limb_hit)
 			organ_hit_text = " in \the [parse_zone(limb_hit)]"
-		if(suppressed)
+		if(suppressed > SUPPRESSED_NONE)
 			playsound(loc, hitsound, 5, 1, -1)
-			to_chat(L, span_userdanger("You're shot by \a [src][organ_hit_text]!"))
+			if(suppressed != SUPPRESSED_VERY)
+				to_chat(L, span_userdanger("You're shot by \a [src][organ_hit_text]!"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
@@ -363,7 +365,7 @@
 
 	if(isturf(A) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
-		if(suppressed)
+		if(suppressed != SUPPRESSED_NONE)
 			volume = 5
 		playsound(loc, hitsound_wall, volume, 1, -1)
 
@@ -538,8 +540,9 @@
 	trajectory = new(starting.x, starting.y, starting.z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
 	last_projectile_move = world.time
 	fired = TRUE
-	if(shrapnel_type && LAZYLEN(embedding))
-		AddElement(/datum/element/embed, projectile_payload = shrapnel_type)
+	play_fov_effect(starting, 6, "gunfire", dir = NORTH, angle = Angle)	//dripstation edit
+	if(shrapnel_type && LAZYLEN(embedding))										//dripstation edit
+		AddElement(/datum/element/embed, projectile_payload = shrapnel_type)	//dripstation edit
 	if(hitscan)
 		process_hitscan()
 	if(!(datum_flags & DF_ISPROCESSING))
@@ -700,7 +703,7 @@
 			return FALSE
 	else
 		var/mob/living/L = target
-		if(!direct_target)
+		if(!direct_target && !hit_prone_targets)
 			if(!CHECK_BITFIELD(L.mobility_flags, MOBILITY_STAND) && (L in range(1, starting))) //if we're shooting over someone who's prone and nearby bc formations are cool and not going to be unbalanced
 				return FALSE
 			if(!CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE) || !(L.stat == CONSCIOUS))		//If they're able to 1. stand or 2. use items or 3. move, AND they are not softcrit,  they are not stunned enough to dodge projectiles passing over.

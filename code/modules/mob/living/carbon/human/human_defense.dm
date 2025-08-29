@@ -62,7 +62,7 @@
 	if(mind)
 		if(mind.martial_art && !incapacitated(FALSE, TRUE) && mind.martial_art.can_use(src) && (mind.martial_art.deflection_chance || ((mind.martial_art.id == "sleeping carp") && in_throw_mode))) //Some martial arts users can deflect projectiles!
 			if(prob(mind.martial_art.deflection_chance) || ((mind.martial_art.id == "sleeping carp") && in_throw_mode)) // special check if sleeping carp is our martial art and throwmode is on, deflect
-				if((mobility_flags & MOBILITY_USE) && dna && !dna.check_mutation(HULK)) //But only if they're otherwise able to use items, and hulks can't do it
+				if((mobility_flags & MOBILITY_USE) && HAS_TRAIT(src, TRAIT_HULK)) //But only if they're otherwise able to use items, and hulks can't do it
 					if(!isturf(loc)) //if we're inside something and still got hit
 						P.force_hit = TRUE //The thing we're in passed the bullet to us. Pass it back, and tell it to take the damage.
 						loc.bullet_act(P)
@@ -261,7 +261,7 @@
 	if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stunned instead.
 		var/obj/item/I = get_active_held_item()
 		if(I && dropItemToGround(I))
-			playsound(loc, SFX_SLASH, 25, 1, -1)
+			playsound(loc, SFX_CLAWS, 25, 1, -1)
 			visible_message(span_danger("[M] disarmed [src]!"), \
 					span_userdanger("[M] disarmed [src]!"))
 		else if(!M.client || prob(5)) // only natural monkeys get to stun reliably, (they only do it occasionaly)
@@ -300,7 +300,7 @@
 				w_uniform.add_fingerprint(M)
 			var/damage = prob(90) ? 20 : 0
 			if(!damage)
-				playsound(loc, SFX_SLASHMISS, 50, 1, -1)
+				playsound(loc, get_sfx(SFX_SLASHMISS), 50, 1, -1)
 				visible_message(span_danger("[M] has lunged at [src]!"), \
 					span_userdanger("[M] has lunged at [src]!"))
 				return 0
@@ -320,7 +320,7 @@
 		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
 			var/obj/item/I = get_active_held_item()
 			if(I && dropItemToGround(I))
-				playsound(loc, SFX_SLASH, 25, 1, -1)
+				playsound(loc, SFX_CLAWS, 25, 1, -1)
 				visible_message(span_danger("[M] disarmed [src]!"), \
 						span_userdanger("[M] disarmed [src]!"))
 			else
@@ -714,7 +714,7 @@
 		if(affecting.name == BODY_ZONE_HEAD)
 			if(prob(min(acidpwr*acid_volume*damagemod/10, 90))) //Applies disfigurement
 				affecting.receive_damage(acidity*damagemod, 2*acidity*damagemod) // yogs - Old Plant People
-				pain(100, TRUE)
+				flick_pain(100, TRUE)
 				facial_hair_style = "Shaved"
 				hair_style = "Bald"
 				update_hair()

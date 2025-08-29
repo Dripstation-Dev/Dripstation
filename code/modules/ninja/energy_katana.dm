@@ -60,7 +60,7 @@
 	if(!is_ninja(user)) //stolen directly from the bloody bastard sword
 		if(user.electrocute_act(15, src, 1, user.held_index_to_hand(user.active_hand_index))) // you tried to grab it with this hand, so we'll shock it
 			to_chat(user, span_userdanger("[src] shocks you!"))
-			user.pain(100, TRUE)
+			user.flick_pain(100, TRUE)
 			user.dropItemToGround(src, TRUE)
 			user.Paralyze(50)
 		else

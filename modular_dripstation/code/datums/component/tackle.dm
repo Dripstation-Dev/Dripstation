@@ -534,7 +534,7 @@
 			playsound(user, 'sound/effects/wounds/crack2.ogg', 70, TRUE)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
-				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, pain), 100, TRUE)
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, flick_pain), 100, TRUE)
 			user.gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic) // oopsie indeed!
 			shake_camera(user, 7, 7)
 			user.flash_act(1, TRUE, TRUE)
@@ -552,7 +552,7 @@
 			playsound(user, 'sound/effects/splat.ogg', 70, TRUE)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
-				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, pain), 100)
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, flick_pain), 100)
 			shake_camera(user, 7, 7)
 			user.flash_act(1, TRUE, TRUE)
 

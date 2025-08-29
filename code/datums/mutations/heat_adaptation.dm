@@ -7,7 +7,7 @@
 	text_gain_indication = span_notice("Your body feels cold!")
 	time_coeff = 5
 	instability = 40
-	conflicts = list(SPACEMUT)
+	conflicts = list(COLDMUT)
 
 /datum/mutation/human/heat_adaptation/New(class_ = MUT_OTHER, timer, datum/mutation/human/copymut)
 	..()

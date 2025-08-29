@@ -116,6 +116,8 @@ GLOBAL_LIST_INIT(synth_punishment_values, list(
 //Adding an entry here automatically adds it to the UI and allows CPU to be allocated. Just use your define in the network process() to do stuff
 #define AI_CRYPTO "Cryptocurrency Mining"
 #define AI_RESEARCH "Research Assistance"
+#define AI_WEAPONRY_RESEARCH "Weaponry Research"
+#define AI_MEDICAL_RESEARCH "Social Engeneering Research"
 #define AI_REVIVAL "AI Restoration"
 #define AI_PUZZLE "Floppy Drive Decryption"
 #define SYNTH_RESEARCH "Synth Research Allocation"
@@ -123,6 +125,8 @@ GLOBAL_LIST_INIT(synth_punishment_values, list(
 GLOBAL_LIST_INIT(possible_ainet_activities, list(
 	"[AI_CRYPTO]",
 	"[AI_RESEARCH]",
+	"[AI_WEAPONRY_RESEARCH]",
+	"[AI_MEDICAL_RESEARCH]",
 	"[AI_REVIVAL]",
 	"[AI_PUZZLE]",
 	"[SYNTH_RESEARCH]"
@@ -131,6 +135,8 @@ GLOBAL_LIST_INIT(possible_ainet_activities, list(
 GLOBAL_LIST_INIT(ainet_activity_tagline, list(
 	"[AI_CRYPTO]" = "Use CPU to generate credits!",
 	"[AI_RESEARCH]" = "Use CPU to generate regular research points!",
+	"[AI_WEAPONRY_RESEARCH]" = "Use CPU to generate weaponry theory research points!",
+	"[AI_MEDICAL_RESEARCH]" = "Use CPU to generate medical theory research points!",
 	"[AI_REVIVAL]" = "Revive a dead AI using CPU!",
 	"[AI_PUZZLE]" = "Use CPU to break encryption on floppy drives!",
 	"[SYNTH_RESEARCH]" = "Give connected synths CPU for research!"
@@ -139,6 +145,8 @@ GLOBAL_LIST_INIT(ainet_activity_tagline, list(
 GLOBAL_LIST_INIT(ainet_activity_description, list(
 	"[AI_CRYPTO]" = "Using CPU to mine NTCoin should allow for a meager sum of passive credit income.",
 	"[AI_RESEARCH]" = "Allocating additional CPU to the research servers should allow for increased point gain. Not to be confused with AI Research points.",
+	"[AI_WEAPONRY_RESEARCH]" = "Allocating additional CPU to the research servers should allow for weaponry theory point gain. Not to be confused with other Research points.",
+	"[AI_MEDICAL_RESEARCH]" = "Allocating additional CPU to the research servers should allow for deep analising of organic life choice making. Not to be confused with other Research points.",
 	"[AI_REVIVAL]" = "If you've inserted a volatile neural core into a connected data core this will revive it using CPU.",
 	"[AI_PUZZLE]" = "If you've found and inserted an encrypted floppy drive into a connected server cabinet you can decrypt it using CPU.",
 	"[SYNTH_RESEARCH]" = "CPU allocated to this task will be split amongst connected synths so they can research local projects."

@@ -20,7 +20,7 @@
 	attack_verbs = list("slash", "scratch", "claw")
 	attack_effect = ATTACK_EFFECT_CLAW
 	barefoot_step_sound = FOOTSTEP_MOB_CLAW
-	attack_sound = SFX_SLASH
+	attack_sound = SFX_CLAWS
 	miss_sound = SFX_SLASHMISS
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard

@@ -24,6 +24,7 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	footstep_type = FOOTSTEP_MOB_SHOE
 
+/*
 /mob/living/simple_animal/hostile/retaliate/nanotrasenpeace //this should be in a different file
 	name = "Nanotrasen Private Security Officer"
 	desc = "An officer part of Nanotrasen's private security force."
@@ -72,3 +73,4 @@
 	projectilesound = 'sound/weapons/gunshot_smg.ogg'
 	loot = list(/obj/item/gun/ballistic/automatic/wt550,
 				/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)
+*/

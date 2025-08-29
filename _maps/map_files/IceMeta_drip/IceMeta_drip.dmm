@@ -7820,7 +7820,7 @@
 	},
 /obj/structure/cable/yellow,
 /obj/structure/table,
-/obj/item/clothing/suit/space/hardsuit/syndi/engineering/unathi,
+/obj/item/clothing/suit/space/hardsuit/dualmode/engineering/unathi,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "chk" = (

@@ -10,7 +10,7 @@
 		var/damage = 20
 		if (prob(90))
 			log_combat(M, src, "attacked")
-			playsound(loc, SFX_SLASH, 25, 1, -1)
+			playsound(loc, SFX_CLAWS, 25, 1, -1)
 			visible_message(span_danger("[M] has slashed at [src]!"), \
 							span_userdanger("[M] has slashed at [src]!"))
 			if(prob(8))
@@ -19,7 +19,7 @@
 			adjustBruteLoss(run_armor(damage, BRUTE, MELEE))
 			updatehealth()
 		else
-			playsound(loc, SFX_SLASHMISS, 25, 1, -1)
+			playsound(loc, get_sfx(SFX_SLASHMISS), 25, 1, -1)
 			visible_message(span_danger("[M] took a swipe at [src]!"), \
 							span_userdanger("[M] took a swipe at [src]!"))
 

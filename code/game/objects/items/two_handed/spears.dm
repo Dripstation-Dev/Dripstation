@@ -107,7 +107,7 @@
 	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.say("[war_cry]", forced = "spear warcry")
 	explosive.forceMove(user)
-	explosive.prime()
+	explosive.prime(user)
 	user.gib()
 	qdel(src)
 	return BRUTELOSS
@@ -132,7 +132,7 @@
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.say("[war_cry]", forced = "spear warcry")
 		explosive.forceMove(AM)
-		explosive.prime()
+		explosive.prime(user)
 		qdel(src)
 
 /**

@@ -42,6 +42,7 @@
 
 /datum/species/human/felinid
 	screamsound = list('sound/voice/feline/scream1.ogg', 'sound/voice/feline/scream2.ogg', 'sound/voice/feline/scream3.ogg', 'sound/voice/feline/scream3.ogg', 'modular_dripstation/sound/emotes/cat/scream_cat.ogg')
+	barefoot_step_sound = FOOTSTEP_MOB_PAW
 
 /datum/species/human/felinid/get_cry_sound(mob/living/carbon/user)
 	return CAT_DEFAULT_CRY_SOUND(user)

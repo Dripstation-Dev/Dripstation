@@ -1,3 +1,6 @@
+/obj/mecha
+	plane = GAME_PLANE_FOV_HIDDEN
+
 /obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg556fire

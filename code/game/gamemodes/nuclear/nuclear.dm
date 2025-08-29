@@ -175,7 +175,7 @@
 
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode
 	/*Dripstation edit
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 	*/

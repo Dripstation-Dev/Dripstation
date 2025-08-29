@@ -93,12 +93,11 @@
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_TYPE_BLOOD)
 
 /obj/item/melee/dualsaber/attack(mob/target, mob/living/carbon/human/user)
-	if(user.has_dna())
-		if(user.dna.check_mutation(HULK))
-			to_chat(user, span_warning("You grip the blade too hard and accidentally close it!"))
-			if(HAS_TRAIT(src, TRAIT_WIELDED))
-				user.dropItemToGround(src, force=TRUE)
-				return
+	if(HAS_TRAIT(user, TRAIT_HULK))
+		to_chat(user, span_warning("You grip the blade too hard and accidentally close it!"))
+		if(HAS_TRAIT(src, TRAIT_WIELDED))
+			user.dropItemToGround(src, force=TRUE)
+			return
 	..()
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (HAS_TRAIT(src, TRAIT_WIELDED)) && prob(40))
 		impale(user)
@@ -182,9 +181,7 @@
 	return ..()
 
 /obj/item/melee/dualsaber/proc/on_wield(atom/source, mob/living/carbon/M)
-	if(!M.has_dna())
-		return
-	if(M.dna.check_mutation(HULK))
+	if(HAS_TRAIT(M, TRAIT_HULK))
 		to_chat(M, span_warning("You lack the grace to wield this!"))
 		return
 	sharpness = SHARP_EDGED

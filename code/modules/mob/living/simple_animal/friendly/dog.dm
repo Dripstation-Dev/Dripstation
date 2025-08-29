@@ -23,7 +23,7 @@
 	turns_per_move = 10
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
-	footstep_type = FOOTSTEP_MOB_CLAW
+	footstep_type = FOOTSTEP_MOB_PAW
 	wuv_happy = "yaps happily!"
 	wuv_angy = "growls!"
 

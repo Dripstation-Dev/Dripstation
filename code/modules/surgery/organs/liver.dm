@@ -56,8 +56,10 @@
 				to_chat(C, span_warning("You feel a stabbing pain in your abdomen!"))
 			*/
 
+	/* the f we need this again?
 	if(damage > maxHealth)//cap liver damage
 		damage = maxHealth
+	*/
 
 #undef HAS_SILENT_TOXIN
 #undef HAS_NO_TOXIN

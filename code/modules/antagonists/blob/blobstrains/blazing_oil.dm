@@ -43,4 +43,4 @@
 	if(M)
 		M.apply_damage(0.8*reac_volume, BURN, wound_bonus=CANT_WOUND)
 	if(iscarbon(M))
-		M.pain(100, TRUE)
+		M.flick_pain(100, TRUE)

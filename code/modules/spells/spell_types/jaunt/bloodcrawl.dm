@@ -190,7 +190,7 @@
 		return FALSE
 
 	victim.forceMove(jaunter)
-	victim.pain(100, TRUE)
+	victim.flick_pain(100, TRUE)
 	jaunt_turf.visible_message(
 		span_boldwarning("[jaunter] drags [victim] into [blood]!"),
 		blind_message = span_notice("You hear a splash."),

@@ -527,8 +527,6 @@ GLOBAL_LIST_EMPTY(lockers)
 	to_chat(user, span_warning("You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)"))	//dripstation edit
 	animate_break_out(user)	//dripstation edit
 	if(do_after(user, (breakout_time), src))
-		if(shaking_restart_timer)			//dripstation edit
-			deltimer(shaking_restart_timer)	//dripstation edit, prichina triaski?
 		if(!user || user.stat != CONSCIOUS || user.loc != src || opened || (!locked && !welded) )
 			return
 		//we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting

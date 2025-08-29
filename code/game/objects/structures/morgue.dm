@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(istype(O, /obj/item/grenade))
 			log_bomber(user, "cremated a ", O, ", detonating it.")
 			var/obj/item/grenade/nade = O
-			nade.prime()
+			nade.prime(user)
 		else if(istype(O, /obj/item/tank))
 			log_bomber(user, "cremated a ", O, ", igniting it.")
 			var/obj/item/tank/tank = O

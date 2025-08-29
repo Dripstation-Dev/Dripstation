@@ -167,40 +167,49 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 		return
 	shaking_anim(TRUE)
 
-/obj/structure
-	var/shaking_restart_timer 
+/obj
+	COOLDOWN_DECLARE(shaking_cd)
 
-/obj/structure/proc/shaking_anim(repeatable = FALSE)
-	if(anchored)
+/obj/proc/shaking_anim(repeatable = FALSE, check_anchored = FALSE)
+	if(check_anchored && anchored)
+		return
+	if(!COOLDOWN_FINISHED(src, shaking_cd))
 		return
 	var/matrix/rtransform = matrix(transform) //aka transform.Copy()
 	var/matrix/ltransform = matrix(transform) //aka transform.Copy()
 	var/oldtransform = transform
-	rtransform.Turn(25)
-	ltransform.Turn(-25)
+	rtransform.Turn(22)
+	ltransform.Turn(-22)
+	playsound(src.loc, get_sfx(SFX_VENDING_SHAKE), 70, TRUE, -1)
 	visible_message(message = span_warning("\The [src] begins to shake violently!"), \
 		blind_message = span_italics("You hear banging from \the [src]."))
-	for(var/i in 0 to 1)
+	/*for(var/i in 0 to 1)
 		addtimer(CALLBACK(src, PROC_REF(anim_left), rtransform), 0.2+i SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, -1), 0.4+i SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(anim_right), ltransform), 0.6+i SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, 1), 0.8+i SECONDS)
+	*/
+	addtimer(CALLBACK(src, PROC_REF(anim_left), rtransform), 0.1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, -1), 0.25 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(anim_right), ltransform), 0.4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, 1), 0.55 SECONDS)
+	COOLDOWN_START(src, shaking_cd, 0.75 SECONDS)
 	if(repeatable)
-		shaking_restart_timer = addtimer(CALLBACK(src, PROC_REF(shaking_anim)), 2 SECONDS, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(shaking_anim), TRUE), 0.76 SECONDS, TIMER_STOPPABLE)
 
 /obj/structure/closet/shaking_anim(repeatable = FALSE)
 	if(opened)
 		return
 	return ..()
 
-/obj/structure/proc/anim_left(rtransform)
-	animate(src, transform = rtransform, time = 0.2 SECONDS, pixel_y = 1, pixel_x = 1, easing = EASE_IN|EASE_OUT)
+/obj/proc/anim_left(rtransform)
+	animate(src, transform = rtransform, time = 0.15 SECONDS, pixel_y = 1, pixel_x = 1, easing = EASE_IN|EASE_OUT)
 
-/obj/structure/proc/anim_normalise(oldtransform, px)
-	animate(src, transform = oldtransform, time = 0.2 SECONDS, pixel_y = -1, pixel_x = px, easing = EASE_IN|EASE_OUT)
+/obj/proc/anim_normalise(oldtransform, px)
+	animate(src, transform = oldtransform, time = 0.15 SECONDS, pixel_y = -1, pixel_x = px, easing = EASE_IN|EASE_OUT)
 
-/obj/structure/proc/anim_right(ltransform)
-	animate(src, transform = ltransform, time = 0.2 SECONDS, pixel_y = 1, pixel_x = -1, easing = EASE_IN|EASE_OUT)
+/obj/proc/anim_right(ltransform)
+	animate(src, transform = ltransform, time = 0.15 SECONDS, pixel_y = 1, pixel_x = -1, easing = EASE_IN|EASE_OUT)
 
 // ###### HOS ######
 /obj/structure/closet/secure_closet/hos

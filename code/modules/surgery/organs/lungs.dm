@@ -88,7 +88,7 @@
 				gas_min -= g
 
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
+	var/breathModifier = (5-(5*(damage/getMaxHealth())/2)) //range 2.5 - 5
 	if(H.status_flags & GODMODE)
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
@@ -98,7 +98,7 @@
 		var/datum/gas_mixture/environment = H.loc?.return_air()
 		if(!environment.return_pressure())	//so generally you breath open space lately, epi can`t help with that
 			damage += HUMAN_MAX_OXYLOSS
-			var/lung_rupture_prob = prob(5 + 10*damage/maxHealth)
+			var/lung_rupture_prob = prob(5 + 10*damage/getMaxHealth())
 			if(!is_ruptured && status != ORGAN_ROBOTIC && lung_rupture_prob) //only rupture if NOT already ruptured
 				rupture()
 		if(H.reagents.has_reagent(crit_stabilizing_reagent, needs_metabolizing = TRUE))

@@ -271,7 +271,7 @@
 		return ..()
 	if(process_fire(user, user, FALSE, null, BODY_ZONE_HEAD))
 		user.visible_message(span_warning("[user] somehow manages to shoot [user.p_them()]self in the face!"), span_userdanger("You somehow shoot yourself in the face! How the hell?!"))
-		user.pain(100, TRUE)
+		user.flick_pain(100, TRUE)
 		user.drop_all_held_items()
 		user.Paralyze(80)
 

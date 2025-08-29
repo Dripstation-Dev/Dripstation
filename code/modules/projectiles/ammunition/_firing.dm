@@ -1,3 +1,4 @@
+/* dripstation edit
 /obj/item/ammo_casing/proc/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/fired_from, cd_override_arg = FALSE)
 	distro += variance
 	for (var/i = max(1, pellets), i > 0, i--)
@@ -21,6 +22,7 @@
 	user.newtonian_move(get_dir(target, user))
 	update_appearance(UPDATE_ICON)
 	return TRUE
+*/
 
 /obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/fired_from)
 	if (!BB)

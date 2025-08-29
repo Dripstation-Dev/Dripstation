@@ -17,6 +17,7 @@ datum/effect_system/fluid_spread/smoke/chem/glitter
 	reagents.add_reagent(glitter_type, 20)
 
 /obj/item/grenade/plastic/glitterbomb/prime()
+	..()
 	var/datum/effect_system/fluid_spread/smoke/chem/glitter/smoke = new()
 	smoke.set_up(4, location = target, carry = reagents)
 	smoke.start()

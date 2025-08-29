@@ -27,7 +27,7 @@
 	"2. Kill.\n"+\
 	"3. Destroy."
 	default_storage = /obj/item/uplink
-	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/syndi
+	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/dualmode
 	hacked = TRUE
 	flavortext = null
 	pacifism = FALSE
@@ -43,7 +43,7 @@
 
 /mob/living/simple_animal/drone/syndrone/badass
 	name = "Badass Syndrone"
-	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
+	default_hatmask = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite
 	default_storage = /obj/item/uplink/nuclear
 
 /mob/living/simple_animal/drone/syndrone/badass/Initialize(mapload)

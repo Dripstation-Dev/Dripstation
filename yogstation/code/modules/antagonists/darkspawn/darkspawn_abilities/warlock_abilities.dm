@@ -592,7 +592,7 @@
 			victim.heal_ordered_damage(90, list(BURN, BRUTE, TOX, OXY, CLONE, STAMINA), BODYPART_ANY)
 		else if(!victim.can_block_magic(MAGIC_RESISTANCE_MIND))
 			victim.take_overall_damage(10, 50, 200) //skill issue if you don't dodge it (won't crit if you're full hp)
-			victim.pain(100, TRUE)
+			victim.flick_pain(100, TRUE)
 	return ..()
 	
 //////////////////////////////////////////////////////////////////////////

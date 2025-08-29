@@ -75,10 +75,26 @@
 	desc = "A cased tear gas grenade that can only be activated once fired out of a grenade launcher."
 	projectile_type = /obj/projectile/bullet/a40mm/gas
 
+/obj/item/ammo_box/a40mm/teargas
+	name = "ammo box (40mm Tear Gas grenades)"
+	icon_state = "40mm"
+	ammo_type = /obj/item/ammo_casing/a40mm/gas
+	caliber = CALIBER_40GL
+	max_ammo = 4
+	multiple_sprites = AMMO_BOX_PER_BULLET
+
 /obj/item/ammo_casing/a40mm/chlorinetwogas
 	name = "40mm Ch2G shell"
 	desc = "A cased chlorine two gas grenade that can only be activated once fired out of a grenade launcher."
 	projectile_type = /obj/projectile/bullet/a40mm/gas/chlorinetwo
+
+/obj/item/ammo_box/a40mm/teargas
+	name = "ammo box (40mm Ch2G grenades)"
+	icon_state = "40mm"
+	ammo_type = /obj/item/ammo_casing/a40mm/chlorinetwogas
+	caliber = CALIBER_40GL
+	max_ammo = 4
+	multiple_sprites = AMMO_BOX_PER_BULLET
 
 /obj/item/ammo_casing/a40mm/smoke
 	name = "40mm smoke shell"

@@ -67,7 +67,7 @@
 		to_chat(H, span_warning("You stub your toe on the [name]!"))
 		H.visible_message("[H] stubs their toe on the [name].")
 		balloon_alert(H, "stubbed toe")
-		H.pain(100, TRUE)
+		H.flick_pain(100, TRUE)
 		var/shiddedleg = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 		H.apply_damage(2*speed_multiplier, BRUTE, def_zone = shiddedleg)
 		H.apply_damage(30*speed_multiplier, STAMINA, def_zone = shiddedleg)

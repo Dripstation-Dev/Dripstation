@@ -465,7 +465,7 @@
 		var/mob/living/M = H.pulledby
 		if(M.electrocute_act(dmg, src))	//dripstation edit
 			M.visible_message(span_danger("[M] is electrocuted by [M.p_their()] contact with [H]!"))
-			M.pain(100, TRUE)
+			M.flick_pain(100, TRUE)
 
 /obj/item/shockpaddles/proc/do_disarm(mob/living/M, mob/living/user)
 	if(req_defib && defib.safety)
@@ -525,7 +525,7 @@
 			user.visible_message(span_boldannounce("<i>[user] shocks [H] with \the [src]!"), span_warning("You shock [H] with \the [src]!"))
 			playsound(src, 'sound/machines/defib_zap.ogg', 100, 1, -1)
 			playsound(src, 'sound/weapons/egloves.ogg', 100, 1, -1)
-			H.pain(100, TRUE)
+			H.flick_pain(100, TRUE)
 			shock_touching(45, H)
 			if(H.can_heartattack() && !H.undergoing_cardiac_arrest())
 				if(!H.stat)

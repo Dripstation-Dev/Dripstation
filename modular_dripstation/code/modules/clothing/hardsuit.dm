@@ -1,3 +1,5 @@
+/// How much damage you take from an emp when wearing a hardsuit
+#define HARDSUIT_EMP_BURN 10
 //override light toggle
 /obj/item/clothing/head/helmet/space/hardsuit
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
@@ -12,6 +14,17 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.build_all_button_icons()
+
+/// Burn the person inside the hard suit just a little, the suit got really hot for a moment
+/obj/item/clothing/suit/space/hardsuit/emp_act(severity)
+	. = ..()
+	if (!(. & EMP_PROTECT_CONTENTS))
+		var/mob/living/carbon/human/user = src.loc
+		if(istype(user) && user.wear_suit == src)
+			user.apply_damage(HARDSUIT_EMP_BURN * severity, BURN, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), wound_bonus = 10)
+			to_chat(user, span_warning("You feel \the [src] heat up from the EMP burning you slightly."))
+			balloon_alert(user, "suit EMPied")
+			//user.flick_pain(10, TRUE)
 
 //Engineering
 /obj/item/clothing/head/helmet/space/hardsuit/engine
@@ -42,10 +55,10 @@
 	//item_state = "metalh2_helm"
 	hardsuit_type = "metalh2"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/owl
+/obj/item/clothing/head/helmet/space/hardsuit/dualmode/owl
 	icon_state = "owl_helm"
 
-/obj/item/clothing/suit/space/hardsuit/syndi/owl
+/obj/item/clothing/suit/space/hardsuit/dualmode/owl
 	icon_state = "owl_rig"
 
 //Mining hardsuit, now explorer hardsuit
@@ -177,6 +190,7 @@
 	hardsuit_type = "sec"
 	light_range = 5
 	light_color = LIGHT_COLOR_RED
+	clothing_traits = list(TRAIT_HEAD_INJURY_BLOCKED)
 
 /obj/item/clothing/suit/space/hardsuit/security
 	desc = "A standart issue security suit that protects against hazardous, low pressure environments. Has an additional layer of armor."

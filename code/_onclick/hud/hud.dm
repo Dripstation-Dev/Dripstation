@@ -6,6 +6,8 @@
 
 // The default UI style is the first one in the list
 GLOBAL_LIST_INIT(available_ui_styles, list(
+	"Midnight" = 'modular_dripstation/icons/hud/screen_drip.dmi',
+	/*
 	"Midnight" = 'icons/mob/screen_midnight.dmi',
 	"Retro" = 'icons/mob/screen_retro.dmi',
 	"Plasmafire" = 'icons/mob/screen_plasmafire.dmi',
@@ -14,6 +16,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	"Clockwork" = 'icons/mob/screen_clockwork.dmi',
 	"Detective" = 'icons/mob/screen_detective.dmi',
 	"Obsidian" = 'icons/mob/screen_obsidian.dmi',
+	*/
 ))
 
 /proc/ui_style2icon(ui_style)
@@ -42,6 +45,9 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/rest_icon
 	var/atom/movable/screen/throw_icon
 	var/atom/movable/screen/module_store_icon
+
+	var/atom/movable/screen/fov_holder/fov_holder	//dripstation edit - fov
+	var/atom/movable/screen/swap_hand/swap_hand		//dripstation edit - swap
 
 	var/list/static_inventory = list() //the screen objects which are static
 	var/list/toggleable_inventory = list() //the screen objects which can be hidden
@@ -510,10 +516,12 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 		static_inventory += hand_box
 		hand_box.update_appearance()
 
+	/*
 	var/i = 1
 	for(var/atom/movable/screen/swap_hand/SH in static_inventory)
 		SH.screen_loc = ui_swaphand_position(mymob,!(i % 2) ? 2: 1)
 		i++
+	*/
 	for(var/atom/movable/screen/human/equip/E in static_inventory)
 		E.screen_loc = ui_equip_position(mymob)
 

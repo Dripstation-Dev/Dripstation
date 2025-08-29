@@ -1,18 +1,22 @@
 /datum/component/echolocation
-	/// Current radius, will set itself to default
-	var/echo_range
+	/// Radius of our view.
+	var/echo_range = 4
 	/// Time between echolocations.
-	var/cooldown_time
+	var/cooldown_time = 2 SECONDS
 	/// Time for the image to start fading out.
-	var/image_expiry_time
+	var/image_expiry_time = 1.5 SECONDS
 	/// Time for the image to fade in.
-	var/fade_in_time
+	var/fade_in_time = 0.5 SECONDS
 	/// Time for the image to fade out and delete itself.
-	var/fade_out_time
+	var/fade_out_time = 0.5 SECONDS
 	/// Are images static? If yes, spawns them on the turf and makes them not change location. Otherwise they change location and pixel shift with the original.
-	var/images_are_static
+	var/images_are_static = TRUE
 	/// With mobs that have this echo group in their echolocation receiver trait, we share echo images.
-	var/echo_group
+	var/echo_group = null
+	/// This trait blocks us from receiving echolocation.
+	var/blocking_trait
+	/// Does this echolocation cause us to go blind?
+	var/blinding = TRUE
 	/// Ref of the client color we give to the echolocator.
 	var/client_color
 	/// Associative list of world.time when created to a list of the images.
@@ -32,24 +36,18 @@
 	/// Cooldown for the echolocation.
 	COOLDOWN_DECLARE(cooldown_last)
 
-/datum/component/echolocation/Initialize(
-	echo_range = 4,
-	cooldown_time = 2 SECONDS,
-	image_expiry_time = 1.5 SECONDS,
-	fade_in_time = 0.5 SECONDS,
-	fade_out_time = 0.5 SECONDS,
-	images_are_static = TRUE,
-	echo_group = "default",
-	color_path = /datum/client_colour/echolocate,
-)
+/datum/component/echolocation/Initialize(echo_range, cooldown_time, image_expiry_time, fade_in_time, fade_out_time, images_are_static, blocking_trait, echo_group, echo_icon, color_path, blinding)
 	. = ..()
 	var/mob/living/echolocator = parent
 	if(!istype(echolocator))
 		return COMPONENT_INCOMPATIBLE
+	if(HAS_TRAIT(echolocator, TRAIT_DEAF) && echo_group == "blind")
+		return COMPONENT_INCOMPATIBLE
 	if(!danger_turfs)
+		//danger_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/chasm, /turf/open/lava, /turf/open/floor/fakespace, /turf/open/floor/fakepit))
 		danger_turfs = typecacheof(list(/turf/open/chasm, /turf/open/lava, /turf/open/floor/fakepit))
 	if(!allowed_paths)
-		allowed_paths = typecacheof(list(/turf/closed, /obj, /mob/living, /obj/structure)) + danger_turfs - typecacheof(/obj/effect/decal)
+		allowed_paths = typecacheof(list(/turf/closed, /obj, /mob/living)) + danger_turfs - typecacheof(/obj/effect/decal)
 	if(!isnull(echo_range))
 		src.echo_range = echo_range
 	if(!isnull(cooldown_time))
@@ -60,22 +58,29 @@
 		src.fade_in_time = fade_in_time
 	if(!isnull(fade_out_time))
 		src.fade_out_time = fade_out_time
+	if(!isnull(blinding))
+		src.blinding = blinding
 	if(!isnull(images_are_static))
 		src.images_are_static = images_are_static
+	if(!isnull(blocking_trait))
+		src.blocking_trait = blocking_trait
 	if(ispath(color_path))
 		client_color = echolocator.add_client_colour(color_path)
 	src.echo_group = echo_group || REF(src)
-	echolocator.add_traits(list(TRAIT_ECHOLOCATION_RECEIVER, TRAIT_NIGHT_VISION), src.echo_group) //so they see all the tiles they echolocated, even if they are in the dark
-	echolocator.become_blind(ECHOLOCATION_TRAIT)
-	echolocator.overlay_fullscreen("echo", /atom/movable/screen/fullscreen/echo)
+	echolocator.add_traits(list(TRAIT_ECHOLOCATION_RECEIVER, TRAIT_TRUE_NIGHT_VISION), echo_group) //so they see all the tiles they echolocated, even if they are in the dark
+	if(blinding)
+		echolocator.become_blind(ECHOLOCATION_TRAIT)
+		echolocator.overlay_fullscreen("echo", /atom/movable/screen/fullscreen/echo, echo_icon)
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/component/echolocation/Destroy(force, silent)
 	STOP_PROCESSING(SSfastprocess, src)
 	var/mob/living/echolocator = parent
 	QDEL_NULL(client_color)
-	echolocator.remove_traits(list(TRAIT_ECHOLOCATION_RECEIVER, TRAIT_NIGHT_VISION), echo_group)
-	echolocator.cure_blind(ECHOLOCATION_TRAIT)
+	echolocator.remove_traits(list(TRAIT_ECHOLOCATION_RECEIVER, TRAIT_TRUE_NIGHT_VISION), echo_group)
+	if(blinding)
+		echolocator.cure_blind(ECHOLOCATION_TRAIT)
+		echolocator.clear_fullscreen("echo")
 	for(var/timeframe in images)
 		delete_images(timeframe)
 	return ..()
@@ -92,19 +97,31 @@
 	COOLDOWN_START(src, cooldown_last, cooldown_time)
 	var/mob/living/echolocator = parent
 	var/real_echo_range = echo_sound_environment(echolocator, echo_range)
+	if(HAS_TRAIT(echolocator, TRAIT_ECHOLOCATION_EXTRA_RANGE))
+		real_echo_range += 2
 	var/list/filtered = list()
-	var/list/seen = dview(real_echo_range, get_turf(echolocator.client?.eye || echolocator), invis_flags = echolocator.see_invisible)
-	for(var/atom/seen_atom as anything in seen)
-		if(!seen_atom.alpha)
-			continue
-		if(allowed_paths[seen_atom.type])
-			filtered += seen_atom
+	if(blinding)
+		var/list/seen = dview(real_echo_range, get_turf(echolocator.client?.eye || echolocator), invis_flags = echolocator.see_invisible)
+		for(var/atom/seen_atom as anything in seen)
+			if(!seen_atom.alpha)
+				continue
+			if(allowed_paths[seen_atom.type])
+				filtered += seen_atom
+	else
+		var/list/ranged_atoms = range(real_echo_range, get_turf(echolocator.client?.eye || echolocator))
+		for(var/atom/possible_atom as anything in ranged_atoms)
+			if(!possible_atom.alpha)
+				continue
+			if(allowed_paths[possible_atom.type])
+				filtered += possible_atom
 	if(!length(filtered))
 		return
 	var/current_time = "[world.time]"
 	images[current_time] = list()
 	receivers[current_time] = list()
 	for(var/mob/living/viewer in filtered)
+		if(blocking_trait && HAS_TRAIT(viewer, blocking_trait))
+			continue
 		if(HAS_TRAIT_FROM(viewer, TRAIT_ECHOLOCATION_RECEIVER, echo_group))
 			receivers[current_time] += viewer
 	for(var/atom/filtered_atom as anything in filtered)
@@ -114,6 +131,15 @@
 /datum/component/echolocation/proc/echo_sound_environment(mob/living/creature, range)
 	var/area/A = get_area(creature)
 	var/sound_environment = A.sound_environment	
+
+	//sanity check, if we have too low mixture - we have low range
+	var/datum/gas_mixture/environment = A.loc.return_air()
+	var/pressure = environment.return_pressure()
+	if(pressure <= 0.15*ONE_ATMOSPHERE)
+		return range -3
+	else if(pressure <= 0.3*ONE_ATMOSPHERE)
+		return range -2
+
 	switch(sound_environment)
 		if(SOUND_AREA_SPACE)
 			return range -3
@@ -136,7 +162,7 @@
 		else
 			return range
 
-/datum/component/echolocation/proc/show_image(mutable_appearance/input_appearance, atom/input, current_time)
+/datum/component/echolocation/proc/show_image(image/input_appearance, atom/input, current_time)
 	var/image/final_image = image(input_appearance)
 	final_image.layer += EFFECTS_LAYER
 	final_image.plane = FULLSCREEN_PLANE
@@ -160,11 +186,7 @@
 	var/use_outline = TRUE
 	var/mutable_appearance/copied_appearance = new /mutable_appearance()
 	copied_appearance.appearance = input
-	if(istype(input, /obj/structure/table))
-		copied_appearance.cut_overlays()
-		copied_appearance.icon = 'icons/obj/structures.dmi'
-		copied_appearance.icon_state = "table"
-	else if(istype(input, /obj/machinery/door/airlock)) //i hate you
+	if(istype(input, /obj/machinery/door/airlock)) //i hate you
 		copied_appearance.cut_overlays()
 		copied_appearance.icon = 'icons/obj/doors/airlocks/station/public.dmi'
 		copied_appearance.icon_state = "closed"
@@ -202,7 +224,7 @@
 	layer = ECHO_LAYER
 	show_when_dead = TRUE
 
-/atom/movable/screen/fullscreen/echo/Initialize(mapload)
+/atom/movable/screen/fullscreen/echo/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	particles = new /particles/echo()
 

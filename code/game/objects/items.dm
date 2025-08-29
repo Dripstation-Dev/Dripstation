@@ -388,9 +388,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of fire-retardant materials."
 	if(taped)
 		. += "[src] seems to be covered in tape."
-	if((in_range(user, src) && (HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_BASIC) && !syndicate) || (HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED) && (!syndicate || isinhands))) || isobserver(user))
+	if(illegal_identification_skill_check(user))
 		if(is_illegal())
-			. += span_warning("Illegal under Nanotrasen Corporate Law.")
+			if(syndicate)
+				. += span_tinynotice("Seems to have some unregistered functions.")
+			else
+				. += span_warning("Illegal under Nanotrasen Corporate Law.")
 		if(is_restricted())
 			. += span_notice("Restricted under Nanotrasen Corporate Law.")
 	if(!user.research_scanner)
@@ -429,6 +432,19 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		research_msg += "None"
 	research_msg += "."
 	. += research_msg.Join()
+
+/obj/item/proc/illegal_identification_skill_check(mob/user)
+	if(!in_range(user, src))
+		return FALSE
+	if(is_syndicate(user))
+		return TRUE
+	if(HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_BASIC) && !syndicate)
+		return TRUE
+	if(HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED) && (!syndicate || user.is_holding(src)))
+		return TRUE
+	if(isobserver(user))
+		return TRUE
+	return FALSE
 
 /obj/item/interact(mob/user)
 	add_fingerprint(user)

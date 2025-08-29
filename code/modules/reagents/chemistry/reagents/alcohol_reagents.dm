@@ -228,7 +228,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 				eyes.Remove(M)
 				eyes.forceMove(get_turf(M))
 				to_chat(M, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
-				M.pain(100, TRUE)
+				M.flick_pain(100, TRUE)
 				M.adjustBruteLoss(15)
 		else
 			to_chat(M, span_userdanger("You scream in terror as you go blind!"))
@@ -2170,7 +2170,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/M)
 
 	if(ismoth(M) || isflyperson(M))
-		M.pain(100, TRUE)
+		M.flick_pain(100, TRUE)
 	return ..()
 
 
@@ -2327,7 +2327,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/planet_cracker/on_mob_life(mob/living/carbon/M)
 	if(islizard(M) && prob(15))
-		M.pain(100, TRUE)
+		M.flick_pain(100, TRUE)
 	else if(ishumanbasic(M))
 		M.heal_overall_damage(0.25, 0.25)
 	return ..()

@@ -128,7 +128,7 @@
 			new /obj/item/clothing/under/suit/really_black(src) //Free?
 
 		if("metaops") //30 TC
-			new /obj/item/clothing/suit/space/hardsuit/syndi(src) //8 TC
+			new /obj/item/clothing/suit/space/hardsuit/dualmode(src) //8 TC
 			new /obj/item/gun/ballistic/shotgun/bulldog/unrestricted(src) //8 TC, nukies only
 			new /obj/item/implanter/explosive(src) //2 TC, nukies only
 			new /obj/item/ammo_box/magazine/m12g(src) //2 TC, nukies only

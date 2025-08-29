@@ -430,7 +430,7 @@
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			L.pain(100, TRUE)
+			L.flick_pain(100, TRUE)
 			L.Paralyze(100)
 		else if(ismonkey(L)) //For monkeys
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)

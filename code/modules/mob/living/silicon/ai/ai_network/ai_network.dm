@@ -76,6 +76,16 @@
 		points = clamp(points * AI_REGULAR_RESEARCH_POINT_MULTIPLIER, 0, MAX_AI_REGULAR_RESEARCH_PER_TICK)
 		SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_DEFAULT = points))
 
+	if(local_cpu_usage[AI_WEAPONRY_RESEARCH])
+		var/points = max(round(AI_RESEARCH_PER_CPU * (local_cpu_usage[AI_RESEARCH] * total_cpu * resources_assigned)), 0)
+		points = clamp(points * AI_REGULAR_RESEARCH_POINT_MULTIPLIER, 0, MAX_AI_REGULAR_RESEARCH_PER_TICK)
+		SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_WEAPONRY = points))
+
+	if(local_cpu_usage[AI_MEDICAL_RESEARCH])
+		var/points = max(round(AI_RESEARCH_PER_CPU * (local_cpu_usage[AI_RESEARCH] * total_cpu * resources_assigned)), 0)
+		points = clamp(points * AI_REGULAR_RESEARCH_POINT_MULTIPLIER, 0, MAX_AI_REGULAR_RESEARCH_PER_TICK)
+		SSresearch.science_tech.add_point_list(list(TECHWEB_POINT_TYPE_MEDICAL = points))
+
 	if(local_cpu_usage[AI_REVIVAL])
 		var/points = max(round(AI_RESEARCH_PER_CPU * (local_cpu_usage[AI_REVIVAL] * total_cpu * resources_assigned)), 0)
 		points = max(0, points)

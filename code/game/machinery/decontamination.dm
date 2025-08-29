@@ -105,7 +105,7 @@
 				mob_occupant.radiation += 500
 				mob_occupant.adjust_fire_stacks(2)
 				mob_occupant.ignite_mob()
-				mob_occupant.pain(100, TRUE) //Awake, organic and screaming
+				mob_occupant.flick_pain(100, TRUE) //Awake, organic and screaming
 		else
 			decon.start()
 		addtimer(CALLBACK(src, PROC_REF(cook)), 50)

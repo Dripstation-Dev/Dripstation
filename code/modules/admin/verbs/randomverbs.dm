@@ -1333,7 +1333,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			to_chat(chucklenuts, span_warning("Think Fast!"))
 			sleep(1.5 SECONDS)
 			var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(target.loc)
-			CB.prime()
+			CB.prime(chucklenuts)
 			chucklenuts.flash_act()
 
 		if(ADMIN_PUNISHMENT_WIBBLY)

@@ -15,6 +15,7 @@
 
 /mob/living/simple_animal/hostile/syndicate
 	icon = 'modular_dripstation/icons/mob/simple_human.dmi'
+	icon_gib = "syndicate_gib"
 
 /mob/living/simple_animal/hostile/syndicate/melee //dude with eknife
 	attack_sound = 'sound/weapons/blade1.ogg'

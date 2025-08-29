@@ -175,7 +175,7 @@
 		C.throw_mode_on()
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
+	addtimer(CALLBACK(src, PROC_REF(prime), user), rand(10, 60))
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/burn()
 	prime()
@@ -189,7 +189,8 @@
 /obj/item/reagent_containers/food/snacks/grown/firelemon/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion
 
-/obj/item/reagent_containers/food/snacks/grown/firelemon/proc/prime()
+/obj/item/reagent_containers/food/snacks/grown/firelemon/proc/prime(mob/lanced_by)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
 			update_mob()

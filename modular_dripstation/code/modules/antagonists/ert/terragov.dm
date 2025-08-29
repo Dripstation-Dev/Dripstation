@@ -334,7 +334,7 @@ GLOBAL_LIST_INIT(call911_do_and_do_not, list(
 	name = "811 Response: Breach Control"
 	back = /obj/item/storage/backpack/unknown
 	uniform = /obj/item/clothing/under/rank/engineering/engineer/hazard
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/engineering
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/engineering
 	shoes = /obj/item/clothing/shoes/workboots
 	ears = /obj/item/radio/headset/headset_eng
 	mask = /obj/item/clothing/mask/gas/atmos

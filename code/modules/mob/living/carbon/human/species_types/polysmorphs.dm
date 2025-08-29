@@ -37,7 +37,7 @@
 	attack_verbs = list("slash")
 	barefoot_step_sound = FOOTSTEP_MOB_CLAW
 	attack_effect = ATTACK_EFFECT_CLAW
-	attack_sound = SFX_SLASH
+	attack_sound = SFX_CLAWS
 	miss_sound = SFX_SLASHMISS
 	fixed_mut_color = "#444466" //don't mess with this if you don't feel like manually adjusting the mutant bodypart sprites
 	mutant_bodyparts = list("tail_polysmorph", "dome", "dorsal_tubes", "teeth", "legs")

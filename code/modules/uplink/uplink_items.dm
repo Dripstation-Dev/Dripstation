@@ -1672,7 +1672,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
 			Nanotrasen crew who spot these suits are known to panic."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode
 	cost = 8
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/infiltration) //you can't buy it in nuke, because the elite hardsuit costs the same while being better // yogs: infiltration
 
@@ -1680,7 +1680,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Elite Syndicate Hardsuit"
 	desc = "An upgraded, elite version of the Syndicate hardsuit. It features fireproofing, and also \
 			provides the user with superior armor and mobility compared to the standard Syndicate hardsuit."
-	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	item = /obj/item/clothing/suit/space/hardsuit/dualmode/elite
 	cost = 8
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	exclude_modes = list()

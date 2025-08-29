@@ -222,7 +222,7 @@
 		H.set_jitter_if_lower(10 SECONDS)
 		H.set_stutter_if_lower(1 SECONDS)
 		if(!soggy)//play once when it starts
-			H.pain(100, TRUE)
+			H.flick_pain(100, TRUE)
 			to_chat(H, span_userdanger("Your entire being screams in agony as your wires short from getting wet!"))
 		if(prob(50))
 			playsound(get_turf(H), "sparks", 30, 1)

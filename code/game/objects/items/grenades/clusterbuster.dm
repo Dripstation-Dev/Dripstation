@@ -24,7 +24,8 @@
 	if(payload)
 		return list(span_info("\The [src] contains [initial(payload.name)]s."))
 
-/obj/item/grenade/clusterbuster/prime()
+/obj/item/grenade/clusterbuster/prime(mob/lanced_by)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	update_mob()
 	var/numspawned = rand(min_spawned,max_spawned)
 	var/again = 0
@@ -67,9 +68,10 @@
 	var/steps = rand(1,4)
 	for(var/i in 1 to steps)
 		step_away(src,loc)
-	addtimer(CALLBACK(src, PROC_REF(prime)), rand(15,60))
+	addtimer(CALLBACK(src, PROC_REF(prime), loc), rand(15,60))
 
-/obj/item/grenade/clusterbuster/segment/prime()
+/obj/item/grenade/clusterbuster/segment/prime(mob/lanced_by)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	new payload_spawner(drop_location(), payload, rand(min_spawned,max_spawned))
 	playsound(src, prime_sound, 75, 1, -3)
 	qdel(src)

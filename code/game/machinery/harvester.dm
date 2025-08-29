@@ -106,7 +106,7 @@
 	var/turf/target = get_turf(src)
 	for(var/obj/item/bodypart/BP in operation_order) //first we do non-essential limbs
 		BP.drop_limb()
-		C.pain(100, TRUE)
+		C.flick_pain(100, TRUE)
 		if(BP.body_zone != BODY_ZONE_CHEST)
 			BP.forceMove(target)    //Move the limbs right next to it, except chest, that's a weird one
 			BP.drop_organs()

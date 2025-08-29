@@ -134,6 +134,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		if(D)
 			D.adjust_money(point_gain)
 			linked_techweb.add_stored_point_type(TECHWEB_POINT_TYPE_DEFAULT, point_gain)
+			linked_techweb.add_stored_point_type(TECHWEB_POINT_TYPE_WEAPONRY, point_gain)
 			var/msg = (orig_light_range < 0) ? "Implosion" : "Explosion"
 			say(msg + " details and mixture analyzed and sold to the highest bidder for $[point_gain], with a reward of [point_gain] points to be processed by research servers.")
 

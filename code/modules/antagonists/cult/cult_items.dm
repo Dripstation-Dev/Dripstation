@@ -85,7 +85,7 @@
 		else
 			to_chat(user, span_cultlarge("\"One of Ratvar's toys is trying to play with things [user.p_they()] shouldn't. Cute.\""))
 			to_chat(user, span_userdanger("A horrible force yanks at your arm!"))
-			user.pain(100, TRUE)
+			user.flick_pain(100, TRUE)
 			user.apply_damage(30, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 			user.dropItemToGround(src)
 
@@ -156,7 +156,7 @@
 		else
 			to_chat(user, span_cultlarge("\"One of Ratvar's toys is trying to play with things [user.p_they()] shouldn't. Cute.\""))
 			to_chat(user, span_userdanger("A horrible force yanks at your arm!"))
-			user.pain(100, TRUE)
+			user.flick_pain(100, TRUE)
 			user.apply_damage(30, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 			user.dropItemToGround(src, TRUE)
 			user.Paralyze(50)
@@ -423,7 +423,7 @@
 		else
 			to_chat(user, span_cultlarge("\"Trying to use things you don't own is bad, you know.\""))
 			to_chat(user, span_userdanger("The armor squeezes at your body!"))
-			user.pain(100, TRUE)
+			user.flick_pain(100, TRUE)
 			user.adjustBruteLoss(25)
 			user.dropItemToGround(src, TRUE)
 
@@ -482,7 +482,7 @@
 		else
 			to_chat(user, span_cultlarge("\"Trying to use things you don't own is bad, you know.\""))
 			to_chat(user, span_userdanger("The robes squeeze at your body!"))
-			user.pain(100, TRUE)
+			user.flick_pain(100, TRUE)
 			user.adjustBruteLoss(25)
 			user.dropItemToGround(src, TRUE)
 
@@ -924,7 +924,7 @@ GLOBAL_VAR_INIT(curselimit, 0)
 						L.Paralyze(20)
 						L.adjustBruteLoss(45)
 						playsound(L, 'sound/hallucinations/wail.ogg', 50, 1)
-						L.pain(100, TRUE)
+						L.flick_pain(100, TRUE)
 		user.Beam(temp_target, icon_state="blood_beam", time = 7, beam_type = /obj/effect/ebeam/blood)
 
 

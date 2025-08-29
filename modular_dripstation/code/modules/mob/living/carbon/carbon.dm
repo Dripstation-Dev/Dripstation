@@ -108,20 +108,18 @@
 /mob/living
 	COOLDOWN_DECLARE(pain_emote_cd)
 
-/mob/living/proc/pain(pain_mult = 1, hard = FALSE, force = FALSE)
+/mob/living/proc/flick_pain(pain_mult = 1, hard = FALSE, force = FALSE)
 	return emote_pain(hard, force)
 
 /mob/living/proc/emote_pain(hard = FALSE, force = FALSE)
 	if(HAS_TRAIT(src, NO_PAIN_EMOTE))
 		return
-	if(force)
-		COOLDOWN_RESET(src, pain_emote_cd)
-	if(!COOLDOWN_FINISHED(src, pain_emote_cd))
+	if(!force && !COOLDOWN_FINISHED(src, pain_emote_cd))
 		return
 	INVOKE_ASYNC(src, PROC_REF(emote), "scream")
 	COOLDOWN_START(src, pain_emote_cd, 3 SECONDS)
 
-/mob/living/carbon/pain(pain_mult = 1, hard = FALSE, force = FALSE)
+/mob/living/carbon/flick_pain(pain_mult = 1, hard = FALSE, force = FALSE)
 	if(stat >= UNCONSCIOUS)
 		return
 	if(HAS_TRAIT(src, TRAIT_SURGERY_PREPARED) && HAS_TRAIT(src, TRAIT_NUMBED) && !hal_screwyhud)
@@ -131,35 +129,29 @@
 		set_screwyhud(SCREWYHUD_NONE)
 	if(HAS_TRAIT(src, TRAIT_RESISTDAMAGESLOWDOWN) || HAS_TRAIT(src, TRAIT_HIGHRESISTDAMAGESLOWDOWN))	//reagents and species traits, probably need other
 		return
-	var/datum/component/mood/mood = GetComponent(/datum/component/mood)
 	var/pain_apply_chance = 1
 	var/can_stutter = FALSE
 	switch(pain_mult)
 		if(10 to 20)
-			if(mood)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/stings)
-				pain_apply_chance = 10
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/stings)
+			pain_apply_chance = 10
 		if(20 to 40)
-			if(mood)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/pain)
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/pain)
 			pain_apply_chance = 30
 		if(40 to 60)
-			if(mood)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painfull)
-			pain_apply_chance = 60
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painfull)
+			pain_apply_chance = 50
 		if(60 to 90)
-			if(mood)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painagony)
-			pain_apply_chance = 80
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painagony)
+			pain_apply_chance = 75
 			can_stutter = TRUE
 		if(90 to INFINITY)
-			if(mood)
-				SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painagony)
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painagony)
 			pain_apply_chance = 100
 			can_stutter = TRUE
 			//hard = TRUE
 
-	var/pain_emote_use = FALSE
+	var/pain_emote_use = force
 	if(prob(pain_apply_chance))
 		if(hard)
 			flash_pain()
@@ -172,7 +164,7 @@
 			adjust_stutter((0.1 SECONDS * pain_mult) SECONDS)
 			visible_message(span_warning("[src] stutters in agony!"),\
 					span_warning("You stutter in agony!"))
-	if(force || pain_emote_use)
+	if(pain_emote_use)
 		emote_pain(hard, force)
 
 /mob/living/carbon/emote_pain(hard = FALSE, force = FALSE)
@@ -205,19 +197,21 @@
 	var/hard = FALSE
 
 	switch(may_be_painfull)
-		if(5 to 10)
+		if(5 to 15)
+			msg = span_warning("Your body stings a little.")
+		if(15 to 30)
 			msg = span_warning("Your body hurts a little.")
-		if(10 to 20)
+		if(30 to 50)
 			msg = span_warning("Your body hurts.")
-		if(20 to 90)
+		if(50 to 90)
 			msg = span_warning("Your body hurts badly!")
 		if(90 to INFINITY)
 			hard = TRUE
 			msg = span_userdanger("OH GOD! Your body is hurting terribly!")
 
-	var/M = may_be_painfull/10
+	var/M = may_be_painfull/5
 	if(may_be_painfull > 5)
-		if(prob(M) && may_be_painfull)
+		if(prob(M))
 			to_chat(src, msg)
 
 	var/head_pain = getOrganLoss(ORGAN_SLOT_BRAIN) + getOrganLoss(ORGAN_SLOT_EARS) * 0.4 + getOrganLoss(ORGAN_SLOT_EYES) * 0.4
@@ -234,7 +228,7 @@
 			hard = TRUE
 			headMsg = span_userdanger("OH GOD! Your head is hurting terribly!")
 	
-	var/H = head_pain/5
+	var/H = head_pain/2
 	if(head_pain > 5)
 		if(prob(H))
 			to_chat(src, headMsg)
@@ -249,13 +243,13 @@
 		if(50 to INFINITY)
 			intDamageMsg = span_userdanger("Your inner aches all over, it's driving you mad!")
 
-	var/I = internal_damage/10
+	var/I = internal_damage/5
 	if(internal_damage > 20)
 		if(prob(I))
 			to_chat(src, intDamageMsg)
 	
-	if((I + H + M) > 1)	//putting here some treshold, so mob wouldn`t just moan for nothing
-		pain(I + H + M, hard)
+	if((I + H + M) > 2)	//putting here some treshold, so mob wouldn`t just moan for nothing
+		flick_pain(I + H + M, hard)
 
 /mob/living/carbon/proc/flash_pain(var/target)
 	overlay_fullscreen("pain", /atom/movable/screen/fullscreen/pain, 2)

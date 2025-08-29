@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	///the melee attack sound
 	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
 	///the swing and miss sound
-	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
+	var/sound/miss_sound = SFX_GENERICMISS
 
 	/// list of mobs that will ignore this species
 	var/list/mob/living/ignored_by = list()
@@ -1975,7 +1975,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		return FALSE //item force is zero
 
 	var/bloody = 0
-	if(((I.damtype == BRUTE) && I.force && prob(25 + (I.force * 2))))
+	if(((I.damtype == BRUTE) && prob(25 + (I.force * 2))))
 		if(affecting.status == BODYPART_ORGANIC)
 			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
 			if(prob(I.force * 2))	//blood spatter!
@@ -1986,52 +1986,72 @@ GLOBAL_LIST_EMPTY(features_by_species)
 				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(H)
 
-		switch(hit_area)
-			if(BODY_ZONE_HEAD)
-				if(!I.is_sharp() && armor_block < 50)
-					if(prob(I.force))
-						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20)
-						if(H.stat == CONSCIOUS)
-							H.visible_message(span_danger("[H] has been knocked senseless!"), \
-											span_userdanger("[H] has been knocked senseless!"))
-							H.set_confusion_if_lower(20 SECONDS)
-							H.AdjustKnockdown(2 SECONDS)
-							H.adjust_eye_blur(10)
-						if(prob(40))
-							H.gain_trauma(/datum/brain_trauma/mild/concussion)
-					else
-						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, I.force * 0.2)
+		if(!I.is_sharp())
+			switch(hit_area)
+				if(BODY_ZONE_HEAD)
+					if(!HAS_TRAIT(H, TRAIT_HEAD_INJURY_BLOCKED))
+						if(prob(I.force))
+							H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20)
+							if(H.stat == CONSCIOUS)
+								H.visible_message(span_danger("[H] has been knocked senseless!"), \
+												span_userdanger("[H] has been knocked senseless!"))
+								H.set_confusion_if_lower(20 SECONDS)
+								H.AdjustKnockdown(2 SECONDS)
+								H.adjust_eye_blur(10)
+							if(prob(40))
+								H.gain_trauma(/datum/brain_trauma/mild/concussion)
+						else
+							H.adjustOrganLoss(ORGAN_SLOT_BRAIN, I.force * 0.2)
 
-					if(H.mind && H.stat == CONSCIOUS && H != user && prob(I.force + ((100 - H.health) * 0.5))) // rev deconversion through blunt trauma.
-						var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
-						if(rev)
-							rev.remove_revolutionary(FALSE, user)
+						if(H.mind && H.stat == CONSCIOUS && H != user && prob(I.force + ((100 - H.health) * 0.5))) // rev deconversion through blunt trauma.
+							var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
+							if(rev)
+								rev.remove_revolutionary(FALSE, user)
 
-				if(bloody)	//Apply blood
-					if(H.wear_mask)
-						H.wear_mask.add_mob_blood(H)
-						H.update_inv_wear_mask()
-					if(H.head)
-						H.head.add_mob_blood(H)
-						H.update_inv_head()
-					if(H.glasses && prob(33))
-						H.glasses.add_mob_blood(H)
-						H.update_inv_glasses()
+					if(bloody)	//Apply blood
+						if(H.wear_mask)
+							H.wear_mask.add_mob_blood(H)
+							H.update_inv_wear_mask()
+						if(H.head)
+							H.head.add_mob_blood(H)
+							H.update_inv_head()
+						if(H.glasses && prob(33))
+							H.glasses.add_mob_blood(H)
+							H.update_inv_glasses()
 
-			if(BODY_ZONE_CHEST)
-				if(H.stat == CONSCIOUS && !I.is_sharp() && armor_block < 50)
-					if(prob(I.force))
-						H.visible_message(span_danger("[H] has been knocked down!"), \
-									span_userdanger("[H] has been knocked down!"))
-						H.apply_effect(60, EFFECT_KNOCKDOWN, armor_block)
+				if(BODY_ZONE_CHEST)
+					if(H.stat == CONSCIOUS && !HAS_TRAIT(H, TRAIT_BRAWLING_KNOCKDOWN_BLOCKED))
+						if(prob(I.force))
+							H.visible_message(span_danger("[H] has been knocked down!"), \
+										span_userdanger("[H] has been knocked down!"))
+							H.apply_effect(6 SECONDS, EFFECT_KNOCKDOWN, armor_block)
+							if(armor_block < 40 && prob(33))
+								var/atom/throw_target = get_edge_target_turf(H, get_dir(I, get_step_away(H, I)))
+								H.throw_at(throw_target, 1, 2)
 
-				if(bloody)
-					if(H.wear_suit)
-						H.wear_suit.add_mob_blood(H)
-						H.update_inv_wear_suit()
-					if(H.w_uniform)
-						H.w_uniform.add_mob_blood(H)
-						H.update_inv_w_uniform()
+					if(bloody)
+						if(H.wear_suit)
+							H.wear_suit.add_mob_blood(H)
+							H.update_inv_wear_suit()
+						if(H.w_uniform)
+							H.w_uniform.add_mob_blood(H)
+							H.update_inv_w_uniform()
+
+				if(BODY_ZONE_PRECISE_GROIN)
+					if(H.stat == CONSCIOUS && !HAS_TRAIT(H, TRAIT_BRAWLING_KNOCKDOWN_BLOCKED))
+						if(prob(I.force))
+							H.visible_message(span_danger("[H] recieve heavy punch in the gut!"), \
+										span_userdanger("[H] recieve heavy punch in the gut!"))
+							H.apply_effect(8 SECONDS, EFFECT_KNOCKDOWN, armor_block)
+
+					if(bloody)
+						if(H.wear_suit)
+							H.wear_suit.add_mob_blood(H)
+							H.update_inv_wear_suit()
+						if(H.w_uniform)
+							H.w_uniform.add_mob_blood(H)
+							H.update_inv_w_uniform()
+
 
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
 			H.forcesay(GLOB.hit_appends)	//forcesay checks stat already.
@@ -2059,7 +2079,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.damageoverlaytemp = 20
 			var/final_damage = damage * hit_percent * brutemod * H.physiology.brute_mod
 			if(final_damage > 7)
-				H.pain(final_damage/2, TRUE)
+				H.flick_pain(final_damage/2, TRUE)
 			if(BP)
 				if(BP.receive_damage(final_damage, 0, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness, attack_direction = attack_direction))
 					H.update_damage_overlays()
@@ -2069,7 +2089,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			H.damageoverlaytemp = 20
 			var/final_damage = damage * hit_percent * burnmod * H.physiology.burn_mod
 			if(final_damage > 10)
-				H.pain(final_damage/2, TRUE)
+				H.flick_pain(final_damage/2, TRUE)
 			if(BP)
 				if(BP.receive_damage(0, final_damage, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, sharpness = sharpness, attack_direction = attack_direction))
 					H.update_damage_overlays()
@@ -2193,7 +2213,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 					H.throw_alert("temp", /atom/movable/screen/alert/hot, 3)
 		burn_damage = burn_damage * heatmod * H.physiology.heat_mod
 		if (H.stat < UNCONSCIOUS && (prob(burn_damage) * 10) / 4) //40% for level 3 damage on humans
-			H.pain(100, TRUE)
+			H.flick_pain(100, TRUE)
 		H.apply_damage(burn_damage, BURN)
 
 	if(H.bodytemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(H, TRAIT_RESISTCOLD))

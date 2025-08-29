@@ -1,6 +1,6 @@
 /mob/living/carbon/get_eye_protection()
 	. = ..()
-	if(is_blind() && !HAS_TRAIT_FROM(src, TRAIT_BLIND, UNCONSCIOUS_TRAIT) && !HAS_TRAIT_FROM(src, TRAIT_BLIND, HYPNOCHAIR_TRAIT))	//dripstation edit
+	if(is_blind(src) && !HAS_TRAIT_FROM(src, TRAIT_BLIND, UNCONSCIOUS_TRAIT) && !HAS_TRAIT_FROM(src, TRAIT_BLIND, HYPNOCHAIR_TRAIT))	//dripstation edit
 		return INFINITY //For all my homies that can not see in the world
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(!E)
@@ -478,7 +478,11 @@
 				to_chat(src, span_notice("You feel your heart beating again!"))
 
 	else if(stat != DEAD && can_heartattack() && shock_damage >= 1 && prob(shock_damage/5))	//dripstation edit: HARD ZZZZAP
-		set_heartattack(TRUE)	//dripstation edit
+		//set_heartattack(TRUE)	//dripstation edit
+		var/datum/disease/heart_failure/heart_attack = new(src)	//dripstation edit
+		heart_attack.stage = 3 	//dripstation edit
+		heart_attack.stage_prob = 4 //Advances twice as fast
+		ForceContractDisease(heart_attack)	//dripstation edit
 
 	if(override)
 		return override
@@ -515,6 +519,9 @@
 			var/obj/item/I = pick(affecting.embedded_objects)
 			SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, affecting, M, time_mod)
 			return
+
+	if(SEND_SIGNAL(src, COMSIG_CARBON_PRE_MISC_HELP, M) & COMPONENT_BLOCK_MISC_HELP)
+		return
 
 	if(!(mobility_flags & MOBILITY_STAND))
 		if(buckled)

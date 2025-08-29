@@ -14,9 +14,9 @@
 	ui_x = -160
 	ui_y = -576
 
-///datum/techweb_node/free_space1
-//	ui_x = -252
-//	ui_y = -576
+/datum/techweb_node/tackle_advanced
+	ui_x = -252
+	ui_y = -576
 
 ///datum/techweb_node/free_space2
 //	ui_x = -352

@@ -8,6 +8,7 @@
 	bodytemp_cold_damage_limit = BODYTEMP_NORMAL - 30
 	bodytemp_heat_damage_limit = BODYTEMP_NORMAL + 70
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,DIGITIGRADE,HAS_FLESH,HAS_BONE,HAS_TAIL)
+	inherent_traits = list(TRAIT_NO_NORMAL_FEAR, TRAIT_COLDBLOODED)
 	default_features = list("mcolor" = "#00FF00", "tail_lizard" = "Smooth", "snout" = "Round", "horns" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Digitigrade Legs")
 	aiminginaccuracy = 5 //they prefer melee combat, has claws and are not skilled in long range fightsss
 	mutantappendix = /obj/item/organ/appendix/lizard

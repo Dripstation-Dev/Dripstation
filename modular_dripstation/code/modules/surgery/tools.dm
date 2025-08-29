@@ -7,6 +7,7 @@
 	gender = MALE
 	singular_name = "medical tourniquet"
 	icon_state = "tourniquet"
+	icon = 'modular_dripstation/icons/obj/aid.dmi'
 	apply_sounds = list('sound/effects/rip1.ogg','sound/effects/rip2.ogg')
 	self_delay = 50
 	other_delay = 20
@@ -14,10 +15,32 @@
 	amount = 1
 	grind_results = list(/datum/reagent/cellulose = 2)
 	custom_price = 100
-	var/list/normal_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM)
+	var/appspeedmod = 1
+	var/list/posible_zones = list(BODY_ZONE_HEAD, BODY_ZONE_L_LEG, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM)
+	var/list/self_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM)
 	//absorption_rate = 0.25
 	//absorption_capacity = 5
 	//splint_factor = 0.35
+
+/obj/item/stack/medical/tourniquet/emergency
+	name = "emergency tourniquet"
+	icon_state = "tourniquet_emergency"
+	custom_price = 150
+	appspeedmod = 0.6
+	max_amount = 1
+	grind_results = list(/datum/reagent/cellulose = 2)
+	materials = list(/datum/material/plastic = 100)
+
+/obj/item/stack/medical/tourniquet/tactical
+	name = "tactical tourniquet"
+	icon_state = "tourniquet_tact"
+	custom_price = 300
+	appspeedmod = 0.3
+	grind_results = list(/datum/reagent/cellulose = 2)
+	materials = list(/datum/material/plastic = 100)
+
+/obj/item/stack/medical/tourniquet/tactical/three
+	amount = 3
 
 // gauze is only relevant for wounds, which are handled in the wounds themselves
 /obj/item/stack/medical/tourniquet/try_heal(mob/living/M, mob/user, silent)
@@ -25,12 +48,20 @@
 	if(!limb)
 		to_chat(user, span_notice("There's nothing there to bandage!"))
 		return
+	var/self = FALSE
+	if(user==M)
+		self = TRUE
 	if(!LAZYLEN(limb.wounds))
-		to_chat(user, span_notice("There's no wounds that require tourniquet appling on [user==M ? "your" : "[M]'s"] [limb.name]!")) // good problem to have imo
+		to_chat(user, span_notice("There's no wounds that require tourniquet appling on [self ? "your" : "[M]'s"] [limb.name]!")) // good problem to have imo
 		return
-	if(!limb.body_zone in normal_zones)
-		to_chat(user, span_notice("You can`t apply tourniquet on [user==M ? "your" : "[M]'s"] [limb.name]!")) // good problem to have imo
-		return
+	if(self)
+		if(!limb.body_zone in self_zones)
+			to_chat(user, span_notice("You can`t apply tourniquet on your [limb.name]!")) // good problem to have imo
+			return
+	else
+		if(!limb.body_zone in posible_zones)
+			to_chat(user, span_notice("You can`t apply tourniquet on [M]'s [limb.name]!")) // good problem to have imo
+			return
 
 	var/tourniquet_wound = FALSE
 	for(var/i in limb.wounds)
@@ -39,29 +70,29 @@
 			tourniquet_wound = TRUE
 			break
 	if(!tourniquet_wound)
-		to_chat(user, span_notice("There's no wounds that require tourniquet appling on [user==M ? "your" : "[M]'s"] [limb.name]!")) // good problem to have imo
+		to_chat(user, span_notice("There's no wounds that require tourniquet appling on [self ? "your" : "[M]'s"] [limb.name]!")) // good problem to have imo
 		return
 
 	if(limb.current_gauze && (limb.current_gauze.absorption_capacity * 0.8 > absorption_capacity)) // ignore if our new wrap is < 20% better than the current one, so someone doesn't bandage it 5 times in a row
-		to_chat(user, span_warning("The bandage currently on [user==M ? "your" : "[M]'s"] [limb.name] is still in good condition! You can`t splint tourniquet around it!"))
+		to_chat(user, span_warning("The bandage currently on [self ? "your" : "[M]'s"] [limb.name] is still in good condition! You can`t splint tourniquet around it!"))
 		return
 	if(limb.current_tourniquet)
-		to_chat(user, span_warning("The tourniquet is already applied on [user==M ? "your" : "[M]'s"] [limb.name]!"))
+		to_chat(user, span_warning("The tourniquet is already applied on [self ? "your" : "[M]'s"] [limb.name]!"))
 		return
 
-	user.visible_message(span_warning("[user] begins to apply the [src] on [M]'s [limb.name]..."), span_warning("You begin to apply the [src] on [user == M ? "your" : "[M]'s"] [limb.name]..."))
+	user.visible_message(span_warning("[user] begins to apply the [src] on [M]'s [limb.name]..."), span_warning("You begin to apply the [src] on [self ? "your" : "[M]'s"] [limb.name]..."))
 
 	playsound(src, 'sound/effects/rip2.ogg', 25)
 
 	/// Use other_delay if healing someone else (usually 1 second)
 	/// Use self_delay if healing yourself (usually 3 seconds)
 	/// Reduce delay by 20% if medical
-	if(!do_after(user, (user == M ? self_delay : other_delay) * (IS_MEDICAL(user) ? 0.8 : 1), M))
+	if(!do_after(user, (self ? self_delay : other_delay) * (IS_MEDICAL(user) ? 0.8 : 1) * appspeedmod, M))
 		return
 
 	playsound(src, 'sound/effects/rip1.ogg', 25)
 
-	user.visible_message(span_green("[user] applies [src] to [M]'s [limb.name]."), span_green("You apply the wounds on [user == M ? "yourself" : "[M]'s"] [limb.name]."))
+	user.visible_message(span_green("[user] applies [src] to [M]'s [limb.name]."), span_green("You apply the wounds on [self ? "yourself" : "[M]'s"] [limb.name]."))
 	limb.apply_tourniquet(src)
 
 /obj/item/stack/medical/tourniquet/three

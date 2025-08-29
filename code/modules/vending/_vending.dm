@@ -627,7 +627,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 			L.AddElement(/datum/element/squish, 18 SECONDS)
 			L.Paralyze(60)
-			L.pain(100, TRUE, TRUE)
+			L.flick_pain(100, TRUE, TRUE)
 			playsound(L, 'sound/effects/blobattack.ogg', 40, TRUE)
 			playsound(L, 'sound/effects/splat.ogg', 50, TRUE)
 			if(prob(1)) //send them to the backrooms

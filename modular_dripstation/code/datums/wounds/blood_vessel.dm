@@ -49,7 +49,7 @@
 		if(!is_internal)
 			wound_injury(attack_direction = attack_direction)
 	second_wind()
-	L.owner.pain(40, TRUE)
+	L.owner.flick_pain(40, TRUE)
 	if(limb.body_zone == BODY_ZONE_HEAD && !is_internal)
 		limb_name = "neck"
 	else
@@ -146,6 +146,7 @@
 	blood_flow_proc = 8
 	minimum_flow_proc = 5
 	threshold_minimum = 5
+	threshold_penalty = 5
 	status_effect_type = /datum/status_effect/wound/blood_vessel/vein
 
 /datum/wound/blood_vessel/vein/handle_process()
@@ -211,7 +212,7 @@
 	lasgun.chambered.BB.damage *= self_penalty_mult
 	if(!lasgun.process_fire(victim, victim, TRUE, null, limb.body_zone))
 		return
-	victim.pain(100, TRUE)
+	victim.flick_pain(100, TRUE)
 	user.visible_message(span_green("[victim]'s vein in [limb_name] has cauterized!"), span_green("You cauterize vein in [limb_name] on [user == victim ? "yourself" : "[victim]"]!"))
 	remove_wound()
 
@@ -230,7 +231,7 @@
 
 	playsound(I, 'sound/surgery/cautery2.ogg', 75, TRUE, falloff_exponent = 1)
 	limb.receive_damage(burn = 10, wound_bonus = 5)
-	victim.pain(30, TRUE)
+	victim.flick_pain(30, TRUE)
 	user.visible_message(span_green("[victim]'s vein in [limb_name] has cauterized!"), span_green("You cauterize vein in [limb_name] on [user == victim ? "yourself" : "[victim]"]!"))
 	remove_wound()
 
@@ -258,6 +259,7 @@
 	wound_flags = (FLESH_WOUND)
 	status_effect_type = null
 	severity = WOUND_SEVERITY_HIDDEN
+	threshold_penalty = 10
 	blood_flow_proc = 8
 	minimum_flow_proc = 2
 
@@ -270,6 +272,7 @@
 	blood_flow_proc = 20
 	minimum_flow_proc = 12
 	threshold_minimum = 15
+	threshold_penalty = 25
 	status_effect_type = /datum/status_effect/wound/blood_vessel/artery
 
 /datum/wound/blood_vessel/artery/wound_injury(datum/wound/old_wound = null, attack_direction = null)
@@ -283,6 +286,7 @@
 	wound_flags = (FLESH_WOUND)
 	status_effect_type = null
 	blood_flow_proc = 15
+	threshold_penalty = 30
 	minimum_flow_proc = 4
 	severity = WOUND_SEVERITY_HIDDEN
 

@@ -399,6 +399,7 @@
 
 /obj/item/research_notes/loot
 	origin_type = "exotic particles phisics"
+	point_type = TECHWEB_POINT_TYPE_WEAPONRY
 
 /obj/item/research_notes/loot/tiny
 	points = 1000

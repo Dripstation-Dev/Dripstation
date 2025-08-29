@@ -37,7 +37,7 @@
 		var/obj/item/bodypart/BP = X
 		if(BP.get_wound_type(/datum/wound/blunt) && prob(20))
 			var/datum/wound/blunt/W = BP.get_wound_type(/datum/wound/blunt)
-			C.pain(100, TRUE)
+			C.flick_pain(100, TRUE)
 			playsound(C, 'sound/surgery/bone3.ogg', 35)
 			if(W.severity >= WOUND_SEVERITY_SEVERE)
 				var/painkiller_bonus = 0
@@ -95,7 +95,7 @@
 				loud, crunchy sound and giving you great pain!</span>",
 				"<span class='italics'>You hear organic matter ripping \
 				and tearing!</span>")
-			M.pain(100, TRUE)
+			M.flick_pain(100, TRUE)
 			M.adjust_dizzy(3 SECONDS)
 			M.adjust_jitter(3 SECONDS)
 			M.adjust_stutter(3 SECONDS)
@@ -106,7 +106,7 @@
 			M.adjust_dizzy(3 SECONDS)
 			M.adjust_jitter(3 SECONDS)
 			M.adjust_stutter(3 SECONDS)
-			M.pain(100, TRUE)
+			M.flick_pain(100, TRUE)
 			iter_wound.remove_wound()
 	return TRUE
 

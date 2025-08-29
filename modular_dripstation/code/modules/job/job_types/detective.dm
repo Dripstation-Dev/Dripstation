@@ -1,7 +1,7 @@
 /datum/job/detective
 	supervisor_corporation = /datum/corporation/spearhead
 	loyalties = LOYALTY_SPEARHEAD_DETECTIVE
-	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED)
+	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED, TRAIT_DETECTIVE_EYE)
 
 
 /datum/job/detective/GetIngameDesc(corp, stationname)

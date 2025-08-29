@@ -28,10 +28,6 @@
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
-/datum/mutation/human/hulk/on_attack_hand(atom/target, proximity)
-	if(proximity) //no telekinetic hulk attack
-		return target.attack_hulk(owner)
-
 /datum/mutation/human/hulk/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return

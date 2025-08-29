@@ -123,6 +123,16 @@
 					/obj/item/clothing/gloves/tackler)
 	crate_name = "gripper crate"
 
+/datum/supply_pack/security/stingbang
+	name = "Sting grenade Crate"
+	desc = "Contains three sting grenades. Requires Security access to open."
+	cost = 1000
+	contains = list(/obj/item/grenade/stingbang,
+					/obj/item/grenade/stingbang,
+					/obj/item/grenade/stingbang,
+					/obj/item/grenade/stingbang)
+	crate_name = "stingbang crate"
+
 /datum/supply_pack/weaponry/russian
 	name = "Vostok Surplus Crate"
 	order_limit_in_one_order = 2
@@ -266,13 +276,22 @@
 					/obj/item/ammo_box/c45,
 					/obj/item/ammo_box/c45)
 
-/datum/supply_pack/weaponry/ammo_ff
-	name = "Ammo Crate (.45)"
-	desc = "This crate contains 3 boxes of .45 ammo. Requires Armory access to open."
-	cost = 4000
-	contains = list(/obj/item/ammo_box/c45,
-					/obj/item/ammo_box/c45,
-					/obj/item/ammo_box/c45)
+/datum/supply_pack/weaponry/ammo_ffap
+	name = "Ammo Crate (.45 Armor-Piercing)"
+	desc = "This crate contains 3 boxes of AP .45 ammo. Requires Armory access to open."
+	cost = 6000
+	contains = list(/obj/item/ammo_box/c45/ap,
+					/obj/item/ammo_box/c45/ap,
+					/obj/item/ammo_box/c45/ap)
+
+/datum/supply_pack/weaponry/ammo_ffhp
+	name = "Ammo Crate (.45 Hollow-Point)"
+	desc = "This crate contains 3 boxes of HP .45 ammo. Requires Armory access to open."
+	cost = 6000
+	hidden = TRUE
+	contains = list(/obj/item/ammo_box/c45/hp,
+					/obj/item/ammo_box/c45/hp,
+					/obj/item/ammo_box/c45/hp)
 
 /datum/supply_pack/weaponry/ammo_riflenato
 	name = "Ammo Crate (5.56x39)"
@@ -341,6 +360,20 @@
 					/obj/item/ammo_box/no_direct/a127,
 					/obj/item/ammo_box/no_direct/a127)
 	crate_name = "12.7x55 ammo crate"
+
+/datum/supply_pack/weaponry/ammo_a40smoke
+	name = "Ammo Crate (40mm Smoke)"
+	desc = "This crate contains 2 ammo box of 40mm grenades. Requires Armory access to open."
+	cost = 4000
+	contains = list(/obj/item/ammo_box/a40mm/smoke,
+					/obj/item/ammo_box/a40mm/smoke)
+
+/datum/supply_pack/weaponry/ammo_a40teargas
+	name = "Ammo Crate (40mm Tear Gas)"
+	desc = "This crate contains 2 ammo box of 40mm grenades. Requires Armory access to open."
+	cost = 6000
+	contains = list(/obj/item/ammo_box/a40mm/teargas,
+					/obj/item/ammo_box/a40mm/teargas)
 
 /datum/supply_pack/security/armory
 	crate_type = /obj/structure/closet/crate/secure/nanotrasen
@@ -635,4 +668,11 @@
 	cost = 4000
 	contains = list(/obj/item/organ/lungs/replica)
 	small_item = TRUE
+
+/datum/supply_pack/critter/pig
+	name = "Pig Crate"
+	desc = "The pig goes oink!"
+	cost = 1500
+	contains = list(/mob/living/simple_animal/pig)
+	crate_name = "pig crate"
 

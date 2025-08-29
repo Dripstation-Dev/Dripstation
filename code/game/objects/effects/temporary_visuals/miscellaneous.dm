@@ -65,6 +65,7 @@
 /obj/effect/temp_visual/dir_setting/firing_effect
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "firing_effect"
+	plane = GAME_PLANE_FOV_HIDDEN
 	duration = 0.2 SECONDS
 
 /obj/effect/temp_visual/dir_setting/firing_effect/setDir(newdir)
@@ -418,6 +419,14 @@
 /obj/effect/temp_visual/impact_effect/ion
 	icon_state = "shieldsparkles"
 	duration = 0.6 SECONDS
+
+/obj/effect/temp_visual/impact_effect/ion/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/temp_visual/cult/sparks/LateInitialize()
+	. = ..()
+	play_fov_effect(src, 5, "sparkles", ignore_self = TRUE)
 
 /obj/effect/temp_visual/heart
 	name = "heart"

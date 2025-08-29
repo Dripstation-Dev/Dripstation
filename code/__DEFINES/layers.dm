@@ -6,7 +6,10 @@
 
 // Doesn't really layer, just throwing this in here cause it's the best place imo
 #define FIELD_OF_VISION_BLOCKER_PLANE -45
-#define FIELD_OF_VISION_BLOCKER_RENDER_TARGET "*FIELD_OF_VISION_BLOCKER_RENDER_TARGET"
+#define FIELD_OF_VISION_MASK_PLANE -1
+#define FIELD_OF_VISION_MASK_RENDER_TARGET "FIELD_OF_VISION_MASK_PLANE"
+#define FIELD_OF_VISION_BLOCKER_RENDER_TARGET "FIELD_OF_VISION_BLOCKER_PLANE" 
+#define FIELD_OF_VISION_MASK_LAYER 20
 
 #define CLICKCATCHER_PLANE -40
 
@@ -17,13 +20,16 @@
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
 #define RENDER_PLANE_TRANSPARENT -18 //Transparent plane that shows openspace underneath the floor
-#define TRANSPARENT_FLOOR_PLANE -13
+#define TRANSPARENT_FLOOR_PLANE -14
 
-#define FLOOR_PLANE -12
+#define FLOOR_PLANE -13
 #define FLOOR_PLANE_RENDER_TARGET "*FLOOR_PLANE"
+#define FLOOR_PLANE_FOV_HIDDEN - 12
 #define WALL_PLANE -11
 #define GAME_PLANE -10
-#define ABOVE_GAME_PLANE -9
+#define GAME_PLANE_FOV_HIDDEN -9
+#define GAME_PLANE_OBJECT_PERMANENCE -8
+#define ABOVE_GAME_PLANE -7
 ///Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
 #define SEETHROUGH_PLANE -2
 
@@ -143,6 +149,7 @@
 
 // GAME_PLANE layers
 #define BULLET_HOLE_LAYER 2.06
+#define SHADOW_LAYER 2.075
 #define ABOVE_NORMAL_TURF_LAYER 2.08
 #define GAS_PIPE_HIDDEN_LAYER 2.35 //layer = initial(layer) + piping_layer / 1000 in atmospherics/update_icon() to determine order of pipe overlap
 #define WIRE_LAYER 2.43 //Yog Biome request

@@ -236,16 +236,18 @@
 
 /obj/item/gun/ballistic/nitro_express/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	. = ..()
-	if (!isreplica(user))
-		user.adjustStaminaLoss(20)
-		if(user.active_hand_index == 1)
-			user.apply_damage(15, BRUTE, BODY_ZONE_L_ARM, wound_bonus = 0, bare_wound_bonus = 30, sharpness = SHARP_NONE)
-		else
-			user.apply_damage(15, BRUTE, BODY_ZONE_R_ARM, wound_bonus = 0, bare_wound_bonus = 30, sharpness = SHARP_NONE)
-		var/atom/throw_user = get_edge_target_turf(pbtarget, REVERSE_DIR(get_dir(src, get_step_away(pbtarget, src))))
-		user.throw_at(throw_user, 1, 3)
-		to_chat(user, span_danger("Recoil of \the [src] hits you very hard and throws you back!"))
-		user.apply_effects(knockdown = 40)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.dna?.check_mutation(STRONG) && !isreplica(H))	//hidden strong mut buff
+			H.adjustStaminaLoss(20)
+			if(H.active_hand_index == 1)
+				H.apply_damage(15, BRUTE, BODY_ZONE_L_ARM, wound_bonus = 0, bare_wound_bonus = 30, sharpness = SHARP_NONE)
+			else
+				H.apply_damage(15, BRUTE, BODY_ZONE_R_ARM, wound_bonus = 0, bare_wound_bonus = 30, sharpness = SHARP_NONE)
+			var/atom/throw_user = get_edge_target_turf(pbtarget, REVERSE_DIR(get_dir(src, get_step_away(pbtarget, src))))
+			H.throw_at(throw_user, 1, 3)
+			to_chat(H, span_danger("Recoil of \the [src] hits you very hard and throws you back!"))
+			H.apply_effects(knockdown = 40)
 /*
 /obj/item/gun/ballistic/nitro_express/update_icon_state()
 	. = ..()

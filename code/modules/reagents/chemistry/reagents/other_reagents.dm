@@ -298,7 +298,7 @@
 			if(11 to 12)
 				to_chat(M, span_danger("Your flesh itself begins to melt apart in agony!"))
 				M.adjustFireLoss(3)
-				M.pain(100, TRUE)
+				M.flick_pain(100, TRUE)
 			if(13 to INFINITY)
 				M.visible_message("<span class='danger'>[M] suddenly ignites in a brilliant flash of white!<span>", span_userdanger("You suddenly ignite in a holy fire!"))
 				M.adjust_fire_stacks(3)
@@ -1227,7 +1227,7 @@
 		M.reagents.add_reagent(type, max(reac_volume - existing, 0) * permeability)
 		M.adjustBruteLoss(1 * reac_volume * permeability)
 		M.adjustFireLoss(1 * reac_volume * permeability)
-		M.pain(100, TRUE)
+		M.flick_pain(100, TRUE)
 
 /datum/reagent/cryptobiolin
 	name = "Cryptobiolin"

@@ -334,7 +334,7 @@
 		handle_style(H, 0.5)
 		playsound(H, 'sound/weapons/ricochet.ogg', 75, 1)
 	else
-		playsound(H, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+		playsound(H, get_sfx(SFX_GENERICMISS), 25, 1, -1)
 
 /*---------------------------------------------------------------
 

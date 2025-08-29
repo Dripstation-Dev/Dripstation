@@ -17,7 +17,7 @@
 	changesource_flags = MIRROR_BADMIN | SLIME_EXTRACT | MIRROR_PRIDE | MIRROR_MAGIC
 	attack_verbs = list("slash")
 	attack_effect = ATTACK_EFFECT_CLAW
-	attack_sound = SFX_SLASH
+	attack_sound = SFX_CLAWS
 	miss_sound = SFX_SLASHMISS
 	meat = /obj/item/reagent_containers/food/snacks/omelette
 	skinned_type = /obj/item/stack/sheet/animalhide/egg

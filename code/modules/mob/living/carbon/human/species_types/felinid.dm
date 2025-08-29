@@ -5,7 +5,7 @@
 	limbs_id = "human"
 	attack_verbs = list("slash")
 	attack_effect = ATTACK_EFFECT_CLAW
-	attack_sound = SFX_SLASH
+	attack_sound = SFX_CLAWS
 	miss_sound = SFX_SLASHMISS
 
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,HAS_FLESH,HAS_BONE,HAS_TAIL)

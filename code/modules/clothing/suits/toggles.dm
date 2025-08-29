@@ -181,7 +181,7 @@
 	..()
 	RemoveHelmet()
 
-/obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
+/obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet(silent = FALSE)
 	var/mob/living/carbon/human/H = src.loc
 	if(!helmettype)
 		return
@@ -196,9 +196,10 @@
 				to_chat(H, span_warning("You're already wearing something on your head!"))
 				return
 			else if(H.equip_to_slot_if_possible(helmet,ITEM_SLOT_HEAD,0,0,1))
-				to_chat(H, span_notice("You engage the helmet on the hardsuit."))
 				suittoggled = TRUE
 				H.update_inv_wear_suit()
-				playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+				if(!silent)
+					playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+					to_chat(H, span_notice("You engage the helmet on the hardsuit."))
 	else
 		RemoveHelmet()

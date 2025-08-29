@@ -163,7 +163,7 @@
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE, armour_penetration = 10)
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
-	playsound(D, SFX_SLASH, 50, TRUE, -1)
+	playsound(D, SFX_CLAWS, 50, TRUE, -1)
 	D.apply_damage(A.get_punchdamagehigh() + 2, A.dna.species.attack_type, selected_zone, armor_block, sharpness = SHARP_EDGED) //+2 unarmed damage and sharp
 	var/atk_verb = pick("rends", "claws", "slices", "tears at")
 	D.visible_message(span_danger("[A] [atk_verb] [D]!"), \

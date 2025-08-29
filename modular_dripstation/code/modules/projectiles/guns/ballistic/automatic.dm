@@ -73,6 +73,9 @@
 /obj/item/gun/ballistic/automatic/c20r/cobra/ultrasecure
 	pin = /obj/item/firing_pin/fucked
 
+/obj/item/gun/ballistic/automatic/c20r/cobra/nopin
+	pin = null
+
 /obj/item/gun/ballistic/automatic/c20r/waffle
 	name = "\improper WA-20"
 	desc = "A brand new SMG manufactured by Waffle Arms. Chambered in .45."

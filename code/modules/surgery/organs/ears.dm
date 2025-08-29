@@ -32,7 +32,7 @@
 		return
 	..()
 	var/mob/living/carbon/C = owner
-	if((damage < maxHealth) && (organ_flags & ORGAN_FAILING))	//ear damage can be repaired from the failing condition
+	if((damage < getMaxHealth()) && (organ_flags & ORGAN_FAILING))	//ear damage can be repaired from the failing condition
 		organ_flags &= ~ORGAN_FAILING
 	// genetic deafness prevents the body from using the ears, even if healthy
 	if(HAS_TRAIT(C, TRAIT_DEAF))

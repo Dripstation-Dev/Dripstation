@@ -286,7 +286,7 @@
 	if(prob(5))
 		return 
 	owner.apply_effect(EFFECT_STUTTER, rand(1, severity) * 6 SECONDS)
-	owner.pain(100, TRUE)
+	owner.flick_pain(100, TRUE)
 	to_chat(owner, "<span class='warning'>Alert: Voice synthesizer is malfunctioning.</span>")
 
 /obj/item/organ/tongue/robot/can_speak_language(language)

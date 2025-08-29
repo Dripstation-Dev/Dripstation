@@ -69,7 +69,7 @@
 	..()
 	var/mob/living/carbon/C = owner
 	//since we can repair fully damaged eyes, check if healing has occurred
-	if((organ_flags & ORGAN_FAILING) && (damage < maxHealth))
+	if((organ_flags & ORGAN_FAILING) && (damage < getMaxHealth()))
 		organ_flags &= ~ORGAN_FAILING
 		C.cure_blind(EYE_DAMAGE)
 	//various degrees of "oh fuck my eyes", from "point a laser at your eye" to "staring at the Sun" intensities

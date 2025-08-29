@@ -23,7 +23,7 @@
 	A.apply_wound(affecting, silent = TRUE, attack_direction = owner.dir)
 	if(!silent)
 		C.visible_message(span_danger("<B>[C]'s [name] is violently dismembered!</B>"))
-	INVOKE_ASYNC(C, TYPE_PROC_REF(/mob/living, pain), 100, TRUE, TRUE)
+	INVOKE_ASYNC(C, TYPE_PROC_REF(/mob/living, flick_pain), 100, TRUE, TRUE)
 	playsound(get_turf(C), 'sound/effects/dismember.ogg', 80, TRUE)
 	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "dismembered", /datum/mood_event/dismembered)
 	var/should_disintegrate = !HAS_TRAIT(owner, TRAIT_EASYDISMEMBER) // if their limb falls off easily it should just fall off instead

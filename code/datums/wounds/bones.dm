@@ -149,7 +149,7 @@
 		else
 			victim.visible_message(span_danger("[victim] weakly strikes [target] with [victim.p_their()] broken [limb.name], recoiling from pain!"), \
 			span_userdanger("You fail to strike [target] as the fracture in your [limb.name] lights up in unbearable pain!"), vision_distance=COMBAT_MESSAGE_RANGE)
-			victim.pain(100, TRUE)
+			victim.flick_pain(100, TRUE)
 			victim.Stun(0.5 SECONDS)
 			limb.receive_damage(brute=rand(3,7))
 			return COMPONENT_NO_ATTACK_HAND
@@ -283,7 +283,7 @@
 	if(prob(65))
 		user.visible_message(span_danger("[user] snaps [victim]'s dislocated [limb.name] back into place!"), span_notice("You snap [victim]'s dislocated [limb.name] back into place!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] snaps your dislocated [limb.name] back into place!"))
-		victim.pain(100, TRUE)
+		victim.flick_pain(100, TRUE)
 		playsound(victim, 'sound/surgery/bone3.ogg', 25)
 		limb.receive_damage(brute = 20, wound_bonus = CANT_WOUND)
 		qdel(src)
@@ -304,7 +304,7 @@
 	if(prob(65))
 		user.visible_message(span_danger("[user] snaps [victim]'s dislocated [limb.name] with a sickening crack!"), span_danger("You snap [victim]'s dislocated [limb.name] with a sickening crack!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] snaps your dislocated [limb.name] with a sickening crack!"))
-		victim.pain(100, TRUE)
+		victim.flick_pain(100, TRUE)
 		limb.receive_damage(brute = 25, wound_bonus = 30)
 	else
 		user.visible_message(span_danger("[user] wrenches [victim]'s dislocated [limb.name] around painfully!"), span_danger("You wrench [victim]'s dislocated [limb.name] around painfully!"), ignored_mobs=victim)
@@ -333,7 +333,7 @@
 		user.visible_message(span_danger("[user] finishes resetting [victim]'s [limb.name]!"), span_nicegreen("You finish resetting [victim]'s [limb.name]!"), victim)
 		to_chat(victim, span_userdanger("[user] resets your [limb.name]!"))
 
-	victim.pain(100, TRUE)
+	victim.flick_pain(100, TRUE)
 	qdel(src)
 
 /*
@@ -406,7 +406,7 @@
 		return
 
 	I.use(1)
-	victim.pain(100, TRUE)
+	victim.flick_pain(100, TRUE)
 	if(user != victim)
 		user.visible_message(span_notice("[user] finishes applying [I] to [victim]'s [limb.name], emitting a fizzing noise!"), span_notice("You finish applying [I] to [victim]'s [limb.name]!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] finishes applying [I] to your [limb.name], and you can feel the bones exploding with pain as they begin melting and reforming!"))
