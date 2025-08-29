@@ -176,12 +176,12 @@
 			heard_clients = playsound(source.loc, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary)
 		else
 			switch(source.dna.species.barefoot_step_sound)
-				if(FOOTSTEP_MOB_BAREFOOT)			//dripstation edit
+				if(FOOTSTEP_MOB_BAREFOOT)
 					heard_clients = playsound(source.loc, pick(GLOB.barefootstep[barefoot_type][1]),
 						GLOB.barefootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
 						GLOB.barefootstep[barefoot_type][3] + e_range + range_adjustment, falloff_distance = 1, vary = sound_vary)
-				if(FOOTSTEP_MOB_CLAW)			//dripstation edit
+				if(FOOTSTEP_MOB_CLAW)
 					heard_clients = playsound(source.loc, pick(GLOB.clawfootstep[barefoot_type][1]),
 						GLOB.clawfootstep[barefoot_type][2] * volume * volume_multiplier,
 						TRUE,
