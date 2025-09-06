@@ -1,3 +1,5 @@
+
+
 #include "code\_globalvars\list\typecache.dm"
 #include "code\_onclick\hud\rendering\plane_master.dm"
 #include "code\controllers\subsystem\blackmarket.dm"
@@ -421,6 +423,10 @@
 #include "code\modules\shuttle\emergency.dm"
 #include "code\modules\surgery\_bodyparts.dm"
 #include "code\modules\surgery\anasthesia_machine.dm"
+#include "code\modules\surgery\organs\augments_arms.dm"
+#include "code\modules\surgery\organs\augments_chest.dm"
+#include "code\modules\surgery\organs\augments_eyes.dm"
+#include "code\modules\surgery\organs\augments_legs.dm"
 #include "code\modules\surgery\organs\autosurgeon.dm"
 #include "code\modules\surgery\surgery_step.dm"
 #include "code\modules\surgery\tools.dm"
