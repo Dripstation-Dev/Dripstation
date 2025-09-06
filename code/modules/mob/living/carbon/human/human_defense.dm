@@ -147,7 +147,15 @@
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind)
+		/* dripstation edit start
 		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
+		*/
+		var/sane_mod = 0
+		var/datum/component/mood/mood = GetComponent(/datum/component/mood)
+		if(mood)
+			sane_mod = min(30, 30 - 0.32 * mood.sanity)
+			sane_mod = max(-10, sane_mod)
+		if(mind.martial_art && prob(mind.martial_art.block_chance - sane_mod) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))	//dripstation edit end
 			return mind.martial_art //need to use this where blocks are handled to handle counters since check_block doesn't reference the attacker
 	return FALSE
 
@@ -827,7 +835,7 @@
 			to_chat(src, msg)
 
 		for(var/obj/item/I in LB.embedded_objects)
-			combined_msg += "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
+			combined_msg += "\t <a href='byond://?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>"
 
 	for(var/t in missing)
 		combined_msg += span_boldannounce("Your [parse_zone(t)] is missing!")

@@ -49,6 +49,7 @@
 	D.add_movespeed_modifier("tail slap", update=TRUE, priority=101, multiplicative_slowdown=0.9)
 	addtimer(CALLBACK(D, TYPE_PROC_REF(/mob, remove_movespeed_modifier), "tail slap"), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 	log_combat(A, D, "slammed (Flying Fang)")
+	return TRUE	//dripstation edit
 
 ///last hit of the tail slap combo, causes a short stun or throws whatever blocks the attack
 /datum/martial_art/flyingfang/proc/Slap(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -84,6 +85,7 @@
 	D.visible_message(span_danger("[A] tail slaps [D]!"), \
 					  span_userdanger("[A] tail slaps you!"))
 	log_combat(A, D, "tail slapped (Flying Fang)")
+	return TRUE
 
 /datum/martial_art/flyingfang/proc/remove_bonk(mob/living/carbon/human/D)
 	D.dna.species.aiminginaccuracy -= 25
@@ -114,11 +116,13 @@
 	A.Stun(1.5 SECONDS) //actually about 1 second due to the stun resist
 	D.Stun(2 SECONDS)
 	log_combat(A, D, "neck chomped (Flying Fang)")
+	return TRUE	//dripstation edit
 
 //headbutt, deals moderate brute and stamina damage with an eye blur, causes poor aim for a few seconds to the target if they have no helmet on
 /datum/martial_art/flyingfang/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(A.mobility_flags & MOBILITY_STAND))	//No fancy tail slaps whe you're prone
 		return harm_act(A, D)
+		add_to_streak("H",D)	//dripstation edit
 	add_to_streak("D",D)
 	if(!can_use(A))
 		return
@@ -141,6 +145,7 @@
 	D.visible_message(span_danger("[A] headbutts [D]!"), \
 					  span_userdanger("[A] headbutts you!"))
 	log_combat(A, D, "headbutted (Flying Fang)")
+	return TRUE	//dripstation edit, yog issue
 
 /datum/martial_art/flyingfang/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	add_to_streak("G",D)

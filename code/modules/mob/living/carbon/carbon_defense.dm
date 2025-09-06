@@ -82,7 +82,10 @@
 						//If() explanation: if we have a mind and a martial art that we can use, check if it has a block or deflect chance or it's sleeping carp
 						//Assuming any of that isnt true, then throw mode isnt helpful and it gets turned off. Otherwise, it stays on.
 						if(!(mind && mind.martial_art && mind.martial_art.can_use(src) && (mind.martial_art.deflection_chance || mind.martial_art.block_chance || mind.martial_art.id == "sleeping carp")))
+							/*
 							throw_mode_off()
+							*/
+							throw_mode_off(THROW_MODE_TOGGLE)	//dripstation edit
 						return TRUE
 	..()
 
@@ -433,7 +436,7 @@
 			addtimer(CALLBACK(src, PROC_REF(secondary_shock), should_stun, stuntime - (2 SECONDS)), 2 SECONDS)
 
 	if(stat == DEAD && can_defib()) //yogs: ZZAPP
-		if(!illusion && (shock_damage * siemens_coeff >= 1) && prob(80))
+		if(!illusion && (shock_damage >= 1) && prob(80))	//dripstation fix, shock damage multiplies by siemens_coeff a bit higher
 			set_heartattack(FALSE)
 			adjustOxyLoss(-50)
 			adjustToxLoss(-50)
@@ -451,11 +454,14 @@
 		addtimer(CALLBACK(src, PROC_REF(supermatter_tesla_gib)), 4 SECONDS) //yogs end
 
 	if(undergoing_cardiac_arrest() && !illusion)
-		if(shock_damage * siemens_coeff >= 1 && prob(25))
+		if(shock_damage >= 1 && prob(25))	//dripstation fix, shock damage multiplies by siemens_coeff a bit higher
 			var/obj/item/organ/heart/heart = getorganslot(ORGAN_SLOT_HEART)
 			heart.beating = TRUE
 			if(stat == CONSCIOUS)
 				to_chat(src, span_notice("You feel your heart beating again!"))
+
+	else if(stat != DEAD && can_heartattack() && shock_damage >= 1 && prob(shock_damage/5))	//dripstation edit: HARD ZZZZAP
+		set_heartattack(TRUE)	//dripstation edit
 
 	if(override)
 		return override

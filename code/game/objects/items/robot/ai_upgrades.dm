@@ -161,7 +161,7 @@
 	if(!burstmode_activated && !COOLDOWN_FINISHED(src, next_activate)) // Burstmode is not ready.
 		return FALSE
 
-/datum/action/innate/ai/ranged/cameragun/do_ability(mob/living/caller, params, atom/target)
+/datum/action/innate/ai/ranged/cameragun/do_ability(mob/living/caller_but_not_a_byond_built_in_proc, params, atom/target)
 	var/turf/loc_target = get_turf(target)
 	var/obj/machinery/camera/chosen_camera
 	for(var/obj/machinery/camera/cam in GLOB.cameranet.cameras)
@@ -189,7 +189,7 @@
 			continue
 	if(!chosen_camera)
 		Deactivate(FALSE)
-		to_chat(caller, span_notice("Unable to find nearby available cameras for this target."))
+		to_chat(caller_but_not_a_byond_built_in_proc, span_notice("Unable to find nearby available cameras for this target."))
 		return FALSE
 	if(!burstmode_activated)
 		toggle_burstmode()
@@ -201,7 +201,7 @@
 		Deactivate(FALSE)
 		CRASH("Camera gun's proj_type was not a projectile.")
 	proj.preparePixelProjectile(target, chosen_camera)
-	proj.firer = caller
+	proj.firer = caller_but_not_a_byond_built_in_proc
 
 	// Fire the shot.
 	var/pointblank = get_dist(chosen_camera, target) <= 1 ? TRUE : FALSE // Same tile or right next.
@@ -212,7 +212,7 @@
 		chosen_camera.visible_message(span_danger("[chosen_camera] fires a laser!"))
 		proj.fire() 
 	Deactivate(FALSE)
-	to_chat(caller, span_danger("Camera overcharged."))
+	to_chat(caller_but_not_a_byond_built_in_proc, span_danger("Camera overcharged."))
 
 	/* 	This EMP prevents burstmode from annihilating a stationary object/person.
 		If someone gives a camera EMP resistance, then they had it coming. */

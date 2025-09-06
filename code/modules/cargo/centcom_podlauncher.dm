@@ -53,9 +53,8 @@
 	var/obj/structure/closet/supplypod/centcompod/temp_pod //The temporary pod that is modified by this datum, then cloned. The buildObject() clone of this pod is what is launched
 	// Stuff needed to render the map
 	var/map_name
-	var/atom/movable/screen/map_view/cam_screen
+	var/atom/movable/screen/map_view/camera/cam_screen
 	var/list/cam_plane_masters
-	var/atom/movable/screen/background/cam_background
 	var/tabIndex = 1
 	var/renderLighting = FALSE
 
@@ -102,14 +101,10 @@
 		instance.del_on_map_removal = TRUE
 		instance.screen_loc = "[map_name]:CENTER"
 		cam_plane_masters += instance
-	cam_background = new
-	cam_background.assigned_map = map_name
-	cam_background.del_on_map_removal = TRUE
 	refreshView()
 	holder.register_map_obj(cam_screen)
 	for(var/plane in cam_plane_masters)
 		holder.register_map_obj(plane)
-	holder.register_map_obj(cam_background)
 
 /datum/centcom_podlauncher/ui_state(mob/user)
 	if (SSticker.current_state >= GAME_STATE_FINISHED)
@@ -505,7 +500,6 @@
 			. = TRUE
 		if("refreshView")
 			initMap()
-			refreshView()
 			. = TRUE
 		if("renderLighting")
 			renderLighting = !renderLighting
@@ -535,7 +529,6 @@
 	user.client?.clear_map(map_name)
 	QDEL_NULL(cam_screen)
 	QDEL_LIST(cam_plane_masters)
-	QDEL_NULL(cam_background)
 	qdel(src)
 
 /datum/centcom_podlauncher/proc/setupViewPod()
@@ -557,9 +550,7 @@
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 
-	cam_screen.vis_contents = visible_turfs
-	cam_background.icon_state = "clear"
-	cam_background.fill_rect(1, 1, size_x, size_y)
+	cam_screen.show_camera(visible_turfs, size_x, size_y)
 
 /datum/centcom_podlauncher/proc/updateCursor(forceClear = FALSE) //Update the mouse of the user
 	if (!holder) //Can't update the mouse icon if the client doesnt exist!
