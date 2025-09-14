@@ -439,6 +439,7 @@
 	poster_item_name = "seditious poster"
 	poster_item_desc = "This poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its seditious themes are likely to demoralise Nanotrasen employees."
 	poster_item_icon_state = "rolled_traitor"
+	icon = 'modular_dripstation/icons/obj/contraband.dmi'
 	// This stops people hiding their sneaky posters behind signs
 	//layer = CORGI_ASS_PIN_LAYER
 	/// Proximity sensor to make people sad if they're nearby
