@@ -1744,9 +1744,9 @@ D*/
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad
 	name = "elite emergency response team RIG helmet (blackops)"
 	desc = "Advanced helmet issued to black ops team operator."
-	icon_state = "nt_deathsquad_helm"
+	icon_state = "apocryphal_helm"
 	//item_state = "nt_deathsquad_helm"
-	hardsuit_type = "nt_deathsquad"
+	hardsuit_type = "apocryphal"
 	var/hit_reflect_chance = 50
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
@@ -1779,9 +1779,9 @@ D*/
 /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/deathsquad
 	name = "elite emergency response team RIG (blackops)"
 	desc = "Advanced RIG issued to black ops team operator. Made from superior materials, one of the latest in the modern combat rigs line."
-	icon_state = "nt_deathsquad_rig"
+	icon_state = "apocryphal_rig"
 	//item_state = "nt_deathsquad_rig"
-	hardsuit_type = "nt_deathsquad"
+	hardsuit_type = "apocryphal"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad
 	var/hit_reflect_chance = 50
 	combat_slowdown = 0.2

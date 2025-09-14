@@ -387,6 +387,12 @@
 			spells.Remove(user)
 			qdel(spells)
 
+	///if we have some kind of dualmode at this point - remove it 	//dripstation edit
+	if(user.head)
+		qdel(user.head)
+	if(user.wear_suit)
+		qdel(user.wear_suit)		//dripstation edit end
+
 	user.fully_heal()
 	disguise_name = user.real_name //keep track of the old name
 	user.set_species(/datum/species/shadow/darkspawn)
@@ -431,6 +437,7 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(!H)
 		owner.current.gib(TRUE)
+	H.unequip_everything()	//dripstation edit
 	H.visible_message(span_boldwarning("[H]'s skin begins to slough off in sheets!"), \
 	span_userdanger("You can't maintain your disguise any more! It begins sloughing off!"))
 	playsound(H, 'yogstation/sound/creatures/darkspawn_force_divulge.ogg', 50, FALSE)
