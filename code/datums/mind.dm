@@ -42,7 +42,7 @@
 	var/memory
 
 	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
-	var/assigned_role
+	var/datum/job/assigned_role
 
 	var/role_alt_title
 

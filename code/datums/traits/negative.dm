@@ -400,8 +400,10 @@
 	UnregisterSignal(quirk_holder, list(COMSIG_MOB_EYECONTACT, COMSIG_MOB_EXAMINATE, COMSIG_MOB_SAY))
 
 /datum/quirk/social_anxiety/proc/handle_speech(datum/source, list/speech_args)
-	if(HAS_TRAIT(quirk_holder, TRAIT_FEARLESS))
-		return
+	if(!quirk_holder.check_fear(NORMAL_FEAR_SOURCE))	//Dripstation edit
+		return											//Dripstation edit
+	//if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	//	return
 
 	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 	var/moodmod

@@ -155,6 +155,8 @@
 	///For what kind of brute wounds we're rolling for, if we're doing such a thing. Lasers obviously don't care since they do burn instead.
 	var/sharpness = NONE
 	///How much we want to drop both wound_bonus and bare_wound_bonus (to a minimum of 0 for the latter) per tile, for falloff purposes
+	var/damage_falloff_tile	//dripstation edit
+	///How much we want to drop both wound_bonus and bare_wound_bonus (to a minimum of 0 for the latter) per tile, for falloff purposes
 	var/wound_falloff_tile
 	///How much we want to drop the embed_chance value, if we can embed, per tile, for falloff purposes
 	var/embed_falloff_tile
@@ -185,6 +187,8 @@
 
 /obj/projectile/proc/Range()
 	range--
+	if(damage_falloff_tile && decayedRange - range >= 3)	//dripstation edit
+		damage = max(0, damage - damage_falloff_tile)		//dripstation edit
 	if(wound_bonus != CANT_WOUND)
 		wound_bonus += wound_falloff_tile
 		bare_wound_bonus = max(0, bare_wound_bonus + wound_falloff_tile)

@@ -1351,6 +1351,7 @@
 /mob/proc/is_literate()
 	return FALSE
 
+/* Dripstation edit
 ///Can this mob read (is literate and not blind)
 /mob/proc/can_read(obj/O)
 	if(is_blind(src))
@@ -1360,6 +1361,7 @@
 		to_chat(src, span_notice("You try to read [O], but can't comprehend any of it."))
 		return
 	return TRUE
+*/
 
 ///Can this mob hold items
 /mob/proc/can_hold_items()

@@ -140,6 +140,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	var/screamsound
 	/// The visual effect of the attack.
 	var/attack_effect = ATTACK_EFFECT_PUNCH
+	var/unarmed_wound_bonus = 0	
 	///is a flying species, just a check for some things
 	var/flying_species = FALSE
 	///the actual flying ability given to flying species
@@ -1718,22 +1719,29 @@ GLOBAL_LIST_EMPTY(features_by_species)
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
 
+		//sharp attacks 
+		var/attissharp = NONE
+		if(user.dna.species.attack_sound == SFX_CLAWS)
+			attissharp = SHARP_EDGED
+		var/wbonus = user.get_wound_bonus()
+
 		var/attack_direction = get_dir(user, target)
 		if(atk_effect == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
 			target.apply_damage(damage*1.5, user.dna.species.attack_type, affecting, armor_block, attack_direction = attack_direction)
 			log_combat(user, target, "kicked")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block, attack_direction = attack_direction)
+			target.apply_damage(damage, user.dna.species.attack_type, affecting, armor_block, bare_wound_bonus = wbonus, sharpness = attissharp, attack_direction = attack_direction)
 			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
-			log_combat(user, target, "punched")
+			log_combat(user, target, user.dna.species.attack_sound == SFX_CLAWS ? "slashed" : "punched")
 
 		if((target.stat != DEAD) && damage >= user.get_punchstunthreshold())
 			target.visible_message(span_danger("[user] has knocked [target] down!"), \
 							span_userdanger("[user] has knocked [target] down!"), null, COMBAT_MESSAGE_RANGE)
 			var/knockdown_duration = 40 + (target.getStaminaLoss() + (target.getBruteLoss()*0.5))*0.8 //50 total damage = 40 base stun + 40 stun modifier = 80 stun duration, which is the old base duration
 			target.apply_effect(knockdown_duration, EFFECT_KNOCKDOWN, armor_block)
+			affecting.adjustBleedStacks(wbonus)
 			target.forcesay(GLOB.hit_appends)
-			log_combat(user, target, "got a stun punch with their previous punch")
+			log_combat(user, target, "has knocked with bare hand attack")
 		else if(!(target.mobility_flags & MOBILITY_STAND))
 			target.forcesay(GLOB.hit_appends)
 

@@ -39,3 +39,28 @@
 
 /obj/item/ammo_casing/proc/tk_firing(mob/living/user, atom/fired_from)
 	return fired_from != user && !user.contains(fired_from)
+
+/obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/fired_from)
+	if (!BB)
+		return
+	BB.original = target
+	BB.firer = user
+	BB.fired_from = fired_from
+	if(user.a_intent == INTENT_DISARM)
+		BB.hit_prone_targets = TRUE
+	if (zone_override)
+		BB.def_zone = zone_override
+	else
+		BB.def_zone = user.zone_selected
+	BB.suppressed = quiet
+
+	if(istype(fired_from, /obj/item/gun))		//Dripstation edit, iff and weapon mods
+		var/obj/item/gun/G = fired_from			//Dripstation edit, iff and weapon mods
+		G.apply_gun_modifiers(BB, target, user)	//Dripstation edit, iff and weapon mods
+
+	if(tk_firing(user, fired_from))
+		BB.ignore_source_check = TRUE
+
+	if(reagents && BB.reagents)
+		reagents.trans_to(BB, reagents.total_volume, transfered_by = user) //For chemical darts/bullets
+		qdel(reagents)

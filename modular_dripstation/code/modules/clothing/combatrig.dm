@@ -1,122 +1,3 @@
-//////Dual-mode actions//////
-/datum/action/item_action/rig
-	background_icon_state = "bg_rig"
-	overlay_icon_state = "bg_rig_border"
-	background_icon = 'modular_dripstation/icons/hud/actions.dmi'
-	overlay_icon = 'modular_dripstation/icons/hud/actions.dmi'
-	button_icon = 'modular_dripstation/icons/hud/actions.dmi'
-	check_flags = AB_CHECK_CONSCIOUS
-	var/action_target = /obj/item/clothing/suit/space/hardsuit/dualmode
-
-/datum/action/item_action/rig/New(Target)
-	..()
-	if(!istype(Target, action_target))
-		qdel(src)
-		return
-
-/datum/action/item_action/rig/Trigger(trigger_flags)
-	if(!IsAvailable(feedback = TRUE))
-		return FALSE
-	var/obj/item/clothing/suit/space/hardsuit/dualmode/rig = target
-	if(rig.malfunctioning && prob(75))
-		rig.balloon_alert(usr, "rig ui malfunctions!")
-		return FALSE
-	return TRUE
-
-/datum/action/item_action/rig/toggle_helmet
-	name = "Toggle Helmet"
-	desc = "Toggle a RIG helmet."
-	button_icon_state = "helmet_on_button"
-
-/datum/action/item_action/rig/toggle_helmet/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	var/obj/item/clothing/suit/space/hardsuit/dualmode/rig = target
-	if(rig.active)
-		button_icon_state = "helmet_off_button"
-	else
-		button_icon_state = "helmet_on_button"
-	rig.ToggleHelmet()
-
-/datum/action/item_action/rig/module
-	name = "Toggle Module"
-	desc = "Toggle a RIG module."
-	button_icon_state = "module_button"
-
-/datum/action/item_action/rig/module/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	var/obj/item/clothing/suit/space/hardsuit/dualmode/rig = target
-	rig.quick_module(usr)
-	build_all_button_icons()
-
-/datum/action/item_action/rig/activate
-	name = "Activate DUALMODE"
-	desc = "Activate/Deactivate suit with prompt."
-	button_icon_state = "activate_button"
-
-/datum/action/item_action/rig/activate/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	var/obj/item/clothing/suit/space/hardsuit/dualmode/rig = target
-	rig.toggle_activate(usr)
-	if(rig.active)
-		button_icon_state = "deactivate_button"
-	else
-		button_icon_state = "activate_button"
-	build_all_button_icons()
-
-
-/datum/action/item_action/rig/helmet
-	action_target = /obj/item/clothing/head/helmet/space/hardsuit/dualmode
-
-/datum/action/item_action/rig/helmet/Trigger(trigger_flags)
-	if(!IsAvailable(feedback = TRUE))
-		return FALSE
-	var/obj/item/clothing/head/helmet/space/hardsuit/dualmode/righelm = target
-	if(righelm.linkedsuit?.malfunctioning && prob(75))
-		righelm.balloon_alert(usr, "helmet ui malfunctions!")
-		return FALSE
-	return TRUE
-
-/datum/action/item_action/rig/helmet/seal
-	name = "Toggle Seal Mode"
-	desc = "Toggle RIG seal mode."
-	button_icon_state = "seal_button"
-
-/datum/action/item_action/rig/helmet/seal/Trigger(trigger_flags)
-	. = ..()
-	if(!.)
-		return
-	var/obj/item/clothing/head/helmet/space/hardsuit/dualmode/righelm = target
-	if(righelm.sealed)
-		button_icon_state = "unseal_button"
-	else
-		button_icon_state = "seal_button"
-	righelm.toggle_helmet_seal(usr)
-	build_all_button_icons()
-
-/datum/action/item_action/rig/helmet/light
-	name = "Toggle Helmet Light"
-	button_icon_state = "light_button"
-
-/datum/action/item_action/rig/helmet/light/Trigger()
-	var/obj/item/clothing/head/helmet/space/hardsuit/dualmode/rig = target
-	if(istype(rig))
-		rig.on_light_toggle(owner)
-		//rig.update_appearance(UPDATE_ICON)
-		owner.update_inv_head()
-
-/datum/action/item_action/rig/helmet/light/IsAvailable(feedback = FALSE)
-	var/obj/item/clothing/head/helmet/space/hardsuit/dualmode/rig = target
-	if(!istype(rig) || !rig.sealed)
-		return FALSE
-	return ..()
-
-
 //////Dual-mode hardsuits//////
 //Starting with original sindi one
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode
@@ -130,11 +11,10 @@
 	flash_protect = FLASH_PROTECTION_NONE
 	light_color = LIGHT_COLOR_GREEN
 	var/light_status = FALSE
-	var/mobility = TRUE
-	var/processing = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/dualmode/linkedsuit = null
 	actions_types = list(/datum/action/item_action/rig/helmet/seal, /datum/action/item_action/rig/helmet/light)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR
+	visor_flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	visor_flags = STOPSPRESSUREDAMAGE
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	var/toggled_for_heat_protecting = TRUE	//tipically all that nonlightweight
@@ -145,6 +25,7 @@
 	. = ..()
 	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/dualmode))
 		linkedsuit = loc
+	icon_state = "[hardsuit_type]_helm"
 	ADD_TRAIT(src, TRAIT_NODROP, LOCKED_HELMET_TRAIT)
 	on_unseal()
 
@@ -161,36 +42,42 @@
 	if(!isturf(user.loc))
 		to_chat(user, span_warning("You cannot toggle your helmet while in this [user.loc]!") )
 		return
-	if(processing)
+	if(linkedsuit.processing)
 		user.balloon_alert(user, "still processing!")
 		return
-	processing = TRUE
-	playsound(src.loc, 'modular_dripstation/sound/servo_motor.ogg', 50, 1)
-	if(!do_after(user, 1.8 SECONDS, user, timed_action_flags = (mobility ? IGNORE_ALL : IGNORE_HELD_ITEM), extra_checks = CALLBACK(src, PROC_REF(CheckCanToggle), user)))
-		user.balloon_alert(user, "interrupted!")
-		processing = FALSE
+	if(!linkedsuit.active)
+		user.balloon_alert(user, "turn RIG on!")
 		return
-	processing = FALSE
+	linkedsuit.processing = TRUE
+	if(linkedsuit.seal_time >= 1 SECONDS)
+		playsound(src.loc, 'modular_dripstation/sound/servo_motor.ogg', 50, 1)
+	else
+		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	if(!do_after(user, linkedsuit.seal_time, user, timed_action_flags = (linkedsuit.mobility ? IGNORE_ALL : IGNORE_HELD_ITEM), extra_checks = CALLBACK(src, PROC_REF(CheckCanToggle), user)))
+		user.balloon_alert(user, "interrupted!")
+		linkedsuit.processing = FALSE
+		return
+	linkedsuit.processing = FALSE
 	sealed = !sealed
 	if(sealed)
 		on_seal(user)
 	else
 		on_unseal(user)
+	to_chat(linkedsuit.wearer, span_notice("\The [src.name] hisses [sealed ? "closed" : "open"]."))
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	linkedsuit.toggle_seal_mode(user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.head_update(src, forced = 1)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.build_all_button_icons()
+	regenerate_button_icons()
+	linkedsuit.regenerate_button_icons()
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/proc/on_seal(mob/user = null)
 	name += " (sealed)"
 	desc = initial(desc) + " It is in EVA mode"
-	icon_state = "[initial(icon_state)]_sealed"
+	icon_state = "[hardsuit_type]_helm_sealed"
 	clothing_flags |= visor_flags
-	flags_cover |= (HEADCOVERSEYES | HEADCOVERSMOUTH)
+	flags_cover |= visor_flags_cover
 	flags_inv |= visor_flags_inv
 	if(!winter_mod)
 		cold_protection |= HEAD
@@ -206,9 +93,9 @@
 	desc = initial(desc) + " It is in combat mode"
 	light_status = FALSE
 	set_light_on(light_status)
-	icon_state = initial(icon_state)
+	icon_state = "[hardsuit_type]_helm"
 	clothing_flags &= ~visor_flags
-	flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
+	flags_cover &= ~visor_flags_cover
 	flags_inv &= ~visor_flags_inv
 	if(!winter_mod)
 		cold_protection &= ~HEAD
@@ -219,11 +106,18 @@
 		to_chat(user, span_notice("You switch your hardsuit to atmospheric mode and can now run at full possible speed."))
 		user.update_inv_head()
 
+/obj/item/clothing/head/helmet/space/hardsuit/dualmode/proc/regenerate_button_icons()
+	for(var/datum/action/A in actions)
+		A.build_all_button_icons()
+
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/proc/CheckCanToggle(mob/user)
 	var/obj/item/H = user.get_item_by_slot(ITEM_SLOT_HEAD)
 	if(!H || !istype(H, linkedsuit.helmettype))
 		to_chat(user, span_warning("You need your helmet be on!"))
-		return
+		return FALSE
+	if(!linkedsuit.active)
+		user.balloon_alert(user, "turn RIG on!")
+		return FALSE
 	return TRUE
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/AltClick(mob/user)
@@ -234,7 +128,7 @@
 	if(!sealed)
 		return FALSE
 	light_status = !light_status
-	icon_state = "[initial(icon_state)]_sealed[light_status ? "_light":""]"
+	icon_state = "[hardsuit_type]_helm_sealed[light_status ? "_light":""]"
 	set_light_on(light_status)
 
 /obj/item/clothing/suit/space/hardsuit/dualmode
@@ -253,40 +147,173 @@
 	var/toggled_for_heat_protecting = TRUE
 	var/combat_slowdown = 0.5 //slowdown when in combat mode
 	var/eva_slowdown = 1 //slowdown when in eva mode
-	var/lightweight = 1 //used for flags when toggling
+	var/lightweight = TRUE //used for flags when toggling
 	var/winter_mod = FALSE	//protects from cold when toggled in combat mode
+	var/charge_drain = DEFAULT_CHARGE_DRAIN
+	var/obj/item/core/core
 	var/current_complexity = 0	//how many modules can be attached
-	var/max_complexity = 4
+	var/max_complexity = DEFAULT_MAX_COMPLEXITY
 	var/list/inserted_modules = list()
 	var/list/starting_modules = list()
+	var/starting_core = /obj/item/core/standard
+	var/starting_cell = /obj/item/stock_parts/cell/upgraded
+	var/list/starting_pins = list()
+	var/mobility = TRUE
+	var/seal_time = 2.4 SECONDS
+	var/processing = FALSE
 	var/preview = FALSE
+	var/locked = FALSE
+	var/open = FALSE
 	var/active = FALSE
+	var/activating = FALSE
 	/// Currently used module.
 	var/obj/item/module/selected_module
 	var/malfunctioning = FALSE
-	var/mob/wearer
+	var/auto_unmalf_time = 60 SECONDS
+	var/mob/living/carbon/human/wearer
 	actions_types = list(
 		/datum/action/item_action/rig/toggle_helmet,
 		/datum/action/item_action/rig/activate,
 		/datum/action/item_action/rig/module,
-		/*/datum/action/item_action/rig/module_pick,*/
+		/datum/action/item_action/rig/module_pin,
 	)
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/Initialize()
+/obj/item/clothing/suit/space/hardsuit/dualmode/Initialize(mapload, obj/item/core/new_core = null)
 	..()
-	if(!preview)
-		SuitRestartHandle()
-		SuitInsertStartModules()
+	icon_state = "[hardsuit_type]_rig"
+	if(length(req_access))
+		locked = TRUE
+	new_core?.install(src)
+	SuitRestartHandle()
+	if(!preview && !new_core)	//new core basicly new crafted rig
+		insert_on_init()
 		return INITIALIZE_HINT_LATELOAD
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/LateInitialize()
-	var/mob/living/carbon/human/rigsuser = src.loc
-	if(istype(rigsuser) && rigsuser.wear_suit == src)
+	if(wearer)
 		ToggleHelmet(TRUE)
 		var/obj/item/clothing/head/helmet/space/hardsuit/dualmode/DH = helmet
 		DH.spaceready(src.loc)
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/proc/quick_module(mob/user)
+/obj/item/clothing/suit/space/hardsuit/dualmode/Destroy()
+	if(active)
+		STOP_PROCESSING(SSobj, src)
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/ToggleHelmet()
+	. = ..()
+	regenerate_button_icons()
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/examine(mob/user)
+	. = ..()
+	. += "It has [current_complexity]/[max_complexity] complexity."
+	if(get_charge())
+		. += get_charge() ? "It has [get_charge_percent()]% charge." : "<span class='warning'>Charge tracker is dead.</span>"
+	if(open)
+		. += "<span class='warning'>It has it`s protection panel unscrewed.</span>"
+		. += core ? "It has \a [core.name] incerted into it." : "It has no core incerted into it."
+		if(winter_mod)
+			. += "It has advanced heating system."
+		if(toggled_for_heat_protecting)
+			. += "It has advanced cooling system."
+		for(var/obj/item/module/M in inserted_modules)
+			. += "It has \a [M.name] incerted into it."
+	else
+		. += "Unscrew protection panel to see it`s contents."
+	if(locked)
+		. += "Protection panel is locked.</span>"
+		. += "<span class='notice'>CTRL-Click to unlock it.</span>"
+	if(malfunctioning)
+		. += "<span class='warning'>Red dot signals two times.</span>"
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(istype(attacking_item, /obj/item/card))
+		return update_access(user, attacking_item.GetID())
+	if(istype(attacking_item, /obj/item/card/emag))
+		return TRUE
+	if(!open)
+		balloon_alert(user, "unscrew protection panel!")
+		return FALSE
+	if(istype(attacking_item, /obj/item/core))
+		if(core)
+			balloon_alert(user, "core already installed!")
+			return FALSE
+		var/obj/item/core/C = attacking_item
+		C.install(src)
+		return TRUE
+	if(istype(attacking_item, /obj/item/module))
+		var/obj/item/module/M = attacking_item
+		M.try_to_insert_module(src, user)
+		return TRUE
+	return FALSE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/update_access(mob/user, obj/item/card/id/card)
+	if(!allowed(user))
+		balloon_alert(user, "insufficient access!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	req_access = card.access.Copy()
+	balloon_alert(user, "access updated")
+	return TRUE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/IsReflect(def_zone)
+	if(SEND_SIGNAL(src, COMSIG_RIG_REFLECT, def_zone) & RIG_REFLECT)
+		return TRUE
+	return ..()
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/get_charge_source()
+	return core?.charge_source()
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/get_charge()
+	return core?.charge_amount() || 0
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/get_max_charge()
+	return core?.max_charge_amount() || 1 //avoid dividing by 0
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/get_charge_percent()
+	return ROUND_UP((get_charge() / get_max_charge()) * 100)
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/add_charge(amount)
+	return core?.add_charge(amount) || FALSE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/subtract_charge(amount)
+	return core?.subtract_charge(amount) || FALSE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/check_charge(amount)
+	return core?.check_charge(amount) || FALSE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/update_charge_alert()
+	if(!wearer)
+		return
+	if(!core)
+		wearer.throw_alert(ALERT_RIG_CHARGE, /atom/movable/screen/alert/nocore)
+		return
+	core.update_charge_alert()
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/process(seconds_per_tick)
+	// if(seconds_electrified > MACHINE_NOT_ELECTRIFIED)
+	// 	seconds_electrified--
+	if(!get_charge() && active && !activating)
+		toggle_activate(null, TRUE)
+		return PROCESS_KILL
+	var/malfunctioning_charge_drain = 0
+	if(malfunctioning)
+		malfunctioning_charge_drain = rand(1,20)
+	subtract_charge((charge_drain + malfunctioning_charge_drain)*seconds_per_tick)
+	update_charge_alert()
+	for(var/obj/item/module/module as anything in inserted_modules)
+		if(malfunctioning && module.active && DT_PROB(5, seconds_per_tick))
+			module.on_module_deactivate(display_message = TRUE)
+		module.on_process(seconds_per_tick)
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/get_cell()
+	if(!open)
+		return
+	var/obj/item/stock_parts/cell/cell = get_charge_source()
+	if(!istype(cell))
+		return
+	return cell
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/quick_module(mob/user, istrigger = TRUE)
 	if(!length(inserted_modules))
 		return
 	var/list/display_names = list()
@@ -315,13 +342,68 @@
 	var/obj/item/module/picked_module = locate(module_reference) in inserted_modules
 	if(!istype(picked_module))
 		return
-	picked_module.on_trigger_module()
+	if(istrigger)
+		picked_module.on_trigger_module()
+	else
+		picked_module.pin(user)
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/proc/SuitInsertStartModules()
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/insert_on_init()
+	var/obj/item/core/C = new starting_core(src)
+	C.install(src)
+	if(starting_cell && istype(C, /obj/item/core/standard))
+		var/obj/item/core/standard/standard = C
+		var/obj/item/stock_parts/cell/CE = new starting_cell(src)
+		standard.install_cell(CE)
 	if(starting_modules.len > 0)
 		for(var/mod in starting_modules)
 			var/obj/item/module/_mod = new mod(src)
 			_mod.insert_module(src)
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/set_wearer(mob/living/carbon/human/user)
+	if (wearer == user)
+		// This should also not happen.
+		// This path is hit when equipping an outfit with visualsOnly, but only sometimes, and this eventually gets called twice.
+		// I'm not sure this proc should ever be being called by visualsOnly, but it is,
+		// and this was an emergency patch.
+		return
+	else if (!isnull(wearer))
+		stack_trace("set_wearer() was called with a new wearer without unset_wearer() being called")
+
+	wearer = user
+	regenerate_button_icons()
+	SEND_SIGNAL(src, COMSIG_RIG_WEARER_SET, wearer)
+	//RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
+	RegisterSignal(wearer, COMSIG_SPECIES_GAIN, PROC_REF(on_species_gain))
+	update_charge_alert()
+	for(var/obj/item/module/module as anything in inserted_modules)
+		module.on_equip()
+		if(!starting_pins[module.type]) //this module isnt meant to be pinned by default
+			continue
+		if(REF(wearer) in starting_pins[module.type]) //if we already had pinned once to this user, don care anymore
+			continue
+		starting_pins[module.type] += REF(wearer)
+		module.pin(wearer)
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/unset_wearer()
+	for(var/obj/item/module/module as anything in inserted_modules)
+		module.on_unequip()
+	//UnregisterSignal(wearer, COMSIG_ATOM_EXITED)
+	UnregisterSignal(wearer, COMSIG_SPECIES_GAIN)
+	//wearer.clear_alert(ALERT_RIG_CHARGE)
+	SEND_SIGNAL(src, COMSIG_RIG_WEARER_UNSET, wearer)
+	regenerate_button_icons()
+	wearer = null
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/regenerate_button_icons()
+	for(var/datum/action/A in actions)
+		A.build_all_button_icons()
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/on_species_gain(datum/source, datum/species/new_species, datum/species/old_species)
+	SIGNAL_HANDLER
+
+	if(!mob_can_equip(wearer, ITEM_SLOT_OCLOTHING))
+		forceMove(drop_location())
+	return
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/proc/SuitRestartHandle()
 	active = FALSE
@@ -334,10 +416,10 @@
 	sealed = DM.sealed
 	if(sealed)
 		on_seal()
-		ADD_TRAIT(src, TRAIT_NODROP, SEALED_RIG_TRAIT)
+		ADD_TRAIT(src, TRAIT_NODROP, RIG_TRAIT)
 	else
 		on_unseal()
-		REMOVE_TRAIT(src, TRAIT_NODROP, SEALED_RIG_TRAIT)
+		REMOVE_TRAIT(src, TRAIT_NODROP, RIG_TRAIT)
 
 	recalculate_slowdown()
 	icon_state = "[hardsuit_type]_rig[sealed ? "_sealed":""]"
@@ -371,19 +453,26 @@
 	if(lightweight)
 		flags_inv &= ~(HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT)
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/examine(mob/user)
-	. = ..()
-	for(var/obj/item/module/M in inserted_modules)
-		. += "It has \a [M] incerted into it."
+/obj/item/clothing/suit/space/hardsuit/dualmode/CtrlClick(mob/user)
+	if(locked && !allowed(user))
+		balloon_alert(user, "access insufficient!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	locked = !locked
+	balloon_alert(user, "suit access [locked ? "locked" : "unlocked"]")
+	return TRUE
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/dropped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/suit/space/hardsuit/dualmode/dropped(mob/living/carbon/human/user)
 	if (user.wear_suit == src)
-		wearer = null
+		unset_wearer()
+		toggle_activate(user, TRUE)
 	return ..()
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/equipped(mob/user, slot, initial = FALSE)
 	if (slot == ITEM_SLOT_OCLOTHING)
-		wearer = user
+		set_wearer(user)
+	else if(wearer)
+		unset_wearer()
 	return ..()
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/mob_can_equip(M as mob, slot)
@@ -410,34 +499,107 @@
 	else
 		slowdown = combat_slowdown
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/proc/toggle_activate(mob/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.wear_suit == src)
-			active = !active
-			wearer = H
-			balloon_alert(H, "rig [active?"on":"off"]!")
-			SEND_SIGNAL(src, COMSIG_RIG_TRIGGER_POWER)
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/toggle_activate(mob/user, force_deactivate = FALSE)
+	if(!wearer)
+		if(!force_deactivate)
+			balloon_alert(user, "equip suit first!")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			return FALSE
+	if(!force_deactivate && (SEND_SIGNAL(src, COMSIG_RIG_ACTIVATE, user) & RIG_CANCEL_ACTIVATE))
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	if(!force_deactivate && locked && !allowed(user))
+		balloon_alert(user, "access insufficient!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	//if(!get_charge() && !force_deactivate)
+		//balloon_alert(user, "suit not powered!")
+		//playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		//return FALSE
+	if(activating)
+		if(!force_deactivate)
+			balloon_alert(user, "suit already [active ? "shutting down" : "starting up"]!")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	// for(var/obj/item/module/module as anything in inserted_modules)
+	// 	if(!module.active || (module.allow_flags & MODULE_ALLOW_INACTIVE))
+	// 		continue
+	// 	module.on_module_unpowered//(display_message = FALSE)
+	activating = TRUE
+	to_chat(wearer, span_notice("RIG [active ? "shutting down" : "starting up"]."))
+	if(force_deactivate || do_after(wearer, active ? 0.5 SECONDS : 2 SECONDS, wearer, timed_action_flags = IGNORE_ALL, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
+		to_chat(wearer, span_notice("Systems [active ? "shut down. Goodbye" : "started up. Welcome"], [wearer]."))
+
+		if(force_deactivate)
+			active = FALSE
 		else
-			balloon_alert(H, "wear it!")
+			active = !active
+		
+		if(active)
+			playsound(src, 'sound/machines/synth_yes.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
+			if(!malfunctioning)
+				wearer.playsound_local(get_turf(src), 'sound/mecha/nominal.ogg', 50)
+			START_PROCESSING(SSobj, src)
+		else
+			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
+			STOP_PROCESSING(SSobj, src)
+		SEND_SIGNAL(src, COMSIG_RIG_TRIGGER_POWER)
+	activating = FALSE		
+	return TRUE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/has_wearer()
+	return wearer
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/emp_act(severity)
 	. = ..()
 	if (!(. & EMP_PROTECT_CONTENTS))
+		if(active && wearer)
+			toggle_activate(force_deactivate = TRUE)
 		malfunctioning = TRUE
-		addtimer(CALLBACK(src, PROC_REF(unmafunction)), 5 SECONDS, TIMER_OVERRIDE | TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(unmalfunction)), auto_unmalf_time, TIMER_OVERRIDE | TIMER_UNIQUE)
 	if(inserted_modules.len && !(. & EMP_PROTECT_CONTENTS))
 		for(var/obj/item/module/M in inserted_modules)
 			M.emp_act(severity)
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/proc/unmafunction()
-	malfunctioning = FALSE
+/obj/item/clothing/suit/space/hardsuit/dualmode/proc/unmalfunction()
+	if(malfunctioning)
+		malfunctioning = FALSE
+		if(wearer)
+			to_chat(wearer, span_announce("RIG internal system fixes itself."))
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/clothing/suit/space/hardsuit/dualmode/emag_act(mob/user, obj/item/card/emag/emag_card)
+	locked = !locked
+	balloon_alert(user, "suit access [locked ? "locked" : "unlocked"]")
+	return TRUE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
 
+	if(!open)
+		to_chat(user, span_announce("Unscrew protecting plating first!"))
+		return FALSE
+	if(!malfunctioning)
+		to_chat(user, span_announce("There is nothing to fix."))
+		return FALSE
+	to_chat(user, span_announce("You fix RIG electronics."))
+	I.play_tool_sound(src)
+	malfunctioning = FALSE
+	return TRUE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+
+	if(!open)
+		to_chat(user, span_announce("Unscrew protecting plating first!"))
+		return FALSE
 	var/list/options = list()
 	var/list/radial_display = list()
+	if(core)
+		options[initial(core.name)] = core
+		var/datum/radial_menu_choice/option = new
+		option.image = image(icon = initial(core.icon), icon_state = initial(core.icon_state))
+		option.info = "[initial(core.name)] - [span_boldnotice(initial(core.desc))]"
+		radial_display[initial(core.name)] = option
 	for(var/obj/item/module/mod as anything in inserted_modules)
 		if(!initial(mod.removable))
 			continue
@@ -451,10 +613,10 @@
 		to_chat(user, span_announce("There is nothing to remove."))
 		return FALSE
 	else if(LAZYLEN(options) == 1)
-		return remove_rig_mod(user, I, inserted_modules[1], "unscrewed")
+		return remove_rig_mod(user, I, inserted_modules[1], "remove")
 	
 	var/choice = show_radial_menu(user, user, radial_display)
-	var/obj/item/module/chosen_mod = options[choice]
+	var/obj/item/chosen_mod = options[choice]
 	if(QDELETED(src) || QDELETED(user))
 		return FALSE
 	if(!chosen_mod)
@@ -462,16 +624,36 @@
 		return FALSE
 	if(src && chosen_mod && !user.incapacitated() && in_range(user,src))
 		remove_rig_mod(user, I, chosen_mod)
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.build_all_button_icons()
-		to_chat(user, span_notice("You remove [chosen_mod.name] from your [name]!"))
+		regenerate_button_icons()
+		//to_chat(user, span_notice("You remove [chosen_mod.name] from your [name]!"))
 		return TRUE
+	return FALSE
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(active)
+		to_chat(user, span_announce("Some kind of magnet lock preventing you from unscrewing panel. Try deactivate rig first."))
+		return FALSE
+	if(locked)
+		to_chat(user, span_announce("Some kind of mechanical lock preventing you from unscrewing panel. Try to unlock rig first."))
+		return FALSE
+
+	open = !open
+	to_chat(user, span_announce("You [open? "unscrew" : "secure"] protecting panel."))
+	I.play_tool_sound(src)
+	return TRUE
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/proc/remove_rig_mod(mob/living/user, obj/item/tool_item, obj/item/chosen_mod, removal_verb)
+	if(!allowed(user))
+		balloon_alert(user, "insufficient access!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+	if(SEND_SIGNAL(src, COMSIG_RIG_MODULE_REMOVAL, user) & RIG_CANCEL_REMOVAL)
+		balloon_alert(user, "removal blocked!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
 	if(tool_item)
 		tool_item.play_tool_sound(src)
-	to_chat(user, span_notice("You [removal_verb ? removal_verb : "remove"] [chosen_mod] from [src]."))
+	to_chat(user, span_notice("You [removal_verb ? removal_verb : "remove"] [chosen_mod.name] from [src]."))
 	chosen_mod.forceMove(drop_location())
 
 	if(Adjacent(user) && !issilicon(user))
@@ -479,240 +661,24 @@
 
 	if(istype(chosen_mod, /obj/item/module))
 		var/obj/item/module/M = chosen_mod
-		return M.remove_module()
-
-////////////////////
-////Known bugs
-////////////////////
-//When helmet desealed (processing) - removing helmet button will break hardsuit
-//Nodrop trait hardly blocking suit, nothing for now can deseal it
-
-///obj/item/clothing/suit/space/hardsuit/dualmode/canStrip(mob/stripper, mob/owner)
-//	SHOULD_BE_PURE(TRUE)
-//	return !HAS_TRAIT_FROM(src, TRAIT_NODROP, SEALED_RIG_TRAIT)
-
-///obj/item/clothing/suit/space/hardsuit/dualmode/doStrip(mob/stripper, mob/owner)
-//	SuitRestartHandle()
-//	playsound(src.loc, 'modular_dripstation/sound/servo_motor.ogg', 50, 1)
-//	return owner.dropItemToGround(src)
-
-
-///obj/item/clothing/suit/space/hardsuit/dualmode/ToggleHelmet()
-//	var/mob/living/carbon/human/H = src.loc
-//	if(!helmettype)
-//		return
-//	if(!helmet)
-//		return
-//	if(!suittoggled)
-//		if(ishuman(src.loc))
-//			if(H.wear_suit != src)
-//				to_chat(H, span_warning("You must be wearing [src] to engage the helmet!"))
-//				return
-//			if(H.head)
-//				to_chat(H, span_warning("You're already wearing something on your head!"))
-//				return
-//			else if(H.equip_to_slot_if_possible(helmet,ITEM_SLOT_HEAD,0,0,1))
-//				to_chat(H, span_notice("You engage the helmet on the hardsuit."))
-//				suittoggled = TRUE
-//				H.update_inv_wear_suit()
-//				playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
-//	else
-//		RemoveHelmet()
-
-///obj/item/clothing/suit/space/hardsuit/dualmode/RemoveHelmet()
-//	if(!helmet)
-//		return
-//	suittoggled = FALSE
-//	helmet.unequip_hat()
-//	if(ishuman(helmet.loc))
-//		var/mob/living/carbon/H = helmet.loc
-//		if(helmet.on)
-//			helmet.attack_self(H)
-//		H.transferItemToLoc(helmet, src, TRUE)
-//		H.update_inv_wear_suit()
-//		to_chat(H, span_notice("The helmet on the hardsuit disengages."))
-//		playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
-//	else
-//		helmet.forceMove(src)
-
-//////////////////////////////////////////
-/////////Shielded dualmod (no mode)///////
-
-/*
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded
-	var/current_charges = 3
-	var/max_charges = 3 //How many charges total the shielding has
-	var/recharge_delay = 200 //How long after we've been shot before we can start recharging. 20 seconds here
-	var/recharge_cooldown = 0 //Time since we've last been shot
-	var/recharge_rate = 1 //How quickly the shield recharges once it starts charging
-	var/shield_state = "shield-red"
-	var/shield_on = "shield-red"
-	var/shield_off = "shield-flash"
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	recharge_cooldown = world.time + recharge_delay
-	if(current_charges > 0)
-		var/datum/effect_system/spark_spread/s = new
-		s.set_up(2, 1, src)
-		s.start()
-		owner.visible_message(span_danger("[owner]'s shields deflect [attack_text] in a shower of sparks!"))
-		current_charges--
-		if(recharge_rate)
-			START_PROCESSING(SSobj, src)
-		if(current_charges <= 0)
-			owner.visible_message(span_danger("[owner]'s shield overloads!"))
-			shield_state = "[shield_off]"
-			owner.update_inv_wear_suit()
-		return 1
-	return 0
-
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded/process()
-	if(world.time > recharge_cooldown && current_charges < max_charges)
-		current_charges = clamp((current_charges + recharge_rate), 0, max_charges)
-		playsound(loc, 'sound/magic/charge.ogg', 50, 1)
-		if(current_charges == max_charges)
-			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-			STOP_PROCESSING(SSobj, src)
-		shield_state = "[shield_on]"
-		if(ishuman(loc))
-			var/mob/living/carbon/human/C = loc
-			C.update_inv_wear_suit()
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded/worn_overlays(isinhands = FALSE)
-	. = ..()
-	if(!isinhands)
-		. += mutable_appearance('modular_dripstation/icons/effects/shield.dmi', shield_state, MOB_LAYER+0.01)
-
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/shielded
-	light_color = LIGHT_COLOR_DEFAULT
-
-
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/shielded/bloodred
-	name = "blood-red RIG helmet"
-	desc = "A dual-mode advanced helmet designed for special operations. Property of Gorlex Marauders."
-	icon_state = "bloodred_helm"
-	//item_state = "bloodred_helm"
-	hardsuit_type = "bloodred"
-	light_range = 6
-	light_color = LIGHT_COLOR_GREEN
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
-	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
-	toggled_for_heat_protecting = FALSE
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded/bloodred
-	name = "blood-red shielded RIG"
-	desc = "A dual-mode advanced RIG designed for special operations. Has inbuilt shielding module and advanced combat leg servomotors. Original design by Gorlex Marauders."
-	icon_state = "bloodred_rig"
-	//item_state = "bloodred_rig"
-	hardsuit_type = "bloodred"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/shielded/bloodred
-	jetpack = /obj/item/tank/jetpack/suit	//downgraded jet
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
-	combat_slowdown = -0.2
-	lightweight = 0
-	toggled_for_heat_protecting = FALSE
-	current_charges = 1	//How many charges suit starting with
-	max_charges = 1 //How many charges total the shielding has
-	recharge_delay = 100 //How long after we've been shot before we can start recharging. 10 seconds here
-
-////////////////////////////////////////////
-/////////DEATHSQUAD SHIELDED DUAL-MOD///////
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/shielded/deathsquad
-	name = "elite emergency response team RIG helmet (blackops)"
-	desc = "Advanced helmet issued to black ops team operator."
-	icon_state = "nt_deathsquad_helm"
-	//item_state = "nt_deathsquad_helm"
-	hardsuit_type = "nt_deathsquad"
-	armor = list(MELEE = 50, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
-	light_range = 7
-	light_color = LIGHT_COLOR_LIGHT_CYAN
-	heat_protection = HEAD
-	resistance_flags = FIRE_PROOF|ACID_PROOF
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
-	toggled_for_heat_protecting = FALSE
-	var/hit_reflect_chance = 50
-
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/shielded/deathsquad/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if (slot == ITEM_SLOT_HEAD)
-		var/datum/atom_hud/SHUD = GLOB.huds[DATA_HUD_SECURITY_MEDICAL]
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-		SHUD.show_to(user)
-		DHUD.show_to(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/shielded/deathsquad/dropped(mob/living/carbon/human/user)
-	..()
-	if (user.head == src)
-		var/datum/atom_hud/SHUD = GLOB.huds[DATA_HUD_SECURITY_MEDICAL]
-		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-		SHUD.hide_from(user)
-		DHUD.hide_from(user)
-
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/shielded/deathsquad/Initialize()
-	. = ..()
-	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE_MIND, inventory_flags = ITEM_SLOT_OCLOTHING)
-
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/shielded/deathsquad/IsReflect(def_zone)
-	if(!(def_zone in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))) //If not shot where ablative is covering you, you don't get the reflection bonus!
-		return FALSE
-	if (prob(hit_reflect_chance))
-		return TRUE
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded/deathsquad
-	name = "elite emergency response team RIG (blackops)"
-	desc = "Advanced RIG issued to black ops team operator. Made from superior materials, one of the latest in the modern combat rigs line. Has inbuilt shielding module."
-	icon_state = "nt_deathsquad_rig"
-	//item_state = "nt_deathsquad_rig"
-	hardsuit_type = "nt_deathsquad"
-	armor = list(MELEE = 50, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
-	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	resistance_flags = FIRE_PROOF|ACID_PROOF
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	combat_slowdown = 0.3
-	lightweight = 0
-	toggled_for_heat_protecting = FALSE
-	helmettype = /obj/item/clothing/suit/space/hardsuit/dualmode/shielded/deathsquad
-	var/hit_reflect_chance = 50
-	combat_slowdown = 0.2
-	shield_state = "shield-old"
-	shield_on = "shield-old"
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded/deathsquad/Initialize()
-	. = ..()
-	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_OCLOTHING)
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/shielded/deathsquad/IsReflect(def_zone)
-	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!
-		return FALSE
-	if (prob(hit_reflect_chance))
-		return TRUE
-*/
-
-//The Owl Hardsuit
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/owl
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
-	toggled_for_heat_protecting = FALSE
-	light_color = LIGHT_COLOR_DEFAULT
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/owl
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
-	combat_slowdown = 0
-	lightweight = 0
-	toggled_for_heat_protecting = FALSE
+		return M.remove_module(src)
+	if(istype(chosen_mod, /obj/item/core))
+		var/obj/item/core/C = chosen_mod
+		return C.uninstall(src)
 
 ////////////////////////////////
 /////////NORMAL DUAL-MODS///////
 ////////////////////////////////
 ////////////////////////////////
+/obj/item/clothing/head/helmet/space/hardsuit/dualmode/basic
+	name = "basic RIG helmet"
+	hardsuit_type = "basic"
+
+/obj/item/clothing/suit/space/hardsuit/dualmode/basic
+	name = "basic RIG"
+	preview = TRUE
+	hardsuit_type = "basic"
+
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering
 	name = "engineering RIG helmet"
 	desc = "A modern helmet designed for isolation from the hazardous, low-pressure environment. Has radiation shielding."
@@ -729,32 +695,33 @@
 	desc = "A modern rig designed for isolation from the hazardous, low pressure environments. Has radiation shielding."
 	icon_state = "engineering_rig"
 	//item_state = "engineering_rig"
-	item_state = "eng_hardsuit"
 	hardsuit_type = "engineering"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser)
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering
 	starting_modules = list(/obj/item/module/welding)
-	max_complexity = 5
 	resistance_flags = FIRE_PROOF
 
+/*
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/unathi
 	name = "engineering unathi RIG helmet"
 	desc = "A modern helmet designed for isolation from the hazardous, low-pressure environment. Has radiation shielding."
 	icon_state = "engineering_unathi_helm"
 	//item_state = "engineering_helm"
 	hardsuit_type = "engineering_unathi"
+*/
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/engineering/unathi
-	name = "engineering unathi RIG"
-	desc = "A modern rig designed for isolation from the hazardous, low pressure environments. Moded for users with digitigrade legs. Has radiation shielding."
-	icon_state = "engineering_unathi_rig"
+	//name = "engineering RIG"
+	//desc = "A modern rig designed for isolation from the hazardous, low pressure environments. Has radiation shielding."	//Moded for users with digitigrade legs.
+	//icon_state = "engineering_rig"
 	//item_state = "engineering_rig"
-	item_state = "eng_hardsuit"
-	hardsuit_type = "engineering_unathi"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/unathi
-	mutantrace_variation = DIGITIGRADE_VARIATION
-	species_restricted = list("lizard", "polysmorph")
+	//item_state = "eng_hardsuit"
+	//hardsuit_type = "engineering"
+	//helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/unathi
+	//mutantrace_variation = DIGITIGRADE_VARIATION
+	//species_restricted = list("lizard", "polysmorph")
+	starting_modules = list(/obj/item/module/welding, /obj/item/module/digitagrade)
 
 //mechanic
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/mechanic
@@ -888,7 +855,8 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	combat_slowdown = 0.3
 	starting_modules = list(/obj/item/module/welding, /obj/item/module/speed_booster)
-	max_complexity = 6
+	max_complexity = PLUS_TWO_MAX_COMPLEXITY
+	starting_core = /obj/item/core/fusion
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/syndicate/winter
@@ -920,11 +888,12 @@
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/medical
 	name = "medical RIG"
-	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Built with lightweight materials for easier movement. Expensive in production and maintaining."
+	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. For general medical use."
 	icon_state = "medical_rig"
 	//item_state = "medical_rig"
 	item_state = "medical_hardsuit"
 	hardsuit_type = "medical"
+	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/firstaid, /obj/item/healthanalyzer, /obj/item/stack/medical)
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75, WOUND = 10, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/medical
@@ -956,6 +925,7 @@
 	hardsuit_type = "rescue"
 	slowdown = 0.4
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/medical/rescue
+	starting_modules = list(/obj/item/module/speed_booster/civilian)
 
 ////////////////////////////
 //////Mining Dual-mod//////
@@ -979,7 +949,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/mining
 	name = "mining RIG"
-	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by mining groups across human space. Expensive in production and maintaining."
+	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by Nanotrasen mining groups across human space. Expensive in production and maintaining."
 	icon_state = "mining_rig"
 	//item_state = "mining_rig"
 	item_state = "mining_hardsuit"
@@ -989,6 +959,11 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/mining
+	charge_drain = DEFAULT_CHARGE_DRAIN * 2
+	starting_modules = list(/obj/item/module/ash_accretion, 
+	/*/obj/item/mod/module/sphere_transform*/
+	)
+	starting_core = /obj/item/core/plasma
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/mining/Initialize(mapload)
 	. = ..()
@@ -1007,6 +982,7 @@
 	desc = "A standardized dual-mode helmet derived from more advanced special operations helmets. Designed for security operations in hasard AO`s."
 	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
+	visor_flags_cover = NONE
 	light_color = LIGHT_COLOR_DEFAULT
 	clothing_traits = list(TRAIT_HEAD_INJURY_BLOCKED)
 
@@ -1019,8 +995,13 @@
 	combat_slowdown = 0.4	//we need some extra speed here
 	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by paramilitary groups and PMC alike affiliated with or contracted by Nanotrasen across human space. Expensive in production and maintaining. Has NT logo on it`s back."
 	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
-	starting_modules = list(/obj/item/module/pepper_shoulders, /obj/item/module/holster)
+	starting_modules = list(/obj/item/module/pepper_shoulders, 
+							/obj/item/module/holster, 
+							/obj/item/module/megaphone, 
+							/obj/item/module/active_sonar, 
+							/obj/item/module/projectile_dampener)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security
+	req_access = list(ACCESS_SECURITY)
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/security/Initialize(mapload)
 	. = ..()
@@ -1042,7 +1023,14 @@
 	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by paramedics of paramilitary groups and PMC alike across human space. Expensive in production and maintaining."
 	armor = list(MELEE = 25, BULLET = 15, LASER = 20, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security/brigmed
-	combat_slowdown = 0.35
+	//combat_slowdown = 0.35
+	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
+	max_complexity = PLUS_ONE_MAX_COMPLEXITY
+	starting_modules = list(/obj/item/module/pepper_shoulders, 
+							/obj/item/module/holster, 
+							/obj/item/module/active_sonar, 
+							/obj/item/module/speed_booster/civilian)
+	req_access = list(ACCESS_SECURITY)
 
 
 
@@ -1065,6 +1053,7 @@
 	armor = list(MELEE = 30, BULLET = 40, LASER = 15, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security/gorlex
 	combat_slowdown = 0.3
+	max_complexity = PLUS_ONE_MAX_COMPLEXITY
 
 //////Vahlen Sec suit//////
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security/vahlen
@@ -1088,8 +1077,9 @@
 	jetpack = /obj/item/tank/jetpack/suit
 	armor = list(MELEE = 30, BULLET = 40, LASER = 40, ENERGY = 30, BOMB = 40, BIO = 100, RAD = 90, FIRE = 75, ACID = 90, WOUND = 20, ELECTRIC = 100)
 	combat_slowdown = 0.3
-	lightweight = 0
+	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
+	starting_modules = list(/obj/item/module/speed_booster/civilian)
 
 
 
@@ -1122,10 +1112,12 @@
 	jetpack = /obj/item/tank/jetpack/suit/bloodred
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
-	starting_modules = list(/obj/item/module/speed_booster, /obj/item/module/plate_compression)
-	max_complexity = 5
-	combat_slowdown = 0.1
-	lightweight = 0
+	starting_modules = list(/obj/item/module/speed_booster, /obj/item/module/plate_compression, /obj/item/module/dna_lock, /obj/item/module/demoralizer)
+	max_complexity = PLUS_ONE_MAX_COMPLEXITY
+	starting_core = /obj/item/core/fusion
+	auto_unmalf_time = 40 SECONDS
+	combat_slowdown = 0.3
+	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
 
 /obj/item/tank/jetpack/suit/bloodred
@@ -1163,22 +1155,25 @@
 	winter_mod = TRUE
 
 //////Bloodred Unathi suit//////
+/*
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/unathi
 	name = "blood-red unathi RIG helmet"
 	desc = "A dual-mode advanced helmet designed for special operations. Moded for users with elongated skull proportions. Property of Gorlex Marauders."
 	icon_state = "bloodred_unathi_helm"
 	//item_state = "bloodred_unathi_helm"
 	hardsuit_type = "bloodred_unathi"
+*/
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/unathi
-	name = "blood-red unathi RIG"
-	desc = "A dual-mode advanced RIG designed for special operations. Moded for users with digitigrade legs. Original design by Gorlex Marauders."
-	icon_state = "bloodred_unathi_rig"
-	//item_state = "bloodred_unathi_rig"
-	hardsuit_type = "bloodred_unathi"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/unathi
-	mutantrace_variation = DIGITIGRADE_VARIATION
-	species_restricted = list("lizard", "polysmorph")
+	// name = "blood-red unathi RIG"
+	// desc = "A dual-mode advanced RIG designed for special operations. Moded for users with digitigrade legs. Original design by Gorlex Marauders."
+	// icon_state = "bloodred_unathi_rig"
+	// item_state = "bloodred_unathi_rig"
+	// hardsuit_type = "bloodred_unathi"
+	// helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/unathi
+	// mutantrace_variation = DIGITIGRADE_VARIATION
+	// species_restricted = list("lizard", "polysmorph")
+	starting_modules = list(/obj/item/module/speed_booster, /obj/item/module/plate_compression, /obj/item/module/dna_lock, /obj/item/module/demoralizer, /obj/item/module/digitagrade)
 
 //////Bloodred Waffle Co suit//////
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle
@@ -1211,7 +1206,7 @@
 		slowdown = eva_slowdown + (magpulse * slowdown_magactive)
 	else
 		slowdown = combat_slowdown + (magpulse * slowdown_magactive)
-	icon_state = "[initial(icon_state)][sealed ? "_sealed" : ""][magpulse ? "_active" : ""]"
+	icon_state = "[hardsuit_type]_rig[sealed ? "_sealed" : ""][magpulse ? "_active" : ""]"
 	//update_appearance(UPDATE_ICON)
 	user.update_inv_wear_suit()
 
@@ -1231,14 +1226,12 @@
 		clothing_flags |= NOSLIP
 		slowdown += slowdown_magactive
 	magpulse = !magpulse
-	icon_state = "[initial(icon_state)][sealed ? "_sealed" : ""][magpulse ? "_active" : ""]"
+	icon_state = "[hardsuit_type]_rig[sealed ? "_sealed" : ""][magpulse ? "_active" : ""]"
 	//update_appearance(UPDATE_ICON)
 	user.update_inv_wear_suit()
 	to_chat(user, span_notice("You [magpulse ? "enable" : "disable"] the mag-pulse traction system."))
 	user.update_gravity(user.has_gravity())
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.build_all_button_icons()
+	regenerate_button_icons()
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle/negates_gravity()
 	return clothing_flags & NOSLIP
@@ -1251,41 +1244,44 @@
 
 
 //////Bloodred Waffle Co Unathi suit//////
+/*
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle/unathi
 	name = "blood-red unathi RIG helmet"
 	desc = "A dual-mode advanced helmet designed for special operations. Moded for users with elongated skull proportions. Property of Waffle Co."
 	icon_state = "wafflebloodred_unathi_helm"
 	//item_state = "wafflebloodred_unathi_helm"
 	hardsuit_type = "wafflebloodred_unathi"
+*/
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle/unathi
-	name = "blood-red unathi RIG"
-	desc = "A dual-mode advanced RIG designed for special operations with integrated track pulse system. Moded for users with digitigrade legs. Original design by Waffle Co."
-	icon_state = "wafflebloodred_unathi_rig"
-	//item_state = "wafflebloodred_unathi_rig"
-	hardsuit_type = "wafflebloodred_unathi"
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle/unathi
-	mutantrace_variation = DIGITIGRADE_VARIATION
-	species_restricted = list("lizard", "polysmorph")
+	// name = "blood-red unathi RIG"
+	// desc = "A dual-mode advanced RIG designed for special operations with integrated track pulse system. Moded for users with digitigrade legs. Original design by Waffle Co."
+	// icon_state = "wafflebloodred_unathi_rig"
+	// //item_state = "wafflebloodred_unathi_rig"
+	// hardsuit_type = "wafflebloodred_unathi"
+	// helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle/unathi
+	// mutantrace_variation = DIGITIGRADE_VARIATION
+	// species_restricted = list("lizard", "polysmorph")
+	starting_modules = list(/obj/item/module/digitagrade)
 
 //////Bloodred Waffle Co Unathi Breach suit//////
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle/unathi/breach
-	name = "blood-red unathi Breach RIG helmet"
-	desc = "A dual-mode advanced helmet designed for breach squads. Moded for users with elongated skull proportions. Property of Waffle Co."
-	icon_state = "wafflebloodred_unathi_breacher_helm"
-	//item_state = "wafflebloodred_unathi_breacher_helm"
-	hardsuit_type = "wafflebloodred_unathi_breacher"
+/obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle/breach
+	name = "blood-red Breach RIG helmet"
+	desc = "A dual-mode advanced helmet designed for breach squads. Property of Waffle Co."	// Moded for users with elongated skull proportions.
+	icon_state = "wafflebloodred_breacher_helm"
+	// //item_state = "wafflebloodred_unathi_breacher_helm"
+	hardsuit_type = "wafflebloodred_breacher"
 	armor = list(MELEE = 80, BULLET = 70, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle/unathi/breach
-	name = "blood-red unathi Breach RIG"
-	desc = "A dual-mode advanced RIG designed for breach squads with integrated track pulse system. Moded for users with digitigrade legs. Provides ability to breach through walls. Original design by Waffle Co."
-	icon_state = "wafflebloodred_unathi_breacher_rig"
+/obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle/breach
+	name = "blood-red Breach RIG"
+	desc = "A dual-mode advanced RIG designed for breach squads with integrated track pulse system. Provides ability to breach through walls. Original design by Waffle Co."	//Moded for users with digitigrade legs.
+	icon_state = "wafflebloodred_breacher_rig"
 	//item_state = "wafflebloodred_unathi_breacher_rig"
-	hardsuit_type = "wafflebloodred_unathi_breacher"
-	starting_modules = list(/obj/item/module/breacher)
+	hardsuit_type = "wafflebloodred_breacher"
+	starting_modules = list(/obj/item/module/breacher, /obj/item/module/digitagrade)
 	armor = list(MELEE = 80, BULLET = 70, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle/unathi/breach
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle/breach
 
 //////Elite hardsuit//////
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite
@@ -1314,16 +1310,19 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
 	body_parts_partial_covered = 0
-	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 30, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 55, BULLET = 55, LASER = 50, ENERGY = 30, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED)
-	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage)
+	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage, /obj/item/module/dna_lock, /obj/item/module/demoralizer)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	lightweight = 0
+	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
 	combat_slowdown = 0.1
-	max_complexity = 6
+	max_complexity = PLUS_ONE_MAX_COMPLEXITY
+	starting_core = /obj/item/core/fusion
+	req_access = list(ACCESS_SYNDICATE)
+	auto_unmalf_time = 30 SECONDS
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite/preview
 	icon_state = "relite_helm_sealed"
@@ -1359,11 +1358,13 @@
 	armor = list(MELEE = 35, BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
 	var/hit_reflect_chance = 50
 
+/*
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite/optical/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))) //If not shot where ablative is covering you, you don't get the reflection bonus!
 		return FALSE
 	if (prob(hit_reflect_chance))
 		return TRUE
+D*/
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/elite/optical
 	name = "experimental elite rig"
@@ -1372,11 +1373,13 @@
 	hardsuit_type = "optical"
 	desc = "Strange black hardsuit, with some devices attached to it. It looks a bit blurry. Property of Cybersun Industries."
 	armor = list(MELEE = 35, BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
-	actions_types = list(/datum/action/item_action/toggle_helmet, /datum/action/item_action/toggle_optical)
+	//actions_types = list(/datum/action/item_action/toggle_helmet, /datum/action/item_action/toggle_optical)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite/optical
-	var/cloak = FALSE
+	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage, /obj/item/module/dna_lock, /obj/item/module/stealth/disruptor)
+	//var/cloak = FALSE
 	var/hit_reflect_chance = 50
 
+/*
 /datum/action/item_action/toggle_optical
 	name = "Toggle Optical Disruptor"
 
@@ -1437,6 +1440,7 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>Alt-click on suit to toggle optical cloaking system.<span>"
+*/
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite/optical/cs
 	name = "elite Cybersun Industries RIG helmet"
@@ -1562,9 +1566,11 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
 	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	lightweight = 0
+	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
 	combat_slowdown = 0
+	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage, /obj/item/module/dna_lock)
+	starting_cell = /obj/item/stock_parts/cell/high
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/merk/blue
 	name = "blue mercenary RIG helmet"
@@ -1602,8 +1608,10 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	combat_slowdown = 0.3
-	lightweight = 1
-	max_complexity = 5
+	lightweight = TRUE
+	starting_modules = list(/obj/item/module/holster, /obj/item/module/storage, /obj/item/module/dna_lock)
+	max_complexity = PLUS_ONE_MAX_COMPLEXITY
+	starting_cell = /obj/item/stock_parts/cell/high
 
 //////Emergency Response Team suits//////
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert
@@ -1628,9 +1636,10 @@
 	armor = list(MELEE = 50, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert
 	jetpack = /obj/item/tank/jetpack/suit
-	lightweight = 0
+	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
 	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED)
+	req_access = list(ACCESS_CENT_GENERAL)
 
 //////Security//////
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/sec
@@ -1698,11 +1707,13 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE_MIND, inventory_flags = ITEM_SLOT_OCLOTHING)
 
+/*
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/com/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))) //If not shot where ablative is covering you, you don't get the reflection bonus!
 		return FALSE
 	if (prob(hit_reflect_chance))
 		return TRUE
+*/
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/com
 	name = "elite emergency response team RIG (squad leader)"
@@ -1720,11 +1731,13 @@
 	. = ..()
 	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_OCLOTHING)
 
+/*
 /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/com/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!
 		return FALSE
 	if (prob(hit_reflect_chance))
 		return TRUE
+*/
 
 
 //////Deathsquad//////
@@ -1772,6 +1785,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad
 	var/hit_reflect_chance = 50
 	combat_slowdown = 0.2
+	starting_core = /obj/item/core/coldfusion
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/deathsquad/Initialize()
 	. = ..()

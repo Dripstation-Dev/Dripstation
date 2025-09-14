@@ -186,6 +186,7 @@
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	icon_state = "t160"
 	item_state = "t72"
+	pin = /obj/item/firing_pin/implant/mindshield
 	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/rocketlauncher/one_use

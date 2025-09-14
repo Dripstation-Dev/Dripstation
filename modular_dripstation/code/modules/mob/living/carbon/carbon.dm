@@ -112,7 +112,7 @@
 	return emote_pain(hard, force)
 
 /mob/living/proc/emote_pain(hard = FALSE, force = FALSE)
-	if(HAS_TRAIT(src, NO_PAIN_EMOTE))
+	if(HAS_TRAIT(src, TRAIT_NO_PAIN_EMOTE))
 		return
 	if(!force && !COOLDOWN_FINISHED(src, pain_emote_cd))
 		return
@@ -168,7 +168,7 @@
 		emote_pain(hard, force)
 
 /mob/living/carbon/emote_pain(hard = FALSE, force = FALSE)
-	if(HAS_TRAIT(src, NO_PAIN_EMOTE))
+	if(HAS_TRAIT(src, TRAIT_NO_PAIN_EMOTE))
 		return
 	if(force)
 		COOLDOWN_RESET(src, pain_emote_cd)

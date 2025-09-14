@@ -6,7 +6,7 @@
 
 	invocation_type = INVOCATION_SHOUT
 	sound = 'sound/effects/ghost.ogg'
-	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION | SPELL_REQUIRES_NO_ANTIMAGIC
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	school = SCHOOL_UNSET
 	cooldown_time = 10 SECONDS
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
@@ -102,7 +102,6 @@
 	name = "Blood Rites"
 	desc = "Empowers your hand to absorb blood to be used for advanced rites."
 	invocation = "Fel'th Dol Ab'orod! S`Sarsĥs Sup`me!"
-	spell_requirements = SPELL_CASTABLE_WITHOUT_INVOCATION | SPELL_REQUIRES_NO_ANTIMAGIC
 	button_icon_state = "manip"
 	background_icon_state = "bg_demon"
 	overlay_icon_state = "bg_demon_border"
@@ -154,7 +153,7 @@
 				hand_spell.charges -= 150
 				var/turf/T = get_turf(user)
 				//qdel(src)
-				var/datum/action/innate/cult/spear/S = new(user)
+				var/datum/action/cooldown/spell/blood_bond/S = new(user)
 				var/obj/item/cult_spear/rite = new(T)
 				S.Grant(user, rite)
 				rite.spear_act = S
@@ -169,7 +168,7 @@
 			if(hand_spell.charges < 300)
 				to_chat(user, span_cultitalic("You need 300 charges to perform this rite."))
 			else
-				var/obj/rite = new /obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/blood()
+				var/obj/rite = new /obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/blood/lesser()
 				//qdel(src)
 				if(user.put_in_hands(rite))
 					hand_spell.charges -= 300
@@ -225,7 +224,7 @@ datum/action/cooldown/spell/touch/blood/manipulation/is_valid_target(atom/cast_o
 			else
 				to_chat(owner,span_danger("[H.p_theyre(TRUE)] missing too much blood - you cannot drain [H.p_them()] further!"))
 				return FALSE
-	else if(istype(victim, /obj/effect/decal/cleanable/blood))
+	else if(istype(victim, /obj/effect/decal/cleanable/blood) || isturf(victim))
 		blood_draw(victim)
 	else 
 		to_chat(owner,span_cultitalic("You have nothing to drain."))
@@ -234,24 +233,60 @@ datum/action/cooldown/spell/touch/blood/manipulation/is_valid_target(atom/cast_o
 /datum/action/cooldown/spell/touch/blood/manipulation/proc/blood_draw(atom/cast_on)
 	var/temp = 0
 	var/turf/T = get_turf(cast_on)
-	if(T)
-		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
-			if(B.blood_state == BLOOD_STATE_HUMAN)
-				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
-					temp += 30
-				else
-					temp += max((B.bloodiness**2)/800,1)
-				new /obj/effect/temp_visual/cult/turf/floor(get_turf(B))
-				qdel(B)
-		for(var/obj/effect/decal/cleanable/blood/trail_holder/TH in view(T, 2))
-			qdel(TH)
-		if(temp)
-			owner.Beam(T,icon_state="drainbeam",time=15)
-			new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
-			playsound(T, 'sound/magic/enter_blood.ogg', 50)
-			to_chat(owner, span_cultitalic("Your blood rite has gained [round(temp)] charge\s from blood sources around you!"))
-			charges += max(1, round(temp))
+	if(!T)	//something fucked
+		return
+	for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
+		if(B.blood_state == BLOOD_STATE_HUMAN)
+			if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
+				temp += 30
+			else
+				temp += max((B.bloodiness**2)/800,1)
+			new /obj/effect/temp_visual/cult/turf/floor(get_turf(B))
+			qdel(B)
+	for(var/obj/effect/decal/cleanable/blood/trail_holder/TH in view(T, 2))
+		qdel(TH)
+	if(temp)
+		owner.Beam(T,icon_state="drainbeam",time=15)
+		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
+		playsound(T, 'sound/magic/enter_blood.ogg', 50)
+		to_chat(owner, span_cultitalic("Your blood rite has gained [round(temp)] charge\s from blood sources around you!"))
+		charges += max(1, round(temp))
+	else
+		to_chat(owner,span_cultitalic("You have nothing to drain."))
 
+/datum/action/cooldown/spell/blood_bond
+	name = "Bloody Bond"
+	desc = "Call the blood spear back to your hand!"
+	background_icon_state = "bg_demon"
+	overlay_icon_state = "bg_demon_border"
+	
+	button_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_icon_state = "bloodspear"
+
+	invocation_type = INVOCATION_SHOUT
+	sound = 'sound/effects/ghost.ogg'
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	school = SCHOOL_UNSET
+	cooldown_time = 5 SECONDS
+
+	var/obj/item/cult_spear/spear
+
+/datum/action/cooldown/spell/blood_bond/Grant(mob/user, obj/blood_spear)
+	. = ..()
+	spear = blood_spear
+
+/datum/action/cooldown/spell/blood_bond/cast(atom/cast_on)
+	. = ..()
+	var/ST = get_turf(spear)
+	var/OT = get_turf(owner)
+	if(get_dist(OT, ST) > 20)
+		to_chat(owner, span_cult("The spear is too far away!"))
+	else
+		if(isliving(spear.loc))
+			var/mob/living/L = spear.loc
+			L.dropItemToGround(spear)
+			L.visible_message(span_warning("An unseen force pulls the blood spear from [L]'s hands!"))
+		spear.throw_at(owner, 20, 2, owner)
 
 /obj/item/book/granter/action/spell/blood_magic
 	granted_action = /datum/action/cooldown/spell/touch/blood/stun
@@ -282,3 +317,6 @@ datum/action/cooldown/spell/touch/blood/manipulation/is_valid_target(atom/cast_o
 	new_spell_sec.Grant(user)
 	user.mind.damnation_type = CONTRACT_MAGIC
 	to_chat(user, span_notice("A profound emptiness washes over you as you lose ownership of your soul."))
+
+/obj/item/gun/ballistic/rifle/boltaction/enchanted/arcane_barrage/blood/lesser
+	guns_left = 12

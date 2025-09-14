@@ -87,6 +87,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/reaction_mob(mob/living/M, methods = TOUCH, reac_volume, show_message = 1, permeability = 1)
 	if(!istype(M))
 		return 0
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_MOB, M, methods, reac_volume, show_message)
 	if(methods & VAPOR) //smoke, foam, spray
 		if(M.reagents)
 			var/modifier = clamp(permeability, 0, 1)

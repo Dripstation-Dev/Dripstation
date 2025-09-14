@@ -470,14 +470,15 @@
 			quiet_enviromnent = FALSE
 			break
 
-	if(AmountSleeping() == -1)
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S && S.duration == -1)
 		to_chat(src, span_notice("You try to wake up!"))
 		SetSleeping(10)
 		return
 	else if(!quiet_enviromnent)
 		to_chat(src, span_notice("Too loud to sleep."))
 		return
-	else if(!IsSleeping())
+	else if(!S)
 		if(tgui_alert(usr, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 			//SetSleeping(400) //Short nap
 			if(!resting)

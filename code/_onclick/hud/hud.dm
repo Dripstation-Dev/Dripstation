@@ -7,6 +7,7 @@
 // The default UI style is the first one in the list
 GLOBAL_LIST_INIT(available_ui_styles, list(
 	"Midnight" = 'modular_dripstation/icons/hud/screen_drip.dmi',
+	"Operative" = 'modular_dripstation/icons/hud/screen_operative.dmi',
 	/*
 	"Midnight" = 'icons/mob/screen_midnight.dmi',
 	"Retro" = 'icons/mob/screen_retro.dmi',
@@ -21,6 +22,14 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 /proc/ui_style2icon(ui_style)
 	return GLOB.available_ui_styles[ui_style] || GLOB.available_ui_styles[GLOB.available_ui_styles[1]]
+
+GLOBAL_LIST_INIT(ui_styles64x32, list(
+	"Midnight" = 'modular_dripstation/icons/hud/screen_drip64x32.dmi',
+	"Operative" = 'modular_dripstation/icons/hud/screen_operative64x32.dmi',
+))
+
+/proc/ui_style2icon64x32(ui_style)
+	return GLOB.ui_styles64x32[ui_style] || GLOB.ui_styles64x32[GLOB.ui_styles64x32[1]]
 
 /datum/hud
 	var/mob/mymob
@@ -104,6 +113,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	var/atom/movable/screen/spacesuit
 	// subtypes can override this to force a specific UI style
 	var/ui_style
+	var/ui_style_64x32
 
 	// List of weakrefs to objects that we add to our screen that we don't expect to DO anything
 	// They typically use * in their render target. They exist solely so we can reuse them,
@@ -120,6 +130,9 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	if (!ui_style)
 		// will fall back to the default if any of these are null
 		ui_style = ui_style2icon(owner.client?.prefs?.read_preference(/datum/preference/choiced/ui_style))
+	if (!ui_style_64x32)
+		// will fall back to the default if any of these are null
+		ui_style_64x32 = ui_style2icon64x32(owner.client?.prefs?.read_preference(/datum/preference/choiced/ui_style))
 
 	toggle_palette = new()
 	toggle_palette.set_hud(src)
@@ -466,6 +479,18 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 
 	ui_style = new_ui_style
 	build_hand_slots()
+
+//Dripstation edit - 64x32 update ui
+/datum/hud/proc/update_ui_style64x32(new_ui_style)
+	// do nothing if overridden by a subtype or already on that style
+	if (initial(ui_style_64x32) || ui_style_64x32 == new_ui_style)
+		return
+
+	for(var/atom/item in static_inventory/* + toggleable_inventory + hotkeybuttons + infodisplay + always_visible_inventory + inv_slots*/)	//only in static inventory
+		if (item.icon == ui_style_64x32)
+			item.icon = new_ui_style
+
+	ui_style_64x32 = new_ui_style
 
 /datum/hud/proc/register_reuse(atom/movable/screen/reuse)
 	asset_refs_for_reuse += WEAKREF(reuse)

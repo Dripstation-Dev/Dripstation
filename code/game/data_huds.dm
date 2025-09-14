@@ -268,12 +268,12 @@ Security HUDs! Basic mode shows only the job.
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "hudno_id"
-	if(wear_id?.GetID())
+	if(wear_id?.GetID() && !HAS_TRAIT(src, TRAIT_UNKNOWN))	//dripstation edit
 		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
 	holder = hud_list[PERMIT_HUD]
 	var/icon/IC = icon(icon, icon_state, dir)
 	holder.pixel_y = IC.Height() - world.icon_size
-	if(wear_id?.get_gun_permit_iconstate())
+	if(wear_id?.get_gun_permit_iconstate() && !HAS_TRAIT(src, TRAIT_UNKNOWN))	//dripstation edit
 		holder.icon_state = wear_id?.get_gun_permit_iconstate()
 		set_hud_image_active(PERMIT_HUD)
 	else

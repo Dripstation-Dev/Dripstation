@@ -22,9 +22,7 @@
 /mob/living/changeNext_move(num)
 	. = ..()
 	if(client && hud_used && hud_used.swap_hand)
-		hud_used.swap_hand.last_user_move = world.time
-		hud_used.swap_hand.target_time = next_move
-		START_PROCESSING(SShuds, hud_used.swap_hand)
+		hud_used.swap_hand.smooth_update(world.time, next_move)
 
 /*
 /// Hides FoV when perspective is changed
@@ -36,7 +34,7 @@
 		SEND_SIGNAL(src, COMSIG_FOV_SHOW)
 */
 
-/// Is `observed_atom` in a mob's field of view? This takes blindness, nearsightness and FOV into consideration
+/// Is `observed_atom` in a mob's fog of war? This takes blindness, nearsightness and FOV into consideration
 /mob/living/proc/in_fow(atom/observed_atom, ignore_self = FALSE)
 	if(ignore_self && observed_atom == src)
 		return TRUE
@@ -191,14 +189,14 @@
 	icon_state = "90"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = FIELD_OF_VISION_BLOCKER_PLANE
-	screen_loc = "BOTTOM,LEFT"
+	screen_loc = "BOTTOM,LEFT"//"BOTTOM,LEFT-0.5"
 
 /atom/movable/screen/fov_shadow
 	icon = 'modular_dripstation/icons/hud/fov/field_of_view.dmi'
 	icon_state = "90_v"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = ABOVE_LIGHTING_PLANE
-	screen_loc = "BOTTOM,LEFT"
+	screen_loc = "BOTTOM,LEFT"//"BOTTOM,LEFT-0.5"
 
 
 

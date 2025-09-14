@@ -667,15 +667,23 @@
 	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit. Intended for the most formal operator. The collar is really sharp."
 	icon_state = "tactical_suit"
 	item_state = "bl_suit"
-	can_adjust = FALSE
+	can_adjust = TRUE
 	mutantrace_variation = DIGITIGRADE_VARIATION
 
 /obj/item/clothing/under/syndicate/sniper/female
 	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit for women. Intended for the most formal operator. The collar is really sharp."
 	icon_state = "tactical_suit_fem"
 	item_state = "black_suit_fem"
-	can_adjust = FALSE
+	can_adjust = TRUE
 	mutantrace_variation = NONE
+
+/obj/item/clothing/under/syndicate/fixer
+	name = "fixer suit"
+	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit. Intended for the most formal operator. The collar is really sharp."
+	icon_state = "bfixer_suit"
+	can_adjust = TRUE
+	mutantrace_variation = NONE
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 0, RAD = 10, FIRE = 50, ACID = 40, WOUND = 15)
 
 /obj/item/clothing/under/syndicate/bloodred
 	name = "blood-red sneaksuit"

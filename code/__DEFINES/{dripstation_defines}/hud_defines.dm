@@ -71,12 +71,6 @@
 /// Range at which FOV effects treat nearsightness as blind and play
 #define NEARSIGHTNESS_FOV_BLINDNESS 2
 
-//Fullscreen overlay resolution in tiles for the clients view.
-/// The fullscreen overlay in tiles for x axis
-#define FULLSCREEN_OVERLAY_RESOLUTION_X 15
-/// The fullscreen overlay in tiles for y axis
-#define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
-
 ///from base of atom/visible_message(): (atom/A, msg, range, ignored_mobs)
 #define COMSIG_MOB_VISIBLE_MESSAGE "mob_get_visible_message"
 	#define COMPONENT_NO_VISIBLE_MESSAGE (1<<0) //cancels visible message completely

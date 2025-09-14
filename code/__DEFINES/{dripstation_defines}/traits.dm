@@ -12,6 +12,7 @@
 #define TRAIT_DETECTIVE_EYE		"detective eye"
 #define TRAIT_NO_NORMAL_FEAR		"no fear of normal"
 #define TRAIT_NO_ABNORMAL_FEAR		"no fear of abnormal"
+#define RIG_TRAIT		"rig"
 
 /// Prevents shovies and some strong blows such as unarmed punches and (unreliably) tackles the owner down
 #define TRAIT_BRAWLING_KNOCKDOWN_BLOCKED "brawling_knockdown_blocked"
@@ -24,7 +25,10 @@
 /// Trait that says you're shaded by something (ie partially in the dark)
 #define TRAIT_SHADED "shaded"
 
-#define NO_PAIN_EMOTE		"no_pain_emote"
+#define TRAIT_NO_PAIN_EMOTE		"TRAIT_NO_PAIN_EMOTE"
+#define NORMAL_FEAR_SOURCE		"normal_fear_source"
+#define ABNORMAL_FEAR_SOURCE		"abnormal_fear_source"
+#define EXISTENTIAL_FEAR_SOURCE		"existential_fear_source"
 
 #define TRAIT_COMPLETELY_STOPED_BLOOD_FLOW		"no_blood_flow"
 #define TRAIT_NUMBED		"numbed"

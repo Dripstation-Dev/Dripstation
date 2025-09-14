@@ -88,5 +88,6 @@
 	var/visual_only_organs = FALSE
 
 	COOLDOWN_DECLARE(bleeding_message_cd)
+	COOLDOWN_DECLARE(holding_breath_cd)	//stop spam
 
 	var/list/image/infra_images

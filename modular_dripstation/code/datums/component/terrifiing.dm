@@ -12,10 +12,14 @@
 	UnregisterSignal(target, list(COMSIG_PROJECTILE_ON_HIT))
 
 /datum/element/terrifiing_projectile/proc/projectile_hit(atom/fired_from, atom/movable/firer, atom/target, Angle)
-	for(var/mob/living/L in view(2, get_turf(target)))
-		if(get_turf(fired_from) != get_turf(L) && L != firer)
-			do_terrifiing(L)
+	for(var/mob/living/carbon/human/H in viewers(2, get_turf(target)))
+		if(!ishuman(H))
+			continue
+		if(H.in_fow(target, TRUE))
+			continue
+		//if(get_turf(fired_from) != get_turf(H) && H != firer)
+		do_terrifiing(H)
 
-/datum/element/terrifiing_projectile/proc/do_terrifiing(mob/living/target)
-	if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_NO_NORMAL_FEAR))
+/datum/element/terrifiing_projectile/proc/do_terrifiing(mob/living/carbon/human/target)
+	if(target.stat != DEAD && !target.check_fear(NORMAL_FEAR_SOURCE))
 		target.apply_status_effect(/datum/status_effect/terrified)

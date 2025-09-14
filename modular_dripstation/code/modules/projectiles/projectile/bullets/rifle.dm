@@ -98,6 +98,7 @@
 /obj/projectile/bullet/a762x39/civ	//you can hunt wolfs with this
 	name = "7.62x39mm PS GJ bullet"
 	damage = 35
+	simplemob_additional_damage = 35
 	bare_wound_bonus = -20
 	wound_bonus = -30
 	armour_penetration = -40	//any armor will fucking nullify this bullet

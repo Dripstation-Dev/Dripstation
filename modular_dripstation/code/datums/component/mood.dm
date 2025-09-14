@@ -85,3 +85,48 @@
 
 #undef MINOR_INSANITY_PEN
 #undef MAJOR_INSANITY_PEN
+
+/**
+ * Returns true if you already have a mood from a provided category.
+ * You may think to yourself, why am I trying to get a boolean from a component? Well, this system probably should not be a component.
+ *
+ * Arguments
+ * * category - Mood category to validate against.
+ */
+/datum/component/mood/proc/has_mood_of_category(category)
+	for(var/i in mood_events)
+		var/datum/mood_event/moodlet = mood_events[i]
+		if (moodlet.category == category)
+			return TRUE
+	return FALSE
+
+/datum/component/mood/proc/add_event(datum/source, category, type, param, second_param)
+	if (!ispath(type, /datum/mood_event))
+		CRASH("A non path ([type]), was used to add a mood event. This shouldn't be happening.")
+	if (!istext(category))
+		category = REF(category)
+
+	var/datum/mood_event/the_event
+	if (mood_events[category])
+		the_event = mood_events[category]
+		if (the_event.type != type)
+			clear_event(null, category)
+		else
+			if(the_event.can_be_multi)
+				the_event.times_of_multi ++
+				initial(the_event.mood_change) *= the_event.times_of_multi
+				the_event.description = "[initial(the_event.description)] x[the_event.times_of_multi]"
+			if (the_event.timeout)
+				addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, (TIMER_UNIQUE|TIMER_OVERRIDE))
+			return // Don't need to update the event.
+
+	the_event = new type(src, param, second_param)
+	if (QDELETED(the_event)) // the mood event has been deleted for whatever reason (requires a job, etc)
+		return
+
+	mood_events[category] = the_event
+	the_event.category = category
+	update_mood()
+
+	if (the_event.timeout)
+		addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, (TIMER_UNIQUE|TIMER_OVERRIDE))

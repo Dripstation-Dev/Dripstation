@@ -23,6 +23,7 @@
 #define SOUND_RANGE 17
 ///default extra range for sounds considered to be quieter
 #define SHORT_RANGE_SOUND_EXTRARANGE -9
+#define MEDIUM_RANGE_SOUND_EXTRARANGE -5
 ///The range deducted from sound range for things that are considered silent / sneaky
 #define SILENCED_SOUND_EXTRARANGE -11
 ///Percentage of sound's range where no falloff is applied

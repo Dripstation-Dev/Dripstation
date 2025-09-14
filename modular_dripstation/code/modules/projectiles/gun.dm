@@ -15,8 +15,11 @@
 	var/selector_switch_icon = FALSE
 	var/auto_fire_delay = 0.3 SECONDS
 
-	var/damage_mult = 1
+	var/projectile_damage_multiplier = 1
+	var/projectile_stamina_multiplier = 1
+	var/projectile_damage_falloff_mult = 1
 	var/shell_speed_mod = 1
+
 	var/iff_having = FALSE		//gun has IFF
 	var/has_magnetic_harness = FALSE		//gun has magnetic harness
 
@@ -326,8 +329,9 @@
 
 
 /obj/item/gun/proc/apply_gun_modifiers(obj/projectile/projectile_to_fire, atom/target, firer)
-	projectile_to_fire.damage *= damage_mult
-	//projectile_to_fire.damage_falloff *= damage_falloff_mult
+	projectile_to_fire.damage *= projectile_damage_multiplier
+	projectile_to_fire.stamina *= projectile_stamina_multiplier
+	projectile_to_fire.damage_falloff_tile *= projectile_damage_falloff_mult
 	projectile_to_fire.speed += shell_speed_mod
 	if(iff_having || projectile_to_fire.iff_having)
 		var/iff_signal

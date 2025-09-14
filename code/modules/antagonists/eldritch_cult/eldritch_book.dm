@@ -58,8 +58,8 @@
 		balloon_alert(user, "book is already opened!")
 		return
 	open_animation()
-	if(!istype(user) || !user.can_read(src))
-		balloon_alert(user, "you can`t read anything!")
+	if(!istype(user) || !user.can_read(src, READING_CHECK_LIGHT))
+		//balloon_alert(user, "you can`t read anything!")
 		return
 	//open_animation()	//Dripstation edit
 	var/list/datum/eldritch_knowledge/recall_list = list()

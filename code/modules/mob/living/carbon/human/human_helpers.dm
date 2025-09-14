@@ -12,6 +12,8 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job", hand_first = TRUE)
 	var/obj/item/card/id/id = get_idcard(hand_first)
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))	//dripstation edit
+		return if_no_id					//dripstation edit
 	if(id)
 		. = id.assignment
 	else
@@ -289,6 +291,9 @@
 
 /mob/living/carbon/human/proc/get_punchstunthreshold()	//Gets the total punch damage needed to knock down someone
 	return dna.species.punchstunthreshold + physiology.punchstunthreshold_bonus
+
+/mob/living/carbon/human/proc/get_wound_bonus()	//Gets the total minimum punch damage
+	return dna.species.unarmed_wound_bonus + physiology.unarmed_wound_bonus
 
 /// Fully randomizes everything according to the given flags.
 /mob/living/carbon/human/proc/randomize_human_appearance(randomize_flags = ALL)

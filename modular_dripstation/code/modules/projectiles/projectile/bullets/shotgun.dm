@@ -1,6 +1,7 @@
 
 /obj/projectile/bullet/shotgun/slug
 	speed = 1 //Shotgun = slower
+	simplemob_additional_damage = 40
 
 /obj/projectile/bullet/shotgun/slug/uranium
 	icon_state = "bullet"
@@ -11,6 +12,7 @@
 	speed = 1 //Shotgun = slower
 	weak_against_armour = TRUE
 	light_system = NO_LIGHT_SUPPORT
+	simplemob_additional_damage = 10
 
 /obj/projectile/bullet/pellet/shotgun_flechette
 	icon_state = "flechette"

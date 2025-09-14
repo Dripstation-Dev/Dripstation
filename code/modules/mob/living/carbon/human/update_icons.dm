@@ -394,6 +394,12 @@ There are several things that need to be remembered:
 	..()
 	update_mutant_bodyparts()
 	if(head)
+		var/target_overlay = RESOLVE_ICON_STATE(head)
+		if(istype(head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/H = head
+			if("snout" in dna.species.mutant_bodyparts) //checks for snout and uses lizard helmet variant
+				if((H.mutantrace_variation & DIGITIGRADE_VARIATION)) // i know digitigrade isn't the right word here but still
+					target_overlay = "[target_overlay]_l"
 		update_hud_head(head)
 		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/head.dmi')
 	var/mutable_appearance/head_overlay = overlays_standing[HEAD_LAYER]

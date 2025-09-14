@@ -12,6 +12,7 @@
 	var/t_has = p_have()
 	var/t_is = p_are()
 	var/obscure_name
+	var/obscure_examine
 	var/robotic = FALSE //robotic mobs look different under certain circumstances
 	if(mob_biotypes & MOB_ROBOTIC)//please someone tell me this is stupid and i can do it all in one line
 		robotic = TRUE
@@ -20,8 +21,14 @@
 		var/mob/living/L = user
 		if(HAS_TRAIT(L, TRAIT_PROSOPAGNOSIA))
 			obscure_name = TRUE
+		if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+			obscure_name = TRUE
+			obscure_examine = TRUE
 
 	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"]</EM>!")
+
+	if(obscure_examine)
+		return list("<span class='warning'>You're struggling to make out any details...")
 
 	var/vampDesc = return_vamp_examine(user) // Fulpstation Bloodsuckers edit STARTS
 	var/vassDesc = ReturnVassalExamine(user)
@@ -33,7 +40,7 @@
 	var/list/obscured = check_obscured_slots()
 
 	//uniform
-	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured))
+	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured) && !(w_uniform.item_flags & EXAMINE_SKIP))
 		//accessory
 		var/accessory_msg
 		if(istype(w_uniform, /obj/item/clothing/under))
@@ -43,10 +50,10 @@
 
 		. += "[t_He] [t_is] wearing [w_uniform.get_examine_string(user)][accessory_msg]."
 	//head
-	if(head)
+	if(head && !(ITEM_SLOT_HEAD in obscured) && !(head.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [head.get_examine_string(user)] on [t_his] head."
 	//suit/armor
-	if(wear_suit)
+	if(wear_suit && !(wear_suit.item_flags & EXAMINE_SKIP))
 		//badge
 		var/badge_msg
 		if(istype(wear_suit, /obj/item/clothing/suit))
@@ -56,20 +63,21 @@
 
 		. += "[t_He] [t_is] wearing [wear_suit.get_examine_string(user)][badge_msg]."
 		//suit/armor storage
-		if(s_store && !(ITEM_SLOT_SUITSTORE in obscured))
+		if(s_store && !(ITEM_SLOT_SUITSTORE in obscured) && !(s_store.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_is] carrying [s_store.get_examine_string(user)] on [t_his] [wear_suit.name]."
 	//back
-	if(back)
+	if(back && !(back.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [back.get_examine_string(user)] on [t_his] back."
 
 	//Hands
 	for(var/obj/item/I in held_items)
-		if(!(I.item_flags & ABSTRACT))
-			. += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
+		if(I.item_flags & (ABSTRACT|EXAMINE_SKIP|HAND_ITEM))
+			continue
+		. += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
 
 	var/datum/component/forensics/FR = GetComponent(/datum/component/forensics)
 	//gloves
-	if(gloves && !(ITEM_SLOT_GLOVES in obscured))
+	if(gloves && !(ITEM_SLOT_GLOVES in obscured) && !(gloves.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands."
 	else if(FR && length(FR.blood_DNA))
 		var/hand_number = get_num_arms(FALSE)
@@ -91,23 +99,23 @@
 		. += span_warning("[t_He] [t_is] legcuffed with [legcuffed.get_examine_string(user)]!")
 
 	//belt
-	if(belt)
+	if(belt && !(belt.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [belt.get_examine_string(user)] about [t_his] waist."
 
 	//shoes
-	if(shoes && !(ITEM_SLOT_FEET in obscured))
+	if(shoes && !(ITEM_SLOT_FEET in obscured) && !(shoes.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [shoes.get_examine_string(user)] on [t_his] feet."
 
 	//mask
-	if(wear_mask && !(ITEM_SLOT_MASK in obscured))
+	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && !(wear_mask.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [wear_mask.get_examine_string(user)] on [t_his] face."
 
-	if(wear_neck && !(ITEM_SLOT_NECK in obscured))
+	if(wear_neck && !(ITEM_SLOT_NECK in obscured) && !(wear_neck.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [wear_neck.get_examine_string(user)] around [t_his] neck."
 
 	//eyes
 	if(!(ITEM_SLOT_EYES in obscured))
-		if(glasses)
+		if(glasses && !(glasses.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
 		else if(eye_color == BLOODCULT_EYE && HAS_TRAIT(src, CULT_EYES))
 			if(isipc(src))
@@ -116,11 +124,11 @@
 				. += span_warning("<B>[t_His] eyes are glowing an unnatural red!</B>")
 
 	//ears
-	if(ears && !(ITEM_SLOT_EARS in obscured))
+	if(ears && !(ITEM_SLOT_EARS in obscured) && !(ears.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [ears.get_examine_string(user)] on [t_his] ears."
 
 	//ID
-	if(wear_id)
+	if(wear_id && !(wear_id.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [wear_id.get_examine_string(user)]."
 
 	//Status effects

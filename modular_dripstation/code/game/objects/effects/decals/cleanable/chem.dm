@@ -32,6 +32,8 @@ GLOBAL_LIST_EMPTY(chempiles)
 	if(reagents && reagents.total_volume)
 		if(reagents.total_volume < 5)
 			ENABLE_BITFIELD(reagents, NO_REACT)
+	else	//no reagents - no chempile
+		qdel(src)
 
 /obj/effect/decal/cleanable/chempile/Destroy()
 	GLOB.chempiles -= src

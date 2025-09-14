@@ -21,6 +21,15 @@
 	if(!grown_battery)
 		. += emissive_appearance(icon, "standard_0", src)
 
+/obj/item/stock_parts/cell/emproof/rspace
+	name = "redspace power cell"
+	desc = "A prototype power cell that produces energy seemingly out of nowhere. Has inbuild micro self destruction module."
+	icon_state = "rscell"
+	maxcharge = 40000
+	chargerate = 4000
+	materials = list()
+	rating = 5 //self-recharge makes these desirable
+	self_recharge = 1
 
 // gun power cell //
 /obj/item/stock_parts/cell/gun

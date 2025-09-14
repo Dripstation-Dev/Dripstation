@@ -66,11 +66,16 @@
 // BREATHING //
 ///////////////
 
+///Dripstation edit start
 /mob/living/carbon/verb/hold_breath()
 	set name = "Hold Breath"
 	set desc = "Remember how not to breath."
 	set category = "IC"
 	set instant = TRUE
+
+	if(!COOLDOWN_FINISHED(src, holding_breath_cd))
+		balloon_alert(usr, "busy catching breath")
+		return
 
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		to_chat(usr, span_warning("You can`t hold breath!"))
@@ -81,6 +86,7 @@
 		balloon_alert(usr, "you stop holding breath")
 		failed_last_breath = 1	//try immidiately gasp some air
 		INVOKE_ASYNC(src, PROC_REF(emote), "gasp")
+		COOLDOWN_START(src, holding_breath_cd, 5 SECONDS)
 
 	else
 		ADD_TRAIT(src, TRAIT_MUTE, "hold_breath")
@@ -107,6 +113,7 @@
 /mob/living/carbon/proc/block_breath(mob/living/source)
 	SIGNAL_HANDLER
 	return COMSIG_CARBON_BLOCK_BREATH
+///Dripstation edit end
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)

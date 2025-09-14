@@ -34,3 +34,30 @@
 	description = "<span class='warning'>I can`t take this any longer...</span>\n"
 	mood_change = -20
 	timeout = 8 MINUTES
+
+/datum/mood_event/saved_life
+	timeout = 8 MINUTES
+
+/datum/mood_event/seendeath
+	description = "<span class='warning'>I`ve witnessed death of another human beeng.</span>\n"
+	mood_change = -10
+	timeout = 10 MINUTES
+	can_be_multi = TRUE
+
+/datum/mood_event/seendeath/add_effects(mind_protected)
+	if(mind_protected > 1)
+		description = "<span class='warning'>I`ve witnessed death of another human beeng. It doesn`t bother me that much.</span>\n"
+		mood_change = ROUND_UP(mood_change / mind_protected)
+		timeout = ROUND_UP(timeout / mind_protected)
+
+/datum/mood_event/seengib
+	description = "<span class='warning'>I`ve witnessed violent death of another human beeng.</span>\n"
+	mood_change = -15
+	timeout = 15 MINUTES
+	can_be_multi = TRUE
+
+/datum/mood_event/seengib/add_effects(mind_protected)
+	if(mind_protected > 1)
+		description = "<span class='warning'>I`ve seen something gross. Human beeng fell appart.</span>\n"
+		mood_change = ROUND_UP(mood_change / mind_protected)
+		timeout = ROUND_UP(timeout / mind_protected)

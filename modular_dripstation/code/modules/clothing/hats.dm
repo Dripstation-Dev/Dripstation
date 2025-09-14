@@ -1,3 +1,6 @@
+/obj/item/clothing/head
+	var/mutantrace_variation = NONE
+
 /*
 * Fox ears
 */

@@ -141,7 +141,8 @@
 	department = "med"		
 
 /obj/machinery/suit_storage_unit/cmo
-	suit_type = /obj/item/clothing/suit/space/hardsuit/medical/rescue
+	//suit_type = /obj/item/clothing/suit/space/hardsuit/medical/rescue
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/medical/rescue
 	mask_type = /obj/item/clothing/mask/breath
 	tank_type = /obj/item/tank/internals/oxygen
 	department = "med"		

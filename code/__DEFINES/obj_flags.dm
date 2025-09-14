@@ -39,7 +39,8 @@
 #define UNCATCHABLE				(1<<13) // Makes any item uncatchable if it is thrown at them
 #define MEDRESIST				(1<<14) // This item will block medical sprays when worn
 #define HAND_ITEM 				(1<<15) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
-#define AUTOLATHED				(1<<16) // Autolathed item innit
+#define EXAMINE_SKIP 			(1<<16) // Makes the Examine proc not read out this item.
+#define AUTOLATHED				(1<<17) // Autolathed item innit
 
 
 // Flags for the open_flags var on /obj/structure/closet

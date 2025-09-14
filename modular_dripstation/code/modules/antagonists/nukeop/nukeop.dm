@@ -13,6 +13,7 @@
 		var/datum/component/uplink/U = owner.find_syndicate_uplink()
 		if (U)
 			U.telecrystals += extra_tc
+	ADD_TRAIT(owner, TRAIT_PSYCHOPATHIC, "nukeop")
 
 //species toggling
 /datum/antagonist/nukeop

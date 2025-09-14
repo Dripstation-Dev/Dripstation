@@ -135,9 +135,9 @@
 
 	build_hand_slots()
 
-	swap_hand = new(src)
+	swap_hand = new /atom/movable/screen/swap_hand/human(src)
 	using = swap_hand
-	//using.icon = ui_style 				// dripstation edit - cooldown meter - handled by itself
+	using.icon = ui_style_64x32
 	//using.icon_state = "swap_1"			// dripstation edit - cooldown meter - handled by itself
 	using.screen_loc = ui_swaphand_position(owner,1)
 	static_inventory += using
@@ -218,7 +218,7 @@
 
 	using = new /atom/movable/screen/human/equip(src)
 	//using.icon = ui_style
-	using.icon = 'modular_dripstation/icons/hud/cooldown.dmi'	//dripstation edit
+	using.icon = ui_style_64x32 //'modular_dripstation/icons/hud/cooldown.dmi'	//dripstation edit
 	using.screen_loc = ui_equip_position(mymob)
 	static_inventory += using
 

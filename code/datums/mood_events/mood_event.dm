@@ -9,21 +9,23 @@
 	var/datum/component/mood/owner
 	/// List of required jobs for this mood event.
 	var/list/required_job = list()
+	var/can_be_multi = FALSE
+	var/times_of_multi = 1
 
-/datum/mood_event/New(mob/M, param)
+/datum/mood_event/New(mob/M, param, second_param)
 	owner = M
 	if(length(required_job) > 0)
 		var/mob/living/living_human = owner.parent
 		if(living_human && living_human.mind && !(find_job(living_human.mind) in required_job))
 			qdel(src)
 			return
-	add_effects(param)
+	add_effects(param, second_param)
 
 /datum/mood_event/Destroy()
 	remove_effects()
 	return ..()
 
-/datum/mood_event/proc/add_effects(param)
+/datum/mood_event/proc/add_effects(param, second_param)
 	return
 
 /datum/mood_event/proc/remove_effects()

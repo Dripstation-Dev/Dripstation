@@ -18,9 +18,9 @@
 #define CONSCIOUSAY(text) if(owner.stat == CONSCIOUS) { ##text }
 
 /obj/item/testing_doll
-	name = "cursed doll"
-	desc = "doll, lol"
-	icon_state = "doll"
+	name = "cursed ert doll"
+	desc = "Fear me mortal!"
+	icon_state = "ert"
 	icon = 'modular_dripstation/icons/obj/toy.dmi'
 
 /obj/item/testing_doll/attack_self(mob/user)

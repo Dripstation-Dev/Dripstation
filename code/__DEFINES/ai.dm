@@ -104,8 +104,12 @@ GLOBAL_LIST_INIT(synth_punishment_values, list(
 
 //Self explanatory. 1 point is equals to 1 CPU * AI_RESEARCH_PER_CPU. Higher value = can use more CPU and get benefits
 #define MAX_AI_REGULAR_RESEARCH_PER_TICK 500
+#define MAX_AI_WEAPONRY_RESEARCH_PER_TICK 50
+#define MAX_AI_MEDICAL_RESEARCH_PER_TICK 50
 //Self explanatory. Lower value = more CPU equals less points. Station makes approx. 56 points per tick. This results in 25 (50% gain)
 #define AI_REGULAR_RESEARCH_POINT_MULTIPLIER 0.05
+#define AI_RESEARCH_WEAPONRY_POINT_MULTIPLIER 0.01
+#define AI_RESEARCH_MEDICAL_POINT_MULTIPLIER 0.01
 
 
 //How much RAM and CPU a core needs locally to be functional

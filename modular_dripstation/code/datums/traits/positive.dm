@@ -308,7 +308,7 @@
 	gain_text = span_notice("You feel at home in space.")
 	lose_text = span_danger("You feel homesick.")
 	icon = "user-astronaut"
-	value = 6
+	value = 4
 	/// How long on a planet before we get averse effects
 	var/planet_period = 3 MINUTES
 	/// TimerID for time spend on a planet

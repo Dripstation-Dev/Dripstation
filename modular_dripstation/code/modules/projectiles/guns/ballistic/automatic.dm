@@ -35,6 +35,7 @@
 /obj/item/gun/ballistic/minigunosprey
 	burst_size = 1
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_FULLY_AUTOMATIC)
+	fire_delay = 0.1 SECONDS
 	auto_fire_delay = 0.07 SECONDS
 	manufacturer = /datum/corporation/scarborough
 
@@ -48,6 +49,7 @@
 	burst_size = 1
 	selector_switch_icon = TRUE
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	fire_delay = 0.2 SECONDS
 	auto_fire_delay = 0.17 SECONDS 
 	manufacturer = /datum/corporation/wardtakhashi
 
@@ -85,8 +87,8 @@
 	selector_switch_icon = FALSE
 	spread = 4
 	semi_auto_spread = 4
-	fire_delay = 2
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT, SELECT_FULLY_AUTOMATIC)
+	fire_delay = 0.2 SECONDS
 	auto_fire_delay = 0.18 SECONDS
 	icon_state = "waffle_smg"
 	item_state = "waffle_smg"
@@ -112,10 +114,10 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	spread = 10
-	fire_delay = 1
 	pin = /obj/item/firing_pin/dna/secure
 	burst_size = 3
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT, SELECT_FULLY_AUTOMATIC)
+	fire_delay = 0.1 SECONDS
 	auto_fire_delay = 0.07 SECONDS
 	manufacturer = /datum/corporation/unn
 
@@ -138,7 +140,8 @@
 	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
-	auto_fire_delay = 0.2 SECONDS
+	fire_delay = 0.2 SECONDS
+	auto_fire_delay = 0.18 SECONDS
 	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/wt550/armory
@@ -173,6 +176,7 @@
 	knife_x_offset = 25
 	knife_y_offset = 12
 	mag_display = TRUE
+	fire_delay = 0.2 SECONDS
 	auto_fire_delay = 0.15 SECONDS
 	manufacturer = /datum/corporation/shellguard
 
@@ -282,9 +286,9 @@
 	spread = 15
 	semi_auto_spread = 5
 	burst_size = 3
-	fire_delay = 1
 	slot_flags = ITEM_SLOT_BELT
-	auto_fire_delay = 0.09 SECONDS
+	fire_delay = 0.1 SECONDS
+	auto_fire_delay = 0.08 SECONDS
 	pin = /obj/item/firing_pin
 	mag_display = TRUE
 	mag_display_ammo = TRUE
@@ -301,6 +305,7 @@
 	spread = 6
 	semi_auto_spread = 3
 	burst_size = 2
+	fire_delay = 0.28 SECONDS
 	mag_type = /obj/item/ammo_box/magazine/r762x51
 	fire_select_modes = list(SELECT_SEMI_AUTOMATIC, SELECT_BURST_SHOT)
 	manufacturer = /datum/corporation/scarborough
@@ -320,6 +325,8 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/autorifle-1.ogg'
 	item_state = "arifle"
+	fire_delay = 0.19 SECONDS
+	auto_fire_delay = 0.08 SECONDS
 	recoil = 0.4
 	spread = 10
 	fire_sound_volume = 80
@@ -421,7 +428,7 @@
 	burst_size = 1
 	can_suppress = FALSE
 	w_class = WEIGHT_CLASS_NORMAL
-	auto_fire_delay = 0.1 SECONDS
+	auto_fire_delay = 0.07 SECONDS
 	pin = /obj/item/firing_pin
 	manufacturer = /datum/corporation/vostok
 
@@ -512,7 +519,6 @@
 	var/folded_spread = 35
 	var/folded_item_state = "ak101_stockless"
 	can_suppress = FALSE
-	auto_fire_delay = 0.2 SECONDS
 	pin = /obj/item/firing_pin
 	manufacturer = /datum/corporation/vostok
 
@@ -614,7 +620,7 @@
 	eject_empty_sound = 'modular_dripstation/sound/weapons/tgmc/svd_unload.ogg'
 	load_sound = 'modular_dripstation/sound/weapons/tgmc/svd_reload.ogg'
 	rack_sound = 'modular_dripstation/sound/weapons/tgmc/svd_rack.ogg'
-	fire_delay = 6
+	fire_delay = 0.6 SECONDS
 	burst_size = 1
 	spread = 4
 	mag_type = /obj/item/ammo_box/magazine/svd
@@ -789,7 +795,7 @@
 	mag_type = /obj/item/ammo_box/magazine/mm556x45_100
 	burst_size = 1
 	actions_types = list()
-	auto_fire_delay = 0.1 SECONDS
+	auto_fire_delay = 0.09 SECONDS
 	manufacturer = /datum/corporation/hephaestus/militech
 
 /obj/item/gun/ballistic/automatic/l6_saw/update_icon()
@@ -811,7 +817,8 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/mm712x82
-	auto_fire_delay = 0.25 SECONDS
+	fire_delay = 0.28 SECONDS
+	auto_fire_delay = 0.23 SECONDS
 
 /obj/item/gun/ballistic/automatic/l6_saw/m60/unrestricted
 	pin = /obj/item/firing_pin

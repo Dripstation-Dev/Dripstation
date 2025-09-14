@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(battleroyale_armour, list(
 		/obj/item/clothing/suit/space/hardsuit/powerarmor_t45b = -2,
 		/obj/item/clothing/suit/space/hardsuit/elder_atmosian = -2,
 		/obj/item/clothing/suit/space/hardsuit/dualmode = -2,
-		/obj/item/clothing/suit/space/hardsuit/dualmode/owl = -2,
+		/obj/item/clothing/suit/space/hardsuit/owl = -2,
 		/obj/item/clothing/suit/space/hardsuit/swat = -2,
 		/obj/item/clothing/head/helmet/space/hostile_environment = -2,
 		/obj/item/clothing/suit/space/hostile_environment = -2,

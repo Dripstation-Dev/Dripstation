@@ -10,9 +10,9 @@
 #define NORMAL_MOB_SHADOW "shadow"
 #define LYING_MOB_SHADOW "shadow_lying"
 
-#define MODULE_PASSIVE "passive"
-#define MODULE_CAN_ACTIVATE "active"
-#define MODULE_USABLE "usable"
-#define SEALED_RIG_TRAIT "sealed-rig"
-#define COMSIG_RIG_MODULE_SELECTED "module-rig-selected"
-#define COMSIG_MODULE_USED "module-used"
+#define COMSIG_REAGENT_EXPOSE_MOB "reagent_expose_mob"
+#define COMSIG_HUMAN_ADJUSTED_NUTRIATION "human_gain_nutriation"
+
+/// Checking flags for [/mob/proc/can_read()]
+#define READING_CHECK_LITERACY (1<<0)
+#define READING_CHECK_LIGHT (1<<1)
