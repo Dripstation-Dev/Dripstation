@@ -117,12 +117,17 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 	SSwardrobe.provide_type(/obj/item/barrier_taperoll/engineering, src)
 	update_appearance(UPDATE_ICON)
 
-/datum/outfit/job/replica/engineer/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/replica/engineer/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	..()
 	if(visualsOnly)
 		return
 	var/obj/item/organ/cyberimp/chest/replica/T = new
 	T.Insert(H, special = TRUE, drop_if_replaced = FALSE)
+
+/datum/outfit/job/replica/engineer/post_equip(mob/living/carbon/human/H, visualsOnly)
+	..()
+	if(visualsOnly)
+		return
 	if(!GLOB.granted_synthetic_access[ENGINEERING])
 		binary_talk("Synthetic assistance required in the Engineering department for the following reason: All-Purpose Repair Replika arrived.", "Synthetic Access Requester")
 		GLOB.granted_synthetic_access[ENGINEERING] = TRUE
@@ -145,6 +150,7 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 	ADD_TRAIT(src, TRAIT_NODROP, SYNTHETIC_TRAIT)
 
 /obj/item/storage/belt/military/assault/replica/PopulateContents()
+	. = ..()
 	SSwardrobe.provide_type(/obj/item/reagent_containers/spray/pepper, src)
 	SSwardrobe.provide_type(/obj/item/restraints/handcuffs, src)
 	SSwardrobe.provide_type(/obj/item/grenade/flashbang, src)
@@ -154,18 +160,23 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 	SSwardrobe.provide_type(/obj/item/barrier_taperoll/police, src)
 	update_appearance(UPDATE_ICON)
 
-/datum/outfit/job/replica/sec/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/replica/engineer/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	..()
 	if(visualsOnly)
 		return
 	var/obj/item/organ/cyberimp/chest/replica/plating/T = new
 	T.Insert(H, special = TRUE, drop_if_replaced = FALSE)
+
+/datum/outfit/job/replica/sec/post_equip(mob/living/carbon/human/H, visualsOnly)
+	..()
+	if(visualsOnly)
+		return
 	if(!GLOB.granted_synthetic_access[SECURITY])
 		binary_talk("Synthetic assistance required in the Security department for the following reason: Security Technician Replica arrived.", "Synthetic Access Requester")
 		GLOB.granted_synthetic_access[SECURITY] = TRUE
 		GLOB.synthetic_added_access |= list(ACCESS_SECURITY, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_FORENSICS_LOCKERS, ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_BRIG_PHYS)
 	var/obj/item/card/id/W = H.wear_id
-	W.iff_signal = SPEARHEAD_IFF
+	W?.iff_signal = SPEARHEAD_IFF
 
 /datum/outfit/job/replica/naked
 	name = "Synthetic (Naked)"

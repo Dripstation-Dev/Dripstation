@@ -647,6 +647,8 @@
 			H.clear_alert("preternis_emag")
 			H.clear_fullscreen("preternis_emag")
 			emag_lvl = 0
+		H.adjust_nutrition(10)
+		H.adjustToxLoss(-1)
 
 	// remove 4% of existing reagent, minimum of 0.1 units at a time
 	H.reagents.remove_reagent(chem.type, max(round(chem.volume / 25, 0.1), 0.1))
@@ -683,6 +685,7 @@
 	toxpwr = 2
 	taste_description = "goo and mess"
 	compatible_biotypes = ALL_BIOTYPES
+	self_consuming = TRUE
 
 /datum/reagent/toxin/synthgel/on_mob_life(mob/living/carbon/M)
 	if(isreplica(M))
@@ -693,6 +696,7 @@
 			M.adjustFireLoss(toxpwr*REM, 0)
 		else
 			M.adjustToxLoss(toxpwr*REM, 0)
+	return ..()
 
 /obj/item/reagent_containers/medspray/fluorosurfactant
 	name = "medical spray (fluorosurfactant)"
