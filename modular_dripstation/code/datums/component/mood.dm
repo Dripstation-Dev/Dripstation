@@ -114,7 +114,7 @@
 		else
 			if(the_event.can_be_multi)
 				the_event.times_of_multi ++
-				mood_change = the_event.basic_mood_change * the_event.times_of_multi
+				the_event.mood_change = the_event.basic_mood_change * the_event.times_of_multi
 				the_event.description = "[initial(the_event.description)] x[the_event.times_of_multi]"
 			if (the_event.timeout)
 				addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, (TIMER_UNIQUE|TIMER_OVERRIDE))
