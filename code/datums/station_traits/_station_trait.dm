@@ -50,7 +50,7 @@
 
 /// Returns the type of info the centcom report has on this trait, if any.
 /datum/station_trait/proc/get_report()
-	return "<i>[name]</i> - [report_message]"
+	return "[name] - [report_message]" //return "<i>[name]</i> - [report_message]"
 
 /// Will attempt to revert the station trait, used by admins.
 /datum/station_trait/proc/revert()

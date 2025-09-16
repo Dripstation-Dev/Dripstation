@@ -198,8 +198,8 @@ Medical HUD! Basic mode needs suit sensors on.
 	holder.pixel_y = I.Height() - world.icon_size
 
 //for carbon suit sensors
-/mob/living/carbon/med_hud_set_health()
-	..()
+//mob/living/carbon/med_hud_set_health()
+//	..()
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()

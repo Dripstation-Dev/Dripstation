@@ -220,7 +220,6 @@
 /mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
 	if(user.grab_state >= user.max_grab)
 		return
-	RegisterSignal(src, COMSIG_LIVING_RESIST, PROC_REF(resist_grab))
 	user.changeNext_move(CLICK_CD_GRABBING)
 	user.do_attack_animation(src, ATTACK_EFFECT_GRAB) //dripstation edit
 	var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
@@ -245,15 +244,16 @@
 			log_combat(user, src, "attempted to neck grab", addition="neck grab")
 		if(GRAB_NECK)
 			log_combat(user, src, "attempted to strangle", addition="kill grab")
+	RegisterSignal(src, COMSIG_LIVING_GRABRESIST, PROC_REF(resist_grab))
 	if(!do_after(user, grab_upgrade_time, src))
 		return FALSE
-	UnregisterSignal(src, COMSIG_LIVING_RESIST)
+	UnregisterSignal(src, COMSIG_LIVING_GRABRESIST)
 	if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
 		to_chat(user, span_notice("You failed to grab further!"))
 		return FALSE
-	if(user.a_intent != INTENT_GRAB)
-		to_chat(user, span_notice("You must be on grab intent to upgrade your grab further!"))
-		return FALSE
+	//if(user.a_intent != INTENT_GRAB) // skill issue
+	//	to_chat(user, span_notice("You must be on grab intent to upgrade your grab further!"))
+	//	return FALSE
 	user.setGrabState(user.grab_state + 1)
 	switch(user.grab_state)
 		if(GRAB_AGGRESSIVE)

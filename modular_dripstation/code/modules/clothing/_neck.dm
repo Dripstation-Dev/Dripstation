@@ -327,6 +327,16 @@
 	name = "admiral's cape"
 	icon_state = "centcom_admiral_cloak"
 
+/obj/item/clothing/neck/cape/arbiter
+	name = "arbiters's cape"
+	icon_state = "arbiter_cloak"
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+
+/obj/item/clothing/neck/cape/binah
+	name = "arbiters's cape"
+	icon_state = "binah_cloak"
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+
 /obj/item/clothing/neck/wreath
 	name = "\improper Watcher Wreath"
 	desc = "An elaborate crown made from the twisted flesh and sinew of a watcher. \

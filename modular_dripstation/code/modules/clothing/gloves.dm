@@ -420,7 +420,7 @@
 	syndicate = FALSE
 
 /obj/item/clothing/gloves/combat/energy_knuclers
-	name = "Combat gloves"
+	name = "combat gloves"
 	desc = "Combat gloves with energy knuclers. Helps to beat all shit out of people."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
@@ -483,6 +483,9 @@
 		if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 			style.remove(H)
 		return
+
+/obj/item/clothing/gloves/combat/energy_knuclers/centcom
+	icon_state = "c_energy_knuclers"
 
 /obj/item/clothing/gloves/tackler
 	name = "gripper gloves"

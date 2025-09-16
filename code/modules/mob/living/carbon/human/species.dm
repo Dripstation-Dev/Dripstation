@@ -1656,6 +1656,9 @@ GLOBAL_LIST_EMPTY(features_by_species)
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	var/datum/martial_art/M = target.check_block()
 	if(user.pulledby && user.pulledby.grab_state >= GRAB_AGGRESSIVE)
+		if(user.pulledby == target)
+			SEND_SIGNAL(user, COMSIG_LIVING_GRABRESIST)
+			return TRUE
 		return FALSE
 	if(M)
 		M.handle_counter(target, user)

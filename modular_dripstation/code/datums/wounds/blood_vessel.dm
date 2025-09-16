@@ -143,8 +143,8 @@
 	treatable_by_grabbed = list(/obj/item/gun/energy/laser)
 	treatable_tool = TOOL_CAUTERY
 	base_treat_time = 3 SECONDS
-	blood_flow_proc = 8
-	minimum_flow_proc = 5
+	blood_flow_proc = 3
+	minimum_flow_proc = 1
 	threshold_minimum = 5
 	threshold_penalty = 5
 	status_effect_type = /datum/status_effect/wound/blood_vessel/vein
@@ -260,17 +260,18 @@
 	status_effect_type = null
 	severity = WOUND_SEVERITY_HIDDEN
 	threshold_penalty = 10
-	blood_flow_proc = 8
-	minimum_flow_proc = 2
+	blood_flow_proc = 3
+	minimum_flow_proc = 1
 
 /datum/wound/blood_vessel/artery
 	name = "Arterial Bleeding"
 	desc = "Artery damage. Extreme blood loss will lead to quick death without intervention."
+	treat_text = "Immediate applying a tourniquet, followed by supervised blood infusion."
 	occur_text = "artery ruptiers, releesing a spray of blood!"
 	examine_desc = "is torn open, spraying blood wildly"
 	severity = WOUND_SEVERITY_BLOOD_VESSEL
-	blood_flow_proc = 20
-	minimum_flow_proc = 12
+	blood_flow_proc = 6
+	minimum_flow_proc = 3
 	threshold_minimum = 15
 	threshold_penalty = 25
 	status_effect_type = /datum/status_effect/wound/blood_vessel/artery
@@ -285,9 +286,9 @@
 	is_internal = TRUE
 	wound_flags = (FLESH_WOUND)
 	status_effect_type = null
-	blood_flow_proc = 15
+	blood_flow_proc = 5
 	threshold_penalty = 30
-	minimum_flow_proc = 4
+	minimum_flow_proc = 2
 	severity = WOUND_SEVERITY_HIDDEN
 
 /datum/wound/blood_vessel/artery/internal/body

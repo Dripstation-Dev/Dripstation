@@ -312,6 +312,16 @@
 	icon_state = "naval_command"
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 10, BIO = 0, FIRE = 20, ACID = 30)
 
+/obj/item/clothing/under/rank/centcom/arbiter
+	name = "\improper Nanotrasen Arbiter`s Uniform"
+	desc = "Nanotrasen arbiter`s uniform. Clothing probably can withstand even nuke."
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 60, BOMB = 20, BIO = 100, FIRE = 100, ACID = 100, WOUND = 10, ELECTRIC = 100)
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+	icon_state = "arbiter"
+	fitted = NO_FEMALE_UNIFORM
+
+/obj/item/clothing/under/rank/centcom/arbiter/binah
+	icon_state = "binah"
 
 //////////////////////
 //////SHELGUARD///////

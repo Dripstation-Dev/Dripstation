@@ -2,8 +2,8 @@
 	name = "monkey"
 	verb_say = "chimpers"
 	initial_language_holder = /datum/language_holder/monkey
-	icon = 'icons/mob/monkey.dmi'
-	icon_state = "monkey1"
+	//icon = 'icons/mob/monkey.dmi'	//dripstation edit
+	//icon_state = "monkey1"		//dripstation edit
 	held_state = "monkey"
 	gender = NEUTER
 	pass_flags = PASSTABLE

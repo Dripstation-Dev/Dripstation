@@ -45,6 +45,8 @@
 	if(buckled_mobs.len)
 		return TRUE
 
+
+
 //procs that handle the actual buckling and unbuckling
 /atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE, instant = FALSE)
 	if(!buckled_mobs)
@@ -53,7 +55,7 @@
 	if(!istype(M))
 		return FALSE
 
-	if(check_loc && !M.Adjacent(src))	//dripstation edit, checking Adjacent - ablility to touch, not literally loc
+	if(check_loc && !M.Adjacent(src))
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (buckled_mobs.len >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
@@ -67,9 +69,10 @@
 		M.buckling = null
 		return FALSE
 
-	if((usr && M != usr) || instant)
+	if(usr && M != usr && !instant)
 		if(!do_after(usr, 0.7 SECONDS, M))
 			to_chat(usr, span_warning("You failed to buckle [M] to [src]!"))
+			M.buckling = null
 			return FALSE
 	// This signal will check if the mob is mounting this atom to ride it. There are 3 possibilities for how this goes
 	// 1. This movable doesn't have a ridable element and can't be ridden, so nothing gets returned, so continue on
@@ -89,7 +92,8 @@
 	if(!check_loc && M.loc != loc)
 		M.forceMove(loc)
 	*/
-	M.Move(loc)
+	if(M.loc != loc)
+		M.forceMove(loc)
 
 	M.buckling = null
 	M.buckled = src
@@ -156,6 +160,16 @@
 		return FALSE
 
 	add_fingerprint(user)
+	if(M == user)
+		M.visible_message(\
+			span_notice("[M] tries to buckle [M.p_them()]self to [src]."),\
+			span_notice("You try to buckle yourself to [src]."),\
+			span_italics("You hear metal clanking."))
+	else
+		M.visible_message(\
+			span_warning("[user] tries to buckle [M] to [src]!"),\
+			span_warning("[user] tries to buckle you to [src]!"),\
+			span_italics("You hear metal clanking."))
 	. = buckle_mob(M, check_loc = check_loc)
 	if(.)
 		if(M == user)
