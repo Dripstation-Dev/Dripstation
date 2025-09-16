@@ -1,6 +1,7 @@
 /datum/mood_event
 	var/description ///For descriptions, use the span classes bold nicegreen, nicegreen, none, warning and boldwarning in order from great to horrible.
 	var/mood_change = 0
+	var/basic_mood_change = 0
 	var/timeout = 0
 	var/hidden = FALSE//Not shown on examine
 	var/category //string of what category this mood was added in as
@@ -14,6 +15,7 @@
 
 /datum/mood_event/New(mob/M, param, second_param)
 	owner = M
+	basic_mood_change = mood_change
 	if(length(required_job) > 0)
 		var/mob/living/living_human = owner.parent
 		if(living_human && living_human.mind && !(find_job(living_human.mind) in required_job))
