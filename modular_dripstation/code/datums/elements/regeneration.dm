@@ -81,7 +81,7 @@
 		return
 	if (owner.health == owner.maxHealth)
 		return
-	if(owner.nutrition < hunger_cap) //&& owner.satiety < 400)
+	if (owner.nutrition < hunger_cap) //&& owner.satiety < 400)
 	// 	if(regeneration_start_timer)
 	// 		deltimer(regeneration_start_timer)
 	// 	regeneration_start_timer = addtimer(CALLBACK(src, PROC_REF(start_regenerating)), regeneration_delay, TIMER_STOPPABLE)	//check in another 6 seconds

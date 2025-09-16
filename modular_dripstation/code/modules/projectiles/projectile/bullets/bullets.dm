@@ -4,7 +4,7 @@
 	icon_state = "bullet"
 	icon = 'modular_dripstation/icons/effects/projectiles/projectiles.dmi'
 	shrapnel_type = /obj/item/shrapnel/bullet
-	embedding = list("pain_multiplier" = 3, "embed_chance" = 45, "jostle_chance" = 1, "rip_time" = -1, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "remove_pain_mult" = 3)
+	embedding = list("pain_multiplier" = 0, "embed_chance" = 35, "jostle_chance" = 2, "rip_time" = -1, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "pain_stam_pct" = 0.5, "remove_pain_mult" = 3)
 	ap_falloff_tile = 5
 	embed_falloff_tile = 2
 	light_system = MOVABLE_LIGHT
@@ -29,7 +29,7 @@
 	hit_prone_targets = TRUE
 	sharpness = SHARP_EDGED
 	wound_bonus = 30
-	embedding = list(embed_chance=70, ignore_throwspeed_threshold=TRUE, fall_chance=1)
+	embedding = list(embed_chance=70, ignore_throwspeed_threshold=TRUE, rip_time = -1, fall_chance=0)
 
 /obj/projectile/bullet/pellet/stingball
 	name = "stingball pellet"

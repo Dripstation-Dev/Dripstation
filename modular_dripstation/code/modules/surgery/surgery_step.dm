@@ -4,18 +4,36 @@
 
 /datum/surgery_step/patch_incise
 	name = "patch incised skin"
-	time = 2 SECONDS
+	time = 1 SECONDS
 	implements = list(/obj/item/stack/medical/suture = 100)
 	preop_sound = 'modular_dripstation/sound/item/snip.ogg'
 	success_sound = 'modular_dripstation/sound/item/snip.ogg'
 	fuckup_damage = 1
 	bloody_chance = 0
+	repeatable = TRUE
 
 /datum/surgery_step/patch_incise/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/bodypart/BP = target.get_bodypart(target_zone)
+	if(!(BP?.get_damage(TRUE, FALSE, FALSE) || BP?.generic_bleedstacks))
+		to_chat(user, span_notice("[target] has no wounds left to treat."))
+		surgery.status++
+		repeatable = FALSE
+		return
 	display_results(user, target, span_notice("You begin to patch incision in [target]'s [parse_zone(target_zone)]..."),
 		"[user] begins to patch incision in [target]'s [parse_zone(target_zone)].",
 		"[user] begins to patch incision in [target]'s [parse_zone(target_zone)].")
 
+/datum/surgery_step/patch_incise/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/bodypart/affecting = target.get_bodypart(target_zone)
+	affecting?.heal_damage(10,0)
+	if(affecting?.generic_bleedstacks)
+		affecting?.adjustBleedStacks(-1)
+	
+	if(istype(tool, /obj/item/stack))
+		var/obj/item/stack/used_stack = tool
+		used_stack.use(1)
+	return ..()
+/*
 /datum/surgery_step/patch_incise/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/bleed_stacks_num
 	var/obj/item/bodypart/affecting = target.get_bodypart(target_zone)
@@ -36,4 +54,5 @@
 		var/obj/item/stack/used_stack = tool
 		used_stack.use(1)
 	return ..()
+*/
 

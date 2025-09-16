@@ -8,7 +8,7 @@
 	icon_state = "gauze"
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/debride_infected, /datum/surgery_step/patch_incise, /datum/surgery_step/close/*, /datum/surgery_step/dress*/)
 	target_mobtypes = list(/mob/living/carbon)
-	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
+	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_PRECISE_GROIN,BODY_ZONE_HEAD)
 	requires_real_bodypart = TRUE
 	targetable_wound = /datum/wound/infected
 

@@ -55,16 +55,31 @@
 	if(!istype(M))
 		return FALSE
 
+	if(HAS_TRAIT(src, TRAIT_CLIMBABLE) && M.loc != loc)
+		return FALSE
+
 	if(check_loc && !M.Adjacent(src))
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (buckled_mobs.len >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
 		return FALSE
+
+	if(usr)
+		if(M == usr)
+			M.visible_message(\
+				span_notice("[M] tries to buckle [M.p_them()]self to [src]."),\
+				span_notice("You try to buckle yourself to [src]."),\
+				span_italics("You hear metal clanking."))
+		else
+			M.visible_message(\
+				span_warning("[usr] tries to buckle [M] to [src]!"),\
+				span_warning("[usr] tries to buckle you to [src]!"),\
+				span_italics("You hear metal clanking."))
 	M.buckling = src
 	if(!M.can_buckle() && !force)
 		if(M == usr)
 			to_chat(M, span_warning("You are unable to buckle yourself to [src]!"))
-		else
+		else if(usr)
 			to_chat(usr, span_warning("You are unable to buckle [M] to [src]!"))
 		M.buckling = null
 		return FALSE
@@ -88,10 +103,6 @@
 			var/mob/living/L = M.pulledby
 			L.reset_pull_offsets(M, TRUE)
 
-	/* either way we move mob on loc, dripstation edit
-	if(!check_loc && M.loc != loc)
-		M.forceMove(loc)
-	*/
 	if(M.loc != loc)
 		M.forceMove(loc)
 
@@ -160,16 +171,6 @@
 		return FALSE
 
 	add_fingerprint(user)
-	if(M == user)
-		M.visible_message(\
-			span_notice("[M] tries to buckle [M.p_them()]self to [src]."),\
-			span_notice("You try to buckle yourself to [src]."),\
-			span_italics("You hear metal clanking."))
-	else
-		M.visible_message(\
-			span_warning("[user] tries to buckle [M] to [src]!"),\
-			span_warning("[user] tries to buckle you to [src]!"),\
-			span_italics("You hear metal clanking."))
 	. = buckle_mob(M, check_loc = check_loc)
 	if(.)
 		if(M == user)

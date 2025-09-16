@@ -159,7 +159,7 @@
 
 /obj/item/bodypart/proc/check_infection()
 	var/datum/wound/I = get_wound_type(/datum/wound/infected)
-	if(I || infestation < WOUND_INFECTION_MODERATE)
+	if(I || infestation < 0.5)
 		return
 	var/datum/wound/infected/new_wound = new
 	new_wound.apply_wound(src, silent = TRUE)
@@ -175,7 +175,7 @@
 	if(status == BODYPART_ROBOTIC)
 		return
 	if(infestation >= WOUND_INFECTION_SEPTIC)
-		return
+		return UnregisterSignal(owner, COMSIG_CARBON_SANITISATION)
 	if(owner?.reagents && owner?.reagents.has_reagent(/datum/reagent/medicine/spaceacillin))
 		sanitization += 2
 	if(infestation > 0 && current_gauze)
@@ -187,9 +187,9 @@
 		infestation = applyInfestation(-WOUND_BURN_SANITIZATION_RATE)
 		sanitization = max(0, sanitization - (WOUND_BURN_SANITIZATION_RATE * bandage_factor))
 		return
-	if(infestation)
-		infestation += 0.03	//passive infestation if already started
-		check_infection()
+	//if(infestation && prob(33))
+		//infestation += 0.01	//passive infestation if already started
+	check_infection()
 
 /obj/item/bodypart/blob_act()
 	take_damage(max_damage)

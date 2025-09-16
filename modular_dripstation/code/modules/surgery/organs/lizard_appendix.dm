@@ -8,15 +8,21 @@
 /obj/item/organ/appendix/lizard/on_life()
 	..()
 	var/mob/living/carbon/human/H = owner
-	if(H.nutrition <= NUTRITION_LEVEL_STARVING)
-		if(!(organ_flags & ORGAN_FAILING))
-			H.blood_volume -= 4
-			if(prob(45))
-				to_chat(H, span_warning("You feel like you are wasting away!"))
-		else
-			H.adjustToxLoss(2)
-			if(prob(45))
-				to_chat(H, span_warning("You dont feel so well."))
+	if(!(organ_flags & ORGAN_FAILING))
+		if(H.nutrition <= NUTRITION_LEVEL_STARVING && H.get_damaged_bodyparts(TRUE,TRUE,null,BODYPART_ORGANIC))
+			if(H.blood_volume >= BLOOD_VOLUME_BAD(H))
+				H.blood_volume -= 1
+				if(prob(33))
+					to_chat(H, span_warning("You feel like you are wasting away!"))
+			else
+				H.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 1)
+				if(prob(33))
+					to_chat(H, span_userdanger("Your healing gland works on it`s maximum!"))
+			H.heal_overall_damage(0.5, 0.5, 0, required_status = BODYPART_ORGANIC, updating_health = TRUE)
+	else
+		H.adjustToxLoss(1)
+		if(prob(33))
+			to_chat(H, span_warning("You don`t feel so well."))
 	if(!COOLDOWN_FINISHED(src, check_ligapp_cd))	//just stop firing this checks all the time
 		return
 	if(islizard(H))
@@ -58,7 +64,7 @@
 /obj/item/organ/appendix/lizard/proc/canheal(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
 		return 0
-	if(!H.get_damaged_bodyparts(TRUE,TRUE))
+	if(!H.get_damaged_bodyparts(TRUE,TRUE,null,BODYPART_ORGANIC))
 		return 0
 	
 	switch(H.nutrition)

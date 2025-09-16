@@ -79,7 +79,7 @@
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
 		if(!(C.mobility_flags & MOBILITY_STAND))
-			SEND_SIGNAL(C, COMSIG_CARBON_FLATLINE_INFECT, amount = 0.15)
+			SEND_SIGNAL(C, COMSIG_CARBON_FLATLINE_INFECT, amount = 0.08)
 
 /obj/effect/decal/cleanable/dirt/dust
 	name = "dust"

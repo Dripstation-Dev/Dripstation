@@ -16,7 +16,7 @@
 	status_effect_type = /datum/status_effect/wound/infected
 	//scar_keyword = "blood_vessel"
 	wound_flags = (FLESH_WOUND | ACCEPTS_GAUZE | CAN_BE_INFESTED)
-	infestation_rate = 0.15
+	infestation_rate = 0.04 // appx 8,33 minutes to reach sepsis without any treatment
 	/// Once we reach infestation beyond WOUND_INFESTATION_SEPSIS, we get this many warnings before the limb is completely paralyzed (you'd have to ignore a really bad wound for a really long time for this to happen)
 	var/strikes_to_lose_limb = 4
 

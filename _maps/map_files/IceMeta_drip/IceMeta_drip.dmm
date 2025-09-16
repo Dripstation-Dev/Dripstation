@@ -8656,6 +8656,7 @@
 	pixel_x = -29
 	},
 /obj/item/storage/backpack/duffelbag/med/surgery,
+/obj/item/stack/medical/suture/medicated,
 /turf/open/floor/plasteel/white/corner{
 	dir = 4
 	},
@@ -9228,6 +9229,7 @@
 	pixel_x = 3;
 	pixel_y = -1
 	},
+/obj/item/stack/medical/suture/emergency,
 /turf/open/floor/plasteel/dark,
 /area/security/physician)
 "cCA" = (
@@ -24082,6 +24084,7 @@
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
+/obj/item/stack/medical/suture/emergency,
 /turf/open/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -45977,6 +45980,7 @@
 	pixel_x = 5
 	},
 /obj/item/storage/backpack/duffelbag/med/surgery,
+/obj/item/stack/medical/suture/emergency,
 /turf/open/floor/plasteel/dark,
 /area/mine/infirmary)
 "mph" = (
@@ -74017,6 +74021,7 @@
 	dir = 8
 	},
 /obj/item/stack/medical/gauze/twelve,
+/obj/item/stack/medical/suture/emergency,
 /turf/open/floor/plasteel{
 	icon_state = "whiteblue";
 	dir = 8
@@ -78952,6 +78957,7 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/clothing/mask/surgical,
+/obj/item/stack/medical/suture/emergency,
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 9

@@ -1079,6 +1079,7 @@
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
 	return (ishuman(target) && !(target.mobility_flags & MOBILITY_STAND))
 
+/*	//dripstation edit start
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
 	var/carrydelay = 50 //if you have latex you are faster at grabbing
 	var/skills_space = null // Changes depending on glove type
@@ -1112,6 +1113,35 @@
 		visible_message(span_warning("[src] fails to fireman carry [target]!"))
 	else
 		to_chat(src, span_warning("You can't fireman carry [target] while they're standing!"))
+*/
+
+/mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
+	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
+		to_chat(src, span_warning("You can't fireman carry [target] while [target.p_they()] [target.p_are()] standing!"))
+		return
+
+	var/carrydelay = 5 SECONDS //if you have latex you are faster at grabbing
+	var/skills_space = "" //cobby told me to do this
+	if(HAS_TRAIT(src, TRAIT_QUICKER_CARRY))
+		carrydelay = 3 SECONDS
+		skills_space = " very quickly"
+	else if(HAS_TRAIT(src, TRAIT_QUICK_CARRY))
+		carrydelay = 4 SECONDS
+		skills_space = " quickly"
+
+	visible_message(span_notice("[src] starts[skills_space] lifting [target] onto [p_their()] back..."),
+		span_notice("You[skills_space] start to lift [target] onto your back..."))
+	if(!do_after(src, carrydelay, target))
+		visible_message(span_warning("[src] fails to fireman carry [target]!"))
+		return
+
+	//Second check to make sure they're still valid to be carried
+	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
+		visible_message(span_warning("[src] fails to fireman carry [target]!"))
+		return
+
+	return buckle_mob(target, TRUE, TRUE, 90, 1, 0)//, CARRIER_NEEDS_ARM)
+	//dripstation edit end
 
 /mob/living/carbon/human/proc/piggyback(mob/living/carbon/target)
 	if(can_piggyback(target))

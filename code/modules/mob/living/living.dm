@@ -714,7 +714,7 @@
 		return
 
 	var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
-	SEND_SIGNAL(src, COMSIG_CARBON_FLATLINE_INFECT, amount = 0.1)	//dripstation edit
+	SEND_SIGNAL(src, COMSIG_CARBON_FLATLINE_INFECT, amount = 0.05)	//dripstation edit
 	if(blood_volume < max(BLOOD_VOLUME_NORMAL(src)*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
 		return
 

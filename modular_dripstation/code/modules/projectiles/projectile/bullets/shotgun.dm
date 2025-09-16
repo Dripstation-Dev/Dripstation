@@ -13,6 +13,7 @@
 	weak_against_armour = TRUE
 	light_system = NO_LIGHT_SUPPORT
 	simplemob_additional_damage = 10
+	embedding = list("pain_multiplier" = 0, "embed_chance" = 25, "jostle_chance" = 4, "rip_time" = -1, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "pain_stam_pct" = 0.7, "remove_pain_mult" = 3)
 
 /obj/projectile/bullet/pellet/shotgun_flechette
 	icon_state = "flechette"
@@ -21,6 +22,7 @@
 /obj/projectile/bullet/pellet/shotgun_buckshot/syndie
 	name = "12/70 RIP-S"
 	bare_wound_bonus = 6 //shotgunning assistants, PAINfully
+	embedding = list("pain_multiplier" = 0, "embed_chance" = 35, "jostle_chance" = 4, "rip_time" = -1, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "pain_stam_pct" = 0.7, "remove_pain_mult" = 3)
 
 /obj/projectile/bullet/shotgun/slug/syndie
 	name = "12g AP-CSS"

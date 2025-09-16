@@ -92,7 +92,7 @@
 
 	// Infestation vars (only for severe and critical)
 	/// How quickly infection breeds on this wound if we don't have disinfectant
-	var/infestation_rate
+	var/infestation_rate = 0
 
 
 /datum/wound/Destroy()
@@ -430,7 +430,7 @@
 	. = severity <= WOUND_SEVERITY_MODERATE ? "[.]." : "<B>[.]!</B>"
 
 /datum/wound/proc/get_scanner_description(mob/user)
-	return "Type: [name]\nSeverity: [severity_text()]\nDescription: [desc]\nRecommended Treatment: [treat_text]\n[infestation_rate ? span_green("Not compatible with passive infestation.") : span_smalldanger("Is compatible with passive infestation.")]"
+	return "Type: [name]\nSeverity: [severity_text()]\nDescription: [desc]\nRecommended Treatment: [treat_text]\n[infestation_rate > 0 ? span_green("Not compatible with passive infestation.") : span_smalldanger("Is compatible with passive infestation.")]"
 
 /datum/wound/proc/severity_text()
 	switch(severity)

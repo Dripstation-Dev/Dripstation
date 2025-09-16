@@ -37,8 +37,8 @@
 /datum/species/human/get_yawn_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_YAWN_SOUND(user)
 
-/datum/species/human/slavic
-	species_language_holder = /datum/language_holder/slavic
+//datum/species/human/slavic
+	//species_language_holder = /datum/language_holder/slavic
 
 /datum/species/human/felinid
 	screamsound = list('sound/voice/feline/scream1.ogg', 'sound/voice/feline/scream2.ogg', 'sound/voice/feline/scream3.ogg', 'sound/voice/feline/scream3.ogg', 'modular_dripstation/sound/emotes/cat/scream_cat.ogg')
@@ -46,3 +46,6 @@
 
 /datum/species/human/felinid/get_cry_sound(mob/living/carbon/user)
 	return CAT_DEFAULT_CRY_SOUND(user)
+
+/datum/species/human/felinid/get_lewd_moan_sound(mob/living/carbon/user)
+	return CAT_DEFAULT_LEWD_MOAN_SOUND(user)

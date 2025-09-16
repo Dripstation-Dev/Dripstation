@@ -226,7 +226,7 @@
 		. += "<span class='warning'>Red dot signals two times.</span>"
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/attackby(obj/item/attacking_item, mob/living/user, params)
-	if(istype(attacking_item, /obj/item/card))
+	if(attacking_item.GetID())
 		return update_access(user, attacking_item.GetID())
 	if(istype(attacking_item, /obj/item/card/emag))
 		return TRUE

@@ -20,6 +20,13 @@
 		/datum/surgery_step/close
 		)
 
+/datum/surgery/blood_vessel_fix/can_start(mob/living/user, mob/living/carbon/target)
+	if(!istype(target))
+		return FALSE
+	if(..())
+		var/obj/item/bodypart/targeted_bodypart = target.get_bodypart(user.zone_selected)
+		return(targeted_bodypart.get_wound_type(targetable_wound))
+
 /datum/surgery/blood_vessel_fix/vein
 	targetable_wound = /datum/wound/blood_vessel/vein
 	steps = list(

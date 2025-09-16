@@ -290,6 +290,7 @@
 			chems += chemname
 	return english_list(chems, and_text = require_all_chems ? " and " : " or ")
 
+/* dripstation edit start - probably fixing uncontious target checking in chat what is going on
 //Replaces visible_message during operations so only people looking over the surgeon can tell what they're doing, allowing for shenanigans.
 /datum/surgery_step/proc/display_results(mob/user, mob/living/carbon/target, self_message, detailed_message, vague_message, target_detailed = FALSE)
 	var/list/detailed_mobs = get_hearers_in_view(1, user) //Only the surgeon and people looking over his shoulder can see the operation clearly
@@ -297,6 +298,22 @@
 		detailed_mobs -= target //The patient can't see well what's going on, unless it's something like getting cut
 	user.visible_message(detailed_message, self_message, vision_distance = 1, ignored_mobs = target_detailed ? null : target)
 	user.visible_message(vague_message, "", ignored_mobs = detailed_mobs)
+*/
+
+//Replaces visible_message during operations so only people looking over the surgeon can see them.
+/datum/surgery_step/proc/display_results(mob/user, mob/living/target, self_message, detailed_message, vague_message, target_detailed = FALSE)
+	user.visible_message(detailed_message, self_message, vision_distance = 1, ignored_mobs = target_detailed ? null : target)
+	if(!target_detailed)
+		var/you_feel = pick("a brief pain", "your body tense up", "an unnerving sensation")
+		if(!vague_message)
+			if(detailed_message)
+				stack_trace("DIDN'T GET PASSED A VAGUE MESSAGE.")
+				vague_message = detailed_message
+			else
+				stack_trace("NO MESSAGES TO SEND TO TARGET!")
+				vague_message = span_notice("You feel [you_feel] as you are operated on.")
+		target.show_message(vague_message, MSG_VISUAL, span_notice("You feel [you_feel] as you are operated on."))
+//dripstation edit end
 
 ///Attempts to deal damage if the patient isn't sedated or under painkillers
 /datum/surgery_step/proc/cause_ouchie(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, success)
@@ -318,13 +335,13 @@
 		return
 	user.visible_message(span_boldwarning("[target] flinches, bumping [user]'s [tool ? tool.name : "hand"] into something important!"), span_boldwarning("[target] flinches, bumping your [tool ? tool.name : "hand"] into something important!"))
 	target.balloon_alert_to_viewers("slipped!")
-	ouchie_fact()
+	ouchie_fact(user, target, target_zone)
 
 ///Deal damage if the user moved during the op
 /datum/surgery_step/proc/move_ouchie(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, success)
 	user.visible_message(span_boldwarning("[user] bumps [p_their(FALSE, user)] [tool ? tool.name : "hand"] into something important!"), span_boldwarning("You move, bumping your [tool ? tool.name : "hand"] into something important!"))
 	target.balloon_alert_to_viewers("moved!")
-	ouchie_fact()
+	ouchie_fact(user, target, target_zone)
 
 /datum/surgery_step/proc/ouchie_fact(mob/user, mob/living/carbon/target, target_zone)
 	target.apply_damage(fuckup_damage, fuckup_damage_type, target_zone, wound_bonus = fuckup_wound_mult, sharpness = fuckup_wound_sharpness)
@@ -334,13 +351,15 @@
 		return
 	var/obj/item/bodypart/check_op_zone = target.get_bodypart(check_zone(target_zone))
 	var/obj/item/bodypart/check_arm = user.get_active_hand()
+	var/obj/item/clothing/gloves/color/latex/glove = user.get_item_by_slot(ITEM_SLOT_GLOVES)
+	var/datum/component/forensics/glove_forensics = glove.GetComponent(/datum/component/forensics)
+	var/datum/component/forensics/tool_forensics = tool.GetComponent(/datum/component/forensics)
 	var/unsterility = 2.5
 	if(check_op_zone?.sanitization > 0)
 		unsterility -= 0.5
-	if(!check_arm || check_arm?.sanitization > 0)
+	if((istype(glove) && !glove_forensics && !LAZYLEN(glove_forensics?.scents)) || check_arm?.sanitization > 0)
 		unsterility -= 0.5
-	var/datum/component/forensics/FR = tool.GetComponent(/datum/component/forensics)
-	if(!FR || !LAZYLEN(FR?.scents))
+	if(!tool_forensics || !LAZYLEN(tool_forensics?.scents))
 		unsterility -= 0.5
 	var/turf/T = get_turf(target)
 	for(var/obj/op_table in T.get_all_contents())
@@ -348,9 +367,10 @@
 		if(SB)
 			unsterility -= SB.success_chance
 			break
-	for(var/obj/effect/decal/cleanable/CL in view(3, src))
+	for(var/obj/effect/decal/cleanable/CL in view(2, target))
 		unsterility += 0.5
-	check_op_zone.infestation += max(0.2 * unsterility, 0)
+	if(prob(unsterility*10))
+		check_op_zone.infestation += max(0.2 * unsterility, 0)
 
 /**
  * Sends a pain message to the target, including a chance of screaming.

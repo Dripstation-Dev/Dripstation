@@ -494,6 +494,25 @@
 	if(should_stun)
 		Paralyze(stuntime)
 
+/mob/living/carbon/proc/try_remove_embedded_object(mob/living/carbon/M)
+	var/list/choice_list = list()
+	var/obj/item/bodypart/body_part
+	for(var/obj/item/bodypart/part in bodyparts)
+		for(var/obj/item/embedded in part.embedded_objects)
+			if(embedded.embedding["rip_time"] >= 0)
+				continue
+			choice_list[embedded] = image(embedded)
+	var/obj/item/choice = show_radial_menu(M, src, choice_list, tooltips = TRUE)
+	body_part = get_embedded_part(choice)
+	if(!istype(choice) || !(choice in choice_list))
+		return FALSE
+	var/time_mod = 0.5
+	if (stat == DEAD)
+		time_mod = 0.1 //we don`t care
+	M.visible_message(span_warning("[M] attempts to remove [choice] from [M.p_their()] [body_part.name]."),span_notice("You attempt to remove [choice] from your [body_part.name]...)"))
+	SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, choice, body_part, M, time_mod)
+	return TRUE
+
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(try_extinguish(M))
 		return
@@ -508,7 +527,6 @@
 		if(I && I.loc == src)
 			SEND_SIGNAL(M, COMSIG_CARBON_EMBED_RIP, I, affecting, time_mod)
 			return	//since we have this, we don`t care about headpats and etc
-	*/
 	
 	if(has_embedded_objects())
 		var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.zone_selected))
@@ -518,7 +536,9 @@
 		if(affecting.embedded_objects.len) 
 			var/obj/item/I = pick(affecting.embedded_objects)
 			SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, affecting, M, time_mod)
-			return
+	*/
+	if(try_remove_embedded_object(M))
+		return
 
 	if(SEND_SIGNAL(src, COMSIG_CARBON_PRE_MISC_HELP, M) & COMPONENT_BLOCK_MISC_HELP)
 		return

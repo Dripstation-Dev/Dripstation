@@ -84,7 +84,7 @@
 			return
 		if(!(L.mobility_flags & MOBILITY_STAND))
 			try_infect(M, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_HEAD))
-			SEND_SIGNAL(M, COMSIG_CARBON_FLATLINE_INFECT, amount = 0.6)
+			SEND_SIGNAL(M, COMSIG_CARBON_FLATLINE_INFECT, amount = 0.3)
 			return
 		try_infect(M, pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 

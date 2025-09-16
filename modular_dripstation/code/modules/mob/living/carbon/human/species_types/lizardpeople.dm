@@ -82,13 +82,13 @@
 	return SPECIES_DEFAULT_SNIFF_SOUND(user)
 
 /datum/species/lizard/get_cry_sound(mob/living/carbon/user)
-	return SPECIES_DEFAULT_CRY_SOUND(user)
+	return UNATHI_DEFAULT_CRY_SOUND(user)
 
 /datum/species/lizard/get_moan_sound(mob/living/carbon/user)
-	return SPECIES_DEFAULT_MOAN_SOUND(user)
+	return UNATHI_DEFAULT_MOAN_SOUND(user)
 
 /datum/species/lizard/get_lewd_moan_sound(mob/living/carbon/user)
-	return SFX_HISS
+	return UNATHI_DEFAULT_LEWD_MOAN_SOUND(user)
 
 /datum/species/lizard/get_yawn_sound(mob/living/carbon/user)
 	return SPECIES_DEFAULT_YAWN_SOUND(user)
@@ -98,7 +98,7 @@
 	new /datum/bioware/lizard_scales(C)
 	var/datum/component/regeneration/regen = C.GetComponent(/datum/component/regeneration)
 	if(regen)
-		regen.hunger_cap = NUTRITION_LEVEL_STARVING
+		regen.hunger_cap = 0 //NUTRITION_LEVEL_STARVING
 
 /datum/species/lizard/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
