@@ -79,6 +79,8 @@
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 
 /obj/item/melee/katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(owner.get_active_held_item() != src)
+		return 0
 	if(attack_type == PROJECTILE_ATTACK)
 		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block bullets
 			to_chat(owner, span_userdanger("<b><i>You're too off balance to try block bullets!</i></b>"))
@@ -116,9 +118,10 @@
 	icon_state = "traditional_katana"
 	item_state = "traditional_katana"
 	force = 30
+	bare_wound_bonus = 5
 	armour_penetration = 30
 	block_chance = 60
-	block_projectile_mod = 1.5	//75%
+	block_projectile_mod = 1.5	//90%
 
 /obj/item/melee/katana/bloody
 	name = "bloody katana"
@@ -151,10 +154,12 @@
 	icon_state = "monomolecular"
 	item_state = "monomolecular"
 	desc = "An elegant weapon, its molecular edge is capable of cutting through flesh and bone with ease."
-	block_chance = 40	//pretty hard 
-	force = 35 	//not too deadly though
-	block_projectile_mod = 1.5	// 50 projectile block chance in throwmode
+	block_chance = 50
+	force = 25 	//not too deadly though
+	block_projectile_mod = 1.5	// 75% projectile block chance in throwmode
 	armour_penetration = 75
+	wound_bonus = 15	//since it is very sharp
+	bare_wound_bonus = 5	//a little bit of this
 
 /obj/item/melee/katana/murasame
 	name = "\improper Murasame"
@@ -239,6 +244,8 @@
 	. += span_info("Toggle throw mode for melee riposts.")
 
 /obj/item/melee/sabre/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(owner.get_active_held_item() != src)
+		return 0
 	if(owner.in_throw_mode)
 		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to parry
 			to_chat(owner, span_userdanger("<b><i>You're too off balance to try parry [attack_text]!</i></b>"))
@@ -251,11 +258,13 @@
 	if(prob(final_block_chance))
 		var/mob/living/A = hitby.loc
 		if(owner.in_throw_mode && istype(A))
-			owner.visible_message(span_danger("[owner] parry [attack_text] with [src]!"))
+			owner.visible_message(span_danger("[owner] riposts [attack_text] with [src]!"))
 			attack(A, owner)
 		else
 			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 		playsound(src, block_sound, 70, vary = TRUE)
+		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
 		return 1
 	return 0
 
@@ -271,7 +280,7 @@
 	hit_reaction_chance = 20
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 
-/obj/item/melee/sabre/examine(mob/user)
+/obj/item/storage/belt/sabre/examine(mob/user)
 	. = ..()
 	. += span_info("Can be used to fend off melee attacks.")
 
@@ -281,9 +290,13 @@
 	STR.attack_hand_interact = FALSE
 
 /obj/item/storage/belt/sabre/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(owner.get_active_held_item() != src)
+		return 0
 	if(attack_type == MELEE_ATTACK && prob(hit_reaction_chance))
 		owner.visible_message(span_danger("[owner] fends off [attack_text] with [src]!"))
 		playsound(src, block_sound, 70, vary = TRUE)
+		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
 		return 1
 	return 0
 
@@ -1145,3 +1158,20 @@
 
 /obj/item/access_kit
 	icon = 'modular_dripstation/icons/obj/misc.dmi'
+
+/obj/item/kitchen/knife/combat
+	icon = 'modular_dripstation/icons/obj/weapons/melee.dmi'
+	icon_state = "combat_knife"
+
+/obj/item/kitchen/knife/combat/survival
+	icon = 'icons/obj/kitchen.dmi'
+
+/obj/item/kitchen/knife/combat/bone
+	icon = 'icons/obj/kitchen.dmi'
+
+/obj/item/kitchen/knife/combat/he11diver
+	desc = "A spec-ops grade combat utility survival knife."
+	icon_state = "he11d1ver_knife"
+	armour_penetration = 10	//not the best, but will help take down armored foes, military-grade silk users will get bare wounds
+	bare_wound_bonus = 5	//a bit better wounding potential against soft targets
+	throwforce = 15			//so it isn`t too balanced

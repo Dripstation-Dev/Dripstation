@@ -1,3 +1,20 @@
+/obj/item/clothing/suit/mob_can_equip(M as mob, slot)
+
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
+	if(!..())
+		return FALSE
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK, ITEM_SLOT_SUITSTORE))
+		return TRUE
+
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && HAS_TRAIT(H, NO_SUIT_TRAIT))
+		to_chat(M, "<span class='warning'>You can`t wear [src]!</span>")
+		return FALSE
+
+	return TRUE
+
 /obj/item/clothing/suit/bio_suit
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'

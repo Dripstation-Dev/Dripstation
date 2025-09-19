@@ -150,6 +150,7 @@
 	name = "Syndicate Operative - Reinforcement"
 	tc = 0
 
+/* dripstation edit
 /datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
 	var/obj/item/radio/R = H.ears
 	R.set_frequency(FREQ_SYNDICATE)
@@ -169,6 +170,7 @@
 	E.implant(H)
 	H.faction |= ROLE_SYNDICATE
 	H.update_icons()
+*/
 
 /datum/outfit/syndicate/full
 	name = "Syndicate Operative - Full Kit"

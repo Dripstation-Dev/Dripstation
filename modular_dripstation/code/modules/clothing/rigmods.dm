@@ -2375,7 +2375,7 @@
 	/// Max amount of items in the storage.
 	var/max_items = 3
 	complexity = 3
-	incompatible_modules = list(/obj/item/module/storage)
+	incompatible_modules = list(/obj/item/module/plate_compression, /obj/item/module/storage)
 	var/datum/component/storage/concrete/pockets/rig/rig_pockets
 
 /datum/component/storage/concrete/pockets/rig
@@ -2402,25 +2402,28 @@
 	rig_pockets.max_w_class = max_w_class
 	rig_pockets.max_combined_w_class = max_combined_w_class
 	rig_pockets.locked = TRUE
+	//SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 
 /obj/item/module/storage/Destroy()
 	set_rig_pockets(null)
 	return ..()
 
 /obj/item/module/storage/on_install()
-	var/datum/component/storage/storage = rig.GetComponent(/datum/component/storage)
+	var/datum/component/storage/storage = GetComponent(/datum/component/storage)
 	if(storage)
 		if(SEND_SIGNAL(rig, COMSIG_CONTAINS_STORAGE))
 			return FALSE
 		rig.TakeComponent(storage)
 		//rig_pockets = storage
 		set_rig_pockets(storage)
-		rig_pockets.locked = FALSE
+		//rig_pockets.locked = FALSE
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
 	return TRUE
 
 /obj/item/module/storage/on_uninstall()
 	if(rig_pockets && rig_pockets.parent == rig)
-		rig_pockets.locked = TRUE
+		//rig_pockets.locked = TRUE
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 		TakeComponent(rig_pockets)
 
 /obj/item/module/storage/proc/set_rig_pockets(new_pocket)

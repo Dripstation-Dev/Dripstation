@@ -8,6 +8,76 @@
 	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
 
+/obj/item/clothing/mask/sense_deprevation
+	name = "sense deprevation mask"
+	desc = "Probably protects you from the sorrow. Try not to soak it in blood this time."
+	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
+	icon_state = "sense_deprevation"
+	item_state = "balaclava"
+	tint = 6
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 0, FIRE = 100, ACID = 55)
+	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	w_class = WEIGHT_CLASS_SMALL
+	var/datum/weakref/echo_weakref
+	clothing_traits = list(TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_SILENT_FOOTSTEPS, NO_HELMET_TRAIT)
+
+/obj/item/clothing/mask/sense_deprevation/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(on_mask_equip))
+	RegisterSignal(src, COMSIG_ITEM_POST_UNEQUIP, PROC_REF(on_mask_unequip))
+	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_MASK)
+
+/obj/item/clothing/mask/sense_deprevation/mob_can_equip(M as mob, slot)
+
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
+	if(!..())
+		return FALSE
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK, ITEM_SLOT_SUITSTORE))
+		return TRUE
+
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && H.head)
+		to_chat(H, "<span class='warning'>You can`t wear [src] while wearing helmet or hat!</span>")
+		return FALSE
+
+	return TRUE
+
+/obj/item/clothing/mask/sense_deprevation/proc/on_mask_equip(datum/source, mob/equipper, slot)
+	SIGNAL_HANDLER
+
+	if(!(slot & ITEM_SLOT_MASK))
+		return
+
+	var/datum/component/echolocation/echo = echo_weakref?.resolve()
+	if(echo)
+		stack_trace("Gloves already have a echo component associated with \[[echo.parent]\] when \[[equipper]\] is trying to equip them.")
+		QDEL_NULL(echo_weakref)
+
+	to_chat(equipper, span_notice("You feel the mask gains you incredible concentration!"))
+	if(iscarbon(equipper))
+		var/mob/living/carbon/C = equipper
+		C.apply_status_effect(/datum/status_effect/breaching_and_cleaving/fixersorrow)
+
+	echo_weakref = WEAKREF(equipper.AddComponent(/datum/component/echolocation, echo_range = 7, cooldown_time = 1.5 SECONDS, image_expiry_time = 1 SECONDS, fade_in_time = 0.25 SECONDS, fade_out_time = 0.25 SECONDS, blocking_trait = null, echo_group = "blind", echo_icon = "echo", color_path = /datum/client_colour/echolocate))
+
+/obj/item/clothing/mask/sense_deprevation/proc/on_mask_unequip(datum/source, force, atom/newloc, no_move, invdrop, silent)
+	SIGNAL_HANDLER
+
+	var/datum/component/echolocation/echo = echo_weakref?.resolve()
+
+	if(!echo)
+		return
+
+	to_chat(echo.parent, span_warning("You have lost the concentration!"))
+	if(iscarbon(echo.parent))
+		var/mob/living/carbon/C = echo.parent
+		C.remove_status_effect(/datum/status_effect/breaching_and_cleaving/fixersorrow)
+
+	QDEL_NULL(echo_weakref)
+
 /obj/item/clothing/mask/gas/captain
 	name = "captain's gas mask"
 	desc = "Nanotrasen cut corners and repainted a spare gas mask, but don't tell anyone."

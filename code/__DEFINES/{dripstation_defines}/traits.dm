@@ -13,6 +13,9 @@
 #define TRAIT_NO_NORMAL_FEAR		"no fear of normal"
 #define TRAIT_NO_ABNORMAL_FEAR		"no fear of abnormal"
 #define RIG_TRAIT		"rig"
+#define NO_BACKPACK_TRAIT	"no_backpack"
+#define NO_HELMET_TRAIT		"no_helmet"
+#define NO_SUIT_TRAIT		"no_suit"
 
 /// Prevents shovies and some strong blows such as unarmed punches and (unreliably) tackles the owner down
 #define TRAIT_BRAWLING_KNOCKDOWN_BLOCKED "brawling_knockdown_blocked"

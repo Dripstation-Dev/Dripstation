@@ -20,7 +20,7 @@
 		return FALSE
 
 	// Skip species restriction checks on non-equipment slots
-	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK, ITEM_SLOT_SUITSTORE))
+	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_SUITSTORE))
 		return TRUE
 
 	var/mob/living/carbon/human/H = M
@@ -43,8 +43,9 @@
 				to_chat(M, "<span class='warning'>Your species cannot wear [src].</span>")
 				return FALSE
 
-	if(istype(H) && H.wear_suit && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/dualmode))
-		to_chat(M, "<span class='warning'>You can`t wear [src] while wearing [H.wear_suit.name].</span>")
+	//if(istype(H) && H.wear_suit && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/dualmode))
+	if(HAS_TRAIT(H, NO_BACKPACK_TRAIT))
+		to_chat(M, "<span class='warning'>You can`t wear [src]!</span>")
 		return FALSE
 
 	return TRUE

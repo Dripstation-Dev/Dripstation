@@ -693,7 +693,26 @@
 	icon_state = "bfixer_suit"
 	can_adjust = TRUE
 	mutantrace_variation = NONE
-	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 0, RAD = 10, FIRE = 50, ACID = 40, WOUND = 15)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 0, RAD = 10, FIRE = 50, ACID = 40, WOUND = 15)
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	clothing_traits = list(NO_SUIT_TRAIT)
+
+/obj/item/clothing/under/syndicate/fixer/mob_can_equip(M as mob, slot)
+
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
+	if(!..())
+		return FALSE
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK, ITEM_SLOT_SUITSTORE))
+		return TRUE
+
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && H.wear_suit)
+		to_chat(H, "<span class='warning'>You can`t wear [src] while wearing suit!</span>")
+		return FALSE
+
+	return TRUE
 
 /obj/item/clothing/under/syndicate/bloodred
 	name = "blood-red sneaksuit"

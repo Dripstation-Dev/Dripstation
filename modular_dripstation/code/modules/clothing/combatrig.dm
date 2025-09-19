@@ -370,6 +370,7 @@
 		stack_trace("set_wearer() was called with a new wearer without unset_wearer() being called")
 
 	wearer = user
+	ADD_TRAIT(user, NO_BACKPACK_TRAIT, RIG_TRAIT)
 	regenerate_button_icons()
 	SEND_SIGNAL(src, COMSIG_RIG_WEARER_SET, wearer)
 	//RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
@@ -392,6 +393,7 @@
 	//wearer.clear_alert(ALERT_RIG_CHARGE)
 	SEND_SIGNAL(src, COMSIG_RIG_WEARER_UNSET, wearer)
 	regenerate_button_icons()
+	REMOVE_TRAIT(wearer, NO_BACKPACK_TRAIT, RIG_TRAIT)
 	wearer = null
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/proc/regenerate_button_icons()
@@ -699,7 +701,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser)
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 100)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering
-	starting_modules = list(/obj/item/module/welding)
+	starting_modules = list(/obj/item/module/welding, /obj/item/module/storage)
 	resistance_flags = FIRE_PROOF
 
 /*
@@ -854,7 +856,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	combat_slowdown = 0.3
-	starting_modules = list(/obj/item/module/welding, /obj/item/module/speed_booster)
+	starting_modules = list(/obj/item/module/welding, /obj/item/module/speed_booster, /obj/item/module/storage/syndicate)
 	max_complexity = PLUS_TWO_MAX_COMPLEXITY
 	starting_core = /obj/item/core/fusion
 
@@ -896,6 +898,7 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/firstaid, /obj/item/healthanalyzer, /obj/item/stack/medical)
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	//starting_modules = list(/obj/item/module/storage)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/medical
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/medical/rescue
@@ -1028,6 +1031,7 @@
 	max_complexity = PLUS_ONE_MAX_COMPLEXITY
 	starting_modules = list(/obj/item/module/pepper_shoulders, 
 							/obj/item/module/holster, 
+							/obj/item/module/storage,
 							/obj/item/module/active_sonar, 
 							/obj/item/module/speed_booster/civilian)
 	req_access = list(ACCESS_SECURITY)
@@ -1054,6 +1058,12 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security/gorlex
 	combat_slowdown = 0.3
 	max_complexity = PLUS_ONE_MAX_COMPLEXITY
+	starting_modules = list(/obj/item/module/pepper_shoulders, 
+							/obj/item/module/holster, 
+							/obj/item/module/megaphone, 
+							/obj/item/module/storage/syndicate,
+							/obj/item/module/active_sonar, 
+							/obj/item/module/projectile_dampener)
 
 //////Vahlen Sec suit//////
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security/vahlen
@@ -1079,7 +1089,13 @@
 	combat_slowdown = 0.3
 	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
-	starting_modules = list(/obj/item/module/speed_booster/civilian)
+	starting_modules = list(/obj/item/module/pepper_shoulders, 
+							/obj/item/module/holster, 
+							/obj/item/module/megaphone, 
+							/obj/item/module/storage/syndicate,
+							/obj/item/module/active_sonar, 
+							/obj/item/module/speed_booster/civilian,
+							/obj/item/module/projectile_dampener)
 
 
 
@@ -1314,7 +1330,7 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED)
-	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage, /obj/item/module/dna_lock, /obj/item/module/demoralizer)
+	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage/syndicate, /obj/item/module/dna_lock, /obj/item/module/demoralizer)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
@@ -1375,7 +1391,7 @@ D*/
 	armor = list(MELEE = 35, BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
 	//actions_types = list(/datum/action/item_action/toggle_helmet, /datum/action/item_action/toggle_optical)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite/optical
-	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage, /obj/item/module/dna_lock, /obj/item/module/stealth/disruptor)
+	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage/syndicate, /obj/item/module/dna_lock, /obj/item/module/stealth/disruptor)
 	//var/cloak = FALSE
 	var/hit_reflect_chance = 50
 
@@ -1569,7 +1585,7 @@ D*/
 	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
 	combat_slowdown = 0
-	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage, /obj/item/module/dna_lock)
+	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage/large_capacity, /obj/item/module/dna_lock)
 	starting_cell = /obj/item/stock_parts/cell/high
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/merk/blue
@@ -1609,7 +1625,7 @@ D*/
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	combat_slowdown = 0.3
 	lightweight = TRUE
-	starting_modules = list(/obj/item/module/holster, /obj/item/module/storage, /obj/item/module/dna_lock)
+	starting_modules = list(/obj/item/module/holster, /obj/item/module/storage/large_capacity, /obj/item/module/dna_lock)
 	max_complexity = PLUS_ONE_MAX_COMPLEXITY
 	starting_cell = /obj/item/stock_parts/cell/high
 

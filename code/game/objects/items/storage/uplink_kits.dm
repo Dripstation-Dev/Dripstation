@@ -24,6 +24,7 @@
 	. = ..()
 	name = initial(name)
 
+/*
 /obj/item/storage/box/syndicate/bundle_A/PopulateContents()
 	switch (pickweight(list("recon" = 2, "bloodyspai" = 3, "stealth" = 2, "guns" = 2, "murder" = 2, "implant" = 1, "hacker" = 3, "sabotage" = 3, "sniper" = 1, "metaops" = 1)))
 		if("recon") //28ish TC
@@ -278,6 +279,7 @@
 			new /obj/item/autosurgeon/arm/syndicate/syndie_mantis(src) //6 tc
 			new /obj/item/autosurgeon/upgraded_cyberlungs(src) //this is to remain true to the source material ok
 			new /obj/item/storage/pill_bottle/synaptizine(src) //take your drugs david, this and the lungs make up 1 tc
+*/	
 			
 
 #undef CARP_CARP_CARP

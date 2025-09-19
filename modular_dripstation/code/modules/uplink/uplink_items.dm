@@ -371,6 +371,14 @@ proc/generate_illegal_stuff()
 	item = /obj/item/storage/belt/holster/syndicate/fnx45
 	manufacturer = /datum/corporation/independent/traitor
 
+/datum/uplink_item/corp_restricted/fixer
+	name = "Sorow fixer kit"
+	desc = "Just a kit of regular fixer."
+	cost = 20
+	item = /obj/item/storage/box/syndie_kit/fixer
+	manufacturer = /datum/corporation/independent/traitor
+	restricted_species = list("human")
+
 /datum/uplink_item/corp_restricted/pirate_sabre
 	name = "Pirate Sabre"
 	desc = "Plastitanium sabre prefered by pirate teams alligned with Syndicate coalition corporations and frontline command officers of Gorlex security detachment`s. Good choice if you prefere ripost people."

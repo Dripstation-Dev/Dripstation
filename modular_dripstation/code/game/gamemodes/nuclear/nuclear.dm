@@ -6,10 +6,30 @@
 	shoes = /obj/item/clothing/shoes/combat/combat_knife
 	//backpack_contents = list(/obj/item/kitchen/knife/combat/survival = 1)
 
-/datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
-	..()
+/datum/outfit/syndicate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+	var/obj/item/radio/R = H.ears
+	R.set_frequency(FREQ_SYNDICATE)
+	R.freqlock = TRUE
+	if(command_radio)
+		R.command = TRUE
+
+	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
+		var/obj/item/U = new uplink_type(H, H.key, tc)
+		H.equip_in_one_of_slots(U, list(ITEM_SLOT_BACKPACK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_BELT), 0)
+
+	var/obj/item/implant/biosig_gorlex/B = new/obj/item/implant/biosig_gorlex(H) // Biosignaller won't trigger if it's put below the explosive implant.
+	B.implant(H)
+	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(H)
+	W.implant(H)
+	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(H)
+	E.implant(H)
+	H.faction |= ROLE_SYNDICATE
+
 	var/obj/item/implant/mindshield/tot_obvious/tms = new(H)	//all syndyboys can glow red on sec scanners for additional identification if they want, medical scaners just check them as mindshielded with nt standart implant. Protecting valuable syndicate assets from outerreality roofers
 	tms.implant(H)
+	H.update_icons()
 
 /datum/outfit/syndicate/leader
 	gloves = /obj/item/clothing/gloves/combat
@@ -35,10 +55,19 @@
 	belt = /obj/item/storage/belt/military/webbing/syndicate/gorlex
 	back = /obj/item/storage/backpack/syndie
 	suit_store = /obj/item/tank/internals/oxygen/syndicate
-	l_hand = /obj/item/gun/ballistic/automatic/pistol/fn45
+	box = null
 	internals_slot = ITEM_SLOT_SUITSTORE
-	//backpack_contents = list(/obj/item/gun/ballistic/automatic/pistol/fn45=1,\
-	//	/obj/item/kitchen/knife/combat/survival = 1)
+
+/datum/outfit/syndicate/full/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+
+	//Could use a type
+	var/obj/item/storage/belt/military/belt_store = H.belt
+	if(istype(belt_store))
+		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/storage/box/syndie/nuke, null, TRUE, TRUE)
+		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/ballistic/automatic/pistol/fn45, null, TRUE, TRUE)
 
 /datum/antagonist/nukeop/lone/equip_op()
 	if(!ishuman(owner.current))
@@ -73,7 +102,7 @@
 	gloves = /obj/item/clothing/gloves/combat/gorlex
 	neck = /obj/item/clothing/neck/scarf/red
 	glasses = /obj/item/clothing/glasses/cold
-	faction = "an agent of the Gorlex Marauders"
+	faction = "an operative of the Gorlex Marauders"
 
 /datum/outfit/syndicate/no_crystals/independent
 	name = "Syndicate Operative - ACLF Reinforcement"
@@ -82,7 +111,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/aviators
 	belt = /obj/item/gun/ballistic/revolver
 	mask = /obj/item/clothing/mask/cigarette/cigar
-	faction = "The Independent Merk"
+	faction = "the independent solo"
 
 /datum/outfit/syndicate/no_crystals/independent/post_equip(mob/living/carbon/human/H)
 	..()

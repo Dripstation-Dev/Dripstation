@@ -1,4 +1,4 @@
-/obj/item/melee/errata
+/obj/item/melee/katana/errata
 	name = "\improper Errata"
 	desc = "Glorious nippon steel, folded 1000 times."
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
@@ -20,6 +20,7 @@
 	throw_range = 5
 	throwforce = 12
 	block_chance = 40
+	block_projectile_mod = 1
 	armour_penetration = 50
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
@@ -27,27 +28,11 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "diced", "cut")
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/melee/errata/Initialize()
+/obj/item/melee/katana/errata/Initialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 25, 90, 5) //Not made for scalping victims, but will work nonetheless
 
-/obj/item/melee/errata/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block bullets
-			to_chat(owner, span_userdanger("<b><i>You're too off balance to try block bullets!</i></b>"))
-			final_block_chance = 0 
-		else
-			final_block_chance = (block_chance * (1 + owner.in_throw_mode)) / 2 //In throwmode owner has full blockchance
-	if(prob(final_block_chance))
-		if(istype(hitby, /obj/projectile/bullet))
-			owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], while he cuts the air, splitting the bullet in half!"))
-		else
-			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-		playsound(src, block_sound, 70, vary = TRUE)
-		return 1
-	return 0
-
-/obj/item/melee/errata/attack(atom/target, blocked = FALSE)
+/obj/item/melee/katana/errata/attack(atom/target, blocked = FALSE)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(prob(15))
@@ -57,18 +42,17 @@
 			force = force + (M.fire_stacks*5)
 	..()
 
-
-/obj/item/melee/errata/on_exit_storage(datum/component/storage/concrete/S)
+/obj/item/melee/katana/errata/on_exit_storage(datum/component/storage/concrete/S)
 	var/obj/item/storage/belt/errata/B = S.real_location()
 	if(istype(B))
 		playsound(B, 'modular_dripstation/sound/weapons/Katana_Select02.ogg', 25, TRUE)
 
-/obj/item/melee/errata/on_enter_storage(datum/component/storage/concrete/S)
+/obj/item/melee/katana/errata/on_enter_storage(datum/component/storage/concrete/S)
 	var/obj/item/storage/belt/errata/B = S.real_location()
 	if(istype(B))
 		playsound(B, 'modular_dripstation/sound/weapons/blade_sheath.ogg', 25, TRUE)
 
-/obj/item/melee/errata/suicide_act(mob/user)
+/obj/item/melee/katana/errata/suicide_act(mob/user)
 	if(prob(50))
 		user.visible_message("<span class='suicide'>[user] carves deep into [user.p_their()] torso! It looks like [user.p_theyre()] trying to commit seppuku...</span>")
 	else
@@ -86,9 +70,14 @@
 	item_state = "errata_sheath"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 3
+	hit_reaction_chance = 20
+	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/primed = FALSE
 	var/dash_sound = 'modular_dripstation/sound/weapons/unsheathed_blade.ogg'
+	///having cool animation?
+	var/has_post_effects = TRUE
+	///effects var
 	var/beam_effect = "blood_beam"
 	var/phasein = /obj/effect/temp_visual/dir_setting/cult/phase
 	var/phaseout = /obj/effect/temp_visual/dir_setting/cult/phase
@@ -99,7 +88,7 @@
 	STR.max_items = 1
 	STR.max_w_class = WEIGHT_CLASS_BULKY
 	STR.set_holdable(list(
-		/obj/item/melee/errata
+		/obj/item/melee/katana/errata
 		))
 
 /obj/item/storage/belt/errata/examine(mob/user)
@@ -107,6 +96,18 @@
 	if(length(contents))
 		. += "<span class='notice'>Use [src] in-hand to prime for an opening strike."
 		. += "<span class='info'>Alt-click it to quickly draw the blade.</span>"
+	. += span_info("Can be used to fend off melee attacks.")
+
+/obj/item/storage/belt/errata/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(owner.get_active_held_item() != src)
+		return 0
+	if(attack_type == MELEE_ATTACK && prob(hit_reaction_chance))
+		owner.visible_message(span_danger("[owner] fends off [attack_text] with [src]!"))
+		playsound(src, block_sound, 70, vary = TRUE)
+		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
+		return 1
+	return 0
 
 /obj/item/storage/belt/errata/AltClick(mob/user)
 	if(!iscarbon(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)) || primed)
@@ -160,7 +161,9 @@
 /obj/item/storage/belt/errata/proc/primed_attack(atom/target, mob/living/user)
 	var/turf/end = get_turf(user)
 	var/turf/start = get_turf(user)
-	var/obj/spot1 = new phaseout(start, user.dir)
+	var/obj/spot1
+	if(has_post_effects)
+		spot1 = new phaseout(start, user.dir)
 	var/halt = FALSE
 	// Stolen dash code
 	for(var/T in getline(start, get_turf(target)))
@@ -182,8 +185,9 @@
 			end = T
 	user.forceMove(end) // YEET
 	playsound(start, dash_sound, 35, TRUE)
-	var/obj/spot2 = new phasein(end, user.dir)
-	spot1.Beam(spot2, beam_effect, time=20)
+	if(has_post_effects)
+		var/obj/spot2 = new phasein(end, user.dir)
+		spot1.Beam(spot2, beam_effect, time=20)
 	user.visible_message("<span class='warning'>In a flash of red, [user] draws [user.p_their()] blade!</span>", "<span class='notice'>You dash forward while drawing your weapon!</span>", "<span class='warning'>You hear a blade slice through the air at impossible speeds!</span>")
 
 /obj/item/storage/belt/errata/update_icon_state()
@@ -201,5 +205,5 @@
 		L.regenerate_icons()
 
 /obj/item/storage/belt/errata/PopulateContents()
-	new /obj/item/melee/errata(src)
+	new /obj/item/melee/katana/errata(src)
 	update_appearance(UPDATE_ICON)

@@ -235,6 +235,10 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/shoes_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/shoes_righthand.dmi'	
 
+/obj/item/clothing/shoes/laceup/electric_proof
+	desc = "The height of fashion, and they're pre-polished! Electric proof, just that good!"
+	armor = list(BIO = 100, ACID = 30, ELECTRIC = 100)
+
 /obj/item/clothing/gloves/color/captain
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
