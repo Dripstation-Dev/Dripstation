@@ -106,24 +106,33 @@
 	. = ..()
 	AddElement(/datum/element/tourniquetsnapping, 1 SECONDS)
 
+/obj/item/kitchen/knife/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/tourniquetsnapping, 2 SECONDS)
+
 /obj/item/bodypart
-	var/current_tourniquet
+	var/obj/item/stack/medical/tourniquet/current_tourniquet
 
 /obj/item/bodypart/proc/apply_tourniquet(obj/item/stack/medical/tourniquet)
 	if(!istype(tourniquet))
 		return
 	current_tourniquet = new tourniquet.type(src, 1)
-	ADD_TRAIT(src, TRAIT_COMPLETELY_STOPED_BLOOD_FLOW, tourniquet)
-	addtimer(CALLBACK(src, PROC_REF(tourniquet_posteffect), tourniquet), 15 SECONDS)
+	ADD_TRAIT(src, TRAIT_COMPLETELY_STOPED_BLOOD_FLOW, current_tourniquet)
+	addtimer(CALLBACK(src, PROC_REF(tourniquet_posteffect)), 15 SECONDS)
 	tourniquet.use(1)
 	//SEND_SIGNAL(src, COMSIG_BODYPART_TOURNIQUET, tourniquet)
 
-/obj/item/bodypart/proc/tourniquet_posteffect(obj/item/stack/medical/tourniquet)
-	if(!tourniquet || !HAS_TRAIT_FROM(src, TRAIT_COMPLETELY_STOPED_BLOOD_FLOW, tourniquet))
+/obj/item/bodypart/proc/tourniquet_posteffect()
+	if(!current_tourniquet || !HAS_TRAIT_FROM(src, TRAIT_COMPLETELY_STOPED_BLOOD_FLOW, current_tourniquet))
 		return
-	ADD_TRAIT(src, TRAIT_PARALYSIS, tourniquet)
+	ADD_TRAIT(src, TRAIT_PARALYSIS, current_tourniquet)
 	update_disabled()
-	
+
+/obj/item/bodypart/proc/remove_tourniquet()
+	if(!current_tourniquet)
+		return
+	REMOVE_TRAITS_IN(src, current_tourniquet)
+	QDEL_NULL(current_tourniquet)
 
 /datum/element/tourniquetsnapping
 	element_flags = ELEMENT_BESPOKE
@@ -140,7 +149,26 @@
 
 	src.snap_time_weak = snap_time_weak
 
-	RegisterSignal(target, COMSIG_ITEM_ATTACK , PROC_REF(try_toursnap_target))
+	RegisterSignal(target, COMSIG_ITEM_ATTACK, PROC_REF(try_toursnap_target))
+	RegisterSignal(target, COMSIG_ITEM_PRESURGERY_ATTACK, PROC_REF(try_toursnap_target))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(toursnap_examine))
+
+/datum/element/tourniquetsnapping/Detach(datum/target)
+	. = ..()
+	UnregisterSignal(target, COMSIG_ITEM_ATTACK)
+	UnregisterSignal(target, COMSIG_ITEM_PRESURGERY_ATTACK)
+	UnregisterSignal(target, COMSIG_ATOM_EXAMINE)
+
+/datum/element/tourniquetsnapping/proc/toursnap_examine(atom/examined_item, mob/user, list/examine_list)
+	var/our_desc = ""
+	switch(snap_time_weak)
+		if(0 SECONDS)
+			our_desc += " in one cut"
+		if(0 SECONDS to 1 SECONDS)
+			our_desc += " in one second"
+		if(1 SECONDS to INFINITY)
+			our_desc += ", but is pretty bad at this"
+	examine_list += "Can snap tourniquets[our_desc]."
 
 /datum/element/tourniquetsnapping/proc/try_toursnap_target(obj/item/cutter, mob/living/carbon/target, mob/cutter_user, params)
 	SIGNAL_HANDLER
@@ -148,12 +176,12 @@
 	if(!istype(target)) //we aren't the kind of mob that can even have tour, so we skip.
 		return
 
-	if(!parse_zone(cutter_user.zone_selected))
+	if(cutter_user.a_intent != INTENT_DISARM)
 		return
 
-	var/obj/item/bodypart/BP = parse_zone(cutter_user.zone_selected)
+	var/obj/item/bodypart/BP = target.get_bodypart(cutter_user.zone_selected)
 
-	if(BP.current_tourniquet)
+	if(!BP || !BP.current_tourniquet)
 		return
 
 	var/obj/item/stack/medical/tourniquet/tour = BP.current_tourniquet
@@ -162,15 +190,15 @@
 		return
 
 	else if(isnull(src.snap_time_weak))
-		cutter_user.visible_message(span_notice("[cutter_user] tries to cut through [target]'s restraints with [cutter], but fails!"))
+		cutter_user.visible_message(span_notice("[cutter_user] tries to cut through [target]'s tourniquet with [cutter], but fails!"))
 		playsound(source = get_turf(cutter), soundin = cutter.usesound ? cutter.usesound : cutter.hitsound, vol = cutter.get_clamped_volume(), vary = TRUE)
 		return COMPONENT_SKIP_ATTACK
 
 	. = COMPONENT_SKIP_ATTACK
 
-	INVOKE_ASYNC(src, PROC_REF(do_tournap_target), cutter, target, cutter_user, tour, BP)
+	INVOKE_ASYNC(src, PROC_REF(do_tournap_target), cutter, target, cutter_user, BP)
 
-/datum/element/tourniquetsnapping/proc/do_tournap_target(obj/item/cutter, mob/living/carbon/target, mob/cutter_user, obj/item/stack/medical/tourniquet/tour, obj/item/bodypart/BP)
+/datum/element/tourniquetsnapping/proc/do_tournap_target(obj/item/cutter, mob/living/carbon/target, mob/cutter_user, obj/item/bodypart/BP)
 	if(LAZYACCESS(cutter_user.do_afters, cutter))
 		return
 
@@ -180,9 +208,8 @@
 
 	if(snap_time == 0 || do_after(cutter_user, snap_time, target, interaction_key = cutter)) // If 0 just do it. This to bypass the do_after() creating a needless progress bar.
 		cutter_user.do_attack_animation(target, used_item = cutter)
-		cutter_user.visible_message(span_notice("[cutter_user] cuts [target]'s restraints with [cutter]!"))
-		REMOVE_TRAITS_IN(BP, tour)
-		qdel(BP.current_tourniquet)
+		cutter_user.visible_message(span_notice("[cutter_user] cuts [target]'s tourniquet with [cutter]!"))
+		BP.remove_tourniquet()
 		playsound(source = get_turf(cutter), soundin = cutter.usesound ? cutter.usesound : cutter.hitsound, vol = cutter.get_clamped_volume(), vary = TRUE)
 
 	return

@@ -371,3 +371,78 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+
+/obj/item/gun/ballistic/rifle/atelier
+	name = "Atelier Logic"
+	desc = "Some kind of rare bizarre gun, chambered in .45 ACP."
+	icon_state = "atelier"
+	item_state = "pistol"
+	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	fire_sound = "sound/weapons/leverfire.ogg"
+	fire_sound_volume = 50
+	rack_sound = "sound/weapons/leverrack.ogg"
+	load_sound = "sound/weapons/leverload.ogg"
+	muzzleflash_iconstate = "muzzle_flash_medium"
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/atelier
+	var/guns_left = 2
+	var/started_to_vanish = FALSE
+
+/obj/item/ammo_box/magazine/internal/boltaction/enchanted/atelier
+	max_ammo = 1
+	ammo_type = /obj/item/ammo_casing/m4570
+	caliber = CALIBER_4570
+
+/obj/item/gun/ballistic/rifle/atelier/Destroy()
+	do_sparks(1, TRUE, src)
+	return ..()
+
+// /obj/item/gun/ballistic/rifle/atelier/equipped(mob/user, slot)
+// 	. = ..()
+// 	starting_to_vanish(user, 3 SECONDS)
+
+/obj/item/gun/ballistic/rifle/atelier/dropped(mob/user, slot)
+	. = ..()
+	guns_left = 0
+	starting_to_vanish(user, 2 SECONDS)
+
+/obj/item/gun/ballistic/rifle/atelier/proc/discard_gun(mob/living/user)
+	user.throw_item(pick(oview(7,get_turf(user))))
+	starting_to_vanish(user, 2 SECONDS)
+
+/obj/item/gun/ballistic/rifle/atelier/attack_self()
+	return
+	
+/obj/item/gun/ballistic/rifle/atelier/proc/starting_to_vanish(mob/user, time)
+	if(started_to_vanish)
+		return
+	if(user)
+		to_chat(user, span_danger("Starting to vanish!"))
+	started_to_vanish = TRUE
+	do_sparks(1, TRUE, src)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item, vanish_fact)), time)
+
+/obj/item/gun/ballistic/rifle/atelier/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	. = ..()
+	if(!.)
+		return
+	if(guns_left)
+		var/obj/item/gun/ballistic/rifle/atelier/gun
+		if(guns_left == 1)
+			gun = new /obj/item/gun/ballistic/rifle/atelier/long
+		else
+			gun = new type
+			gun.guns_left = guns_left - 1
+		discard_gun(user)
+		user.swap_hand()
+		user.put_in_hands(gun)
+	else
+		user.dropItemToGround(src, TRUE)
+
+/obj/item/gun/ballistic/rifle/atelier/long
+	desc = "Some kind of rare bizarre gun, chambered in .45-70 Government."
+	icon_state = "atelier_long"
+	item_state = "oldrifle"
+	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+	guns_left = 0

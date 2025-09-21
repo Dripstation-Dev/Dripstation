@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(synthetic_added_access)
 	SSwardrobe.provide_type(/obj/item/barrier_taperoll/police, src)
 	update_appearance(UPDATE_ICON)
 
-/datum/outfit/job/replica/engineer/pre_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/replica/sec/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	..()
 	if(visualsOnly)
 		return

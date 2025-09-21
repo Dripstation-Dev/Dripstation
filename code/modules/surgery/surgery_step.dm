@@ -193,7 +193,7 @@
 	display_results(user, target, span_notice("You begin to perform surgery on [target]..."),
 		"[user] begins to perform surgery on [target].",
 		"[user] begins to perform surgery on [target].")
-	target.balloon_alert_to_viewers("starting...")
+	target.balloon_alert_to_viewers("started...")
 
 /datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!preop_sound)
@@ -214,7 +214,7 @@
 	display_results(user, target, span_notice("You succeed."),
 		"[user] succeeds!",
 		"[user] finishes.")
-	target.balloon_alert_to_viewers("finished!")
+	//target.balloon_alert_to_viewers("finished!")
 	return TRUE
 
 /datum/surgery_step/proc/play_success_sound(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -236,7 +236,7 @@
 	display_results(user, target, span_warning("You screw up!"),
 		span_warning("[user] screws up!"),
 		"[user] finishes.", TRUE) //By default the patient will notice if the wrong thing has been cut
-	target.balloon_alert_to_viewers("finished!")
+	//target.balloon_alert_to_viewers("finished!")
 	return FALSE
 
 /datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -334,13 +334,13 @@
 	if(!prob(final_ouchie_chance))
 		return
 	user.visible_message(span_boldwarning("[target] flinches, bumping [user]'s [tool ? tool.name : "hand"] into something important!"), span_boldwarning("[target] flinches, bumping your [tool ? tool.name : "hand"] into something important!"))
-	target.balloon_alert_to_viewers("slipped!")
+	//target.balloon_alert_to_viewers("slipped!")
 	ouchie_fact(user, target, target_zone)
 
 ///Deal damage if the user moved during the op
 /datum/surgery_step/proc/move_ouchie(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, success)
 	user.visible_message(span_boldwarning("[user] bumps [p_their(FALSE, user)] [tool ? tool.name : "hand"] into something important!"), span_boldwarning("You move, bumping your [tool ? tool.name : "hand"] into something important!"))
-	target.balloon_alert_to_viewers("moved!")
+	target.balloon_alert_to_viewers("Moved!")
 	ouchie_fact(user, target, target_zone)
 
 /datum/surgery_step/proc/ouchie_fact(mob/user, mob/living/carbon/target, target_zone)

@@ -14,22 +14,36 @@
 /datum/client_colour
 	var/colour = "" //Any client.color-valid value
 	var/priority = 1 //Since only one client.color can be rendered on screen, we take the one with the highest priority value:
+	var/mob/owner /// The mob that owns this client_colour
 	//eg: "Bloody screen" > "goggles colour" as the former is much more important
 
+/datum/client_colour/New(mob/owner)
+	src.owner = owner
+
+/datum/client_colour/Destroy()
+	// if(!QDELETED(owner))
+	// 	owner.client_colours -= src
+	owner = null
+	return ..()
 
 /*
 	Adds an instance of colour_type to the mob's client_colours list
 	colour_type - a typepath (subtyped from /datum/client_colour)
 */
-/mob/proc/add_client_colour(colour_type)
-	if(!ispath(colour_type, /datum/client_colour))
+/mob/proc/add_client_colour(datum/client_colour/colour_type)
+	if (QDELING(src))
 		return
 
-	var/datum/client_colour/CC = new colour_type()
-	client_colours |= CC
+	if (ispath(colour_type))
+		colour_type = new colour_type(src)
+
+	if (!istype(colour_type))
+		CRASH("Invalid color type or datum for add_client_colour: [colour_type ? "[colour_type] ([colour_type.type])" : "null"]")
+
+	client_colours |= colour_type
 	sortTim(client_colours, /proc/cmp_clientcolour_priority)
 	update_client_colour()
-
+	return colour_type
 
 /*
 	Removes an instance of colour_type from the mob's client_colours list

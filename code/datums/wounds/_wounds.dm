@@ -360,6 +360,8 @@
 
 /// If var/processing is TRUE, this is run on each life tick
 /datum/wound/proc/handle_process()
+	if(!limb)
+		return qdel(src)
 	if(wound_flags & CAN_BE_INFESTED && limb.sanitization <= 0)
 		limb.infestation += infestation_rate	//infestation from wounds
 	return
@@ -426,7 +428,7 @@
   * * mob/user: The user examining the wound's owner, if that matters
   */
 /datum/wound/proc/get_examine_description(mob/user)
-	. = "[victim.p_their(TRUE)] [limb.name] [examine_desc]"
+	. = "[victim.p_their(TRUE)] [limb.name] [examine_desc][limb.current_tourniquet ? ", has applied tourniquet" : ""]"
 	. = severity <= WOUND_SEVERITY_MODERATE ? "[.]." : "<B>[.]!</B>"
 
 /datum/wound/proc/get_scanner_description(mob/user)

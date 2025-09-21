@@ -32,6 +32,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	w_class_on = WEIGHT_CLASS_NORMAL
 	hitsound = SFX_KATANA_SWING
+	block_color = LIGHT_COLOR_BLUE
 
 /obj/item/melee/transforming/vib_blade/afterattack(atom/target, mob/user, blocked)
 	. = ..()
@@ -76,26 +77,35 @@
 	hitsound = SFX_KATANA_SWING
 	drop_sound = 'modular_dripstation/sound/weapons/metal_drop.ogg'
 	var/block_projectile_mod = 0.5
+	var/skill_issue_effect = 1
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 
 /obj/item/melee/katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(owner.get_active_held_item() != src)
 		return 0
+	var/current_stamina_damage = owner.getStaminaLoss()
+	if(current_stamina_damage >= 75)
+		to_chat(owner, span_warning("You muscles seize, you can`t block with \the [src] again!"))
+		return
 	if(attack_type == PROJECTILE_ATTACK)
 		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block bullets
 			to_chat(owner, span_userdanger("<b><i>You're too off balance to try block bullets!</i></b>"))
 			final_block_chance = 0 
 		else
-			final_block_chance = block_chance*(block_projectile_mod + owner.in_throw_mode) / 2 //Pretty good...
+			final_block_chance = block_chance*(block_projectile_mod + owner.in_throw_mode*skill_issue_effect) / 2 //Pretty good...
 	if(prob(final_block_chance))
 		if(istype(hitby, /obj/projectile/bullet))
 			owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], while he cuts the air, splitting the bullet in half!"))
+			to_chat(owner, "You split [hitby] in half with [src]!")
 		else if(istype(hitby, /obj/projectile))
 			var/obj/projectile/hit = hitby
 			if(hit.hitscan)
 				owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], and he mirrors it back!"))
+				to_chat(owner, "You mirror [attack_text] back with [src]!")
 		else
 			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+			to_chat(owner, "You block [attack_text] with [src]!")
+		owner.adjustStaminaLoss(stamina_cost_to_attack*2)
 		playsound(src, block_sound, 70, vary = TRUE)
 		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
 		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
@@ -121,7 +131,7 @@
 	bare_wound_bonus = 5
 	armour_penetration = 30
 	block_chance = 60
-	block_projectile_mod = 1.5	//90%
+	block_projectile_mod = 1.5	//75% projectile block
 
 /obj/item/melee/katana/bloody
 	name = "bloody katana"
@@ -155,11 +165,22 @@
 	item_state = "monomolecular"
 	desc = "An elegant weapon, its molecular edge is capable of cutting through flesh and bone with ease."
 	block_chance = 50
+	block_color = COLOR_PRISONER_BLACK
 	force = 25 	//not too deadly though
-	block_projectile_mod = 1.5	// 75% projectile block chance in throwmode
+	block_projectile_mod = 1.5	// 62,5% projectile block chance in throwmode
 	armour_penetration = 75
 	wound_bonus = 15	//since it is very sharp
 	bare_wound_bonus = 5	//a little bit of this
+
+/obj/item/melee/katana/monomolecular/mook
+	name = "\improper molecular katana (Mook Workshop)"
+	desc = "An elegant weapon, its molecular edge is capable of cutting through flesh and bone with ease. Mook Workshop`s original design."
+	armour_penetration = 40	//50 for traitor is enough
+	block_chance = 60
+	block_projectile_mod = 0.5	//30% projectile block
+	skill_issue_effect = 2.5	//90% projectile block in throwmode
+	wound_bonus = 0	//less sharp
+	force = 30 	//traiding wounds for damage
 
 /obj/item/melee/katana/murasame
 	name = "\improper Murasame"
@@ -237,6 +258,11 @@
 	name = "officer's rapier"
 	desc = "An elegant weapon, for a more civilized age. Ceremonial version issued to NanoTrasen finest."
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
+	icon_state = "rapier"
+	item_state = "rapier"
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	block_chance = 40
 
 /obj/item/melee/sabre/examine(mob/user)
@@ -316,8 +342,6 @@
 	name = "\improper molecular NanoTrasen rapier"
 	desc = "An elegant combat ready weapon of NanoTrasen finest, its molecular edge is capable of cutting through flesh and bone with ease."
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
-	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
-	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	icon_state = "monorapier"
 	item_state = "monorapier"
 	force = 30
@@ -1170,8 +1194,15 @@
 	icon = 'icons/obj/kitchen.dmi'
 
 /obj/item/kitchen/knife/combat/he11diver
-	desc = "A spec-ops grade combat utility survival knife."
+	desc = "A spec-ops grade combat knife."
 	icon_state = "he11d1ver_knife"
 	armour_penetration = 10	//not the best, but will help take down armored foes, military-grade silk users will get bare wounds
 	bare_wound_bonus = 5	//a bit better wounding potential against soft targets
 	throwforce = 15			//so it isn`t too balanced
+
+/obj/item/kitchen/knife/combat/he11diver/ragna
+	name = "\improper combat knife (Ragna Workshop)"
+	desc = "A spec-ops grade combat knife. Ragna Workshop original design."
+	bare_wound_bonus = 10	//a bit better wounding potential against soft targets
+	wound_bonus = 5
+	throw_range = 0

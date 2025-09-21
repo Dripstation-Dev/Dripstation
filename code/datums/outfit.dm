@@ -212,7 +212,8 @@
 				if(!isnum(number))//Default to 1
 					number = 1
 				for(var/i in 1 to number)
-					H.equip_in_one_of_slots(SSwardrobe.provide_type(path, H), list(ITEM_SLOT_BACKPACK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_BELT), 0)	//dripstation edit - stop deleating things from backpack when they cant be inserted there
+					var/list/slots = list("In your rig" = ITEM_SLOT_OCLOTHING, "In your belt" = ITEM_SLOT_BELT, "In your backpack" = ITEM_SLOT_BACKPACK)
+					H.equip_in_one_of_slots(SSwardrobe.provide_type(path, H), slots, qdel_on_fail = visualsOnly)	//dripstation edit - stop deleating things from backpack when they cant be inserted there
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit

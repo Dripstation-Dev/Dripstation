@@ -19,7 +19,7 @@
 	rack_sound = "sound/weapons/leverrack.ogg"
 	load_sound = "sound/weapons/leverload.ogg"
 	fire_delay = 10
-	mag_type = /obj/item/ammo_box/magazine/internal/shot/lever
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/lever/adv
 
 /obj/item/ammo_box/magazine/internal/shot/lever/adv
 	max_ammo = 13

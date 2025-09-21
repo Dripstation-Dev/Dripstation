@@ -1,3 +1,4 @@
+#define ARMORID "armor-[melee]-[bullet]-[laser]-[energy]-[bomb]-[bio]-[rad]-[fire]-[acid]-[magic]-[wound]-[electric]"
 /obj/item/module
 	name = "module"
 	desc = "module"
@@ -510,6 +511,10 @@
 	energy = 5
 	bomb = 10
 
+/datum/armor/armor_booster/New()
+	tag = ARMORID
+	GenerateTag()
+
 /obj/item/module/armor_booster/on_install()
 	old_armor = rig.armor
 	new_armor = rig.armor.attachArmor(armor_mod)
@@ -553,14 +558,18 @@
 	var/hit_reflect_chance = 50
 	var/datum/armor/new_armor
 	var/datum/armor/old_armor
-	var/datum/armor/armor_mod = new /datum/armor/armor_booster
+	var/datum/armor/armor_mod = new /datum/armor/ablative_armor
 
-/datum/armor/armor_booster
+/datum/armor/ablative_armor
 	melee = 0
 	bullet = 0
 	laser = 15
 	energy = 15
 	bomb = 0
+
+/datum/armor/ablative_armor/New()
+	tag = ARMORID
+	GenerateTag()
 
 /obj/item/module/ablative_armor/on_install()
 	old_armor = rig.armor
@@ -2373,31 +2382,68 @@
 	/// Max combined weight of all items in the storage.
 	var/max_combined_w_class = 12
 	/// Max amount of items in the storage.
-	var/max_items = 3
+	var/max_items = 4
 	complexity = 3
 	incompatible_modules = list(/obj/item/module/plate_compression, /obj/item/module/storage)
-	var/datum/component/storage/concrete/pockets/rig/rig_pockets
+	var/datum/component/storage/concrete/rig/rig_pockets
 
-/datum/component/storage/concrete/pockets/rig
+/datum/component/storage/concrete/rig
+	max_items = 4
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 12
+	attack_hand_interact = TRUE
+	//transfer_contents_on_component_transfer = TRUE
+	drop_all_on_destroy = TRUE
+	drop_all_on_deconstruct = TRUE
+
+/obj/item/module/storage/Initialize(mapload)
+	. = ..()
+	rig_pockets = AddComponent(/datum/component/storage/concrete/rig)
+	rig_pockets.max_items = max_items
+	rig_pockets.max_w_class = max_w_class
+	rig_pockets.max_combined_w_class = max_combined_w_class
+	rig_pockets.locked = TRUE
+
+/obj/item/module/storage/on_install()
+	var/datum/component/storage/storage = rig.AddComponent(/datum/component/storage, rig_pockets)
+	storage.max_items = rig_pockets.max_items
+	storage.max_w_class = rig_pockets.max_w_class
+	storage.max_combined_w_class = rig_pockets.max_combined_w_class
+	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
+
+/obj/item/module/storage/on_uninstall()
+	var/datum/component/storage/storage = rig.GetComponent(/datum/component/storage)
+	rig_pockets.on_slave_unlink(storage)
+	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
+	qdel(storage)
+/*
+/datum/component/storage/rig
 	max_items = 3
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 12
 	//rustle_sound = FALSE
-	attack_hand_interact = FALSE
+	attack_hand_interact = TRUE
 	quickdraw = TRUE
+	//transfer_contents_on_component_transfer = TRUE
+	//drop_all_on_destroy = TRUE
+	//drop_all_on_deconstruct = TRUE
 	var/atom/original_parent
 
-/datum/component/storage/concrete/pockets/rig/Initialize()
+/datum/component/storage/rig/Initialize()
 	original_parent = parent
 	. = ..()
 
-/datum/component/storage/concrete/pockets/rig/real_location()
+/datum/component/storage/rig/real_location()
 	// if the component is reparented to a rig, the items still go in the module
 	return original_parent
 
+/datum/component/storage/rig/PostTransfer()
+	if(!isatom(parent))
+		return COMPONENT_INCOMPATIBLE
+
 /obj/item/module/storage/Initialize(mapload)
 	. = ..()
-	rig_pockets = AddComponent(/datum/component/storage/concrete/pockets/rig)
+	rig_pockets = AddComponent(/datum/component/storage/rig)
 	rig_pockets.max_items = max_items
 	rig_pockets.max_w_class = max_w_class
 	rig_pockets.max_combined_w_class = max_combined_w_class
@@ -2417,14 +2463,14 @@
 		//rig_pockets = storage
 		set_rig_pockets(storage)
 		//rig_pockets.locked = FALSE
-		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
+		SEND_SIGNAL(rig, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
 	return TRUE
 
 /obj/item/module/storage/on_uninstall()
 	if(rig_pockets && rig_pockets.parent == rig)
 		//rig_pockets.locked = TRUE
-		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 		TakeComponent(rig_pockets)
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
 
 /obj/item/module/storage/proc/set_rig_pockets(new_pocket)
 	if(rig_pockets)
@@ -2436,6 +2482,7 @@
 /obj/item/module/storage/proc/handle_pockets_del(datum/source)
 	SIGNAL_HANDLER
 	set_rig_pockets(null)
+*/
 
 /obj/item/module/storage/large_capacity
 	name = "RIG expanded storage module"
@@ -2444,10 +2491,10 @@
 		whether smuggling, or simply hauling."
 	icon_state = "storage_large"
 	max_combined_w_class = 15
-	max_items = 5
+	max_items = 6
 
 /obj/item/module/storage/syndicate
-	name = "RIG syndicate storage module"
+	name = "RIG Cybersun storage module"
 	desc = "A storage system using nanotechnology developed by Cybersun Industries, these compartments use \
 		esoteric technology to compress the physical matter of items put inside of them, \
 		essentially shrinking items for much easier and more portable storage."
@@ -2463,3 +2510,5 @@
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 30
 	max_items = 21
+
+#undef ARMORID

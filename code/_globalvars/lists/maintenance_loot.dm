@@ -551,6 +551,7 @@ GLOBAL_LIST_INIT(maintenance_loot_makeshift,list(
 	/obj/item/clothing/suit/ianshirt = W_RARE,
 	/obj/item/clothing/suit/vapeshirt = W_RARE,
 	/obj/item/clothing/under/syndicate/tacticool = W_RARE,
+	/obj/item/clothing/under/syndicate/tacticool/fixer = W_MYTHICAL,
 	/obj/item/reagent_containers/food/drinks/ice/prison = W_COMMON,
 	/obj/item/reagent_containers/food/drinks/soda_cans/grey_bull = W_RARE,
 	/obj/item/reagent_containers/food/drinks/soda_cans/monkey_energy = W_RARE,

@@ -687,15 +687,22 @@
 	can_adjust = TRUE
 	mutantrace_variation = NONE
 
-/obj/item/clothing/under/syndicate/fixer
+/obj/item/clothing/under/syndicate/tacticool/fixer
 	name = "fixer suit"
-	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit. Intended for the most formal operator. The collar is really sharp."
+	desc = "A double seamed tactical turtleneck disguised as a spec-ops grade silk suit. Intended for the most formal operator. The black tie is really sharp."
 	icon_state = "bfixer_suit"
 	can_adjust = TRUE
 	mutantrace_variation = NONE
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 0, RAD = 10, FIRE = 50, ACID = 40, WOUND = 15)
+
+/obj/item/clothing/under/syndicate/fixer
+	name = "fixer suit"
+	desc = "A double seamed tactical turtleneck disguised as a civilian grade silk suit. Intended for the most formal operator. The black tie is really sharp."
+	icon_state = "bfixer_suit"
+	can_adjust = TRUE
+	mutantrace_variation = NONE
+	armor = list(MELEE = 40, BULLET = 40, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 0, RAD = 10, FIRE = 50, ACID = 40, WOUND = 15)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	clothing_traits = list(NO_SUIT_TRAIT)
+	clothing_traits = list(NO_SUIT_TRAIT, SILENCE_SUIT_TRAIT)
 
 /obj/item/clothing/under/syndicate/fixer/mob_can_equip(M as mob, slot)
 
@@ -713,6 +720,17 @@
 		return FALSE
 
 	return TRUE
+
+/obj/item/clothing/under/syndicate/fixer/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(!(slot & ITEM_SLOT_MASK))
+		return
+	if(HAS_TRAIT(user, SILENCE_MASK_TRAIT))
+		user.apply_status_effect(/datum/status_effect/breaching_and_cleaving/fixersorrow)
+
+/obj/item/clothing/under/syndicate/fixer/dropped(mob/living/carbon/human/user)
+	user.remove_status_effect(/datum/status_effect/breaching_and_cleaving/fixersorrow)
+	return ..()
 
 /obj/item/clothing/under/syndicate/bloodred
 	name = "blood-red sneaksuit"

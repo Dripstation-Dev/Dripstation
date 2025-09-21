@@ -186,6 +186,7 @@
 					/obj/item/umbrella = 3,
 					/obj/item/umbrella/parasol = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
+					/obj/item/clothing/under/syndicate/tacticool/fixer = 1,
 					/obj/item/clothing/mask/balaclava = 1,
 					/obj/item/clothing/mask/scarf = 1,
 					/obj/item/clothing/mask/russian_balaclava/black = 1,

@@ -96,6 +96,7 @@
 	icon_state = "liver-c"
 	desc = "An electronic device designed to mimic the functions of a human liver. Handles toxins slightly better than an organic liver."
 	organ_flags = ORGAN_SYNTHETIC
+	compatible_biotypes = MOB_ORGANIC|MOB_PSEVDOORGANIC|MOB_INORGANIC|MOB_UNDEAD	//dripstation edit
 	alcohol_tolerance = 0.001
 	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
 	toxTolerance = 3.3

@@ -57,7 +57,8 @@
 
 /datum/surgery_step/debride_infected/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
 	var/datum/wound/infected/target_wound = surgery.operated_wound
-	if(parse_zone(target_zone).infestation >= WOUND_INFECTION_SEPTIC)
+	var/obj/item/bodypart/BP = target.get_bodypart(target_zone)
+	if(BP.infestation >= WOUND_INFECTION_SEPTIC)
 		display_results(user, target, span_notice("You carve away some of the infected flesh from [target]'s [parse_zone(target_zone)] and realise that it`s too late to save."),
 			span_notice("[user] carves away some of the infected flesh from [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] carves away some of the infected flesh from [target]'s [parse_zone(target_zone)]!"))
@@ -70,9 +71,9 @@
 			span_notice("[user] successfully excises some of the infected flesh from [target]'s [parse_zone(target_zone)]!"))
 		log_combat(user, target, "excised infected flesh in", addition="INTENT: [uppertext(user.a_intent)]")
 		surgery.operated_bodypart.receive_damage(brute=3, wound_bonus=CANT_WOUND)
-		parse_zone(target_zone).applyInfestation(-infestation_removed)
+		BP.applyInfestation(-infestation_removed)
 		//target_wound.sanitization += sanitization_added
-		if(parse_zone(target_zone).infestation <= 0)
+		if(BP.infestation <= 0)
 			repeatable = FALSE
 	else
 		to_chat(user, span_warning("[target] has no infected flesh there!"))
@@ -80,7 +81,8 @@
 
 /datum/surgery_step/debride_infected/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, fail_prob = 0)
 	..()
-	if(parse_zone(target_zone).infestation >= WOUND_INFECTION_SEPTIC)
+	var/obj/item/bodypart/BP = target.get_bodypart(target_zone)
+	if(BP.infestation >= WOUND_INFECTION_SEPTIC)
 		display_results(user, target, span_notice("You carve away some of the infected flesh from [target]'s [parse_zone(target_zone)] and realise that it`s too late to save."),
 			span_notice("[user] carves away some of the infected flesh from [target]'s [parse_zone(target_zone)] with [tool] and realises that it`s too late to save!"),
 			span_notice("[user] carves away some of the infected flesh from [target]'s [parse_zone(target_zone)] and realises that it`s too late to save!"))
@@ -90,13 +92,14 @@
 	display_results(user, target, span_notice("You carve away some of the healthy flesh from [target]'s [parse_zone(target_zone)]."),
 		span_notice("[user] carves away some of the healthy flesh from [target]'s [parse_zone(target_zone)] with [tool]!"),
 		span_notice("[user] carves away some of the healthy flesh from [target]'s [parse_zone(target_zone)]!"))
-	surgery.operated_bodypart.receive_damage(brute=rand(4,8), sharpness=TRUE)
+	surgery.operated_bodypart.receive_damage(brute=rand(2,5), sharpness=TRUE)
 
 /datum/surgery_step/debride_infected/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(!..())
 		return
 	var/datum/wound/infected/target_wound = surgery.operated_wound
-	while(target_wound && parse_zone(target_zone).infestation > 0.25)
+	var/obj/item/bodypart/BP = target.get_bodypart(target_zone)
+	while(target_wound && BP.infestation > 0.25)
 		if(!..())
 			break
 

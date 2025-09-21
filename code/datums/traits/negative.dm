@@ -88,6 +88,7 @@
 	where = H.equip_in_one_of_slots(mannitolpills, slots, FALSE) || "at your feet"
 
 /datum/quirk/brainproblems/post_add()
+	. = ..()
 	to_chat(quirk_holder, span_boldnotice("There is a pill bottle of mannitol [where]. You're going to need it."))
 
 /datum/quirk/deafness
@@ -138,6 +139,7 @@
 		mood.mood_modifier += 0.5
 
 /datum/quirk/hypersensitive/remove()
+	. = ..()
 	if(quirk_holder)
 		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 		if(mood)
@@ -265,6 +267,7 @@
 	H.dna.species.aiminginaccuracy += 25
 
 /datum/quirk/poor_aim/remove()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	H?.dna?.species?.aiminginaccuracy -= 25
 
@@ -315,6 +318,7 @@
 	H.regenerate_icons()
 
 /datum/quirk/prosthetic_limb/post_add()
+	. = ..()
 	to_chat(quirk_holder, "<span class='boldannounce'>Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
 	you need to use a welding tool and cables to repair it, instead of bruise packs and ointment.</span>")
 
@@ -373,6 +377,7 @@
 	where = H.equip_in_one_of_slots(sanitypills, slots, FALSE) || "at your feet"
 
 /datum/quirk/insanity/post_add() //I don't /think/ we'll need this but for newbies who think "roleplay as insane" = "license to kill" it's probably a good thing to have
+	. = ..()
 	if(!quirk_holder.mind || quirk_holder.mind.special_role)
 		return
 	to_chat(quirk_holder, span_boldnotice("There is a bottle of mindbreaker gummy bears [where]. You're going to need it."))
@@ -397,6 +402,7 @@
 	RegisterSignal(quirk_holder, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 /datum/quirk/social_anxiety/remove()
+	. = ..()
 	UnregisterSignal(quirk_holder, list(COMSIG_MOB_EYECONTACT, COMSIG_MOB_EXAMINATE, COMSIG_MOB_SAY))
 
 /datum/quirk/social_anxiety/proc/handle_speech(datum/source, list/speech_args)
@@ -546,6 +552,7 @@
 	announce_drugs()
 
 /datum/quirk/junkie/post_add()
+	. = ..()
 	if(where_drug == "in your backpack" || where_accessory == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_holder
 		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
@@ -806,11 +813,13 @@
 	quirk_holder.add_client_colour(/datum/client_colour/monochrome)
 
 /datum/quirk/monochromatic/post_add()
+	. = ..()
 	if(quirk_holder.mind.assigned_role == "Detective")
 		to_chat(quirk_holder, span_boldannounce("Mmm. Nothing's ever clear on this station. It's all shades of gray..."))
 		quirk_holder.playsound_local(quirk_holder, 'sound/ambience/ambidet1.ogg', 50, FALSE)
 
 /datum/quirk/monochromatic/remove()
+	. = ..()
 	if(quirk_holder)
 		quirk_holder.remove_client_colour(/datum/client_colour/monochrome)
 
@@ -856,6 +865,7 @@
 	RegisterSignal(quirk_holder, COMSIG_CARBON_REMOVE_LIMB, PROC_REF(on_limb_lose))
 
 /datum/quirk/body_purist/remove()
+	. = ..()
 	UnregisterSignal(quirk_holder, list(
 		COMSIG_CARBON_GAIN_ORGAN,
 		COMSIG_CARBON_LOSE_ORGAN,

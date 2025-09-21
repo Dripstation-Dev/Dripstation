@@ -1,7 +1,7 @@
 /obj/item/organ/appendix/lizard
 	name = "lizard healing gland"
 	desc = "The gland rapidly consumes nutrients in blood to heal wounds."
-	var/hunger_reduction = 4
+	var/hunger_reduction = 2
 	var/toxin_damage = FALSE
 	COOLDOWN_DECLARE(check_ligapp_cd)
 
@@ -10,8 +10,8 @@
 	var/mob/living/carbon/human/H = owner
 	if(!(organ_flags & ORGAN_FAILING))
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING && H.get_damaged_bodyparts(TRUE,TRUE,null,BODYPART_ORGANIC))
-			if(H.blood_volume >= BLOOD_VOLUME_BAD(H))
-				H.blood_volume -= 1
+			if(H.blood_volume >= BLOOD_VOLUME_SAFE(H))
+				H.blood_volume -= 0.5
 				if(prob(33))
 					to_chat(H, span_warning("You feel like you are wasting away!"))
 			else
@@ -52,6 +52,7 @@
 	..()
 	var/datum/component/regeneration/regen = M.GetComponent(/datum/component/regeneration)
 	regen?.hunger_mod = initial(regen?.hunger_mod)
+	regen?.health_per_second = initial(regen?.health_per_second)
 
 /obj/item/organ/appendix/lizard/update_name(updates=ALL)
 	. = ..()

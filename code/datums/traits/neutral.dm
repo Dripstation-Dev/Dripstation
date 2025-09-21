@@ -17,6 +17,7 @@
 	species.disliked_food |= MEAT
 
 /datum/quirk/vegetarian/remove()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
 		var/datum/species/species = H.dna.species
@@ -51,6 +52,7 @@
 	species.liked_food |= PINEAPPLE
 
 /datum/quirk/pineapple_liker/remove()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
 		var/datum/species/species = H.dna.species
@@ -79,6 +81,7 @@
 	species.disliked_food |= PINEAPPLE
 
 /datum/quirk/pineapple_hater/remove()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
 		var/datum/species/species = H.dna.species
@@ -109,6 +112,7 @@
 	species.disliked_food = liked
 
 /datum/quirk/deviant_tastes/remove()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
 		var/datum/species/species = H.dna.species
@@ -142,6 +146,7 @@
 	medical_record_text = "Patient is difficult to understand."
 
 /datum/quirk/random_accent/post_add()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.accent_name)
 		H.mind.RegisterSignal(H, COMSIG_MOB_SAY, TYPE_PROC_REF(/datum/mind, handle_speech))
@@ -166,6 +171,7 @@
 	where = H.equip_in_one_of_slots(spraycan, slots, FALSE) || "at your feet"
 
 /datum/quirk/colorist/post_add()
+	. = ..()
 	if(where == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_holder
 		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
@@ -282,6 +288,7 @@
 	where = H.equip_in_one_of_slots(heirloom, slots, FALSE) || "at your feet"
 
 /datum/quirk/family_heirloom/post_add()
+	. = ..()
 	if(where == "in your backpack")
 		var/mob/living/carbon/human/H = quirk_holder
 		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)

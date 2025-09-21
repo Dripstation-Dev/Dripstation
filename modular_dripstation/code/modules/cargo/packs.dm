@@ -620,6 +620,25 @@
 	crate_name = "medipen crate"
 	crate_type = /obj/structure/closet/crate/secure/zeng_hu
 
+/datum/supply_pack/medical/tourniquet
+	name = "Tourniquet Variety-Pak (Zeng Hu Brand)"
+	desc = "Contains fifteen tourniquets in two different varieties, to assist in quick blood stopping."
+	cost = 5000
+	contains = list(/obj/item/stack/medical/tourniquet/three,
+					/obj/item/stack/medical/tourniquet/three,
+					/obj/item/stack/medical/tourniquet/three,
+					/obj/item/stack/medical/tourniquet/emergency,
+					/obj/item/stack/medical/tourniquet/emergency,
+					/obj/item/stack/medical/tourniquet/emergency,
+					/obj/item/stack/medical/tourniquet/emergency,
+					/obj/item/stack/medical/tourniquet/emergency,
+					/obj/item/stack/medical/tourniquet/emergency,
+	)
+	crate_name = "tourniquet crate"
+	crate_type = /obj/structure/closet/crate/secure/zeng_hu
+
+/obj/item/stack/medical/tourniquet
+
 /datum/supply_pack/medical/replica_heart
 	name = "Licensed Replica Spare Part (TMC-17H)"
 	desc = "Contains one replica spare part in the shape of a heart."

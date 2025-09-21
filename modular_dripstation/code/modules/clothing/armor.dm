@@ -647,7 +647,7 @@
 		CRASH("[type] called set_wearer with [user] but [wearer] was already the wearer!")
 
 	wearer = user
-	RegisterSignal(wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(hit_by_projectile))
+	RegisterSignal(wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(hit_by_projectile), override = TRUE)
 
 /datum/component/hardened/proc/hit_by_projectile(mob/living/owner, obj/projectile/hitting_projectile, def_zone)
 	SIGNAL_HANDLER

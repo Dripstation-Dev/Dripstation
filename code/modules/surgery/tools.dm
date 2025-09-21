@@ -185,6 +185,9 @@
 	AddComponent(/datum/component/butchering, 80 * toolspeed, 100, 0)
 
 /obj/item/scalpel/attack(mob/living/M, mob/user)
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_PRESURGERY_ATTACK, M, user)	//Dripstation edit
+	if(signal_return & COMPONENT_SKIP_ATTACK)
+		return		//Dripstation edit end
 	if(!attempt_initiate_surgery(src, M, user))
 		..()
 

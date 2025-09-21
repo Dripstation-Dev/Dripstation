@@ -13,6 +13,7 @@
 	spesslife.teach(H)
 
 /datum/quirk/combattraining/post_add()
+	. = ..()
 	to_chat(quirk_holder, span_boldannounce("Your muscles remembers some basics of unarmed combat."))
 	var/mob/living/carbon/C = quirk_holder
 	var/obj/item/paper/combattesting/combatpermit = new(C.loc)
@@ -25,6 +26,7 @@
 		C.equip_in_one_of_slots(combatpermit, slots, 0)
 
 /datum/quirk/combattraining/remove()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	spesslife.remove(H)
 
@@ -117,6 +119,7 @@
 	give_item_to_holder(gloves_type, list(LOCATION_GLOVES, LOCATION_HANDS))
 
 /datum/quirk/signer/remove()
+	. = ..()
 	qdel(quirk_holder.GetComponent(/datum/component/sign_language))
 
 /datum/quirk/psychopathic
@@ -136,6 +139,7 @@
 		mood.mood_modifier -= 0.6
 
 /datum/quirk/psychopathic/remove()
+	. = ..()
 	if(quirk_holder)
 		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 		if(mood)
@@ -156,6 +160,7 @@
 	var/obj/item/organ/appendix/old_appendix
 
 /datum/quirk/no_appendix/post_add()
+	. = ..()
 	var/mob/living/carbon/carbon_quirk_holder = quirk_holder
 	old_appendix = carbon_quirk_holder.getorganslot(ORGAN_SLOT_APPENDIX)
 
@@ -168,6 +173,7 @@
 	STOP_PROCESSING(SSobj, old_appendix)
 
 /datum/quirk/no_appendix/remove()
+	. = ..()
 	var/mob/living/carbon/carbon_quirk_holder = quirk_holder
 
 	if(isnull(old_appendix))
@@ -206,6 +212,7 @@
 	stamps += sheet.icon_tag("stamp-cent")
 
 /datum/quirk/surgeon/post_add()
+	. = ..()
 	var/mob/living/carbon/C = quirk_holder
 	var/obj/item/paper/license/med_license = new
 	med_license.update_text(C.real_name)
@@ -257,6 +264,7 @@
 	add_overlay(stampoverlay)
 
 /datum/quirk/glock/post_add()
+	. = ..()
 	var/mob/living/carbon/C = quirk_holder
 	var/obj/item/paper/carry_permit_glock/glockpermit = new
 	var/obj/item/storage/pouch/pistol/glock17/quirk/gun = new(C.loc)
@@ -334,6 +342,7 @@
 	check_z(quirk_holder, skip_timers = TRUE)
 
 /datum/quirk/spacer_born/post_add()
+	. = ..()
 	// drift slightly faster through zero G
 	quirk_holder.inertia_move_delay *= 0.8
 	var/mob/living/carbon/human/human_quirker = quirk_holder
@@ -356,6 +365,7 @@
 		to_chat(quirk_holder, span_info("You have been given some anti-emetic patches to assist in adjusting to planetary gravity."))
 
 /datum/quirk/spacer_born/remove()
+	. = ..()
 	UnregisterSignal(quirk_holder, COMSIG_MOVABLE_Z_CHANGED)
 
 	if(QDELING(quirk_holder))

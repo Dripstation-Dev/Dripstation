@@ -311,4 +311,3 @@
 
 /datum/status_effect/wound/blood_vessel/vein
 	id = "vein wound"
-

@@ -60,6 +60,9 @@
 		qdel(C.legcuffed)
 		C.legcuffed = null
 		return	
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_PRESURGERY_ATTACK, C, user)	//Dripstation edit
+	if(signal_return & COMPONENT_SKIP_ATTACK)
+		return		//Dripstation edit end
 	else if(!(user.a_intent == INTENT_HARM) && attempt_initiate_surgery(src, C, user))
 		return
 	else

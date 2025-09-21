@@ -632,7 +632,6 @@
 	return (..() || lockdown)
 
 /datum/species/replica/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	. = ..()
 	if (istype(chem,/datum/reagent/consumable) && (!istype(chem, /datum/reagent/consumable/liquidelectricity) || !istype(chem, /datum/reagent/toxin/synthgel)))
 		var/datum/reagent/consumable/food = chem
 		if (food.nutriment_factor)
@@ -649,6 +648,8 @@
 			emag_lvl = 0
 		H.adjust_nutrition(10)
 		H.adjustToxLoss(-1)
+
+	return ..()
 
 	// remove 4% of existing reagent, minimum of 0.1 units at a time
 	H.reagents.remove_reagent(chem.type, max(round(chem.volume / 25, 0.1), 0.1))
@@ -684,8 +685,8 @@
 	color = "#333640"
 	toxpwr = 2
 	taste_description = "goo and mess"
-	compatible_biotypes = ALL_BIOTYPES
-	self_consuming = TRUE
+	compatible_biotypes = MOB_PSEVDOORGANIC
+	//self_consuming = TRUE
 
 /datum/reagent/toxin/synthgel/on_mob_life(mob/living/carbon/M)
 	if(isreplica(M))
@@ -714,6 +715,7 @@
 /datum/species/replica/spec_fully_heal(mob/living/carbon/human/H)
 	. = ..()
 	emag_lvl = 0
+	H.nutrition = NUTRITION_LEVEL_FULL
 	H.clear_alert("preternis_emag")
 	H.clear_fullscreen("preternis_emag")
 

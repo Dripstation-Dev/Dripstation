@@ -672,3 +672,79 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+
+/obj/item/clothing/gloves/tackler/combat/pocket_dimention
+	name = "combat gloves"
+	clothing_traits = list(TRAIT_QUICKER_CARRY, TRAIT_STRONG_GRIP)
+	actions_types = list(
+		/datum/action/item_action/gloves_pocket_dimention/gun,
+		/datum/action/item_action/gloves_pocket_dimention/katana,
+		/datum/action/item_action/gloves_pocket_dimention/knife
+		)
+
+	tackle_stam_cost = 20 
+
+/datum/action/item_action/gloves_pocket_dimention
+	//background_icon_state = "bg_rig"
+	//overlay_icon_state = "bg_rig_border"
+	//background_icon = 'modular_dripstation/icons/hud/actions.dmi'
+	//overlay_icon = 'modular_dripstation/icons/hud/actions.dmi'
+	button_icon = 'modular_dripstation/icons/hud/actions.dmi'
+	check_flags = AB_CHECK_CONSCIOUS
+	var/action_target =/obj/item/clothing/gloves/tackler/combat/pocket_dimention
+	var/obj/item/item_to_spawn
+	var/obj/item/item_ref
+	var/time_to_vanish
+	var/cooldown_timer = 10 SECONDS
+	COOLDOWN_DECLARE(ability_cd)
+
+/datum/action/item_action/gloves_pocket_dimention/New(Target)
+	..()
+	if(!istype(Target, action_target))
+		qdel(src)
+		return
+
+/datum/action/item_action/gloves_pocket_dimention/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force)
+	current_button.cut_overlays()
+	if(!COOLDOWN_FINISHED(src, ability_cd))
+		var/image/cooldown_image = image(icon = 'modular_dripstation/icons/hud/actions.dmi', icon_state = "module_cooldown")
+		current_button.add_overlay(cooldown_image)
+		addtimer(CALLBACK(current_button, TYPE_PROC_REF(/image, cut_overlay), cooldown_image), COOLDOWN_TIMELEFT(src, ability_cd))
+	return ..()
+
+/datum/action/item_action/gloves_pocket_dimention/Trigger(trigger_flags)
+	if(!IsAvailable(feedback = TRUE))
+		return FALSE
+	item_ref = new item_to_spawn(src)
+	if(!owner.put_in_hands(item_ref))
+		return FALSE
+	COOLDOWN_START(src, ability_cd, cooldown_timer)
+	if(time_to_vanish)
+		addtimer(CALLBACK(item_ref, TYPE_PROC_REF(/obj/item, vanish_fact)), time_to_vanish)
+	return TRUE
+
+/obj/item/proc/vanish_fact()
+	if(!loc)
+		return
+	visible_message(span_danger("Vanishes!"), \
+			span_userdanger("Vanishes!"), null, COMBAT_MESSAGE_RANGE)
+	do_sparks(1, TRUE, src)
+	qdel(src)
+
+/datum/action/item_action/gloves_pocket_dimention/gun
+	name = "Atelier Logic"
+	item_to_spawn = /obj/item/gun/ballistic/rifle/atelier
+	button_icon_state = "glove_gun"
+	cooldown_timer = 30 SECONDS
+
+/datum/action/item_action/gloves_pocket_dimention/katana
+	name = "Mook Workshop"
+	item_to_spawn = /obj/item/melee/katana/monomolecular/mook
+	button_icon_state = "glove_katana"
+	time_to_vanish = 5 SECONDS
+
+/datum/action/item_action/gloves_pocket_dimention/knife
+	name = "Ragna Workshop"
+	item_to_spawn = /obj/item/kitchen/knife/combat/he11diver/ragna
+	button_icon_state = "glove_knife"
+	time_to_vanish = 5 SECONDS

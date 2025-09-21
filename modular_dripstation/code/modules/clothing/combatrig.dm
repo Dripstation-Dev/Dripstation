@@ -196,6 +196,7 @@
 		DH.spaceready(src.loc)
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/Destroy()
+	. = ..()
 	if(active)
 		STOP_PROCESSING(SSobj, src)
 
@@ -218,20 +219,22 @@
 		for(var/obj/item/module/M in inserted_modules)
 			. += "It has \a [M.name] incerted into it."
 	else
-		. += "Unscrew protection panel to see it`s contents."
+		. += "Unscrew protection panel to see modules."
 	if(locked)
 		. += "Protection panel is locked.</span>"
 		. += "<span class='notice'>CTRL-Click to unlock it.</span>"
+	else
+		. += "<span class='notice'>CTRL-Click to lock suit by access.</span>"
 	if(malfunctioning)
 		. += "<span class='warning'>Red dot signals two times.</span>"
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/attackby(obj/item/attacking_item, mob/living/user, params)
+	. = ..()
 	if(attacking_item.GetID())
 		return update_access(user, attacking_item.GetID())
 	if(istype(attacking_item, /obj/item/card/emag))
 		return TRUE
 	if(!open)
-		balloon_alert(user, "unscrew protection panel!")
 		return FALSE
 	if(istype(attacking_item, /obj/item/core))
 		if(core)
@@ -547,6 +550,10 @@
 			STOP_PROCESSING(SSobj, src)
 		SEND_SIGNAL(src, COMSIG_RIG_TRIGGER_POWER)
 	activating = FALSE		
+	regenerate_button_icons()
+	var/obj/item/clothing/head/helmet/space/hardsuit/dualmode/DM = helmet
+	if(istype(DM))
+		DM.regenerate_button_icons()
 	return TRUE
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/proc/has_wearer()
@@ -634,9 +641,11 @@
 /obj/item/clothing/suit/space/hardsuit/dualmode/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(active)
+		balloon_alert(user, "deactivate rig!")
 		to_chat(user, span_announce("Some kind of magnet lock preventing you from unscrewing panel. Try deactivate rig first."))
 		return FALSE
 	if(locked)
+		balloon_alert(user, "unlock rig!")
 		to_chat(user, span_announce("Some kind of mechanical lock preventing you from unscrewing panel. Try to unlock rig first."))
 		return FALSE
 

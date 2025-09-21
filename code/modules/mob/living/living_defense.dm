@@ -54,16 +54,22 @@
 			balloon_alert_to_viewers("armor penetrated!", "[penetrated_text]", COMBAT_MESSAGE_RANGE, new_color = COLOR_RED_LIGHT)
 		else
 			balloon_alert_to_viewers("armor penetrated!", "your armor penetrated!", COMBAT_MESSAGE_RANGE, new_color = COLOR_RED_LIGHT)
+		if(is_blind(src))
+			to_chat(src, "your armor penetrated!")
 	else if(our_armor >= 100)
 		if(absorb_text)
 			balloon_alert_to_viewers("armor absorbs!", "[absorb_text]", COMBAT_MESSAGE_RANGE)
 		else
 			balloon_alert_to_viewers("armor absorbs!", "your armor absorbs the blow!", COMBAT_MESSAGE_RANGE)
+		if(is_blind(src))
+			to_chat(src, "your armor penetrated!")
 	else
 		if(soften_text)
 			balloon_alert_to_viewers("armor effective!", "[soften_text]", COMBAT_MESSAGE_RANGE, new_color = COLOR_VERY_SOFT_YELLOW)
 		else
 			balloon_alert_to_viewers("armor effective!", "your armor softens the blow!", COMBAT_MESSAGE_RANGE, new_color = COLOR_VERY_SOFT_YELLOW)
+		if(is_blind(src))
+			to_chat(src, "your armor penetrated!")
 	return our_armor	//Dripstation edit end
 
 

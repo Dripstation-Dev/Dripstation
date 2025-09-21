@@ -1,3 +1,4 @@
+#define ARMORID "armor-[melee]-[bullet]-[laser]-[energy]-[bomb]-[bio]-[rad]-[fire]-[acid]-[magic]-[wound]-[electric]"
 /datum/species/lizard
 	name = "Unati"
 	plural_form = "Unathi"
@@ -98,7 +99,7 @@
 	new /datum/bioware/lizard_scales(C)
 	var/datum/component/regeneration/regen = C.GetComponent(/datum/component/regeneration)
 	if(regen)
-		regen.hunger_cap = 0 //NUTRITION_LEVEL_STARVING
+		regen.hunger_cap = NUTRITION_LEVEL_STARVING
 
 /datum/species/lizard/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	. = ..()
@@ -114,7 +115,14 @@
 	name = "Unathi Scales"
 	desc = "Scales form a primitive armor, protecting the body from melee attacks."
 	mod_type = BIOWARE_GENERIC
-	var/datum/armor/scales_armor_boost = new /datum/armor(20, 0, 0, 0, 0, 0, 0, 0, 0)
+	var/datum/armor/scales_armor_boost = new /datum/armor/scales
+
+/datum/armor/scales
+	melee = 20
+
+/datum/armor/scales/New()
+	tag = ARMORID
+	GenerateTag()
 
 /datum/bioware/lizard_scales/on_gain()
 	..()
@@ -161,3 +169,5 @@
 	desc = "[desc] At least, it used to."
 	used = 1
 	update_appearance(UPDATE_ICON)
+
+#undef ARMORID

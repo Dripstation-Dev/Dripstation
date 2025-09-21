@@ -76,7 +76,8 @@
 /datum/component/echolocation/Destroy(force, silent)
 	STOP_PROCESSING(SSfastprocess, src)
 	var/mob/living/echolocator = parent
-	QDEL_NULL(client_color)
+	//QDEL_NULL(client_color)
+	echolocator.remove_client_colour(client_color)
 	echolocator.remove_traits(list(TRAIT_ECHOLOCATION_RECEIVER, TRAIT_TRUE_NIGHT_VISION), echo_group)
 	if(blinding)
 		echolocator.cure_blind(ECHOLOCATION_TRAIT)
@@ -133,9 +134,13 @@
 	var/sound_environment = A.sound_environment	
 
 	//sanity check, if we have too low mixture - we have low range
-	var/datum/gas_mixture/environment = A.loc.return_air()
-	var/pressure = environment.return_pressure()
-	if(pressure <= 0.15*ONE_ATMOSPHERE)
+	if(!A.loc)
+		return range -3
+	var/datum/gas_mixture/environment = A.return_air()
+	if(!environment)
+		return range -3
+	var/pressure = environment?.return_pressure()
+	if(!pressure || pressure <= 0.15*ONE_ATMOSPHERE)
 		return range -3
 	else if(pressure <= 0.3*ONE_ATMOSPHERE)
 		return range -2

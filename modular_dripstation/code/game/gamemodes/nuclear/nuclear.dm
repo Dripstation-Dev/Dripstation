@@ -17,7 +17,9 @@
 
 	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
 		var/obj/item/U = new uplink_type(H, H.key, tc)
-		H.equip_in_one_of_slots(U, list(ITEM_SLOT_BACKPACK, ITEM_SLOT_OCLOTHING, ITEM_SLOT_BELT), 0)
+		var/list/slots = list("In your belt" = ITEM_SLOT_BELT, "In your backpack" = ITEM_SLOT_BACKPACK, "In your rig" = ITEM_SLOT_OCLOTHING)
+		var/place = H.equip_in_one_of_slots(U, slots, 0)
+		to_chat(H, "Uplink equipped in [place ? place : "fucked"]")
 
 	var/obj/item/implant/biosig_gorlex/B = new/obj/item/implant/biosig_gorlex(H) // Biosignaller won't trigger if it's put below the explosive implant.
 	B.implant(H)
@@ -53,8 +55,9 @@
 /datum/outfit/syndicate/full
 	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred
 	belt = /obj/item/storage/belt/military/webbing/syndicate/gorlex
-	back = /obj/item/storage/backpack/syndie
 	suit_store = /obj/item/tank/internals/oxygen/syndicate
+	r_pocket = /obj/item/storage/pouch/pistol/fn45
+	back = /obj/item/gun/ballistic/shotgun/bulldog
 	box = null
 	internals_slot = ITEM_SLOT_SUITSTORE
 
@@ -67,7 +70,6 @@
 	var/obj/item/storage/belt/military/belt_store = H.belt
 	if(istype(belt_store))
 		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/storage/box/syndie/nuke, null, TRUE, TRUE)
-		SEND_SIGNAL(belt_store, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/ballistic/automatic/pistol/fn45, null, TRUE, TRUE)
 
 /datum/antagonist/nukeop/lone/equip_op()
 	if(!ishuman(owner.current))

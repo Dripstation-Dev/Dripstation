@@ -13,6 +13,7 @@
 	RegisterSignals(quirk_holder, list(COMSIG_LIVING_GET_PULLED, COMSIG_CARBON_HELP_ACT), PROC_REF(uncomfortable_touch))
 
 /datum/quirk/bad_touch/remove()
+	. = ..()
 	UnregisterSignal(quirk_holder, list(COMSIG_LIVING_GET_PULLED, COMSIG_CARBON_HELP_ACT))
 
 /// Causes a negative moodlet to our quirk holder on signal
@@ -88,6 +89,7 @@
 /datum/quirk/glass_jaw/add(client/client_source)
 	RegisterSignal(quirk_holder, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(punch_out))
 /datum/quirk/glass_jaw/remove()
+	. = ..()
 	UnregisterSignal(quirk_holder, COMSIG_MOB_APPLY_DAMAGE)
 /datum/quirk/glass_jaw/proc/punch_out(mob/living/carbon/source, damage, damagetype, def_zone, blocked, wound_bonus, bare_wound_bonus, sharpness, attack_direction)
 	SIGNAL_HANDLER

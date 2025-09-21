@@ -944,10 +944,8 @@
 		if("fixer")	//30 tc
 			new /obj/item/clothing/under/syndicate/fixer(src)	//the best silk we can provide, anchanced sniper suit with name and armor, likely 5 tc worth
 			new /obj/item/clothing/mask/sense_deprevation(src)	//Somewhat like breach cleaver, but not the weapon, likely 8 TC
-			new /obj/item/melee/katana/monomolecular(src)		//VERY sharp weapon, like 8 tc
 			new /obj/item/clothing/shoes/laceup/electric_proof(src) //Fancy shoes to walk in the maint, like 1 tc
-			new /obj/item/clothing/gloves/combat(src) 			//Maybe 1 TC, so you don't shock yourself
-			new /obj/item/kitchen/knife/combat/he11diver(src)	//Spec-ops grade combat knife, maybe 2 TC
+			new/obj/item/clothing/gloves/tackler/combat/pocket_dimention(src)	//entire armory in your hand
 			new /obj/item/storage/pouch/medical_injectors/slav(src)	//~5 tc
 			
 
@@ -961,8 +959,6 @@
 /obj/item/storage/box/syndie_kit/fixer/PopulateContents()
 	new /obj/item/clothing/under/syndicate/fixer(src)	//the best silk we can provide, anchanced sniper suit with name and armor, likely 5 tc worth
 	new /obj/item/clothing/mask/sense_deprevation(src)	//Somewhat like breach cleaver, but not the weapon, likely 8 TC
-	new /obj/item/melee/katana/monomolecular(src)		//VERY sharp weapon, like 8 tc
 	new /obj/item/clothing/shoes/laceup/electric_proof(src) //Fancy shoes to walk in the maint, like 1 tc
-	new /obj/item/clothing/gloves/combat(src) 			//Maybe 1 TC, so you don't shock yourself
-	new /obj/item/kitchen/knife/combat/he11diver(src)	//Spec-ops grade combat knife, maybe 2 TC
+	new/obj/item/clothing/gloves/tackler/combat/pocket_dimention(src)	//entire armory in your hand
 	new /obj/item/storage/pouch/medical_injectors/slav(src)	//~5 tc

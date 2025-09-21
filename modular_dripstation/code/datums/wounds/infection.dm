@@ -155,6 +155,7 @@
 	return
 
 /datum/wound/infected/on_stasis()
-	if(limb.sanitization > 0 && limb.infestation < WOUND_INFECTION_SEPTIC)
+	if(limb.infestation < WOUND_INFECTION_SEPTIC)	//limb.sanitization > 0 && 
 		limb.applyInfestation(-WOUND_BURN_SANITIZATION_RATE * 0.2)
+		limb.sanitization += 0.05	//UV lights & cold
 	return

@@ -346,12 +346,13 @@
 /datum/game_mode/proc/generate_station_trait_announcement()
 	if(!SSstation.station_traits.len)
 		return
+	//. = "Identified shift divergencies:\n"
 	var/list/trait_list_strings = list()
 	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
 		if(!station_trait.show_in_report)
 			continue
-		trait_list_strings += "[station_trait.get_report()]<BR>"
-	. += "<hr><b>Identified shift divergencies:</b><BR>" + trait_list_strings.Join()
+		trait_list_strings += "[station_trait.get_report()]\n"
+	. += "<span class='boldannounce'>Identified shift divergencies:</span>\n" + trait_list_strings.Join()
 	return
 
 /* This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to

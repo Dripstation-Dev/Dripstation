@@ -16,6 +16,8 @@
 #define NO_BACKPACK_TRAIT	"no_backpack"
 #define NO_HELMET_TRAIT		"no_helmet"
 #define NO_SUIT_TRAIT		"no_suit"
+#define SILENCE_SUIT_TRAIT	"high_grade_silk"
+#define SILENCE_MASK_TRAIT	"mask_of_sense_dep"
 
 /// Prevents shovies and some strong blows such as unarmed punches and (unreliably) tackles the owner down
 #define TRAIT_BRAWLING_KNOCKDOWN_BLOCKED "brawling_knockdown_blocked"
@@ -35,3 +37,6 @@
 
 #define TRAIT_COMPLETELY_STOPED_BLOOD_FLOW		"no_blood_flow"
 #define TRAIT_NUMBED		"numbed"
+
+#define TRAIT_BLOOD_CRYING "blood_crying"
+#define TRAIT_INC_CRYING "inc_crying"

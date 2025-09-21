@@ -129,6 +129,16 @@
 		tears_overlay.color = COLOR_DARK_CYAN
 		overlays += tears_overlay
 
+	if (HAS_TRAIT(parent, TRAIT_BLOOD_CRYING))
+		var/mutable_appearance/tears_overlay = mutable_appearance('icons/mob/human_face.dmi', "tears", -BODY_ADJ_LAYER)
+		tears_overlay.color = COLOR_BLOOD
+		overlays += tears_overlay
+
+	if (HAS_TRAIT(parent, TRAIT_INC_CRYING))
+		var/mutable_appearance/tears_overlay = mutable_appearance('icons/mob/human_face.dmi', "tears", -BODY_ADJ_LAYER)
+		tears_overlay.color = COLOR_NEARLY_ALL_BLACK
+		overlays += tears_overlay
+
 	if(OFFSET_FACE in parent.dna?.species.offset_features)
 		var/offset = parent.dna.species.offset_features[OFFSET_FACE]
 		for(var/mutable_appearance/overlay in overlays)

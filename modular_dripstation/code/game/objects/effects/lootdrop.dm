@@ -259,5 +259,6 @@
 		/obj/item/clothing/under/syndicate/tacticool/ert = 15,
 		/obj/item/clothing/under/freemerk = 15,
 		/obj/item/clothing/under/syndicate/soviet = 10,
-		/obj/item/clothing/under/syndicate/tacticool = 25)
+		/obj/item/clothing/under/syndicate/tacticool/fixer = 5,
+		/obj/item/clothing/under/syndicate/tacticool = 20)
 

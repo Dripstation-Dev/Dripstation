@@ -174,9 +174,49 @@ proc/generate_illegal_stuff()
 			The shield can handle only one impact within a short duration \
 			but will rapidly recharge while not under fire."
 	item = /obj/item/module/shield/syndicate
+	manufacturer = /datum/corporation/traitor/cybersun
 	cost = 12
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	exclude_modes = list()
+
+/datum/uplink_item/suits/storage_module
+	name = "RIG Cybersun storage module"
+	desc = "A storage system using nanotechnology developed by Cybersun Industries, these compartments use \
+		esoteric technology to compress the physical matter of items put inside of them, \
+		essentially shrinking items for much easier and more portable storage."
+	item = /obj/item/module/storage/syndicate
+	manufacturer = /datum/corporation/traitor/cybersun
+	cost = 2
+
+/datum/uplink_item/suits/digitagrade
+	name = "RIG digitagrade module"
+	desc = "Advanced module supporter for species having digitagrade legs type. \
+			Recombines leg servomotors structure and adds special tail protection to provide degitagrade types species ability to use dualmode."
+	item = /obj/item/module/digitagrade
+	cost = 1
+
+/datum/uplink_item/suits/tailweapon
+	name = "RIG tail knife module"
+	desc = "Module that supports feachure of weaponising tail with adjusting military grade knife."
+	item = /obj/item/module/tailweapon
+	manufacturer = /datum/corporation/traitor/waffleco
+	cost = 3
+
+/datum/uplink_item/suits/terrorize_module
+	name = "RIG psi-echo terrorize module"
+	desc = "Cybersun prototype, advanced demoralizer module originaly developed by Donk Co. \
+			This module active ability provides user to send enemy mind in agony, disrupting their ability to \
+			concentrate and leading to shock and heart stop."
+	item = /obj/item/module/self_injector
+	manufacturer = /datum/corporation/traitor/vahlen
+	cost = 3
+
+/datum/uplink_item/suits/self_injector
+	name = "RIG tail knife module"
+	desc = "Two-use refilable injector to administer self aid in dangerous scenarios."
+	item = /obj/item/module/demoralizer/advanced
+	manufacturer = /datum/corporation/traitor/cybersun
+	cost = 5
 
 /datum/uplink_item/suits/infiltrator_bundle
 	name = "Infiltrator Case"

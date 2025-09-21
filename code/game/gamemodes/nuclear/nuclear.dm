@@ -184,9 +184,7 @@
 	internals_slot = ITEM_SLOT_RPOCKET
 	/*Dripstation edit
 	belt = /obj/item/storage/belt/military
-	*/
 	r_hand = /obj/item/gun/ballistic/shotgun/bulldog
-	/*Dripstation edit
 	backpack_contents = list(/obj/item/tank/jetpack/oxygen/harness=1,\
 		/obj/item/gun/ballistic/automatic/pistol=1,\
 		/obj/item/kitchen/knife/combat/survival)

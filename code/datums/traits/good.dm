@@ -50,6 +50,7 @@
 		mood.mood_modifier -= 0.2
 
 /datum/quirk/apathetic/remove()
+	. = ..()
 	if(quirk_holder)
 		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 		if(mood)
@@ -223,6 +224,7 @@
 	species.toxic_food = null //removes toxic foods
 
 /datum/quirk/toxic_tastes/remove()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
 		var/datum/species/species = H.dna.species
@@ -325,6 +327,7 @@
 	H.regenerate_icons()
 
 /datum/quirk/cyberorgan/post_add()
+	. = ..()
 	to_chat(quirk_holder, span_boldannounce("Your [slot_string] has been replaced with an [quality] variant."))
 
 /datum/quirk/cyberorgan/check_quirk(datum/preferences/prefs)
