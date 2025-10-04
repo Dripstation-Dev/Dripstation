@@ -154,3 +154,39 @@ round(cos_inv_third+sqrt3_sin, 0.001), round(cos_inv_third-sqrt3_sin, 0.001), ro
 		for(x in 1 to 4)
 			output[offset+x] = round(A[offset+1]*B[x] + A[offset+2]*B[x+4] + A[offset+3]*B[x+8] + A[offset+4]*B[x+12]+(y==5?B[x+16]:0), 0.001)
 	return output
+
+/// Datum which stores information about a matrix decomposed with decompose().
+/datum/decompose_matrix
+	///?
+	var/scale_x = 1
+	///?
+	var/scale_y = 1
+	///?
+	var/rotation = 0
+	///?
+	var/shift_x = 0
+	///?
+	var/shift_y = 0
+
+/// Decomposes a matrix into scale, shift and rotation.
+///
+/// If other operations were applied on the matrix, such as shearing, the result
+/// will not be precise.
+///
+/// Negative scales are now supported. =)
+/matrix/proc/decompose()
+	var/datum/decompose_matrix/decompose_matrix = new
+	. = decompose_matrix
+	var/flip_sign = (a*e - b*d < 0)? -1 : 1 // Det < 0 => only 1 axis is flipped - start doing some sign flipping
+	// If both axis are flipped, nothing bad happens and Det >= 0, it just treats it like a 180° rotation
+	// If only 1 axis is flipped, we need to flip one direction - in this case X, so we flip a, b and the x scaling
+	decompose_matrix.scale_x = sqrt(a * a + d * d) * flip_sign
+	decompose_matrix.scale_y = sqrt(b * b + e * e)
+	decompose_matrix.shift_x = c
+	decompose_matrix.shift_y = f
+	if(!decompose_matrix.scale_x || !decompose_matrix.scale_y)
+		return
+	// If only translated, scaled and rotated, a/xs == e/ys and -d/xs == b/xy
+	var/cossine = (a/decompose_matrix.scale_x + e/decompose_matrix.scale_y) / 2
+	var/sine = (b/decompose_matrix.scale_y - d/decompose_matrix.scale_x) / 2 * flip_sign
+	decompose_matrix.rotation = arctan(cossine, sine) * flip_sign

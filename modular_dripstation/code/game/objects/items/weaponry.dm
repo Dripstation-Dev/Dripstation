@@ -1,3 +1,101 @@
+/obj/item/ectoplasm
+	icon = 'modular_dripstation/icons/obj/wizard.dmi'
+
+/obj/item/vibro_weapon
+	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
+	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	/// The color of the slash we create
+	var/slash_color = COLOR_BLUE
+	/// Previous x position of where we clicked on the target's icon
+	var/previous_x
+	/// Previous y position of where we clicked on the target's icon
+	var/previous_y
+	/// The previous target we attacked
+	var/datum/weakref/previous_target
+
+/obj/item/vibro_weapon/attack(mob/living/target, mob/living/user, params)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED) || HAS_TRAIT(src, TRAIT_PACIFISM))
+		return ..()
+	slash(target, user, params)
+
+/obj/item/vibro_weapon/attack_atom(atom/target, mob/living/user, params)
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+	return ..()
+
+/obj/item/vibro_weapon/afterattack(atom/target, mob/user, proximity_flag, params)
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		return ..()
+	if(!proximity_flag || !(isclosedturf(target) || isitem(target) || ismachinery(target) || isstructure(target) || ismecha(target)))
+		return
+	user.changeNext_move(CLICK_CD_HYPER_RAPID)
+	slash(target, user, params)
+	//return AFTERATTACK_PROCESSED_ITEM
+	return 1
+
+/obj/item/vibro_weapon/proc/slash(atom/target, mob/living/user, params)
+	user.do_attack_animation(target, "nothing")
+	var/list/modifiers = params2list(params)
+	var/damage_mod = 1
+	var/x_slashed = text2num(modifiers[ICON_X]) || world.icon_size/2 //in case we arent called by a client
+	var/y_slashed = text2num(modifiers[ICON_Y]) || world.icon_size/2 //in case we arent called by a client
+	new /obj/effect/temp_visual/slash(get_turf(target), target, x_slashed, y_slashed, slash_color)
+	if(target == previous_target?.resolve()) //if the same target, we calculate a damage multiplier if you swing your mouse around
+		var/x_mod = previous_x - x_slashed
+		var/y_mod = previous_y - y_slashed
+		damage_mod = max(1, round((sqrt(x_mod ** 2 + y_mod ** 2) / 10), 0.1))
+	previous_target = WEAKREF(target)
+	previous_x = x_slashed
+	previous_y = y_slashed
+	playsound(src, hitsound, 100, vary = TRUE)
+	playsound(src, 'sound/weapons/zapbang.ogg', 50, vary = TRUE)
+	if(isliving(target))
+		var/mob/living/living_target = target
+		living_target.apply_damage(force*damage_mod, BRUTE, sharpness = SHARP_EDGED, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, def_zone = user.zone_selected)
+		log_combat(user, living_target, "slashed", src)
+		if(living_target.stat == DEAD && prob(force*damage_mod*0.5))
+			living_target.visible_message(span_danger("[living_target] explodes in a shower of gore!"), blind_message = span_hear("You hear organic matter ripping and tearing!"))
+			living_target.investigate_log("has been gibbed by [src].", INVESTIGATE_DEATHS)
+			living_target.gib()
+			log_combat(user, living_target, "gibbed", src)
+	else if(target.uses_integrity)
+		target.take_damage(force*damage_mod*3, BRUTE, MELEE, FALSE, null, 50)
+	else if(iswallturf(target) && prob(force*damage_mod*0.5))
+		var/turf/closed/wall/wall_target = target
+		wall_target.dismantle_wall()
+	else if(ismineralturf(target) && prob(force*damage_mod))
+		var/turf/closed/mineral/mineral_target = target
+		mineral_target.gets_drilled()
+
+/obj/effect/temp_visual/slash
+	icon_state = "highfreq_slash"
+	icon = 'modular_dripstation/icons/effects/effects.dmi'
+	alpha = 150
+	duration = 0.5 SECONDS
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = ABOVE_GAME_PLANE
+
+/obj/effect/temp_visual/slash/Initialize(mapload, atom/target, x_slashed, y_slashed, slash_color)
+	. = ..()
+	if(!target)
+		return
+	var/matrix/new_transform = matrix()
+	new_transform.Turn(rand(1, 360)) // Random slash angle
+	var/datum/decompose_matrix/decomp = target.transform.decompose()
+	new_transform.Translate((x_slashed - world.icon_size/2) * decomp.scale_x, (y_slashed - world.icon_size/2) * decomp.scale_y) // Move to where we clicked
+	//Follow target's transform while ignoring scaling
+	new_transform.Turn(decomp.rotation)
+	new_transform.Translate(decomp.shift_x, decomp.shift_y)
+	new_transform.Translate(target.pixel_x, target.pixel_y) // Follow target's pixel offsets
+	transform = new_transform
+	//Double the scale of the matrix by doubling the 2x2 part without touching the translation part
+	var/matrix/scaled_transform = new_transform + matrix(new_transform.a, new_transform.b, 0, new_transform.d, new_transform.e, 0)
+	animate(src, duration*0.5, color = slash_color, transform = scaled_transform, alpha = 255)
+
+//////////////////////////////////////////
+////////////MELEE WEAPONS/////////////////
+//////////////////////////////////////////
+
 /obj/item/melee
 	var/stamina_cost_to_attack = 7
 
@@ -19,28 +117,105 @@
 /obj/item/melee/is_restricted()
 	return TRUE
 
-/obj/item/ectoplasm
-	icon = 'modular_dripstation/icons/obj/wizard.dmi'
+// /obj/item/melee/equipped(mob/user, slot)
+// 	. = ..()
+// 	if(slot == ITEM_SLOT_BELT)
+// 		worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
+// 	if(slot == ITEM_SLOT_BACK)
+// 		worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'
+// 	if(slot == ITEM_SLOT_SUITSTORE)
+// 		worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
+// 	update_appearance(UPDATE_ICON)
 
-/obj/item/vibro_weapon
-	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
-
-/obj/item/melee/transforming/vib_blade 
+/obj/item/melee/transforming/vib_blade
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	w_class_on = WEIGHT_CLASS_NORMAL
 	hitsound = SFX_KATANA_SWING
 	block_color = LIGHT_COLOR_BLUE
+	block_chance = 30
+	weapon_stats = list(SWING_SPEED = 0.8, ENCUMBRANCE = 0, ENCUMBRANCE_TIME = 0, REACH = 1)
+	/// The color of the slash we create
+	var/slash_color = COLOR_BLUE
+	/// Previous x position of where we clicked on the target's icon
+	var/previous_x
+	/// Previous y position of where we clicked on the target's icon
+	var/previous_y
+	/// The previous target we attacked
+	var/datum/weakref/previous_target
 
-/obj/item/melee/transforming/vib_blade/afterattack(atom/target, mob/user, blocked)
+/obj/item/melee/transforming/vib_blade/examine(mob/user)
 	. = ..()
+	. += span_info("Toggle throw mode to get ability of blocking melee attacks when blade is in active state.")
+
+/obj/item/melee/transforming/vib_blade/attack(mob/living/target, mob/living/user, params)
+	if(HAS_TRAIT(src, TRAIT_PACIFISM) || !active)
+		return ..()
+	slash(target, user, params)
+
+/obj/item/melee/transforming/vib_blade/afterattack(atom/target, mob/user, proximity_flag, params)
+	if(!proximity_flag || !active || !(isclosedturf(target) || isitem(target) || ismachinery(target) || isstructure(target) || ismecha(target)))
+		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(prob(2) && ishuman(target) && H.health > (H.maxHealth - 20))
 			var/saylog = pick("I`ll cut you in two!", "You want the right to kill people - come try to take it!", "THIS IS POWER!", "There will be blood!")
 			H.forcesay(saylog)
+	slash(target, user, params)
+	//return AFTERATTACK_PROCESSED_ITEM
+	return 1
+
+/obj/item/melee/transforming/vib_blade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(owner.get_active_held_item() != src || !active || attack_type != MELEE_ATTACK)
+		return 0
+	var/current_stamina_damage = owner.getStaminaLoss()
+	if(current_stamina_damage >= 75)
+		to_chat(owner, span_warning("You muscles seize, you can`t block with \the [src] again!"))
+		return 0
+	if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block bullets
+		to_chat(owner, span_userdanger("You're too off balance to try block incoming attacks!"))
+		return 0
+	else if(!owner.in_throw_mode)
+		to_chat(owner, span_warning("You unprepared to block [attack_text] with [src]!"))
+		return 0
+	if(prob(final_block_chance))
+		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		to_chat(owner, "You block [attack_text] with [src]!")
+		owner.adjustStaminaLoss(stamina_cost_to_attack*2)
+		playsound(src, block_sound, 70, vary = TRUE)
+		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
+		return 1
+	return 0
+
+/obj/item/melee/transforming/vib_blade/proc/slash(atom/target, mob/living/user, params)
+	user.do_attack_animation(target, "nothing")
+	var/list/modifiers = params2list(params)
+	var/damage_mod = 1
+	var/x_slashed = text2num(modifiers[ICON_X]) || world.icon_size/2 //in case we arent called by a client
+	var/y_slashed = text2num(modifiers[ICON_Y]) || world.icon_size/2 //in case we arent called by a client
+	new /obj/effect/temp_visual/slash(get_turf(target), target, x_slashed, y_slashed, slash_color)
+	if(target == previous_target?.resolve()) //if the same target, we calculate a damage multiplier if you swing your mouse around
+		var/x_mod = previous_x - x_slashed
+		var/y_mod = previous_y - y_slashed
+		damage_mod = max(1, round((sqrt(x_mod ** 2 + y_mod ** 2) / 10), 0.1))
+	previous_target = WEAKREF(target)
+	previous_x = x_slashed
+	previous_y = y_slashed
+	playsound(src, hitsound, 100, vary = TRUE)
+	if(isliving(target))
+		var/mob/living/living_target = target
+		living_target.apply_damage(force*damage_mod, BRUTE, sharpness = SHARP_EDGED, wound_bonus = wound_bonus, bare_wound_bonus = bare_wound_bonus, def_zone = user.zone_selected)
+		log_combat(user, living_target, "slashed", src)
+	else if(target.uses_integrity)
+		target.take_damage(force*damage_mod*1.5, BRUTE, MELEE, FALSE, null, 50)
+	else if(iswallturf(target) && prob(force*damage_mod*0.2))
+		var/turf/closed/wall/wall_target = target
+		wall_target.dismantle_wall()
+	else if(ismineralturf(target) && prob(force*damage_mod))
+		var/turf/closed/mineral/mineral_target = target
+		mineral_target.gets_drilled()
 
 /obj/item/energy_katana
 	icon_state = "energy_katana"
@@ -60,8 +235,8 @@
 		worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
 	if(slot == ITEM_SLOT_BACK)
 		worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'
-	//if(slot == ITEM_SLOT_SUITSTORE)
-	//	worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
+	if(slot == ITEM_SLOT_SUITSTORE)
+		worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
 	update_appearance(UPDATE_ICON)
 
 /obj/item/melee/katana
@@ -80,19 +255,51 @@
 	var/skill_issue_effect = 1
 	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 
+	var/parry_window_id 
+	var/parry_window_time = 1.5 SECONDS
+	var/parry_cd = 3 SECONDS
+	var/parry_effect_mult = 1
+
+/obj/item/melee/katana/proc/on_mouse_down(client/source, atom/_target, turf/location, control, params)
+	SIGNAL_HANDLER
+	var/list/modifiers = params2list(params) //If they're shift+clicking, for example, let's not have them accidentally shoot.
+	var/mob/living/parry_man = source.mob
+	if(!LAZYACCESS(modifiers, MIDDLE_CLICK) || !parry_man || !parry_man.loc)
+		return
+	if(!isliving(parry_man) || parry_man.stat != CONSCIOUS || parry_man.get_active_held_item() != src)
+		return
+
+	if(parry_window_id || parry_man.next_click < world.time || parry_man.get_timed_status_effect_duration(/datum/status_effect/staggered))
+		to_chat(parry_man, span_warning("Your muscles seize, you can`t parry now!"))
+		return
+	
+	parry_man.next_click = world.time + parry_cd
+	parry_man.adjustStaminaLoss(stamina_cost_to_attack*2)
+	parry_window_id = addtimer(CALLBACK(src, PROC_REF(parry_down), parry_man), parry_window_time, TIMER_UNIQUE|TIMER_DELETE_ME|TIMER_STOPPABLE)
+	to_chat(parry_man, span_warning("Your muscles prepare to counter your oponent!"))
+
+	return COMSIG_MOB_CANCEL_CLICKON
+
+/obj/item/melee/katana/proc/parry_down(mob/living/carbon/parry_man)
+	to_chat(parry_man, span_warning("You muscles seize, you lower your guard!"))
+	balloon_alert(parry_man, "parry lowered!")
+	parry_window_id = null
+
 /obj/item/melee/katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(owner.get_active_held_item() != src)
 		return 0
 	var/current_stamina_damage = owner.getStaminaLoss()
 	if(current_stamina_damage >= 75)
 		to_chat(owner, span_warning("You muscles seize, you can`t block with \the [src] again!"))
-		return
-	if(attack_type == PROJECTILE_ATTACK)
-		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block bullets
-			to_chat(owner, span_userdanger("<b><i>You're too off balance to try block bullets!</i></b>"))
-			final_block_chance = 0 
-		else
-			final_block_chance = block_chance*(block_projectile_mod + owner.in_throw_mode*skill_issue_effect) / 2 //Pretty good...
+		return 0
+	if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to block
+		to_chat(owner, span_userdanger("You're too off balance to try block incoming attacks!"))
+		return 0
+	else if(attack_type == PROJECTILE_ATTACK)
+		final_block_chance = final_block_chance*(block_projectile_mod + owner.in_throw_mode*skill_issue_effect) / 2 //Pretty good...
+	else if(attack_type == MELEE_ATTACK)
+		if(parry_window_id)
+			final_block_chance = max(final_block_chance + 30, 100)	//boost parry to maximum
 	if(prob(final_block_chance))
 		if(istype(hitby, /obj/projectile/bullet))
 			owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], while he cuts the air, splitting the bullet in half!"))
@@ -103,8 +310,24 @@
 				owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], and he mirrors it back!"))
 				to_chat(owner, "You mirror [attack_text] back with [src]!")
 		else
-			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-			to_chat(owner, "You block [attack_text] with [src]!")
+			var/mob/living/attacker = hitby.loc
+			if(parry_window_id && istype(attacker))
+				owner.visible_message(
+					span_warning("[owner] parry [attack_text] with [src]!"),
+					span_warning("You parry [attack_text] and stagger [attacker]!"),
+					span_hear("You hear a clink."),
+				)
+				balloon_alert(owner, "parry used!")
+				owner.next_click = world.time
+				deltimer(parry_window_id)
+				to_chat(attacker, span_userdanger("You have been staggered by the parry!"))
+				attacker.AdjustImmobilized(0.7 SECONDS * parry_effect_mult)
+				attacker.adjust_staggered_up_to(2.5 SECONDS * parry_effect_mult, 6 SECONDS)
+				attacker.next_click = attacker.next_click + (3 SECONDS * parry_effect_mult)
+				attacker.balloon_alert_to_viewers("parried!")
+			else
+				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+				to_chat(owner, "You block [attack_text] with [src]!")
 		owner.adjustStaminaLoss(stamina_cost_to_attack*2)
 		playsound(src, block_sound, 70, vary = TRUE)
 		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
@@ -114,13 +337,26 @@
 
 /obj/item/melee/katana/equipped(mob/user, slot)
 	. = ..()
+	UnregisterSignal(user, COMSIG_CLIENT_MOUSEDOWN)
+	if(parry_window_id)
+		balloon_alert(user, "parry lowered!")
+		deltimer(parry_window_id)
+	if(slot == ITEM_SLOT_HANDS)
+		RegisterSignal(user, COMSIG_CLIENT_MOUSEDOWN, .proc/on_mouse_down)
 	if(slot == ITEM_SLOT_BELT)
 		worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
 	if(slot == ITEM_SLOT_BACK)
 		worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'
-	//if(slot == ITEM_SLOT_SUITSTORE)
-	//	worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
+	if(slot == ITEM_SLOT_SUITSTORE)
+		worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
 	update_appearance(UPDATE_ICON)
+
+/obj/item/melee/katana/dropped(mob/user)
+	. = ..()
+	UnregisterSignal(user, COMSIG_CLIENT_MOUSEDOWN)
+	if(parry_window_id)
+		balloon_alert(user, "parry lowered!")
+		deltimer(parry_window_id)
 
 /obj/item/melee/katana/traditional
 	name = "traditional katana"
@@ -250,8 +486,8 @@
 		worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
 	if(slot == ITEM_SLOT_BACK)
 		worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'
-	//if(slot == ITEM_SLOT_SUITSTORE)
-	//	worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
+	if(slot == ITEM_SLOT_SUITSTORE)
+		worn_icon = 'modular_dripstation/icons/mob/clothing/suit_storage.dmi'
 	update_appearance(UPDATE_ICON)
 
 /obj/item/melee/sabre
@@ -264,31 +500,41 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	block_chance = 40
+	stamina_cost_to_attack = 5
 
 /obj/item/melee/sabre/examine(mob/user)
 	. = ..()
 	. += span_info("Toggle throw mode for melee riposts.")
 
 /obj/item/melee/sabre/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(owner.get_active_held_item() != src)
+	if(owner.get_active_held_item() != src || attack_type != PROJECTILE_ATTACK)	//Don't bring a sword to a gunfight
+		return 0
+	var/current_stamina_damage = owner.getStaminaLoss()
+	if(current_stamina_damage >= 75)
+		to_chat(owner, span_warning("You muscles seize, you can`t block with \the [src] again!"))
+		return 0
+	if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to parry
+		to_chat(owner, span_userdanger("You're too off balance to try parry or ripost [attack_text]!"))
 		return 0
 	if(owner.in_throw_mode)
-		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to parry
-			to_chat(owner, span_userdanger("<b><i>You're too off balance to try parry [attack_text]!</i></b>"))
-		else
-			final_block_chance = block_chance + 50	//90% parry chance
-			if(!owner.getStaminaLoss() > 70)
-				owner.adjustStaminaLoss(25)	//Can't parry forever.
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
+		final_block_chance = final_block_chance + 40	//80% parry chance
 	if(prob(final_block_chance))
-		var/mob/living/A = hitby.loc
-		if(owner.in_throw_mode && istype(A))
-			owner.visible_message(span_danger("[owner] riposts [attack_text] with [src]!"))
-			attack(A, owner)
+		var/mob/living/attacker = hitby.loc
+		if(owner.in_throw_mode && istype(attacker))
+			balloon_alert(owner, "riposte used")
+			owner.visible_message(
+				span_warning("[owner] leans into [attack_text] and delivers a sudden riposte back at [attacker]!"),
+				span_warning("You lean into [attack_text] and deliver a sudden riposte back at [attacker]!"),
+				span_hear("You hear a clink, followed by a stab."),
+			)
+			attacker.AdjustImmobilized(0.7 SECONDS)
+			attacker.adjust_staggered_up_to(2.5 SECONDS, 6 SECONDS)
+			attacker.next_click = attacker.next_click + (3 SECONDS)
+			melee_attack_chain(owner, A)
 		else
 			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 		playsound(src, block_sound, 70, vary = TRUE)
+		owner.adjustStaminaLoss(stamina_cost_to_attack*2)
 		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
 		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
 		return 1
@@ -970,10 +1216,12 @@
 	hitsound = 'modular_dripstation/sound/weapons/swordhitheavy.ogg'
 	/// How much damage the sword does when wielded
 	var/force_wield = 35
+	weapon_stats = list(SWING_SPEED = 0.8, ENCUMBRANCE = 0, ENCUMBRANCE_TIME = 0, REACH = 1)
+	stamina_cost_to_attack = 15
 
 /obj/item/melee/breach_cleaver/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_wielded = force_wield, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield)))
+	AddComponent(/datum/component/two_handed, force_wielded = force_wield, icon_wielded = "[base_icon_state]1", wield_callback = CALLBACK(src, PROC_REF(wield)), unwield_callback = CALLBACK(src, PROC_REF(unwield), wielded_stats = list(SWING_SPEED = 1.2, ENCUMBRANCE = 0.7, ENCUMBRANCE_TIME = 1 SECONDS, REACH = 1)))
 
 /obj/item/melee/breach_cleaver/update_icon_state()
 	. = ..()
@@ -1015,23 +1263,25 @@
 	allowing it to be gripped securely by its warrior. The wide blade is often etched with scenes depicting military victories or great hunts."
 
 /obj/item/melee/breach_cleaver/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(owner.get_active_held_item() != src)
+		return 0
+	var/current_stamina_damage = owner.getStaminaLoss()
+	if(current_stamina_damage >= 75)
+		to_chat(owner, span_warning("You muscles seize, you can`t block with \the [src] again!"))
+		return 0
+	if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to parry
+		to_chat(owner, span_userdanger("You're too off balance to try parry [attack_text]!"))
+		return 0
 	if(owner.in_throw_mode)
-		if(owner.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to parry
-			to_chat(owner, span_userdanger("<b><i>You're too off balance to try parry [attack_text]!</i></b>"))
-		else
-			final_block_chance = block_chance + 70	//70% parry chance
-			if(!owner.getStaminaLoss() > 70)
-				owner.adjustStaminaLoss(25)	//Can't parry forever.
+		final_block_chance = final_block_chance + 70	//70% parry chance
 	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0 //Don't bring a sword to a gunfight
+		final_block_chance = final_block_chance / 2		//Don't bring a sword to a gunfight
 	if(prob(final_block_chance))
-		var/mob/living/A = hitby.loc
-		if(owner.in_throw_mode && istype(A))
-			owner.visible_message(span_danger("[owner] parry [attack_text] with [src]!"))
-			attack(A, owner)
-		else
-			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
+		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 		playsound(src, block_sound, 70, vary = TRUE)
+		owner.adjustStaminaLoss(stamina_cost_to_attack*2)
+		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
+		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
 		return 1
 	return 0
 
@@ -1186,6 +1436,7 @@
 /obj/item/kitchen/knife/combat
 	icon = 'modular_dripstation/icons/obj/weapons/melee.dmi'
 	icon_state = "combat_knife"
+	weapon_stats = list(SWING_SPEED = 0.8, ENCUMBRANCE = 0, ENCUMBRANCE_TIME = 0, REACH = 1)
 
 /obj/item/kitchen/knife/combat/survival
 	icon = 'icons/obj/kitchen.dmi'
@@ -1199,6 +1450,7 @@
 	armour_penetration = 10	//not the best, but will help take down armored foes, military-grade silk users will get bare wounds
 	bare_wound_bonus = 5	//a bit better wounding potential against soft targets
 	throwforce = 15			//so it isn`t too balanced
+	weapon_stats = list(SWING_SPEED = 0.5, ENCUMBRANCE = 0, ENCUMBRANCE_TIME = 0, REACH = 1)
 
 /obj/item/kitchen/knife/combat/he11diver/ragna
 	name = "\improper combat knife (Ragna Workshop)"

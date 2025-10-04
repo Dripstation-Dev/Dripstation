@@ -315,9 +315,13 @@
 	Middle click
 	Only used for swapping hands
 */
-/mob/proc/MiddleClickOn(atom/A)
-	return
+/mob/proc/MiddleClickOn(atom/A, params)
+	. = SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A, params)
+	if(. & COMSIG_MOB_CANCEL_CLICKON)
+		return
+	swap_hand()
 
+/*
 /mob/living/carbon/MiddleClickOn(atom/A)
 	if(!stat && mind && iscarbon(A) && A != src)
 		var/datum/antagonist/changeling/C = mind.has_antag_datum(/datum/antagonist/changeling)
@@ -326,6 +330,7 @@
 			next_click = world.time + 5
 			return
 	swap_hand()
+*/
 
 /mob/living/simple_animal/drone/MiddleClickOn(atom/A)
 	swap_hand()

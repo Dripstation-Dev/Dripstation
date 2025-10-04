@@ -10,6 +10,7 @@
 	var/active = FALSE
 	var/powered = FALSE
 	var/list/incompatible_modules = list()
+	var/list/compatible_modules = list()
 	var/overlay_state_use
 	var/overlay_icon_file = 'modular_dripstation/icons/mob/clothing/spacesuits/suits.dmi'
 	var/overlay_state_inactive
@@ -148,7 +149,7 @@
 /obj/item/module/proc/can_insert_module(obj/item/clothing/suit/space/hardsuit/dualmode/new_rig, qdel_on_fail = FALSE)
 	var/compatible = TRUE
 	for(var/obj/item/module/M in new_rig.inserted_modules)
-		if(locate(src) in M.incompatible_modules)
+		if(locate(src) in M.incompatible_modules && !(locate(src) in M.compatible_modules))
 			compatible = FALSE
 			break
 	if(!compatible || new_rig.current_complexity + complexity > new_rig.max_complexity)
@@ -375,7 +376,7 @@
 	var/shield_state = "shield-old"
 	/// The icon file of the shield.
 	var/shield_icon_file = 'modular_dripstation/icons/effects/shield.dmi'
-	incompatible_modules = list(/obj/item/module/shield, /obj/item/module/shield/syndicate, /obj/item/module/shield/nt, /obj/item/module/shield/wizard)
+	incompatible_modules = list(/obj/item/module/shield)
 
 /obj/item/module/shield/on_install()
 	rig.AddComponent(/datum/component/shielded, shield_icon_file, shield_state, recharge_delay, ITEM_SLOT_OCLOTHING, \
@@ -437,7 +438,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic too
 	shield_state = "mageshield"
-	incompatible_modules = list(/obj/item/module/shield, /obj/item/module/shield/syndicate, /obj/item/module/shield/nt)
+	compatible_modules = list(/obj/item/module/shield/wizard)
 
 /obj/item/module/shield/wizard/on_module_powered()
 	return
@@ -447,11 +448,6 @@
 
 /obj/item/module/shield/wizard/on_install()
 	rig.AddComponent(/datum/component/shielded,'modular_dripstation/icons/effects/shield.dmi', shield_state, recharge_delay, ITEM_SLOT_OCLOTHING, charge_i_d = recharge_delay_after_charge, max_charge = max_charges, starting_charges = starting_charge, recharge_rating = recharge_rate, sparks_enable = TRUE)
-
-/obj/item/module/shield/wizard/on_uninstall()
-	var/datum/component/shielded/shield = rig.GetComponent(/datum/component/shielded)
-	//starting_charge = shield.current_charges
-	qdel(shield)
 
 /obj/item/module/solar_shielding
 	name = "RIG solar shielding module"
@@ -547,7 +543,7 @@
 
 /obj/item/module/ablative_armor
 	name = "RIG prototype ablative armor module"
-	desc = "."
+	desc = "Ablative armor for Nanotrasen spec ops."
 	icon_state = "ablative_armor"
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 2
 	module_type = MODULE_TOGGLE
@@ -918,6 +914,7 @@
 	icon_state = "plate_compression"
 	complexity = 2
 	incompatible_modules = list(/obj/item/module/plate_compression, /obj/item/module/storage)
+	compatible_modules = list(/obj/item/module/storage/syndicate)
 	/// The size we set the suit to.
 	var/new_size = WEIGHT_CLASS_NORMAL
 	/// The suit's size before the module is installed.
@@ -1959,16 +1956,17 @@
 	allow_flags = MODULE_ALLOW_INCAPACITATED
 	incompatible_modules = list(/obj/item/module/self_injector)
 	cooldown_time = 12 SECONDS
-	var/starting_reagent = null
+	var/list/list_reagents = null
 	var/volume = 20
 	var/amount_per_transfer_from_this = 10
 	var/inject_sound = 'sound/items/autoinjector.ogg'
 
 /obj/item/module/self_injector/Initialize(mapload)
 	. = ..()
-	create_reagents(volume)
-	if(starting_reagent)
-		reagents.add_reagent(starting_reagent, volume)
+	if(volume)
+		create_reagents(volume)
+	if(list_reagents)
+		reagents.add_reagent_list(list_reagents)
 
 /obj/item/module/self_injector/on_use()
 	if(!reagents.total_volume)
@@ -2054,8 +2052,20 @@
 	balloon_alert(rig.wearer, "transfered!")
 	return TRUE
 
-/obj/item/module/self_injector/prefilled
-	starting_reagent = /datum/reagent/medicine/stimulants
+/obj/item/module/self_injector/stimulants
+	list_reagents = list(/datum/reagent/medicine/stimulants = 20)
+
+/obj/item/module/self_injector/omnizine
+	list_reagents = list(/datum/reagent/medicine/omnizine = 20)
+
+/obj/item/module/self_injector/combat
+	name = "RIG self injector combat module"
+	desc = "Three-use refilable injector to administer self aid in dangerous scenarios."
+	volume = 30
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/omnizine = 10, /datum/reagent/medicine/leporazine = 5, /datum/reagent/medicine/atropine = 5)
+
+/obj/item/module/self_injector/combat/quantum_liquid
+	list_reagents = list(/datum/reagent/medicine/adminordrazine/quantum_heal = 30)
 
 ///Magnetic Harness - Automatically puts guns in your suit storage when you drop them.
 /obj/item/module/magnetic_harness
@@ -2323,6 +2333,7 @@
 			Recombines leg servomotors structure and adds special tail protection to provide degitagrade types species ability to use dualmode."
 	icon_state = "module"
 	complexity = 2
+	incompatible_modules = list(/obj/item/module/digitagrade)
 
 /obj/item/module/digitagrade/on_install()
 	rig.helmet?.mutantrace_variation = DIGITIGRADE_VARIATION
@@ -2343,6 +2354,7 @@
 	module_type = MODULE_ACTIVE
 	allow_flags = MODULE_ALLOW_INACTIVE	//it`s mechanical
 	cooldown_time = CLICK_CD_MELEE
+	incompatible_modules = list(/obj/item/module/tailweapon)
 
 /obj/item/module/tailweapon/on_select_use(atom/target)
 	. = ..()
@@ -2503,6 +2515,7 @@
 	icon_state = "storage_syndi"
 	max_combined_w_class = 21
 	max_items = 14
+	incompatible_modules = list(/obj/item/module/storage)
 
 /obj/item/module/storage/bluespace
 	name = "RIG bluespace storage module"

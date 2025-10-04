@@ -267,11 +267,11 @@
 	addtimer(CALLBACK(src, PROC_REF(wings)), movement_activity)
 
 /obj/structure/anomalies_diet/ball_lightning/Bumped(atom/user)
-	if (electrocute_mob(user, lighting_in_a_bottle, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
+	if (electrocute_mob(user, lighting_in_a_bottle, src, zone = CHEST)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
 		spark_system.start()
 
 /obj/structure/anomalies_diet/ball_lightning/Bump(atom/user)
-	if (electrocute_mob(user, lighting_in_a_bottle, src)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
+	if (electrocute_mob(user, lighting_in_a_bottle, src, zone = CHEST)) //electrocute_mob() handles removing charge from the cell, no need to do that here.
 		spark_system.start()
 
 /obj/structure/anomalies_diet/hell
@@ -283,6 +283,7 @@
 	light_range = 6
 	light_color = "#FEA91A"
 	pass_flags = LETPASSTHROW
+	anchored = TRUE
 	var/temp_for_bump_subtractor = 270
 	//We add all 3 together
 	var/temp_for_far_area_subtractor = 20
@@ -320,15 +321,15 @@
 		H.bodytemperature -= temp_to_use
 
 /obj/structure/anomalies_diet/hell/Bumped(atom/user)
-	addtimer(CALLBACK(src, PROC_REF(frozen_soild), user, temp_for_bump_subtractor), 1)
+	addtimer(CALLBACK(src, PROC_REF(frozen_solid), user), 1)
 
 /obj/structure/anomalies_diet/hell/Bump(atom/user)
-	addtimer(CALLBACK(src, PROC_REF(frozen_soild), user, temp_for_bump_subtractor), 1)
+	addtimer(CALLBACK(src, PROC_REF(frozen_solid), user), 1)
 
-/obj/structure/anomalies_diet/hell/proc/frozen_soild(atom/user)
+/obj/structure/anomalies_diet/hell/proc/frozen_solid(atom/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.bodytemperature -= 275 //This is in Kittens not Cats or Felines
+		H.adjust_bodytemperature(-temp_for_bump_subtractor) //This is in Kittens not Cats or Felines
 
 
 /obj/structure/anomalies_diet/thumper

@@ -6,7 +6,7 @@
 	icon_state = "scarlet_helm"
 	//item_state = "scarlet_helm"
 	hardsuit_type = "scarlet"
-	armor = list(MELEE = 35, BULLET = 25, LASER = 30, ENERGY = 25, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 35, BULLET = 25, LASER = 30, ENERGY = 25, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 50)
 	var/sealed = FALSE
 	flash_protect = FLASH_PROTECTION_NONE
 	light_color = LIGHT_COLOR_GREEN
@@ -139,7 +139,7 @@
 	hardsuit_type = "scarlet"
 	w_class = WEIGHT_CLASS_BULKY
 	var/sealed = FALSE				//Tracking current sealed mode on suit, handles by helmet sealed
-	armor = list(MELEE = 35, BULLET = 25, LASER = 30, ENERGY = 25, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 35, BULLET = 25, LASER = 30, ENERGY = 25, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 50)
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/emergency_forcing_tool, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode
 	jetpack = null
@@ -677,6 +677,9 @@
 		var/obj/item/core/C = chosen_mod
 		return C.uninstall(src)
 
+/obj/item/clothing/suit/space/hardsuit/dualmode/prefilled
+	starting_modules = list(/obj/item/module/self_injector/omnizine)
+
 ////////////////////////////////
 /////////NORMAL DUAL-MODS///////
 ////////////////////////////////
@@ -687,8 +690,9 @@
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/basic
 	name = "basic RIG"
-	preview = TRUE
+	//preview = TRUE
 	hardsuit_type = "basic"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/basic
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering
 	name = "engineering RIG helmet"
@@ -696,7 +700,7 @@
 	icon_state = "engineering_helm"
 	//item_state = "engineering_helm"
 	hardsuit_type = "engineering"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 80)
 	resistance_flags = FIRE_PROOF
 	visor_flags_inv = HIDEEYES|HIDEFACE
 	light_color = LIGHT_COLOR_DEFAULT
@@ -708,7 +712,7 @@
 	//item_state = "engineering_rig"
 	hardsuit_type = "engineering"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser)
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering
 	starting_modules = list(/obj/item/module/welding, /obj/item/module/storage)
 	resistance_flags = FIRE_PROOF
@@ -741,7 +745,7 @@
 	icon_state = "mechanic_helm"
 	//item_state = "mechanic_helm"
 	hardsuit_type = "mechanic"
-	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 75, WOUND = 10, ELECTRIC = 80)
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/mechanic/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -762,14 +766,14 @@
 	//item_state = "engineering_rig"
 	hardsuit_type = "engineering"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser)
-	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 100, FIRE = 50, ACID = 75, WOUND = 10, ELECTRIC = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/mechanic
 
 //Atmospherics
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/atmospheric
 	name = "atmospheric RIG helmet"
 	desc = "A modern helmet designed for isolation from the hazardous, low-pressure environment. Has thermal shielding."
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 25, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 25, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 80)
 	icon_state = "atmospheric_helm"
 	//item_state = "atmospheric_helm"
 	hardsuit_type = "atmospheric"
@@ -781,7 +785,7 @@
 /obj/item/clothing/suit/space/hardsuit/dualmode/engineering/atmospheric
 	name = "atmospheric RIG"
 	desc = "A modern rig designed for isolation from the hazardous, low pressure environments. Has thermal shielding."
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 25, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 25, FIRE = 100, ACID = 75, WOUND = 10, ELECTRIC = 80)
 	icon_state = "atmospheric_rig"
 	//item_state = "atmospheric_rig"
 	item_state = "atmo_hardsuit"
@@ -809,7 +813,7 @@
 	icon_state = "ce_helm"
 	//item_state = "ce_helm"
 	hardsuit_type = "ce"
-	armor = list(MELEE = 40, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 90, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 90, WOUND = 10, ELECTRIC = 80)
 	visor_flags_inv = null
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -821,7 +825,7 @@
 	//item_state = "ce_rig"
 	item_state = "ce_hardsuit"
 	hardsuit_type = "ce"
-	armor = list(MELEE = 40, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 90, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 90, WOUND = 10, ELECTRIC = 80)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	jetpack = /obj/item/tank/jetpack/suit
@@ -835,7 +839,7 @@
 	//item_state = "sindengi_helm"
 	hardsuit_type = "sindengi"
 	light_range = 6
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 15, ELECTRIC = 80)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -859,7 +863,7 @@
 	icon_state = "sindengi_rig"
 	//item_state = "sindengi_rig"
 	hardsuit_type = "sindengi"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 15, ELECTRIC = 80)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/syndicate
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -893,7 +897,7 @@
 	icon_state = "medical_helm"
 	//item_state = "medical_helm"
 	hardsuit_type = "medical"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75, WOUND = 10, ELECTRIC = 50)
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SCAN_REAGENTS | HEADINTERNALS
 	light_color = LIGHT_COLOR_BLUEGREEN
 
@@ -906,7 +910,7 @@
 	hardsuit_type = "medical"
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/firstaid, /obj/item/healthanalyzer, /obj/item/stack/medical)
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75, WOUND = 10, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 100, RAD = 60, FIRE = 60, ACID = 75, WOUND = 10, ELECTRIC = 50)
 	//starting_modules = list(/obj/item/module/storage)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/medical
 
@@ -951,7 +955,7 @@
 	hardsuit_type = "mining"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75, WOUND = 15, ELECTRIC = 50)
 	visor_flags_inv = HIDEEYES|HIDEFACE
 	light_color = LIGHT_COLOR_YELLOW
 	winter_mod = TRUE
@@ -969,7 +973,7 @@
 	hardsuit_type = "mining"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75, WOUND = 15, ELECTRIC = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/mining
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
@@ -994,7 +998,7 @@
 	hardsuit_type = "sec"
 	light_range = 5
 	desc = "A standardized dual-mode helmet derived from more advanced special operations helmets. Designed for security operations in hasard AO`s."
-	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 50)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
 	visor_flags_cover = NONE
 	light_color = LIGHT_COLOR_DEFAULT
@@ -1008,7 +1012,7 @@
 	hardsuit_type = "sec"
 	combat_slowdown = 0.4	//we need some extra speed here
 	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by paramilitary groups and PMC alike affiliated with or contracted by Nanotrasen across human space. Expensive in production and maintaining. Has NT logo on it`s back."
-	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 25, LASER = 30, ENERGY = 10, BOMB = 40, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 50)
 	starting_modules = list(/obj/item/module/pepper_shoulders, 
 							/obj/item/module/holster, 
 							/obj/item/module/megaphone, 
@@ -1027,7 +1031,7 @@
 	//item_state = "brigmed_helm"
 	hardsuit_type = "brigmed"
 	desc = "A standardized dual-mode helmet derived from more advanced special operations helmets. Designed for medical extractions from combat zones."
-	armor = list(MELEE = 25, BULLET = 15, LASER = 20, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 20, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 50)
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/security/brigmed
 	name = "security brigmed RIG"
@@ -1035,7 +1039,7 @@
 	//item_state = "brigmed_rig"
 	hardsuit_type = "brigmed"
 	desc = "A standardized dual-mode RIG derived from more advanced special operations hardsuits. Used by paramedics of paramilitary groups and PMC alike across human space. Expensive in production and maintaining."
-	armor = list(MELEE = 25, BULLET = 15, LASER = 20, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 20, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security/brigmed
 	//combat_slowdown = 0.35
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
@@ -1056,7 +1060,7 @@
 	//item_state = "secsyndi_helm"
 	hardsuit_type = "secsyndi"
 	desc = "Bulletproof dual-mode helmet derived from more advanced special operations helmets. Designed for private military operations in hasard AO`s. Gorlex Security brunch property."
-	armor = list(MELEE = 35, BULLET = 45, LASER = 15, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 35, BULLET = 45, LASER = 15, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 50)
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/security/gorlex
@@ -1065,7 +1069,7 @@
 	//item_state = "secsyndi_rig"
 	hardsuit_type = "secsyndi"
 	desc = "Bulletproof dual-mode RIG derived from more advanced special operations hardsuits. Used by Gorlex Security groups across human space. Lacks laser protection. Expensive in production and maintaining."
-	armor = list(MELEE = 30, BULLET = 40, LASER = 15, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 15, ENERGY = 10, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 75, WOUND = 15, ELECTRIC = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security/gorlex
 	combat_slowdown = 0.3
 	max_complexity = PLUS_ONE_MAX_COMPLEXITY
@@ -1085,7 +1089,7 @@
 	hardsuit_type = "vahlencorpsman"
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEEARS
 	toggled_for_heat_protecting = FALSE
-	armor = list(MELEE = 30, BULLET = 40, LASER = 40, ENERGY = 30, BOMB = 40, BIO = 100, RAD = 90, FIRE = 75, ACID = 90, WOUND = 20, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 40, ENERGY = 30, BOMB = 40, BIO = 100, RAD = 90, FIRE = 75, ACID = 90, WOUND = 20, ELECTRIC = 50)
 	light_color = LIGHT_COLOR_DEFAULT
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/security/vahlen
@@ -1096,7 +1100,7 @@
 	hardsuit_type = "vahlencorpsman"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/security/vahlen
 	jetpack = /obj/item/tank/jetpack/suit
-	armor = list(MELEE = 30, BULLET = 40, LASER = 40, ENERGY = 30, BOMB = 40, BIO = 100, RAD = 90, FIRE = 75, ACID = 90, WOUND = 20, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 40, ENERGY = 30, BOMB = 40, BIO = 100, RAD = 90, FIRE = 75, ACID = 90, WOUND = 20, ELECTRIC = 50)
 	combat_slowdown = 0.3
 	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
@@ -1123,7 +1127,7 @@
 	//item_state = "bloodred_helm"
 	hardsuit_type = "bloodred"
 	light_range = 6
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 50)
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
 	toggled_for_heat_protecting = FALSE
 
@@ -1138,8 +1142,8 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred
 	jetpack = /obj/item/tank/jetpack/suit/bloodred
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
-	starting_modules = list(/obj/item/module/speed_booster, /obj/item/module/plate_compression, /obj/item/module/dna_lock, /obj/item/module/demoralizer)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 50)
+	starting_modules = list(/obj/item/module/speed_booster, /obj/item/module/plate_compression, /obj/item/module/storage/syndicate, /obj/item/module/dna_lock, /obj/item/module/demoralizer)
 	max_complexity = PLUS_ONE_MAX_COMPLEXITY
 	starting_core = /obj/item/core/fusion
 	auto_unmalf_time = 40 SECONDS
@@ -1209,7 +1213,7 @@
 	icon_state = "wafflebloodred_helm"
 	//item_state = "wafflebloodred_helm"
 	hardsuit_type = "wafflebloodred"
-	armor = list(MELEE = 30, BULLET = 50, LASER = 40, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 40, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 50)
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle
 	name = "waffle specops RIG"
@@ -1219,7 +1223,7 @@
 	hardsuit_type = "wafflebloodred"
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
 	body_parts_partial_covered = 0
-	armor = list(MELEE = 30, BULLET = 50, LASER = 40, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 40, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle
 	combat_slowdown = 0.3
 	starting_modules = list()
@@ -1298,7 +1302,7 @@
 	icon_state = "wafflebloodred_breacher_helm"
 	// //item_state = "wafflebloodred_unathi_breacher_helm"
 	hardsuit_type = "wafflebloodred_breacher"
-	armor = list(MELEE = 80, BULLET = 70, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
+	armor = list(MELEE = 80, BULLET = 70, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 50)
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/bloodred/waffle/breach
 	name = "blood-red Breach RIG"
@@ -1307,7 +1311,7 @@
 	//item_state = "wafflebloodred_unathi_breacher_rig"
 	hardsuit_type = "wafflebloodred_breacher"
 	starting_modules = list(/obj/item/module/breacher, /obj/item/module/digitagrade)
-	armor = list(MELEE = 80, BULLET = 70, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
+	armor = list(MELEE = 80, BULLET = 70, LASER = 50, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/bloodred/waffle/breach
 
 //////Elite hardsuit//////
@@ -1318,7 +1322,7 @@
 	//item_state = "relite_helm"
 	hardsuit_type = "relite"
 	light_range = 6
-	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 35, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 35, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 80)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -1337,7 +1341,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
 	body_parts_partial_covered = 0
-	armor = list(MELEE = 55, BULLET = 55, LASER = 50, ENERGY = 30, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 55, BULLET = 55, LASER = 50, ENERGY = 30, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 80)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED)
@@ -1382,7 +1386,7 @@
 	//item_state = "optical_helm"
 	hardsuit_type = "optical"
 	desc = "Strange looking, smoothly contoured helmet. It looks a bit blurry."
-	armor = list(MELEE = 35, BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 80)
 	var/hit_reflect_chance = 50
 
 /*
@@ -1399,7 +1403,7 @@ D*/
 	//item_state = "optical_rig"
 	hardsuit_type = "optical"
 	desc = "Strange black hardsuit, with some devices attached to it. It looks a bit blurry. Property of Cybersun Industries."
-	armor = list(MELEE = 35, BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 35, BULLET = 60, LASER = 60, ENERGY = 50, BOMB = 90, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 80)
 	//actions_types = list(/datum/action/item_action/toggle_helmet, /datum/action/item_action/toggle_optical)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite/optical
 	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage/syndicate, /obj/item/module/dna_lock, /obj/item/module/stealth/disruptor)
@@ -1537,7 +1541,7 @@ D*/
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite/sbo
 	name = "\improper Syndicate Black Ops RIG helmet"
 	desc = "An elite version of the syndicate helmet, with improved armour and fireproofing. Classic black."
-	armor = list(MELEE = 70, BULLET = 70, LASER = 50, ENERGY = 40, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
+	armor = list(MELEE = 70, BULLET = 70, LASER = 50, ENERGY = 40, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 80)
 	icon_state = "sbo_helm"
 	//item_state = "sbo_helm"
 	hardsuit_type = "sbo"
@@ -1546,7 +1550,7 @@ D*/
 /obj/item/clothing/suit/space/hardsuit/dualmode/elite/sbo
 	name = "\improper Syndicate Black Ops syndicate RIG"
 	desc = "An elite version of the syndicate RIG, with improved armour and fire shielding. Classic black."
-	armor = list(MELEE = 70, BULLET = 70, LASER = 50, ENERGY = 40, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
+	armor = list(MELEE = 70, BULLET = 70, LASER = 50, ENERGY = 40, BOMB = 100, BIO = 100, RAD = 70, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 80)
 	icon_state = "sbo_rig"
 	//item_state = "sbo_rig"
 	hardsuit_type = "sbo"
@@ -1579,7 +1583,7 @@ D*/
 	light_range = 6
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
 	body_parts_partial_covered = 0
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 50)
 	heat_protection = HEAD
 	toggled_for_heat_protecting = FALSE
 	light_color = LIGHT_COLOR_DEFAULT
@@ -1591,7 +1595,7 @@ D*/
 	hardsuit_type = "freemerk"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/merk
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/tank/jetpack/oxygen/harness)
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 50, FIRE = 75, ACID = 90, WOUND = 25, ELECTRIC = 50)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
@@ -1615,7 +1619,7 @@ D*/
 	icon_state = "military_helm"
 	//item_state = "military_helm"
 	hardsuit_type = "military"
-	armor = list(MELEE = 45, BULLET = 60, LASER = 40, ENERGY = 35, BOMB = 60, BIO = 100, RAD = 70, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 45, BULLET = 60, LASER = 40, ENERGY = 35, BOMB = 60, BIO = 100, RAD = 70, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 50)
 	light_range = 7
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1631,7 +1635,7 @@ D*/
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
 	body_parts_partial_covered = 0
-	armor = list(MELEE = 45, BULLET = 60, LASER = 40, ENERGY = 25, BOMB = 60, BIO = 100, RAD = 70, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 45, BULLET = 60, LASER = 40, ENERGY = 25, BOMB = 60, BIO = 100, RAD = 70, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 50)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	combat_slowdown = 0.3
@@ -1647,7 +1651,7 @@ D*/
 	icon_state = "nt_combat_helm"
 	//item_state = "nt_combat_helm"
 	hardsuit_type = "nt_combat"
-	armor = list(MELEE = 50, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 50, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 50)
 	strip_delay = 130
 	light_range = 7
 	light_color = LIGHT_COLOR_DEFAULT
@@ -1660,13 +1664,14 @@ D*/
 	icon_state = "nt_combat_rig"
 	//item_state = "nt_combat_rig"
 	hardsuit_type = "nt_combat"
-	armor = list(MELEE = 50, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 50, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 75, WOUND = 25, ELECTRIC = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert
 	jetpack = /obj/item/tank/jetpack/suit
 	lightweight = FALSE
 	toggled_for_heat_protecting = FALSE
 	clothing_traits = list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED)
 	req_access = list(ACCESS_CENT_GENERAL)
+	starting_modules = list(/obj/item/module/holster, /obj/item/module/storage/large_capacity, /obj/item/module/dna_lock, /obj/item/module/self_injector/combat)
 
 //////Security//////
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/sec
@@ -1703,9 +1708,9 @@ D*/
 	//item_state = "ert_commander_helm"
 	hardsuit_type = "ert_commander"
 	desc = "Advanced helmet issued to officer of emergency response team Gamma."
-	armor = list(MELEE = 65, BULLET = 65, LASER = 70, ENERGY = 70, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 65, BULLET = 65, LASER = 70, ENERGY = 70, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 50)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/hit_reflect_chance = 40
+	//var/hit_reflect_chance = 40
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/com/examine(mob/user)
 	. = ..()
@@ -1730,10 +1735,6 @@ D*/
 		SHUD.hide_from(user)
 		DHUD.hide_from(user)
 
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/com/Initialize()
-	. = ..()
-	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE_MIND, inventory_flags = ITEM_SLOT_OCLOTHING)
-
 /*
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/com/IsReflect(def_zone)
 	if(!(def_zone in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))) //If not shot where ablative is covering you, you don't get the reflection bonus!
@@ -1745,18 +1746,15 @@ D*/
 /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/com
 	name = "elite emergency response team RIG (squad leader)"
 	desc = "Advanced RIG issued to officer of emergency response team Gamma. Made from superior materials, one of the latest in the modern combat rigs line."
-	armor = list(MELEE = 65, BULLET = 65, LASER = 70, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 65, BULLET = 65, LASER = 70, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 50)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon_state = "ert_commander_rig"
 	//item_state = "ert_commander_rig"
 	hardsuit_type = "ert_commander"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/com
-	var/hit_reflect_chance = 40
+	//var/hit_reflect_chance = 40
 	eva_slowdown = 0.7
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/com/Initialize()
-	. = ..()
-	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_OCLOTHING)
+	starting_modules = list(/obj/item/module/holster, /obj/item/module/storage/large_capacity, /obj/item/module/dna_lock, /obj/item/module/self_injector/combat, /obj/item/module/anti_magic, /obj/item/module/ablative_armor)
 
 /*
 /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/com/IsReflect(def_zone)
@@ -1774,8 +1772,13 @@ D*/
 	icon_state = "apocryphal_helm"
 	//item_state = "nt_deathsquad_helm"
 	hardsuit_type = "apocryphal"
-	var/hit_reflect_chance = 50
+	//var/hit_reflect_chance = 50
 	light_color = LIGHT_COLOR_LIGHT_CYAN
+	armor = list(MELEE = 65, BULLET = 65, LASER = 70, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 80)
+
+/obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad/Initialize()
+	. = ..()
+	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE_MIND, inventory_flags = ITEM_SLOT_HEAD)
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -1793,15 +1796,11 @@ D*/
 		SHUD.hide_from(user)
 		DHUD.hide_from(user)
 
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad/Initialize()
-	. = ..()
-	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE_MIND, inventory_flags = ITEM_SLOT_OCLOTHING)
-
-/obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad/IsReflect(def_zone)
-	if(!(def_zone in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))) //If not shot where ablative is covering you, you don't get the reflection bonus!
-		return FALSE
-	if (prob(hit_reflect_chance))
-		return TRUE
+// /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad/IsReflect(def_zone)
+// 	if(!(def_zone in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))) //If not shot where ablative is covering you, you don't get the reflection bonus!
+// 		return FALSE
+// 	if (prob(hit_reflect_chance))
+// 		return TRUE
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/deathsquad
 	name = "elite emergency response team RIG (blackops)"
@@ -1810,20 +1809,18 @@ D*/
 	//item_state = "nt_deathsquad_rig"
 	hardsuit_type = "apocryphal"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad
-	var/hit_reflect_chance = 50
+	//var/hit_reflect_chance = 50
 	lightweight = TRUE
 	combat_slowdown = 0.2
 	starting_core = /obj/item/core/coldfusion
+	starting_modules = list(/obj/item/module/holster, /obj/item/module/storage/bluespace, /obj/item/module/dna_lock, /obj/item/module/self_injector/combat/quantum_liquid, /obj/item/module/anti_magic, /obj/item/module/ablative_armor)
+	armor = list(MELEE = 65, BULLET = 65, LASER = 70, ENERGY = 60, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 80)
 
-/obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/deathsquad/Initialize()
-	. = ..()
-	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_OCLOTHING)
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/deathsquad/IsReflect(def_zone)
-	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!
-		return FALSE
-	if (prob(hit_reflect_chance))
-		return TRUE
+// /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/deathsquad/IsReflect(def_zone)
+// 	if(!(def_zone in list(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))) //If not shot where ablative is covering you, you don't get the reflection bonus!
+// 		return FALSE
+// 	if (prob(hit_reflect_chance))
+// 		return TRUE
 
 
 //////Engineer//////
@@ -1832,7 +1829,7 @@ D*/
 	icon_state = "ert_engineer_helm"
 	//item_state = "ert_engineer_helm"
 	hardsuit_type = "ert_engineer"
-	armor = list(MELEE = 55, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 55, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 25, ELECTRIC = 80)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/engi/equipped(mob/living/carbon/human/user, slot)
@@ -1852,7 +1849,7 @@ D*/
 	icon_state = "ert_engineer_rig"
 	//item_state = "ert_engineer_rig"
 	hardsuit_type = "ert_engineer"
-	armor = list(MELEE = 55, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 55, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 100, FIRE = 100, ACID = 75, WOUND = 25, ELECTRIC = 80)
 	resistance_flags = FIRE_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/engi
 
@@ -1863,7 +1860,7 @@ D*/
 	icon_state = "ert_medical_helm"
 	//item_state = "ert_medical_helm"
 	hardsuit_type = "ert_medical"
-	armor = list(MELEE = 45, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 45, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 100, WOUND = 25, ELECTRIC = 50)
 	resistance_flags = ACID_PROOF
 	clothing_flags = THICKMATERIAL | SCAN_REAGENTS | HEADINTERNALS
 
@@ -1888,7 +1885,7 @@ D*/
 	icon_state = "ert_medical_rig"
 	//item_state = "ert_medical_rig"
 	hardsuit_type = "ert_medical"
-	armor = list(MELEE = 45, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 45, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 60, BIO = 100, RAD = 100, FIRE = 75, ACID = 100, WOUND = 25, ELECTRIC = 50)
 	resistance_flags = ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/med
 
@@ -1899,7 +1896,7 @@ D*/
 	icon_state = "ert_paradimentional_helm"
 	//item_state = "ert_paradimentional_helm"
 	hardsuit_type = "ert_paradimentional"
-	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 50, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 50)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/paradimentional/Initialize()
@@ -1908,16 +1905,13 @@ D*/
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/paradimentional
 	name = "elite emergency response team RIG (paradimentional specialist)"
-	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 100)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 50, ENERGY = 40, BOMB = 80, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 25, ELECTRIC = 50)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon_state = "ert_paradimentional_rig"
 	//item_state = "ert_paradimentional_rig"
 	hardsuit_type = "ert_paradimentional"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/paradimentional
-
-/obj/item/clothing/suit/space/hardsuit/dualmode/military/ert/paradimentional/Initialize()
-	. = ..()
-	AddComponent(/datum/component/anti_magic, antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_OCLOTHING)
+	starting_modules = list(/obj/item/module/holster, /obj/item/module/storage/large_capacity, /obj/item/module/dna_lock, /obj/item/module/self_injector/combat, /obj/item/module/anti_magic)
 
 
 //////Specialists//////
