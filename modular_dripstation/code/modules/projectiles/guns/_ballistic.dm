@@ -30,6 +30,9 @@
 
 	return TRUE
 
+/obj/item/gun/ballistic/can_shoot()
+	return chambered?.BB
+
 /obj/item/gun/ballistic/revolver/can_shoot()
 	return get_ammo(FALSE, FALSE)
 

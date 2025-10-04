@@ -161,22 +161,24 @@
 
 /////////////////////////weaponry tech/////////////////////////
 /datum/techweb_node/weaponry
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7000, TECHWEB_POINT_TYPE_MEDICAL = 1000, TECHWEB_POINT_TYPE_WEAPONRY = 2000)
+	design_ids = list("pin_testing", "tele_shield", "platingmkii", "platingmkiii", "vert_grip", "laser_sight", "infra_sight")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 4000, TECHWEB_POINT_TYPE_MEDICAL = 1000, TECHWEB_POINT_TYPE_WEAPONRY = 2000)
 
 /datum/techweb_node/adv_weaponry
+	design_ids = list("platingmki", "platingmkiv", "holo_sight")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7000, TECHWEB_POINT_TYPE_MEDICAL = 1000, TECHWEB_POINT_TYPE_WEAPONRY = 2000)
 
 /datum/techweb_node/electric_weapons
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_WEAPONRY = 500)
 
 /datum/techweb_node/hardlight_weapons
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_WEAPONRY = 500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500, TECHWEB_POINT_TYPE_WEAPONRY = 500)
 
 /datum/techweb_node/radioactive_weapons
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_MEDICAL = 2500, TECHWEB_POINT_TYPE_WEAPONRY = 500)
 
 /datum/techweb_node/medical_weapons
-	research_costs = list(TECHWEB_POINT_TYPE_MEDICAL = 2500, TECHWEB_POINT_TYPE_WEAPONRY = 500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500, TECHWEB_POINT_TYPE_MEDICAL = 1500, TECHWEB_POINT_TYPE_WEAPONRY = 500)
 
 /datum/techweb_node/beam_weapons
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_WEAPONRY = 500)

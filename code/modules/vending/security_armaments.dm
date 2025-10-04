@@ -7,10 +7,12 @@
 	layer = 2.9
 	density = TRUE
 	var/list/inventory = list()
+	/*	DRIPSTATION EDIT
 	var/list/allowed_types = list(/obj/item/ammo_box/magazine/recharge/ntusp)
 	
 	contents = newlist(/obj/item/gun/energy/disabler, 
 					   /obj/item/gun/ballistic/automatic/pistol/ntusp)
+	*/
 
 
 /obj/machinery/armaments_dispenser/Initialize(mapload)
@@ -31,11 +33,12 @@
 	var/allowed = FALSE
 	var/can_claim = FALSE
 	var/obj/item/card/id/C = usr?.get_idcard()
+	
+	/*	DRIPSTATION EDIT START - everybody with sec access + weapon license can dispence this
 	// Security officers and wardens
-	/*	DRIPSTATION EDIT START
 	if(istype(C) && (ACCESS_SECURITY in C.access) && (ACCESS_WEAPONS in C.access) && !(ACCESS_HOS in C.access))
 	*/
-	if(istype(C) && (ACCESS_SECURITY in C.access) && (ACCESS_WEAPONS in C.access) && ((C.originalassignment == "Security Officer") || (C.originalassignment == "Warden")))
+	if(istype(C) && (ACCESS_SECURITY in C.access) && (ACCESS_WEAPONS in C.access))
 		allowed = TRUE
 	//DRIPSTATION EDIT END
 	// Hasn't claimed a weapon yet
@@ -118,7 +121,10 @@
 				SSassets.transport.register_asset("photo_[md5]_icon.png", mag_icon)
 			SSassets.transport.send_assets(user, list("photo_[md5]_icon.png" = mag_icon))
 			details["mag_icon"] = SSassets.transport.get_asset_url("photo_[md5]_icon.png")
-			details["mag_path"] = gun.mag_type
+			if(gun.starting_mag_type)
+				details["mag_path"] = gun.starting_mag_type
+			else
+				details["mag_path"] = gun.mag_type
 		items += list(details)
 	
 	data["inventory"] = items
@@ -130,8 +136,11 @@
 	var/allowed = FALSE
 	var/can_claim = FALSE
 	var/obj/item/card/id/C = user?.get_idcard()
+	/*	DRIPSTATION EDIT START - everybody with sec access + weapon license can dispence this
 	// Security officers and wardens
 	if(istype(C) && (ACCESS_SECURITY in C.access) && (ACCESS_WEAPONS in C.access) && !(ACCESS_HOS in C.access))
+	*/
+	if(istype(C) && (ACCESS_SECURITY in C.access) && (ACCESS_WEAPONS in C.access))
 		allowed = TRUE
 	// Hasn't claimed a weapon yet
 	if(C?.registered_account && !C.registered_account.sec_weapon_claimed)

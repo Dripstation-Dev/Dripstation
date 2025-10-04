@@ -95,15 +95,15 @@
 #define ACCESS_SERVHALL 79
 
 //Dripstation: 
-#define ACCESS_CLOWN 79 // Vending, locker, airlocks and some other related stuff
-#define ACCESS_MIME 80 // Vending, locker, airlocks and some other related stuff
-#define ACCESS_POD_PILOT 81 // Locker, airlock, pod related stuff
-#define ACCESS_BLUESHIELD 82 // Locker, airlock
-#define ACCESS_NTREP 83 // Locker, airlock
-#define ACCESS_MAGISTRATE 84 // Locker, airlock
-#define ACCESS_HAZARD_TECH 85 // Hazard technician stuff
-#define ACCESS_ARTIST 86 // Artist stuff, mostly door and vendor
-#define ACCESS_EXPLORER 87 // Explorer stuff
+#define ACCESS_CLOWN 80 // Vending, locker, airlocks and some other related stuff
+#define ACCESS_MIME 81 // Vending, locker, airlocks and some other related stuff
+#define ACCESS_POD_PILOT 82 // Locker, airlock, pod related stuff
+#define ACCESS_BLUESHIELD 83 // Locker, airlock
+#define ACCESS_NTREP 84 // Locker, airlock
+#define ACCESS_MAGISTRATE 85 // Locker, airlock
+#define ACCESS_HAZARD_TECH 86 // Hazard technician stuff
+#define ACCESS_ARTIST 87 // Artist stuff, mostly door and vendor
+#define ACCESS_EXPLORER 88 // Explorer stuff
 
 	//BEGIN CENTCOM ACCESS
 	/*Should leave plenty of room if we need to add more access levels.

@@ -1,5 +1,7 @@
 /// Amount of terror passively removed on every tick.
-#define REGULAR_TERROR_AMOUNT 1
+#define REGULAR_TERROR_CALM_DOWN 2
+/// How much terror a random panic attack will give the victim.
+#define START_TERROR_AMOUNT 15
 /// How much terror a random panic attack will give the victim.
 #define PANIC_ATTACK_TERROR_AMOUNT 35
 /// Amount of terror actively removed (or generated) upon being hugged.
@@ -34,16 +36,17 @@
 	remove_on_fullheal = TRUE
 	alert_type = /atom/movable/screen/alert/status_effect/terrified
 	///A value that represents how much "terror" the victim has built up. Higher amounts cause more averse effects.
-	var/terror_buildup = 35
+	var/terror_buildup = START_TERROR_AMOUNT
 
-/datum/status_effect/terrified/refresh(effect, ...) //Don't call parent, just add to the current amount
-	freak_out(PANIC_ATTACK_TERROR_AMOUNT)
+/datum/status_effect/terrified/refresh(effect, fear_value) //Don't call parent, just add to the current amount
+	freak_out(fear_value)
+
+/datum/status_effect/terrified/on_creation(mob/living/new_owner, fear_value = START_TERROR_AMOUNT)
+	. = ..()
+	freak_out(fear_value)
 
 /datum/status_effect/terrified/on_apply()
 	RegisterSignal(owner, COMSIG_CARBON_PRE_MISC_HELP, PROC_REF(comfort_owner))
-	if(prob(50))
-		owner.emote("scream")
-	to_chat(owner, span_alert("THEY GONNA KILL ME! RUN, HIDE!"))
 	return TRUE
 
 /datum/status_effect/terrified/on_remove()
@@ -52,12 +55,15 @@
 	owner.remove_movespeed_modifier(MOVESPEED_ID_INTERROR_SPEED, TRUE)
 
 /datum/status_effect/terrified/tick(seconds_per_tick, times_fired)
-	terror_buildup -= REGULAR_TERROR_AMOUNT
+	terror_buildup -= REGULAR_TERROR_CALM_DOWN
 
 	if(terror_buildup <= 0) //If we've completely calmed down, we remove the status effect.
 		SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "terrified")
 		qdel(src)
 		return
+
+	if(terror_buildup < TERROR_FEAR_THRESHOLD)	//we somewhat calmed down, remove movespeed mod
+		owner.remove_movespeed_modifier(MOVESPEED_ID_INTERROR_SPEED, TRUE)
 
 	if(terror_buildup >= TERROR_FEAR_THRESHOLD) //The onset, minor effects of terror buildup
 		owner.adjust_dizzy_up_to(10 SECONDS * seconds_per_tick, 10 SECONDS)
@@ -139,10 +145,18 @@
 
 /datum/status_effect/terrified/proc/freak_out(amount)
 	terror_buildup += amount
+	if(!terror_buildup > TERROR_PANIC_THRESHOLD)
+		return
 	if(prob(50))
 		owner.Knockdown(0.5 SECONDS)
+	else if(prob(50))	//basicly here 25% chance
+		owner.do_alert_animation()
+		to_chat(owner, span_alert("THEY GONNA KILL ME! RUN, HIDE!"))
 	owner.flick_pain(50, TRUE)	//fantom pain
-	CONSCIOUSAY(owner.say(pick("Fuck, fuck, fuck, fuck!!.", "AAAAAAA!!", "FUCK OFF, JUST FUCK OFF!!.", "STOP, PLEASE STOP!!.", "FOR THE LOVE OF GODDESS, PLEASE STOP!!.")))
+	if(prob(50))
+		CONSCIOUSAY(owner.say(pick("Fuck, fuck, fuck, fuck!!.", "AAAAAAA!!", "FUCK OFF, JUST FUCK OFF!!.", "STOP, PLEASE STOP!!.", "FOR THE LOVE OF GODDESS, PLEASE STOP!!.")))
+	else
+		owner.emote("gasphock")
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(COOLDOWN_FINISHED(H, adrenaline_cooldown))
@@ -157,7 +171,7 @@
 	icon_state = "terrified"
 	icon = 'modular_dripstation/icons/mob/alerts.dmi'
 
-#undef REGULAR_TERROR_AMOUNT
+#undef REGULAR_TERROR_CALM_DOWN
 #undef PANIC_ATTACK_TERROR_AMOUNT
 #undef HUG_TERROR_AMOUNT
 #undef TERROR_CAP

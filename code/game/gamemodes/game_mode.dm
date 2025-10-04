@@ -352,7 +352,7 @@
 		if(!station_trait.show_in_report)
 			continue
 		trait_list_strings += "[station_trait.get_report()]\n"
-	. += "<span class='boldannounce'>Identified shift divergencies:</span>\n" + trait_list_strings.Join()
+	. += "Identified shift divergencies:\n" + trait_list_strings.Join()
 	return
 
 /* This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to

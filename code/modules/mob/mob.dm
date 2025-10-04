@@ -586,8 +586,8 @@
 				else if(prob(7))
 					to_chat(C, span_notice("You feel like something or somebody is watching you..."))
 					play_fov_effect(src, 5, "whatwasthat", ignore_self = TRUE, override_list = list(C))
-					if(prob(33) && !HAS_TRAIT(C, TRAIT_NO_ABNORMAL_FEAR) && !C.has_status_effect(/datum/status_effect/terrified))	//you`ve sensed something abnormal, shit
-						C.apply_status_effect(/datum/status_effect/terrified)						//dripstation edit end
+					if(prob(33) && !HAS_TRAIT(C, TRAIT_NO_ABNORMAL_FEAR))	//you`ve sensed something abnormal, shit
+						C.apply_status_effect(/datum/status_effect/terrified, fear_value = 35)						//dripstation edit end
 	else
 		result = A.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
 

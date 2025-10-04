@@ -147,12 +147,31 @@
 
 /obj/item/gun/equipped(mob/user, slot)
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //so it's easier to click when it`s in inventory
+	if(slot == ITEM_SLOT_HANDS)
+		RegisterSignal(user, COMSIG_MOB_MIDDLECLICKON, PROC_REF(gunpoint))
 	..()
 
 /obj/item/gun/dropped(mob/user)
 	mouse_opacity = initial(mouse_opacity)
 	harness_check(user)
+	UnregisterSignal(user, COMSIG_MOB_MIDDLECLICKON)
 	..()
+
+/obj/item/gun/proc/gunpoint(mob/living/user, atom/target)
+	if(!isliving(target))
+		return	//fail
+	var/datum/component/gunpoint/gunpoint_component = user.GetComponent(/datum/component/gunpoint)
+	if (gunpoint_component)
+		balloon_alert(user, "already holding [gunpoint_component.target == target ? "them" : "someone"] up!")
+		return	//fail
+	if (user == target)
+		balloon_alert(user, "can't hold yourself up!")
+		return	//fail
+	if(!(target in view(3, user)))	//reasonable gunpointing, GUNPOINT_SHOOTER_STRAY_RANGE = 3
+		return	//fail
+	if(do_after(user, 0.5 SECONDS, target))
+		user.AddComponent(/datum/component/gunpoint, target, src)
+		return	//success
 
 /obj/item/gun/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(harness_check(thrower))

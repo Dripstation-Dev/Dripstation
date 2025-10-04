@@ -715,6 +715,8 @@
 /datum/action/item_action/gloves_pocket_dimention/Trigger(trigger_flags)
 	if(!IsAvailable(feedback = TRUE))
 		return FALSE
+	if(!COOLDOWN_FINISHED(src, ability_cd))
+		return FALSE
 	item_ref = new item_to_spawn(src)
 	if(!owner.put_in_hands(item_ref))
 		return FALSE
@@ -741,7 +743,8 @@
 	name = "Mook Workshop"
 	item_to_spawn = /obj/item/melee/katana/monomolecular/mook
 	button_icon_state = "glove_katana"
-	time_to_vanish = 5 SECONDS
+	time_to_vanish = 10 SECONDS
+	cooldown_timer = 15 SECONDS
 
 /datum/action/item_action/gloves_pocket_dimention/knife
 	name = "Ragna Workshop"

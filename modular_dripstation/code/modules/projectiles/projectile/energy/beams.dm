@@ -67,3 +67,9 @@
 
 /obj/projectile/beam/pulse/heavy
 	icon_state = "pulse_heavy"
+
+/obj/projectile/beam/disabler/hitscan
+	tracer_type = /obj/effect/projectile/tracer/disabler/hitscan
+	muzzle_type = /obj/effect/projectile/muzzle/disabler/hitscan
+	impact_type = /obj/effect/projectile/impact/disabler/hitscan
+	hitscan = TRUE

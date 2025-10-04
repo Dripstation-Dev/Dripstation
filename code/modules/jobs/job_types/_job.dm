@@ -374,7 +374,10 @@
 	if(pda_type)
 		var/obj/item/modular_computer/PDA = new pda_type()
 		if(istype(PDA))
-			H.equip_to_slot_if_possible(PDA, pda_slot)
+			if(!H.equip_to_slot_if_possible(PDA, pda_slot, disable_warning = TRUE))
+				var/list/slots = list("in your rig" = ITEM_SLOT_OCLOTHING, "in your belt" = ITEM_SLOT_BELT, "in your backpack" = ITEM_SLOT_BACKPACK)
+				var/picked_slot = H.equip_in_one_of_slots(PDA, slots, qdel_on_fail = FALSE)	//dripstation edit - stop deleating things when they cant be inserted
+				to_chat(H, "[PDA.name] couldn`t be placed at regular slot, so it has been placed [picked_slot].")
 /*	dripstation edit
 			PDA.InsertID(C)
 			H.equip_to_slot_if_possible(PDA, ITEM_SLOT_ID)

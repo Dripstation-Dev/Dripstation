@@ -103,7 +103,7 @@
 
 	action_intent = new /atom/movable/screen/act_intent/segmented(src)
 	action_intent.icon_state = mymob.a_intent
-	using.icon = ui_style	//dripstation edit
+	action_intent.icon = ui_style	//dripstation edit
 	static_inventory += action_intent
 
 	using = new /atom/movable/screen/mov_intent(src)

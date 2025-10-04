@@ -10,7 +10,7 @@
 	spawn_positions = 0
 	supervisors = "the Head of Security"
 	supervisor_corporation = /datum/corporation/spearhead
-	loyalties = LOYALTY_SPEARHEAD_OFFICER
+	loyalties = LOYALTY_SPEARHEAD_OPERATIVE
 	req_admin_notify = 1
 	minimal_player_age = 14
 	exp_requirements = 180 //3 hours on security jobs

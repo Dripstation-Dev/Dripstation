@@ -22,8 +22,8 @@
 	merge_type = /obj/item/stack/sheet/sinew/wolf
 	desc = "Long stringy filaments which came from the insides of a wolf."
 
-/mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin
-	name = "ice vulpkanin"
+/mob/living/simple_animal/hostile/asteroid/wolf/vulpcanin
+	name = "ice vulpcanin"
 	desc = "A disgusting hybrid of man and wolf. A distant relative of Sharikov."
 	icon = 'modular_dripstation/icons/mob/icemoon/icemoon_monsters.dmi'
 	icon_state = "vulpa"
@@ -50,14 +50,14 @@
 	disease_prob = 50
 	var/violating = FALSE
 
-/mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin/examine_more(mob/user)
+/mob/living/simple_animal/hostile/asteroid/wolf/vulpcanin/examine_more(mob/user)
 	. = ..()
 	var/msg = "- A moy ded vulpu s siskami vidal.\
 		- Durak tvoi ded."
 
 	return list(span_notice("<i>[msg]</i>"))
 
-/mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin/ListTargets()
+/mob/living/simple_animal/hostile/asteroid/wolf/vulpcanin/ListTargets()
 	. = oview(vision_range, targets_from) //get list of things in vision range
 	var/list/conscious_mobs = list()
 	var/list/violation_target = list()
@@ -79,7 +79,7 @@
 		return violation_target
 	return conscious_mobs
 
-/mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin/AttackingTarget()
+/mob/living/simple_animal/hostile/asteroid/wolf/vulpcanin/AttackingTarget()
 	if(violating)
 		return
 	if(istype(target, /mob/living/carbon/human))
@@ -97,7 +97,7 @@
 				do_attack_animation(H, ATTACK_EFFECT_BITE)
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin/proc/violate_proc(mob/living/carbon/human/H)
+/mob/living/simple_animal/hostile/asteroid/wolf/vulpcanin/proc/violate_proc(mob/living/carbon/human/H)
 	if(do_after(src, 3 SECONDS))
 		visible_message(span_notice("[src] in a few quick moves violates [H] and leaves some liquid on their skin!"), span_notice("You violate [H]!"))
 		do_attack_animation(H, ATTACK_EFFECT_BITE)
@@ -107,7 +107,7 @@
 				H.ForceContractDisease(D)
 		violating = FALSE
 
-/mob/living/simple_animal/hostile/asteroid/wolf/vulpkanin/handle_automated_action()
+/mob/living/simple_animal/hostile/asteroid/wolf/vulpcanin/handle_automated_action()
 	if(violating)
 		return 0
 	else

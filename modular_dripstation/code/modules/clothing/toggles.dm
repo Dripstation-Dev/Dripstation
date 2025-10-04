@@ -5,7 +5,9 @@
 /obj/item/clothing/head/hooded/explorer
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
-	//dynamic_hair_suffix = ""
+	dynamic_hair_suffix = ""
+	cold_protection = HEAD
+	heat_protection = HEAD
 
 /obj/item/clothing/suit/hooded/explorer/winter
 	icon_state = "explorer_winter"

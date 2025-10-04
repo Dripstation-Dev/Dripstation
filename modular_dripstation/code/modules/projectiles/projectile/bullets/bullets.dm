@@ -10,12 +10,12 @@
 	light_system = MOVABLE_LIGHT
 	light_range = 0.6
 	light_color = LIGHT_COLOR_YELLOW
-	var/terrify_prob = 10
+	//var/terrify_prob = 10
 
 /obj/projectile/bullet/Initialize(mapload)
 	. = ..()
-	if(prob(terrify_prob))
-		AddElement(/datum/element/terrifiing_projectile)
+	//if(prob(terrify_prob))
+	AddElement(/datum/element/terrifiing_projectile)
 
 /obj/projectile/bullet/shrapnel
 	name = "flying shrapnel shard"

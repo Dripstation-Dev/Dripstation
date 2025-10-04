@@ -635,6 +635,9 @@
 	var/y_scale = view_size[2] / current_fov_y
 	current_fov_x = view_size[1]
 	current_fov_y = view_size[2]
+	if (fov_angle < 0)
+		x_scale *= -1
+		y_scale *= -1
 	visual_shadow.transform = blocker_mask.transform = new_matrix.Scale(x_scale, y_scale)
 	visual_shadow.transform = blocker_mask.transform = new_matrix.Translate(x_shift * 16, y_shift * 16)
 

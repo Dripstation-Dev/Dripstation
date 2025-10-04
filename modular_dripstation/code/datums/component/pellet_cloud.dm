@@ -113,6 +113,7 @@
 
 	// things like mouth executions and gunpoints can multiply the damage and wounds of projectiles, so this makes sure those effects are applied to each pellet instead of just one
 	var/original_damage = shell.BB.damage
+	var/original_stamina = shell.BB.stamina
 	var/original_wb = shell.BB.wound_bonus
 	var/original_bwb = shell.BB.bare_wound_bonus
 
@@ -127,6 +128,7 @@
 		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
 		RegisterSignals(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
 		shell.BB.damage = original_damage
+		shell.BB.stamina = original_stamina
 		shell.BB.wound_bonus = original_wb
 		shell.BB.bare_wound_bonus = original_bwb
 		pellets += shell.BB

@@ -39,3 +39,6 @@
 
 /obj/item/ammo_casing/energy/laser/pulse/pistol
 	projectile_type = /obj/projectile/beam/pulse/pistol
+
+/obj/item/ammo_casing/energy/disabler/hitscan
+	projectile_type = /obj/projectile/beam/disabler/hitscan

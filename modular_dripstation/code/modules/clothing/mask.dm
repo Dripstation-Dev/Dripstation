@@ -8,6 +8,7 @@
 	icon = 'modular_dripstation/icons/obj/clothing/masks.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/masks.dmi'
 
+///Powerfull mask with even more powerfull drowback
 /obj/item/clothing/mask/sense_deprevation
 	name = "sense deprevation mask"
 	desc = "Probably protects you from the sorrow. Try not to soak it in blood this time."
@@ -20,7 +21,7 @@
 	flags_inv = HIDEFACE|HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/weakref/echo_weakref
-	clothing_traits = list(TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_SILENT_FOOTSTEPS, NO_HELMET_TRAIT, TRAIT_ECHOLOCATION_EXTRA_RANGE, SILENCE_MASK_TRAIT)
+	clothing_traits = list(TRAIT_ANTIMAGIC_NO_SELFBLOCK, TRAIT_SILENT_FOOTSTEPS, NO_HELMET_TRAIT, TRAIT_UNKNOWN, TRAIT_REDUCED_DAMAGE_SLOWDOWN, TRAIT_ECHOLOCATION_EXTRA_RANGE, SILENCE_MASK_TRAIT)
 
 /obj/item/clothing/mask/sense_deprevation/Initialize(mapload)
 	. = ..()
@@ -61,7 +62,7 @@
 		var/mob/living/carbon/C = equipper
 		C.apply_status_effect(/datum/status_effect/breaching_and_cleaving/fixersorrow)
 
-	echo_weakref = WEAKREF(equipper.AddComponent(/datum/component/echolocation, echo_range = 7, cooldown_time = 1.2 SECONDS, image_expiry_time = 0.8 SECONDS, fade_in_time = 0.2 SECONDS, fade_out_time = 0.2 SECONDS, blocking_trait = null, echo_group = "blind", echo_icon = "echo", color_path = /datum/client_colour/monochrome, blinding = FALSE))
+	echo_weakref = WEAKREF(equipper.AddComponent(/datum/component/echolocation, echo_range = 7, cooldown_time = 1.2 SECONDS, image_expiry_time = 0.8 SECONDS, fade_in_time = 0.2 SECONDS, fade_out_time = 0.2 SECONDS, blocking_trait = null, echo_group = "blind", echo_icon = "echo", color_path = /datum/client_colour/monochrome, blinding = TRUE))
 
 /obj/item/clothing/mask/sense_deprevation/proc/on_mask_unequip(datum/source, force, atom/newloc, no_move, invdrop, silent)
 	SIGNAL_HANDLER

@@ -189,7 +189,7 @@
 	icon_state = "90"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = FIELD_OF_VISION_BLOCKER_PLANE
-	screen_loc = "BOTTOM,LEFT"//"BOTTOM,LEFT-0.5"
+	screen_loc = "BOTTOM,LEFT"//screen_loc = "BOTTOM+0.28,LEFT-0.46"
 
 /atom/movable/screen/fov_shadow
 	icon = 'modular_dripstation/icons/hud/fov/field_of_view.dmi'

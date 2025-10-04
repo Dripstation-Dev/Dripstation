@@ -263,7 +263,7 @@
 /obj/machinery/vending/wardrobe/science_wardrobe
 	icon_vend = "scidrobe-vend"
 	icon_deny = "scidrobe-deny"
-	req_access = list(ACCESS_RESEARCH)
+	req_access = list(ACCESS_RND)
 
 /obj/machinery/vending/wardrobe/hydro_wardrobe
 	icon_vend = "hydrobe-vend"

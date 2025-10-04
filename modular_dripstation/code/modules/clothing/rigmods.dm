@@ -726,12 +726,12 @@
 			This module active ability provides user to send enemy mind in agony, disrupting their ability to \
 			concentrate and leading to shock and heart stop."
 	complexity = 2
-	module_type = MODULE_USABLE
+	module_type = MODULE_ACTIVE
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 5 SECONDS
 	//removable = FALSE
 
-/obj/item/module/demoralizer/advanced/on_use(atom/target)
+/obj/item/module/demoralizer/advanced/on_select_use(atom/target)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -739,9 +739,10 @@
 		balloon_alert(rig.wearer, "invalid target!")
 		return
 	var/mob/living/carbon/human/H = target
-	if(!H.check_fear(ABNORMAL_FEAR_SOURCE))
+	var/mind_fortified_rating = H.check_fear_protection(ABNORMAL_FEAR_SOURCE)
+	if(!mind_fortified_rating)
 		return
-	H.apply_status_effect(/datum/status_effect/terrified)
+	H.apply_status_effect(/datum/status_effect/terrified, fear_value = 50/mind_fortified_rating)
 
 /*
  * Applies a role-based mood if you can see the parent.
@@ -2395,6 +2396,7 @@
 	//transfer_contents_on_component_transfer = TRUE
 	drop_all_on_destroy = TRUE
 	drop_all_on_deconstruct = TRUE
+	allow_big_nesting = TRUE
 
 /obj/item/module/storage/Initialize(mapload)
 	. = ..()

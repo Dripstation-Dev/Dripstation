@@ -1205,4 +1205,4 @@
 	desc = "A spec-ops grade combat knife. Ragna Workshop original design."
 	bare_wound_bonus = 10	//a bit better wounding potential against soft targets
 	wound_bonus = 5
-	throw_range = 0
+	throw_range = 3

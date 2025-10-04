@@ -15,7 +15,7 @@
 
 #define LOYALTY_SPEARHEAD_WARDEN "You're a military man through and through. As such, your first loyalty is to your command officer, and thusly to the chain of command."
 
-#define LOYALTY_SPEARHEAD_OFFICER "As a soldier, your first loyalty is to the chain of command, which ends with the current companie`s highest officer present - Head of Security. Their orders are supreme over all, even if they're currently leading a mutiny against the captain.<br>\
+#define LOYALTY_SPEARHEAD_OPERATIVE "As a soldier, your first loyalty is to the chain of command, which ends with the current companie`s highest officer present - Head of Security. Their orders are supreme over all, even if they're currently leading a mutiny against the captain.<br>\
 		<br>\
 		Your second loyalty is to your fellow brothers in arms. As long as the company takes care of you, you should follow orders. But if you start being sent on suicide missions and treated as expendable fodder, that should change.<br>\
 		<br>\

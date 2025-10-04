@@ -30,6 +30,13 @@
 	armour_penetration = 20 // Armor Piercing
 	wound_bonus = -10 // better bleeding chance
 
+/obj/projectile/bullet/pellet/hardlight
+	speed = 1.4 //hardest light i`ve ever seen
+	damage = 12 // 12*6 = 72 Why advanced pellet should be possibly LESS damaging THAN conventional one? Like 10 with tile dropoff on. Who the f did just thought about it?
+	armour_penetration = -10	//this is so stupid, i don`t want to talk about that
+	weak_against_armour = FALSE	//pointless i guess, but why not
+	tile_dropoff = 0	//hardest light don`t drop it`s damage frfr
+
 // Mecha Scattershot
 /obj/projectile/bullet/pellet/scattershot
 	damage = 16

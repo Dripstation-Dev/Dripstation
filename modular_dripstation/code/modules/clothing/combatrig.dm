@@ -954,6 +954,7 @@
 	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75, WOUND = 15, ELECTRIC = 100)
 	visor_flags_inv = HIDEEYES|HIDEFACE
 	light_color = LIGHT_COLOR_YELLOW
+	winter_mod = TRUE
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/mining/Initialize(mapload)
 	. = ..()
@@ -976,6 +977,7 @@
 	/*/obj/item/mod/module/sphere_transform*/
 	)
 	starting_core = /obj/item/core/plasma
+	winter_mod = TRUE
 
 /obj/item/clothing/suit/space/hardsuit/dualmode/mining/Initialize(mapload)
 	. = ..()
@@ -1809,6 +1811,7 @@ D*/
 	hardsuit_type = "apocryphal"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert/deathsquad
 	var/hit_reflect_chance = 50
+	lightweight = TRUE
 	combat_slowdown = 0.2
 	starting_core = /obj/item/core/coldfusion
 

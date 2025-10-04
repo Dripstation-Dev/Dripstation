@@ -54594,7 +54594,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/head/helmet/skull{
 	name = "Keheza";
-	desc = "Poor Kehesa. He just wanted to talk out with ashwalkers."
+	desc = "Poor Keheza. He just wanted to talk out with ashwalkers."
 	},
 /turf/open/floor/plasteel{
 	icon_state = "darkbluecorners";

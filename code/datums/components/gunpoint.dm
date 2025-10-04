@@ -1,5 +1,5 @@
 /// How many tiles around the target the shooter can roam without losing their shot
-#define GUNPOINT_SHOOTER_STRAY_RANGE 2
+#define GUNPOINT_SHOOTER_STRAY_RANGE 3
 /// How long it takes from the gunpoint is initiated to reach stage 2
 #define GUNPOINT_DELAY_STAGE_2 2.5 SECONDS
 /// How long it takes from stage 2 starting to move up to stage 3
@@ -15,7 +15,7 @@
 
 
 /datum/component/gunpoint
-	dupe_mode = COMPONENT_DUPE_ALLOWED
+	dupe_mode = COMPONENT_DUPE_UNIQUE
 
 	var/mob/living/target
 	var/obj/item/gun/weapon
@@ -38,18 +38,24 @@
 	target = targ
 	weapon = wep
 	RegisterSignal(targ, COMSIG_MOVABLE_MOVED, PROC_REF(check_movement), FALSE) //except this one
-	RegisterSignals(targ, list(COMSIG_MOB_ATTACK_HAND, COMSIG_MOB_FIRED_GUN, COMSIG_MOB_THROW, COMSIG_MOB_ITEM_ATTACK), PROC_REF(trigger_reaction), TRUE) //any actions by the hostage will trigger the shot no exceptions
+	RegisterSignals(targ, list(COMSIG_MOB_ATTACK_HAND, COMSIG_MOB_FIRED_GUN, COMSIG_MOB_THROW, COMSIG_MOB_ITEM_ATTACK, COMSIG_MOVABLE_SET_GRAB_STATE, COMSIG_LIVING_START_PULL), PROC_REF(trigger_reaction), TRUE) //any actions by the hostage will trigger the shot no exceptions
 	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(cancel))
 
-	shooter.visible_message(span_danger("[shooter] aims [weapon] point blank at [target]!"), \
-		span_danger("You aim [weapon] point blank at [target]!"), target)
-	to_chat(target, span_userdanger("[shooter] aims [weapon] point blank at you!"))
-	if(!target.has_status_effect(STATUS_EFFECT_NOTSCARED))
-		target.Immobilize(10) //short immobilize to let them know they're getting shot at
-		target.apply_status_effect(STATUS_EFFECT_NOTSCARED)//this can only trigger once per minute so you can't use it to meme people a bunch in a fight
+	var/distance = max(get_dist(shooter, target), 1) // treat 0 distance as adjacent
+	var/distance_description = (distance <= 1 ? "point blank " : "")
+
+	shooter.visible_message(span_danger("[shooter] aims [weapon] [distance_description]at [target]!"),
+		span_danger("You aim [weapon] [distance_description]at [target]!"), ignored_mobs = target)
+	to_chat(target, span_userdanger("[shooter] aims [weapon] [distance_description]at you!"))
+	shooter.Immobilize(0.75 SECONDS / distance)
+	if(can_see(parent, target, GUNPOINT_SHOOTER_STRAY_RANGE) && target.check_fear(NORMAL_FEAR_SOURCE))
+		target.Immobilize(0.75 SECONDS / distance)
+		target.emote("gaspshock", intentional = FALSE)
 
 	status_hold_up = shooter.apply_status_effect(STATUS_EFFECT_HOLDUP)
 	status_held_up = target.apply_status_effect(STATUS_EFFECT_HELDUP)
+	target.do_alert_animation()
+	target.playsound_local(target.loc, 'sound/machines/chime.ogg', 50, TRUE)
 
 	addtimer(CALLBACK(src, PROC_REF(update_stage), 2), GUNPOINT_DELAY_STAGE_2)
 
@@ -62,15 +68,35 @@
 
 /datum/component/gunpoint/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(check_deescalate))
+	RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE, PROC_REF(on_dir_change))
 	RegisterSignal(parent, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(flinch))
 	RegisterSignal(parent, COMSIG_HUMAN_DISARM_HIT, PROC_REF(flinch_disarm))
 	RegisterSignals(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOB_THROW, COMSIG_MOB_FIRED_GUN, COMSIG_MOB_TABLING), PROC_REF(noshooted))
+	RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND, PROC_REF(check_shove))
 
 /datum/component/gunpoint/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(parent, COMSIG_ATOM_DIR_CHANGE)
 	UnregisterSignal(parent, COMSIG_MOB_APPLY_DAMAGE)
 	UnregisterSignal(parent, COMSIG_HUMAN_DISARM_HIT)
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOB_THROW, COMSIG_MOB_FIRED_GUN, COMSIG_MOB_TABLING))
+	UnregisterSignal(parent, COMSIG_MOB_ATTACK_HAND)
+
+///If the shooter shoves or grabs the target, cancel the holdup to avoid cheesing and forcing the charged shot
+/datum/component/gunpoint/proc/check_shove(mob/living/carbon/shooter, mob/shooter_again, mob/living/T, datum/martial_art/attacker_style, modifiers)
+	SIGNAL_HANDLER
+
+	if(T != target || shooter.a_intent == INTENT_HARM || shooter.a_intent == INTENT_HELP)	//so if we are helping or harming - we avoid this proc
+		return
+	shooter.visible_message(span_danger("[shooter] bumps into [target] and fumbles [shooter.p_their()] aim!"), \
+		span_danger("You bump into [target] and fumble your aim!"), ignored_mobs = target)
+	to_chat(target, span_userdanger("[shooter] bumps into you and fumbles [shooter.p_their()] aim!"))
+	qdel(src)
+
+/datum/component/gunpoint/proc/on_dir_change()
+	SIGNAL_HANDLER
+	if(parent.in_fow(target, TRUE))
+		cancel()
 
 ///Update the damage multiplier for whatever stage we're entering into
 /datum/component/gunpoint/proc/update_stage(new_stage)
@@ -86,7 +112,7 @@
 		damage_mult = GUNPOINT_MULT_STAGE_3
 
 /datum/component/gunpoint/proc/check_deescalate()
-	if(!can_see(parent, target, GUNPOINT_SHOOTER_STRAY_RANGE - 1))
+	if(!can_see(parent, target, GUNPOINT_SHOOTER_STRAY_RANGE))
 		cancel()
 
 /datum/component/gunpoint/proc/trigger_reaction()

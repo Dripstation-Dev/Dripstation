@@ -92,6 +92,23 @@
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/pulseslug(src)
 
+/obj/item/storage/box/hardlight
+	name = "box of pulse slug shotgun shots"
+	desc = "A box full of pulse slug shots designed for shotguns. The box itself is designed for holding any kind of shotgun shell."
+	icon_state = "hardlight_box"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
+	illustration = null
+
+/obj/item/storage/box/hardlight/Initialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.set_holdable(list(/obj/item/ammo_casing/shotgun/hardlight))
+
+/obj/item/storage/box/hardlight/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/hardlight(src)
+
 /obj/item/storage/box
 	icon = 'modular_dripstation/icons/obj/storage.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/misc/boxes_lefthand.dmi'
@@ -941,12 +958,13 @@
 			new /obj/item/autosurgeon/upgraded_cyberlungs(src) //this is to remain true to the source material ok
 			new /obj/item/storage/pill_bottle/synaptizine(src) //take your drugs david, this and the lungs make up 1 tc
 
-		if("fixer")	//30 tc
+		if("fixer")	//41 tc
 			new /obj/item/clothing/under/syndicate/fixer(src)	//the best silk we can provide, anchanced sniper suit with name and armor, likely 5 tc worth
-			new /obj/item/clothing/mask/sense_deprevation(src)	//Somewhat like breach cleaver, but not the weapon, likely 8 TC
+			new /obj/item/clothing/mask/sense_deprevation(src)	//Somewhat like breach cleaver, but not the weapon, likely 8 TC because of the drawbacks
 			new /obj/item/clothing/shoes/laceup/electric_proof(src) //Fancy shoes to walk in the maint, like 1 tc
-			new/obj/item/clothing/gloves/tackler/combat/pocket_dimention(src)	//entire armory in your hand
+			new /obj/item/clothing/gloves/tackler/combat/pocket_dimention(src)	//entire armory in your hand - 20 tc
 			new /obj/item/storage/pouch/medical_injectors/slav(src)	//~5 tc
+			new /obj/item/card/id/syndicate // 2 tc
 			
 
 #undef CARP_CARP_CARP
@@ -958,7 +976,8 @@
 
 /obj/item/storage/box/syndie_kit/fixer/PopulateContents()
 	new /obj/item/clothing/under/syndicate/fixer(src)	//the best silk we can provide, anchanced sniper suit with name and armor, likely 5 tc worth
-	new /obj/item/clothing/mask/sense_deprevation(src)	//Somewhat like breach cleaver, but not the weapon, likely 8 TC
+	new /obj/item/clothing/mask/sense_deprevation(src)	//Somewhat like breach cleaver, but not the weapon, likely 8 TC because of the drawbacks
 	new /obj/item/clothing/shoes/laceup/electric_proof(src) //Fancy shoes to walk in the maint, like 1 tc
-	new/obj/item/clothing/gloves/tackler/combat/pocket_dimention(src)	//entire armory in your hand
+	new/obj/item/clothing/gloves/tackler/combat/pocket_dimention(src)	//entire armory in your hand - 20 tc
 	new /obj/item/storage/pouch/medical_injectors/slav(src)	//~5 tc
+	new /obj/item/card/id/syndicate // 2 tc

@@ -11,6 +11,7 @@
 	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
 	muzzleflash_iconstate = "muzzle_flash_disabler"
 	muzzle_flash_color = COLOR_DISABLER_BLUE
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hitscan)
 
 /obj/item/gun/energy/disabler/secure
 	name = "NT-D2S"

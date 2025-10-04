@@ -29,8 +29,7 @@
 			return
 		if(gibbed)
 			SEND_SIGNAL(V, COMSIG_ADD_MOOD_EVENT, "witnessgib_[mind_fortified_rating]", /datum/mood_event/seengib, mind_fortified_rating)
-			if(prob(48/mind_fortified_rating))
-				V.apply_status_effect(/datum/status_effect/terrified)
+			V.apply_status_effect(/datum/status_effect/terrified, fear_value = 30/mind_fortified_rating)
 		else
 			SEND_SIGNAL(V, COMSIG_ADD_MOOD_EVENT, "witnessdeath_[mind_fortified_rating]", /datum/mood_event/seendeath, mind_fortified_rating)
 
@@ -47,16 +46,9 @@
 	return TRUE
 
 /mob/living/proc/check_fear_protection(type_of_fear = NORMAL_FEAR_SOURCE)
-	if(HAS_TRAIT(src, TRAIT_FEARLESS))
+	if(!check_fear(type_of_fear))
 		return 0
 	var/mind_fortified = 1
-	switch(type_of_fear)
-		if(NORMAL_FEAR_SOURCE)
-			if(HAS_TRAIT(src, TRAIT_NO_NORMAL_FEAR) || HAS_TRAIT(src, TRAIT_PSYCHOPATHIC))
-				return 0
-		if(ABNORMAL_FEAR_SOURCE)
-			if(HAS_TRAIT(src, TRAIT_NO_ABNORMAL_FEAR))
-				return 0
 	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
 		mind_fortified ++
 	if(is_special_character(src))

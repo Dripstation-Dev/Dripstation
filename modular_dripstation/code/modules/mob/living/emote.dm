@@ -255,3 +255,16 @@
 		if(H.failed_last_breath)
 			return FALSE
 	return ..()
+
+/datum/emote/living/gaspshock
+	key = "gaspshock"
+	key_third_person = "gaspshock"
+	message = "gasps in shock!"
+	emote_type = EMOTE_AUDIBLE
+	stat_allowed = SOFT_CRIT
+
+/datum/emote/living/gaspshock/get_sound(mob/living/carbon/human/user)
+	if(ishuman(user) && user?.dna?.species)
+		return user.dna.species?.get_gasp_sound(user)
+	if(!.)
+		return ..()

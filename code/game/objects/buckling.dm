@@ -70,7 +70,7 @@
 				span_notice("[M] tries to buckle [M.p_them()]self to [src]."),\
 				span_notice("You try to buckle yourself to [src]."),\
 				span_italics("You hear metal clanking."))
-		else
+		else if(ismob(usr))
 			M.visible_message(\
 				span_warning("[usr] tries to buckle [M] to [src]!"),\
 				span_warning("[usr] tries to buckle you to [src]!"),\

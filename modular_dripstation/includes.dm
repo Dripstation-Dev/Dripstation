@@ -243,6 +243,7 @@
 #include "code\modules\anomalies\stalker_anomalies.dm"
 #include "code\modules\antagonists\_common\antag_spawner.dm"
 #include "code\modules\antagonists\abductor\equipment\abduction_outfits.dm"
+#include "code\modules\antagonists\changeling\changeling.dm"
 #include "code\modules\antagonists\changeling\panacea.dm"
 #include "code\modules\antagonists\cult\cult_items.dm"
 #include "code\modules\antagonists\cult\cult_structures.dm"

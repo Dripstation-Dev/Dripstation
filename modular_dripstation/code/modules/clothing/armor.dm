@@ -576,6 +576,9 @@
 	else
 		icon_state = initial(icon_state)
 
+/obj/item/kevlar_plating/mki
+	slowdown_set = -0.2
+
 /obj/item/clothing/suit/armor/vest/durathread
 	icon = 'icons/obj/clothing/suits/suits.dmi'
 	worn_icon = 'icons/mob/clothing/suit/suit.dmi'

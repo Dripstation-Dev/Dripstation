@@ -1,7 +1,8 @@
 /datum/job/officer
 	supervisors = "the head of security and warden"
 	supervisor_corporation = /datum/corporation/spearhead
-	loyalties = LOYALTY_SPEARHEAD_OFFICER
+	loyalties = LOYALTY_SPEARHEAD_OPERATIVE
+	added_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_FORENSICS_LOCKERS, ACCESS_ARMORY, ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_MAILSORTING)
 
 /datum/job/officer/GetIngameDesc(corp, stationname)
 	return "You are the boots on the ground, the rifle in the window, the long arm of the law. You are the hand of [corp], and the frontline against criminals, terrorists, and dangerous xenos.<br>\
@@ -16,13 +17,16 @@
 
 
 /datum/outfit/job/security
+	head = null
+	belt = /obj/item/gun/energy/disabler/secure
 	id_type = /obj/item/card/id/spearhead
 	gloves = /obj/item/clothing/gloves/color/black/tactifool
 	suit = /obj/item/clothing/suit/armor/vest
 	ears = /obj/item/radio/headset/headset_sec
 	glasses = /obj/item/clothing/glasses/hud/security/ballistic/up
 	backpack_contents = list(/obj/item/reagent_containers/spray/pepper=1)
-	chameleon_extras = list(/obj/item/gun/energy/disabler, /obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/head/helmet)
+	chameleon_extras = list(/obj/item/clothing/glasses/hud/security/sunglasses, /obj/item/clothing/head/helmet)
+	pda_slot = ITEM_SLOT_BACKPACK
 
 /datum/outfit/job/plasmaman/security
 	id_type = /obj/item/card/id/spearhead

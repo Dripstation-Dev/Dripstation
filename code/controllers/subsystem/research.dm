@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(research)
 	var/list/errored_datums = list()
 	var/list/point_types = list()				//typecache style type = TRUE list
 	//----------------------------------------------
-	var/list/single_server_income = list(TECHWEB_POINT_TYPE_GENERIC = 21.3, TECHWEB_POINT_TYPE_WEAPONRY = 5.3, TECHWEB_POINT_TYPE_MEDICAL = 5.3)
+	var/list/single_server_income = list(TECHWEB_POINT_TYPE_GENERIC = 10.6, TECHWEB_POINT_TYPE_WEAPONRY = 0.56, TECHWEB_POINT_TYPE_MEDICAL = 0.56)
 	var/multiserver_calculation = FALSE
 	var/last_income = 0
 	//^^^^^^^^ ALL OF THESE ARE PER SECOND! ^^^^^^^^
@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(research)
 	/// A list of all master servers. If none of these have a source code HDD, research point generation is lowered.
 	var/list/obj/machinery/rnd/server/master/master_servers = list()
 	/// The multiplier to research points when no source code HDD is present.
-	var/no_source_code_income_modifier = 0.5
+	var/no_source_code_income_modifier = 0.2
 
 	//Aiming for 1.5 hours to max R&D
 	//[88nodes * 5000points/node] / [1.5hr * 90min/hr * 60s/min]

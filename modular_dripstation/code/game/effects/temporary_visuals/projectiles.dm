@@ -13,6 +13,21 @@
 	icon_state = "muzzle_laser_red"
 	icon = 'modular_dripstation/icons/effects/projectiles/muzzle.dmi'
 
+/obj/effect/projectile/impact/disabler/hitscan
+	name = "disabler impact"
+	icon_state = "impact_pulse"
+	icon = 'modular_dripstation/icons/effects/projectiles/impact.dmi'
+
+/obj/effect/projectile/tracer/disabler/hitscan
+	name = "disabler tracer"
+	icon_state = "beam_blue"
+	icon = 'modular_dripstation/icons/effects/projectiles/tracer.dmi'
+
+/obj/effect/projectile/muzzle/disabler/hitscan
+	name = "disabler muzzle"
+	icon_state = "muzzle_pulse"
+	icon = 'modular_dripstation/icons/effects/projectiles/muzzle.dmi'
+
 /obj/effect/projectile/impact/laser/hitscan/sniper
 	name = "sniper laser impact"
 	icon_state = "impact_scc"

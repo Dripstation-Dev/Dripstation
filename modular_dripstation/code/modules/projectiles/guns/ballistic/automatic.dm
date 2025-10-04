@@ -325,8 +325,10 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/autorifle-1.ogg'
 	item_state = "arifle"
-	fire_delay = 0.19 SECONDS
-	auto_fire_delay = 0.08 SECONDS
+	fire_delay = 0.28 SECONDS
+	auto_fire_delay = 0.12 SECONDS
+	//fire_delay = 0.19 SECONDS
+	//auto_fire_delay = 0.08 SECONDS
 	recoil = 0.4
 	spread = 10
 	fire_sound_volume = 80
