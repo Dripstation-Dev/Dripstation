@@ -79,6 +79,7 @@
 		new /datum/data/mining_equipment("Environment Proof Bodybag", 	/obj/item/bodybag/environmental, 									1000, VENDING_EQUIPMENT),
 		new /datum/data/mining_equipment("Survival Medipen",			/obj/item/reagent_containers/autoinjector/medipen/survival,			500, VENDING_MEDS),
 		new /datum/data/mining_equipment("Brute First-Aid Kit",			/obj/item/storage/firstaid/brute,									600, VENDING_MEDS),
+		new /datum/data/mining_equipment("Burn First-Aid Kit",			/obj/item/storage/firstaid/fire,									600, VENDING_MEDS),
 		new /datum/data/mining_equipment("Tracking Implant Kit", 		/obj/item/storage/box/minertracker,									600, VENDING_MEDS),
 		new /datum/data/mining_equipment("Point Transfer Card (500)",	/obj/item/card/mining_point_card,									500, VENDING_MISC),
 		new /datum/data/mining_equipment("Point Transfer Card (1000)", 	/obj/item/card/mining_point_card/thousand,							1000, VENDING_MISC),

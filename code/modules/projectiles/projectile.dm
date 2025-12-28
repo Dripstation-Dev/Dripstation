@@ -13,14 +13,14 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	layer = MOB_LAYER
 	//The sound this plays on impact.
-	var/hitsound = 'sound/weapons/pierce.ogg'
+	var/hitsound = SFX_PIERCE
 	var/hitsound_wall = ""
 
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/def_zone = ""	//Aiming at
 	var/atom/movable/firer = null//Who shot it
 	var/atom/fired_from = null // the atom that the projectile was fired from (gun, turret)
-	var/suppressed = FALSE	//Attack message
+	var/suppressed = SUPPRESSED_NONE	//Attack message
 	var/yo = null
 	var/xo = null
 	var/atom/original = null // the original target clicked
@@ -97,6 +97,7 @@
 	var/ignore_source_check = FALSE
 
 	var/damage = 10
+	var/simplemob_additional_damage = 0
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 
 	///Determines if the projectile will skip any damage inflictions
@@ -105,6 +106,8 @@
 	var/armor_flag = BULLET
 	///How much armor this projectile pierces.
 	var/armour_penetration = 0
+	///Doubles the armor that the proj pierce to embed.
+	var/weak_against_armour = FALSE
 	///How much armor this projectile pierces.
 	var/projectile_type = /obj/projectile
 	///This will de-increment every step. When 0, it will deletze the projectile.
@@ -152,9 +155,13 @@
 	///For what kind of brute wounds we're rolling for, if we're doing such a thing. Lasers obviously don't care since they do burn instead.
 	var/sharpness = NONE
 	///How much we want to drop both wound_bonus and bare_wound_bonus (to a minimum of 0 for the latter) per tile, for falloff purposes
+	var/damage_falloff_tile	//dripstation edit
+	///How much we want to drop both wound_bonus and bare_wound_bonus (to a minimum of 0 for the latter) per tile, for falloff purposes
 	var/wound_falloff_tile
 	///How much we want to drop the embed_chance value, if we can embed, per tile, for falloff purposes
 	var/embed_falloff_tile
+	///How much we want to drop ap per tile, for falloff purposes
+	var/ap_falloff_tile
 
 	/// If true directly targeted turfs can be hit
 	var/can_hit_turfs = FALSE
@@ -180,13 +187,20 @@
 
 /obj/projectile/proc/Range()
 	range--
+	if(damage_falloff_tile && decayedRange - range >= 3)	//dripstation edit
+		damage = max(0, damage - damage_falloff_tile)		//dripstation edit
 	if(wound_bonus != CANT_WOUND)
 		wound_bonus += wound_falloff_tile
 		bare_wound_bonus = max(0, bare_wound_bonus + wound_falloff_tile)
+	if(ap_falloff_tile && decayedRange - range >= 3 && armour_penetration > -100)
+		armour_penetration = max(-100, armour_penetration - ap_falloff_tile)
+	if(embed_falloff_tile && !isnull(embedding["embed_chance"]) && embedding["embed_chance"] > 0)
+		embedding["embed_chance"] = max(0, embedding["embed_chance"] - embed_falloff_tile)
 	if(range <= 0 && loc)
 		on_range()
 
 /obj/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_RANGE_OUT)
 	qdel(src)
 
 //to get the correct limb (if any) for the projectile hit message
@@ -269,14 +283,18 @@
 				L.add_splatter_floor(target_loca)
 		else if(impact_effect_type && !hitscan)
 			new impact_effect_type(target_loca, hitx, hity)
+		if(isanimal(L))
+			damage += simplemob_additional_damage
 
 		var/organ_hit_text = ""
 		var/limb_hit = L.check_limb_hit(def_zone)//to get the correct message info.
+		SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, limb_hit)
 		if(limb_hit)
 			organ_hit_text = " in \the [parse_zone(limb_hit)]"
-		if(suppressed)
+		if(suppressed > SUPPRESSED_NONE)
 			playsound(loc, hitsound, 5, 1, -1)
-			to_chat(L, span_userdanger("You're shot by \a [src][organ_hit_text]!"))
+			if(suppressed != SUPPRESSED_VERY)
+				to_chat(L, span_userdanger("You're shot by \a [src][organ_hit_text]!"))
 		else
 			if(hitsound)
 				var/volume = vol_by_damage()
@@ -351,7 +369,7 @@
 
 	if(isturf(A) && hitsound_wall)
 		var/volume = clamp(vol_by_damage() + 20, 0, 100)
-		if(suppressed)
+		if(suppressed != SUPPRESSED_NONE)
 			volume = 5
 		playsound(loc, hitsound_wall, volume, 1, -1)
 
@@ -454,6 +472,11 @@
 	if(paused || !isturf(loc))
 		last_projectile_move += world.time - last_process		//Compensates for pausing, so it doesn't become a hitscan projectile when unpaused from charged up ticks.
 		return
+	var/required_moves = required_moves_calc()	//dripstation edit
+	if(!required_moves)							//dripstation edit
+		return //Slowpoke. Maybe next tick.		//dripstation edit
+	
+	/* dripstation edit start
 	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
 	time_offset = 0
 	var/required_moves = speed > 0? FLOOR(elapsed_time_deciseconds / speed, 1) : MOVES_HITSCAN			//Would be better if a 0 speed made hitscan but everyone hates those so I can't make it a universal system :<
@@ -465,9 +488,27 @@
 			required_moves = SSprojectiles.global_max_tick_moves
 			time_offset += overrun * speed
 		time_offset += MODULUS(elapsed_time_deciseconds, speed)
+	*/ //dripstation edit end
 
 	for(var/i in 1 to required_moves)
 		pixel_move(1, FALSE)
+
+/obj/projectile/proc/required_moves_calc()	//dripstation edit start
+	var/elapsed_time_deciseconds = world.time - last_projectile_move
+	if(!elapsed_time_deciseconds)
+		return 0 //No moves needed if not a tick has passed.
+	var/required_moves = (elapsed_time_deciseconds * speed) + time_offset
+	time_offset = 0
+	var/modulus_excess = MODULUS(required_moves, 1) //Fractions of a move.
+	if(modulus_excess)
+		required_moves -= modulus_excess
+		time_offset += modulus_excess
+
+	if(required_moves > SSprojectiles.global_max_tick_moves)
+		time_offset += required_moves - SSprojectiles.global_max_tick_moves
+		required_moves = SSprojectiles.global_max_tick_moves
+
+	return required_moves	//dripstation edit end
 
 /obj/projectile/proc/fire(angle, atom/direct_target)
 	if(fired_from)
@@ -503,6 +544,9 @@
 	trajectory = new(starting.x, starting.y, starting.z, pixel_x, pixel_y, Angle, SSprojectiles.global_pixel_speed)
 	last_projectile_move = world.time
 	fired = TRUE
+	play_fov_effect(starting, 6, "gunfire", dir = NORTH, angle = Angle)	//dripstation edit
+	if(shrapnel_type && LAZYLEN(embedding))										//dripstation edit
+		AddElement(/datum/element/embed, projectile_payload = shrapnel_type)	//dripstation edit
 	if(hitscan)
 		process_hitscan()
 	if(!(datum_flags & DF_ISPROCESSING))
@@ -663,7 +707,7 @@
 			return FALSE
 	else
 		var/mob/living/L = target
-		if(!direct_target)
+		if(!direct_target && !hit_prone_targets)
 			if(!CHECK_BITFIELD(L.mobility_flags, MOBILITY_STAND) && (L in range(1, starting))) //if we're shooting over someone who's prone and nearby bc formations are cool and not going to be unbalanced
 				return FALSE
 			if(!CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE) || !(L.stat == CONSCIOUS))		//If they're able to 1. stand or 2. use items or 3. move, AND they are not softcrit,  they are not stunned enough to dodge projectiles passing over.

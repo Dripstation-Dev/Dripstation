@@ -1,3 +1,4 @@
+/* Dripstation edit - modular
 //Both ERT and DS are handled by the same datums since they mostly differ in equipment in objective.
 /datum/team/ert
 	name = "Emergency Response Team"
@@ -312,3 +313,4 @@
 
 		missiondesc += " Be the funniest Prankster possible!"
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/hornin.ogg', 100, FALSE, pressure_affected = FALSE)
+*/

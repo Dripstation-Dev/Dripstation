@@ -8,21 +8,24 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice/hitscan)
 
 /obj/item/gun/energy/laser/tactical
-	name = "NT-L5 laser gun"
-	desc = "The NT-L5 is a basic energy-based laser gun that uses full potential of beam guns and hits targets through glass and thin metal at the speed of light. Has a preinstalled mindshield pin."
-	icon_state = "laser-new"
-	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	name = "NT-L5T laser gun"
+	desc = "The NT-L5T is an energy-based laser gun that uses full potential of beam guns and hits targets through glass and thin metal at the speed of light. Has a preinstalled mindshield pin and spec-ops grade gun cell."
+	icon_state = "laser-newalt"
+	cell_type = /obj/item/stock_parts/cell/gun/pulse/pistol	//specops grade cell
+	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/laser/cybersun
-	name = "laser carbine (Cybersun)"
+	name = "laser carbine C-18"
 	desc = "Basic energy-based laser gun that uses full potential of beam guns and hits targets through glass and thin metal at the speed of light. Cybersun model used by contract paramilitary forces."
 	icon_state = "lasercarbine-cybersun"
 	item_state = LASER
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=2000)
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan/spec)
+	can_cell = TRUE ///if the gun's cell can be replaced
 	ammo_x_offset = 1
 	shaded_charge = 1
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
 
 /obj/item/gun/energy/laser/captain
 	name = "antique energy gun"
@@ -34,7 +37,7 @@
 	icon_state = "centcomlaser"
 	item_state = "gun"
 	w_class = WEIGHT_CLASS_NORMAL
-	desc = "The NT-S05 laser gun is NT`s recreation of NT-S01 aiming to provide an inbuilt recharger with laser functions. It also has 'S' or special class weapon given to Nanotrasen`s Special Operations Department members. Now in service with NanoTrasen`s Special Operations Department agents."
+	desc = "The NT-S05 laser gun is NT`s recreation of NT-S01 aiming to provide an inbuilt recharger with laser functions. It also has 'S' or special class weapon given to Nanotrasen`s Special Operations Department members. Now in service with NanoTrasen`s Special Operations Department agents and operatives."
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
 	force = 10
 	selfcharge = 1

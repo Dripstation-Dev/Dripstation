@@ -103,7 +103,7 @@
 /datum/martial_art/gardern_warfare/proc/splinter_stab(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(findtext(streak, SPLINTER_COMBO))
 		A.do_attack_animation(D, ATTACK_EFFECT_SLASH)
-		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, TRUE, -1)
+		playsound(get_turf(D), get_sfx(SFX_SLASH), 50, TRUE, -1)
 		D.visible_message(span_danger("[A] impales [D]!"), \
 					span_userdanger("[A] impales you!"))
 		log_combat(A, D, "impales(Garden Warfare)")		
@@ -116,11 +116,12 @@
 		D.Stun((A.get_punchdamagehigh() / 8) SECONDS)	//1 second
 
 		var/obj/item/splinter = new /obj/item/splinter(D)
-		D.embed_object(splinter, affecting, FALSE, FALSE, TRUE)
+		//D.embed_object(splinter, affecting, FALSE, FALSE, TRUE)	//dripstation edit
+		D.hitby(splinter, skipcatch = TRUE, hitpush = FALSE)
 		streak = ""
 	else
 		A.do_attack_animation(D, ATTACK_EFFECT_SLASH)
-		playsound(get_turf(D), 'sound/weapons/slash.ogg', 50, TRUE, -1)
+		playsound(get_turf(D), get_sfx(SFX_SLASH), 50, TRUE, -1)
 		D.visible_message(span_danger("[A] stabs [D]!"), \
 					span_userdanger("[A] stabs you!"))
 		log_combat(A, D, "stabs(Garden Warfare)")		
@@ -201,7 +202,7 @@
 	desc = "It's sharp!"
 	throwforce = 3
 	sharpness = SHARP_EDGED
-	embedding = list("embedded_pain_multiplier" = 3, "embed_chance" = 100, "embedded_fall_chance" = 0, "embedded_unsafe_removal_pain_multiplier" = 12)
+	embedding = list("pain_multiplier" = 3, "embed_chance" = 100, "fall_chance" = 0, "remove_pain_mult" = 12)
 
 /datum/martial_art/gardern_warfare/handle_counter(mob/living/carbon/human/user, mob/living/carbon/human/attacker)
 	if(!can_use(user))
@@ -209,7 +210,7 @@
 	if(!user.in_throw_mode)
 		return
 	user.do_attack_animation(attacker, ATTACK_EFFECT_SLASH)
-	playsound(get_turf(attacker), 'sound/weapons/slash.ogg', 50, TRUE, -1)
+	playsound(get_turf(attacker), get_sfx(SFX_SLASH), 50, TRUE, -1)
 	attacker.visible_message(span_danger("[user] stabs [attacker]!"), \
 				span_userdanger("[user] stabs you!"))
 	log_combat(user, attacker, "counterattacks(Garden Warfare)")		
@@ -221,7 +222,8 @@
 	attacker.apply_damage(user.get_punchdamagehigh() + 2, BRUTE, selected_zone, armor_block, sharpness = SHARP_EDGED) 	//10 damage
 
 	var/obj/item/splinter = new /obj/item/splinter(attacker)
-	attacker.embed_object(splinter, affecting, FALSE, FALSE, TRUE)
+	//attacker.embed_object(splinter, affecting, FALSE, FALSE, TRUE)	//dripstation edit
+	attacker.hitby(splinter, skipcatch = TRUE, hitpush = FALSE)
 	streak = ""	
 
 /mob/living/carbon/human/proc/gardern_warfare_help()

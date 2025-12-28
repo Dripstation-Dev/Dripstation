@@ -201,8 +201,6 @@
 	add_fingerprint(user)
 	if(operating || (obj_flags & EMAGGED))
 		return
-	if(!requiresID())
-		user = null //so allowed(user) always succeeds
 	if(obj_flags & CMAGGED)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -223,7 +221,7 @@
 		else
 			open()
 		return TRUE
-	if(!allowed(user))
+	if(requiresID() && !allowed(user))
 		if(density)
 			do_animate("deny")
 		return FALSE
@@ -432,7 +430,7 @@
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			L.emote("scream")
+			L.flick_pain(100, TRUE)
 			L.Paralyze(100)
 		else if(ismonkey(L)) //For monkeys
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
@@ -442,6 +440,8 @@
 		var/turf/location = get_turf(src)
 		//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 		L.add_splatter_floor(location)
+		if(prob(1)) //no clip out of reality into the backrooms
+			INVOKE_ASYNC(L, TYPE_PROC_REF(/mob/living, clip_into_backrooms))
 	for(var/obj/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
 

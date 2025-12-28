@@ -105,7 +105,10 @@
 /obj/effect/portal/permanent/one_way/recall/murderdome
 	name = "Murderdome Portal"
 	desc = "Active, but only occasionally. Leads to an endless battle arena."
+	/* Dripstation edit
 	equipment = /datum/outfit/death_commando
+	*/
+	equipment = /datum/outfit/centcom/death_commando	//Dripstation edit
 	recall_equipment = /datum/outfit/vr
 	id = "vr murderdome"
 	light_color = LIGHT_COLOR_FIRE

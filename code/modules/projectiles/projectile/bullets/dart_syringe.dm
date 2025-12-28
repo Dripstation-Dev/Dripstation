@@ -17,7 +17,7 @@
 	if(dropped || !isitem(ammo_type) || !iscarbon(target))
 		return ..()
 
-	if(blocked >= 100 || !target.can_inject(null, FALSE, def_zone, piercing) || !target.embed_object(ammo_type, def_zone, FALSE))  // The bulk of the code to actualy embbed the dart is here, its all stacked up so we don't have to copy the fail text multiple times
+	if(blocked >= 100 || !target.can_inject(null, FALSE, def_zone, piercing)) //dripstation edit || !target.embed_object(ammo_type, def_zone, FALSE))  // The bulk of the code to actualy embbed the dart is here, its all stacked up so we don't have to copy the fail text multiple times
 		target.visible_message(span_danger("\The [ammo_type] was deflected!"), \
 		span_userdanger("You were protected against \the [ammo_type]!"))
 	else

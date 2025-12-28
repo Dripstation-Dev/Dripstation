@@ -1,19 +1,27 @@
 /obj/item/forbidden_book
 	name = "Codex Cicatrix"
 	desc = "A book with a peculiar lock on it, there's no keyhole."
-	icon = 'icons/obj/eldritch.dmi'
+	icon = 'modular_dripstation/icons/obj/eldritch.dmi'
 	icon_state = "book"
+	base_icon_state = "book"
 	worn_icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
 	///Last person that touched this
 	var/mob/living/last_user
 	///Where we cannot create the rune?
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
+	/* Dripstation edit
 	var/obj/effect/eldritch/big/last_rune
+	*/
+	var/book_open = FALSE	//dripstation edit
+	/// id for timer
+	var/timer_id	//dripstation edit
 
 /obj/item/forbidden_book/Destroy()
 	last_user = null
+	/* Dripstation edit
 	last_rune = null
+	*/
 	. = ..()
 
 
@@ -30,21 +38,30 @@
 	. = ..()
 	if(!proximity_flag || !IS_HERETIC(user))
 		return
+	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)	//dripstation edit
 	if(istype(target,/obj/effect/eldritch))
 		remove_rune(target,user)
+	/* Dripstation edit
 	if(istype(target,/obj/effect/reality_smash))
 		if(!DOING_INTERACTION(user, target))
 			get_power_from_influence(target,user)
+	*/
 	if(istype(target,/turf/open))
-		draw_rune(target,user)
+		heretic_datum.try_draw_rune(user, target, drawing_time = 12 SECONDS)	//dripstation edit
 
 /obj/item/forbidden_book/interact(mob/user)
 	. = ..()
 	if(!IS_HERETIC(user))
-		to_chat(user,span_userdanger("The book starts gnawing at your fingers!"))
+		balloon_alert(user, "the book starts gnawing at your fingers!")
 		return
-	icon_state = "book_open"
-	flick("book_opening",src)
+	if(book_open)
+		balloon_alert(user, "book is already opened!")
+		return
+	open_animation()
+	if(!istype(user) || !user.can_read(src, READING_CHECK_LIGHT))
+		//balloon_alert(user, "you can`t read anything!")
+		return
+	//open_animation()	//Dripstation edit
 	var/list/datum/eldritch_knowledge/recall_list = list()
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/list/transmutations = cultie.get_all_transmutations()
@@ -53,9 +70,11 @@
 		if(!ET.required_shit_list)
 			continue
 		recall_list[ET.name] = ET.required_shit_list
-	var/ctrlf = input(user, "Select a ritual to recall its reagents.", "Recall Knowledge") as null | anything in recall_list
+	var/ctrlf = tgui_input_list(user, "Select a ritual to recall its reagents.", "Recall Knowledge", recall_list)
 	if(ctrlf)
 		to_chat(user, span_cult("Transmutation requirements for [ctrlf]: [recall_list[ctrlf]]"))
+
+/*Dripstation edit start
 	flick("book_closing",src)
 	icon_state = initial(icon_state)
 ///Gives you a charge and destroys a corresponding influence
@@ -87,6 +106,7 @@
 		if(!QDELETED(last_rune))
 			qdel(last_rune)
 		last_rune = new /obj/effect/eldritch/big(A)
+*/ //Dripstation edit end
 
 ///Removes runes from the selected turf
 /obj/item/forbidden_book/proc/remove_rune(atom/target,mob/user)
@@ -95,4 +115,18 @@
 		qdel(target)
 
 
+/// Plays a little animation that shows the book opening and closing.
+/obj/item/forbidden_book/proc/open_animation()
+	icon_state = "[base_icon_state]_open"
+	flick("[base_icon_state]_opening", src)
+	book_open = TRUE
 
+	timer_id = addtimer(CALLBACK(src, PROC_REF(close_animation)), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+
+/// Plays a closing animation and resets the icon state.
+/obj/item/forbidden_book/proc/close_animation()
+	icon_state = base_icon_state
+	flick("[base_icon_state]_closing", src)
+	book_open = FALSE
+
+	deltimer(timer_id)

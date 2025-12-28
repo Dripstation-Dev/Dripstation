@@ -1,4 +1,4 @@
-#define EXPDIS_BASE_REWARD 500
+#define EXPDIS_BASE_REWARD 2000
 
 /datum/surgery/experimental_dissection
 	name = "Dissection"
@@ -11,6 +11,7 @@
 				/datum/surgery_step/clamp_bleeders,
 				/datum/surgery_step/incise,
 				/datum/surgery_step/dissection,
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 	target_mobtypes = list(/mob/living) //Feel free to dissect devils but they're magic.
@@ -58,7 +59,7 @@
 		if(H?.dna?.species)
 			if(isabductor(H))
 				cost = (EXPDIS_BASE_REWARD * 4)
-			else if(isgolem(H) || iszombie(H))
+			else if(isgolem(H) || iszombie(H) || isshadowperson(H) || isreplica(H))
 				cost = (EXPDIS_BASE_REWARD * 3)
 			else if(isjellyperson(H) || ispodperson(H))
 				cost = (EXPDIS_BASE_REWARD * 2)
@@ -82,7 +83,7 @@
 /datum/surgery_step/dissection/success(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/points_earned = check_value(target, surgery)
 	user.visible_message("[user] dissects [target], discovering [points_earned] point\s of data!", span_notice("You dissect [target], and write down [points_earned] point\s worth of discoveries!"))
-	new /obj/item/research_notes(user.loc, points_earned, TECHWEB_POINT_TYPE_GENERIC, "biology")
+	new /obj/item/research_notes(user.loc, points_earned, TECHWEB_POINT_TYPE_MEDICAL, "biology")
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
 	target.apply_damage(80, BRUTE, L)
 	ADD_TRAIT(target, TRAIT_DISSECTED, "[surgery.name]")
@@ -91,7 +92,7 @@
 
 /datum/surgery_step/dissection/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] dissects [target]!", span_notice("<span class='notice'>You dissect [target], but do not find anything particularly interesting."))
-	new /obj/item/research_notes(user.loc, round(check_value(target, surgery)) * 0.01, TECHWEB_POINT_TYPE_GENERIC, "biology")
+	new /obj/item/research_notes(user.loc, round(check_value(target, surgery)) * 0.01, TECHWEB_POINT_TYPE_MEDICAL, "biology")
 	var/obj/item/bodypart/L = target.get_bodypart(BODY_ZONE_CHEST)
 	target.apply_damage(80, BRUTE, L)
 	return TRUE

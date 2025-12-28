@@ -42,7 +42,7 @@
 	var/memory
 
 	/// Job datum indicating the mind's role. This should always exist after initialization, as a reference to a singleton.
-	var/assigned_role
+	var/datum/job/assigned_role
 
 	var/role_alt_title
 
@@ -780,6 +780,11 @@
 	for(var/datum/corporation/c in GLOB.corporations)
 		if(istype(c, company))
 			return src in c.employees
+
+/datum/mind/proc/get_nontraitor_company()									//dripstation edit
+	for(var/datum/corporation/c in GLOB.corporations)						//dripstation edit
+		if(!istype(c, /datum/corporation/traitor) && src in c.employees)	//dripstation edit
+			return c														//dripstation edit
 
 /mob/proc/sync_mind()
 	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)

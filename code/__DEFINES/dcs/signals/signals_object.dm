@@ -389,6 +389,8 @@
 #define COMSIG_ITEM_EMBEDDING_UPDATE "item_embedding_update"
 
 ///sent to targets during the process_hit proc of projectiles
+#define COMSIG_FIRE_CASING "fire_casing"
+///sent to targets during the process_hit proc of projectiles
 #define COMSIG_PELLET_CLOUD_INIT "pellet_cloud_init"
 
 // /obj/vehicle/sealed/car/vim signals

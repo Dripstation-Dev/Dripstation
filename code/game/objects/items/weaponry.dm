@@ -239,7 +239,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_chance = 30
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 
-/obj/item/katana
+/obj/item/melee/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20."
 	icon = 'icons/obj/weapons/swords.dmi'
@@ -260,11 +260,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/katana/Initialize(mapload)
+/obj/item/melee/katana/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/cleave_attack)
 
-/obj/item/katana/basalt
+/obj/item/melee/katana/basalt
 	name = "basalt katana"
 	desc = "A katana made of hardened basalt. Particularly damaging to lavaland fauna. <br><b>(Activate this item in hand to dodge roll in the direction you're facing)</b>"
 	icon_state = "basalt_katana"
@@ -277,7 +277,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	var/next_roll
 	var/roll_dist = 3
 
-/obj/item/katana/basalt/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/katana/basalt/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -287,7 +287,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 			L.apply_damage(fauna_damage_bonus,fauna_damage_type)
 			playsound(L, 'sound/weapons/sear.ogg', 100, 1)
 
-/obj/item/katana/basalt/attack_self(mob/living/user)
+/obj/item/melee/katana/basalt/attack_self(mob/living/user)
 	if(world.time > next_roll)
 		var/stam_cost = 15
 		var/turf/T = get_turf(user)
@@ -316,11 +316,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		to_chat(user, span_notice("You need to catch your breath before you can roll again!"))
 
 
-/obj/item/katana/suicide_act(mob/user)
+/obj/item/melee/katana/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
 	return(BRUTELOSS)
 
-/obj/item/katana/cursed
+/obj/item/melee/katana/cursed
 	slot_flags = null
 
 /obj/item/wirerod
@@ -375,7 +375,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 2
 	throwforce = 10 //10 + 2 (WEIGHT_CLASS_SMALL) * 4 (EMBEDDED_IMPACT_PAIN_MULTIPLIER) = 18 damage on hit due to guaranteed embedding
 	throw_speed = 4
-	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 100, "embedded_fall_chance" = 0)
+	embedding = list("pain_multiplier" = 4, "embed_chance" = 100, "fall_chance" = 0)
 	w_class = WEIGHT_CLASS_SMALL
 	sharpness = SHARP_POINTY
 	materials = list(/datum/material/iron=500, /datum/material/glass=500)
@@ -390,7 +390,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 10
 	throw_range = 0 //throwing these invalidates the speargun
 	attack_verb = list("stabbed", "ripped", "gored", "impaled")
-	embedding = list("embedded_pain_multiplier" = 8, "embed_chance" = 100, "embedded_fall_chance" = 0, "embedded_impact_pain_multiplier" = 15) //55 damage+embed on hit
+	embedding = list("pain_multiplier" = 8, "embed_chance" = 100, "fall_chance" = 0, "impact_pain_multiplier" = 15) //55 damage+embed on hit
 
 /obj/item/switchblade
 	name = "switchblade"
@@ -736,6 +736,94 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	item_flags = DROPDEL | ABSTRACT
 	attack_verb = list("bopped")
 
+/obj/item/circlegame/Initialize()
+	. = ..()
+	var/mob/living/owner = loc
+	if(!istype(owner))
+		return
+	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, .proc/ownerExamined)
+
+/obj/item/circlegame/Destroy()
+	var/mob/owner = loc
+	if(!istype(owner))
+		return ..()
+	UnregisterSignal(owner, COMSIG_ATOM_EXAMINE)
+	. = ..()
+
+/// Stage 1: The mistake is made
+/obj/item/circlegame/proc/ownerExamined(mob/living/owner, mob/living/sucker)
+	SIGNAL_HANDLER
+
+	if(!istype(sucker) || !in_range(owner, sucker))
+		return
+	addtimer(CALLBACK(src, .proc/waitASecond, owner, sucker), 4)
+
+/// Stage 2: Fear sets in
+/obj/item/circlegame/proc/waitASecond(mob/living/owner, mob/living/sucker)
+	if(QDELETED(sucker) || QDELETED(src) || QDELETED(owner))
+		return
+
+	if(owner == sucker) // big mood
+		to_chat(owner, "<span class='danger'>Wait a second... you just looked at your own [src.name]!</span>")
+		addtimer(CALLBACK(src, .proc/selfGottem, owner), 10)
+	else
+		to_chat(sucker, "<span class='danger'>Wait a second... was that a-</span>")
+		addtimer(CALLBACK(src, .proc/GOTTEM, owner, sucker), 6)
+
+/// Stage 3A: We face our own failures
+/obj/item/circlegame/proc/selfGottem(mob/living/owner)
+	if(QDELETED(src) || QDELETED(owner))
+		return
+
+	playsound(get_turf(owner), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
+	owner.visible_message("<span class='danger'>[owner] shamefully bops [owner.p_them()]self with [owner.p_their()] [src.name].</span>", "<span class='userdanger'>You shamefully bop yourself with your [src.name].</span>", \
+		"<span class='hear'>You hear a dull thud!</span>")
+	log_combat(owner, owner, "bopped", src.name, "(self)")
+	owner.do_attack_animation(owner)
+	owner.apply_damage(100, STAMINA)
+	owner.Knockdown(10)
+	qdel(src)
+
+/// Stage 3B: We face our reckoning (unless we moved away or they're incapacitated)
+/obj/item/circlegame/proc/GOTTEM(mob/living/owner, mob/living/sucker)
+	if(QDELETED(sucker))
+		return
+
+	if(QDELETED(src) || QDELETED(owner))
+		to_chat(sucker, "<span class='warning'>Nevermind... must've been your imagination...</span>")
+		return
+
+	if(!in_range(owner, sucker) || !(owner.mobility_flags & MOBILITY_USE))
+		to_chat(sucker, "<span class='notice'>Phew... you moved away before [owner] noticed you saw [owner.p_their()] [src.name]...</span>")
+		return
+
+	to_chat(owner, "<span class='warning'>[sucker] looks down at your [src.name] before trying to avert [sucker.p_their()] eyes, but it's too late!</span>")
+	to_chat(sucker, "<span class='danger'><b>[owner] sees the fear in your eyes as you try to look away from [owner.p_their()] [src.name]!</b></span>")
+
+	owner.face_atom(sucker)
+	//if(owner.client)
+	//	owner.client.give_award(/datum/award/achievement/misc/gottem, owner) // then everybody clapped
+
+	playsound(get_turf(owner), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
+	owner.do_attack_animation(sucker)
+
+	if(HAS_TRAIT(owner, TRAIT_HULK))
+		owner.visible_message("<span class='danger'>[owner] bops [sucker] with [owner.p_their()] [src.name] much harder than intended, sending [sucker.p_them()] flying!</span>", \
+			"<span class='danger'>You bop [sucker] with your [src.name] much harder than intended, sending [sucker.p_them()] flying!</span>", "<span class='hear'>You hear a sickening sound of flesh hitting flesh!</span>", ignored_mobs=list(sucker))
+		to_chat(sucker, "<span class='userdanger'>[owner] bops you incredibly hard with [owner.p_their()] [src.name], sending you flying!</span>")
+		sucker.apply_damage(50, STAMINA)
+		sucker.Knockdown(50)
+		log_combat(owner, sucker, "bopped", src.name, "(setup- Hulk)")
+		var/atom/throw_target = get_edge_target_turf(sucker, owner.dir)
+		sucker.throw_at(throw_target, 6, 3, owner)
+	else
+		owner.visible_message("<span class='danger'>[owner] bops [sucker] with [owner.p_their()] [src.name]!</span>", "<span class='danger'>You bop [sucker] with your [src.name]!</span>", \
+			"<span class='hear'>You hear a dull thud!</span>", ignored_mobs=list(sucker))
+		sucker.apply_damage(15, STAMINA)
+		log_combat(owner, sucker, "bopped", src.name, "(setup)")
+		to_chat(sucker, "<span class='userdanger'>[owner] bops you with [owner.p_their()] [src.name]!</span>")
+	qdel(src)
+
 /obj/item/slapper
 	name = "slapper"
 	desc = "This is how real men fight."
@@ -768,11 +856,17 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 		user.visible_message("<span class='danger'>[user] slaps [M] in the face[hard_slap ? " really hard" : ""]!</span>",
 			"<span class='notice'>You slap [M] in the face[hard_slap ? " really hard" : ""]!</span>",
 			"<span class='hear'>You hear a slap.</span>")
+
+	else if(user.zone_selected == BODY_ZONE_PRECISE_GROIN)
+		user.visible_message("<span class='danger'>[user] spanks [M]`s butt[hard_slap ? " really hard" : ""]!</span>",
+			"<span class='notice'>You spank [M]`s butt[hard_slap ? " really hard" : ""]!</span>",
+			"<span class='hear'>You hear a slap.</span>")
+
 	else
 		user.visible_message("<span class='danger'>[user] slaps [M][hard_slap ? " really hard" : ""]!</span>",
 			"<span class='notice'>You slap [M][hard_slap ? " really hard" : ""]!</span>",
 			"<span class='hear'>You hear a slap.</span>")
-	playsound(M, 'sound/weapons/slap.ogg', slap_volume, TRUE, -1)
+	playsound(M, 'modular_dripstation/sound/effects/slap.ogg', slap_volume, TRUE, -1)
 	return TRUE
 
 /obj/item/slapper/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

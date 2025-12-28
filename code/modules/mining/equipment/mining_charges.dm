@@ -27,7 +27,8 @@
 	else
 		to_chat(user,span_warning("The charge only works on rocks!"))
 
-/obj/item/grenade/plastic/miningcharge/prime()
+/obj/item/grenade/plastic/miningcharge/prime(mob/lanced_by)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	var/turf/location = get_turf(target) //YOGS EDIT
 	if(hacked) //big boom override
 		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3])

@@ -123,6 +123,7 @@
 /obj/projectile/bullet/c22hl //.22 HL
 	name = "hardlight beam"
 	icon_state = "disabler_bullet"
+	light_color = LIGHT_COLOR_DEFAULT
 	armor_flag = ENERGY
 	damage = 0 // maybe don't do actual damage so pacifists can use it and silicons won't be mad
 	damage_type = BURN
@@ -156,6 +157,7 @@
 /obj/projectile/bullet/c22ls //.22 LS
 	name = "laser beam"
 	icon_state = "disabler_bullet"
+	light_color = LIGHT_COLOR_RED
 	armor_flag = LASER
 	damage = 18
 	damage_type = BURN

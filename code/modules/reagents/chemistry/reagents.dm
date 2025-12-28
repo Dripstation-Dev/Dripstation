@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	/// Alternative names used for the drug
 	var/addiction_name = null
 	/// What biotypes can process this? We'll assume by default that it affects organics (and undead, for plasmemes)
-	var/compatible_biotypes = ALL_NON_ROBOTIC
+	var/compatible_biotypes = ALL_NON_SYNTHETIC
 	/// How flammable is this material?
 	var/accelerant_quality = 0
 	/// You fucked up and this is now triggering its overdose effects, purge that shit quick.
@@ -87,6 +87,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/reaction_mob(mob/living/M, methods = TOUCH, reac_volume, show_message = 1, permeability = 1)
 	if(!istype(M))
 		return 0
+	SEND_SIGNAL(src, COMSIG_REAGENT_EXPOSE_MOB, M, methods, reac_volume, show_message)
 	if(methods & VAPOR) //smoke, foam, spray
 		if(M.reagents)
 			var/modifier = clamp(permeability, 0, 1)

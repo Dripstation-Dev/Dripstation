@@ -11,17 +11,22 @@
 #define DISMEMBER_MINIMUM_DAMAGE	10
 /// If an attack rolls this high with their wound (including mods), we try to outright dismember the limb. Note 250 is high enough that with a perfect max roll of 145 (see max cons'd damage), you'd need +100 in mods to do this
 #define WOUND_DISMEMBER_OUTRIGHT_THRESH	250
+/// If an attack rolls this high with their wound (including mods), we try to outright damage blood vessel of the limb.
+#define WOUND_BLOOD_VESSEL_OUTRIGHT_THRESH	45
 /// set wound_bonus on an item or attack to this to disable checking wounding for the attack
 #define CANT_WOUND -100
 
 // ~wound severities
 /// for jokey/meme wounds like stubbed toe, no standard messages/sounds or second winds
+#define WOUND_SEVERITY_NON_EXISTENT	-1
 #define WOUND_SEVERITY_TRIVIAL	0
 #define WOUND_SEVERITY_MODERATE	1
 #define WOUND_SEVERITY_SEVERE	2
 #define WOUND_SEVERITY_CRITICAL	3
+#define WOUND_SEVERITY_BLOOD_VESSEL	3.5
 /// outright dismemberment of limb
 #define WOUND_SEVERITY_LOSS		4
+#define WOUND_SEVERITY_HIDDEN	5
 
 // ~wound categories
 /// any brute weapon/attack that doesn't have sharpness. rolls for blunt bone wounds
@@ -32,6 +37,10 @@
 #define WOUND_PIERCE	3
 /// any concentrated burn attack (lasers really). rolls for burning wounds
 #define WOUND_BURN		4
+/// Not rollls normally, but needed a type of this
+#define WOUND_BLOOD_VESSEL	5
+/// Same as above
+#define WOUND_INFECTION		6
 
 
 // ~determination second wind defines
@@ -49,17 +58,22 @@
 
 // ~wound global lists
 // list in order of highest severity to lowest
-GLOBAL_LIST_INIT(global_wound_types, list(WOUND_BLUNT = list(/datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/moderate),
+GLOBAL_LIST_INIT(global_wound_types, list(WOUND_BLUNT = list(/datum/wound/blunt/critical, /*/datum/wound/blunt/flesh/critical,*/ /datum/wound/blunt/severe, /*/datum/wound/blunt/flesh/severe,*/ /datum/wound/blunt/moderate, /*/datum/wound/blunt/flesh/moderate*/),
 		WOUND_SLASH = list(/datum/wound/slash/critical, /datum/wound/slash/severe, /datum/wound/slash/moderate),
 		WOUND_PIERCE = list(/datum/wound/pierce/critical, /datum/wound/pierce/severe, /datum/wound/pierce/moderate),
 		WOUND_BURN = list(/datum/wound/burn/critical, /datum/wound/burn/severe, /datum/wound/burn/moderate)
 		))
 
 // every single type of wound that can be rolled naturally, in case you need to pull a random one
-GLOBAL_LIST_INIT(global_all_wound_types, list(/datum/wound/blunt/critical, /datum/wound/blunt/severe, /datum/wound/blunt/moderate,
+GLOBAL_LIST_INIT(global_all_wound_types, list(/datum/wound/blunt/critical, /*/datum/wound/blunt/flesh/critical,*/ /datum/wound/blunt/severe, /*/datum/wound/blunt/flesh/severe,*/ /datum/wound/blunt/moderate, /*/datum/wound/blunt/flesh/moderate,*/
 	/datum/wound/slash/critical, /datum/wound/slash/severe, /datum/wound/slash/moderate,
 	/datum/wound/pierce/critical, /datum/wound/pierce/severe, /datum/wound/pierce/moderate,
 	/datum/wound/burn/critical, /datum/wound/burn/severe, /datum/wound/burn/moderate))
+
+GLOBAL_LIST_INIT(global_all_blood_wounds_types, list(WOUND_BLUNT = list(/datum/wound/blood_vessel/vein/internal, /datum/wound/blood_vessel/artery/internal),
+		WOUND_SLASH = list(/datum/wound/blood_vessel/artery),
+		WOUND_PIERCE = list(/datum/wound/blood_vessel/artery, /datum/wound/blood_vessel/vein/internal, /datum/wound/blood_vessel/artery/internal/body),
+		))
 
 // ~burn wound infection defines
 // Thresholds for infection for burn wounds, once infestation hits each threshold, things get steadily worse
@@ -118,6 +132,8 @@ GLOBAL_LIST_INIT(global_all_wound_types, list(/datum/wound/blunt/critical, /datu
 #define ACCEPTS_GAUZE	(1<<4)
 /// If this wound can be healed by cryoxadone
 #define ACCEPTS_CRYO	(1<<5)
+/// can be infested and cause necrosis
+#define CAN_BE_INFESTED	(1<<6)
 
 // ~scar persistence defines
 // The following are the order placements for persistent scar save formats

@@ -37,7 +37,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attacktext = "punches"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_PUNCH
 	a_intent = INTENT_HARM
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -125,6 +125,7 @@
 	var/obj/effect/light_emitter/red_energy_sword/sord
 	projectile_deflect_chance = 50
 
+/* Dripstation edit
 /mob/living/simple_animal/hostile/syndicate/melee/sword/Initialize(mapload)
 	. = ..()
 	set_light(2)
@@ -138,6 +139,7 @@
 		visible_message(span_danger("[src] blocks [Proj] with its shield!"))
 		return BULLET_ACT_BLOCK
 	return ..()
+*/
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space
 	icon_state = "syndicate_space_sword"
@@ -151,6 +153,7 @@
 	spacewalk = TRUE
 	projectile_deflect_chance = 50
 
+/* Dripstation edit
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space/Initialize(mapload)
 	. = ..()
 	sord = new(src)
@@ -159,6 +162,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space/Destroy()
 	QDEL_NULL(sord)
 	return ..()
+*/
 
 /mob/living/simple_animal/hostile/syndicate/melee/sword/space/stormtrooper
 	icon_state = "syndicate_stormtrooper_sword"

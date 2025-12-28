@@ -378,7 +378,10 @@ There are several things that need to be remembered:
 		var/t_state = s_store.item_state
 		if(!t_state)
 			t_state = s_store.icon_state
+		/* dripstation edit
 		overlays_standing[SUIT_STORE_LAYER]	= mutable_appearance('icons/mob/clothing/suit_storage.dmi', t_state, -SUIT_STORE_LAYER)
+		*/	//dripstation edit
+		overlays_standing[SUIT_STORE_LAYER]	= mutable_appearance('modular_dripstation/icons/mob/clothing/suit_storage.dmi', t_state, -SUIT_STORE_LAYER)	//dripstation edit
 		var/mutable_appearance/s_store_overlay = overlays_standing[SUIT_STORE_LAYER]
 		if(OFFSET_S_STORE in dna.species.offset_features)
 			s_store_overlay.pixel_x += dna.species.offset_features[OFFSET_S_STORE][1]
@@ -391,6 +394,12 @@ There are several things that need to be remembered:
 	..()
 	update_mutant_bodyparts()
 	if(head)
+		var/target_overlay = RESOLVE_ICON_STATE(head)
+		if(istype(head, /obj/item/clothing/head))
+			var/obj/item/clothing/head/H = head
+			if("snout" in dna.species.mutant_bodyparts) //checks for snout and uses lizard helmet variant
+				if((H.mutantrace_variation & DIGITIGRADE_VARIATION)) // i know digitigrade isn't the right word here but still
+					target_overlay = "[target_overlay]_l"
 		update_hud_head(head)
 		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head/head.dmi')
 	var/mutable_appearance/head_overlay = overlays_standing[HEAD_LAYER]

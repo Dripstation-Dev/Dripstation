@@ -12,6 +12,7 @@
 	var/t_has = p_have()
 	var/t_is = p_are()
 	var/obscure_name
+	var/obscure_examine
 	var/robotic = FALSE //robotic mobs look different under certain circumstances
 	if(mob_biotypes & MOB_ROBOTIC)//please someone tell me this is stupid and i can do it all in one line
 		robotic = TRUE
@@ -20,8 +21,14 @@
 		var/mob/living/L = user
 		if(HAS_TRAIT(L, TRAIT_PROSOPAGNOSIA))
 			obscure_name = TRUE
+		if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+			obscure_name = TRUE
+			obscure_examine = TRUE
 
 	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"]</EM>!")
+
+	if(obscure_examine)
+		return list("<span class='warning'>You're struggling to make out any details...")
 
 	var/vampDesc = return_vamp_examine(user) // Fulpstation Bloodsuckers edit STARTS
 	var/vassDesc = ReturnVassalExamine(user)
@@ -33,7 +40,7 @@
 	var/list/obscured = check_obscured_slots()
 
 	//uniform
-	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured))
+	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured) && !(w_uniform.item_flags & EXAMINE_SKIP))
 		//accessory
 		var/accessory_msg
 		if(istype(w_uniform, /obj/item/clothing/under))
@@ -43,10 +50,10 @@
 
 		. += "[t_He] [t_is] wearing [w_uniform.get_examine_string(user)][accessory_msg]."
 	//head
-	if(head)
+	if(head && !(ITEM_SLOT_HEAD in obscured) && !(head.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [head.get_examine_string(user)] on [t_his] head."
 	//suit/armor
-	if(wear_suit)
+	if(wear_suit && !(wear_suit.item_flags & EXAMINE_SKIP))
 		//badge
 		var/badge_msg
 		if(istype(wear_suit, /obj/item/clothing/suit))
@@ -56,25 +63,32 @@
 
 		. += "[t_He] [t_is] wearing [wear_suit.get_examine_string(user)][badge_msg]."
 		//suit/armor storage
-		if(s_store && !(ITEM_SLOT_SUITSTORE in obscured))
+		if(s_store && !(ITEM_SLOT_SUITSTORE in obscured) && !(s_store.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_is] carrying [s_store.get_examine_string(user)] on [t_his] [wear_suit.name]."
 	//back
-	if(back)
+	if(back && !(back.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [back.get_examine_string(user)] on [t_his] back."
 
 	//Hands
 	for(var/obj/item/I in held_items)
-		if(!(I.item_flags & ABSTRACT))
-			. += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
+		if(I.item_flags & (ABSTRACT|EXAMINE_SKIP|HAND_ITEM))
+			continue
+		. += "[t_He] [t_is] holding [I.get_examine_string(user)] in [t_his] [get_held_index_name(get_held_index_of_item(I))]."
 
 	var/datum/component/forensics/FR = GetComponent(/datum/component/forensics)
 	//gloves
-	if(gloves && !(ITEM_SLOT_GLOVES in obscured))
+	if(gloves && !(ITEM_SLOT_GLOVES in obscured) && !(gloves.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands."
 	else if(FR && length(FR.blood_DNA))
 		var/hand_number = get_num_arms(FALSE)
+/* dripstation edit
 		if(hand_number)
 			. += span_warning("[t_He] [t_has] [hand_number > 1 ? "" : "a"] blood-stained hand[hand_number > 1 ? "s" : ""]!")
+*/
+		if(hand_number && blood_in_hands)	//dripstation edit
+			. += span_warning("[t_He] [t_has][hand_number > 1 ? "" : " a"] blood-stained hand[hand_number > 1 ? "s" : ""]!")	//dripstation edit
+		else	//dripstation edit
+			. += span_warning("[t_He] [t_is] covered in blood!")	//dripstation edit
 
 	//handcuffed?
 	if(handcuffed)
@@ -85,23 +99,23 @@
 		. += span_warning("[t_He] [t_is] legcuffed with [legcuffed.get_examine_string(user)]!")
 
 	//belt
-	if(belt)
+	if(belt && !(belt.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [belt.get_examine_string(user)] about [t_his] waist."
 
 	//shoes
-	if(shoes && !(ITEM_SLOT_FEET in obscured))
+	if(shoes && !(ITEM_SLOT_FEET in obscured) && !(shoes.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [shoes.get_examine_string(user)] on [t_his] feet."
 
 	//mask
-	if(wear_mask && !(ITEM_SLOT_MASK in obscured))
+	if(wear_mask && !(ITEM_SLOT_MASK in obscured) && !(wear_mask.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [wear_mask.get_examine_string(user)] on [t_his] face."
 
-	if(wear_neck && !(ITEM_SLOT_NECK in obscured))
+	if(wear_neck && !(ITEM_SLOT_NECK in obscured) && !(wear_neck.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [wear_neck.get_examine_string(user)] around [t_his] neck."
 
 	//eyes
 	if(!(ITEM_SLOT_EYES in obscured))
-		if(glasses)
+		if(glasses && !(glasses.item_flags & EXAMINE_SKIP))
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
 		else if(eye_color == BLOODCULT_EYE && HAS_TRAIT(src, CULT_EYES))
 			if(isipc(src))
@@ -110,11 +124,11 @@
 				. += span_warning("<B>[t_His] eyes are glowing an unnatural red!</B>")
 
 	//ears
-	if(ears && !(ITEM_SLOT_EARS in obscured))
+	if(ears && !(ITEM_SLOT_EARS in obscured) && !(ears.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_has] [ears.get_examine_string(user)] on [t_his] ears."
 
 	//ID
-	if(wear_id)
+	if(wear_id && !(wear_id.item_flags & EXAMINE_SKIP))
 		. += "[t_He] [t_is] wearing [wear_id.get_examine_string(user)]."
 
 	//Status effects
@@ -188,7 +202,7 @@
 		if(HAS_TRAIT(body_part, TRAIT_DISABLED_BY_WOUND))
 			continue // skip if it's disabled by a wound (cuz we'll be able to see the bone sticking out!)
 		if(!(body_part.get_damage(stamina = FALSE) >= body_part.max_damage)) //we don't care if it's stamcritted
-			damage_text = "limp and lifeless"
+			damage_text = "limp and lifeless[body_part.current_tourniquet ? ", probably because of the applied tourniquet" : ""]"
 		else
 			damage_text = (body_part.brute_dam >= body_part.burn_dam) ? body_part.heavy_brute_msg : body_part.heavy_burn_msg
 		msg += "<B>[capitalize(t_his)] [body_part.name] is [damage_text]!</B>\n"
@@ -214,7 +228,7 @@
 	else if(l_limbs_missing >= 2 && r_limbs_missing >= 2)
 		msg += "[t_He] [p_do()]n't seem all there.\n"
 
-	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
+	if(!(user == src && src.hal_screwyhud >= SCREWYHUD_NONE)) //we don`t really know how we feel
 		if(temp)
 			if(temp < 25)
 				msg += "[t_He] [t_has] minor [robotic ? ROBOTIC_BRUTE : ORGANIC_BRUTE].\n"
@@ -433,7 +447,7 @@
 	if (!isnull(trait_exam))
 		. += trait_exam
 
-	var/traitstring = get_trait_string()
+	var/traitstring = get_trait_string(TRUE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/cyberimp/eyes/hud/CIH = H.getorgan(/obj/item/organ/cyberimp/eyes/hud)
@@ -446,6 +460,7 @@
 				if(R)
 					. += "[span_deptradio("Rank:")] [R.fields["rank"]]\n<a href='byond://?src=[REF(src)];hud=1;photo_front=1'>\[Front photo\]</a><a href='byond://?src=[REF(src)];hud=1;photo_side=1'>\[Side photo\]</a>"
 				if(istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(CIH, /obj/item/organ/cyberimp/eyes/hud/medical))
+					var/datum/data/record/M = find_record("name", perpname, GLOB.data_core.medical)
 					var/cyberimp_detect
 					for(var/obj/item/organ/cyberimp/CI in internal_organs)
 						if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
@@ -458,28 +473,39 @@
 						. += "<a href='byond://?src=[REF(src)];hud=m;p_stat=1'>\[[health_r]\]</a>"
 						health_r = R.fields["m_stat"]
 						. += "<a href='byond://?src=[REF(src)];hud=m;m_stat=1'>\[[health_r]\]</a>"
-					R = find_record("name", perpname, GLOB.data_core.medical)
+					if(M)
+						. += "<a href='byond://?src=[REF(src)];hud=m;medrecords=1'>\[Past Medical Records\]</a><br>"
 					if(R)
+						. += "<a href='byond://?src=[REF(src)];hud=m;genrecords=1'>\[Past General Records\]</a><br>"
+					if(M)
 						. += "<a href='byond://?src=[REF(src)];hud=m;evaluation=1'>\[Medical evaluation\]</a><br>"
 					if(traitstring)
 						. += "<span class='info'>Detected physiological traits:\n[traitstring]"
+					else
+						. += "<span class='info'>No physiological traits found.</span>"
 
 				if(istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(CIH, /obj/item/organ/cyberimp/eyes/hud/security))
 					if(!user.stat && user != src)
 					//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 						var/criminal = "None"
 
-						R = find_record("name", perpname, GLOB.data_core.security)
-						if(R)
-							criminal = R.fields["criminal"]
+						var/datum/data/record/S = find_record("name", perpname, GLOB.data_core.security)
+						if(S)
+							criminal = S.fields["criminal"]
 
 						. += "[span_deptradio("Criminal status:")] <a href='byond://?src=[REF(src)];hud=s;status=1'>\[[criminal]\]</a>"
 						. += jointext(list("[span_deptradio("Security record:")] <a href='byond://?src=[REF(src)];hud=s;view=1'>\[View\]</a>",
 							"<a href='byond://?src=[REF(src)];hud=s;add_crime=1'>\[Add crime\]</a>",
 							"<a href='byond://?src=[REF(src)];hud=s;view_comment=1'>\[View comment log\]</a>",
 							"<a href='byond://?src=[REF(src)];hud=s;add_comment=1'>\[Add comment\]</a>"), "")
-	else if(isobserver(user) && traitstring)
-		. += "<span class='info'><b>Quirks:</b> [traitstring]</span><br>"
+						. += "[span_deptradio("Past Security Records:")] <a href='byond://?src=[REF(src)];hud=s;secrecords=1'>\[View\]</a>"
+						. += "[span_deptradio("Past General Records:")] <a href='byond://?src=[REF(src)];hud=s;genrecords=1'>\[View\]</a>"
+				if(istype(H.glasses, /obj/item/clothing/glasses/hud/permit) || istype(H.glasses, /obj/item/clothing/glasses/hud/skill))
+					if(!user.stat && user != src)
+						. += "[span_deptradio("Past General Records:")] <a href='byond://?src=[REF(src)];hud=s;genrecords=1'>\[View\]</a>"
+	var/traitstring_real = get_trait_string()
+	if(isobserver(user) && traitstring_real)
+		. += "<span class='info'><b>Quirks:</b> [traitstring_real]</span><br>"
 	. += "</span>"
 
 
@@ -499,6 +525,14 @@
 		flavor_text_link = span_notice("[preview_text]... <a href='byond://?src=[REF(src)];lookup_info=open_examine_panel'>\[Look closer?\]</a>")
 	if (flavor_text_link)
 		. += flavor_text_link
+
+	if(isobserver(user) || user.mind?.special_role)
+		var/perpname = get_face_name(get_id_name(""))
+		var/datum/data/record/target_records = find_record("name", perpname, GLOB.data_core.locked)
+		if(target_records)
+			var/exploitable_text = target_records.fields["exploitable_records"]
+			if((length(exploitable_text) > 0) && ((exploitable_text) != EXPLOITABLE_DEFAULT_TEXT))
+				. += "<a href='?src=[REF(src)];exprecords=1'>\[View exploitable info\]</a>"
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
@@ -591,11 +625,17 @@
 	if(!(ITEM_SLOT_EYES in obscured))
 		if(glasses)
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
-		else if(eye_color == BLOODCULT_EYE && HAS_TRAIT(src, CULT_EYES))
-			if(isipc(src))
-				. += span_warning("<B>Their monitor hums quietly, with an underlying collection of blood-red pixels swirling faintly.</B>")
+		else if(HAS_TRAIT(src, CULT_EYES))
+			if(eye_color == BLOODCULT_EYE)
+				if(isipc(src))
+					. += span_warning("<B>Their monitor hums quietly, with an underlying collection of blood-red pixels swirling faintly.</B>")
+				else
+					. += span_warning("<B>[t_His] eyes are glowing an unnatural red!</B>")
 			else
-				. += span_warning("<B>[t_His] eyes are glowing an unnatural red!</B>")
+				if(isipc(src))
+					. += span_warning("<B>Their monitor hums quietly, with an underlying collection of strange-red pixels swirling faintly.</B>")
+				else
+					. += span_warning("<B>[t_His] eyes are glowing a strange red!</B>")
 	//ears
 	if(ears && !(ITEM_SLOT_EARS in obscured))
 		. += "[t_He] [t_has] [ears.get_examine_string(user)] on [t_his] ears."

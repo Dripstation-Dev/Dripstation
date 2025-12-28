@@ -1,3 +1,4 @@
+/* DRIPSTATION EDIT - MOVED TO MODULE
 /**
  * Creates a TGUI window with a text input. Returns the user's response.
  *
@@ -196,3 +197,5 @@
 
 /datum/tgui_input_text/async/wait()
 	return
+
+*/

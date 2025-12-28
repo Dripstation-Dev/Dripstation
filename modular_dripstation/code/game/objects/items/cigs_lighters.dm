@@ -45,6 +45,82 @@
 	icon_off = "cigar3off"
 	type_butt = /obj/item/cigbutt/cigarbutt/havana
 
+//////////////////////////////
+// MARK: HOLO-CIGAR
+//////////////////////////////
+/obj/item/clothing/mask/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A sleek electronic cigar imported straight from Terra. You feel badass merely glimpsing it..."
+	icon_state = "holocigaroff"
+	item_state = "holocigaroff"
+	icon = 'modular_dripstation/icons/obj/cigarettes.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/cigs.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/misc/lefthand_cigs_lighters.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/misc/righthand_cigs_lighters.dmi'
+	/// Is the holo-cigar lit?
+	var/enabled = FALSE
+	/// Tracks if this is the first cycle smoking the cigar.
+	var/has_smoked = FALSE
+
+/obj/item/clothing/mask/holo_cigar/attack_self(mob/user)
+	if(..())
+		return
+
+	if(enabled)
+		enabled = FALSE
+		to_chat(user, "<span class='notice'>You disable the holo-cigar.</span>")
+		STOP_PROCESSING(SSobj, src)
+	else
+		enabled = TRUE
+		to_chat(user, "<span class='notice'>You enable the holo-cigar.</span>")
+		START_PROCESSING(SSobj, src)
+
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/clothing/mask/holo_cigar/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/clothing/mask/holo_cigar/update_icon_state()
+	. = ..()
+	icon_state = "holocigar[enabled ? "on" : "off"]"
+	item_state = "holocigar[enabled ? "on" : "off"]"
+
+/obj/item/clothing/mask/holo_cigar/examine(mob/user)
+	. = ..()
+	if(enabled)
+		. += "[src] hums softly as it synthesizes nicotine."
+	else
+		. += "[src] seems to be inactive."
+
+/obj/item/clothing/mask/holo_cigar/process()
+	if(!iscarbon(loc))
+		return
+
+	var/mob/living/carbon/C = loc
+	if(C.wear_mask != src)
+		return
+
+	if(!has_smoked)
+		C.reagents.add_reagent(/datum/reagent/drug/nicotine, 1)
+		has_smoked = TRUE
+	else
+		C.reagents.add_reagent(/datum/reagent/drug/nicotine, 0.05)
+
+/obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
+	. = ..()
+	if(enabled && slot == ITEM_SLOT_MASK)
+		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
+			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+			to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")
+
+/obj/item/clothing/mask/holo_cigar/dropped(mob/user, silent)
+	. = ..()
+	has_smoked = FALSE
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
+		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
+		to_chat(user, "<span class='notice'>You feel less badass.</span>")
+
 /obj/item/storage/box/matches
 	icon = 'modular_dripstation/icons/obj/cigarettes.dmi'
 	item_state = "matchbox"
@@ -207,3 +283,13 @@
 	item_state = "zippo_gold"
 	base_state = "zippo_gold"
 	light_color = COLOR_ASSEMBLY_LBLUE
+
+/obj/item/lighter/terragov
+	icon_state = "zippo_sol"
+	item_state = "zippo_sol"
+	base_state = "zippo_sol"
+
+/obj/item/lighter/nt
+	icon_state = "zippo_nt"
+	item_state = "zippo_nt"
+	base_state = "zippo_nt"

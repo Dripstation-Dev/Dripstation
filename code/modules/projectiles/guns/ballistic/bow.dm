@@ -333,7 +333,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 10, "embedded_fall_chance" = 10, "embedded_ignore_throwspeed_threshold" = TRUE)
+	embedding = list("pain_multiplier" = 4, "embed_chance" = 10, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE)
 	force = 27 //Total of 54 damage = death in two clicks (probably) PLUS it doesn't care about anti-magic
 	throwforce = 45 //Can't return if it hits anti-magic
 	armour_penetration = 50 //Enchanted blade of fuck you
@@ -406,11 +406,8 @@
 	var/mob/living/carbon/carbon = loc
 	if(istype(carbon))
 		var/obj/item/bodypart/part = carbon.get_embedded_part(src)
-		if(part)
-			if(!carbon.remove_embedded_object(src, unsafe = TRUE))
-				to_chat(carbon, span_notice("You feel [src] tugging on you."))
-				return
-			to_chat(carbon, span_userdanger("[src] suddenly rips out of you!"))
+		part.receive_damage(brute=10, sharpness=SHARP_EDGED, wound_bonus = 10)
+		carbon.remove_embedded_object(src)
 
 	if(!user.put_in_hands(src))
 		return

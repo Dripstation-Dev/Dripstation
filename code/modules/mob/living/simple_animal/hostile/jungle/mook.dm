@@ -100,7 +100,7 @@
 			return
 		var/swing_turf = get_step(src,mob_direction)
 		new /obj/effect/temp_visual/kinetic_blast(swing_turf)
-		playsound(src, 'sound/weapons/slashmiss.ogg', 50, 1)
+		playsound(src, get_sfx(SFX_SLASHMISS), 50, 1)
 
 /mob/living/simple_animal/hostile/jungle/mook/proc/LeapAttack()
 	if(target && !stat && attack_state == MOOK_ATTACK_WARMUP)

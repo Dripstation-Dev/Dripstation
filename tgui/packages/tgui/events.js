@@ -139,10 +139,10 @@ document.addEventListener(
 // visited node.
 document.addEventListener(
   'blur',
-  (e) => {
+  () => {
     lastVisitedNode = null;
   },
-  true
+  true,
 );
 
 // Handle setting the window focus
@@ -150,14 +150,10 @@ window.addEventListener('focus', () => {
   setWindowFocus(true);
 });
 
-window.addEventListener('focusout', (e) => {
-  lastVisitedNode = null;
-  setWindowFocus(false, true);
-});
-
 // If we blur any element, the window may have unfocused if we didn't
 // click on the background
 window.addEventListener('blur', (e) => {
+  lastVisitedNode = null;
   setWindowFocus(false, true);
 });
 

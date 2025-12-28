@@ -187,7 +187,9 @@
 
 #define STATUS_EFFECT_HOLDUP /datum/status_effect/holdup // you are currently pointing a gun at someone
 
+/*
 #define STATUS_EFFECT_NOTSCARED /datum/status_effect/notscared // you have had a gun pointed at you and are not startled about this fact for a minute
+*/
 
 #define STATUS_EFFECT_TAGALONG /datum/status_effect/tagalong //allows darkspawn to accompany people's shadows //Yogs
 

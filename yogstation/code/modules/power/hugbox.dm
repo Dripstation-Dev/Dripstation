@@ -85,7 +85,7 @@
 			if(crunched.buckled)
 				crunched.visible_message(span_danger("You hear a loud crunch coming from [crunched]!"), span_colossus("CRUNCH"))
 				crunched.add_splatter_floor(location)
-				crunched.emote("scream")
+				crunched.flick_pain(100, TRUE)
 				crunched.adjustBruteLoss(5)
 				add_avail(power_per_hug*50)
 				shake_camera(crunched, 3, 1)

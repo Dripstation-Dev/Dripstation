@@ -6,14 +6,64 @@
 	gain_text = span_danger("Yeah, I`d use some skills.")
 	lose_text = span_notice("Okey, time to touch some grass.")
 	medical_record_text = "During physical examination, patient was found to have muscles strengthened by years of training."
+	var/datum/martial_art/trained/spesslife = new
 
 /datum/quirk/combattraining/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/datum/martial_art/trained/spesslife = new
 	spesslife.teach(H)
 
 /datum/quirk/combattraining/post_add()
+	. = ..()
 	to_chat(quirk_holder, span_boldannounce("Your muscles remembers some basics of unarmed combat."))
+	var/mob/living/carbon/C = quirk_holder
+	var/obj/item/paper/combattesting/combatpermit = new(C.loc)
+	combatpermit.update_text(C.real_name)
+	var/obj/item/storage/wallet/passport/P = C.get_item_by_slot(ITEM_SLOT_ID)
+	if(istype(P))
+		P.attackby(combatpermit, C)
+	else
+		var/list/slots = list("In your left pocket" = ITEM_SLOT_LPOCKET, "In your right pocket" = ITEM_SLOT_RPOCKET, "In your backpack" = ITEM_SLOT_BACKPACK)
+		C.equip_in_one_of_slots(combatpermit, slots, 0)
+
+/datum/quirk/combattraining/remove()
+	. = ..()
+	var/mob/living/carbon/human/H = quirk_holder
+	spesslife.remove(H)
+
+/obj/item/paper/combattesting
+	name = "Martial arts cetificate (Form NT-114S)"
+	desc = "Cetificate that confirms that somebody has trained to perform standart issue martial techniques."
+	var/mtype = "standart"
+
+/obj/item/paper/combattesting/cqc
+	name = "Martial arts cetificate (Form NT-114A)"
+	desc = "Cetificate that confirms that somebody has trained to perform advanced martial techniques."
+	mtype = "advanced"
+
+/obj/item/paper/combattesting/proc/update_text(signature)
+	written = list()
+	written += new/datum/langtext("<center><h3>Martial arts test cetificate NT-114S</h3></center><hr>",/datum/language/common)
+	written += new/datum/langtext("<b>Name: [signature]</b> ",/datum/language/common)
+	written += new/datum/langtext("<br><br>",/datum/language/common)
+	written += new/datum/langtext("<b>This cetificate confirms that emploee had extensive trainings in the past and can perform [mtype] martial techniques. </b> ",/datum/language/common)
+	written += new/datum/langtext("<br><br>",/datum/language/common)
+	written += new/datum/langtext("<b>Sign Here: </b>",/datum/language/common)
+	written += new/datum/langtext("<i>[signature]</i>",/datum/language/common)
+	written += new/datum/langtext("<br><hr>",/datum/language/common)
+	written += new/datum/langtext("<b>Reviewed By: Centcom</b>",/datum/language/common)
+	written += new/datum/langtext("<br>",/datum/language/common)
+	written += new/datum/langtext("<b>Stamp Below if Approved</b>",/datum/language/common)
+	update_appearance(UPDATE_ICON)
+	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	if (isnull(stamps))
+		stamps = sheet.css_tag()
+	stamps += sheet.icon_tag("stamp-cent")
+	var/mutable_appearance/stampoverlay = mutable_appearance('modular_dripstation/icons/obj/bureaucracy.dmi', "paper_stamp-cent")
+	stampoverlay.pixel_x = rand(-2, 2)
+	stampoverlay.pixel_y = rand(-3, 2)
+
+	LAZYADD(stamped, "stamp-cent")
+	add_overlay(stampoverlay)
 
 /datum/quirk/drunkhealing
 	value = 3
@@ -34,6 +84,44 @@
 			C.adjustFireLoss(-0.4, FALSE, FALSE, required_status = BODYPART_ORGANIC)
 */
 
+/datum/quirk/diver
+	name = "Diver"
+	desc = "You possess excellent skill of holding your breath."
+	icon = "anchor"
+	value = 4
+	mob_trait = TRAIT_DIVER
+	medical_record_text = "The patient has an ability to hold breath longer."
+
+/datum/quirk/thirdeye
+	name = "Surveillance Sense"
+	desc = "You has an ability to sense when people are staring at you. Even from behind. Sometimes it causes issues, when you sense something you should not..."
+	icon = "eye"
+	value = 4
+	mob_trait = TRAIT_THIRD_EYE
+	medical_record_text = "The patient has an unnatural sense of other beengs examining him."
+
+/datum/quirk/signer
+	name = "Signer"
+	desc = "You possess excellent communication skills in sign language."
+	icon = "hands"
+	value = 4
+	//quirk_flags = QUIRK_HUMAN_ONLY|QUIRK_CHANGES_APPEARANCE
+	medical_record_text = "Patient can communicate with sign language."
+	//mail_goodies = list(/obj/item/clothing/gloves/radio)
+
+/datum/quirk/signer/add(client/client_source)
+	quirk_holder.AddComponent(/datum/component/sign_language)
+
+//datum/quirk/item_quirk/signer/add_unique(client/client_source)
+	var/obj/item/clothing/gloves/gloves_type = /obj/item/clothing/gloves/radio
+	if(isplasmaman(quirk_holder))
+		gloves_type = /obj/item/clothing/gloves/color/plasmaman/radio
+	give_item_to_holder(gloves_type, list(LOCATION_GLOVES, LOCATION_HANDS))
+
+/datum/quirk/signer/remove()
+	. = ..()
+	qdel(quirk_holder.GetComponent(/datum/component/sign_language))
+
 /datum/quirk/psychopathic
 	name = "Psychopathic"
 	desc = "You often hear to yourself: Hey, secy, how many animals have you killed as a child?"
@@ -51,6 +139,7 @@
 		mood.mood_modifier -= 0.6
 
 /datum/quirk/psychopathic/remove()
+	. = ..()
 	if(quirk_holder)
 		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 		if(mood)
@@ -71,6 +160,7 @@
 	var/obj/item/organ/appendix/old_appendix
 
 /datum/quirk/no_appendix/post_add()
+	. = ..()
 	var/mob/living/carbon/carbon_quirk_holder = quirk_holder
 	old_appendix = carbon_quirk_holder.getorganslot(ORGAN_SLOT_APPENDIX)
 
@@ -83,6 +173,7 @@
 	STOP_PROCESSING(SSobj, old_appendix)
 
 /datum/quirk/no_appendix/remove()
+	. = ..()
 	var/mob/living/carbon/carbon_quirk_holder = quirk_holder
 
 	if(isnull(old_appendix))
@@ -106,9 +197,111 @@
 	mob_trait = TRAIT_MEDIC
 	gain_text = span_danger("You getting ready to show your absolute medical skill.")
 	lose_text = span_notice("Okey, time to touch some grass.")
-	medical_record_text = "The patient has a skill to perform sugeries without failurs."
+	medical_record_text = "The patient has a skill to perform surgeries without failurs."
+
+/obj/item/paper/license
+	name = "Surgeon license"
+	desc = "Nice medical license, what would you do with it?"
+
+/obj/item/paper/license/proc/update_text(signature)
+	info = "<center><B>Medical license</B></center><BR><BR><BR> This medical license confirms that user is licensed medical worker and admitted to perform surgery operations.<BR><BR><BR>Issued for "
+	info += "<i>[signature]</i>"
+	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	if (isnull(stamps))
+		stamps = sheet.css_tag()
+	stamps += sheet.icon_tag("stamp-cent")
+
+/datum/quirk/surgeon/post_add()
+	. = ..()
+	var/mob/living/carbon/C = quirk_holder
+	var/obj/item/paper/license/med_license = new
+	med_license.update_text(C.real_name)
+	var/obj/item/storage/wallet/passport/P = C.get_item_by_slot(ITEM_SLOT_ID)
+	if(istype(P))
+		P.attackby(med_license, C)
+	else
+		var/list/slots = list("In your left pocket" = ITEM_SLOT_LPOCKET, "In your right pocket" = ITEM_SLOT_RPOCKET, "In your backpack" = ITEM_SLOT_BACKPACK)
+		C.equip_in_one_of_slots(med_license, slots, 0)
 
 
+
+/datum/quirk/glock
+	name = "Weapon Carry Permit"
+	desc = "Your past allowed you to have Terragov and Nanotrasen license to carry and own a specific gun. Glock 17 one."
+	icon = "gun"
+	value = 6
+	gain_text = span_danger("I have a gun and gun permit.")
+	lose_text = span_notice("I has no gun permit. Wow, that`s unfortunate, if you still have a gun.")
+	medical_record_text = "The patient has a skill issue to carry gun."
+
+/obj/item/paper/carry_permit_glock
+	name = "Weapon carry permit (Form NT-073D)"
+	desc = "Weapon carry permit, containing confirmation that emploee can carry guns."
+
+/obj/item/paper/carry_permit_glock/proc/update_text(signature)
+	written = list()
+	written += new/datum/langtext("<center><h3>Weapon carry permit NT-073D</h3></center><hr>",/datum/language/common)
+	written += new/datum/langtext("<b>Name: [signature]</b> ",/datum/language/common)
+	written += new/datum/langtext("<br><br>",/datum/language/common)
+	written += new/datum/langtext("<b>Glock 17 carry and owning confirmation permit. </b> ",/datum/language/common)
+	written += new/datum/langtext("<br><br>",/datum/language/common)
+	written += new/datum/langtext("<b>Sign Here: </b>",/datum/language/common)
+	written += new/datum/langtext("<i>[signature]</i>",/datum/language/common)
+	written += new/datum/langtext("<br><hr>",/datum/language/common)
+	written += new/datum/langtext("<b>Reviewed By: Centcom</b>",/datum/language/common)
+	written += new/datum/langtext("<br>",/datum/language/common)
+	written += new/datum/langtext("<b>Stamp Below if Approved</b>",/datum/language/common)
+	update_appearance(UPDATE_ICON)
+	var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/simple/paper)
+	if (isnull(stamps))
+		stamps = sheet.css_tag()
+	stamps += sheet.icon_tag("stamp-cent")
+	var/mutable_appearance/stampoverlay = mutable_appearance('modular_dripstation/icons/obj/bureaucracy.dmi', "paper_stamp-cent")
+	stampoverlay.pixel_x = rand(-2, 2)
+	stampoverlay.pixel_y = rand(-3, 2)
+
+	LAZYADD(stamped, "stamp-cent")
+	add_overlay(stampoverlay)
+
+/datum/quirk/glock/post_add()
+	. = ..()
+	var/mob/living/carbon/C = quirk_holder
+	var/obj/item/paper/carry_permit_glock/glockpermit = new
+	var/obj/item/storage/pouch/pistol/glock17/quirk/gun = new(C.loc)
+	var/obj/item/ammo_box/magazine/pistolm9mm/ammo = new(C.loc)
+	var/list/slots = list("In your left pocket" = ITEM_SLOT_LPOCKET, "In your right pocket" = ITEM_SLOT_RPOCKET, "In your backpack" = ITEM_SLOT_BACKPACK)
+	glockpermit.update_text(C.real_name)
+	var/obj/item/storage/wallet/passport/P = C.get_item_by_slot(ITEM_SLOT_ID)
+	if(istype(P))
+		P.attackby(glockpermit, C)
+	else
+		C.equip_in_one_of_slots(glockpermit, slots, 0)
+	C.equip_in_one_of_slots(gun, slots, 0)
+	C.equip_in_one_of_slots(ammo, slots, 0)
+	var/obj/item/W = C.get_item_by_slot(ITEM_SLOT_ID)
+	var/obj/item/card/id/I = W?.GetID()
+	I.access += ACCESS_WEAPONS
+
+/datum/quirk/multilingual/english
+	name = "Multilingual (Terran)"
+	desc = "You spent a portion of your life learning to understand Terran. You may or may not be able to speak it based on your anatomy."
+	specific = /datum/language/english
+	gain_text = span_notice("You have learned to understand Terran.")
+	lose_text = span_notice("You have forgotten how to understand Terran.")
+
+/datum/quirk/multilingual/draconic
+	name = "Multilingual (Sinta'unathi)"
+	desc = "You spent a portion of your life learning to understand Sinta'unathi. You may or may not be able to speak it based on your anatomy."
+	specific = /datum/language/draconic
+	gain_text = span_notice("You have learned to understand Sinta'unathi.")	
+	lose_text = span_notice("You have forgotten how to understand Sinta'unathi.")
+
+/datum/quirk/multilingual/slavic
+	name = "Multilingual (Slavic)"
+	desc = "You spent a portion of your life learning to understand Slavic. You may or may not be able to speak it based on your anatomy."
+	specific = /datum/language/slavic
+	gain_text = span_notice("You have learned to understand Slavic.")
+	lose_text = span_notice("You have forgotten how to understand Slavic.")
 
 
 //////////SPACER//////////
@@ -123,7 +316,7 @@
 	gain_text = span_notice("You feel at home in space.")
 	lose_text = span_danger("You feel homesick.")
 	icon = "user-astronaut"
-	value = 6
+	value = 4
 	/// How long on a planet before we get averse effects
 	var/planet_period = 3 MINUTES
 	/// TimerID for time spend on a planet
@@ -149,6 +342,7 @@
 	check_z(quirk_holder, skip_timers = TRUE)
 
 /datum/quirk/spacer_born/post_add()
+	. = ..()
 	// drift slightly faster through zero G
 	quirk_holder.inertia_move_delay *= 0.8
 	var/mob/living/carbon/human/human_quirker = quirk_holder
@@ -171,6 +365,7 @@
 		to_chat(quirk_holder, span_info("You have been given some anti-emetic patches to assist in adjusting to planetary gravity."))
 
 /datum/quirk/spacer_born/remove()
+	. = ..()
 	UnregisterSignal(quirk_holder, COMSIG_MOVABLE_Z_CHANGED)
 
 	if(QDELING(quirk_holder))

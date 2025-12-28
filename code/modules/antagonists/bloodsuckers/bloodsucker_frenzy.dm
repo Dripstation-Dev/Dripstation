@@ -10,8 +10,10 @@
 
 /datum/martial_art/frenzygrab/grab_act(mob/living/user, mob/living/target)
 	if(user != target)
-		target.grabbedby(user)
+		target.grabbedby(user, instant = TRUE)
 		target.grippedby(user, instant = TRUE)
+		target.Immobilize(1 SECONDS)
+		user.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.2 Seconds instead of 1, less frustrating
 		return TRUE
 	return ..()
 
@@ -21,6 +23,11 @@
  * This is the status effect given to Bloodsuckers in a Frenzy
  * This deals with everything entering/exiting Frenzy is meant to deal with.
  */
+
+/atom/movable/screen/fullscreen/bloodlust
+	icon_state = "bloodlust"
+	icon = 'modular_dripstation/icons/mob/fullscreen.dmi'
+	layer = FULLSCREEN_LAYER + 0.11
 
 /datum/status_effect/frenzy
 	id = "Frenzy"
@@ -65,7 +72,8 @@
 		ADD_TRAIT(owner, TRAIT_MONKEYLIKE, SPECIES_TRAIT)
 	owner.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.4, blacklisted_movetypes=(FLYING|FLOATING))
 	bloodsuckerdatum.frenzygrab.teach(user, TRUE)
-	owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
+	//owner.add_client_colour(/datum/client_colour/cursed_heart_blood)
+	owner.overlay_fullscreen("bloodlust", /atom/movable/screen/fullscreen/bloodlust)
 	var/obj/item/cuffs = user.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 	var/obj/item/legcuffs = user.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 	if(user.handcuffed || user.legcuffed)
@@ -85,7 +93,8 @@
 		was_tooluser = FALSE
 	owner.remove_movespeed_modifier(type)
 	bloodsuckerdatum.frenzygrab.remove(user)
-	owner.remove_client_colour(/datum/client_colour/cursed_heart_blood)
+	//owner.remove_client_colour(/datum/client_colour/cursed_heart_blood)
+	owner.clear_fullscreen("bloodlust")
 	owner.adjust_dizzy(3 SECONDS)
 	owner.Paralyze(2 SECONDS)
 	user.physiology.stamina_mod /= 0.4

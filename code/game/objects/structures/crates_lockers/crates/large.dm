@@ -23,7 +23,7 @@
 		user.visible_message("[user] pries \the [src] open.", \
 							 span_notice("You pry open \the [src]."), \
 							 span_italics("You hear splitting wood."))
-		playsound(src.loc, 'sound/weapons/slashmiss.ogg', 75, 1)
+		playsound(src.loc, get_sfx(SFX_SLASHMISS), 75, 1)
 
 		var/turf/T = get_turf(src)
 		for(var/i in 1 to material_drop_amount)

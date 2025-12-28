@@ -12,7 +12,7 @@
 	attack_verbs = list("slash", "lash")
 	attack_effect = ATTACK_EFFECT_CLAW
 	attack_sound = 'sound/weapons/slice.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
+	miss_sound = SFX_SLASHMISS
 	burnmod = 2
 	heatmod = 1.5
 	coldmod = 1.5

@@ -62,7 +62,7 @@
 
 /obj/mecha/attack_alien(mob/living/user)
 	log_message("Attack by alien. Attacker - [user].", LOG_MECHA, color="red")
-	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	playsound(src.loc, SFX_CLAWS, 100, 1)
 	attack_generic(user, 15, BRUTE, MELEE, 0)
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
@@ -108,7 +108,13 @@
 
 
 /obj/mecha/bullet_act(obj/projectile/Proj) //wrapper
+	/*Dripstation edit
 	if ((!enclosed || istype(Proj, /obj/projectile/bullet/shotgun/slug/uranium))&& occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST)) //allows bullets to hit the pilot of open-canopy mechs
+	*/
+	if ((!enclosed || ((Proj.armour_penetration >= getArmor(Proj.armor_flag) && Proj.penetrations > 0))) && occupant && !silicon_pilot && !Proj.force_hit && (Proj.def_zone == BODY_ZONE_HEAD || Proj.def_zone == BODY_ZONE_CHEST || Proj.def_zone == BODY_ZONE_PRECISE_GROIN)) //allows bullets to hit the pilot of mecha, dripstation edit
+		if(enclosed)	//dripstation edit
+			Proj.armour_penetration -= getArmor(Proj.armor_flag)	//modifies bullet penetration, dripstation edit
+			Proj.penetrations -= 1
 		occupant.bullet_act(Proj) //If the sides are open, the occupant can be hit
 		return BULLET_ACT_HIT
 	if(istype(Proj, /obj/projectile/ion))
@@ -211,6 +217,11 @@
 	if(istype(W, /obj/item/mecha_ammo))
 		ammo_resupply(W, user)
 		return
+	
+	if(istype(W, /obj/item/crowbar/mechremoval))
+		var/obj/item/crowbar/mechremoval/remover = W
+		remover.empty_mech(src, user)
+		return	
 	
 	if(istype(W, /obj/item/stack) || istype(W, /obj/item/rcd_ammo) || istype(W, /obj/item/rcd_upgrade))
 		if(matter_resupply(W, user))

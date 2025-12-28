@@ -643,8 +643,8 @@
 /*Dripstation edit start
 				R.reaction_turf(A, R.volume * volume_modifier, show_message)
 */
-				if(R.reagent_state != SOLID)
-					R.reaction_turf(A, R.volume * volume_modifier, show_message)
+				//if(R.reagent_state != SOLID)
+				R.reaction_turf(A, R.volume * volume_modifier, show_message)
 				if(world.time >= next_react)
 					R.handle_state_change(A, R.volume * special_modifier, cached_my_atom)
 					if(methods & VAPOR)
@@ -654,8 +654,8 @@
 /* Dripstation edit start
 				R.reaction_obj(A, R.volume * volume_modifier, show_message)
 */
-				if(R.reagent_state != SOLID)
-					R.reaction_obj(A, R.volume * volume_modifier, show_message)
+				//if(R.reagent_state != SOLID)
+				R.reaction_obj(A, R.volume * volume_modifier, show_message)
 				if(world.time >= next_react)
 					R.handle_state_change(get_turf(A), R.volume * special_modifier, cached_my_atom)
 					if(methods & VAPOR)

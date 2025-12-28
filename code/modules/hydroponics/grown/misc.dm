@@ -174,7 +174,7 @@
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/attack_self(mob/living/user)
 	user.visible_message(span_warning("[user] plucks the stem from [src]!"), span_userdanger("You pluck the stem from [src], which begins to hiss loudly!"))
 	log_bomber(user, "primed a", src, "for detonation")
-	preprime()
+	preprime(user)
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/deconstruct(disassembled = TRUE)
 	if(!disassembled)
@@ -185,12 +185,14 @@
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs
 
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/preprime()
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/preprime(user)
 	icon_state = "cherry_bomb_lit"
 	playsound(src, 'sound/effects/fuse.ogg', seed.potency, 0)
-	addtimer(CALLBACK(src, PROC_REF(prime)), 5 SECONDS)
+	SEND_SIGNAL(src, COMSIG_GRENADE_ARMED, 5 SECONDS, FALSE)
+	addtimer(CALLBACK(src, PROC_REF(prime), user), 5 SECONDS)
 
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/prime()
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/prime(mob/lanced_by)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	reagents.chem_temp = 1000 //Boom goes the blackpowder (Thanks chem nerfs)
 	reagents.handle_reactions()
 

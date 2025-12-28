@@ -62,7 +62,10 @@
 				else
 					continue
 			if (boolets > 0)
+				/* dripstation edit
 				box.update_appearance(UPDATE_ICON)
+				*/
+				box.update_appearance(UPDATE_ICON|UPDATE_DESC) //dripstation edit
 				to_chat(user, span_notice("You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s."))
 			else
 				to_chat(user, span_warning("You fail to collect anything!"))

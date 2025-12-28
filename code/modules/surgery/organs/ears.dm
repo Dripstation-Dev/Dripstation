@@ -32,7 +32,7 @@
 		return
 	..()
 	var/mob/living/carbon/C = owner
-	if((damage < maxHealth) && (organ_flags & ORGAN_FAILING))	//ear damage can be repaired from the failing condition
+	if((damage < getMaxHealth()) && (organ_flags & ORGAN_FAILING))	//ear damage can be repaired from the failing condition
 		organ_flags &= ~ORGAN_FAILING
 	// genetic deafness prevents the body from using the ears, even if healthy
 	if(HAS_TRAIT(C, TRAIT_DEAF))
@@ -122,6 +122,16 @@
 	organ_flags = ORGAN_SYNTHETIC
 	compatible_biotypes = ALL_BIOTYPES
 
+/obj/item/organ/ears/cybernetic/emp_act(severity)
+	. = ..()
+	owner.adjust_jitter(3 * severity)
+	owner.adjust_dizzy(3 * severity)
+	if(severity > EMP_LIGHT)
+		deaf = 3 * severity
+		to_chat(owner, span_warning("Your robotic ears are uselessly ringing."))
+		return
+	to_chat(owner, span_warning("Your robotic ears buzz."))  
+
 /obj/item/organ/ears/penguin
 	name = "penguin ears"
 	desc = "The source of a penguin's happy feet."
@@ -157,6 +167,8 @@
 	compatible_biotypes = MOB_ROBOTIC // for IPCs
 
 /obj/item/organ/ears/robot/emp_act(severity)
+	if(. & EMP_PROTECT_SELF)
+		return
 	owner.adjust_jitter(3 * severity)
 	owner.adjust_dizzy(3 * severity)
 	owner.Knockdown(severity SECONDS)

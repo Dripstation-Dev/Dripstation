@@ -73,7 +73,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/projectile/neurotox
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_STAB
 
 
 /mob/living/simple_animal/hostile/alien/queen
@@ -92,7 +92,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 4,
 							/obj/item/stack/sheet/animalhide/xeno = 1)
 	projectiletype = /obj/projectile/neurotox
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_STAB
 	status_flags = 0
 	unique_name = 0
 	var/sterile = 1
@@ -171,6 +171,7 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
+	icon = 'modular_dripstation/icons/mob/alienmaid.dmi'
 
 /mob/living/simple_animal/hostile/alien/maid/Initialize(mapload)
 	. = ..()

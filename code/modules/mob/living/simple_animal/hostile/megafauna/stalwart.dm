@@ -302,7 +302,7 @@
 	melee_damage_upper = 10
 	mob_biotypes = MOB_INORGANIC|MOB_ROBOTIC
 	attack_vis_effect = ATTACK_EFFECT_SLASH
-	attack_sound = 'sound/weapons/pierce_slow.ogg'
+	attack_sound = SFX_STAB
 	speak_emote = list("buzzes")
 	faction = list("mining")
 	weather_immunities = WEATHER_STORM

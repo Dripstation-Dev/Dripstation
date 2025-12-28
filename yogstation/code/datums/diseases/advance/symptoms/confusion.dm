@@ -42,7 +42,7 @@
 	else
 		ADD_TRAIT(M, TRAIT_SURGERY_PREPARED, DISEASE_TRAIT)
 		M.AdjustStun(stun_reduce, 0)
-		M.set_screwyhud(SCREWYHUD_HEALTHY)
+		//M.set_screwyhud(SCREWYHUD_NUMB)	//we get our numb from pain proc itself
 		if(stamina_regen)
 			M.adjustStaminaLoss(-2, 0)
 		M.updatehealth()
@@ -56,6 +56,6 @@
 		return
 	else
 		REMOVE_TRAIT(M, TRAIT_SURGERY_PREPARED, DISEASE_TRAIT)
-		M.set_screwyhud(SCREWYHUD_NONE)
+		//M.set_screwyhud(SCREWYHUD_NONE)
 		M.updatehealth()
 	return

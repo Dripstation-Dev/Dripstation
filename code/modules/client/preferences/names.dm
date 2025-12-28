@@ -147,6 +147,7 @@
 /datum/preference/name/cyborg/create_default_value()
 	return DEFAULT_CYBORG_NAME
 
+/*	//dripstation edit
 /datum/preference/name/synthetic
 	savefile_key = "synthetic_name"
 
@@ -157,3 +158,4 @@
 
 /datum/preference/name/synthetic/create_default_value()
 	return pick(GLOB.synthetic_names)
+*/

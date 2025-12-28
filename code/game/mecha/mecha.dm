@@ -937,9 +937,10 @@
 	return
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
-	if (!user.canUseTopic(src) || (user != M))
-		return
 	if(!ishuman(user)) // no silicons or drones in mechas.
+		return
+	var/mob/living/carbon/human/H = user
+	if (!user.Adjacent(src) || !(H.mobility_flags & (MOBILITY_USE | MOBILITY_MOVE)) || (user != M))
 		return
 	log_message("[user] tries to move in.", LOG_MECHA)
 	if (occupant)
@@ -970,6 +971,9 @@
 		return
 
 	visible_message("[user] starts to climb into [name].")
+
+	if(!(H.mobility_flags & MOBILITY_STAND))
+		enter_delay *= 3
 
 	if(do_after(user, enter_delay, src))
 		if(atom_integrity <= 0)

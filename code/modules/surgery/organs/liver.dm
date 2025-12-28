@@ -6,7 +6,7 @@
 	icon_state = "liver"
 	visual = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	zone = BODY_ZONE_CHEST
+	zone = BODY_ZONE_PRECISE_GROIN
 	slot = ORGAN_SLOT_LIVER
 	desc = "Pairing suggestion: chianti and fava beans."
 	maxHealth = STANDARD_ORGAN_THRESHOLD
@@ -51,11 +51,15 @@
 			if(HAS_TRAIT(C, TRAIT_STABLELIVER))
 				return
 			C.adjustToxLoss(4, TRUE,  TRUE)
+			/* you don`t feel it when liver fails
 			if(prob(30))
 				to_chat(C, span_warning("You feel a stabbing pain in your abdomen!"))
+			*/
 
+	/* the f we need this again?
 	if(damage > maxHealth)//cap liver damage
 		damage = maxHealth
+	*/
 
 #undef HAS_SILENT_TOXIN
 #undef HAS_NO_TOXIN
@@ -92,6 +96,7 @@
 	icon_state = "liver-c"
 	desc = "An electronic device designed to mimic the functions of a human liver. Handles toxins slightly better than an organic liver."
 	organ_flags = ORGAN_SYNTHETIC
+	compatible_biotypes = MOB_ORGANIC|MOB_PSEVDOORGANIC|MOB_INORGANIC|MOB_UNDEAD	//dripstation edit
 	alcohol_tolerance = 0.001
 	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
 	toxTolerance = 3.3
@@ -117,7 +122,8 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	applyOrganDamage(5 * severity)
+	to_chat(owner, "<span class='warning'>Alert: Your [name] has been damaged. An internal chemical leak is affecting performance.</span>")
+	owner.adjustToxLoss(severity)
 
 /obj/item/organ/liver/cybernetic/upgraded/ipc
 	name = "substance processor"
@@ -128,10 +134,12 @@
 	toxTolerance = -1
 	toxLethality = 0
 	status = ORGAN_ROBOTIC
-	compatible_biotypes = ALL_BIOTYPES
+	compatible_biotypes = MOB_ROBOTIC	//IPC-type
 
 /obj/item/organ/liver/cybernetic/upgraded/ipc/emp_act(severity)
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(prob(10))
 		return
 	to_chat(owner, "<span class='warning'>Alert: Your Substance Processor has been damaged. An internal chemical leak is affecting performance.</span>")
-	owner.adjustToxLoss(severity)
+	applyOrganDamage(5 * severity)

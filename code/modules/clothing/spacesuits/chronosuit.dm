@@ -76,7 +76,7 @@
 	if(severity > EMP_LIGHT && activated && user && ishuman(user) && (user.wear_suit == src))
 		to_chat(user, span_danger("E:FATAL:RAM_READ_FAIL\nE:FATAL:STACK_EMPTY\nE:FATAL:READ_NULL_POINT\nE:FATAL:PWR_BUS_OVERLOAD"))
 		to_chat(user, span_userdanger("An electromagnetic pulse disrupts your [name] and violently tears you out of time-bluespace!"))
-		user.emote("scream")
+		user.flick_pain(100, TRUE)
 		deactivate(1, 1)
 
 /obj/item/clothing/suit/space/chronos/proc/finish_chronowalk(mob/living/carbon/human/user, turf/to_turf)

@@ -65,5 +65,5 @@
 	emote_hear = list("snaps.","hisses.", "sneezes.")
 	emote_see = list("waits apprehensively.", "shuffles.")
 	attacktext = "whipped"
-	attack_sound = 'sound/weapons/slap.ogg'
+	attack_sound = 'modular_dripstation/sound/effects/slap.ogg'
 	attack_vis_effect = ATTACK_EFFECT_KICK

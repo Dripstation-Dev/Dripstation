@@ -1,0 +1,28 @@
+{
+	"umbrella_on": [
+		{
+			"type": "icon_state",
+			"icon_state": "umbrella_handle_active",
+			"blend_mode": "overlay"
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "umbrella_active",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		}
+	],
+	"umbrella": [
+		{
+			"type": "icon_state",
+			"icon_state": "umbrella_handle",
+			"blend_mode": "overlay"
+		},
+		{
+			"type": "icon_state",
+			"icon_state": "umbrella",
+			"blend_mode": "overlay",
+			"color_ids": [ 1 ]
+		}
+	]
+}

@@ -12,6 +12,7 @@
 	sound_effect = 'sound/effects/wounds/crack1.ogg'
 	wound_type = WOUND_BLUNT
 	wound_flags = (BONE_WOUND | ACCEPTS_GAUZE)
+	viable_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 	/// Have we been taped?
 	var/taped
@@ -31,6 +32,8 @@
 	var/trauma_cycle_cooldown
 	/// If this is a chest wound and this is set, we have this chance to cough up blood when hit in the chest
 	var/internal_bleeding_chance = 0
+	/// How much bleeding we can recieve in one cough
+	var/internal_bleeding_processed = 0
 
 /*
 	Overwriting of base procs
@@ -43,6 +46,9 @@
 		processes = TRUE
 		active_trauma = victim.gain_trauma_type(brain_trauma_group, TRAUMA_RESILIENCE_WOUND)
 		next_trauma_cycle = world.time + (rand(100-WOUND_BONE_HEAD_TIME_VARIANCE, 100+WOUND_BONE_HEAD_TIME_VARIANCE) * 0.01 * trauma_cycle_cooldown)
+
+	if((limb.body_zone == BODY_ZONE_CHEST || limb.body_zone == BODY_ZONE_PRECISE_GROIN) && victim.blood_volume)
+		processes = TRUE
 
 	RegisterSignal(victim, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(attack_with_hurt_hand))
 	if(limb.held_index && victim.get_item_for_held_index(limb.held_index) && (disabling || prob(30 * severity)))
@@ -73,29 +79,63 @@
 			active_trauma = victim.gain_trauma_type(brain_trauma_group, TRAUMA_RESILIENCE_WOUND)
 		next_trauma_cycle = world.time + (rand(100-WOUND_BONE_HEAD_TIME_VARIANCE, 100+WOUND_BONE_HEAD_TIME_VARIANCE) * 0.01 * trauma_cycle_cooldown)
 
-	if(!gelled)
-		return
+	if((limb.body_zone == BODY_ZONE_CHEST || limb.body_zone == BODY_ZONE_PRECISE_GROIN) && internal_bleeding_processed && victim.blood_volume)
+		addtimer(CALLBACK(src, PROC_REF(handle_internal_bleed)), 5 SECONDS, TIMER_UNIQUE)
 
-	regen_ticks_current++
-	if(LAZYLEN(victim.mind?.antag_datums)) //not like anyone will be counting, right?
+	if(gelled)
 		regen_ticks_current++
-	if(!(victim.mobility_flags & MOBILITY_STAND))
-		if(prob(50))
-			regen_ticks_current += 0.5
-		if(victim.IsSleeping() && prob(50))
-			regen_ticks_current += 0.5
+		if(LAZYLEN(victim.mind?.antag_datums)) //not like anyone will be counting, right?
+			regen_ticks_current++
+		if(!(victim.mobility_flags & MOBILITY_STAND))
+			if(prob(50))
+				regen_ticks_current += 0.5
+			if(victim.IsSleeping() && prob(50))
+				regen_ticks_current += 0.5
 
-	if(prob(severity * 3))
-		victim.take_bodypart_damage(rand(1, severity * 2), stamina=rand(2, severity * 2.5), wound_bonus=CANT_WOUND)
-		if(prob(33))
-			to_chat(victim, span_danger("You feel a sharp pain in your body as your bones are reforming!"))
+		if(prob(severity * 3))
+			victim.take_bodypart_damage(rand(1, severity * 2), stamina=rand(2, severity * 2.5), wound_bonus=CANT_WOUND)
+			if(prob(33))
+				to_chat(victim, span_danger("You feel a sharp pain in your body as your bones are reforming!"))
 
-	if(regen_ticks_current > regen_ticks_needed)
-		if(!victim || !limb)
-			qdel(src)
-			return
-		to_chat(victim, span_green("Your [limb.name] has recovered from your fracture!"))
-		remove_wound()
+		if(regen_ticks_current > regen_ticks_needed)
+			if(!victim || !limb)
+				qdel(src)
+				return
+			to_chat(victim, span_green("Your [limb.name] has recovered from your fracture!"))
+			remove_wound()
+
+/datum/wound/blunt/proc/handle_internal_bleed()
+	if(!prob(internal_bleeding_chance))
+		return
+	if(victim.stat == DEAD)
+		return
+	var/blood_bled = rand(1, internal_bleeding_processed)
+	if(limb.body_zone == BODY_ZONE_CHEST)
+		switch(blood_bled)
+			if(1 to 6)
+				victim.bleed(blood_bled, TRUE)
+			if(7 to 13)
+				victim.visible_message(span_smalldanger("[victim] coughs up a bit of blood from the internal damage of [limb.name] [victim.p_they()] recieved."), span_danger("You cough up a bit of blood from the internal damage of [limb.name] you recieved."), vision_distance=COMBAT_MESSAGE_RANGE)
+				victim.emote("cough")
+				victim.bleed(blood_bled, TRUE)
+			if(14 to 19)
+				victim.visible_message(span_smalldanger("[victim] spits out a string of blood from the internal damage of [limb.name] [victim.p_they()] recieved!"), span_danger("You spit out a string of blood from the internal damage of [limb.name] you recieved!"), vision_distance=COMBAT_MESSAGE_RANGE)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(victim.loc, victim.dir)
+				victim.emote("cough")
+				victim.bleed(blood_bled)
+			if(20 to INFINITY)
+				victim.visible_message(span_danger("[victim] chokes up a spray of blood from the internal damage of [limb.name] [victim.p_they()] recieved!"), span_danger("<b>You choke up on a spray of blood from the internal damage of [limb.name] you recieved!</b>"), vision_distance=COMBAT_MESSAGE_RANGE)
+				victim.emote("cough")
+				victim.bleed(blood_bled)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(victim.loc, victim.dir)
+				victim.add_splatter_floor(get_step(victim.loc, victim.dir))
+	if(limb.body_zone == BODY_ZONE_PRECISE_GROIN)
+		switch(blood_bled)
+			if(1 to 15)
+				victim.bleed(blood_bled, FALSE)
+			if(16 to INFINITY)
+				victim.emote("faint")
+				victim.bleed(blood_bled, FALSE)
 
 /// If we're a human who's punching something with a broken arm, we might hurt ourselves doing so
 /datum/wound/blunt/proc/attack_with_hurt_hand(mob/M, atom/target, proximity)
@@ -111,7 +151,7 @@
 		else
 			victim.visible_message(span_danger("[victim] weakly strikes [target] with [victim.p_their()] broken [limb.name], recoiling from pain!"), \
 			span_userdanger("You fail to strike [target] as the fracture in your [limb.name] lights up in unbearable pain!"), vision_distance=COMBAT_MESSAGE_RANGE)
-			victim.emote("scream")
+			victim.flick_pain(100, TRUE)
 			victim.Stun(0.5 SECONDS)
 			limb.receive_damage(brute=rand(3,7))
 			return COMPONENT_NO_ATTACK_HAND
@@ -124,7 +164,7 @@
 		if(NOBLOOD in human_victim.dna?.species.species_traits)
 			return
 
-	if(victim.stat != DEAD && limb.body_zone == BODY_ZONE_CHEST && victim.blood_volume && prob(internal_bleeding_chance + wounding_dmg))
+	if(victim.stat != DEAD && (limb.body_zone == BODY_ZONE_CHEST || limb.body_zone == BODY_ZONE_PRECISE_GROIN) && victim.blood_volume && prob(internal_bleeding_chance + wounding_dmg))
 		var/blood_bled = rand(1, wounding_dmg * (severity == WOUND_SEVERITY_CRITICAL ? 2 : 1.5)) // 12 brute toolbox can cause up to 18/24 bleeding with a severe/critical chest wound
 		switch(blood_bled)
 			if(1 to 6)
@@ -223,7 +263,7 @@
 
 	if(user.grab_state == GRAB_PASSIVE)
 		to_chat(user, span_warning("You must have [victim] in an aggressive grab to manipulate [victim.p_their()] [lowertext(name)]!"))
-		return TRUE
+		return FALSE	//so we don`t try to fix this while in active martial combat, you know?
 
 	if(user.grab_state >= GRAB_AGGRESSIVE)
 		user.visible_message(span_danger("[user] begins twisting and straining [victim]'s dislocated [limb.name]!"), span_notice("You begin twisting and straining [victim]'s dislocated [limb.name]..."), ignored_mobs=victim)
@@ -245,7 +285,7 @@
 	if(prob(65))
 		user.visible_message(span_danger("[user] snaps [victim]'s dislocated [limb.name] back into place!"), span_notice("You snap [victim]'s dislocated [limb.name] back into place!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] snaps your dislocated [limb.name] back into place!"))
-		victim.emote("scream")
+		victim.flick_pain(100, TRUE)
 		playsound(victim, 'sound/surgery/bone3.ogg', 25)
 		limb.receive_damage(brute = 20, wound_bonus = CANT_WOUND)
 		qdel(src)
@@ -266,7 +306,7 @@
 	if(prob(65))
 		user.visible_message(span_danger("[user] snaps [victim]'s dislocated [limb.name] with a sickening crack!"), span_danger("You snap [victim]'s dislocated [limb.name] with a sickening crack!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] snaps your dislocated [limb.name] with a sickening crack!"))
-		victim.emote("scream")
+		victim.flick_pain(100, TRUE)
 		limb.receive_damage(brute = 25, wound_bonus = 30)
 	else
 		user.visible_message(span_danger("[user] wrenches [victim]'s dislocated [limb.name] around painfully!"), span_danger("You wrench [victim]'s dislocated [limb.name] around painfully!"), ignored_mobs=victim)
@@ -295,7 +335,7 @@
 		user.visible_message(span_danger("[user] finishes resetting [victim]'s [limb.name]!"), span_nicegreen("You finish resetting [victim]'s [limb.name]!"), victim)
 		to_chat(victim, span_userdanger("[user] resets your [limb.name]!"))
 
-	victim.emote("scream")
+	victim.flick_pain(100, TRUE)
 	qdel(src)
 
 /*
@@ -320,6 +360,7 @@
 	brain_trauma_group = BRAIN_TRAUMA_MILD
 	trauma_cycle_cooldown = 1.5 MINUTES
 	internal_bleeding_chance = 40
+	internal_bleeding_processed = 15
 	wound_flags = (BONE_WOUND | ACCEPTS_GAUZE | MANGLES_BONE)
 	regen_ticks_needed = 120 // ticks every 2 seconds, 240 seconds, so roughly 4 minutes default
 
@@ -344,6 +385,7 @@
 	brain_trauma_group = BRAIN_TRAUMA_SEVERE
 	trauma_cycle_cooldown = 2.5 MINUTES
 	internal_bleeding_chance = 60
+	internal_bleeding_processed = 20
 	wound_flags = (BONE_WOUND | ACCEPTS_GAUZE | MANGLES_BONE)
 	regen_ticks_needed = 240 // ticks every 2 seconds, 480 seconds, so roughly 8 minutes default
 
@@ -366,7 +408,7 @@
 		return
 
 	I.use(1)
-	victim.emote("scream")
+	victim.flick_pain(100, TRUE)
 	if(user != victim)
 		user.visible_message(span_notice("[user] finishes applying [I] to [victim]'s [limb.name], emitting a fizzing noise!"), span_notice("You finish applying [I] to [victim]'s [limb.name]!"), ignored_mobs=victim)
 		to_chat(victim, span_userdanger("[user] finishes applying [I] to your [limb.name], and you can feel the bones exploding with pain as they begin melting and reforming!"))
@@ -440,4 +482,6 @@
 		. += "Cranial Trauma Detected: Patient will suffer random bouts of [severity == WOUND_SEVERITY_SEVERE ? "mild" : "severe"] brain traumas until bone is repaired."
 	else if(limb.body_zone == BODY_ZONE_CHEST && victim.blood_volume)
 		. += "Ribcage Trauma Detected: Further trauma to chest is likely to worsen internal bleeding until bone is repaired."
+	else if(limb.body_zone == BODY_ZONE_PRECISE_GROIN)
+		. += "Pelvis Trauma Detected: Further trauma to groin is likely to worsen your ability to sit on your butt."
 	. += "</div>"

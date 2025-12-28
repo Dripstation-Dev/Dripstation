@@ -257,13 +257,18 @@
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		var/datum/mind/M = H.mind
-		if(M && (M.assigned_role == "Assistant" || M.assigned_role == "Clown") && user.a_intent == INTENT_HARM)
+		if(M && user.a_intent == INTENT_HARM)
 			var/amount_given = 1
+			if(M.assigned_role == "Assistant")
+				amount_given = 3
 			if(M.assigned_role == "Clown")
-				amount_given = 5
+				amount_given = 7
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SEC)
 			if(D)
 				D.adjust_money(amount_given)
+			var/datum/techweb/linked_techweb = SSresearch.science_tech	//give nerds some points
+			if(linked_techweb)
+				linked_techweb.add_stored_point_type(TECHWEB_POINT_TYPE_WEAPONRY, amount_given)
 		H.forcesay(GLOB.hit_appends)
 
 	cooldown_check = world.time + cooldown

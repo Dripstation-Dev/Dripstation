@@ -85,6 +85,7 @@
 	name = initial(selected.name)
 	desc = initial(selected.desc)
 	icon_state = initial(selected.icon_state)
+	icon = initial(selected.icon)	//dripstation edit
 	poster_item_name = initial(selected.poster_item_name)
 	poster_item_desc = initial(selected.poster_item_desc)
 	poster_item_icon_state = initial(selected.poster_item_icon_state)
@@ -162,6 +163,8 @@
 
 		if((iswallturf(src) || isabductorwall(src)) && user && user.loc == temp_loc)	//Let's check if everything is still there
 			to_chat(user, span_notice("You place the poster!"))
+			SEND_SIGNAL(P, COMSIG_POSTER_PLACED)
+			D.on_placed_poster(user)
 			return
 
 	to_chat(user, span_notice("The poster falls down!"))

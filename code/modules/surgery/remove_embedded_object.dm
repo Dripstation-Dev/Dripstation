@@ -4,6 +4,7 @@
 	icon_state = "embedded_removal"
 	steps = list(/datum/surgery_step/incise, 
 				/datum/surgery_step/remove_object, 
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 	self_operable = TRUE
@@ -51,7 +52,7 @@
 			if(L.embedded_objects)
 				var/mob/living/carbon/C = target
 				var/obj/item/I = pick(L.embedded_objects)
-				if(C.remove_embedded_object(I, C.drop_location(), TRUE))
+				if(C.remove_embedded_object(I))
 					display_results(user, target, span_notice("You successfully remove \the [I] from [C]'s [L.name]."),
 						"[user] successfully removes \the [I] from [C]'s [L]!",
 						"[user] successfully removes \the [I] from [C]'s [L]!")

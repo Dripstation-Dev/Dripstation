@@ -13,12 +13,27 @@
 	icon_state = "bug"
 	w_class = WEIGHT_CLASS_TINY
 
+/obj/item/spy_bug/Initialize()
+	RegisterSignal(src, COMSIG_ITEM_ATTACK , PROC_REF(try_placebug))
+
+/obj/item/spy_bug/proc/try_placebug(obj/item/source, atom/target, mob/living/carbon/user, click_parameters)
+	SIGNAL_HANDLER
+	
+	target.AddComponent(/datum/component/bugged)
+	user.show_message(span_notice("You attach \the [src.name] onto [target]!"))
+	log_combat(user, target, "placed bug", src.name, "(stealth)")
+	add_fingerprint(user)
+	target.AddComponent(/datum/component/bugged)
+	qdel(src)
+	return COMPONENT_SKIP_ATTACK
+
 /obj/item/spy_bug/Bump(atom/A)
 	A.AddComponent(/datum/component/bugged)
 	qdel(src)
 	. = ..()
 
 
+/*
 /obj/item/spy_bug/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if (!proximity_flag)
@@ -26,6 +41,7 @@
 	target.AddComponent(/datum/component/bugged)
 	user.show_message(span_notice("You attach \the [name] onto [target]!"))
 	qdel(src)
+*/
 
 /obj/item/storage/box/syndie_kit/bugs
 	name = "box of bugs"

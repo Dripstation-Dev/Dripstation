@@ -41,7 +41,7 @@
 /datum/component/surgery_bed/proc/get_patient()
 	var/obj/op_table = parent
 	var/mob/living/L = locate(/mob/living) in op_table.loc
-	if(L && L.resting)
+	if(L && (L.resting || L.buckled == op_table))	//dripstation edit - force buckled patient
 		return L
 
 /datum/component/surgery_bed/proc/check_eligible_patient()

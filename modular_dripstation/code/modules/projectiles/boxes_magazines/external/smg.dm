@@ -34,3 +34,17 @@
 	icon_state = "arg556R"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/snakebite
 	sprite_designation = "R"
+
+
+///Standart 5.7x28
+/obj/item/ammo_box/magazine/m57x28
+	name = "toploader magazine (FMJ AP 5.7mm)"
+	desc = "A 50-round toploading magazine filled with FMJ AP 5.7x28 rounds, designed for pistols and personal defense weapons."
+	ammo_type = /obj/item/ammo_casing/a57x28
+	icon_state = "5.7m-30"
+	caliber = CALIBER_57X28NATO
+	max_ammo = 50
+
+/obj/item/ammo_box/magazine/m57x28/update_icon_state()
+	. = ..()
+	icon_state = "5.7m[sprite_designation]-[round(ammo_count(),5)]"

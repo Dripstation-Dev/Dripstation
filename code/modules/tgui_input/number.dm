@@ -1,3 +1,4 @@
+/* DRIPSTATION EDIT - MOVED TO MODULE
 /**
  * Creates a TGUI window with a number input. Returns the user's response as num | null.
  *
@@ -193,3 +194,5 @@
 
 /datum/tgui_input_number/async/wait()
 	return
+
+*/

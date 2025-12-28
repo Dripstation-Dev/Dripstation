@@ -301,6 +301,8 @@
 	name = "choker"
 	desc = "Close-fitting necklace worn around the neck, 15 inch in length. Made of velvet."
 	icon_state = "choker_black"
+	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
 
 /obj/item/clothing/neck/choker/gold
 	name = "gold choker"
@@ -311,3 +313,48 @@
 	name = "maid neck cover"
 	desc = "A neckpiece for a maid costume, it smells faintly of disappointment."
 	icon_state = "maid_neck"
+	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
+
+/obj/item/clothing/neck/cape
+	name = "captain's cape"
+	desc = "A sizable black cape with gold connects."
+	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
+	icon_state = "centcom_cloak"
+
+/obj/item/clothing/neck/cape/executive
+	name = "admiral's cape"
+	icon_state = "centcom_admiral_cloak"
+
+/obj/item/clothing/neck/cape/arbiter
+	name = "arbiters's cape"
+	icon_state = "arbiter_cloak"
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+
+/obj/item/clothing/neck/cape/binah
+	name = "arbiters's cape"
+	icon_state = "binah_cloak"
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+
+/obj/item/clothing/neck/wreath
+	name = "\improper Watcher Wreath"
+	desc = "An elaborate crown made from the twisted flesh and sinew of a watcher. \
+		Wearing it makes you feel like you have eyes in the back of your head."
+	icon = 'modular_dripstation/icons/obj/clothing/neck.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/neck.dmi'	
+	icon_state = "watcher_wreath"
+	//worn_y_offset = 10
+	alternate_worn_layer = SIDE_HEAD_LAYER
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
+
+/obj/item/clothing/neck/wreath/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
+	. = ..()
+	if(!isinhands)
+		. += emissive_appearance(icon_file, "wreath_emissive", src, alpha = src.alpha)
+
+/obj/item/clothing/neck/wreath/icewing
+	name = "\improper Icewing Wreath"
+	desc = "An elaborate crown made from the twisted flesh and sinew of an icewing watcher. \
+		Wearing it sends shivers down your spine just from being near it."
+	icon_state = "icewing_wreath"

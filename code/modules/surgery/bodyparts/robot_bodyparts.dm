@@ -438,7 +438,7 @@
 /obj/item/bodypart/l_leg/ipc
 	status = BODYPART_ROBOTIC
 	sub_status = BODYPART_SUBTYPE_IPC
-	icon = 'yogstation/icons/mob/human_parts.dmi'
+	icon = 'modular_dripstation/icons/mob/human_parts.dmi'	//dripstation edit
 	limb_override = TRUE
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -451,7 +451,7 @@
 /obj/item/bodypart/r_leg/ipc
 	status = BODYPART_ROBOTIC
 	sub_status = BODYPART_SUBTYPE_IPC
-	icon = 'yogstation/icons/mob/human_parts.dmi'
+	icon = 'modular_dripstation/icons/mob/human_parts.dmi'	//dripstation edit
 	limb_override = TRUE
 	light_brute_msg = ROBOTIC_LIGHT_BRUTE_MSG
 	medium_brute_msg = ROBOTIC_MEDIUM_BRUTE_MSG
@@ -509,6 +509,7 @@ IPCLIMB(wtmipc, "Ward-Takahashi")
 IPCLIMB(xmgipc, "Xion Manufacturing")
 IPCLIMB(xm2ipc, "Xion Manufacturing (2.0)")
 IPCLIMB(zhpipc, "Zeng-Hu Pharmaceuticals")
+IPCLIMB(csvipc, "Cybersun Virtual Solutions")	//dripstation edit
 
 #undef ROBOTIC_LIGHT_BRUTE_MSG
 #undef ROBOTIC_MEDIUM_BRUTE_MSG

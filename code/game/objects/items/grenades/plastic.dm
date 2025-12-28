@@ -58,6 +58,7 @@
 	..()
 
 /obj/item/grenade/plastic/prime()
+	. = ..()
 	var/turf/location
 	var/density_check = FALSE
 	if(target)
@@ -134,7 +135,8 @@
 			var/obj/item/I = AM
 			I.throw_speed = max(1, (I.throw_speed - 3))
 			I.throw_range = max(1, (I.throw_range - 3))
-			I.embedding = I.embedding.setRating(embed_chance = 0)
+			I.embedding = list("embed_chance" = 0)
+			I.updateEmbedding()
 
 		target.add_overlay(plastic_overlay, TRUE)
 		if(!nadeassembly)
@@ -159,6 +161,16 @@
 			message_say = "FOR RATVAR!"
 		else if(UM.has_antag_datum(/datum/antagonist/rev))
 			message_say = "VIVA LA REVOLUTION!"
+		else if(UM.has_antag_datum(/datum/antagonist/brother))	//dripstation edit start
+			message_say = "FOR MY BROTHER!!"
+		else if(UM.has_antag_datum(/datum/antagonist/heretic))
+			message_say = "THE MANSUS SMILES UPON ME!!"
+		else if(UM.has_antag_datum(/datum/antagonist/enemy_of_the_state))
+			message_say = "FOR THE ETERNAL REVOLUTION!!"
+		else if(UM.has_antag_datum(/datum/antagonist/enemy_of_the_revolution))
+			message_say = "FOR NANOTRASEN, NOW AND FOREVER!!"
+		else if(UM.has_antag_datum(/datum/antagonist/pirate))
+			message_say = "FOR ME MATEYS!!"						//dripstation edit end
 	M.say(message_say, forced="C4 suicide")
 
 /obj/item/grenade/plastic/suicide_act(mob/living/user)
@@ -167,6 +179,7 @@
 	user.visible_message(span_suicide("[user] activates [src] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
 	shout_syndicate_crap(user)
 	explosion(user,0,2,0) //Cheap explosion imitation because putting prime() here causes runtimes
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, user)
 	user.gib(1, 1)
 	qdel(src)
 
@@ -205,7 +218,7 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [name] at [ADMIN_VERBOSEJMP(src)]")
 	log_game("[key_name(user)] suicided with [name] at [AREACOORD(user)]")
 	sleep(1 SECONDS)
-	prime()
+	prime(user)
 	user.gib(1, 1)
 
 /obj/item/grenade/plastic/c4/attackby(obj/item/I, mob/user, params)
@@ -220,6 +233,7 @@
 /obj/item/grenade/plastic/c4/prime()
 	if(QDELETED(src))
 		return
+	..()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))

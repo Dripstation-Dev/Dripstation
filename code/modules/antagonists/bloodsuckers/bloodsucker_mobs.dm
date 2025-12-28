@@ -7,7 +7,7 @@
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = FALSE
 	movement_type = GROUND
-	attack_sound = 'sound/weapons/slash.ogg'
+	attack_sound = SFX_CLAWS
 	faction = list("hostile", "bloodhungry")
 	response_help = "touches"
 	response_disarm = "flails at"
@@ -137,7 +137,7 @@
 /mob/living/simple_animal/hostile/bloodsucker/Destroy() //makes us alive again
 	if(bloodsucker && mind)
 		visible_message(span_warning("[src] rapidly transforms into a humanoid figure!"), span_warning("You forcefully return to your normal form."))
-		playsound(src, 'sound/weapons/slash.ogg', 50, TRUE)
+		playsound(src, SFX_CLAWS, 50, TRUE)
 		mind.transfer_to(bloodsucker)
 		if(bloodsucker.status_flags & GODMODE)
 			bloodsucker.status_flags -= GODMODE
@@ -162,7 +162,7 @@
 	var/mob/living/carbon/human/H = target
 	var/foundorgans = 0
 	for(var/obj/item/organ/O in H.internal_organs)
-		if(O.zone == "chest")
+		if(O.zone == BODY_ZONE_CHEST)
 			foundorgans++
 			qdel(O)
 	if(foundorgans)
@@ -172,7 +172,7 @@
 			src.visible_message(span_danger("[src] devours [target]'s organs!"), \
 			span_userdanger("As you devour [target]'s organs you feel as if the beast inside you has calmed itself down, you'll need to feast [3 - ww.satiation] more times to become human again."))
 	for(var/obj/item/bodypart/B in H.bodyparts)
-		if(B.body_zone == "chest")
+		if(B.body_zone == BODY_ZONE_CHEST)
 			B.dismember()
 		else
 			to_chat(src, span_warning("There are no organs left in this corpse."))

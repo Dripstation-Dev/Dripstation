@@ -407,7 +407,7 @@ GENE SCANNER
 				var/datum/wound/W = k
 				render_list += "<div class='ml-2'>Type: [W.name]\nSeverity: [W.severity_text()]\nRecommended Treatment: [W.treat_text]</div>\n" // less lines than in woundscan() so we don't overload people trying to get basic med info
 			render_list += "</span>"
-			to_chat(render_list)
+			combined_msg += render_list
 
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
@@ -798,7 +798,7 @@ GENE SCANNER
 	custom_materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
-	if(user.stat || !user.can_read(src))
+	if(user.stat || !user.can_read(src, READING_CHECK_LIGHT))
 		return
 	if (!isslime(M))
 		to_chat(user, span_warning("This device can only scan slimes!"))

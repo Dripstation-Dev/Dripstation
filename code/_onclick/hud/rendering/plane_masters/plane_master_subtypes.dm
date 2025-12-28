@@ -1,3 +1,4 @@
+/* dripstation edit
 /atom/movable/screen/plane_master/field_of_vision_blocker
 	name = "Field of vision blocker"
 	documentation = "This is one of those planes that's only used as a filter. It cuts out a portion of the game plate and does effects to it."
@@ -32,6 +33,7 @@
 /atom/movable/screen/plane_master/field_of_vision_blocker/proc/fov_disabled(mob/source)
 	SIGNAL_HANDLER
 	hide_plane(source)
+*/
 
 /atom/movable/screen/plane_master/clickcatcher
 	name = "Click Catcher"

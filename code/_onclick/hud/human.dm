@@ -103,6 +103,7 @@
 
 	action_intent = new /atom/movable/screen/act_intent/segmented(src)
 	action_intent.icon_state = mymob.a_intent
+	action_intent.icon = ui_style	//dripstation edit
 	static_inventory += action_intent
 
 	using = new /atom/movable/screen/mov_intent(src)
@@ -134,17 +135,20 @@
 
 	build_hand_slots()
 
-	using = new /atom/movable/screen/swap_hand(src)
-	using.icon = ui_style
-	using.icon_state = "swap_1"
+	swap_hand = new /atom/movable/screen/swap_hand/human(src)
+	using = swap_hand
+	using.icon = ui_style_64x32
+	//using.icon_state = "swap_1"			// dripstation edit - cooldown meter - handled by itself
 	using.screen_loc = ui_swaphand_position(owner,1)
 	static_inventory += using
-
+	
+	/* dripstation edit - cooldown meter
 	using = new /atom/movable/screen/swap_hand(src)
 	using.icon = ui_style
 	using.icon_state = "swap_2"
 	using.screen_loc = ui_swaphand_position(owner,2)
 	static_inventory += using
+	*/
 
 	inv_box = new /atom/movable/screen/inventory(src)
 	inv_box.name = "id"
@@ -213,7 +217,8 @@
 	static_inventory += using
 
 	using = new /atom/movable/screen/human/equip(src)
-	using.icon = ui_style
+	//using.icon = ui_style
+	using.icon = ui_style_64x32 //'modular_dripstation/icons/hud/cooldown.dmi'	//dripstation edit
 	using.screen_loc = ui_equip_position(mymob)
 	static_inventory += using
 

@@ -98,6 +98,8 @@
 	return TRUE
 
 /turf/closed/wall/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
 	if(devastated)
 		devastate_wall()
 	else
@@ -126,6 +128,8 @@
 		new /obj/item/stack/sheet/metal(src)
 
 /turf/closed/wall/ex_act(severity, target)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
 	if(target == src)
 		dismantle_wall(TRUE, TRUE)
 		return
@@ -208,7 +212,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
 
-	if(W.tool_behaviour == TOOL_WELDER)
+	if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP)	//dripstation edit
 		if(atom_integrity >= max_integrity)
 			to_chat(user, span_warning("[src] is intact!"))
 			return TRUE

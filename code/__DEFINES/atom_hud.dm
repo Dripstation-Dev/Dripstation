@@ -44,6 +44,10 @@
 #define DIAG_LAUNCHPAD_HUD "22"
 //for antag huds. these are used at the /mob level
 #define ANTAG_HUD		"23"
+//for permit hud dripstation edit
+#define PERMIT_HUD		"24"	// dripstation edit
+//checking for mindshielded trait dripstation edit
+#define SHIELDED_HUD	"25"	// dripstation edit
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -62,6 +66,8 @@
 #define DATA_HUD_SENTIENT_DISEASE			8
 #define DATA_HUD_AI_DETECT					9
 #define DATA_HUD_SECURITY_MEDICAL			10
+#define DATA_HUD_PERMIT						11	// dripstation edit
+#define DATA_HUD_SHIELDED					12	// dripstation edit
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

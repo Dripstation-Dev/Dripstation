@@ -8,6 +8,8 @@
 				/datum/surgery_step/saw, 
 				/datum/surgery_step/clamp_bleeders,
 				/datum/surgery_step/hepatectomy, 
+				/datum/surgery_step/repair_bone,
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 

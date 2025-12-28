@@ -37,7 +37,7 @@
 			if(1)
 				owner.say("HONK")
 			if(2 to 5)
-				owner.emote("scream")
+				owner.flick_pain(100, TRUE)
 			if(6)
 				owner.Stun(1)
 				owner.Knockdown(20)
@@ -50,7 +50,7 @@
 
 /mob/living/carbon/human/proc/cluwneify()
 	dna.add_mutation(CLUWNEMUT)
-	emote("scream")
+	flick_pain(100, TRUE)
 	regenerate_icons()
 	visible_message(span_danger("[src]'s body glows green, the glow dissipating only to leave behind a cluwne formerly known as [src]!"), \
 					span_danger("Your brain feels like it's being torn apart, and after a short while, you notice that you've become a cluwne!"))

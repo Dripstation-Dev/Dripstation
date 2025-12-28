@@ -649,3 +649,20 @@
 	air_contents.set_moles(GAS_PLASMA, 1000)
 	air_contents.set_moles(GAS_PLUOXIUM, 1000)
 	air_contents.set_temperature(FIRE_MINIMUM_TEMPERATURE_TO_EXIST-1)
+
+/// Dump engine garbage
+/obj/machinery/portable_atmospherics/canister/dump_canister
+	name = "Bluespace Canister"
+	desc = "This high-tech canister dumps gas into other dimention`s space."
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#215dccff#b2b2b2"
+	volume = 5000
+	restricted = TRUE
+
+	COOLDOWN_DECLARE(dump_atmos_cd)
+
+/obj/machinery/portable_atmospherics/canister/dump_canister/process_atmos()
+	..()
+	if(COOLDOWN_FINISHED(src, dump_atmos_cd))
+		air_contents.remove(air_contents.total_moles())
+		COOLDOWN_START(src, dump_atmos_cd, 5 SECONDS)

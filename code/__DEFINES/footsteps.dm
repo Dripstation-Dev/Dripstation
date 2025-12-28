@@ -18,6 +18,7 @@
 
 //footstep mob defines
 #define FOOTSTEP_MOB_CLAW "footstep_claw"
+#define FOOTSTEP_MOB_PAW "footstep_paw"
 #define FOOTSTEP_MOB_BAREFOOT "footstep_barefoot"
 #define FOOTSTEP_MOB_HEAVY "footstep_heavy"
 #define FOOTSTEP_MOB_SHOE "footstep_shoe"

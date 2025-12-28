@@ -9,8 +9,8 @@
 	name = "Hallucinations"
 	desc = "Patient suffers constant hallucinations."
 	scan_desc = "schizophrenia"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_warning("You feel your grip on reality slipping...")
+	lose_text = span_notice("You feel more grounded.")
 
 /datum/brain_trauma/mild/hallucinations/on_life()
 	if(owner.stat != CONSCIOUS || owner.IsSleeping() || owner.IsUnconscious())
@@ -49,8 +49,8 @@
 	name = "Stuttering"
 	desc = "Patient can't speak properly."
 	scan_desc = "reduced mouth coordination"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_warning("Speaking clearly is getting harder.")
+	lose_text = span_notice("You feel in control of your speech.")
 
 /datum/brain_trauma/mild/stuttering/on_life()
 	owner.adjust_stutter_up_to(5 SECONDS, 50 SECONDS)
@@ -64,8 +64,8 @@
 	name = "Dumbness"
 	desc = "Patient has reduced brain activity, making them less intelligent."
 	scan_desc = "reduced brain activity"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_warning("You feel dumber.")
+	lose_text = span_notice("You feel smart again.")
 
 /datum/brain_trauma/mild/dumbness/on_gain()
 	ADD_TRAIT(owner, TRAIT_DUMB, TRAUMA_TRAIT)
@@ -90,8 +90,8 @@
 	name = "Speech Impediment"
 	desc = "Patient is unable to form coherent sentences."
 	scan_desc = "communication disorder"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_danger("You can't seem to form any coherent thoughts!")
+	lose_text = span_danger("Your mind feels more clear.")
 
 /datum/brain_trauma/mild/speech_impediment/on_gain()
 	ADD_TRAIT(owner, TRAIT_UNINTELLIGIBLE_SPEECH, TRAUMA_TRAIT)
@@ -105,8 +105,8 @@
 	name = "Concussion"
 	desc = "Patient's brain is concussed."
 	scan_desc = "concussion"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_warning("Your head hurts!")
+	lose_text = span_notice("The pressure inside your head starts fading.")
 
 /datum/brain_trauma/mild/concussion/on_life()
 	if(prob(5))
@@ -133,8 +133,8 @@
 	name = "Anosognosia"
 	desc = "Patient always feels healthy, regardless of their condition."
 	scan_desc = "self-awareness deficit"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_notice("You feel great!")
+	lose_text = span_warning("You no longer feel perfectly healthy.")
 
 /datum/brain_trauma/mild/healthy/on_gain()
 	owner.set_screwyhud(SCREWYHUD_HEALTHY)
@@ -153,8 +153,8 @@
 	name = "Muscle Weakness"
 	desc = "Patient experiences occasional bouts of muscle weakness."
 	scan_desc = "weak motor nerve signal"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_warning("Your muscles feel oddly faint.")
+	lose_text = span_notice("You feel in control of your muscles again.")
 
 /datum/brain_trauma/mild/muscle_weakness/on_life()
 	var/fall_chance = 1
@@ -180,8 +180,8 @@
 	name = "Muscle Spasms"
 	desc = "Patient has occasional muscle spasms, causing them to move unintentionally."
 	scan_desc = "nervous fits"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_warning("Your muscles feel oddly faint.")
+	lose_text = span_notice("You feel in control of your muscles again.")
 
 /datum/brain_trauma/mild/muscle_spasms/on_gain()
 	owner.apply_status_effect(STATUS_EFFECT_SPASMS)
@@ -213,8 +213,8 @@
 	name = "Expressive Aphasia"
 	desc = "Patient is affected by partial loss of speech leading to a reduced vocabulary."
 	scan_desc = "inability to form complex sentences"
-	gain_text = ""
-	lose_text = ""
+	gain_text = span_warning("You lose your grasp on complex words.")
+	lose_text = span_notice("You feel your vocabulary returning to normal again.")
 
 	var/static/list/common_words = world.file2list("strings/1000_most_common.txt")
 

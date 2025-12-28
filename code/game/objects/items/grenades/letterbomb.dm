@@ -71,6 +71,7 @@
 	icon_state = initial(icon_state)//there's no active icon for pipe bombs, so just force revert it to the default
 
 /obj/item/grenade/mailbomb/prime()
+	. = ..()
 	if(ishuman(loc))//special snowflake check to make it stronger than a light, but weaker than a heavy explosion. but only to the person if they can't throw it away in time
 		var/mob/living/carbon/human/H = loc
 		H.take_overall_damage(30,30)

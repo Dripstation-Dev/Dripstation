@@ -61,9 +61,14 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/item/poster/random_contraband{
+/obj/item/poster/random_erotic,
+/obj/item/poster/random_erotic{
+	pixel_x = 1;
+	pixel_y = 4
+	},
+/obj/item/poster/random_erotic{
 	pixel_x = 2;
-	pixel_y = 5
+	pixel_y = 8
 	},
 /turf/open/floor/plating,
 /area/template_noop)

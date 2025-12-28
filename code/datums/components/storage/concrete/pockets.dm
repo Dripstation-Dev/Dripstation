@@ -8,12 +8,17 @@
 	. = ..()
 	if(. && silent && !prevent_warning)
 		if(quickdraw)
+			/* Dripstation edit
 			to_chat(user, span_notice("You discreetly slip [I] into [parent]. Alt-click [parent] to remove it."))
+			*/
+			to_chat(user, span_notice("You discreetly slip [I] into [parent]. Click [parent] to remove it. Alt-click [parent] to see all contents."))	// Dripstation edit
 		else
 			to_chat(user, span_notice("You discreetly slip [I] into [parent]."))
 
+/* I wonder how, i wonder why dripstation edit
 /datum/component/storage/concrete/pockets
 	max_w_class = WEIGHT_CLASS_NORMAL
+*/
 
 /datum/component/storage/concrete/pockets/small
 	max_items = 1
@@ -28,7 +33,7 @@
 /datum/component/storage/concrete/pockets/small/fedora/Initialize()
 	. = ..()
 	var/static/list/exception_cache = typecacheof(list(
-		/obj/item/katana, /obj/item/toy/katana, /obj/item/nullrod/claymore/katana,
+		/obj/item/melee/katana, /obj/item/toy/katana, /obj/item/nullrod/claymore/katana,
 		/obj/item/energy_katana, /obj/item/gun/ballistic/automatic/tommygun
 		))
 	exception_hold = exception_cache

@@ -15,7 +15,7 @@
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	// Vivid red, cause cult theme
 	lighting_cutoff_red = 30
 	lighting_cutoff_green = 5

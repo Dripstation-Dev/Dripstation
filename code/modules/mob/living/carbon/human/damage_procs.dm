@@ -7,3 +7,10 @@
 	if(..())
 		if(dna && dna.species)
 			dna.species.spec_revival(src, admin_revive) 
+
+/mob/living/carbon/human/adjustOrganLoss(slot, amount, maximum = 500, hard = FALSE)
+	var/obj/item/organ/O = getorganslot(slot)
+	if(O && !(status_flags & GODMODE))
+		O.applyOrganDamage(amount, maximum)
+		if(hard && prob(amount))	//dripstation edit
+			O.rupture()				//dripstation edit

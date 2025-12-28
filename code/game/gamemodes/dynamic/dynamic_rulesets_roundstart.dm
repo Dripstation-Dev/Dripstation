@@ -11,8 +11,10 @@
 	antag_flag = ROLE_TRAITOR
 	antag_datum = /datum/antagonist/traitor
 	minimum_required_age = 0
+	/* Dripstation edit
 	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Chief Engineer", "Chief Medical Officer", "Research Director", "Brig Physician")
 	restricted_roles = list("Cyborg", "Synthetic")
+	*/
 	required_candidates = 1
 	weight = 5
 	cost = 8	// Avoid raising traitor threat above 10, as it is the default low cost ruleset.
@@ -52,8 +54,10 @@
 	name = "Blood Brothers"
 	antag_flag = ROLE_BROTHER
 	antag_datum = /datum/antagonist/brother/
+	/* Dripstation edit
 	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Chief Engineer", "Chief Medical Officer", "Research Director", "Brig Physician")
 	restricted_roles = list("AI", "Cyborg", "Synthetic")
+	*/
 	required_candidates = 2
 	weight = 4
 	cost = 10
@@ -101,8 +105,10 @@
 	name = "Changeling"
 	antag_flag = ROLE_CHANGELING
 	antag_datum = /datum/antagonist/changeling
+	/* Dripstation edit
 	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Chief Engineer", "Chief Medical Officer", "Research Director", "Brig Physician")
 	restricted_roles = list("AI", "Cyborg", "Synthetic")
+	*/
 	required_candidates = 1
 	weight = 3
 	cost = 16
@@ -139,8 +145,10 @@
 	name = "Heretics"
 	antag_flag = ROLE_HERETIC
 	antag_datum = /datum/antagonist/heretic
+	/* Dripstation edit
 	protected_roles = list("Chaplain","Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Brig Physician")
 	restricted_roles = list("AI", "Cyborg", "Synthetic")
+	*/
 	required_candidates = 1
 	weight = 3
 	cost = 15
@@ -230,7 +238,9 @@
 	antag_flag = ROLE_CULTIST
 	antag_datum = /datum/antagonist/cult
 	minimum_required_age = 14
+	/* Dripstation edit
 	restricted_roles = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Brig Physician", "Synthetic")
+	*/
 	required_candidates = 2
 	weight = 3
 	cost = 20
@@ -428,19 +438,21 @@
 	antag_flag = ROLE_REV_HEAD
 	antag_datum = /datum/antagonist/rev/head
 	minimum_required_age = 14
+	/* Dripstation edit
 	restricted_roles = list("Security Officer", "Warden", "Detective", "AI", "Cyborg", "Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Shaft Miner", "Mining Medic", "Brig Physician", "Synthetic")
+	*/
 	required_candidates = 3
 	weight = 1
 	delay = 7 MINUTES
-	cost = 101
-	requirements = list(101,101,101,101,101,101,101,101,101,101)
+	cost = 20			//Dripstation edit
+	requirements = list(101,101,70,40,30,20,10,10,10,10)	//Dripstation edit
 	antag_cap = 3
 	flags = HIGH_IMPACT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 30
 	var/datum/team/revolution/revolution
-	var/finished = FALSE
+	var/winner = FALSE	//Dripstation edit
 
 /datum/dynamic_ruleset/roundstart/revs/pre_execute(population)
 	. = ..()
@@ -478,6 +490,7 @@
 	qdel(revolution)
 	..()
 
+/* Dripstation edit start
 /datum/dynamic_ruleset/roundstart/revs/rule_process()
 	if(!revolution)
 		log_game("DYNAMIC: Something went horrifically wrong with [name] - and the antag datum could not be created. Notify coders.")
@@ -503,6 +516,46 @@
 		priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
 			We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "Central Command Loyalty Monitoring Division")
 		return RULESET_STOP_PROCESSING
+*/
+
+/datum/dynamic_ruleset/roundstart/revs/rule_process()
+	if(!revolution)
+		log_game("DYNAMIC: Something went horrifically wrong with [name] - and the antag datum could not be created. Notify coders.")
+		return
+	if(check_rev_victory())
+		winner = REVOLUTION_VICTORY
+		SSshuttle.clearHostileEnvironment(src)
+		revolution.save_members()
+		for(var/datum/mind/M in revolution.members)	// Remove antag datums and prevents podcloned or exiled headrevs restarting rebellions.
+			if(M.has_antag_datum(/datum/antagonist/rev/head))
+				var/datum/antagonist/rev/head/R = M.has_antag_datum(/datum/antagonist/rev/head)
+				R.remove_revolutionary(FALSE, "gamemode")
+			if(M.has_antag_datum(/datum/antagonist/rev))
+				var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
+				R.remove_revolutionary(FALSE, "gamemode")
+		revolution.rev_victory_effects()
+		//return RULESET_STOP_PROCESSING, forcing heavy midround event
+	else if (check_heads_victory())
+		winner = STATION_VICTORY
+		SSshuttle.clearHostileEnvironment(src)
+		revolution.save_members()
+		for(var/datum/mind/M in revolution.members)	// Remove antag datums and prevents podcloned or exiled headrevs restarting rebellions.
+			if(M.has_antag_datum(/datum/antagonist/rev/head))
+				var/datum/antagonist/rev/head/R = M.has_antag_datum(/datum/antagonist/rev/head)
+				R.remove_revolutionary(FALSE, "gamemode")
+				if(M.current)
+					var/mob/living/carbon/C = M.current
+					if(istype(C) && C.stat == DEAD)
+						C.makeUncloneable()
+					else
+						M.add_antag_datum(/datum/antagonist/enemy_of_the_state)
+			if(M.has_antag_datum(/datum/antagonist/rev))
+				var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
+				R.remove_revolutionary(FALSE, "gamemode")
+		priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
+			We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, null, null, "Central Command Loyalty Monitoring Division")
+		return RULESET_STOP_PROCESSING
+	//Dripstation edit end
 
 /// Checks for revhead loss conditions and other antag datums.
 /datum/dynamic_ruleset/roundstart/revs/proc/check_eligible(datum/mind/M)
@@ -512,7 +565,7 @@
 	return FALSE
 
 /datum/dynamic_ruleset/roundstart/revs/check_finished()
-	if(finished == REVOLUTION_VICTORY)
+	if(revolution.finished)	//Dripstation edit
 		return TRUE
 	else
 		return ..()
@@ -532,10 +585,10 @@
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/revs/round_result()
-	if(finished == REVOLUTION_VICTORY)
+	if(winner == REVOLUTION_VICTORY)		//Dripstation edit
 		SSticker.mode_result = "win - heads killed"
 		SSticker.news_report = REVS_WIN
-	else if(finished == STATION_VICTORY)
+	else if(winner == STATION_VICTORY)		//Dripstation edit
 		SSticker.mode_result = "loss - rev heads killed"
 		SSticker.news_report = REVS_LOSE
 
@@ -576,8 +629,10 @@
 	name = "Clockcult"
 	antag_flag = ROLE_SERVANT_OF_RATVAR
 	antag_datum = /datum/antagonist/clockcult
+	/* Dripstation edit
 	protected_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
 	restricted_roles = list("Chaplain", "Captain", "Synthetic")
+	*/
 	required_candidates = 4
 	weight = 1
 	cost = 40
@@ -698,7 +753,9 @@
 	name = "Devil"
 	antag_flag = ROLE_DEVIL
 	antag_datum = /datum/antagonist/devil
+	/* Dripstation edit
 	restricted_roles = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Synthetic")
+	*/
 	required_candidates = 1
 	weight = 1
 	cost = 60
@@ -850,8 +907,10 @@
 	name = "Vampire"
 	antag_flag = ROLE_VAMPIRE
 	antag_datum = /datum/antagonist/vampire
+	/* Dripstation edit
 	protected_roles = list("Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Security Officer", "Chaplain", "Detective", "Warden", "Brig Physician")
 	restricted_roles = list("Cyborg", "AI", "Synthetic")
+	*/
 	required_candidates = 3
 	weight = 3
 	cost = 8
@@ -955,8 +1014,10 @@
 	name = "Darkspawn"
 	antag_flag = ROLE_DARKSPAWN
 	antag_datum = /datum/antagonist/darkspawn
+	/* Dripstation edit
 	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Brig Physician")
 	restricted_roles = list("AI", "Cyborg", "Synthetic")
+	*/
 	minimum_players = 25
 	required_candidates = 2
 	minimum_required_age = 24 //reasonably complicated antag
@@ -995,12 +1056,14 @@
 	name = "Bloodsuckers"
 	antag_flag = ROLE_BLOODSUCKER
 	antag_datum = /datum/antagonist/bloodsucker
+	/* Dripstation edit
 	protected_roles = list(
 		"Captain", "Head of Personnel", "Head of Security",
 		"Warden", "Security Officer", "Detective", "Brig Physician",
 		"Curator"
 	)
 	restricted_roles = list("AI", "Cyborg", "Synthetic")
+	*/
 	required_candidates = 1
 	weight = 5
 	cost = 10

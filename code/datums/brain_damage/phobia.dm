@@ -38,8 +38,10 @@
 
 /datum/brain_trauma/mild/phobia/on_life()
 	..()
-	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	if(!owner.check_fear(EXISTENTIAL_FEAR_SOURCE))	//Dripstation edit
 		return
+	//if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	//	return
 	if(is_blind(owner))
 		return
 	if(world.time > next_check && world.time > next_scare)
@@ -81,8 +83,10 @@
 /datum/brain_trauma/mild/phobia/handle_hearing(datum/source, list/hearing_args)
 	if(!owner.can_hear() || world.time < next_scare) //words can't trigger you if you can't hear them *taps head*
 		return
-	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	if(!owner.check_fear(EXISTENTIAL_FEAR_SOURCE))	//Dripstation edit
 		return
+	//if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	//	return
 	for(var/word in trigger_words)
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
 
@@ -92,8 +96,10 @@
 			break
 
 /datum/brain_trauma/mild/phobia/handle_speech(datum/source, list/speech_args)
-	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	if(!owner.check_fear(EXISTENTIAL_FEAR_SOURCE))	//Dripstation edit
 		return
+	//if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	//	return
 	for(var/word in trigger_words)
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
 

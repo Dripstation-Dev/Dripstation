@@ -1,3 +1,4 @@
+/* Dripstation edit - modular
 // Peacekeeping force clothing
 /obj/item/clothing/under/rank/security/officer/grey/amber/occupying
 	name = "peacekeeping officer jumpsuit"
@@ -143,3 +144,4 @@
 	mask = /obj/item/clothing/mask/breath/tactical
 	suit_store = /obj/item/melee/baton/loaded 
 	glasses = /obj/item/clothing/glasses/sunglasses 
+*/

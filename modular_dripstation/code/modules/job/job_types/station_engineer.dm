@@ -1,6 +1,7 @@
 /datum/job/engineer
 	supervisor_corporation = /datum/corporation/nanotrasen/interstellar_industries
 	alt_supervisor_corporations = list(/datum/corporation/hephaestus/industrial)
+	loyalties = LOYALTY_CORP_SLAVE
 
 /datum/outfit/job/engineer
 	belt = null

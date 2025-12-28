@@ -462,6 +462,11 @@ GLOBAL_LIST_EMPTY(lockers)
 		return
 	if((user.mind?.has_martialart(MARTIALART_BUSTERSTYLE)) && (user.a_intent == INTENT_GRAB))
 		return //buster arm shit since trying to pick up an open locker just stuffs you in it
+	if(user.a_intent == INTENT_DISARM)
+		user.visible_message(span_notice("[user.name] begins to shake [src]!"), \
+		span_notice("You shake [src]!"))
+		shaking_anim()
+		return
 	if(!toggle(user))
 		togglelock(user)
 
@@ -514,9 +519,13 @@ GLOBAL_LIST_EMPTY(lockers)
 	//okay, so the closet is either welded or locked... resist!!!
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
+	/* dripstation edit
 	user.visible_message(span_warning("[src] begins to shake violently!"), \
 		span_notice("You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)"), \
 		span_italics("You hear banging from [src]."))
+	*/
+	to_chat(user, span_warning("You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)"))	//dripstation edit
+	animate_break_out(user)	//dripstation edit
 	if(do_after(user, (breakout_time), src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || opened || (!locked && !welded) )
 			return
@@ -578,7 +587,7 @@ GLOBAL_LIST_EMPTY(lockers)
 	
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 4)
 
 /obj/structure/closet/emp_act(severity)
 	. = ..()

@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves
+	equip_sound = 'modular_dripstation/sound/item/glove_equip.ogg'
+
 /obj/item/clothing/gloves/cargo_gauntlet
 	name = "\improper cargo gauntlets"
 	desc = "These rubberized gauntlets have high adhesion to the metal surface that allows you to drag crates and lockers with more confidence on them not getting nabbed from you."
@@ -122,6 +125,42 @@
 /obj/item/clothing/gloves/color/yellow
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	equip_sound = 'modular_dripstation/sound/item/rubber_equip.ogg'
+
+/obj/item/clothing/gloves/color/red/insulated
+	equip_sound = 'modular_dripstation/sound/item/rubber_equip.ogg'
+
+/obj/item/clothing/gloves/color/fyellow
+	equip_sound = 'modular_dripstation/sound/item/rubber_equip.ogg'
+
+/obj/item/clothing/gloves/radio
+	name = "translation gloves"
+	desc = "A pair of electronic gloves which connect to nearby radios wirelessly. Allows for sign language users to 'speak' over comms."
+	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	icon_state = "radio_g"
+	item_state = null
+	clothing_traits = list(TRAIT_CAN_SIGN_ON_COMMS)
+
+/obj/item/clothing/gloves/color/plasmaman
+	desc = "Covers up those scandalous boney hands."
+	name = "plasma envirogloves"
+	icon_state = "shadowling"
+	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list(BIO = 100, FIRE = 95, ACID = 95)
+	equip_sound = 'modular_dripstation/sound/item/rubber_equip.ogg'
+
+/obj/item/clothing/gloves/color/plasmaman/radio
+	name = "translation envirogloves"
+	desc = "Allows the less vocally-capable plasmamen to use sign language over comms."
+	icon_state = "radio_g"
+	clothing_traits = list(TRAIT_CAN_SIGN_ON_COMMS)
 
 /obj/item/clothing/gloves/atmos/ce
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
@@ -174,8 +213,14 @@
 	body_parts_covered = ARMS|HANDS
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 60, RAD = 0, FIRE = 80, ACID = 50, WOUND = 0, ELECTRIC = 0)
 
+/obj/item/clothing/gloves/combat/terragov_army
+	icon_state = "tgaf_gloves"
+	clothing_traits = list(TRAIT_STRONG_GRIP)
+	can_be_cut = FALSE
+
 /obj/item/clothing/gloves/combat/militech
 	icon_state = "militech_combat"
+	clothing_traits = list(TRAIT_STRONG_GRIP)
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/combat/shelg
@@ -202,7 +247,7 @@
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/combat/odst	//robust
-	name = "\improper ODST gloves"
+	name = "\improper ODST gauntlets"
 	desc = "Heavy combat gauntlets issued for frontline personnel."
 	icon_state = "ODST_gauntlets"
 	cold_protection = ARMS|HANDS
@@ -215,7 +260,12 @@
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 5, FIRE = 80, ACID = 50, WOUND = 5, ELECTRIC = 100)
 	can_be_cut = FALSE
 
+/obj/item/clothing/gloves/combat/odst/unn	//robust
+	name = "\improper UNN gauntlets"
+	icon_state = "unn_combat_gauntlets"
+
 /obj/item/clothing/gloves/combat/odst/deathsquad	//literally overpowered
+	name = "\improper blackops gauntlets"
 	var/tacticalspeed = 0.66 //Does channels 34% faster
 	var/worn
 
@@ -243,6 +293,7 @@
 	desc = "Cheap sterile gloves made from latex. Assists in carrying people around and helps performing surgery a bit quicker."
 	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	equip_sound = 'modular_dripstation/sound/item/latex_equip.ogg'
 
 /obj/item/clothing/gloves/color/latex/black
 	icon_state = "latex_black"
@@ -366,6 +417,75 @@
 	resistance_flags = NONE
 	body_parts_covered = ARMS|HANDS
 	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 5, FIRE = 80, ACID = 50, WOUND = 0, ELECTRIC = 0)
+	syndicate = FALSE
+
+/obj/item/clothing/gloves/combat/energy_knuclers
+	name = "combat gloves"
+	desc = "Combat gloves with energy knuclers. Helps to beat all shit out of people."
+	icon = 'modular_dripstation/icons/obj/clothing/gloves.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hands.dmi'
+	icon_state = "energy_knuclers"
+	var/datum/martial_art/energy_knuclers/style = new
+
+/obj/item/clothing/gloves/combat/energy_knuclers/Touch(mob/living/target,proximity = TRUE)
+	var/mob/living/M = loc
+
+	if(M.a_intent == INTENT_HARM)
+		M.changeNext_move(CLICK_CD_RAPID)
+	.= FALSE
+
+/datum/martial_art/energy_knuclers
+	name = "Energy Knuclers"
+
+/datum/martial_art/energy_knuclers/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+
+	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
+
+	var/atk_verb = pick("left hook","right hook","straight punch")
+
+	var/damage = rand(8, 12) + A.get_punchdamagehigh()	//let us respect physiology and species damage mods
+	if(!damage)
+		playsound(D.loc, A.dna.species.miss_sound, 25, 1, -1)
+		D.visible_message(span_warning("[A] has attempted to [atk_verb] [D]!"), \
+			span_userdanger("[A] has attempted to [atk_verb] [D]!"), null, COMBAT_MESSAGE_RANGE)
+		log_combat(A, D, "attempted to punch (energy_knuclers)")
+		return FALSE
+
+	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
+	var/armor_block = D.run_armor_check(affecting, MELEE)
+
+	playsound(D.loc, A.dna.species.attack_sound, 25, 1, -1)
+
+	D.visible_message(span_danger("[A] has [atk_verb]ed [D]!"), \
+			span_userdanger("[A] has [atk_verb]ed [D]!"), null, COMBAT_MESSAGE_RANGE)
+
+	D.apply_damage(A.get_punchdamagehigh(), BRUTE, affecting, armor_block)
+	D.apply_damage(damage, STAMINA, affecting, armor_block)
+	D.adjust_staggered_up_to(STAGGERED_SLOWDOWN_LENGTH * 2, 5 SECONDS)
+	log_combat(A, D, "punched (energy_knuclers)")
+	return TRUE
+
+/obj/item/clothing/gloves/combat/energy_knuclers/equipped(mob/user, slot)
+	. = ..()
+	if(!ishuman(user))
+		return
+	if(slot == ITEM_SLOT_GLOVES)
+		var/mob/living/carbon/human/H = user
+		style.teach(H,1)
+	return
+
+/obj/item/clothing/gloves/combat/energy_knuclers/dropped(mob/user)
+	. = ..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H)
+		if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
+			style.remove(H)
+		return
+
+/obj/item/clothing/gloves/combat/energy_knuclers/centcom
+	icon_state = "c_energy_knuclers"
 
 /obj/item/clothing/gloves/tackler
 	name = "gripper gloves"
@@ -378,7 +498,6 @@
 	resistance_flags = NONE
 	custom_premium_price = 400
 	cryo_preserve = TRUE
-/*Tacklers switch off, to turn it on you need to include #include "code\datums\component\tackle.dm"
 	/// For storing our tackler datum so we can remove it after
 	var/datum/component/tackler
 	/// See: [/datum/component/tackler/var/stamina_cost]
@@ -413,7 +532,16 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(ITEM_SLOT_GLOVES) == src)
 		QDEL_NULL(tackler)
-*///Tacklers switch off
+
+/obj/item/clothing/gloves/tackler/offbrand
+	name = "improvised gripper gloves"
+	desc = "Ratty looking fingerless gloves wrapped with sticky tape. Beware anyone wearing these, for they clearly have no shame and nothing to lose."
+	icon_state = "fingerless"
+
+	tackle_stam_cost = 30
+	base_knockdown = 1.75 SECONDS
+	min_distance = 2
+	skill_mod = -1
 
 /obj/item/clothing/gloves/tackler/security
 	name = "security gripper gloves"
@@ -433,13 +561,11 @@
 	var/worn
 	clothing_traits = list(TRAIT_QUICKER_CARRY, TRAIT_STRONG_GRIP)
 
-	/*Tacklers switch off
 	tackle_stam_cost = 20
 	base_knockdown = 1.5 SECONDS
 	tackle_range = 6
 	tackle_speed = 2
 	skill_mod = 4
-	*///Tacklers switch off
 
 /obj/item/clothing/gloves/tackler/tactical/equipped(mob/user, slot)
 	..()
@@ -473,39 +599,33 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 15, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 15, BIO = 5, RAD = 5, FIRE = 80, ACID = 50, WOUND = 0, ELECTRIC = 100)
 
-	/*Tacklers switch off
 	tackle_stam_cost = 30
 	base_knockdown = 1.25 SECONDS
 	tackle_range = 5
 	skill_mod = 2
-	*///Tacklers switch off
 
 /obj/item/clothing/gloves/tackler/nt
 	name = "\improper NT gripper gloves"
 	desc = "NT brand tackler gloves, both fireproof and insulated, granting the user ability to launch headfirst into walls and letting the user sail through the hallways."
 	icon_state = "nt_combat"
 
-	/*Tacklers switch off
 	tackle_stam_cost = 15
 	base_knockdown = 0.5 SECONDS
 	tackle_range = 5
 	tackle_speed = 2
 	min_distance = 2
 	skill_mod = -2
-	*///Tacklers switch off
 
 /obj/item/clothing/gloves/tackler/combat/nt_elite
 	name = "\improper NT elite gripper gloves"
 	desc = "Superior quality combative gloves, good for performing tackle takedowns as well as absorbing heat and electrical shocks."
 	icon_state = "nt_combat"
 
-	/*Tacklers switch off
 	tackle_stam_cost = 25
 	base_knockdown = 1 SECONDS
 	tackle_range = 6
 	tackle_speed = 2
 	skill_mod = 3
-	*///Tacklers switch off
 
 
 /obj/item/clothing/gloves/tackler/combat/waffle
@@ -513,28 +633,24 @@
 	desc = "The ultimate in high risk, high reward, perfect for when you need to stop target from fifty feet away or die trying. Banned in most Spinward gridiron football and rugby leagues."
 	icon_state = "waffle_combat"
 
-	/*Tacklers switch off
 	tackle_stam_cost = 50
 	base_knockdown = 2 SECONDS
 	tackle_range = 10
 	min_distance = 7
 	tackle_speed = 6
 	skill_mod = 7
-	*///Tacklers switch off
 
 /obj/item/clothing/gloves/tackler/combat/infiltrator
 	name = "infiltrator combat gloves"
 	desc = "Sleek, aerodynamic gripper gloves that are less effective at actually performing takedowns, but more effective at letting the user sail through the hallways."
 	icon_state = "infiltrator"
 
-	/*Tacklers switch off
 	tackle_stam_cost = 15
 	base_knockdown = 0.5 SECONDS
 	tackle_range = 5
 	tackle_speed = 2
 	min_distance = 2
 	skill_mod = -2
-	*///Tacklers switch off
 
 /obj/item/clothing/gloves/tackler/combat/infiltrator/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -556,3 +672,82 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+
+/obj/item/clothing/gloves/tackler/combat/pocket_dimention
+	name = "combat gloves"
+	clothing_traits = list(TRAIT_QUICKER_CARRY, TRAIT_STRONG_GRIP)
+	actions_types = list(
+		/datum/action/item_action/gloves_pocket_dimention/gun,
+		/datum/action/item_action/gloves_pocket_dimention/katana,
+		/datum/action/item_action/gloves_pocket_dimention/knife
+		)
+
+	tackle_stam_cost = 20 
+
+/datum/action/item_action/gloves_pocket_dimention
+	//background_icon_state = "bg_rig"
+	//overlay_icon_state = "bg_rig_border"
+	//background_icon = 'modular_dripstation/icons/hud/actions.dmi'
+	//overlay_icon = 'modular_dripstation/icons/hud/actions.dmi'
+	button_icon = 'modular_dripstation/icons/hud/actions.dmi'
+	check_flags = AB_CHECK_CONSCIOUS
+	var/action_target =/obj/item/clothing/gloves/tackler/combat/pocket_dimention
+	var/obj/item/item_to_spawn
+	var/obj/item/item_ref
+	var/time_to_vanish
+	var/cooldown_timer = 10 SECONDS
+	COOLDOWN_DECLARE(ability_cd)
+
+/datum/action/item_action/gloves_pocket_dimention/New(Target)
+	..()
+	if(!istype(Target, action_target))
+		qdel(src)
+		return
+
+/datum/action/item_action/gloves_pocket_dimention/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force)
+	current_button.cut_overlays()
+	if(!COOLDOWN_FINISHED(src, ability_cd))
+		var/image/cooldown_image = image(icon = 'modular_dripstation/icons/hud/actions.dmi', icon_state = "module_cooldown")
+		current_button.add_overlay(cooldown_image)
+		addtimer(CALLBACK(current_button, TYPE_PROC_REF(/image, cut_overlay), cooldown_image), COOLDOWN_TIMELEFT(src, ability_cd))
+	return ..()
+
+/datum/action/item_action/gloves_pocket_dimention/Trigger(trigger_flags)
+	if(!IsAvailable(feedback = TRUE))
+		return FALSE
+	if(!COOLDOWN_FINISHED(src, ability_cd))
+		return FALSE
+	item_ref = new item_to_spawn(src)
+	if(!owner.put_in_hands(item_ref))
+		return FALSE
+	COOLDOWN_START(src, ability_cd, cooldown_timer)
+	if(time_to_vanish)
+		addtimer(CALLBACK(item_ref, TYPE_PROC_REF(/obj/item, vanish_fact)), time_to_vanish)
+	return TRUE
+
+/obj/item/proc/vanish_fact()
+	if(!loc)
+		return
+	visible_message(span_danger("Vanishes!"), \
+			span_userdanger("Vanishes!"), null, COMBAT_MESSAGE_RANGE)
+	do_sparks(1, TRUE, src)
+	qdel(src)
+
+/datum/action/item_action/gloves_pocket_dimention/gun
+	name = "Atelier Logic"
+	item_to_spawn = /obj/item/gun/ballistic/rifle/atelier
+	button_icon_state = "glove_gun"
+	cooldown_timer = 30 SECONDS
+
+/datum/action/item_action/gloves_pocket_dimention/katana
+	name = "Mook Workshop"
+	item_to_spawn = /obj/item/melee/katana/monomolecular/mook
+	button_icon_state = "glove_katana"
+	time_to_vanish = 10 SECONDS
+	cooldown_timer = 15 SECONDS
+
+/datum/action/item_action/gloves_pocket_dimention/knife
+	name = "Ragna Workshop"
+	item_to_spawn = /obj/item/kitchen/knife/combat/he11diver/ragna
+	button_icon_state = "glove_knife"
+	time_to_vanish = 5 SECONDS

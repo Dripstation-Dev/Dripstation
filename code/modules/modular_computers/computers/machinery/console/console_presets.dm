@@ -16,7 +16,8 @@
 	initial_program = /datum/computer_file/program/secureye
 
 // ===== WARDEN CONSOLE =====
-/obj/machinery/modular_computer/console/preset/security
+/obj/machinery/modular_computer/console/preset/warden
+	console_department = "Security"
 	name = "brig console"
 	desc = "A stationary computer. This one comes preloaded with security and other brig management programs."
 	starting_files = list(	new /datum/computer_file/program/secureye,

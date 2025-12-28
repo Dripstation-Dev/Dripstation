@@ -37,7 +37,7 @@
 /datum/outfit/syndicatecommandocorpse
 	name = "Syndicate Commando Corpse"
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset
@@ -57,7 +57,7 @@
 /datum/outfit/syndicatestormtroopercorpse
 	name = "Syndicate Stormtrooper Corpse"
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/elite
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset
@@ -164,6 +164,7 @@
 	head = /obj/item/clothing/head/wizard
 
 
+/* Dripstation edit
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier
 	name = "Nanotrasen Private Security Officer"
 	id_job = "Private Security Force"
@@ -183,6 +184,7 @@
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security
 	id = /obj/item/card/id
+*/
 
 /obj/effect/mob_spawn/human/corpse/cat_butcher
 	name = "The Cat Surgeon"

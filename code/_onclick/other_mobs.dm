@@ -32,6 +32,8 @@
 	override = SEND_SIGNAL(src, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, A) & COMPONENT_NO_ATTACK_HAND
 	for(var/datum/mutation/human/HM in dna.mutations)
 		override += HM.on_attack_hand(A, proximity)
+	if(HAS_TRAIT(src, TRAIT_HULK))
+		A.attack_hulk(src)
 	if(override)
 		return
 

@@ -95,6 +95,12 @@
 #define COLOR_NAVY "#000080"
 #define COLOR_BLUE_GRAY "#75A2BB"
 
+////Weapon lights
+#define COLOR_LASER_RED "#FF8D8D"		//dripstation edit
+#define COLOR_DISABLER_BLUE "#7E89FF"	//dripstation edit
+#define COLOR_PULSE_BLUE "#BEFFFF"		//dripstation edit
+#define COLOR_TESLA_BLUE "#DAD9FF"		//dripstation edit
+
 #define COLOR_PINK "#FFC0CB"
 #define COLOR_LIGHT_PINK "#FF3CC8"
 #define COLOR_SCIENCE_PINK "#C96DBF"

@@ -86,6 +86,7 @@
 #define CLICK_CD_MELEE 0.8 SECONDS
 #define CLICK_CD_RANGE 0.4 SECONDS
 #define CLICK_CD_RAPID 0.2 SECONDS
+#define CLICK_CD_HYPER_RAPID 0.1 SECONDS
 #define CLICK_CD_CLICK_ABILITY 0.6 SECONDS
 #define CLICK_CD_BREAKOUT 10 SECONDS
 #define CLICK_CD_HANDCUFFED 1 SECONDS
@@ -158,11 +159,23 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define EMBEDDED_ITEM_FALLOUT 					5	//Chance for embedded object to fall out (causing pain but removing the object)
 #define EMBED_CHANCE							45	//Chance for an object to embed into somebody when thrown (if it's sharp)
 #define EMBEDDED_PAIN_MULTIPLIER				2	//Coefficient of multiplication for the damage the item does while embedded (this*item.w_class)
-#define EMBEDDED_FALL_PAIN_MULTIPLIER			5	//Coefficient of multiplication for the damage the item does when it falls out (this*item.w_class)
 #define EMBEDDED_IMPACT_PAIN_MULTIPLIER			4	//Coefficient of multiplication for the damage the item does when it first embeds (this*item.w_class)
 #define EMBED_THROWSPEED_THRESHOLD				4	//The minimum value of an item's throw_speed for it to embed (Unless it has embedded_ignore_throwspeed_threshold set to 1)
 #define EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER 8	//Coefficient of multiplication for the damage the item does when removed without a surgery (this*item.w_class)
 #define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//A Time in ticks, total removal time = (this*item.w_class)
+///Chance for embedded objects to cause pain every time they move (jostle)
+#define EMBEDDED_JOSTLE_CHANCE 5
+///Coefficient of multiplication for the damage the item does while
+#define EMBEDDED_JOSTLE_PAIN_MULTIPLIER 1
+///This percentage of all pain will be dealt as stam damage rather than brute (0-1)
+#define EMBEDDED_PAIN_STAM_PCT 0.0
+///For thrown weapons, every extra speed it's thrown at above its normal throwspeed will add this to the embed chance
+#define EMBED_CHANCE_SPEED_BONUS 10
+
+#define EMBED_HARMLESS list("pain_mult" = 0, "jostle_pain_mult" = 0, "ignore_throwspeed_threshold" = TRUE)
+#define EMBED_HARMLESS_SUPERIOR list("pain_mult" = 0, "jostle_pain_mult" = 0, "ignore_throwspeed_threshold" = TRUE, "embed_chance" = 100, "fall_chance" = 0.1)
+#define EMBED_POINTY list("ignore_throwspeed_threshold" = TRUE)
+#define EMBED_POINTY_SUPERIOR list("embed_chance" = 100, "ignore_throwspeed_threshold" = TRUE)
 
 //Gun weapon weight
 #define WEAPON_LIGHT 1
@@ -236,7 +249,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define EXPLODE_DEVASTATE 1
 #define EXPLODE_HEAVY 2
 #define EXPLODE_LIGHT 3
-#define EXPLODE_GIB_THRESHOLD 50	//ex_act() with EXPLODE_DEVASTATE severity will gib mobs with less than this much bomb armor
+#define EXPLODE_GIB_THRESHOLD 80	//ex_act() with EXPLODE_DEVASTATE severity will gib mobs with less than this much bomb armor
 
 #define EMP_LIGHT 5 // maximum severity level without severe effects like organ failure and paralysis
 #define EMP_HEAVY 10 // max severity from most sources so you can't use a 5 billion tile EMP to instakill people

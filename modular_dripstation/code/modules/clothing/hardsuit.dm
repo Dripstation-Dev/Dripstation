@@ -1,3 +1,5 @@
+/// How much damage you take from an emp when wearing a hardsuit
+#define HARDSUIT_EMP_BURN 10
 //override light toggle
 /obj/item/clothing/head/helmet/space/hardsuit
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
@@ -12,6 +14,17 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.build_all_button_icons()
+
+/// Burn the person inside the hard suit just a little, the suit got really hot for a moment
+/obj/item/clothing/suit/space/hardsuit/emp_act(severity)
+	. = ..()
+	if (!(. & EMP_PROTECT_CONTENTS))
+		var/mob/living/carbon/human/user = src.loc
+		if(istype(user) && user.wear_suit == src)
+			user.apply_damage(HARDSUIT_EMP_BURN * severity, BURN, pick(BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG), wound_bonus = 10)
+			to_chat(user, span_warning("You feel \the [src] heat up from the EMP burning you slightly."))
+			balloon_alert(user, "suit EMPied")
+			//user.flick_pain(10, TRUE)
 
 //Engineering
 /obj/item/clothing/head/helmet/space/hardsuit/engine
@@ -42,10 +55,10 @@
 	//item_state = "metalh2_helm"
 	hardsuit_type = "metalh2"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/owl
+/obj/item/clothing/head/helmet/space/hardsuit/owl
 	icon_state = "owl_helm"
 
-/obj/item/clothing/suit/space/hardsuit/syndi/owl
+/obj/item/clothing/suit/space/hardsuit/owl
 	icon_state = "owl_rig"
 
 //Mining hardsuit, now explorer hardsuit
@@ -177,6 +190,7 @@
 	hardsuit_type = "sec"
 	light_range = 5
 	light_color = LIGHT_COLOR_RED
+	clothing_traits = list(TRAIT_HEAD_INJURY_BLOCKED)
 
 /obj/item/clothing/suit/space/hardsuit/security
 	desc = "A standart issue security suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
@@ -248,6 +262,47 @@
 	slowdown = 1.1
 
 
+//Marines
+/obj/item/clothing/head/helmet/space/hardsuit/marine
+	name = "terragov marine helmet"
+	desc = "The integrated helmet of an TGMC hardsuit."
+	icon_state = "marine_terragov_helm0"
+	//item_state = "nt_combathard_helm"
+	hardsuit_type = "marine_terragov"
+	armor = list(MELEE = 45, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 80, WOUND = 10, ELECTRIC = 100)
+
+/obj/item/clothing/suit/space/hardsuit/marine
+	name = "terragov marine hardsuit"
+	desc = "The standard issue hardsuit of the TGMC. Offers superb protection against environmental hazards."
+	icon_state = "marine_terragov_hardsuit"
+	//item_state = "nt_combat_hardsuit"
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
+	armor = list(MELEE = 45, BULLET = 40, LASER = 40, ENERGY = 35, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 80, WOUND = 10, ELECTRIC = 100)
+	slowdown = 0.5
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/marine
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/emergency_forcing_tool, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
+
+/obj/item/clothing/head/helmet/space/hardsuit/marine/medic
+	name = "terragov marine medic helmet"
+	icon_state = "marine_terragov_medic_helm0"
+	hardsuit_type = "marine_terragov_medic"
+
+/obj/item/clothing/suit/space/hardsuit/marine/medic
+	name = "terragov marine medic hardsuit"
+	icon_state = "marine_terragov_medic_hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/marine/medic
+
+/obj/item/clothing/head/helmet/space/hardsuit/marine/command
+	name = "terragov marine command helmet"
+	icon_state = "marine_terragov_command_helm0"
+	hardsuit_type = "marine_terragov_command"
+
+/obj/item/clothing/suit/space/hardsuit/marine/command
+	name = "terragov marine command hardsuit"
+	icon_state = "marine_terragov_command_hardsuit"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/marine/command
+
 //ERT
 /obj/item/clothing/head/helmet/space/hardsuit/ert
 	name = "emergency response team helmet"
@@ -262,8 +317,11 @@
 	desc = "The standard issue hardsuit of the ERT. Offers superb protection against environmental hazards."
 	icon_state = "nt_combat_hardsuit"
 	//item_state = "nt_combat_hardsuit"
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	armor = list(MELEE = 45, BULLET = 40, LASER = 40, ENERGY = 35, BOMB = 50, BIO = 100, RAD = 100, FIRE = 80, ACID = 80, WOUND = 10, ELECTRIC = 100)
 	slowdown = 0.5
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/emergency_forcing_tool, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/command
 	name = "emergency response team commander helmet"
@@ -395,6 +453,8 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR //we don`t want to see the mask
 
 /obj/item/clothing/suit/space/hardsuit/swat
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 
 	//Captain MKII
 /obj/item/clothing/head/helmet/space/hardsuit/swat/captain
@@ -504,7 +564,7 @@
 /obj/item/clothing/suit/space/hardsuit/deathsquad/mk5
 	name = "\improper MK.V SWAT suit"
 	desc = "A bulky and technological suit with ominous black and red paiting worn by \
-		Nanotrasen Black Ops teams. If you can see this suit, you fucked up. \
+		Nanotrasen Black Ops teams. If you see this suit - you fucked up. \
 		Heavy plasteel plates was replaced with bluespace-pocket plasceramic ultra-dense plating. \
 		Providing greate mobility and an impossible level of armor protection against all kinds of threats."
 	icon_state = "swat5_deathsquad_hardsuit"
@@ -513,6 +573,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad/mk5
 	armor = list(MELEE = 90, BULLET = 100, LASER = 60, ENERGY = 50, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
 	slowdown = 0.5
+	allowed = list(/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/flashlight, /obj/item/gun/ballistic, /obj/item/gun/energy, /obj/item/melee/baton, /obj/item/melee/classic_baton, /obj/item/reagent_containers/spray/pepper, /obj/item/restraints/handcuffs, /obj/item/tank/internals, /obj/item/kitchen/knife/combat)
 
 /obj/item/clothing/head/helmet/space/hardsuit/deathsquad/mk5/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -555,10 +616,22 @@
 	//item_state = "hardsuit-wiz"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 25, BIO = 100, RAD = 50, FIRE = 100, ACID = 100, WOUND = 30, ELECTRIC = 100)
-	allowed = list(/obj/item/teleportation_scroll, /obj/item/tank/internals)
+	allowed = list(/obj/item/teleportation_scroll, /obj/item/tank/internals, /obj/item/gun/magic/staff)
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	slowdown = 0
 	clothing_traits = list(TRAIT_ANTIMAGIC_NO_SELFBLOCK)
+
+/obj/item/clothing/head/helmet/space/hardsuit/cult
+	icon = 'icons/obj/clothing/hats/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
+
+/obj/item/clothing/suit/space/hardsuit/cult
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
+	icon = 'icons/obj/clothing/suits/suits.dmi'
+	worn_icon = 'icons/mob/clothing/suit/suit.dmi'

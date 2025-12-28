@@ -1,0 +1,96 @@
+/obj/projectile
+	var/fired_light_system = STATIC_LIGHT
+	var/fired_light_range = 0
+	var/fired_light_color = COLOR_WHITE
+
+/obj/projectile/bullet
+	speed = 2
+	icon_state = "bullet"
+	icon = 'modular_dripstation/icons/effects/projectiles/projectiles.dmi'
+	shrapnel_type = /obj/item/shrapnel/bullet
+	embedding = list("pain_multiplier" = 0, "embed_chance" = 35, "jostle_chance" = 2, "rip_time" = -1, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "pain_stam_pct" = 0.5, "remove_pain_mult" = 3)
+	ap_falloff_tile = 5
+	embed_falloff_tile = 2
+	fired_light_system = MOVABLE_LIGHT
+	fired_light_range = 0.6
+	fired_light_color = LIGHT_COLOR_YELLOW
+	//var/terrify_prob = 10
+
+/obj/projectile/bullet/reusable
+	fired_light_system = STATIC_LIGHT
+	fired_light_range = 0
+	fired_light_color = COLOR_WHITE
+
+/obj/projectile/bullet/Initialize(mapload)
+	. = ..()
+	//if(prob(terrify_prob))
+	AddElement(/datum/element/terrifiing_projectile)
+
+/obj/projectile/bullet/shrapnel
+	name = "flying shrapnel shard"
+	damage = 14
+	range = 20
+	weak_against_armour = TRUE
+	dismemberment = 5
+	ricochets_max = 2
+	ricochet_chance = 70
+	shrapnel_type = /obj/item/shrapnel
+	hit_prone_targets = TRUE
+	sharpness = SHARP_EDGED
+	wound_bonus = 30
+	embedding = list(embed_chance=70, ignore_throwspeed_threshold=TRUE, rip_time = -1, fall_chance=0)
+
+/obj/projectile/bullet/pellet/stingball
+	name = "stingball pellet"
+	damage = 3
+	stamina = 8
+	shrapnel_type = /obj/item/shrapnel/stingball
+	embedding = list(embed_chance=55, fall_chance=2, jostle_chance=7, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.7, pain_mult=3, jostle_pain_mult=3, rip_time=15)
+
+/obj/item/shrapnel // frag grenades
+	name = "shrapnel shard"
+	custom_materials = list(/datum/material/iron=50)
+	icon_state = "shrapnel"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
+	w_class = WEIGHT_CLASS_TINY
+	sharpness = SHARP_EDGED
+
+/obj/item/shrapnel/bullet // bullets
+	name = "bullet"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
+	icon_state = "bullet"
+	embedding = null // embedding vars are taken from the projectile itself
+
+/obj/item/shrapnel/stingball
+	name = "stingballs"
+	icon_state = "stingballs"
+	icon = 'modular_dripstation/icons/obj/ammo.dmi'
+	item_flags = DROPDEL
+
+/obj/effect/decal/cleanable/glass/stingballs
+	name = "stingballs"
+	desc = "Somebody dropped something stingy."
+
+/obj/item/shrapnel/stingball/Destroy()
+	new /obj/effect/decal/cleanable/glass/stingballs(src.loc)
+	return..()
+
+/obj/projectile/bullet/gyro
+	icon_state = "40mm"
+	shrapnel_type = null
+
+/obj/projectile/bullet/p50
+	speed = 1.5
+
+/obj/projectile/bullet/m308
+	speed = 1.5
+
+/obj/projectile/bullet/a762
+	speed = 1.5
+
+/obj/projectile/bullet/c10mm/cs
+	speed = 1
+
+/obj/projectile/bullet/c38/bluespace
+	speed = 5
+

@@ -2,6 +2,7 @@
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "random_loot"
 	layer = OBJ_LAYER
+	var/spawn_loot_chance = 100
 	var/lootcount = 1		//how many items will be spawned
 	var/lootdoubles = TRUE	//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
@@ -9,6 +10,8 @@
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	..()
+	if(!prob(spawn_loot_chance))		//dripstation edit
+		return INITIALIZE_HINT_QDEL		//dripstation edit
 	if(loot && loot.len)
 		var/loot_spawned = 0
 		while((lootcount-loot_spawned) && loot.len)
@@ -18,6 +21,10 @@
 
 			if(lootspawn)
 				var/atom/movable/spawned_loot = new lootspawn(loc)
+				spawned_loot.setDir(dir)		//dripstation edit
+				if(istype(src, /obj/effect/spawner/lootdrop/graffiti))		//dripstation edit
+					var/obj/effect/spawner/lootdrop/graffiti/G = src		//dripstation edit
+					G.select_graffiti(spawned_loot)		//dripstation edit
 				if (!fan_out_items)
 					if (pixel_x != 0)
 						spawned_loot.pixel_x = pixel_x
@@ -193,6 +200,8 @@
 
 /obj/effect/spawner/lootdrop/grille_or_trash
 	name = "maint grille or trash spawner"
+	icon_state = "grille"		//dripstation edit
+	icon = 'modular_dripstation/icons/effects/random_spawners.dmi'		//dripstation edit
 	loot = list(/obj/structure/grille = 5,
 			/obj/item/cigbutt = 1,
 			/obj/item/trash/cheesie = 1,
@@ -506,6 +515,8 @@
 
 /obj/effect/spawner/lootdrop/crate_spawner
 	name = "lootcrate spawner" //USE PROMO CODE "SELLOUT" FOR 20% OFF!
+	icon = 'modular_dripstation/icons/effects/random_spawners.dmi'		//dripstation edit
+	icon_state = "crate_secure"											//dripstation edit
 	lootdoubles = FALSE
 
 	loot = list(
@@ -684,6 +695,7 @@
 	name = "tcomms circuit board spawner"
 	loot = list(
 				/obj/item/circuitboard/computer/message_monitor,
+				/obj/item/circuitboard/machine/server_cabinet,
 				/obj/item/circuitboard/machine/telecomms/broadcaster,
 				/obj/item/circuitboard/machine/telecomms/bus,
 				/obj/item/circuitboard/machine/telecomms/server,

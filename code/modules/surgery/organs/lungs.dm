@@ -88,13 +88,19 @@
 				gas_min -= g
 
 /obj/item/organ/lungs/proc/check_breath(datum/gas_mixture/breath, mob/living/carbon/human/H)
-	var/breathModifier = (5-(5*(damage/maxHealth)/2)) //range 2.5 - 5
+	var/breathModifier = (5-(5*(damage/getMaxHealth())/2)) //range 2.5 - 5
 	if(H.status_flags & GODMODE)
 		return
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		return
 
 	if(!breath || (breath.total_moles() == 0))
+		var/datum/gas_mixture/environment = H.loc?.return_air()
+		if(!environment.return_pressure())	//so generally you breath open space lately, epi can`t help with that
+			damage += HUMAN_MAX_OXYLOSS
+			var/lung_rupture_prob = prob(5 + 10*damage/getMaxHealth())
+			if(!is_ruptured && status != ORGAN_ROBOTIC && lung_rupture_prob) //only rupture if NOT already ruptured
+				rupture()
 		if(H.reagents.has_reagent(crit_stabilizing_reagent, needs_metabolizing = TRUE))
 			return
 		if(H.health >= H.crit_threshold)
@@ -272,6 +278,7 @@
 		if (freon_pp >40)
 			H.emote("gasp")
 			H.adjustFireLoss(15)
+			H.adjustOrganLoss(ORGAN_SLOT_LUNGS, freon_pp * 0.1)
 			if (prob(freon_pp/2))
 				to_chat(H, span_alert("Your throat closes up!"))
 				H.silent = max(H.silent, 3)
@@ -307,6 +314,7 @@
 			H.adjustOxyLoss(5)
 			H.adjustFireLoss(8)
 			H.adjustToxLoss(8)
+			H.adjustOrganLoss(ORGAN_SLOT_LUNGS, zauker_pp * 0.1)
 		gas_breathed = breath.get_moles(GAS_ZAUKER)
 		breath.adjust_moles(GAS_ZAUKER, -gas_breathed)
 
@@ -441,6 +449,7 @@
 	SIGNAL_HANDLER
 	speech_args[SPEECH_SPANS] |= SPAN_HELIUM
 
+/* Dripstation edit
 /obj/item/organ/lungs/on_life()
 	..()
 	if((!failed) && ((organ_flags & ORGAN_FAILING)))
@@ -450,6 +459,7 @@
 	else if(!(organ_flags & ORGAN_FAILING))
 		failed = FALSE
 	return
+*/
 
 /obj/item/organ/lungs/attackby(obj/item/W, mob/user, params)
 	if(!(organ_flags & ORGAN_SYNTHETIC) && organ_efficiency == 1 && W.tool_behaviour == TOOL_CROWBAR)

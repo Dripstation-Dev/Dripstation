@@ -38,6 +38,9 @@ GLOBAL_LIST_INIT(ruins_ambience,list(
 	'sound/ambience/ambiruin7.ogg',
 	'sound/ambience/ambidanger.ogg',
 	'sound/ambience/ambidanger2.ogg',
+	'sound/ambience/ambireebe1.ogg', 
+	'sound/ambience/ambireebe2.ogg', 
+	'sound/ambience/ambireebe3.ogg',
 	'sound/ambience/ambitech3.ogg',
 	'sound/ambience/ambimystery.ogg',
 	'sound/ambience/ambimaint1.ogg'))
@@ -104,6 +107,17 @@ GLOBAL_LIST_INIT(maint_ambience,list(
 	'sound/voice/lowHiss2.ogg',
 	'sound/voice/lowHiss3.ogg',
 	'sound/voice/lowHiss4.ogg',
+	'sound/voice/lowHiss1.ogg',
+	'modular_dripstation/sound/ambience/newlow_hiss1.ogg',
+	'modular_dripstation/sound/ambience/newlow_hiss2.ogg',
+	'yogstation/sound/misc/honk_echo_distant.ogg',
+	'modular_dripstation/sound/ambience/littlescary1.ogg', 
+	'modular_dripstation/sound/ambience/littlescary2.ogg', 
+	'modular_dripstation/sound/ambience/littlescary3.ogg',
+	'sound/ambience/antag/telegraph1.ogg',
+	'sound/ambience/antag/telegraph2.ogg',
+	'sound/ambience/ambimalf2.ogg',
+	'sound/ambience/ambitech3.ogg',
 	'sound/ambience/ambitech2.ogg',
 	'sound/ambience/maintambience.ogg'))
 

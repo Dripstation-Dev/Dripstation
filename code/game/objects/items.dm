@@ -94,6 +94,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
 	var/body_parts_partial_covered = 0 //same bit flags as above, only applies half armor to these body parts
+	var/partial_armor_coeff = 0.5 //standart - half armor, but can be tweaked
 
 	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
@@ -112,7 +113,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER //the icon to indicate this object is being dragged
 
-	var/datum/embedding_behavior/embedding
+	var/list/embedding	//dripstation edit
+	var/weak_against_armour = FALSE	//no use just yet, keeping it for future
 
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
 	var/heat = 0
@@ -174,6 +176,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/canMouseDown = FALSE
 	/// Does this item have syndicate only functionality via hud buttons? Needs to be in this scope to encompass all Chameleon items - Hopek
 	var/syndicate = FALSE
+	//dripstation edit - probably later this will be flag with something, i`m lasy for now
+	//var/illegal_thing = FALSE
 	/// item hover FX
 	var/outline_filter
 
@@ -218,12 +222,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(damtype == "brute")
 			hitsound = "swing_hit"
 
-	if (!embedding)
-		embedding = getEmbeddingBehavior()
-	else if (islist(embedding))
-		embedding = getEmbeddingBehavior(arglist(embedding))
-	else if (!istype(embedding, /datum/embedding_behavior))
-		stack_trace("Invalid type [embedding.type] found in .embedding during /obj/item Initialize(mapload)")
+	if (embedding)
+		updateEmbedding()
 
 /obj/item/Destroy(force=FALSE)
 	item_flags &= ~DROPDEL //prevent reqdels
@@ -245,6 +245,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		CRASH("An action ([source.type]) was deleted that was associated with an item ([src]), but was not found in the item's actions list.")
 
 	LAZYREMOVE(actions, source)
+
+//dripstation edit start
+/obj/item/proc/is_illegal()
+	if(is_type_in_typecache(src, GLOB.illegal_items))
+		return TRUE
+	return FALSE
+
+/obj/item/proc/is_restricted()
+	return FALSE
 
 /// Adds an item action to our list of item actions.
 /// Item actions are actions linked to our item, that are granted to mobs who equip us.
@@ -341,8 +350,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	loc = null
 	loc = T
 
+/obj/item/get_examine_string(mob/user, thats = FALSE)
+	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)][(HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED) || isobserver(user)) && !syndicate && is_illegal()? span_warning(" (illegal)"):""]"
+
+/obj/item/get_examine_desc_string(mob/user)
+	if(!can_see(user, src, 3) && !isobserver(user))
+		return "It is too far away!"
+	else
+		return ..()
+
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	. = ..()
+
+	if(!can_see(user, src, 2) && !isobserver(user))
+		return
 
 	. += "[gender == PLURAL ? "They are" : "It is"] a [weightclass2text(w_class)] item."
 
@@ -367,6 +388,14 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			. += "[src] is made of fire-retardant materials."
 	if(taped)
 		. += "[src] seems to be covered in tape."
+	if(illegal_identification_skill_check(user))
+		if(is_illegal())
+			if(syndicate)
+				. += span_tinynotice("Seems to have some unregistered functions.")
+			else
+				. += span_warning("Illegal under Nanotrasen Corporate Law.")
+		if(is_restricted())
+			. += span_notice("Restricted under Nanotrasen Corporate Law.")
 	if(!user.research_scanner)
 		return
 
@@ -403,6 +432,19 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		research_msg += "None"
 	research_msg += "."
 	. += research_msg.Join()
+
+/obj/item/proc/illegal_identification_skill_check(mob/user)
+	if(!in_range(user, src))
+		return FALSE
+	if(is_syndicate(user))
+		return TRUE
+	if(HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_BASIC) && !syndicate)
+		return TRUE
+	if(HAS_TRAIT(user?.mind, TRAIT_ILLEGAL_IDENTIFICATION_ADVANCED) && (!syndicate || user.is_holding(src)))
+		return TRUE
+	if(isobserver(user))
+		return TRUE
+	return FALSE
 
 /obj/item/interact(mob/user)
 	add_fingerprint(user)
@@ -1222,3 +1264,70 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/update_item_action_buttons(update_flags = ALL, force = FALSE)
 	for(var/datum/action/current_action as anything in actions)
 		current_action.build_all_button_icons(update_flags, force)
+
+///Does the current embedding var meet the criteria for being harmless? Namely, does it have a pain multiplier and jostle pain mult of 0? If so, return true.
+/obj/item/proc/isEmbedHarmless()
+	if(embedding)
+		return !isnull(embedding["pain_mult"]) && !isnull(embedding["jostle_pain_mult"]) && embedding["pain_mult"] == 0 && embedding["jostle_pain_mult"] == 0
+
+///In case we want to do something special (like self delete) upon failing to embed in something.
+/obj/item/proc/failedEmbed()
+	if(item_flags & DROPDEL && !QDELETED(src))
+		qdel(src)
+
+/**
+ * tryEmbed() is for when you want to try embedding something without dealing with the damage + hit messages of calling hitby() on the item while targetting the target.
+ *
+ * Really, this is used mostly with projectiles with shrapnel payloads, from [/datum/element/embed/proc/checkEmbedProjectile], and called on said shrapnel. Mostly acts as an intermediate between different embed elements.
+ *
+ * Returns TRUE if it embedded successfully, nothing otherwise
+ *
+ * Arguments:
+ * * target- Either a body part or a carbon. What are we hitting?
+ * * forced- Do we want this to go through 100%?
+ */
+/obj/item/proc/tryEmbed(atom/target, forced=FALSE)
+	if(!isbodypart(target) && !iscarbon(target))
+		return NONE
+	if(!forced && !LAZYLEN(embedding))
+		return NONE
+
+	if(SEND_SIGNAL(src, COMSIG_EMBED_TRY_FORCE, target = target, forced = forced))
+		return COMPONENT_EMBED_SUCCESS
+	failedEmbed()
+
+///For when you want to disable an item's embedding capabilities (like transforming weapons and such), this proc will detach any active embed elements from it.
+/obj/item/proc/disableEmbedding()
+	SEND_SIGNAL(src, COMSIG_ITEM_DISABLE_EMBED)
+	return
+
+///For when you want to add/update the embedding on an item. Uses the vars in [/obj/item/var/embedding], and defaults to config values for values that aren't set. Will automatically detach previous embed elements on this item.
+/obj/item/proc/updateEmbedding()
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_ITEM_EMBEDDING_UPDATE)
+	if(!LAZYLEN(embedding))
+		disableEmbedding()
+		return
+
+	AddElement(/datum/element/embed,\
+		embed_chance = (!isnull(embedding["embed_chance"]) ? embedding["embed_chance"] : EMBED_CHANCE),\
+		fall_chance = (!isnull(embedding["fall_chance"]) ? embedding["fall_chance"] : EMBEDDED_ITEM_FALLOUT),\
+		pain_chance = (!isnull(embedding["pain_chance"]) ? embedding["pain_chance"] : EMBEDDED_PAIN_CHANCE),\
+		pain_mult = (!isnull(embedding["pain_mult"]) ? embedding["pain_mult"] : EMBEDDED_PAIN_MULTIPLIER),\
+		remove_pain_mult = (!isnull(embedding["remove_pain_mult"]) ? embedding["remove_pain_mult"] : EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER),\
+		rip_time = (!isnull(embedding["rip_time"]) ? embedding["rip_time"] : EMBEDDED_UNSAFE_REMOVAL_TIME),\
+		ignore_throwspeed_threshold = (!isnull(embedding["ignore_throwspeed_threshold"]) ? embedding["ignore_throwspeed_threshold"] : FALSE),\
+		impact_pain_mult = (!isnull(embedding["impact_pain_mult"]) ? embedding["impact_pain_mult"] : EMBEDDED_IMPACT_PAIN_MULTIPLIER),\
+		jostle_chance = (!isnull(embedding["jostle_chance"]) ? embedding["jostle_chance"] : EMBEDDED_JOSTLE_CHANCE),\
+		jostle_pain_mult = (!isnull(embedding["jostle_pain_mult"]) ? embedding["jostle_pain_mult"] : EMBEDDED_JOSTLE_PAIN_MULTIPLIER),\
+		pain_stam_pct = (!isnull(embedding["pain_stam_pct"]) ? embedding["pain_stam_pct"] : EMBEDDED_PAIN_STAM_PCT))
+	return TRUE
+
+/obj/item/proc/embedded(atom/embedded_target, obj/item/bodypart/part)
+	return
+
+/obj/item/proc/unembedded()
+	if(item_flags & DROPDEL && !QDELETED(src))
+		qdel(src)
+		return TRUE

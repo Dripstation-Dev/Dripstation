@@ -113,7 +113,10 @@
 
 /obj/item/organ/cyberimp/brain/anti_stun/Insert()
 	. = ..()
+	/*Dripstation edit
 	RegisterSignal(owner, signalCache, PROC_REF(on_signal))
+	*/
+	RegisterSignals(owner, signalCache, PROC_REF(on_signal), override = TRUE)	//Dripstation edit
 	RegisterSignal(owner, COMSIG_CARBON_STATUS_STAMCRIT, PROC_REF(on_signal_stamina))
 
 /obj/item/organ/cyberimp/brain/anti_stun/Remove(mob/living/carbon/M, special = FALSE)

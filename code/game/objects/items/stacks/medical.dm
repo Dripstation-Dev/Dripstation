@@ -272,9 +272,11 @@
 
 /obj/item/stack/medical/suture/heal(mob/living/M, mob/user)
 	. = ..()
+/* Dripstation edit
 	if(M.stat == DEAD)
 		to_chat(user, span_warning("[M] is dead! You can not help [M.p_them()]."))
 		return
+*/
 	if(iscarbon(M))
 		return heal_carbon(M, user, heal_brute, heal_burn)
 	if(isanimal(M))

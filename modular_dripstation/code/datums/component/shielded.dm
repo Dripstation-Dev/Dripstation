@@ -89,6 +89,7 @@
 	var/obj/item/item_parent = parent
 	if(has_sparks)
 		playsound(item_parent.loc, 'modular_dripstation/sound/shield_drained.ogg', 65, 1)
+		play_fov_effect(item_parent, 5, "forcefield")	//dripstation edit
 	if(current_charges <= 0)
 		is_charged = FALSE
 		if(!current_owner)
@@ -107,6 +108,7 @@
 			playsound(item_parent.loc, 'modular_dripstation/sound/shield_charged.ogg', 35, 1)
 		else
 			playsound(item_parent.loc, 'modular_dripstation/sound/shield_charge.ogg', 50, 1)
+		play_fov_effect(item_parent, 5, "forcefield")	//dripstation edit
 
 /datum/component/shielded/process(seconds_per_tick)
 	if(current_charges >= max_charges)

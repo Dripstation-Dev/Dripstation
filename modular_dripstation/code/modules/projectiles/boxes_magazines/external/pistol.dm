@@ -7,16 +7,6 @@
 	name = "ammo box (9mm Armor-Piercing)"
 	ammo_type = /obj/item/ammo_casing/c9mm/ap
 
-/obj/item/ammo_box/no_direct/c38
-	name = "ammo box (.38 special)"
-	icon_state = "38box"
-	ammo_type = /obj/item/ammo_casing/c38
-	max_ammo = 20
-
-/obj/item/ammo_box/no_direct/c38/rubber
-	name = "ammo box (.38 rubber)"
-	ammo_type = /obj/item/ammo_casing/c38/rubber
-
 //APS, Glock, STM-9 Mag
 /obj/item/ammo_box/magazine/pistolm9mm/ap
 	name = "pistol magazine (9mm Armor-Piercing)"
@@ -128,3 +118,25 @@
 	name = "FNX-45 magazine (Venom .45 ACP)"
 	icon_state = "fn45V"
 	ammo_type = /obj/item/ammo_casing/c45/venom
+
+//////10mm pistols////
+/obj/item/ammo_box/magazine/m10mm
+	desc = "An 10-round 10mm magazine designed for the 10mm pistol."
+
+/obj/item/ammo_box/magazine/m10mm/cs
+	desc = "An 10-round 10mm magazine designed for the 10mm pistol. Loaded with rounds which are engineered without casings, but suffer damage and speed as a result."
+
+/obj/item/ammo_box/magazine/m10mm/fire
+	desc = "An 10-round 10mm magazine designed for the 10mm pistol. Loaded with rounds which trade lethality for ignition of target."
+
+/obj/item/ammo_box/magazine/m10mm/hp
+	desc= "An 10-round 10mm magazine designed for the 10mm pistol. Loaded with hollow-point rounds, which suffer massively against armor but deal intense damage."
+
+/obj/item/ammo_box/magazine/m10mm/ap
+	desc= "An 10-round 10mm magazine designed for the 10mm pistol. Loaded with rounds which penetrate armor but are less effective against normal targets."
+
+/obj/item/ammo_box/magazine/m10mm/sp
+	desc= "An 10-round 10mm magazine designed for the 10mm pistol. Loaded with rounds which administer a small dose of tranquilizer on hit."
+
+/obj/item/ammo_box/magazine/m10mm/emp
+	desc = "An 10-round 10mm magazine designed for the 10mm pistol. Loaded with rounds which release a small EMP pulse upon hitting a target."

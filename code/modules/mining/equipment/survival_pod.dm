@@ -288,6 +288,10 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_ABSTRACT
 
+//Visible, indestructible fans
+/obj/structure/fans/tiny/indestructible
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
 //Signs
 /obj/structure/sign/mining
 	name = "nanotrasen mining corps sign"

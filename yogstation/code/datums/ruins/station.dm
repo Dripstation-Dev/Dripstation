@@ -225,6 +225,16 @@
 	suffix = "clerk_gamble.dmm"
 	name = "Clerk Gambling Hall"
 
+/datum/map_template/ruin/station/meta/clerk/dripmeta
+	id = "clerk_dripmeta"
+	suffix = "clerk_dripmeta.dmm"
+	name = "Clerk DripMeta"
+
+/datum/map_template/ruin/station/meta/clerk/dripgamble
+	id = "clerk_dripgamble"
+	suffix = "clerk_dripgamble.dmm"
+	name = "Clerk DripGambling Hall"
+
 /datum/map_template/ruin/station/meta
 	prefix = "_maps/RandomRuins/StationRuins/MetaStation/"
 
@@ -240,7 +250,7 @@
 
 /datum/map_template/ruin/station/meta/teg
 	id = "meta_teg"
-	suffix = "meta_teg.dmm"
+	suffix = "dripmeta_teg.dmm"
 	name = "Meta TEG"
 
 /datum/map_template/ruin/station/meta/reactor

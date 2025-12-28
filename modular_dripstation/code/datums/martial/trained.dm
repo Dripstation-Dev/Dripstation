@@ -9,6 +9,7 @@
 	nonlethal = TRUE //all attacks deal solely stamina damage or knock out before dealing lethal amounts of damage
 	display_combos = TRUE //for style points literally
 	var/chokehold_active = FALSE
+	var/mob/restraining_mob
 
 /datum/martial_art/trained/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(can_use(A) || can_use(D)))
@@ -20,7 +21,7 @@
 	return FALSE
 
 /datum/martial_art/trained/proc/LowRestrain(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(restraining)
+	if(restraining_mob)
 		return
 	if(!can_use(A))
 		return FALSE
@@ -29,19 +30,18 @@
 		D.visible_message(span_warning("[A] locks [D] into a restraining position!"), \
 							span_userdanger("[A] locks you into a restraining position!"))
 		A.do_attack_animation(D, ATTACK_EFFECT_GRAB)
-		D.Stun(2 SECONDS)
-		if(!(A.pulling == D))
-			D.grabbedby(A, 1)
-		if(A.grab_state < GRAB_AGGRESSIVE)
-			A.grab_state = GRAB_AGGRESSIVE
-		restraining = TRUE
-	return TRUE
+		D.Immobilize(4 SECONDS)
+		D.adjustStaminaLoss(20)
+		restraining_mob = D
+		addtimer(VARSET_CALLBACK(src, restraining_mob, null), 25, TIMER_UNIQUE)
+		return TRUE
 
 /datum/martial_art/trained/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(can_use(A) || can_use(D)))
 		return FALSE
 	add_to_streak("D", D)
-	if(restraining && A.pulling == D && A.zone_selected == BODY_ZONE_HEAD)
+	var/returning = FALSE
+	if(restraining_mob && A.pulling == restraining_mob && A.zone_selected == BODY_ZONE_HEAD)
 		if(chokehold_active)
 			return TRUE
 		log_combat(A, D, "began to chokehold(Trained Combat)")
@@ -59,17 +59,17 @@
 		else
 			if(A.grab_state) //honestly with the way current grabs work this doesn't really do all that much
 				A.grab_state = min(1, A.grab_state - 1) //immediately lose grab power...
-				if(!A.grab_state || prob(BASE_GRAB_RESIST_CHANCE/A.grab_state)) //...and have a chance to lose the entire grab
+				if(!A.grab_state || prob(BASE_GRAB_RESIST_CHANCE/max(0.5, A.grab_state - 1))) //...and have a chance to lose the entire grab, minimum will be like 60%
 					A.visible_message(span_danger("[A] is put off balance, losing their grip on [D]!"), \
 										span_danger("You are put off balance, and you lose your grip on [D]!"))
 					A.stop_pulling()
 				else
 					A.visible_message(span_danger("[A] is put off balance, and struggles to maintain their grip on [D]!"), \
 										"<span class='danger>You are put off balance, and struggle to maintain your grip on [D]!</span>")
-		chokehold_active = FALSE
-		restraining = FALSE
-		return TRUE
-	return FALSE
+		returning = TRUE
+	chokehold_active = FALSE
+	restraining_mob = null
+	return returning
 
 /datum/martial_art/trained/proc/handle_chokehold(mob/living/carbon/human/A, mob/living/carbon/human/D) //handles the chokehold attack, dealing oxygen damage until the target is unconscious or would have less than 20 health before knocking out
 	chokehold_active = TRUE
@@ -92,7 +92,7 @@
 	if(!(can_use(A) || can_use(D)))
 		return FALSE
 	add_to_streak("H", D)
-	if(restraining && A.pulling == D && (A.zone_selected == BODY_ZONE_L_ARM || A.zone_selected == BODY_ZONE_R_ARM))
+	if(restraining_mob && A.pulling == restraining_mob && (A.zone_selected == BODY_ZONE_L_ARM || A.zone_selected == BODY_ZONE_R_ARM))
 		armlock(A, D)
 		//if(A.grab_state < GRAB_NECK)
 		//	A.grab_state = GRAB_NECK
@@ -125,7 +125,7 @@
 		span_userdanger("[A] attempts to advance restrain on you!")
 	)
 	A.do_attack_animation(D, ATTACK_EFFECT_GRAB)
-	if(!do_after(A, 1.7 SECONDS, D))
+	if(!do_after(A, 1 SECONDS, D))
 		return FALSE
 	if(isipc(D))
 		var/datum/effect_system/spark_spread/s = new
@@ -138,28 +138,35 @@
 	D.Immobilize(7 SECONDS)	//time to handcuff target or do something to them
 	D.Knockdown(12 SECONDS) //+5 seconds to punch him in his guts
 	D.apply_damage(A.get_punchdamagehigh() + 5, STAMINA)	//15 damage
-	A.forceMove(get_turf(D))
-	A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//grants free 0.2 seconds, swag
+	A.Move(get_turf(D))
+	D.grabbedby(A, TRUE, TRUE) //give grab back
+	D.grabbedby(A, TRUE, TRUE) //give grab back
+	A.changeNext_move(CLICK_CD_RAPID)	//grants free 0.2 seconds, swag
 	D.visible_message(
 		span_danger("[A] successfully armlocks [D]!"),
 		span_userdanger("[A] successfully armlocks you!")
 	)
 
+/datum/martial_art/trained/reset_streak(mob/living/new_target)
+	if(new_target && new_target != restraining_mob)
+		restraining_mob = null
+	return ..()
+
 ///CQC grab, no stun
-/datum/martial_art/trained/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(A.a_intent == INTENT_GRAB && A!=D && (can_use(A) && can_use(D))) // A!=D prevents grabbing yourself
-		add_to_streak("G",D)
-		if(check_streak(A,D)) //if a combo is made no grab upgrade is done
+/datum/martial_art/trained/grab_act(mob/living/A, mob/living/D)
+	if(A != D && can_use(A)) // A != D prevents grabbing yourself
+		add_to_streak("G", D)
+		if(check_streak(A, D)) //if a combo is made no grab upgrade is done
 			return TRUE
-		if(D.grabbedby(A))
-			D.drop_all_held_items()
-			A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.6 Seconds instead of 1, less frustrating
-			//D.Stun(0.5 SECONDS)
-		if(A.grab_state < 1)
-			restraining = FALSE
-		return TRUE
-	else
-		return FALSE
+		if(A.grab_state == GRAB_AGGRESSIVE)
+			log_combat(A, D, "aggressively grabbed neck")
+			D.visible_message(span_warning("[A] violently grabs [D]`s neck!"), \
+							span_userdanger("You're neck grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
+			to_chat(A, span_danger("You violently grab [D]`s neck!"))
+			D.grabbedby(A, TRUE, TRUE) //Instant neck grab if already grabbed
+			A.changeNext_move(CLICK_CD_RAPID)	//0.2 Seconds instead of 1, less frustrating
+			return TRUE
+	return FALSE
 
 ///CQC-like counter: attacker's weapon is placed in the defender's offhand and they are knocked down
 /datum/martial_art/trained/handle_counter(mob/living/carbon/human/user, mob/living/carbon/human/attacker)
@@ -169,6 +176,11 @@
 		return
 	if(user.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to counter
 		to_chat(user, span_warning("You're too off balance to counter this!"))
+		return
+	var/l_hand = user.get_empty_held_index_for_side("l")
+	var/r_hand =  user.get_empty_held_index_for_side("r")
+	if(!l_hand && !r_hand)
+		to_chat(user, span_danger("You need an empty hand to deflect [attacker]'s attack with [name]!"))
 		return
 	user.adjustStaminaLoss(35)	//Can't block forever. Not so effective as real CQC, can do it only a few times before screw up
 	user.do_attack_animation(attacker, ATTACK_EFFECT_DISARM)
@@ -184,7 +196,14 @@
 			return
 		INVOKE_ASYNC(touch_spell, /datum/action/cooldown/spell/touch.proc/do_hand_hit, touch_weapon, attacker, attacker)
 		return COMPONENT_NO_AFTERATTACK
-	else
+	else if(user.a_intent == INTENT_HELP)	//chill bro
+		attacker.visible_message(span_warning("[user] carefully dodges [attacker]'s attack!"), \
+						span_userdanger("[user] reflects your arm as you attack and evades your attack!"))
+		to_chat(user, span_danger("You take great care to remain untouched by [attacker]'s attack!"))
+		cool_dash_effect(user, attacker, I)
+		user.adjustStaminaLoss(-50)	//you feel like on morality high ground of the fight and can chill
+		return
+	else if(I)
 		attacker.visible_message(span_warning("[user] grabs [attacker]'s arm as they attack and throws them to the ground!"), \
 							span_userdanger("[user] grabs your arm as you attack and throws you to the ground!"))
 		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_1.ogg', 50, 1, -1)
@@ -194,7 +213,16 @@
 				if(!user.put_in_hand(I, hand))
 					I.forceMove(get_turf(attacker))
 		attacker.Knockdown(60)
-
+		return
+	else
+		attacker.visible_message(span_warning("[user] grabs [attacker]'s arm as they attack and twists it!"), \
+							span_userdanger("[user] grabs your arm as you attack and twists it, you feel staggered!"))
+		attacker.adjust_staggered_up_to(2 SECONDS, 4 SECONDS)
+		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_2.ogg', 50, 1, -1)
+		if(attacker.a_intent == INTENT_GRAB)
+			user.start_pulling(attacker, TRUE)
+			attacker.grabbedby(user, FALSE, TRUE)
+		return
 
 /mob/living/carbon/human/proc/trained_help()
 	set name = "Remember The Basics"

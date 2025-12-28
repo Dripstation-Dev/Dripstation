@@ -27,12 +27,13 @@
 	..()
 	var/mob/living/carbon/human/boss = user
 	if(worn) //This way your speed isn't slowed if you never actually put on the gloves
-		boss.physiology.do_after_speed /= tacticalspeed
+		boss.physiology?.do_after_speed /= tacticalspeed
 		worn = FALSE
 
 /obj/item/clothing/gloves/fingerless/bigboss
 	tacticalspeed = 0.66 //Does channels 34% faster
 	clothing_traits = list(TRAIT_QUICKER_CARRY, TRAIT_STRONG_GRIP)
+	syndicate = TRUE
 
 /obj/item/clothing/gloves/fingerless/bigboss/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc

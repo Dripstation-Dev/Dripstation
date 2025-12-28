@@ -16,17 +16,20 @@
 		/obj/item/construction/rcd = 3,
 		/obj/item/circuitboard/machine/vending/donksofttoyvendor = 2
 	)
+	alt_titles = list("Stock Controller", "Cargo Coordinator", "Shipping Overseer")
 	paycheck = PAYCHECK_COMMAND
+	loyalties = LOYALTY_CORP_SLAVE
 	departments_list = list(
 		/datum/job_department/cargo,
 		/datum/job_department/command,
 	)
 	supervisor_corporation = /datum/corporation/nanotrasen/kompac
+	lightup_areas = list(/area/quartermaster/qm)
 
 /datum/outfit/job/quartermaster
 	id_type = /obj/item/card/id/head
 	ears = /obj/item/radio/headset/qm
-	backpack_contents = list(/obj/item/melee/classic_baton/telescopic = 1, /obj/item/boxcutter = 1)
+	backpack_contents = list(/obj/item/melee/classic_baton/telescopic/bronze = 1, /obj/item/boxcutter = 1, /obj/item/gps = 1)
 	backpack = /obj/item/storage/backpack/cargo
 	satchel = /obj/item/storage/backpack/satchel/cargo
 	duffelbag = /obj/item/storage/backpack/duffelbag/cargo
@@ -36,7 +39,7 @@
 /datum/outfit/job/plasmaman/quartermaster
 	id_type = /obj/item/card/id/head
 	ears = /obj/item/radio/headset/qm
-	backpack_contents = list(/obj/item/melee/classic_baton/telescopic = 1, /obj/item/boxcutter = 1)
+	backpack_contents = list(/obj/item/melee/classic_baton/telescopic/bronze = 1, /obj/item/boxcutter = 1, /obj/item/gps = 1)
 	backpack = /obj/item/storage/backpack/cargo
 	satchel = /obj/item/storage/backpack/satchel/cargo
 	duffelbag = /obj/item/storage/backpack/duffelbag/cargo

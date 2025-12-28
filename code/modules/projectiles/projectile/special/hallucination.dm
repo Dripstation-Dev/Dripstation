@@ -127,7 +127,7 @@
 	name = "bullet"
 	hal_icon_state = "bullet"
 	hal_fire_sound = "gunshot"
-	hal_hitsound = 'sound/weapons/pierce.ogg'
+	hal_hitsound = SFX_PIERCE
 	hal_hitsound_wall = "ricochet"
 	hal_impact_effect = "impact_bullet"
 	hal_impact_effect_wall = "impact_bullet"

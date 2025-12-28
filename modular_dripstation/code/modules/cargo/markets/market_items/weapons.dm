@@ -63,3 +63,66 @@
 	price_max = CARGO_CRATE_VALUE * 2
 	stock_max = 2
 	availability_prob = 50
+
+/datum/market_item/weapon/mini
+	name = "NT-E4 energy service pistol"
+	desc = "Modern Nanotrasen brand energy gun for personal defence."
+	item = /obj/item/gun/energy/e_gun/mini
+
+	price_min = CARGO_CRATE_VALUE * 3.4
+	price_max = CARGO_CRATE_VALUE * 6
+	stock_max = 2
+	availability_prob = 35
+
+/datum/market_item/weapon/katana
+	name = "Modern katana"
+	desc = "Modern katana forged by some space ninja clan, capable to slice through variety of materials."
+	item = /obj/item/melee/katana
+
+	price_min = CARGO_CRATE_VALUE * 5
+	price_max = CARGO_CRATE_VALUE * 7
+	stock_max = 1
+	availability_prob = 15
+
+/datum/market_item/weapon/bola
+	name = "Tactical bola"
+	desc = "Tactical bola for fighting opressing forces."
+	item = /obj/item/restraints/legcuffs/bola/tactical
+
+	price_min = CARGO_CRATE_VALUE * 0.5
+	price_max = CARGO_CRATE_VALUE * 1.2
+	stock_min = 2
+	stock_max = 5
+	availability_prob = 35
+
+/datum/market_item/weapon/glock
+	name = "Glock 17"
+	desc = "A weapon from bygone times. Blocky firearm from the 21st century. For self defence, really."
+	item = /obj/item/gun/ballistic/automatic/pistol/glock17
+	added_market_item = /datum/market_item/weapon/spare_9mmag
+
+	price_min = CARGO_CRATE_VALUE * 4
+	price_max = CARGO_CRATE_VALUE * 6.5
+	stock_max = 2
+	availability_prob = 35
+
+/datum/market_item/weapon/spare_9mmag
+	name = "Spare Glock 17 Mag"
+	desc = "9mm magazine for your needs."
+	item = /obj/item/ammo_box/magazine/pistolm9mm/pmag
+
+	price_min = CARGO_CRATE_VALUE * 1
+	price_max = CARGO_CRATE_VALUE * 2.5
+	stock_max = 3
+	availability_prob = 0	//only spawns when we have Glock 17
+
+/datum/market_item/weapon/sport_rifle
+	name = "Sport Rifle Crate"
+	desc = "Hello Comrade! You catch yourself thinking that you are tired of chasing after some ugly Terra Gov bastards or corp rats? Well, we can provide you access to our modern sport rifle! Shoot em out, tovarish."
+	item = /obj/item/gun/ballistic/automatic/stm9
+	added_market_item = /datum/market_item/weapon/spare_9mmag
+
+	price_min = CARGO_CRATE_VALUE * 5
+	price_max = CARGO_CRATE_VALUE * 7.5
+	stock_max = 1
+	availability_prob = 15

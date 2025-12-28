@@ -5,6 +5,7 @@
 	attachment_type = TYPE_FOREGRIP
 	var/steady = 0
 
+/* Dripstation edit
 /obj/item/attachment/grip/on_attach(obj/item/gun/G, mob/user = null)
 	. = ..()
 	G.recoil -= steady
@@ -12,6 +13,7 @@
 /obj/item/attachment/grip/on_detach(obj/item/gun/G, mob/living/user = null)
 	. = ..()
 	G.recoil += steady
+*/
 
 /obj/item/attachment/grip/vertical
 	name = "vertical grip"

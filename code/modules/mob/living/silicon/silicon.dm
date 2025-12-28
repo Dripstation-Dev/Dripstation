@@ -57,6 +57,7 @@
 	diag_hud_set_status()
 	diag_hud_set_health()
 	ADD_TRAIT(src, TRAIT_FORCED_STANDING, "cyborg") // not CYBORG_ITEM_TRAIT because not an item
+	ADD_TRAIT(src, TRAIT_SURGEON, "cyborg")	//dripstation edit
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud

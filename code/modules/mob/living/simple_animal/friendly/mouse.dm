@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	move_force = MOVE_FORCE_EXTREMELY_WEAK
 	faction = list("neutral", "rat") //while they aren't rats, we don't want ai controlled rats killing these because rat king can convert them
-	var/chew_probability = 1
+	var/chew_probability = 50	//fucking eat the wires already FUCK
 	var/full = FALSE
 	var/eating = FALSE
 	var/cheesed = FALSE
@@ -62,6 +62,19 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 	icon_state = "mouse_[body_color]"
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
+	if(prob(5))	//tasty mice
+		var/taste = pick(1,2,3,4,5)
+		switch(taste)
+			if(1)
+				food_type = /obj/item/reagent_containers/food/snacks/deadmouse/cherry
+			if(2)
+				food_type = /obj/item/reagent_containers/food/snacks/deadmouse/bluecherry
+			if(3)
+				food_type = /obj/item/reagent_containers/food/snacks/deadmouse/lemon
+			if(4)
+				food_type = /obj/item/reagent_containers/food/snacks/deadmouse/orange
+			if(5)
+				food_type = /obj/item/reagent_containers/food/snacks/deadmouse/vodka
 
 /mob/living/simple_animal/mouse/handle_stomach()
 	if(cheesed && cheese_time < world.time)
@@ -103,9 +116,9 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability))
 		var/turf/open/floor/F = get_turf(src)
-		if(istype(F) && !F.underfloor_accessibility >= UNDERFLOOR_INTERACTABLE)
+		if(istype(F) && F.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)
 			var/obj/structure/cable/C = locate() in F
-			if(C && prob(15))
+			if(C)	//if(C && prob(15))
 				if(C.avail())
 					visible_message(span_warning("[src] chews through the [C]. It's toast!"))
 					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
@@ -116,7 +129,7 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 					visible_message(span_warning("[src] chews through the [C]."))
 
 			var/obj/structure/ethernet_cable/E = locate() in F
-			if(E && prob(15))
+			if(E)	//if(E && prob(15))
 				E.deconstruct()
 				visible_message(span_warning("[src] chews through the [E]."))
 	for(var/obj/item/reagent_containers/food/snacks/cheesewedge/cheese in range(1, src))
@@ -329,6 +342,26 @@ GLOBAL_VAR_INIT(mouse_killed, 0)
 	foodtype = MICE
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 	var/meat_type = /obj/item/reagent_containers/food/snacks/meat/slab/mouse
+
+/obj/item/reagent_containers/food/snacks/deadmouse/cherry
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/cherryjelly = 5)
+	grind_results = list(/datum/reagent/consumable/cherryjelly = 20, /datum/reagent/liquidgibs = 5)
+
+/obj/item/reagent_containers/food/snacks/deadmouse/bluecherry
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/bluecherryjelly = 5)
+	grind_results = list(/datum/reagent/consumable/bluecherryjelly = 20, /datum/reagent/liquidgibs = 5)
+
+/obj/item/reagent_containers/food/snacks/deadmouse/lemon
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/lemonjuice = 5)
+	grind_results = list(/datum/reagent/consumable/lemonjuice = 20, /datum/reagent/liquidgibs = 5)
+
+/obj/item/reagent_containers/food/snacks/deadmouse/orange
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/orangejuice = 5)
+	grind_results = list(/datum/reagent/consumable/orangejuice = 20, /datum/reagent/liquidgibs = 5)
+
+/obj/item/reagent_containers/food/snacks/deadmouse/vodka
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/ethanol/vodka = 5)
+	grind_results = list(/datum/reagent/consumable/ethanol/vodka = 20, /datum/reagent/liquidgibs = 5)
 
 /obj/item/reagent_containers/food/snacks/deadmouse/fat
 	name = "dead fat mouse"

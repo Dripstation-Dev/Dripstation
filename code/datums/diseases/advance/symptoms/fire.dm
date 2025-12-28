@@ -63,12 +63,12 @@ Bonus
 			Firestacks_stage_4(M, A)
 			M.ignite_mob()
 			to_chat(M, span_userdanger("Your skin bursts into flames!"))
-			M.emote("scream")
+			M.flick_pain(100, TRUE)
 		if(5)
 			Firestacks_stage_5(M, A)
 			M.ignite_mob()
 			to_chat(M, span_userdanger("Your skin erupts into an inferno!"))
-			M.emote("scream")
+			M.flick_pain(100, TRUE)
 
 /datum/symptom/fire/proc/Firestacks_stage_4(mob/living/M, datum/disease/advance/A)
 	M.adjust_fire_stacks(1 * power)
@@ -151,7 +151,7 @@ Bonus
 			Alkali_fire_stage_4(M, A)
 			M.ignite_mob()
 			to_chat(M, span_userdanger("Your sweat bursts into flames!"))
-			M.emote("scream")
+			M.flick_pain(100, TRUE)
 		if(5)
 			if(M.fire_stacks < 0)
 				M.visible_message(span_warning("[M]'s sweat sizzles and pops on contact with water!"))
@@ -160,7 +160,7 @@ Bonus
 			Alkali_fire_stage_5(M, A)
 			M.ignite_mob()
 			to_chat(M, span_userdanger("Your skin erupts into an inferno!"))
-			M.emote("scream")
+			M.flick_pain(100, TRUE)
 			
 
 /datum/symptom/alkali/proc/Alkali_fire_stage_4(mob/living/M, datum/disease/advance/A)

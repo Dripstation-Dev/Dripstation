@@ -128,11 +128,26 @@
 		var/amount = weight * units_per_weight
 		reagents.add_reagent(reagent, amount)
 
+/obj/item/toy/crayon/proc/use_reagents()	//change it 
+	if(charges == -1)
+		charges_left = 100
+	else
+		charges_left = charges
+	var/total_weight = 0
+	for(var/key in reagent_contents)
+		total_weight += reagent_contents[key]
+	var/units_per_weight = reagents.maximum_volume / total_weight
+	for(var/reagent in reagent_contents)
+		var/weight = reagent_contents[reagent]
+		var/amount = weight * units_per_weight
+		reagents.remove_reagent(reagent, amount)
+
 /obj/item/toy/crayon/proc/use_charges(mob/user, amount = 1, requires_full = TRUE)
 	// Returns number of charges actually used
 	if(charges == -1)
 		. = amount
-		refill()
+		//refill()
+		use_reagents()
 	else
 		if(check_empty(user, amount, requires_full))
 			return 0
@@ -349,13 +364,21 @@
 			else
 				graf_rot = 0
 
+	/*	Dripstation edit
 	var/list/click_params = params2list(params)
+	*/
+	var/list/modifiers = params2list(params)	//Dripstation edit
 	var/clickx
 	var/clicky
 
+	/*	Dripstation edit
 	if(click_params && click_params["icon-x"] && click_params["icon-y"])
 		clickx = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 		clicky = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+	*/
+	if(LAZYACCESS(modifiers, ICON_X) && LAZYACCESS(modifiers, ICON_Y))											//Dripstation edit
+		clickx = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
+		clicky = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
 
 	if(!instant)
 		to_chat(user, span_notice("You start drawing a [temp] on the [target.name]...")) // yogs -- removed a weird tab that had no reason to be here

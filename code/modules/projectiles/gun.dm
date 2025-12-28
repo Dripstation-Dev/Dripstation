@@ -63,6 +63,12 @@
 	var/knife_x_offset = 0
 	var/knife_y_offset = 0
 
+	var/can_cell = FALSE  //if a cell can be added or removed if it already has one.
+	var/cell_removing_time = 2 SECONDS
+	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
+	var/cell_type = null //for gun purposes
+	var/load_cell_sound = null
+
 	var/list/available_attachments = list() // What attachments can this gun have
 	var/max_attachments = 0 // How many attachments can this gun hold, recommend not going over 5
 
@@ -95,6 +101,7 @@
 		else
 			pin = new pin(src)
 	current_tracers = list()
+	muzzle_flash = new(src, muzzleflash_iconstate)	//dripstation edit
 	build_zooming()
 
 /obj/item/gun/Destroy()
@@ -106,6 +113,8 @@
 		QDEL_NULL(bayonet)
 	if(chambered) //Not all guns are chambered (EMP'ed energy guns etc)
 		QDEL_NULL(chambered)
+	if(cell) //Not all guns are celled
+		QDEL_NULL(cell)
 	if(azoom)
 		QDEL_NULL(azoom)
 	return ..()
@@ -127,7 +136,10 @@
 		clear_gunlight()
 	if(A in current_attachments)
 		var/obj/item/attachment/T = A
+		/* Dripstation edit
 		T.on_detach(src)
+		*/ 
+		T.can_detach(src)	//dripstation edit
 		
 	return ..()
 
@@ -146,11 +158,19 @@
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
+	if(!in_range(user, src) && !isobserver(user))			//dripstation edit
+		return
 	if(!no_pin_required)
 		if(pin)
 			. += "It has \a [pin] installed."
+			. += "\The [pin] is [pin.jammed ? "malfunctioning" : "combat ready"]."			//dripstation edit
 		else
 			. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
+
+	if(manufacturer && !istype(manufacturer, /datum/corporation/independent))			//dripstation edit
+		. += span_info("It has \a [manufacturer.name]`s stamp and serial number on it.")		//dripstation edit
+	else if(!manufacturer)	//if null has fun span										//dripstation edit
+		. += span_info("Its manufacturer stamp and symbols have been scratched out.")	//dripstation edit
 
 	if(gun_light)
 		. += "It has \a [gun_light] [can_flashlight ? "" : "permanently "]mounted on it."
@@ -168,6 +188,12 @@
 	
 	for(var/obj/item/attachment/A in current_attachments)
 		. += "It has \a [A] affixed to it."
+
+	if(can_cell)
+		if(cell)
+			. += "It has \a [cell] inserted into it."
+		else
+			. += "It has a place for cell in it."
 
 /obj/item/gun/equipped(mob/living/user, slot)
 	. = ..()
@@ -191,6 +217,7 @@
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_danger("*click*"))
+	user.balloon_alert_to_viewers("*click*", "*click*", vision_distance = COMBAT_MESSAGE_RANGE)
 	playsound(src, dry_fire_sound, 30, TRUE)
 
 
@@ -209,12 +236,15 @@
 	else
 		if(enloudened && enloudened.enloudened_sound)
 			playsound(user, enloudened.enloudened_sound, fire_sound_volume, vary_fire_sound)
+		simulate_muzzle_flash(user, pbtarget)				//dripstation edit
 		playsound(user, fire_sound, fire_sound_volume, vary_fire_sound)
 		if(message)
 			if(pointblank)
-				user.visible_message(span_danger("[user] fires [src] point blank at [pbtarget]!"), null, null, COMBAT_MESSAGE_RANGE)
+				//user.visible_message(span_danger("[user] fires [src] point blank at [pbtarget]!"), null, null, COMBAT_MESSAGE_RANGE)
+				user.balloon_alert_to_viewers("fires point blank!", "you fire point blank!", vision_distance = COMBAT_MESSAGE_RANGE)
 			else
-				user.visible_message(span_danger("[user] fires [src]!"), null, null, COMBAT_MESSAGE_RANGE)
+				//user.visible_message(span_danger("[user] fires [src]!"), null, null, COMBAT_MESSAGE_RANGE)
+				user.balloon_alert_to_viewers("fires!", "you fire!", vision_distance = COMBAT_MESSAGE_RANGE)
 
 /obj/item/gun/emp_act(severity)
 	. = ..()
@@ -235,12 +265,14 @@
 			return
 		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
 			return
+		/* Dripstation edit - It`s middle click now
 		if(ismob(target) && user.a_intent == INTENT_GRAB && !istype(user.mind.martial_art, /datum/martial_art/ultra_violence))//remove gunpoint from ipc martial art, it's slow
 			for(var/datum/component/gunpoint/G in user.GetComponents(/datum/component/gunpoint))
 				if(G && G.weapon == src) //spam check
 					return
 			user.AddComponent(/datum/component/gunpoint, target, src)
 			return
+		*/
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
 			for(var/i in C.all_wounds)
@@ -266,7 +298,7 @@
 	if(check_botched(user))
 		return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_held_item())
+	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_held_item() && !HAS_TRAIT(user, TRAIT_BADASS))
 		to_chat(user, span_userdanger("You need both hands free to fire \the [src]!"))
 		return
 
@@ -278,7 +310,7 @@
 	
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user
-		if(weapon_weight < WEAPON_MEDIUM && istype(H.held_items[H.get_inactive_hand_index()], /obj/item/gun) && can_trigger_gun(user))
+		if((weapon_weight < WEAPON_MEDIUM || HAS_TRAIT(user, TRAIT_BADASS)) && istype(H.held_items[H.get_inactive_hand_index()], /obj/item/gun) && can_trigger_gun(user))
 			bonus_spread += 18 * weapon_weight
 			cd_mod = cd_mod * 0.75
 			H.swap_hand()
@@ -304,7 +336,13 @@
 	if(no_pin_required)
 		return TRUE
 	if(pin)
+		if(pin.jammed)
+			to_chat(user, span_warning("[src]'s trigger is locked. Bloody pin jammed!"))
+			return FALSE
+		else if(pin.pin_auth(user) || (pin.obj_flags & EMAGGED))
+		/* Dripstation edit
 		if(pin.pin_auth(user) || (pin.obj_flags & EMAGGED))
+		*/
 			return TRUE
 		else
 			pin.auth_fail(user)
@@ -478,7 +516,10 @@
 			return ..()
 
 		to_chat(user, span_notice("You [A.attach_verb] \the [I] into place on [src]."))
+		/* dripstation edit
 		A.on_attach(src, user)
+		*/
+		A.can_attach(src, user)	//dripstation edit
 
 	else if(istype(I, /obj/item/flashlight/seclite))
 		if(!can_flashlight)
@@ -499,8 +540,26 @@
 		to_chat(user, span_notice("You attach [K] to [src]'s bayonet lug."))
 		bayonet = K
 		update_appearance()
+	else if (istype(I, /obj/item/stock_parts/cell/gun))
+		if(!can_cell || cell) //ensure the gun has an attachment point available, and that the cell is compatible with it.
+			return ..()
+		if(!cell_insert(I, user))
+			return
 	else
 		return ..()
+
+/obj/item/gun/proc/cell_insert(obj/item/I, mob/user)
+	if(do_after(user, cell_removing_time, src, timed_action_flags = IGNORE_USER_LOC_CHANGE))
+		if(!user.transferItemToLoc(I, src))
+			return FALSE
+		var/obj/item/stock_parts/cell/gun/C = I
+		to_chat(user, span_notice("You attach [C] to [src]."))
+		cell = C
+		update_appearance()
+		playsound(src, load_cell_sound, 40, TRUE)
+		return TRUE
+	else
+		return FALSE
 
 /obj/item/gun/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -511,13 +570,19 @@
 	
 	var/has_fl = FALSE
 	var/has_bayo = FALSE
+	var/has_cell = FALSE
 	var/amt_modular = LAZYLEN(current_attachments)
 	if(can_flashlight && gun_light)
 		has_fl = TRUE
 	if(bayonet && can_bayonet)
 		has_bayo = TRUE
+	if(cell && can_cell)
+		has_cell = TRUE
 	
+	/* Dripstation edit
 	var/attachments_amt = amt_modular + has_fl + has_bayo
+	*/
+	var/attachments_amt = amt_modular + has_fl + has_bayo + has_cell	// Dripstation edit
 	if(attachments_amt > 1) //give them a choice instead of removing both
 		var/list/possible_items = list(gun_light, bayonet)
 		possible_items += current_attachments
@@ -535,6 +600,9 @@
 	else if(has_bayo) //if it has a bayonet, and the bayonet can be removed
 		return remove_gun_attachment(user, I, bayonet, "unfix")
 
+	else if(has_cell) //if it has a cell, and the cell can be removed, Dripstation edit
+		return remove_gun_attachment(user, I, cell, "unscrewed") //Dripstation edit
+
 /obj/item/gun/proc/remove_gun_attachment(mob/living/user, obj/item/tool_item, obj/item/item_to_remove, removal_verb)
 	if(tool_item)
 		tool_item.play_tool_sound(src)
@@ -546,12 +614,24 @@
 
 	if(istype(item_to_remove, /obj/item/attachment))
 		var/obj/item/attachment/A = item_to_remove
+		/* Dripstation edit
 		return A.on_detach(src, user)
+		*/
+		return A.can_detach(src, user)	//dripstation edit
 
 	if(item_to_remove == bayonet)
 		return clear_bayonet()
 	else if(item_to_remove == gun_light)
 		return clear_gunlight()
+	else if(item_to_remove == cell)
+		return clear_cell()
+
+/obj/item/gun/proc/clear_cell()
+	if(!cell)
+		return
+	cell = null
+	update_appearance(UPDATE_ICON)
+	return TRUE
 
 /obj/item/gun/proc/clear_bayonet()
 	if(!bayonet)
@@ -654,7 +734,10 @@
 	if(azoom)
 		azoom.Remove(user)
 	if(zoomed)
+	/* Dripstation edit
 		zoom(user, user.dir)
+	*/
+		zoom(user, user.dir, FALSE)	//dripstation edit
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params, bypass_timer)
 	if(!ishuman(user) || !ishuman(target))
@@ -725,8 +808,14 @@
 
 /datum/action/toggle_scope_zoom/IsAvailable(feedback = FALSE)
 	. = ..()
+	if(owner.get_active_held_item() != gun)		//dripstation edit
+		if(gun.zoomed)
+			gun.zoom(owner, owner.dir, FALSE)	//dripstation edit
+		return FALSE
+	/*	Dripstation edit
 	if(!. && gun)
 		gun.zoom(owner, owner.dir, FALSE)
+	*/
 
 /datum/action/toggle_scope_zoom/Remove(mob/living/L)
 	gun.zoom(L, L.dir, FALSE)
@@ -737,6 +826,7 @@
 		var/mob/lad = thing
 		lad.client.view_size.zoomOut(zoom_out_amt, zoom_amt, new_dir)
 
+/* Dripstation edit
 /obj/item/gun/proc/zoom(mob/living/user, direc, forced_zoom)
 	if(!user || !user.client)
 		return
@@ -756,6 +846,7 @@
 		UnregisterSignal(user, COMSIG_ATOM_DIR_CHANGE)
 		user.client.view_size.zoomIn()
 	return zoomed
+*/
 
 //Proc, so that gun accessories/scopes/etc. can easily add zooming.
 /obj/item/gun/proc/build_zooming()

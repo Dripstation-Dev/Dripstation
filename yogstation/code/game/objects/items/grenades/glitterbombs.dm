@@ -2,7 +2,7 @@
 	name = "plastic party explosive"
 	desc = "Used to put the party in specific locations."
 	can_attach_mob = TRUE
-	var/glitter_type = "glitter"
+	var/glitter_type = /datum/reagent/glitter	//dripstation edit
 
 datum/effect_system/fluid_spread/smoke/chem/glitter
 	effect_type = /obj/effect/particle_effect/fluid/smoke/chem/glitter
@@ -17,6 +17,7 @@ datum/effect_system/fluid_spread/smoke/chem/glitter
 	reagents.add_reagent(glitter_type, 20)
 
 /obj/item/grenade/plastic/glitterbomb/prime()
+	..()
 	var/datum/effect_system/fluid_spread/smoke/chem/glitter/smoke = new()
 	smoke.set_up(4, location = target, carry = reagents)
 	smoke.start()
@@ -33,12 +34,12 @@ datum/effect_system/fluid_spread/smoke/chem/glitter
 
 /obj/item/grenade/plastic/glitterbomb/pink
 	desc = "Used to put the party in specific locations. This one seems to be pink colored and feels kinda hot."
-	glitter_type = "pink_glitter"
+	glitter_type = /datum/reagent/glitter/pink	//dripstation edit
 
 /obj/item/grenade/plastic/glitterbomb/blue
 	desc = "Used to put the party in specific locations. This one seems to be blue colored and feels slightly cold."
-	glitter_type = "blue_glitter"
+	glitter_type = /datum/reagent/glitter/blue	//dripstation edit
 
 /obj/item/grenade/plastic/glitterbomb/white
 	desc = "Used to put the party in specific locations. This one seems to be white colored and makes you feel sleepy by just looking at it."
-	glitter_type = "white_glitter"
+	glitter_type = /datum/reagent/glitter/white	//dripstation edit

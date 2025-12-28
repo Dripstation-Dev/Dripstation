@@ -202,6 +202,7 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut") //these wont show up if the pen is off
 	sharpness = SHARP_EDGED
 	var/on = FALSE
+	var/unlocked = FALSE //dripstation edit
 
 /obj/item/pen/red/edagger/Initialize(mapload)
 	. = ..()
@@ -223,12 +224,16 @@
 		w_class = initial(w_class)
 		name = initial(name)
 		hitsound = initial(hitsound)
-		embedding = embedding.setRating(embed_chance = EMBED_CHANCE)
+		embedding = list("embed_chance" = EMBED_CHANCE)	// dripstation edit
+		updateEmbedding()	// dripstation edit
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, span_warning("[src] can now be concealed."))
 	else
+	/* // dripstation edit
 		if(!is_syndicate(user) && !is_battleroyale(user)) // this is just a normal pen to non syndicates as they don't know how to switch it on.
+	*/ // dripstation edit
+		if(!is_syndicate(user) && !is_battleroyale(user) && !unlocked) // dripstation edit
 			. = ..()
 			return
 		on = TRUE
@@ -237,7 +242,8 @@
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		hitsound = 'sound/weapons/blade1.ogg'
-		embedding = embedding.setRating(embed_chance = 100) //rule of cool
+		embedding = list("embed_chance" = 100)//rule of cool
+		updateEmbedding()	// dripstation edit
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, span_warning("[src] is now active."))

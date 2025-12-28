@@ -15,6 +15,9 @@
 	ammo_x_offset = 2
 	charge_sections = 2
 
+/obj/item/gun/energy/ionrifle/pistol/stealth
+	desc = "Ion Projector is a compact ion pistol, built for personal defense."
+
 /obj/item/gun/energy/ionrifle/cybersun
 	name = "compact ion rifle"
 	desc = "The CS-I7 Prototype Ion Projector is a compact ion rifle, built to be very ergonomic and deadly efficient."
@@ -23,6 +26,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	ammo_x_offset = 3
 	charge_sections = 3
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
 
 /obj/item/gun/energy/temperature
 	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
@@ -33,6 +37,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"

@@ -42,8 +42,13 @@
 		if(kb.can_use(src) && kb.down(src) && keycount >= MAX_COMMANDS_PER_KEY)
 			break
 
+	/* Dripstation edit
 	holder?.key_down(_key, src)
 	mob.focus?.key_down(_key, src)
+	*/
+
+	holder?.key_down(_key, src, full_key)	//Dripstation edit
+	mob.focus?.key_down(_key, src, full_key)//Dripstation edit
 
 /client/verb/keyUp(_key as text)
 	set instant = TRUE

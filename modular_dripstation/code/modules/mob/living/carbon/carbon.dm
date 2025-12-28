@@ -104,3 +104,183 @@
 	newtonian_move(get_dir(target, src))
 	thrown_thing.safe_throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed + power_throw, src, null, null, null, move_force)
 	changeNext_move(CLICK_CD_RANGE)
+
+/mob/living
+	COOLDOWN_DECLARE(pain_emote_cd)
+
+/mob/living/proc/flick_pain(pain_mult = 1, hard = FALSE, force = FALSE)
+	return emote_pain(hard, force)
+
+/mob/living/proc/emote_pain(hard = FALSE, force = FALSE)
+	if(HAS_TRAIT(src, TRAIT_NO_PAIN_EMOTE))
+		return
+	if(!force && !COOLDOWN_FINISHED(src, pain_emote_cd))
+		return
+	INVOKE_ASYNC(src, PROC_REF(emote), "scream")
+	COOLDOWN_START(src, pain_emote_cd, 3 SECONDS)
+
+/mob/living/carbon/flick_pain(pain_mult = 1, hard = FALSE, force = FALSE)
+	if(stat >= UNCONSCIOUS)
+		return
+	if(HAS_TRAIT(src, TRAIT_SURGERY_PREPARED) && HAS_TRAIT(src, TRAIT_NUMBED) && !hal_screwyhud)
+		set_screwyhud(SCREWYHUD_NUMB)	//we just don`t feel anything at this point
+		return
+	if(hal_screwyhud == SCREWYHUD_NUMB)
+		set_screwyhud(SCREWYHUD_NONE)
+	if(HAS_TRAIT(src, TRAIT_RESISTDAMAGESLOWDOWN) || HAS_TRAIT(src, TRAIT_HIGHRESISTDAMAGESLOWDOWN))	//reagents and species traits, probably need other
+		return
+	var/pain_apply_chance = 1
+	var/can_stutter = FALSE
+	switch(pain_mult)
+		if(10 to 20)
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/stings)
+			pain_apply_chance = 10
+		if(20 to 40)
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/pain)
+			pain_apply_chance = 30
+		if(40 to 60)
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painfull)
+			pain_apply_chance = 50
+		if(60 to 90)
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painagony)
+			pain_apply_chance = 75
+			can_stutter = TRUE
+		if(90 to INFINITY)
+			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "pain", /datum/mood_event/painagony)
+			pain_apply_chance = 100
+			can_stutter = TRUE
+			//hard = TRUE
+
+	var/pain_emote_use = force
+	if(prob(pain_apply_chance))
+		if(hard)
+			flash_pain()
+		else
+			flash_weak_pain()
+		pain_emote_use = TRUE
+		adjustStaminaLoss(pain_mult/2)
+		if(can_stutter && prob(pain_apply_chance/2))
+			AdjustImmobilized(0.05 SECONDS * pain_mult)
+			adjust_stutter((0.1 SECONDS * pain_mult) SECONDS)
+			visible_message(span_warning("[src] stutters in agony!"),\
+					span_warning("You stutter in agony!"))
+	if(pain_emote_use)
+		emote_pain(hard, force)
+
+/mob/living/carbon/emote_pain(hard = FALSE, force = FALSE)
+	if(HAS_TRAIT(src, TRAIT_NO_PAIN_EMOTE))
+		return
+	if(force)
+		COOLDOWN_RESET(src, pain_emote_cd)
+	if(!COOLDOWN_FINISHED(src, pain_emote_cd))
+		return
+	var/pain_emote_list = list("moan" = 100)
+	if(stat == SOFT_CRIT)
+		pain_emote_list = list("moan" = 50, "faint" = 15, "cry" = 35)
+	else if(hard)
+		pain_emote_list = list("moan" = 30, "twitch" = 20, "scream" = 50)
+	INVOKE_ASYNC(src, PROC_REF(emote), pickweight(pain_emote_list))
+	COOLDOWN_START(src, pain_emote_cd, 3 SECONDS)
+
+/mob/living/carbon/proc/handle_pain()
+	if(stat >= UNCONSCIOUS)
+		return
+	if(HAS_TRAIT(src, TRAIT_SURGERY_PREPARED) && HAS_TRAIT(src, TRAIT_NUMBED) && !hal_screwyhud)
+		set_screwyhud(SCREWYHUD_NUMB)	//we just don`t feel anything at this point
+		return
+	if(hal_screwyhud == SCREWYHUD_NUMB)
+		set_screwyhud(SCREWYHUD_NONE)
+	if(HAS_TRAIT(src, TRAIT_RESISTDAMAGESLOWDOWN) || HAS_TRAIT(src, TRAIT_HIGHRESISTDAMAGESLOWDOWN))	//we feel pain, but resist it
+		return
+	var/may_be_painfull = (getBruteLoss()+getOrganLoss(ORGAN_SLOT_TAIL))*0.8 + getFireLoss() + getCloneLoss()*0.5 //+ getPainFull()
+	var/msg
+	var/hard = FALSE
+
+	switch(may_be_painfull)
+		if(5 to 15)
+			msg = span_warning("Your body stings a little.")
+		if(15 to 30)
+			msg = span_warning("Your body hurts a little.")
+		if(30 to 50)
+			msg = span_warning("Your body hurts.")
+		if(50 to 90)
+			msg = span_warning("Your body hurts badly!")
+		if(90 to INFINITY)
+			hard = TRUE
+			msg = span_userdanger("OH GOD! Your body is hurting terribly!")
+
+	var/M = may_be_painfull/5
+	if(may_be_painfull > 5)
+		if(prob(M))
+			to_chat(src, msg)
+
+	var/head_pain = getOrganLoss(ORGAN_SLOT_BRAIN) + getOrganLoss(ORGAN_SLOT_EARS) * 0.4 + getOrganLoss(ORGAN_SLOT_EYES) * 0.4
+	var/headMsg
+
+	switch(head_pain)
+		if(5 to 10)
+			headMsg = span_warning("Your head hurts a little.")
+		if(10 to 20)
+			headMsg = span_warning("Your head hurts.")
+		if(20 to 40)
+			headMsg = span_warning("Your head hurts badly!")
+		if(40 to INFINITY)
+			hard = TRUE
+			headMsg = span_userdanger("OH GOD! Your head is hurting terribly!")
+	
+	var/H = head_pain/2
+	if(head_pain > 5)
+		if(prob(H))
+			to_chat(src, headMsg)
+
+	var/intDamageMsg = null
+	var/internal_damage = getToxLoss()*0.5 + getOrganLoss(ORGAN_SLOT_STOMACH)
+	switch(internal_damage)
+		if(20 to 35)
+			intDamageMsg = span_warning("Your inner hurts.")
+		if(35 to 50)
+			intDamageMsg = span_warning("Your inner hurts badly.")
+		if(50 to INFINITY)
+			intDamageMsg = span_userdanger("Your inner aches all over, it's driving you mad!")
+
+	var/I = internal_damage/5
+	if(internal_damage > 20)
+		if(prob(I))
+			to_chat(src, intDamageMsg)
+	
+	if((I + H + M) > 2)	//putting here some treshold, so mob wouldn`t just moan for nothing
+		flick_pain(I + H + M, hard)
+
+/mob/living/carbon/proc/flash_pain(var/target)
+	overlay_fullscreen("pain", /atom/movable/screen/fullscreen/pain, 2)
+	addtimer(CALLBACK(src, .proc/clear_fullscreen, "pain"), 0.5 SECONDS)
+
+/mob/living/carbon/proc/flash_weak_pain()
+	overlay_fullscreen("pain", /atom/movable/screen/fullscreen/pain, 1)
+	addtimer(CALLBACK(src, .proc/clear_fullscreen, "pain"), 0.5 SECONDS)
+
+/atom/movable/screen/fullscreen/pain
+	icon_state = "painoverlay"
+	icon = 'modular_dripstation/icons/mob/fullscreen.dmi'
+	layer = FULLSCREEN_LAYER + 0.2
+	plane = FULLSCREEN_PLANE
+
+/datum/mood_event/stings
+	description = "<span class='warning'>It`s stings a little.</span>\n"
+	mood_change = -3
+	timeout = 3 SECONDS
+
+/datum/mood_event/pain
+	description = "<span class='warning'>It`s quite painfull!</span>\n"
+	mood_change = -6
+	timeout = 4 SECONDS
+
+/datum/mood_event/painfull
+	description = "<span class='warning'>Okay, now it`s REALLY PAINFULL!</span>\n"
+	mood_change = -8
+	timeout = 5 SECONDS
+
+/datum/mood_event/painagony
+	description = "<span class='warning'>I`m suffering, PLEASE END THIS!!</span>\n"
+	mood_change = -15
+	timeout = 5 SECONDS

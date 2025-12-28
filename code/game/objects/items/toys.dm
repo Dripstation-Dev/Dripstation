@@ -1390,7 +1390,7 @@ obj/item/toy/turn_tracker
 		icon_state = "[initial(icon_state)]_used"
 		sleep(0.5 SECONDS)
 		audible_message(span_danger("[icon2html(src, viewers(src))] Hiss!"))
-		var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
+		var/list/possible_sounds = SFX_HISS
 		var/chosen_sound = pick(possible_sounds)
 		playsound(get_turf(src), chosen_sound, 50, 1)
 		spawn(45)

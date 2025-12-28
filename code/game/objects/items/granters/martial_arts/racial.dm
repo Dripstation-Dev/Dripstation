@@ -187,7 +187,7 @@
 
 /obj/item/book/granter/action/wirecrawl
 	name = "modified yellow slime extract"
-	desc = "An experimental yellow slime extract that when absorbed by an Ethereal, grants control over electrical powers."
+	desc = "An experimental yellow slime extract that when absorbed by a slime, grants control over electrical powers."	//dripstation edit
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
 	granted_action = /datum/action/cooldown/spell/jaunt/wirecrawl
@@ -202,7 +202,7 @@
 	to_chat(user, span_notice("You hold \the [src] directly to your chest..."))
 
 /obj/item/book/granter/action/wirecrawl/can_learn(mob/user)
-	if(isethereal(user) || admin)
+	if(isjellyperson(user) || isluminescent(user) || isslimeperson(user) || admin)	//dripstation edit
 		return ..()
 	to_chat(user, span_warning("Yup, that's a slime extract alright."))
 	return FALSE

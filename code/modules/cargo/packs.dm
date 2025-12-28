@@ -518,7 +518,9 @@
 	group = "Armory"
 	access = ACCESS_ARMORY
 	access_view = ACCESS_ARMORY
+	/* dripstation edit
 	crate_type = /obj/structure/closet/crate/secure/weapon
+	*/
 
 /datum/supply_pack/security/armory/bulletarmor
 	name = "Bulletproof Armor Crate"
@@ -612,6 +614,7 @@
 					/obj/item/shield/riot)
 	crate_name = "riot shields crate"
 
+/*
 /datum/supply_pack/security/armory/riotshotgun
 	name = "Riot Shotguns Crate"
 	desc = "Tip: techically, it counts as non-lethally subduing a target as long as they don't die before Medbay can get to them. Contains three security-grade riot shotguns. Requires Armory access to open."
@@ -627,6 +630,7 @@
 	cost = 3200
 	small_item = TRUE
 	contains = list(/obj/item/gun/ballistic/shotgun/riot)
+*/
 
 /datum/supply_pack/security/armory/smartmine
 	name = "Smart Mine Crate"
@@ -828,6 +832,7 @@
 					/obj/item/ammo_box/magazine/wt550m9/wtr,
 					/obj/item/ammo_box/magazine/wt550m9/wtr)
 
+/* Dripstation edit
 /datum/supply_pack/weaponry/wt550
 	name = "Surplus Security Autocarbine Crate"
 	desc = "Contains two high-powered, semiautomatic carbines chambered in 4.6x30mm rounds. Requires Armory access to open."
@@ -842,6 +847,7 @@
 	cost = 2000
 	contains = list(/obj/item/gun/ballistic/automatic/wt550)
 	small_item = TRUE
+*/
 
 /datum/supply_pack/weaponry/wintonrifle
 	name = "Winton Mk. VI Repeating Rifles Crate"

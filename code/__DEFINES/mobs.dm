@@ -68,22 +68,24 @@
 #define BLOODCRAWL_EAT 2
 
 //Mob bio-types
-#define MOB_ORGANIC 	(1<<0)
-#define MOB_INORGANIC 	(1<<1)
-#define MOB_ROBOTIC 	(1<<2)
-#define MOB_UNDEAD		(1<<3)
-#define MOB_HUMANOID 	(1<<4)
-#define MOB_BUG 		(1<<5)
-#define MOB_BEAST		(1<<6)
-#define MOB_EPIC		(1<<7) //megafauna
-#define MOB_REPTILE		(1<<8)
-#define MOB_SPIRIT		(1<<9)
-#define MOB_SPECIAL		(1<<10) //eldritch biggums
+#define MOB_ORGANIC 		(1<<0)
+#define MOB_INORGANIC 		(1<<1)
+#define MOB_PSEVDOORGANIC 	(1<<2)
+#define MOB_ROBOTIC 		(1<<3)
+#define MOB_UNDEAD			(1<<4)
+#define MOB_HUMANOID		(1<<5)
+#define MOB_BUG				(1<<6)
+#define MOB_BEAST			(1<<7)
+#define MOB_EPIC			(1<<8) //megafauna
+#define MOB_REPTILE			(1<<9)
+#define MOB_SPIRIT			(1<<10)
+#define MOB_SPECIAL			(1<<11) //eldritch biggums
 
 
 /// All the biotypes that matter
-#define ALL_NON_ROBOTIC (MOB_ORGANIC|MOB_INORGANIC|MOB_UNDEAD)
-#define ALL_BIOTYPES (MOB_ORGANIC|MOB_INORGANIC|MOB_ROBOTIC|MOB_UNDEAD)
+#define ALL_NON_SYNTHETIC (MOB_ORGANIC|MOB_UNDEAD)
+#define ALL_NON_ROBOTIC (MOB_ORGANIC|MOB_INORGANIC|MOB_PSEVDOORGANIC|MOB_UNDEAD)
+#define ALL_BIOTYPES (MOB_ORGANIC|MOB_INORGANIC|MOB_PSEVDOORGANIC|MOB_ROBOTIC|MOB_UNDEAD)
 
 //Organ defines for carbon mobs
 #define ORGAN_ORGANIC   1
@@ -162,12 +164,14 @@
 #define BIOWARE_NERVES "nerves"
 #define BIOWARE_CIRCULATION "circulation"
 #define BIOWARE_LIGAMENTS "ligaments"
+#define BIOWARE_CORTEX 	"cortex"
 
 //Health hud screws for carbon mobs
 #define SCREWYHUD_NONE 0
 #define SCREWYHUD_CRIT 1
 #define SCREWYHUD_DEAD 2
 #define SCREWYHUD_HEALTHY 3
+#define SCREWYHUD_NUMB 4
 
 //Moods levels for humans
 #define MOOD_LEVEL_HAPPY4 15

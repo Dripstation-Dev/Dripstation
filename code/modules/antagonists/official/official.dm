@@ -1,3 +1,4 @@
+/* Dripstation edit to dripstation module
 /datum/antagonist/centcom
 	name = "CentCom Official"
 	var/role = "Lieutenant"
@@ -85,3 +86,4 @@
 	name = "CentCom Executive Admiral"
 	role = "Executive Admiral"
 	outfit = /datum/outfit/centcom/executive_admiral
+*/

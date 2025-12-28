@@ -1,8 +1,9 @@
 /obj/item/badge/security
+	name = "spearhead security sign"
 	icon = 'modular_dripstation/icons/obj/clothing/accessories.dmi'
-	icon_state = "silverbadge"
+	icon_state = "spearhead"
 	item_state = ""
-	accessory_state = "silverbadge"
+	accessory_state = "spearhead"
 	worn_icon = 'modular_dripstation/icons/mob/clothing/accessories.dmi'
 	var/can_be_adjusted = FALSE
 	var/cord_state = FALSE
@@ -13,20 +14,38 @@
 	accessory_state = "holobadge"
 	can_be_adjusted = TRUE
 
+/obj/item/badge/security/medic1
+	name = "security holobadge (Physician)"
+	icon_state = "holobadge"
+	accessory_state = "holobadge"
+	can_be_adjusted = TRUE
+
+/obj/item/badge/security/medic2
+	name = "security holobadge (Field medic)"
+	icon_state = "holobadge"
+	accessory_state = "holobadge"
+	can_be_adjusted = TRUE
+
+/obj/item/badge/security/medic3
+	name = "security holobadge (Chief Physician)"
+	icon_state = "holobadge"
+	accessory_state = "holobadge"
+	can_be_adjusted = TRUE
+
 /obj/item/badge/security/officer1
-	name = "security holobadge (Junior Officer)"
+	name = "security holobadge (Patrolman)"
 	icon_state = "holobadge"
 	accessory_state = "holobadge"
 	can_be_adjusted = TRUE
 
 /obj/item/badge/security/officer2
-	name = "security holobadge (Officer)"
+	name = "security holobadge (Operative)"
 	icon_state = "holobadge"
 	accessory_state = "holobadge"
 	can_be_adjusted = TRUE
 
 /obj/item/badge/security/officer3
-	name = "security holobadge (Senior Officer)"
+	name = "security holobadge (Corporal)"
 	icon_state = "holobadge"
 	accessory_state = "holobadge"
 	can_be_adjusted = TRUE
@@ -98,8 +117,8 @@
 		to_chat(user, "Waving around a badge without your name would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Security Legal Authorization Badge.\nIt reads: [owner_string], NT Security.</span>",
-		"<span class='warning'>You display your Nanotrasen Security Legal Authorization Badge.\nIt reads: [owner_string], NT Security.</span>")
+		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Spearhead Security Legal Authorization Badge.\nIt reads: [owner_string], Spearhead Security.</span>",
+		"<span class='warning'>You display your Spearhead Security Legal Authorization Badge.\nIt reads: [owner_string], Spearhead Security.</span>")
 
 /obj/item/badge/security/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))

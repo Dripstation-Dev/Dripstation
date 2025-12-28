@@ -129,7 +129,10 @@ GLOBAL_LIST_EMPTY(objectives)
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
 	for(var/datum/mind/possible_target in get_crewmember_minds())
+		/*
 		if(is_valid_target(possible_target) && !(possible_target in owners) && ishuman(possible_target.current) && !is_synth(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
+		*/
+		if(is_valid_target(possible_target) && !(possible_target in owners) && ishuman(possible_target.current) && !isreplica(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
 			//yogs start -- Quiet Rounds
 			var/mob/living/carbon/human/guy = possible_target.current
 			if(possible_target.antag_datums || !(guy.mind.quiet_round))
@@ -233,6 +236,21 @@ GLOBAL_LIST_EMPTY(objectives)
 /datum/objective/assassinate/admin_edit(mob/admin)
 	admin_simple_target_pick(admin)
 
+/datum/objective/assassinate/isd
+	name = "isd objective - assassinate"
+
+/datum/objective/assassinate/isd/update_explanation_text()
+	START_PROCESSING(SSprocessing, src)
+	var/generated_funny_explanation = pick("who seeks posibilities to betray Nanotrasen", "who wants to retire", "who probably sold shuttle to the rival corporation", "who become unusefull", "who probably provides technical support", "who unconfirmed sleeper agent", "who has insulted Internal Security Department")
+	if(target && target.current)
+		if(ishuman(target.current))
+			var/mob/living/carbon/human/H = target.current
+			explanation_text = "Assassinate [target.name], the [lowertext(H.dna.species.name)] [!target_role_type ? target.assigned_role : target.special_role], [generated_funny_explanation]."
+		else
+			explanation_text = "Assassinate [target.name], the [!target_role_type ? target.assigned_role : target.special_role], [generated_funny_explanation]."
+	else
+		explanation_text = "Free Objective"
+
 /datum/objective/assassinate/once
 	name = "assassinate revival allowed"
 
@@ -244,6 +262,21 @@ GLOBAL_LIST_EMPTY(objectives)
 			explanation_text = "Ensure [target.name], the [lowertext(H.dna.species.name)] [!target_role_type ? target.assigned_role : target.special_role] has died at least once."
 		else
 			explanation_text = "Ensure [target.name], the [!target_role_type ? target.assigned_role : target.special_role] has died at least once."
+	else
+		explanation_text = "Free Objective"
+
+/datum/objective/assassinate/once/isd
+	name = "isd objective - assassinate revival allowed"
+
+/datum/objective/assassinate/once/isd/update_explanation_text()
+	START_PROCESSING(SSprocessing, src)
+	var/generated_funny_explanation = pick("who seeks posibilities to betray Nanotrasen", "who wants to retire", "who probably sold shuttle to the rival corporation", "who become unusefull", "who probably provides technical support", "who is unconfirmed sleeper agent", "who has insulted Internal Security Department")
+	if(target && target.current)
+		if(ishuman(target.current))
+			var/mob/living/carbon/human/H = target.current
+			explanation_text = "Ensure [target.name], the [lowertext(H.dna.species.name)] [!target_role_type ? target.assigned_role : target.special_role], [generated_funny_explanation], has died at least once."
+		else
+			explanation_text = "Ensure [target.name], the [!target_role_type ? target.assigned_role : target.special_role], [generated_funny_explanation], has died at least once."
 	else
 		explanation_text = "Free Objective"
 
@@ -273,6 +306,21 @@ GLOBAL_LIST_EMPTY(objectives)
 		return
 	if(target && target.current != original)
 		return TRUE
+
+/datum/objective/assassinate/cloned/isd
+	name = "isd objective - assassinate cloning allowed"
+
+/datum/objective/assassinate/cloned/isd/update_explanation_text()
+	START_PROCESSING(SSprocessing, src)
+	var/generated_funny_explanation = pick("who seeks posibilities to betray Nanotrasen", "who wants to retire", "who probably sold shuttle to the rival corporation", "who become unusefull", "who probably provides technical support", "who unconfirmed sleeper agent", "who has insulted Internal Security Department")
+	if(target && target.current)
+		if(ishuman(target.current))
+			var/mob/living/carbon/human/H = target.current
+			explanation_text = "Ensure [target.name], the [lowertext(H.dna.species.name)] [!target_role_type ? target.assigned_role : target.special_role]'s, [generated_funny_explanation], original body is dead."
+		else
+			explanation_text = "Ensure [target.name], the [!target_role_type ? target.assigned_role : target.special_role]'s, [generated_funny_explanation], original body is dead."
+	else
+		explanation_text = "Free Objective"
 
 /datum/objective/assassinate/internal
 	var/stolen = 0 		//Have we already eliminated this target?
@@ -329,6 +377,21 @@ GLOBAL_LIST_EMPTY(objectives)
 			explanation_text = "Prevent [target.name], the [lowertext(H.dna.species.name)] [!target_role_type ? target.assigned_role : target.special_role], from escaping alive."
 		else
 			explanation_text = "Prevent [target.name], the [!target_role_type ? target.assigned_role : target.special_role], from escaping alive."
+	else
+		explanation_text = "Free Objective"
+
+/datum/objective/maroon/isd
+	name = "isd objective - maroon"
+
+/datum/objective/maroon/isd/update_explanation_text()
+	START_PROCESSING(SSprocessing, src)
+	var/generated_funny_explanation = pick("who seeks posibilities to betray Nanotrasen", "who wants to retire", "who probably sold shuttle to the rival corporation", "who become unusefull", "who probably provides technical support", "who unconfirmed sleeper agent", "who has insulted Internal Security Department")
+	if(target && target.current)
+		if(ishuman(target.current))
+			var/mob/living/carbon/human/H = target.current
+			explanation_text = "Prevent [target.name], the [lowertext(H.dna.species.name)] [!target_role_type ? target.assigned_role : target.special_role], [generated_funny_explanation], from escaping alive."
+		else
+			explanation_text = "Prevent [target.name], the [!target_role_type ? target.assigned_role : target.special_role], [generated_funny_explanation], from escaping alive."
 	else
 		explanation_text = "Free Objective"
 
@@ -440,6 +503,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody."
 	team_explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody. Leave no team member behind."
 	martyr_compatible = 0 //Technically you won't get both anyway.
+	var/hijack_speed_override = 1
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(..())
@@ -1518,6 +1582,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		// Fulp edit START - Bloodsuckers
 		// DEFAULT OBJECTIVES //
 		/datum/objective/bloodsucker_lair,
+		/datum/objective/vassal,
 		/datum/objective/survive/bloodsucker,
 		// Fulp edit END
 		/datum/objective/destroy,
@@ -1530,6 +1595,13 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/capture,
 		/datum/objective/absorb,
 		/datum/objective/minor/pet,
+		/datum/objective/minor/mindshield,
+		/datum/objective/minor/deadpics,
+		/datum/objective/minor/staffpics,
+		/datum/objective/minor/secrecords,
+		/datum/objective/block,
+		/datum/objective/purge,
+		/datum/objective/robot_army,
 		/datum/objective/custom,
 		/datum/objective/gimmick //bee port
 	)
@@ -1548,7 +1620,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/found = FALSE
 	while (!found)
 		var/area/dropoff_area = pick(GLOB.areas)
-		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors)
+		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors && !istype(dropoff_area, /area/ruin) && !istype(dropoff_area, /area/shuttle))	//dripstation edit, a little bit of sanity here
 			dropoff = dropoff_area
 			found = TRUE
 

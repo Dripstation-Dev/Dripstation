@@ -20,7 +20,7 @@
 	implements = list(/obj/item/bodypart = 100, /obj/item/organ_storage = 100)
 	time = 32
 	var/obj/item/bodypart/L = null // L because "limb"
-	var/blacklisted_self_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST) // list of body zones you can't self-augment
+	var/blacklisted_self_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN) // list of body zones you can't self-augment
 
 
 /datum/surgery_step/replace_limb/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)//change this so digitigrade species can only use digitigrade limbs

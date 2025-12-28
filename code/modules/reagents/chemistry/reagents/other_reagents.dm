@@ -298,7 +298,7 @@
 			if(11 to 12)
 				to_chat(M, span_danger("Your flesh itself begins to melt apart in agony!"))
 				M.adjustFireLoss(3)
-				M.emote("scream")
+				M.flick_pain(100, TRUE)
 			if(13 to INFINITY)
 				M.visible_message("<span class='danger'>[M] suddenly ignites in a brilliant flash of white!<span>", span_userdanger("You suddenly ignite in a holy fire!"))
 				M.adjust_fire_stacks(3)
@@ -994,10 +994,12 @@
 
 /datum/reagent/space_cleaner/sterilizine/reaction_mob(mob/living/carbon/C, methods=TOUCH, reac_volume)
 	if(methods & (TOUCH|VAPOR|PATCH))
-		for(var/s in C.surgeries)
+		for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
 			var/datum/surgery/S = s
-			S.success_multiplier = max(0.2, S.success_multiplier)
+			S.operated_bodypart.sanitization += 0.12 * reac_volume
 			// +20% success propability on each step, useful while operating in less-than-perfect conditions
+		for(var/datum/wound/W in C.all_wounds)
+			W.applySanitization(0.12 * reac_volume)
 	..()
 
 /datum/reagent/iron
@@ -1117,10 +1119,13 @@
 		var/turf/destination = get_teleport_loc(L.loc, L, rand(3,6))
 		if(!istype(destination))
 			return
-		new /obj/effect/particle_effect/sparks(L.loc)
+		new /obj/effect/temp_visual/cult/sparks(L.loc)
 		playsound(L.loc, "sparks", 50, 1)
-		if(!do_teleport(L, destination, asoundin = 'sound/effects/phaseinred.ogg', channel = TELEPORT_CHANNEL_BLUESPACE))
+		if(!do_teleport(L, destination, asoundin = 'sound/effects/phaseinred.ogg', channel = TELEPORT_CHANNEL_CULT))
 			return
+		SEND_SOUND(L, 'sound/hallucinations/im_here1.ogg')
+		L.visible_message(span_warning("Red dust flows from [L]'s mouth, and [L.p_they()] disappear[L.p_s()] with a sharp crack!"), \
+					span_cultitalic("You speak unknown words as you taste the [src] and find yourself somewhere else!"), "<i>You hear a sharp crack.</i>")
 		L.throw_at(get_edge_target_turf(L, L.dir), 1, 3, spin = FALSE, diagonals_first = TRUE)
 		if(iscarbon(L))
 			var/mob/living/carbon/C = L
@@ -1222,7 +1227,7 @@
 		M.reagents.add_reagent(type, max(reac_volume - existing, 0) * permeability)
 		M.adjustBruteLoss(1 * reac_volume * permeability)
 		M.adjustFireLoss(1 * reac_volume * permeability)
-		M.emote("scream")
+		M.flick_pain(100, TRUE)
 
 /datum/reagent/cryptobiolin
 	name = "Cryptobiolin"
@@ -1304,11 +1309,13 @@
 	if((methods & (PATCH|INGEST|INJECT)) || ((methods & VAPOR) && prob(min(reac_volume,100)*permeability)))
 		L.ForceContractDisease(new /datum/disease/gastrolosis(), FALSE, TRUE)
 
-/datum/reagent/fluorosurfactant//foam precursor
+/datum/reagent/medicine/coagulant/fluorosurfactant//foam precursor
 	name = "Fluorosurfactant"
-	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
+	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water. Also reacts with oxidant."
 	color = "#9E6B38" // rgb: 158, 107, 56
 	taste_description = "metal"
+	passive_bleed_modifier = 0.4
+	compatible_biotypes = MOB_PSEVDOORGANIC
 
 /datum/reagent/foaming_agent// Metal foaming agent. This is lithium hydride. Add other recipes (e.g. LiH + H2O -> LiOH + H2) eventually.
 	name = "Foaming agent"

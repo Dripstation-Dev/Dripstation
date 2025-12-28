@@ -100,7 +100,7 @@
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
-	attack_sound = 'sound/weapons/genhit1.ogg'
+	attack_sound = SFX_BLUNT
 	movement_type = FLYING
 	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"

@@ -456,6 +456,7 @@
 				R.fields["crimes"] = list()
 				R.fields["comments"] = list()
 				R.fields["notes"] = "No notes."
+				R.fields["past_records"]= "No past records."
 				GLOB.data_core.security += R
 				active_security_record = R
 				screen = RECORD_VIEW
@@ -475,6 +476,7 @@
 			G.fields["fingerprint"] = "?????"
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
+			G.fields["past_records"]= "No past records."
 			GLOB.data_core.general += G
 			active_general_record = G
 
@@ -487,6 +489,7 @@
 			R.fields["crimes"] = list()
 			R.fields["comments"] = list()
 			R.fields["notes"] = "No notes."
+			R.fields["past_records"]= "No past records."
 			GLOB.data_core.security += R
 			active_security_record = R
 
@@ -505,6 +508,7 @@
 			M.fields["cdi"]			= "None"
 			M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
 			M.fields["notes"]		= "No notes."
+			M.fields["past_records"]= "No past records."
 			GLOB.data_core.medical += M
 
 		if("delete_general_record_and_security")

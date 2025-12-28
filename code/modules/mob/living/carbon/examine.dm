@@ -54,7 +54,7 @@
 
 	var/list/msg = list("<span class='warning'>")
 	var/temp = getBruteLoss()
-	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
+	if(!(user == src && src.hal_screwyhud >= SCREWYHUD_NONE)) //we don`t really know how we feel
 		if(temp)
 			if (temp < 25)
 				msg += "[t_He] [t_has] minor bruising.\n"

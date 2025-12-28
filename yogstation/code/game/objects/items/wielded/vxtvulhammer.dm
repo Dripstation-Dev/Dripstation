@@ -7,7 +7,9 @@
 	base_icon_state = "vxtvul_hammer"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
+	/* Dripstation edit start
 	name = "Vxtvul Hammer"
+	*/	// Dripstation edit end
 	desc = "A relic sledgehammer with charge packs wired to two blast pads on its head. \
 			While wielded in two hands, the user can charge a massive blow that will shatter construction and hurl bodies."
 	force = 4 //It's heavy as hell
@@ -179,7 +181,7 @@
 			if(toy)
 				if(user == target)
 					victim.Paralyze(2 SECONDS)
-					victim.emote("scream")
+					victim.flick_pain(100, TRUE)
 					to_chat(victim, span_userdanger("That was stupid."))
 				else
 					ADD_TRAIT(victim, TRAIT_IMPACTIMMUNE, "Toy Hammer")
@@ -189,7 +191,7 @@
 				victim.Paralyze(2 SECONDS)
 				user.visible_message(span_danger("The hammer thunders as it viscerally strikes [target.name]!"))
 				to_chat(victim, span_userdanger("Agony sears through you as [user]'s blow cracks your body off its feet!"))
-				victim.emote("scream")
+				victim.flick_pain(100, TRUE)
 
 /obj/item/melee/vxtvulhammer/proc/afterimpact(mob/living/victim)
 	REMOVE_TRAIT(victim, TRAIT_IMPACTIMMUNE, "Toy Hammer")

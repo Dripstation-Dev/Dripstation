@@ -74,10 +74,13 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			var/mob/living/carbon/C = M
 			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
 
-			for(var/s in C.surgeries)
+			for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
 				var/datum/surgery/S = s
-				S.success_multiplier = max(0.1*power_multiplier, S.success_multiplier)
+				S.operated_bodypart.sanitization += 0.04*power_multiplier * reac_volume
+				//S.success_multiplier = max(0.1*power_multiplier, S.success_multiplier)
 				// +10% success propability on each step, useful while operating in less-than-perfect conditions
+			for(var/datum/wound/W in C.all_wounds)
+				W.applySanitization(0.04*power_multiplier * reac_volume)
 	return ..()
 
 /datum/reagent/consumable/ethanol/beer
@@ -226,7 +229,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 				eyes.Remove(M)
 				eyes.forceMove(get_turf(M))
 				to_chat(M, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
-				M.emote("scream")
+				M.flick_pain(100, TRUE)
 				M.adjustBruteLoss(15)
 		else
 			to_chat(M, span_userdanger("You scream in terror as you go blind!"))
@@ -2168,7 +2171,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/bug_spray/on_mob_metabolize(mob/living/carbon/M)
 
 	if(ismoth(M) || isflyperson(M))
-		M.emote("scream")
+		M.flick_pain(100, TRUE)
 	return ..()
 
 
@@ -2325,7 +2328,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/planet_cracker/on_mob_life(mob/living/carbon/M)
 	if(islizard(M) && prob(15))
-		M.emote("scream")
+		M.flick_pain(100, TRUE)
 	else if(ishumanbasic(M))
 		M.heal_overall_damage(0.25, 0.25)
 	return ..()

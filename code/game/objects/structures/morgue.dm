@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 
 /obj/structure/bodycontainer/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 5)
 /*
  * Morgue
  */
@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		if(istype(O, /obj/item/grenade))
 			log_bomber(user, "cremated a ", O, ", detonating it.")
 			var/obj/item/grenade/nade = O
-			nade.prime()
+			nade.prime(user)
 		else if(istype(O, /obj/item/tank))
 			log_bomber(user, "cremated a ", O, ", igniting it.")
 			var/obj/item/tank/tank = O

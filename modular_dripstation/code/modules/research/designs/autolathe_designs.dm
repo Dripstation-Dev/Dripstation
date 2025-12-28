@@ -6,3 +6,13 @@
 	build_path = /obj/item/wallframe/digital_clock
 	category = list("initial", "Construction", "Assemblies")
 	departmental_flags = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_SERVICE
+
+/datum/design/boxcutter
+	name = "Boxcutter"
+	id = "boxcutter"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = COIN_MATERIAL_AMOUNT, /datum/material/plastic = COIN_MATERIAL_AMOUNT)
+	build_path = /obj/item/boxcutter
+	category = list("initial","Tools","Tool Designs")
+	departmental_flags = DEPARTMENT_BITFLAG_CARGO | DEPARTMENT_BITFLAG_SERVICE
+

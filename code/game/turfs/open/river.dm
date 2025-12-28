@@ -56,6 +56,7 @@
 			else
 				// Workaround around ChangeTurf that's safe because of when this proc is called
 				var/turf/river_turf = new turf_type(cur_turf)
+				river_turf.clear_below()
 				river_turf.Spread(25, 11, whitelist_area)
 
 	for(var/WP in river_nodes)
@@ -67,6 +68,17 @@
 	var/connected = 0
 	invisibility = INVISIBILITY_ABSTRACT
 
+
+/turf/proc/clear_below()
+	var/list/static/clear_below_typecache = typecacheof(list(
+		/obj/structure/spawner,
+		/mob/living/simple_animal,
+		/obj/structure/flora,
+		/obj/structure/herb //YOGS EDIT
+	))
+	for(var/atom/thing as anything in src)
+		if(clear_below_typecache[thing.type])
+			qdel(thing)
 
 /turf/proc/Spread(probability = 30, prob_loss = 25, whitelisted_area)
 	if(probability <= 0)
@@ -98,6 +110,7 @@
 		if(!istype(cardinal_candidate, logged_turf_type) && cardinal_candidate.ChangeTurf(type, baseturfs, CHANGETURF_SKIP) && prob(probability))
 			if(baseturfs)
 				cardinal_candidate.baseturfs = baseturfs
+			cardinal_candidate.clear_below()
 			cardinal_candidate.Spread(probability - prob_loss, prob_loss, whitelisted_area)
 
 	for(var/turf/diagonal_candidate as anything in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
@@ -110,6 +123,7 @@
 			var/turf/closed/mineral/diagonal_mineral = diagonal_candidate
 			// SEE ABOVE, THIS IS ONLY VERY RARELY SAFE
 			new diagonal_mineral.turf_type(diagonal_mineral)
+		diagonal_candidate.clear_below()
 
 
 #undef RANDOM_UPPER_X

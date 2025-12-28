@@ -30,14 +30,14 @@
 	cooldown_time = 180 SECONDS //no farming a bunch of items
 	summon_radius = 0 //spawns on top of us
 	summon_type = list(
-		/obj/item/katana/greedcursed,
+		/obj/item/melee/katana/greedcursed,
 		/obj/item/reagent_containers/pill/greedcursed,
 		/obj/item/book_of_babel/greedcursed,
 		/obj/item/book/granter/action/spell/sacredflame/weak, //this one isnt actually 'cursed', but its also way weaker than the normal spell, and you're still setting yourself on fire
 		/obj/item/greedcursed_bottle
 	)
 
-/obj/item/katana/greedcursed //quite a bit weaker katana, still deals good damage, but also siphons part of your health every hit.
+/obj/item/melee/katana/greedcursed //quite a bit weaker katana, still deals good damage, but also siphons part of your health every hit.
 	name = "peculiar katana"
 	desc = "The handle seems to dig into your flesh as you swing it..."
 	force = 20
@@ -45,7 +45,7 @@
 	armour_penetration = 15
 	sharpness = SHARP_EDGED
 
-/obj/item/katana/greedcursed/attack(mob/target, mob/living/carbon/human/user)
+/obj/item/melee/katana/greedcursed/attack(mob/target, mob/living/carbon/human/user)
 	to_chat(user, "<span class ='warning'>[src] digs into your hands...</span>")
 	user.apply_damage(rand(force/4, force/2), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)) //5-10 damage to one of your arms
 	..()

@@ -93,6 +93,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 /atom/movable/proc/say_quote(input, list/spans=list(speech_span), list/message_mods = list())
 	if(!input)
 		input = "..."
+	SEND_SIGNAL(src, COMSIG_MOVABLE_SAY_QUOTE, args)
 
 	if(copytext_char(input, -2) == "!!")
 		spans |= SPAN_YELL

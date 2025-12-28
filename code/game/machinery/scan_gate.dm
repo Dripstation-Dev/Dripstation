@@ -18,11 +18,12 @@
 #define SCANGATE_POD			"pod"
 #define SCANGATE_GOLEM			"golem"
 #define SCANGATE_ZOMBIE			"zombie"
+#define SCANGATE_REPLICA		"replica"
 
 /obj/machinery/scanner_gate
 	name = "scanner gate"
 	desc = "A gate able to perform mid-depth scans on any organisms who pass under it."
-	icon = 'icons/obj/machines/scangate.dmi'
+	icon = 'modular_dripstation/icons/obj/scangate.dmi'
 	icon_state = "scangate"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
@@ -49,7 +50,7 @@
 	else
 		. += span_notice("The control panel is unlocked. Swipe an ID to lock it.")
 
-/obj/machinery/scanner_gate/Crossed(atom/movable/AM)
+/obj/machinery/scanner_gate/Cross(atom/movable/AM)
 	. = ..()
 	auto_scan(AM)
 
@@ -93,6 +94,7 @@
 
 /obj/machinery/scanner_gate/proc/perform_scan(mob/living/M)
 	var/beep = FALSE
+	var/alarm = FALSE
 	switch(scangate_mode)
 		if(SCANGATE_NONE)
 			return
@@ -101,8 +103,10 @@
 				var/mob/living/carbon/human/H = M
 				var/perpname = H.get_face_name(H.get_id_name())
 				var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-				if(!R || (R.fields["criminal"] == WANTED_ARREST))
+				if(!R)
 					beep = TRUE
+				if(R?.fields["criminal"] == WANTED_ARREST)
+					alarm = TRUE
 		if(SCANGATE_MINDSHIELD)
 			if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 				beep = TRUE
@@ -113,12 +117,12 @@
 					if(nanites && nanites.cloud_id == nanite_cloud)
 						beep = TRUE
 				else
-					beep = TRUE
+					alarm = TRUE
 		if(SCANGATE_DISEASE)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(get_disease_severity_value(C.check_virus()) >= get_disease_severity_value(disease_threshold))
-					beep = TRUE
+					alarm = TRUE
 		if(SCANGATE_SPECIES)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
@@ -128,6 +132,8 @@
 						scan_species = /datum/species/lizard
 					if(SCANGATE_FLY)
 						scan_species = /datum/species/fly
+					if(SCANGATE_FELINID)
+						scan_species = /datum/species/human/felinid
 					if(SCANGATE_FELINID)
 						scan_species = /datum/species/human/felinid
 					if(SCANGATE_PLASMAMAN)
@@ -142,39 +148,53 @@
 						scan_species = /datum/species/pod
 					if(SCANGATE_GOLEM)
 						scan_species = /datum/species/golem
-					if(SCANGATE_ZOMBIE)
-						scan_species = /datum/species/zombie
+					if(SCANGATE_REPLICA)
+						scan_species = /datum/species/replica
 				if(is_species(H, scan_species))
 					beep = TRUE
 				if(detect_species == SCANGATE_ZOMBIE) //Can detect dormant zombies
 					if(H.getorganslot(ORGAN_SLOT_ZOMBIE))
-						beep = TRUE
+						alarm = TRUE
 		if(SCANGATE_GUNS)
 			for(var/I in M.get_contents())
 				if(istype(I, /obj/item/gun))
 					beep = TRUE
 					break
+			if(beep && ishuman(M))
+				var/mob/living/carbon/human/H = M
+				var/obj/item/card = H.wear_id?.GetID()
+				if(!card || !(ACCESS_WEAPONS in card.GetAccess()))
+					alarm = TRUE
 		if(SCANGATE_NUTRITION)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(H.nutrition <= detect_nutrition && detect_nutrition == NUTRITION_LEVEL_STARVING)
-					beep = TRUE
+					alarm = TRUE
 				if(H.nutrition >= detect_nutrition && detect_nutrition == NUTRITION_LEVEL_FAT)
 					beep = TRUE
 
 	if(reverse)
 		beep = !beep
-	if(beep)
+		alarm = !alarm
+	if(alarm)
 		alarm_beep()
+	else if(beep)
+		set_scanline("attention", 10)
+		if(beep && next_beep <= world.time)
+			next_beep = world.time + 20
+			playsound(src, 'sound/machines/synth_no.ogg', 100, 0)
 	else
 		set_scanline("scanning", 10)
+		if(beep && next_beep <= world.time)
+			next_beep = world.time + 20
+			playsound(src, 'sound/machines/synth_yes.ogg', 100, 0)
 
 /obj/machinery/scanner_gate/proc/alarm_beep()
 	if(next_beep <= world.time)
 		next_beep = world.time + 20
 		playsound(src, 'sound/machines/scanbuzz.ogg', 100, 0)
-	var/image/I = image(icon, src, "alarm_light", layer+1)
-	flick_overlay_view(I, src, 20)
+	//var/image/I = image(icon, src, "alarm_light", layer+1)
+	//flick_overlay_view(I, src, 20)
 	set_scanline("alarm", 20)
 
 /obj/machinery/scanner_gate/can_interact(mob/user)
@@ -240,6 +260,9 @@
 					if("Obese")
 						detect_nutrition = NUTRITION_LEVEL_FAT
 			. = TRUE
+
+/obj/machinery/scanner_gate/black
+	icon_state = "scangate_black"
 
 #undef SCANGATE_NONE
 #undef SCANGATE_MINDSHIELD

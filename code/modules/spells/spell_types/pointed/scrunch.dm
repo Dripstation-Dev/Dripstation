@@ -37,7 +37,7 @@
 		cast_on.AddElement(/datum/element/squish)
 	cast_on.AddElement(/datum/element/squish)
 	cast_on.apply_damage(60, BRUTE, wound_bonus = 50, bare_wound_bonus = 50) //brute wounds all over the body
-	cast_on.emote("scream")
+	cast_on.flick_pain(100, TRUE)
 	playsound(cast_on, 'sound/effects/blobattack.ogg', 40, TRUE)
 	playsound(cast_on, 'sound/effects/splat.ogg', 50, TRUE)
 	return TRUE

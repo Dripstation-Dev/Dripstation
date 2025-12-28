@@ -62,3 +62,11 @@
 	L.nest = src
 	L.faction = src.faction
 	spawner.visible_message(span_danger("[L] [spawn_text] [spawner]."))
+
+	SEND_SIGNAL(src, COMSIG_SPAWNER_SPAWNED, L)
+	RegisterSignal(L, COMSIG_QDELETING, PROC_REF(on_deleted))
+
+/// Called when an atom we spawned is deleted, remove it from the list
+/datum/component/spawner/proc/on_deleted(atom/source)
+	SIGNAL_HANDLER
+	spawned_things -= WEAKREF(source)

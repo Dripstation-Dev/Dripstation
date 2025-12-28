@@ -19,7 +19,7 @@
 	refined_type = null
 
 /obj/item/stack/ore/bluespace_crystal/refined/nt // NT's telecrystal
-	name = "warpcrystal"
+	name = "enchanced telecristal"	//dripstation edit
 	desc = "The culmination of Nanotrasen's sacrifices in pursuing technological advancement. Highly top-secret."
 	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT*2.5) // more potent
 

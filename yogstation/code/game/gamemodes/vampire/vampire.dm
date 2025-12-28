@@ -13,8 +13,10 @@
 	config_tag = "vampire"
 	antag_flag = ROLE_VAMPIRE
 	false_report_weight = 1
+	/*Dripastation edit
 	restricted_jobs = list("AI", "Cyborg", "Synthetic")
 	protected_jobs = list("Head of Security", "Captain", "Head of Personnel", "Research Director", "Chief Engineer", "Chief Medical Officer", "Security Officer", "Chaplain", "Detective", "Warden", "Brig Physician") //Added Brig Physician
+	*/
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 3

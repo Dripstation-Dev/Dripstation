@@ -26,12 +26,14 @@
 	icon_state = "secsheath"
 	item_state = "security"
 	icon = 'modular_dripstation/icons/obj/weapons/security.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/belt.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 
 /obj/item/storage/belt/sabre/stunsword/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.attack_hand_interact = TRUE
 	STR.max_items = 6
 	STR.max_combined_w_class = 18
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
@@ -60,6 +62,22 @@
 		/obj/item/shield/riot/tele,
 		/obj/item/barrier_taperoll/police
 		))
+
+/obj/item/storage/belt/sabre/stunsword/update_icon(updates=ALL)
+	. = ..()
+	/* Dripstation edit
+	icon_state = "sheath"
+	item_state = "sheath"
+	*/
+	icon_state = initial(icon_state)
+	var/has_sword = 0
+	for(var/obj/item/melee/baton/stunsword/sts in contents)
+		has_sword += 1
+	if(has_sword > 0)
+		icon_state += "-stunsword"
+	if(loc && isliving(loc))
+		var/mob/living/L = loc
+		L.regenerate_icons()
 
 /obj/item/storage/belt/sabre/stunsword/PopulateContents()
 	SSwardrobe.provide_type(/obj/item/melee/baton/stunsword/loaded, src)
@@ -110,7 +128,7 @@
 	else
 		SEND_SIGNAL(M, COMSIG_LIVING_MINOR_SHOCK)
 		var/obj/item/stuff_in_hand = M.get_active_held_item()
-		if(!user || !stuff_in_hand || !M.temporarilyRemoveItemFromInventory(stuff_in_hand))
+		if(!user || !stuff_in_hand || !status || !M.temporarilyRemoveItemFromInventory(stuff_in_hand))
 			return
 		if(user.put_in_inactive_hand(stuff_in_hand))
 			stuff_in_hand.loc.visible_message(span_warning("[stuff_in_hand] suddenly appears in [user]'s hand!"))

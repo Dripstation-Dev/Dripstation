@@ -67,6 +67,45 @@
 	target.dna.features["body_markings"] = value
 
 
+/datum/preference/color/body_markings_color	//dripstation edit
+	savefile_key = "feature_body_markings_color"
+	savefile_identifier = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	relevant_mutant_bodypart = "body_markings"
+	unique = TRUE
+
+/datum/preference/color/body_markings_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.facial_hair_color = value
+
+/datum/preference/color/body_markings_color/is_valid(value)
+	if (!..(value))
+		return FALSE
+
+	if (is_color_dark(value, 22))
+		return FALSE
+
+	return TRUE
+
+/datum/preference/color/lizard_frills_color
+	savefile_key = "feature_lizard_frills_color"
+	savefile_identifier = PREFERENCE_CHARACTER
+	category = PREFERENCE_CATEGORY_SECONDARY_FEATURES
+	relevant_mutant_bodypart = "frills"
+	unique = TRUE
+
+/datum/preference/color/lizard_frills_color/apply_to_human(mob/living/carbon/human/target, value)
+	target.hair_color = value
+
+/datum/preference/color/lizard_frills_color/is_valid(value)
+	if (!..(value))
+		return FALSE
+
+	if (is_color_dark(value, 22))
+		return FALSE
+
+	return TRUE
+
+
 /datum/preference/choiced/lizard_frills
 	category = PREFERENCE_CATEGORY_FEATURES
 	savefile_key = "feature_lizard_frills"

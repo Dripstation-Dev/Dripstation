@@ -3,6 +3,7 @@
 	desc = "Protects against brainwashing."
 	actions_types = null
 
+/* Dripstation start
 /obj/item/implant/mindshield/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Nanotrasen Employee Management Implant<BR>
@@ -16,7 +17,6 @@
 	return dat
 
 
-/* Dripstation start
 /obj/item/implant/mindshield/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	if(..())
 		if(!target.mind)

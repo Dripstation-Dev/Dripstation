@@ -40,12 +40,19 @@ const UplinkSection = (_props, context) => {
   return (
     <Section title="Uplink" mb={!has_uplink && -1}>
       <Stack vertical>
+      {(!has_uplink && (
+        <Stack.Item>
+          <BlockQuote>
+            Your uplink is currently missing or destroyed.
+          </BlockQuote>
+        </Stack.Item>
+        )) || (
         <Stack.Item>
           <BlockQuote>
             Keep this uplink safe, and don&apos;t feel like you need to buy everything immediately — you can save your
             telecrystals to use whenever you&apos;re in a tough situation and need help.
           </BlockQuote>
-        </Stack.Item>
+        </Stack.Item>)}
         <Stack.Divider />
         <Stack.Item>
           <Stack fill>

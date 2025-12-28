@@ -10,6 +10,7 @@
 	var/obj/item/card/id/front_id = null
 	var/list/combined_access
 
+/* Dripstation edit
 /obj/item/storage/wallet/Initialize(mapload)
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
@@ -92,10 +93,13 @@
 		return combined_access
 	else
 		return ..()
+*/	//Dripstation edit
 
 /obj/item/storage/wallet/random
 	icon_state = "random_wallet"
+	var/list/rand_icon_state = list("wallet" = 1, "wallet_black" = 1)
 
 /obj/item/storage/wallet/random/PopulateContents()
 	new /obj/item/holochip(src, rand(5,30))
+	base_icon_state = pick(rand_icon_state)
 	update_appearance(UPDATE_ICON)

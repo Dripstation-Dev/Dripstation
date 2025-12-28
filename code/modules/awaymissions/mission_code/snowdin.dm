@@ -246,7 +246,7 @@
 							var/obj/item/bodypart/NB = pick(plasma_parts) //using the above-mentioned list to get a choice of limbs to replace
 							playsound(PP, 'sound/effects/wounds/sizzle2.ogg', 80, TRUE)
 							if(PP.stat != DEAD)
-								PP.emote("scream")
+								PP.flick_pain(100, TRUE)
 								PP.visible_message(span_warning("[L] screams in pain as [L.p_their()] [NB] melts down to the bone!"), span_userdanger("You scream out in pain as your [NB] melts down to the bone, leaving an eerie plasma-like glow where flesh used to be!"))
 							else
 								PP.visible_message(span_warning("[L]'s [NB] melts down to the bone!"))

@@ -19,7 +19,7 @@
 		
 	victim = dismembered_part.owner
 
-	if(dismembered_part.body_zone == BODY_ZONE_CHEST)
+	if(dismembered_part.body_zone == BODY_ZONE_CHEST || dismembered_part.body_zone == BODY_ZONE_PRECISE_GROIN)
 		occur_text = "is split open, causing [victim.p_their()] internals organs to spill out!"
 	else if(outright)
 		switch(wounding_type)

@@ -13,9 +13,9 @@
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 
-	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50)
-	max_integrity = 100
-	integrity_failure = 50
+	armor = list(MELEE = 50, BULLET = -20, LASER = -40, ENERGY = -40, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 50)	//dripstation edit
+	max_integrity = 80	//dripstation edit
+	integrity_failure = 40	//dripstation edit
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
 	var/list/network = list("ss13")
 	var/c_tag = null
@@ -511,7 +511,7 @@
 
 /obj/machinery/camera/get_remote_view_fullscreens(mob/user)
 	if(view_range == short_range) //unfocused
-		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 3)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
 	user.set_invis_see(SEE_INVISIBLE_LIVING) //can't see ghosts through cameras

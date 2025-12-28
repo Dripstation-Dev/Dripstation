@@ -123,13 +123,13 @@
 	if(istype(O, /obj/item/organ_storage))
 		return //Borg organ bags shouldn't be killing brains
 
-	if((organ_flags & ORGAN_FAILING) && O.is_drainable() && O.reagents.has_reagent(/datum/reagent/medicine/mannitol)) //attempt to heal the brain
+	if((organ_flags & ORGAN_FAILING) && O.is_drainable() && O.reagents.has_reagent(/datum/reagent/medicine/mannitol/advanced)) //attempt to heal the brain
 		. = TRUE //don't do attack animation.
 		if(brain_death || brainmob?.health <= HEALTH_THRESHOLD_DEAD) //if the brain is fucked anyway, do nothing
 			to_chat(user, span_warning("[src] is far too damaged, there's nothing else we can do for it!"))
 			return
 
-		if(!O.reagents.has_reagent(/datum/reagent/medicine/mannitol, 10))
+		if(!O.reagents.has_reagent(/datum/reagent/medicine/mannitol/advanced, 10))
 			to_chat(user, span_warning("There's not enough mannitol in [O] to restore [src]!"))
 			return
 

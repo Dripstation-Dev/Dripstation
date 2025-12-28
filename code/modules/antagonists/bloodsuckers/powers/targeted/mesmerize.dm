@@ -27,6 +27,7 @@
 	cooldown_time = 20 SECONDS
 	target_range = 8
 	power_activates_immediately = FALSE
+	sol_multiplier = 5
 	prefire_message = "Whom will you subvert to your will?"
 	ascended_power = /datum/action/cooldown/bloodsucker/targeted/mesmerize/shadow
 	var/mesmerizingtime = 5 SECONDS

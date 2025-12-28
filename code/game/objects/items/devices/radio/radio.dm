@@ -217,6 +217,10 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 				. = TRUE
 
 /obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
+	if(SEND_SIGNAL(M, COMSIG_MOVABLE_USING_RADIO, src) & COMPONENT_CANNOT_USE_RADIO)
+		return
+	if(SEND_SIGNAL(src, COMSIG_RADIO_NEW_MESSAGE, M, message, channel) & COMPONENT_CANNOT_USE_RADIO)
+		return
 	if(!spans)
 		spans = list(M.speech_span)
 	if(!language)
@@ -352,6 +356,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	else
 		. += span_notice("It cannot be modified or attached.")
 
+	/* Dripstation edit start
 	if((item_flags & IN_INVENTORY && loc == user) || (src in view(1, user)))
 		// construction of frequency description
 		var/list/avail_chans = list("Use [RADIO_KEY_COMMON] for the currently tuned frequency")
@@ -369,6 +374,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			. += span_info("Alt-click to toggle the high-volume mode.")
 	else
 		. += span_notice("A small screen on the [src] flashes, it's too small to read without going near the [src].")
+	*/	// Dripstation edit end
 
 /obj/item/radio/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)

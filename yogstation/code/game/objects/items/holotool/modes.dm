@@ -72,7 +72,7 @@
 	H.force = 17
 	H.attack_verb = list("sliced", "torn", "cut")
 	H.armour_penetration = 45
-	H.embedding = list("embed_chance" = 40, "embedded_fall_chance" = 0, "embedded_pain_multiplier" = 5)
+	H.embedding = list("embed_chance" = 40, "fall_chance" = 0, "pain_multiplier" = 5)
 	H.hitsound = 'sound/weapons/blade1.ogg'
 
 /datum/holotool_mode/knife/on_unset(obj/item/holotool/H)

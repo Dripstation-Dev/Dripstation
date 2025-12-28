@@ -30,7 +30,7 @@
 	light_power = -1
 	light_color = COLOR_VELVET
 	light_range = 2
-	embedding = list("embed_chance" = 100, "embedded_fall_chance" = 0) //always embeds if it hits someone
+	//embedding = list("embed_chance" = 100, "embedded_fall_chance" = 0) //always embeds if it hits someone
 	projectile_type = /obj/projectile/bullet/reusable/arrow/shadow
 
 /obj/item/ammo_casing/reusable/arrow/shadow/on_land(obj/projectile/old_projectile)
@@ -42,8 +42,7 @@
 		return
 	if(iscarbon(loc)) //if it's embedded, remove the embedding properly or it'll cause funkiness
 		var/mob/living/carbon/holder = loc
-		if(holder.get_embedded_part(src))
-			holder.remove_embedded_object(src, get_turf(holder), TRUE, TRUE, FALSE)
+		holder.remove_embedded_object(src)
 	qdel(src)
 
 //the projectile being shot from the bow
@@ -56,7 +55,9 @@
 	light_power = -1
 	light_color = COLOR_VELVET
 	light_range = 2
-	embed_chance = 1 //always embeds if it hits someone
+	embedding = list("embed_chance" = 100, "fall_chance" = 0) //always embeds if it hits someone
+	shrapnel_type = /obj/item/ammo_casing/reusable/arrow/shadow
+	//embed_chance = 1 //always embeds if it hits someone
 
 /obj/projectile/bullet/reusable/arrow/shadow/Initialize(mapload)
 	. = ..()

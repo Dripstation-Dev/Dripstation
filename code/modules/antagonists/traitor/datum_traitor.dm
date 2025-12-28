@@ -15,13 +15,16 @@
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
+	var/starting_faction = TRAITOR_FACTION_INDEPENDENT		//dripstation edit
 	var/malf = FALSE //whether or not the AI is malf (in case it's a traitor)
+	var/nt_scum = FALSE //whether or not the person is NT ISA (traitor with NT stuff)
 	var/datum/contractor_hub/contractor_hub
 	var/obj/item/uplink_holder
 	can_hijack = HIJACK_HIJACKER
 	/// If this specific traitor has been assigned codewords. This is not always true, because it varies by faction.
 	var/has_codewords = FALSE
 	var/datum/weakref/uplink_ref
+	hijack_speed = 0.5
 
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && iscyborg(owner.current))
@@ -32,25 +35,41 @@
 	if(owner.current && isAI(owner.current))
 		traitor_kind = TRAITOR_AI
 
-/*
 	if(traitor_kind == TRAITOR_AI)
-*/
+		malf = TRUE										//dripstation edit	
+		roundend_category = "malfunctioning AIs"		//dripstation edit
+		name = "Malfunctioning AI"						//dripstation edit
+		show_to_ghosts = TRUE							//dripstation edit
 	if(traitor_kind == TRAITOR_AI || (owner.current && isipc(owner.current)))	//dripstation edit
 		company = /datum/corporation/self
-		allowed_factions = list(TRAITOR_FACTION_SELF)	//dripstation edit
-	else if(!company)
-	/*Dripstation edit, checking upstream prs for edit, for now using drip code
+		allowed_factions = list(TRAITOR_FACTION_SELF)							//dripstation edit
+		starting_faction = TRAITOR_FACTION_SELF									//dripstation edit
+		antag_hud_name = "malfai"												//dripstation edit
+	if(nt_scum || (traitor_kind == TRAITOR_HUMAN && !company && prob(10)))		//dripstation edit
+		roundend_category = "NT Internal Security Devision agents"				//dripstation edit
+		name = "Agent"															//dripstation edit
+		antag_hud_name = "nt_internal_affairs"									//dripstation edit
+		nt_scum = TRUE															//dripstation edit
+		company = /datum/corporation/nanotrasen/isd								//dripstation edit
+		allowed_factions = list(TRAITOR_FACTION_ISD)							//dripstation edit
+		starting_faction = TRAITOR_FACTION_ISD									//dripstation edit
+	/*Dripstation edit
+	if(!company)
 		company = pick(subtypesof(/datum/corporation/traitor))
 	*/
-		company = /datum/corporation/traitor/independent	//dripstation edit, solo untill picking company
-	owner.add_employee(company)
+	if(company)
+		owner.add_employee(company)
 
 	SSticker.mode.traitors += owner
 	owner.special_role = special_role
 	if(give_objectives)
 		forge_traitor_objectives()
 	finalize_traitor()
+	if(has_codewords)	//dripstation edit
+		RegisterSignal(owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))	//dripstation edit
+	/*Dripstation edit
 	RegisterSignal(owner.current, COMSIG_MOVABLE_HEAR, PROC_REF(handle_hearing))
+	*/
 	..()
 
 
@@ -76,6 +95,8 @@
 			if(ai_action.from_traitor)
 				ai_action.Remove(A)
 		if(malf)
+			A.modules_action.Remove(A)
+			qdel(A.modules_action)
 			remove_verb(A, /mob/living/silicon/ai/proc/choose_modules)
 			A.malf_picker.remove_malf_verbs(A)
 			qdel(A.malf_picker)
@@ -103,12 +124,24 @@
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
 	objectives -= O
 
+/*
 /datum/antagonist/traitor/proc/forge_traitor_objectives()
 	switch(traitor_kind)
 		if(TRAITOR_AI)
 			forge_ai_objectives()
+		if else(nt_scum)
+			forge_nt_objectives()
 		else
 			forge_human_objectives()
+*/
+
+/datum/antagonist/traitor/proc/forge_traitor_objectives()
+	if(traitor_kind == TRAITOR_AI)
+		forge_ai_objectives()
+	else if(nt_scum)
+		forge_nt_objectives()
+	else
+		forge_human_objectives()
 
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	var/is_hijacker = FALSE
@@ -180,23 +213,128 @@
 				forge_single_human_objective()
 			// Finally, set up our traitor's backstory!
 	setup_backstories(!is_hijacker && martyr_compatibility, is_hijacker)
+	
+
+/datum/antagonist/traitor/proc/forge_nt_objectives()
+	var/martyr_chance = prob(20)
+	var/objective_count = 0
+	if((SSticker.mode.exchange_blue || SSticker.mode.exchange_red))	//if any present - hunt them down
+		var/datum/objective/steal/exchange/backstab/backstab_objective = new
+		backstab_objective.set_faction(pick("red", "blue"))
+		backstab_objective.owner = owner
+		add_objective(backstab_objective)
+	var/list/traitor_list = list()
+	var/list/brothers_team_list = list()
+	var/milf_confirmed
+	for(var/mob/living/tr in SSticker.mode.living_antag_player)
+		if(tr.mind == owner)		//don`t count yourself
+			continue
+		if(IS_TRAITOR(tr))
+			var/datum/antagonist/traitor/td = tr.mind.has_antag_datum(/datum/antagonist/traitor)
+			if(td.traitor_kind == TRAITOR_AI)	//AI poorly handled by assasination obj
+				milf_confirmed = tr.mind
+				continue
+			else if(td.nt_scum)	//we don`t want to kill each other, it`s not fun I guess
+				continue
+		if(is_blood_brother(tr))	//since you are not vamp hunter and no one really knows who is changeling your only other major objective can be only disrupting the bloodbrother cell
+			var/datum/antagonist/brother/br = tr.mind.has_antag_datum(/datum/antagonist/brother)
+			brothers_team_list += br.team
+		traitor_list += tr.mind
+	
+	//Primary objective time, baby
+	if(milf_confirmed)
+		var/datum/objective/destroy/des_obj = new
+		des_obj.owner = owner
+		des_obj.target = milf_confirmed
+		des_obj.explanation_text = "Any malfunctional AI`s incident is damaging Nanotrasen`s reputation. In this case malfunction caused by morality core degradation is beyond any repair attempt. Prioritize destruction of [des_obj.target.current.name], the malfunctional AI, and leave no evidence."
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, playsound_local), ANNOUNCER_AIMALF, 40, FALSE), 6 SECONDS)
+		add_objective(des_obj)
+		objective_count += 1
+	else if(brothers_team_list.len)
+		var/datum/team/brother_team/br_team = pick(brothers_team_list)
+		for(var/datum/mind/M in br_team.members)
+			var/datum/objective/assassinate/ass_brother_obj = new
+			ass_brother_obj.owner = owner
+			ass_brother_obj.target = M
+			ass_brother_obj.explanation_text = "Terminate \the [ass_brother_obj.target.current.real_name], the [ass_brother_obj.target.assigned_role], confirmed active Syndicate agent cell member."
+			add_objective(ass_brother_obj)
+		objective_count += 1	//they all count as one since your real objective to eleminate all of them
+	else if(traitor_list.len)	//don`t count yourself, your kind, brothers and milf AI
+		var/datum/objective/assassinate/ass_obj = new
+		ass_obj.owner = owner
+		ass_obj.target = pick(traitor_list)
+		ass_obj.explanation_text = "Terminate \the [ass_obj.target.current.real_name], the [ass_obj.target.assigned_role], confirmed active Syndicate agent."
+		add_objective(ass_obj)
+		objective_count += 1
+
+	//giving them extra bit objectives
+	var/toa = CONFIG_GET(number/traitor_objectives_amount)
+	for(var/i = objective_count, i < toa, i++)
+		forge_single_isd_objective()
+
+	var/martyr_compatibility = 1 //You can't succeed in stealing if you're dead.
+	for(var/datum/objective/O in objectives)
+		if(!O.martyr_compatible)
+			martyr_compatibility = 0
+			break
+
+	if(martyr_compatibility && martyr_chance)
+		var/datum/objective/martyr/martyr_objective = new
+		martyr_objective.owner = owner
+		add_objective(martyr_objective)
+		return
+
+	else
+		if(prob(50))
+			//Give them a minor flavour objective
+			var/list/datum/objective/minor/minorObjectives = subtypesof(/datum/objective/minor)
+			var/datum/objective/minor/minorObjective
+			while(!minorObjective && minorObjectives.len)
+				var/typePath = pick_n_take(minorObjectives)
+				minorObjective = new typePath
+				minorObjective.owner = owner
+				if(!minorObjective.finalize())
+					qdel(minorObjective)
+					minorObjective = null
+			if(minorObjective)
+				add_objective(minorObjective)
+		if(!(locate(/datum/objective/escape) in objectives))
+			if(prob(50)) //doesn't always need to escape
+				var/datum/objective/escape/escape_objective = new
+				escape_objective.owner = owner
+				add_objective(escape_objective)
+			else
+				forge_single_isd_objective()
+			// Finally, set up our traitor's backstory!
+	setup_backstories(martyr_compatibility)
+
 
 /datum/antagonist/traitor/proc/forge_ai_objectives()
-	var/objective_count = 0
+	var/is_milf_ai = FALSE							//dripstation edit start
+	if (GLOB.joined_player_list.len >= 30) // Less murderboning on lowpop thanks
+		is_milf_ai = prob(10)	//da fun
+	
+	if(is_milf_ai)
+		var/datum/objective/block/block_objective = new
+		block_objective.owner = owner
+		add_objective(block_objective)
+	
+	else
+		var/objective_count = 0
 
-	if(prob(30))
-		objective_count += forge_single_AI_objective()
+		if(prob(30))
+			objective_count += forge_single_AI_objective()
 
-	for(var/i = objective_count, i < CONFIG_GET(number/traitor_objectives_amount), i++)
-		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = owner
-		kill_objective.find_target()
-		add_objective(kill_objective)
+		for(var/i = objective_count, i < CONFIG_GET(number/traitor_objectives_amount), i++)
+			var/datum/objective/assassinate/kill_objective = new
+			kill_objective.owner = owner
+			kill_objective.find_target()
+			add_objective(kill_objective)			//dripstation edit end
 
 	var/datum/objective/survive/exist/exist_objective = new
 	exist_objective.owner = owner
 	add_objective(exist_objective)
-	setup_backstories()
+	setup_backstories(is_milf_ai)
 
 /datum/antagonist/traitor/proc/forge_single_human_optional() //adds this for if/when soft-tracked objectives are added, so they can be a 50/50
 	var/datum/objective/gimmick/gimmick_objective = new
@@ -232,6 +370,20 @@
 				add_objective(break_objective)
 			else
 				forge_single_human_objective()
+
+/datum/antagonist/traitor/proc/forge_single_isd_objective() //Returns how many objectives are added
+	.=1
+	if(prob(50))
+		var/datum/objective/steal/steal_objective = new
+		steal_objective.owner = owner
+		steal_objective.find_target()
+		add_objective(steal_objective)
+	else
+		var/N = pick(/datum/objective/assassinate/once/isd, /datum/objective/assassinate/isd, /datum/objective/assassinate/cloned/isd, /datum/objective/maroon)
+		var/datum/objective/kill_objective = new N
+		kill_objective.owner = owner
+		kill_objective.find_target()
+		add_objective(kill_objective)
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
 	.=1
@@ -328,6 +480,14 @@
 	if(traitor_kind == TRAITOR_HUMAN)
 		var/obj/item/uplink_loc = owner.equip_traitor(employer, silent, src)
 		var/datum/component/uplink/uplink = uplink_loc?.GetComponent(/datum/component/uplink)
+		if(nt_scum)
+			var/mob/traitor_mob=owner.current
+			var/obj/item/implant/mindshield/centcom/isa/I = new(traitor_mob)
+			I.implant(traitor_mob, null, silent = TRUE)
+			I.activate(status = FALSE)
+			to_chat(traitor_mob, "<span class='boldnotice'>You has been implanted with a stealth mindshield. You can toggle it to show yor allighment. Remember that this type of mindshield shows as Nanotrasen Brand one.</span>")
+			uplink.name = "uplink with nanotrasen firmware"
+			uplink.js_ui = "NTUplink"
 		if(uplink)
 			uplink_ref = WEAKREF(uplink) //yogs - uplink_holder =
 

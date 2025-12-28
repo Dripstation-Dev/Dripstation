@@ -1,3 +1,17 @@
+/obj/item/gun/energy
+	available_attachments = list(
+		/obj/item/attachment/scope/simple,
+		/obj/item/attachment/scope/holo,
+		/obj/item/attachment/scope/infrared,
+		/obj/item/attachment/laser_sight,
+		/obj/item/attachment/grip/vertical,
+		/obj/item/attachment/grip/angled,
+		/obj/item/attachment/grip/magnetic_harness,
+	)
+	muzzleflash_iconstate = "muzzle_flash_laser"
+	muzzle_flash_color = COLOR_LASER_RED
+	manufacturer = /datum/corporation/nanotrasen/arq_tek
+
 /obj/item/gun/energy/update_overlays()
 	if(QDELETED(src))
 		return
@@ -9,7 +23,7 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += mutable_appearance(icon, "[icon_state]_[initial(shot.select_name)]")
-	if(cell.charge < shot.e_cost)
+	if(!cell || cell.charge < shot.e_cost)
 		. += "[icon_state]_empty"
 		return
 	if(modifystate)

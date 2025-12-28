@@ -762,7 +762,7 @@
 		if(istype(held_item, /obj/item/grenade))
 			var/obj/item/grenade/G = held_item
 			G.forceMove(drop_location())
-			G.prime()
+			G.prime(src)
 			to_chat(src, "You let go of [held_item]!")
 			held_item = null
 			return 1

@@ -49,15 +49,46 @@
 					/obj/item/clothing/under/rank/civilian/hydroponics/turtleneckalt/skirt = 1)
 
 // ###### Janitor ######
-/obj/item/clothing/under/rank/janitor
+/obj/item/clothing/under/rank/civilian/janitor
 	icon_state = "janitor"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/janitor.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/janitor.dmi'
 
-/obj/item/clothing/under/rank/janitor/skirt
+/obj/item/clothing/under/rank/civilian/janitor/skirt
 	icon_state = "janitor_skirt"
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/janitor.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/janitor.dmi'
+
+/obj/item/clothing/under/rank/civilian/janitor/overalls
+	name = "janitor's overalls"
+	icon_state = "janitor_overalls"
+
+/obj/machinery/vending/wardrobe/jani_wardrobe
+	products = list(/obj/item/clothing/under/rank/civilian/janitor = 2,
+					/obj/item/clothing/under/yogs/casualjanitorsuit = 2,
+					/obj/item/clothing/suit/yogs/janitorcoat = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/janitor = 2,
+					/obj/item/clothing/under/rank/civilian/janitor/skirt = 2,
+					/obj/item/clothing/under/rank/civilian/janitor/overalls = 2,
+					/obj/item/clothing/gloves/color/black = 2,
+					/obj/item/clothing/head/soft/purple = 2,
+					/obj/item/broom = 2,
+					/obj/item/paint/paint_remover = 2,
+					/obj/item/melee/flyswatter = 2,
+					/obj/item/flashlight = 2,
+					/obj/item/clothing/suit/caution = 6,
+					/obj/item/holosign_creator/janibarrier = 2,
+					/obj/item/lightreplacer = 2,
+					/obj/item/soap/nanotrasen = 2,
+					/obj/item/storage/bag/trash = 2,
+					/obj/item/reagent_containers/glass/rag = 2,
+					/obj/item/clothing/shoes/galoshes = 2,
+					/obj/item/watertank/janitor = 2,
+					/obj/item/storage/belt/janitor = 2,
+					/obj/item/clothing/accessory/armband/service = 2,
+					/obj/item/reagent_containers/spray/cleaner = 2)
+	contraband = list(/obj/item/clothing/under/rank/civilian/janitor/maid = 2,
+					/obj/item/clothing/head/maidheadband = 2)
 
 // ###### Mime ######
 /obj/item/clothing/under/rank/civilian/mime
@@ -68,6 +99,12 @@
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/mime.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/mime.dmi'
+	can_adjust = TRUE
+
+/obj/item/clothing/under/rank/civilian/mime/twosexytwomime
+	icon = 'modular_dripstation/icons/obj/clothing/uniform/service/mime.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/uniform/service/mime.dmi'
+	icon_state = "mime_skirt"
 	can_adjust = TRUE
 
 /obj/item/clothing/under/sexymime
@@ -144,7 +181,7 @@
 					/obj/item/clothing/suit/pirate = 1,
 					/obj/item/clothing/head/pirate = 1,
 					/obj/item/clothing/head/pirate/bandana = 1,
-					/obj/item/clothing/under/soviet = 1,
+					/obj/item/clothing/under/costume/soviet = 1,
 					/obj/item/clothing/head/ushanka = 1,
 					/obj/item/clothing/suit/imperium_monk = 1,
 					/obj/item/clothing/mask/gas/cyborg = 1,
@@ -299,6 +336,7 @@
 					/obj/item/clothing/neck/skillcape = 1) //yogs clothes for autodrobe end here
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					  /obj/item/clothing/head/powdered_wig = 1,
+					  /obj/item/clothing/head/fox = 1,
 					  /obj/item/gun/magic/wand = 2,
 					  /obj/item/clothing/glasses/sunglasses/garb = 2,
 					  /obj/item/clothing/glasses/blindfold = 1,

@@ -14,6 +14,8 @@
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
 	///total damage this organ has sustained
 	var/damage = 0
+	///total damage this organ has sustained
+	var/persistent_damage = 0
 	///how functional this organ is, higher numbers = stronger lower = garbage, scales multiplicitively with health (50% health = *50% efficiency)
 	var/organ_efficiency = 1
 	///Healing factor and decay factor function on % of maxhealth, and do not work by applying a static number per tick
@@ -22,6 +24,7 @@
 	var/life_tick	 	= 0
 	var/high_threshold	= STANDARD_ORGAN_THRESHOLD * 0.45		//when severe organ damage occurs
 	var/low_threshold	= STANDARD_ORGAN_THRESHOLD * 0.1		//when minor organ damage occurs
+	var/emp_vulnerability = 8
 
 	///Organ variables for determining what we alert the owner with when they pass/clear the damage thresholds
 	var/prev_damage = 0
@@ -34,6 +37,9 @@
 
 	///Do we effect the appearance of our mob. Used to save time in preference code
 	var/visual = TRUE
+
+/obj/item/organ/proc/getMaxHealth()
+	return maxHealth-persistent_damage
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE,special_zone = null)
 	if(!iscarbon(M) || owner == M)
@@ -59,6 +65,14 @@
 		A.Grant(M)
 	SEND_SIGNAL(M, COMSIG_CARBON_GAIN_ORGAN, src, special)
 
+/**
+ * Proc that gets called when the organ is surgically removed by someone, can be used for special effects
+ * Currently only used so surplus organs can explode when surgically removed.
+ */
+/obj/item/organ/proc/on_surgical_removal(mob/living/user, mob/living/carbon/old_owner, target_zone, obj/item/tool)
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src, COMSIG_ORGAN_SURGICALLY_REMOVED, user, old_owner, target_zone, tool)
+
 //Special is for instant replacement like autosurgeons
 /obj/item/organ/proc/Remove(mob/living/carbon/M, special = FALSE)
 	owner = null
@@ -83,12 +97,12 @@
 /obj/item/organ/process()	//runs decay when outside of a person
 	if((organ_flags & (ORGAN_SYNTHETIC | ORGAN_FROZEN)) || istype(loc, /obj/item/mmi))
 		return
-	if(damage >= maxHealth)
+	if(damage >= getMaxHealth())
 		organ_flags |= ORGAN_FAILING
-		damage = maxHealth
+		damage = getMaxHealth()
 		return
 	else if(!owner)
-		damage = min(maxHealth, damage + (maxHealth * decay_factor))
+		damage = min(getMaxHealth(), damage + (getMaxHealth() * decay_factor))
 
 	else
 		var/mob/living/carbon/C = owner
@@ -96,28 +110,42 @@
 			return
 		life_tick++
 		if((C.stat == DEAD || !(compatible_biotypes & owner.mob_biotypes)) && !HAS_TRAIT(C, TRAIT_PRESERVED_ORGANS)) // organic organs decompose inside incompatible bodies
-			if(damage >= maxHealth)
+			if(damage >= getMaxHealth())
 				organ_flags |= ORGAN_FAILING
-				damage = maxHealth
+				damage = getMaxHealth()
 				return
-			damage = min(maxHealth, damage + (maxHealth * decay_factor))
+			damage = min(getMaxHealth(), damage + (getMaxHealth() * decay_factor))
+
+/obj/item/organ/emp_act(severity)
+	. = ..()
+	if(!(. & EMP_PROTECT_SELF))
+		if(status == ORGAN_ROBOTIC && prob(emp_vulnerability*severity))	//Chance of permanent effects
+			organ_flags |= ORGAN_EMP //Starts organ faliure - gonna need replacing soon.
 
 /obj/item/organ/proc/on_life()	//repair organ damage if the organ is not failing
 	var/mob/living/carbon/C = owner
 	if(!C)
 		return
-	if(damage >= maxHealth)
+	if(organ_flags & ORGAN_EMP) //Robotic organ has been emped, is now failing.
+		//apply_organ_damage(decay_factor * getMaxHealth() * seconds_per_tick)
+		damage -= getMaxHealth() * decay_factor
+		return
+	if(!damage) // No sense healing if you're not even hurt bro
+		return
+	if(organ_flags & ORGAN_SYNTHETIC) // Synthetic organs don't naturally heal
+		return
+	if(damage >= getMaxHealth())
 		organ_flags |= ORGAN_FAILING
-		damage = maxHealth
+		damage = getMaxHealth()
 		check_damage_thresholds(C)
 		prev_damage = damage
 		return
 	if((!(organ_flags & ORGAN_FAILING)) && (C.stat !=DEAD))
-		///Damage decrements by a percent of its maxhealth
-		damage = max(0, damage - (maxHealth * healing_factor))
+		///Damage decrements by a percent of its getMaxHealth()
+		damage = max(0, damage - (getMaxHealth() * healing_factor))
 		if(C.satiety > 0)
-			///Damage decrements again by a percent of its maxhealth, up to a total of 4 extra times depending on the owner's health
-			damage = max(0, damage - ((maxHealth * healing_factor) * (C.satiety / MAX_SATIETY) * 4))
+			///Damage decrements again by a percent of its getMaxHealth(), up to a total of 4 extra times depending on the owner's health
+			damage = max(0, damage - ((getMaxHealth() * healing_factor) * (C.satiety / MAX_SATIETY) * 4))
 		check_damage_thresholds(C)
 		prev_damage = damage
 
@@ -132,7 +160,7 @@
 		return
 	var/delta = damage - prev_damage
 	if(delta > 0)
-		if(damage == maxHealth)
+		if(damage == getMaxHealth())
 			if(now_failing)
 				to_chat(M, now_failing)
 		else if(damage > high_threshold && prev_damage <= high_threshold)
@@ -148,7 +176,7 @@
 		else if(prev_damage > high_threshold && damage <= high_threshold)
 			if(high_threshold_cleared)
 				to_chat(M, high_threshold_cleared)
-		else if(prev_damage == maxHealth)
+		else if(prev_damage == getMaxHealth())
 			if(now_fixed)
 				to_chat(M, now_fixed)
 
@@ -218,22 +246,42 @@
 
 ///returns an organ's efficiency, a percent value (rounded to the 10s) based on damage that is multiplied by organ_efficiency
 /obj/item/organ/proc/get_organ_efficiency()
-	return damage < low_threshold ? organ_efficiency : round(organ_efficiency * 1-(damage/maxHealth), 0.1)
+	return damage < low_threshold ? organ_efficiency : round(organ_efficiency * 1-(damage/getMaxHealth()), 0.1)
 
 ///Adjusts an organ's damage by the amount "d", up to a maximum amount, which is by default max damage
-/obj/item/organ/proc/applyOrganDamage(d, maximum = maxHealth)	//use for damaging effects
+/obj/item/organ/proc/applyOrganDamage(d, maximum = getMaxHealth())	//use for damaging effects
 	if(maximum < d + damage)
 		d = max(0, maximum - damage)
-	damage = max(0, damage + d)
+	var/multi = 1
+	if(d > 0)	//if we actually do damage, 10% will become persistent
+		persistent_damage = max(0, persistent_damage + 0.1 * d) //a little bit of irrevercible damage
+		multi = 0.9
+	damage = max(0, damage + multi * d)
 
 ///SETS an organ's damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
 /obj/item/organ/proc/setOrganDamage(d)	//use mostly for admin heals
-	damage = clamp(d, 0 ,maxHealth)
-	if(d >= maxHealth)
+	if(d == 0)	//admin heal after all
+		persistent_damage = 0
+	damage = clamp(d, 0, getMaxHealth())
+	if(d >= getMaxHealth())
 		organ_flags |= ORGAN_FAILING
 	else
 		organ_flags &= ~ORGAN_FAILING
 
+///Dripstaion edit
+///Adjusts an organ's persistent_damage by the amount "d", up to a maximum amount, which is by default max damage - damage
+/obj/item/organ/proc/applyOrganPersistentDamage(d, maximum = maxHealth - damage)	//use for damaging effects
+	if(maximum < d + persistent_damage)
+		d = max(0, maximum - persistent_damage)
+	persistent_damage = max(0, persistent_damage + d)
+
+///SETS an organ's persistent_damage to the amount "d", and in doing so clears or sets the failing flag, good for when you have an effect that should fix an organ if broken
+/obj/item/organ/proc/setOrganPersistentDamage(d)	//use mostly for admin heals
+	persistent_damage = clamp(d, 0, maxHealth)
+	if(getMaxHealth() - damage >= 0)
+		organ_flags &= ~ORGAN_FAILING
+	else
+		organ_flags |= ORGAN_FAILING
 
 /** get_availability
  * returns whether the species should innately have this organ.

@@ -40,10 +40,10 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/clothing/suit/toggle/labcoat/emt(src)
 	new /obj/item/clothing/head/beret/emt/green(src)
 	new /obj/item/clothing/head/beret/emt(src)
-	new /obj/item/clothing/head/soft/emt(src)
+	new /obj/item/clothing/head/soft/emt/paramed(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/clothing/suit/toggle/labcoat/emt/green(src)
-	new /obj/item/clothing/head/soft/emt/green (src)
+	new /obj/item/clothing/head/soft/emt/green(src)
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
@@ -87,6 +87,16 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 
 /obj/structure/closet/secure_closet/lethalshots
 	icon_state = "armory"
+
+/obj/structure/closet/secure_closet/lethalshots/PopulateContents()
+	..()
+	for(var/i in 1 to 2)
+		new /obj/item/storage/box/lethalshot(src)
+		new /obj/item/storage/box/laserbuckshot(src)
+		new /obj/item/ammo_box/magazine/wt550m9(src)
+		new /obj/item/reagent_containers/glass/beaker/large/gunpowder(src)
+	new /obj/item/storage/box/incendiary(src)
+	new /obj/item/storage/box/ion(src)
 
 /obj/structure/closet/attackby(obj/item/attacking_item, mob/user, params)
 	if(user in src)
@@ -152,6 +162,55 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 		return TRUE
 	return FALSE
 
+/obj/structure/closet/proc/animate_break_out(mob/living/user)
+	if(!user || user.stat != CONSCIOUS || user.loc != src)
+		return
+	shaking_anim(TRUE)
+
+/obj
+	COOLDOWN_DECLARE(shaking_cd)
+
+/obj/proc/shaking_anim(repeatable = FALSE, check_anchored = FALSE)
+	if(check_anchored && anchored)
+		return
+	if(!COOLDOWN_FINISHED(src, shaking_cd))
+		return
+	var/matrix/rtransform = matrix(transform) //aka transform.Copy()
+	var/matrix/ltransform = matrix(transform) //aka transform.Copy()
+	var/oldtransform = transform
+	rtransform.Turn(22)
+	ltransform.Turn(-22)
+	playsound(src.loc, get_sfx(SFX_VENDING_SHAKE), 70, TRUE, -1)
+	visible_message(message = span_warning("\The [src] begins to shake violently!"), \
+		blind_message = span_italics("You hear banging from \the [src]."))
+	/*for(var/i in 0 to 1)
+		addtimer(CALLBACK(src, PROC_REF(anim_left), rtransform), 0.2+i SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, -1), 0.4+i SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(anim_right), ltransform), 0.6+i SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, 1), 0.8+i SECONDS)
+	*/
+	addtimer(CALLBACK(src, PROC_REF(anim_left), rtransform), 0.1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, -1), 0.25 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(anim_right), ltransform), 0.4 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(anim_normalise), oldtransform, 1), 0.55 SECONDS)
+	COOLDOWN_START(src, shaking_cd, 0.75 SECONDS)
+	if(repeatable)
+		addtimer(CALLBACK(src, PROC_REF(shaking_anim), TRUE), 0.76 SECONDS, TIMER_STOPPABLE)
+
+/obj/structure/closet/shaking_anim(repeatable = FALSE)
+	if(opened)
+		return
+	return ..()
+
+/obj/proc/anim_left(rtransform)
+	animate(src, transform = rtransform, time = 0.15 SECONDS, pixel_y = 1, pixel_x = 1, easing = EASE_IN|EASE_OUT)
+
+/obj/proc/anim_normalise(oldtransform, px)
+	animate(src, transform = oldtransform, time = 0.15 SECONDS, pixel_y = -1, pixel_x = px, easing = EASE_IN|EASE_OUT)
+
+/obj/proc/anim_right(ltransform)
+	animate(src, transform = ltransform, time = 0.15 SECONDS, pixel_y = 1, pixel_x = -1, easing = EASE_IN|EASE_OUT)
+
 // ###### HOS ######
 /obj/structure/closet/secure_closet/hos
 	anchored = TRUE	//i`ve commited crime with this
@@ -159,7 +218,6 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 /obj/structure/closet/secure_closet/hos/PopulateContents()
 	..()
 	new /obj/item/cartridge/hos(src)
-	new /obj/item/radio/headset/heads/hos/alt(src)
 	new /obj/item/radio/headset/heads/hos(src)
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/megaphone/sec(src)
@@ -168,7 +226,7 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/gun/energy/e_gun/hos(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/pinpointer/nuke(src)
+	new /obj/item/storage/pouch/general/large/command(src)
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/clothing/gloves/combat(src)
 	if(prob(50))
@@ -198,6 +256,7 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/storage/box/zipties(src)
 	new /obj/item/megaphone/sec(src)
+	new /obj/item/stamp/warden(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/flashlight/seclite(src)
@@ -211,16 +270,12 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/bag/garment/warden(src)
 
 // ###### SEC OFFICER ######
-/obj/structure/closet/secure_closet/security/PopulateContents()
+/obj/structure/closet/secure_closet/security/sec/PopulateContents()
 	..()
-	new /obj/item/clothing/suit/armor/vest/alt(src)
-	new /obj/item/clothing/head/helmet/sec(src)
 	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clipboard/yog/paperwork/security(src)
-	new /obj/item/flashlight/seclite(src)
 	new /obj/item/radio/security(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+	new /obj/item/storage/belt/security/full(src)
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
@@ -238,6 +293,15 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/binoculars(src)
 	new /obj/item/barrier_taperoll/police(src)
+
+/obj/structure/closet/secure_closet/security/PopulateContents()
+	..()
+	new /obj/item/clothing/suit/armor/vest/alt(src)
+	new /obj/item/clothing/head/helmet/sec(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/clipboard/yog/paperwork/security(src)
+	new /obj/item/flashlight/seclite(src)
 
 // ###### HOP ######
 /obj/structure/closet/secure_closet/hop
@@ -293,7 +357,6 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/pet_carrier(src)
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/storage/box/silver_ids(src)
-	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/radio/headset/heads/captain(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/storage/belt/sabre(src)
@@ -399,9 +462,9 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/clothing/suit/toggle/labcoat/emt/explorer(src)
 	new /obj/item/clothing/head/beret/emt/mining(src)
-	new /obj/item/clothing/under/rank/miner/mmedic/alt(src)
-	new /obj/item/clothing/under/rank/miner/mmedic/alt(src)
-	new /obj/item/clothing/under/rank/miner/mmedic/alt/skirt(src)
+	new /obj/item/clothing/under/rank/cargo/miner/mmedic/alt(src)
+	new /obj/item/clothing/under/rank/cargo/miner/mmedic/alt(src)
+	new /obj/item/clothing/under/rank/cargo/miner/mmedic/alt/skirt(src)
 	new /obj/item/clothing/under/yogs/rank/miner/medic(src)
 	new /obj/item/clothing/suit/toggle/labcoat/explorer(src)
 	new /obj/item/storage/belt/medical/mining(src)
@@ -438,6 +501,7 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/backpack/bmed(src)
 	new /obj/item/storage/backpack/satchel/bmed(src)
 	new /obj/item/storage/backpack/duffelbag/bmed(src)
+	new /obj/item/clothing/suit/armor/vest/alt/med(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/xeno_wraps/jackboots(src)
 
@@ -472,7 +536,6 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	//new /obj/item/clothing/suit/toggle/bomber/secbomber(src)
 	new /obj/item/clothing/head/beret/corpsec(src)
 	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/storage/firstaid/emergency(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
@@ -506,9 +569,12 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/gun/energy/e_gun/energyrevolver(src)
 	new /obj/item/storage/belt/military/assault/blueshield(src)
-	new /obj/item/clothing/suit/armor/bulletproof/blueshield(src)
 	new /obj/item/radio/headset/blueshield(src)
+	new /obj/item/storage/backpack/blueshield(src)
+	new /obj/item/storage/backpack/satchel/blueshield(src)
+	new /obj/item/storage/backpack/duffelbag/blueshield(src)
 	new /obj/item/storage/bag/garment/blueshield(src)
 	new /obj/item/clothing/shoes/laceup(src)
 
@@ -525,8 +591,9 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/clothing/glasses/hud/personnel(src)
-	new /obj/item/radio/headset/ntrep(src)
+	new /obj/item/radio/headset/heads/ntrep(src)
 	new /obj/item/storage/bag/garment/ntrep(src)
+	new /obj/item/melee/ntrep_cane/loaded(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/tape(src)
@@ -551,8 +618,10 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/accessory/medal/silver/legal(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/radio/headset/magistrate(src)
+	new /obj/item/radio/headset/heads/magistrate(src)
+	new /obj/item/clothing/glasses/hud/security(src)
 	new /obj/item/megaphone(src)
+	new /obj/item/clipboard/yog/paperwork/security(src)
 	new /obj/item/storage/bag/garment/magistrate(src)
 	new /obj/item/clothing/shoes/laceup/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
@@ -578,6 +647,7 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/door_remote/quartermaster(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
+	new /obj/item/clothing/glasses/hud/permit/sunglasses(src)
 	new /obj/item/storage/backpack/cargo/tactical(src)
 	new /obj/item/circuitboard/machine/techfab/department/cargo(src)
 	new /obj/item/storage/photo_album/QM(src)
@@ -679,6 +749,37 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 	new /obj/item/stamp(src)
 	new /obj/item/stamp/denied(src)
 
+/obj/structure/closet/secure_closet/explorer
+	name = "explorer's equipment"
+	icon_state = "explorer"
+	req_access = list(ACCESS_EXPLORER)
+
+/obj/structure/closet/secure_closet/explorer/PopulateContents()
+	..()
+	new /obj/item/radio/headset/headset_cargo/explorer(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
+	new /obj/item/clothing/under/rank/cargo/miner/explorer(src)
+	new /obj/item/clothing/under/rank/cargo/miner/explorer/fem(src)
+	new /obj/item/clothing/under/rank/cargo/miner/explorer/turtle(src)
+	new /obj/item/clothing/under/rank/cargo/miner/explorer/turtle/alt(src)
+	new /obj/item/clothing/under/rank/cargo/miner/explorer/skirt(src)
+	new /obj/item/clothing/head/soft/explorer(src)
+	new /obj/item/clothing/head/beret/explorer(src)
+	new /obj/item/clothing/head/hooded/winterhood/miner/explorer(src)
+	new /obj/item/clothing/shoes/workboots/mining(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/suit/toggle/bomber/explorer(src)
+	new /obj/item/storage/backpack/explorer(src)
+	new /obj/item/storage/backpack/satchel/explorer(src)
+	new /obj/item/storage/backpack/duffelbag/explorer(src)
+
+/obj/structure/closet/bombcloset/security/PopulateContents()
+	new /obj/item/clothing/suit/bomb_suit/security(src)
+	new /obj/item/clothing/under/rank/security/officer(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/head/bomb_hood/security(src)
+
 /obj/structure/closet/l3closet/PopulateContents()
 	new /obj/item/storage/bag/bio(src)
 	new /obj/item/clothing/suit/bio_suit/general(src)
@@ -752,13 +853,39 @@ GLOBAL_LIST_INIT(closet_cutting_types, typecacheof(list(
 
 /////SYNDICATE/////
 /obj/structure/closet/syndicate/personal
+	desc = "It's a personal storage unit for agent gear."
 
 /obj/structure/closet/syndicate/personal/PopulateContents()
 	..()
 	new /obj/item/clothing/under/syndicate(src)
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/radio/headset/syndicate(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)	//probably fix this in weapon update
+	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/storage/belt/military(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/clothing/glasses/night(src)
+
+/obj/structure/closet/syndicate/nuclear
+	desc = "It's a personal storage unit for nuclear operative gear."
+
+/obj/structure/closet/syndicate/nuclear/PopulateContents()
+	..()
+	new /obj/item/storage/box/flashbangs(src)
+	new /obj/item/storage/box/teargas(src)
+	new /obj/item/clothing/under/syndicate(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/radio/headset/syndicate(src)
+	new /obj/item/modular_computer/tablet/pda/preset/syndicate(src)
+	new /obj/item/storage/pouch/magazine/pistol/fn45full(src)
+	new /obj/item/storage/belt/military(src)
+	new /obj/item/crowbar/nuke(src)
+	new /obj/item/clothing/glasses/night(src)
+	for(var/obj/item/crowbar/nuke/I in contents)
+		I.toolspeed = 0.33
+		I.name = "syndicate [I.name]"
+
+/obj/structure/closet/secure_closet/syndicate
+	icon_state = "syndicatesecure"
+
+/obj/structure/closet/secure_closet/syndicate/commsoff
+	icon_state = "commsoff"

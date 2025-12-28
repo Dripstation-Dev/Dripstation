@@ -131,7 +131,7 @@
 		target.visible_message(span_warning("Something prevents [victim] from entering the pool!"), null, span_notice("You hear a splash and a thud."))
 		to_chat(user, "<span class='warning'>Some strange force is preventing you from pulling [victim] in!<span>")
 		return
-	victim.emote("scream")
+	victim.flick_pain(100, TRUE)
 	victim.forceMove(user)
 	target.visible_message(span_warning("<b>[user] drags [victim] into the pool of blood!</b>"), null, span_notice("You hear a splash."))
 

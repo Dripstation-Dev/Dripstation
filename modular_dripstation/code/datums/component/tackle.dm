@@ -71,7 +71,7 @@
 /datum/component/tackler/proc/checkTackle(mob/living/carbon/user, atom/clicked_atom, list/modifiers)
 	SIGNAL_HANDLER
 
-	if(modifiers["middle"] && modifiers["alt"] && modifiers["shift"] && modifiers["ctrl"])
+	if(LAZYACCESS(modifiers, ALT_CLICK) || LAZYACCESS(modifiers, SHIFT_CLICK) || LAZYACCESS(modifiers, CTRL_CLICK) || LAZYACCESS(modifiers, MIDDLE_CLICK))
 		return
 
 	if(!user.in_throw_mode || user.get_active_held_item() || user.pulling || user.buckled || user.incapacitated())
@@ -532,7 +532,9 @@
 			playsound(user, 'sound/effects/blobattack.ogg', 60, TRUE)
 			playsound(user, 'sound/effects/splat.ogg', 70, TRUE)
 			playsound(user, 'sound/effects/wounds/crack2.ogg', 70, TRUE)
-			user.emote("scream")
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, flick_pain), 100, TRUE)
 			user.gain_trauma(/datum/brain_trauma/severe/paralysis/paraplegic) // oopsie indeed!
 			shake_camera(user, 7, 7)
 			user.flash_act(1, TRUE, TRUE)
@@ -548,7 +550,9 @@
 			user.gain_trauma_type(BRAIN_TRAUMA_MILD)
 			playsound(user, 'sound/effects/blobattack.ogg', 60, TRUE)
 			playsound(user, 'sound/effects/splat.ogg', 70, TRUE)
-			user.emote("gurgle")
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				INVOKE_ASYNC(H, TYPE_PROC_REF(/mob/living/carbon/human, flick_pain), 100)
 			shake_camera(user, 7, 7)
 			user.flash_act(1, TRUE, TRUE)
 
@@ -589,7 +593,7 @@
 			user.Knockdown(2 SECONDS)
 			shake_camera(user, 2, 2)
 
-	playsound(user, 'sound/weapons/smash.ogg', 70, TRUE)
+	playsound(user, SFX_BLUNT, 70, TRUE)
 
 
 /datum/component/tackler/proc/resetTackle()
@@ -604,11 +608,11 @@
 	if(W.type in list(/obj/structure/window, /obj/structure/window/fulltile, /obj/structure/window/unanchored, /obj/structure/window/fulltile/unanchored)) // boring unreinforced windows
 		for(var/i in 1 to speed)
 			var/obj/item/shard/shard = new /obj/item/shard(get_turf(user))
-			shard.embedding = shard.embedding.setRating(embed_chance = 100, embedded_ignore_throwspeed_threshold = TRUE, embedded_unsafe_removal_time = 1 SECONDS, embedded_pain_multiplier = 3, embedded_impact_pain_multiplier=1, embedded_pain_chance = 4)
-			//shard.updateEmbedding()
+			shard.embedding = list(embed_chance = 100, ignore_throwspeed_threshold = TRUE, rip_time = 1 SECONDS, pain_multiplier = 3, impact_pain_multiplier=1, embedded_pain_chance = 4)
+			shard.updateEmbedding()
 			user.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-			shard.embedding = null
-			//shard.updateEmbedding()
+			shard.embedding = list()
+			shard.updateEmbedding()
 		W.Destroy()
 		user.adjustStaminaLoss(10 * speed)
 		user.Paralyze(3 SECONDS)
@@ -680,7 +684,7 @@
 
 	var/datum/thrownthing/tackle = tackle_ref?.resolve()
 
-	playsound(owner, 'sound/weapons/smash.ogg', 70, TRUE)
+	playsound(owner, SFX_BLUNT, 70, TRUE)
 	if(tackle)
 		tackle.finalize(hit=TRUE)
 	resetTackle()

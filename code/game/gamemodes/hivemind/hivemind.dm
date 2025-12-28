@@ -4,8 +4,10 @@
 	report_type = "hivemind"
 	antag_flag = ROLE_HIVE
 	false_report_weight = 5
+	/*Dripastation edit
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician") //Yogs: Added "Brig Physician
 	restricted_jobs = list("Cyborg","AI", "Synthetic")
+	*/
 	required_players = 24
 	required_enemies = 2
 	recommended_enemies = 3

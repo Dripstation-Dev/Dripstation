@@ -14,6 +14,8 @@
 	var/not_init = FALSE // Yogs -- Allows quirks to be instantiated without all the song & dance below happening
 	var/list/species_blacklist = list()
 	var/list/job_blacklist = list()
+	/// Lazylist of strings describing where all the quirk items have been spawned.
+	var/list/where_items_spawned
 	/// The icon to show in the preferences menu.
 	/// This references a tgui icon, so it can be FontAwesome or a tgfont (with a tg- prefix).
 	var/icon
@@ -27,7 +29,6 @@
 		qdel(src)
 	quirk_holder = quirk_mob
 	SSquirks.quirk_objects += src
-	to_chat(quirk_holder, gain_text)
 	quirk_holder.roundstart_quirks += src
 	if(mob_trait)
 		ADD_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
@@ -43,7 +44,6 @@
 	STOP_PROCESSING(SSquirks, src)
 	remove()
 	if(quirk_holder)
-		to_chat(quirk_holder, lose_text)
 		quirk_holder.roundstart_quirks -= src
 		if(mob_trait)
 			REMOVE_TRAIT(quirk_holder, mob_trait, ROUNDSTART_TRAIT)
@@ -60,11 +60,40 @@
 	quirk_holder = to_mob
 	on_transfer()
 
+/**
+ * Handles inserting an item in any of the valid slots provided, then allows for post_add notification.
+ *
+ * If no valid slot is available for an item, the item is left at the mob's feet.
+ * Arguments:
+ * * quirk_item - The item to give to the quirk holder. If the item is a path, the item will be spawned in first on the player's turf.
+ * * valid_slots - Assoc list of descriptive location strings to item slots that is fed into [/mob/living/carbon/proc/equip_in_one_of_slots]. list(LOCATION_BACKPACK = ITEM_SLOT_BACKPACK)
+ * * flavour_text - Optional flavour text to append to the where_items_spawned string after the item's location.
+ * * default_location - If the item isn't possible to equip in a valid slot, this is a description of where the item was spawned.
+ * * notify_player - If TRUE, adds strings to where_items_spawned list to be output to the player in [/datum/quirk/item_quirk/post_add()]
+ */
+/datum/quirk/proc/give_item_to_holder(quirk_item, list/valid_slots, flavour_text = null, default_location = "at your feet", notify_player = TRUE)
+	if(ispath(quirk_item))
+		quirk_item = new quirk_item(get_turf(quirk_holder))
+
+	var/mob/living/carbon/human/human_holder = quirk_holder
+
+	var/where = human_holder.equip_in_one_of_slots(quirk_item, valid_slots, qdel_on_fail = FALSE /*, indirect_action = TRUE*/) || default_location
+
+	if(notify_player)
+		LAZYADD(where_items_spawned, span_boldnotice("You have \a [quirk_item] [where]. [flavour_text]"))
+
 /datum/quirk/proc/add() //special "on add" effects
 /datum/quirk/proc/on_spawn() //these should only trigger when the character is being created for the first time, i.e. roundstart/latejoin
 /datum/quirk/proc/remove() //special "on remove" effects
+	if(lose_text)
+		to_chat(quirk_holder, lose_text)
 /datum/quirk/proc/on_process() //process() has some special checks, so this is the actual process
 /datum/quirk/proc/post_add() //for text, disclaimers etc. given after you spawn in with the trait
+	if(gain_text)
+		to_chat(quirk_holder, gain_text)
+	for(var/chat_string in where_items_spawned)
+		to_chat(quirk_holder, chat_string)
+	where_items_spawned = null
 /datum/quirk/proc/on_transfer() //code called when the trait is transferred to a new mob
 
 /datum/quirk/proc/clone_data() //return additional data that should be remembered by cloning

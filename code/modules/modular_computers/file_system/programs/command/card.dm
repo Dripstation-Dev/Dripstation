@@ -288,7 +288,10 @@
 			CARDCON_DEPARTMENT_ENGINEERING = GLOB.original_engineering_positions,
 			CARDCON_DEPARTMENT_MEDICAL = GLOB.original_medical_positions,
 			CARDCON_DEPARTMENT_SCIENCE = GLOB.original_science_positions,
+			/*Dripstation edit
 			CARDCON_DEPARTMENT_SECURITY = GLOB.original_security_positions,
+			*/
+			CARDCON_DEPARTMENT_SECURITY = GLOB.selectable_security_positions,
 			CARDCON_DEPARTMENT_SUPPLY = GLOB.original_supply_positions,
 			CARDCON_DEPARTMENT_SERVICE = GLOB.original_civilian_positions
 		)

@@ -5,7 +5,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/tanks_righthand.dmi'
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
-	hitsound = 'sound/weapons/smash.ogg'
+	hitsound = SFX_BLUNT
 	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5
 	throwforce = 10
@@ -158,7 +158,7 @@
 		ADD_TRAIT(human_user, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		for(var/i in human_user.bodyparts)
 			var/obj/item/bodypart/BP = i
-			BP.generic_bleedstacks += 5
+			BP.adjustBleedStacks(5)
 		human_user.gib_animation()
 		sleep(0.3 SECONDS)
 		human_user.adjustBruteLoss(1000) //to make the body super-bloody

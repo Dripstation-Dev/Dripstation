@@ -1,3 +1,23 @@
+/obj/item/clothing/head
+	var/mutantrace_variation = NONE
+
+/obj/item/clothing/head/mob_can_equip(M as mob, slot)
+
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
+	if(!..())
+		return FALSE
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK, ITEM_SLOT_SUITSTORE))
+		return TRUE
+
+	var/mob/living/carbon/human/H = M
+	if(HAS_TRAIT(H, NO_HELMET_TRAIT))
+		to_chat(M, "<span class='warning'>You can`t wear [src]!</span>")
+		return FALSE
+
+	return TRUE
+
 /*
 * Fox ears
 */
@@ -13,11 +33,12 @@
 
 
 //////maid headband//////
-/obj/item/clothing/head/maidheadband/syndicate
-	name = "tactical maid headband"
-	desc = "Tacticute."
-	icon_state = "syndieheadband"
-	item_state = "syndieheadband"
+/obj/item/clothing/head/maidheadband
+	name = "maid headband"
+	desc = "Just like from one of those chinese cartoons!"
+	icon_state = "maidheadband"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 
 
 /*
@@ -83,11 +104,18 @@
 	icon = 'icons/obj/clothing/hats/hats.dmi'
 	worn_icon = 'icons/mob/clothing/head/head.dmi'
 
+/obj/item/clothing/head/bomb_hood/security
+	icon_state = "blasthelmet_sec"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+
 obj/item/clothing/head/bio_hood
+	desc = "A hood that protects the head from biological contaminants."
 	icon_state = "hazmat"
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
 	dynamic_hair_suffix = ""
+	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT
 
 obj/item/clothing/head/bio_hood/general
 	icon_state = "hazmat_general"
@@ -160,6 +188,10 @@ obj/item/clothing/head/bio_hood/white
 	desc = "It's a standart blue baseball hat."
 	icon_state = "paramedsoft"
 
+/obj/item/clothing/head/soft/emt/green
+	icon = 'icons/obj/clothing/hats/hats.dmi'
+	worn_icon = 'icons/mob/clothing/head/head.dmi'
+
 /obj/item/clothing/head/beret/emt
 	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
@@ -168,3 +200,27 @@ obj/item/clothing/head/bio_hood/white
 	name = "paramedical beret"
 	desc = "A blue beret with a white cross finely threaded into it. It has that sterile smell about it."
 	icon_state = "paramedberet"
+
+/obj/item/clothing/head/yogs/cowboy
+	name = "cowboy hat"
+	desc = "A cowboy hat. YEEEHAWWWWW."
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	icon_state = "lawdog"
+	item_state = "cowboy_hat"
+
+/obj/item/clothing/head/yogs/cowboy_sheriff
+	name = "sheriff cowboy hat"
+	desc = "A sheriffs hat. YEEEHAWWWWW!"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	icon_state = "sherif"
+	item_state = "cowboy_hat"
+
+/obj/item/clothing/head/yogs/cowboy/sec
+	name = "security cowboy hat"
+	desc = "A security`s hat. YEEEHAWWWWW!"
+	icon = 'modular_dripstation/icons/obj/clothing/hats.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/hats.dmi'
+	icon_state = "lawdog_sec"
+	item_state = "cowboy_hat"

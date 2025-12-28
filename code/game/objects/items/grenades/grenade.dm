@@ -76,12 +76,20 @@
 			C.throw_mode_on()
 		if(msg)
 			to_chat(user, span_warning("You prime [src]! [capitalize(DisplayTimeText(det_time))]!"))
+	if(shrapnel_type && shrapnel_radius)
+		shrapnel_initialized = TRUE
+		AddComponent(/datum/component/pellet_cloud, projectile_type = shrapnel_type, magnitude = shrapnel_radius)
 	playsound(src, 'sound/weapons/armbomb.ogg', volume, 1)
 	active = TRUE
+	SEND_SIGNAL(src, COMSIG_GRENADE_ARMED, det_time, delayoverride)
 	icon_state = initial(icon_state) + "_active"
-	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
+	addtimer(CALLBACK(src, PROC_REF(prime), user), isnull(delayoverride)? det_time : delayoverride)
 
-/obj/item/grenade/proc/prime()
+/obj/item/grenade/proc/prime(mob/lanced_by)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
+	if(shrapnel_type && shrapnel_radius && !shrapnel_initialized) // add a second check for adding the component in case whatever triggered the grenade went straight to prime (badminnery for example)
+		shrapnel_initialized = TRUE
+		AddComponent(/datum/component/pellet_cloud, projectile_type = shrapnel_type, magnitude = shrapnel_radius)
 
 /obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
@@ -128,7 +136,7 @@
 	var/obj/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(5))
 		owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], setting it off! What a shot!"))
-		prime()
+		prime(owner)
 		return TRUE //It hit the grenade, not them
 
 /obj/item/grenade/afterattack(atom/target, mob/user)

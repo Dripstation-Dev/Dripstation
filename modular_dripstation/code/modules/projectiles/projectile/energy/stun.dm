@@ -6,6 +6,7 @@
 	hitsound = 'sound/weapons/taserhit.ogg'
 	range = 7
 	reflectable = NONE	//Yeah, it`s phisical, not energy
+	armor_flag = ELECTRIC	//rigs just block that shit
 	tracer_type = /obj/effect/projectile/tracer/stun
 	muzzle_type = /obj/effect/projectile/muzzle/stun
 	impact_type = /obj/effect/projectile/impact/stun
@@ -38,4 +39,5 @@
 /mob/living/carbon/proc/apply_stun_effect()
 	adjustStaminaLoss(30)
 	Knockdown(10 SECONDS)
+	set_staggered(15 SECONDS)
 	do_jitter_animation(10 SECONDS)

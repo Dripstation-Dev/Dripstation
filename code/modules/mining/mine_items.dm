@@ -3,6 +3,8 @@
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
 	name = "Light emitter"
+	icon_state = "lighting_marker"
+	icon = 'modular_dripstation/icons/effects/effects.dmi'
 	anchored = TRUE
 	invisibility = 101
 	var/set_luminosity = 8

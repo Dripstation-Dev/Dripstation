@@ -273,7 +273,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			var/mob/living/carbon/C = loc
 			if (src == C.wear_mask) // if it's in the human/monkey mouth, transfer reagents to the mob
 				var/fraction = min(REAGENTS_METABOLISM/reagents.total_volume, 1)
+				/*	dripstation edit - ingest my ass
 				reagents.reaction(C, INGEST, fraction)
+				*/
+				reagents.reaction(C, VAPOR, fraction)
 				if(!reagents.trans_to(C, REAGENTS_METABOLISM))
 					reagents.remove_any(REAGENTS_METABOLISM)
 				return
@@ -662,8 +665,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				var/prot = FALSE
 				var/mob/living/carbon/human/H = user
 
-				if(istype(H) && H.gloves)
-					var/obj/item/clothing/gloves/G = H.gloves
+				if(istype(H) && H.get_item_by_slot(ITEM_SLOT_GLOVES))
+					var/obj/item/clothing/gloves/G = H.get_item_by_slot(ITEM_SLOT_GLOVES)
 					if(G.max_heat_protection_temperature)
 						prot = (G.max_heat_protection_temperature > 360)
 				else
@@ -671,18 +674,28 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 				if(prot || prob(75))
 					user.visible_message("After a few attempts, [user] manages to light [src].", span_notice("After a few attempts, you manage to light [src]."))
+				/* //Dripstation edit
 					playsound(src, 'sound/items/lighter/plastic_strike.ogg', 40, 2)
+				*/
+				else if(HAS_TRAIT(user, TRAIT_BADASS))	//dripstation edit
+					var/hitzone = user.held_index_to_dir(user.active_hand_index) == "r" ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND	//dripstation edit
+					user.apply_damage(5, BURN, hitzone)	//dripstation edit
+					user.visible_message("[src]'s flames lick [user.p_their()] hand as [user.p_they()] light it, but [user.p_they()] don't even flinch.", span_notice("[src]'s flames lick your hand as you light it, but you don't flinch."))	//dripstation edit
 				else
 					var/hitzone = user.held_index_to_dir(user.active_hand_index) == "r" ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND
 					user.apply_damage(5, BURN, hitzone)
 					user.visible_message(span_warning("After a few attempts, [user] manages to light [src] - however, [user.p_they()] burn [user.p_their()] finger in the process."), span_warning("You burn yourself while lighting the lighter!"))
 					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "burnt_thumb", /datum/mood_event/burnt_thumb)
+				playsound(src, 'sound/items/lighter/plastic_strike.ogg', 40, 2)	//dripstation edit
 
 		else
 			set_lit(FALSE)
 			if(fancy)
 				user.visible_message("You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.", span_notice("You quietly shut off [src] without even looking at what you're doing. Wow."))
 				playsound(src, 'sound/items/lighter/close.ogg', 50, 1)
+			else if(HAS_TRAIT(user, TRAIT_BADASS))	//dripstation edit
+				user.visible_message("[user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.", span_notice("You quietly shut off [src] without even looking at what you're doing. Wow."))
+				playsound(src, 'sound/items/lighter/plastic_close.ogg', 40, 2)
 			else
 				user.visible_message("[user] quietly shuts off [src].", span_notice("You quietly shut off [src]."))
 				playsound(src, 'sound/items/lighter/plastic_close.ogg', 40, 2)

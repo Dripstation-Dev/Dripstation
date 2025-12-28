@@ -100,7 +100,7 @@
 	throw_speed = 3
 	throw_range = 5
 	sharpness = SHARP_EDGED
-	embedding = list("embed_chance" = 75, "embedded_impact_pain_multiplier" = 10)
+	embedding = list("embed_chance" = 75, "impact_pain_multiplier" = 10)
 	armour_penetration = 35
 	block_chance = 50
 	saber_color = "green"

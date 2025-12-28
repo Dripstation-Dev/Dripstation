@@ -42,7 +42,7 @@
 	name = "a hand teleporter."
 	targetitem = /obj/item/hand_tele
 	difficulty = 5
-	excludefromjob = list("Captain", "Research Director")
+	excludefromjob = list("Captain", "Head of Personnel", "Research Director", "Chief Engineer")	//HoP&CE has access to both, so it will be too easy to take one, dripstation edit
 
 /datum/objective_item/steal/jetpack
 	name = "the Captain's jetpack."
@@ -72,7 +72,7 @@
 	name = "the nuclear authentication disk."
 	targetitem = /obj/item/disk/nuclear
 	difficulty = 5
-	excludefromjob = list("Captain")
+	excludefromjob = list("Captain", "Head of Personnel", "Head of Security")	//so they are people who can hold this one, dripstation edit
 
 /datum/objective_item/steal/nukedisc/check_special_completion(obj/item/disk/nuclear/N)
 	return !N.fake
@@ -81,6 +81,12 @@
 	name = "a reflective jacket."
 	targetitem = /obj/item/clothing/suit/armor/laserproof
 	difficulty = 3
+	excludefromjob = list("Head of Security", "Warden", "Quartermaster", "Cargo Technician")	//since it can be bought in cargo - this is easy one for any antag, but for them far too easy, dripstation edit
+
+/datum/objective_item/steal/trenchcoat
+	name = "the ablative trenchcoat."
+	targetitem = /obj/item/clothing/suit/hooded/ablative	//WHERE IS MY TRENCHCOAT!
+	difficulty = 10											//usualy warden will fight for that one
 	excludefromjob = list("Head of Security", "Warden")
 
 /datum/objective_item/steal/aiupload
@@ -98,6 +104,18 @@
 	targetitem = /obj/item/clothing/suit/armor/reactive	//dripstation edit
 	difficulty = 5
 	excludefromjob = list("Research Director")
+
+/datum/objective_item/steal/mechremoval	//dripstation edit start
+	name = "the mech removal tool."
+	targetitem = /obj/item/crowbar/mechremoval //literally big crowbar
+	difficulty = 3
+	excludefromjob = list("Research Director", "Scientist", "Roboticist")	//so if they frog around with this - nobody will ever notice
+
+/datum/objective_item/steal/cargo_teleporter
+	name = "the cargo handheld teleporter."
+	targetitem = /obj/item/cargo_teleporter //teleporter, but cargo one
+	difficulty = 10
+	excludefromjob = list("Quartermaster")	// Quartermaster owns this, if anybody exept him will carry it - this will be sus, dripstation edit end
 
 /datum/objective_item/steal/documents
 	name = "any set of secret documents of any organization."
@@ -140,7 +158,7 @@
 	name = "28 moles of plasma (full tank)."
 	targetitem = /obj/item/tank
 	difficulty = 3
-	excludefromjob = list("Chief Engineer","Research Director","Station Engineer","Scientist","Atmospheric Technician")
+	excludefromjob = list("Captain", "Chief Engineer","Research Director","Station Engineer","Scientist","Atmospheric Technician")	//- Cap, why are you holding 28moles of plasma? - Because. dripstation edit
 
 /datum/objective_item/steal/plasma/check_special_completion()
 	var/target_amount = text2num(name)

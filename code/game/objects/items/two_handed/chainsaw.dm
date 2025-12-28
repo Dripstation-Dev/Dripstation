@@ -39,7 +39,7 @@
 			myhead.dismember()
 	else
 		user.visible_message(span_suicide("[user] smashes [src] into [user.p_their()] neck, destroying [user.p_their()] esophagus! It looks like [user.p_theyre()] trying to commit suicide!"))
-		playsound(src, 'sound/weapons/genhit1.ogg', 100, 1)
+		playsound(src, SFX_BLUNT, 100, 1)
 	return(BRUTELOSS)
 
 /obj/item/melee/chainsaw/attack_self(mob/user)
@@ -71,7 +71,7 @@
 /obj/item/melee/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"))
-		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, 1)
+		playsound(src, SFX_RICOCHET, 75, 1)
 		return 1
 	return 0
 

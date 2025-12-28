@@ -28,6 +28,29 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	MODE_KEY_VOCALCORDS = MODE_VOCALCORDS,		// vocal cords, used by Voice of God
 
 
+//Dripstation edit, integrating altkeys
+	ALTMODE_KEY_RADIO = MODE_RADIO,
+	ALTMODE_KEY_INTERCOM = MODE_INTERCOM,
+	ALTMODE_KEY_DEPARTMENT = MODE_DEPARTMENT,
+	ALTRADIO_KEY_COMMAND = RADIO_CHANNEL_COMMAND,
+	ALTRADIO_KEY_SCIENCE = RADIO_CHANNEL_SCIENCE,
+	ALTRADIO_KEY_MEDICAL = RADIO_CHANNEL_MEDICAL,
+	ALTRADIO_KEY_ENGINEERING = RADIO_CHANNEL_ENGINEERING,
+	ALTRADIO_KEY_SECURITY = RADIO_CHANNEL_SECURITY,
+	ALTRADIO_KEY_SUPPLY = RADIO_CHANNEL_SUPPLY,
+	ALTRADIO_KEY_SERVICE = RADIO_CHANNEL_SERVICE,
+	ALTRADIO_KEY_AI_PRIVATE = RADIO_CHANNEL_AI_PRIVATE,
+	ALTMODE_KEY_VOCALCORDS = MODE_VOCALCORDS,
+
+	// Faction
+	ALTRADIO_KEY_SYNDICATE = RADIO_CHANNEL_SYNDICATE,
+	ALTRADIO_KEY_CENTCOM = RADIO_CHANNEL_CENTCOM,
+
+	// Admin
+	ALTMODE_KEY_ADMIN = MODE_ADMIN,
+	ALTMODE_KEY_DEADMIN = MODE_DEADMIN,
+
+/* kinda don`t work
 	//kinda localization -- rastaf0
 	//same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
 	// Location
@@ -50,11 +73,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	// Admin
 	"ç" = MODE_ADMIN,
-	"â" = MODE_ADMIN,
+	"â" = MODE_DEADMIN,
 
 	// Misc
 	"ù" = RADIO_CHANNEL_AI_PRIVATE,
 	"÷" = MODE_VOCALCORDS
+*/
 ))
 ///This is the list of all keys that are not techincially "radios" but use radio prefixes like :g and .b
 GLOBAL_LIST_INIT(special_radio_keys, list(
@@ -65,7 +89,17 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 	MODE_KEY_DARKSPAWN = MODE_TOKEN_DARKSPAWN,
 	MODE_KEY_MONKEY = MODE_TOKEN_MONKEY,
 	MODE_KEY_HOLOPAD = MODE_TOKEN_HOLOPAD,
+	/* Dripstation edit
 	MODE_KEY_SING = MODE_SING
+	*/
+	MODE_KEY_SING = MODE_SING,
+	ALTMODE_KEY_BINARY = MODE_TOKEN_BINARY,
+	ALTMODE_KEY_CHANGELING = MODE_TOKEN_CHANGELING,
+	ALTMODE_KEY_ALIEN = MODE_TOKEN_ALIEN,
+	ALTMODE_KEY_MONKEY = MODE_MONKEY,
+	ALTMODE_KEY_DARKSPAWN = MODE_TOKEN_DARKSPAWN,
+	ALTMODE_KEY_MONKEY = MODE_TOKEN_MONKEY,
+	ALTMODE_KEY_HOLOPAD = MODE_TOKEN_HOLOPAD,
 ))
 
 
@@ -145,7 +179,7 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 	if(!language)
 		language = get_selected_language()
 
-	if(!(can_speak_vocal(message) || (saymode && saymode.bypass_mute))) //yogs change - mindlink is mental, not vocal
+	if(!(can_speak_vocal(message) || (saymode && saymode.bypass_mute) || HAS_TRAIT(src, TRAIT_SIGN_LANG))) //yogs change - mindlink is mental, not vocal
 		to_chat(src, span_warning("You find yourself unable to speak!"))
 		return
 
@@ -179,7 +213,7 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
 	var/pressure = (environment)? environment.return_pressure() : 0
-	if(pressure < SOUND_MINIMUM_PRESSURE)
+	if(pressure < SOUND_MINIMUM_PRESSURE && !HAS_TRAIT(src, TRAIT_SIGN_LANG))
 		message_range = 1
 	//yogs end
 
@@ -194,11 +228,13 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 				else if(V.does_say_message())
 					V.say_message(message,message_range)
 					return on_say_success(message,message_range,succumbed, spans, language, message_mods) // Yogs end
-	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
-	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
-		message = uppertext(message)
-	if(!message)
-		return
+	if(!HAS_TRAIT(src, TRAIT_SIGN_LANG)) // if using sign language skip sending the say signal
+		// Make sure the arglist is passed exactly - don't pass a copy of it. Say signal handlers will modify some of the parameters.
+		var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+		if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
+			message = uppertext(message)
+		if(!message)
+			return
 
 	spans |= speech_span
 
@@ -271,6 +307,8 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 	// Recompose message for AI hrefs, language incomprehension.
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, args)
+	if(HAS_TRAIT(speaker, TRAIT_SIGN_LANG)) //Checks if speaker is using sign language
+		deaf_message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods, TRUE)
 
 	show_message(message, 2, deaf_message, deaf_type, avoid_highlight)
 	return message
@@ -418,11 +456,20 @@ GLOBAL_LIST_INIT(special_radio_keys, list(
 		. = verb_sing
 	// Any subtype of slurring in our status effects make us "slur"
 	else if(locate(/datum/status_effect/speech/slurring) in status_effects)
-		. = "slurs"
+		if (HAS_TRAIT(src, TRAIT_SIGN_LANG))
+			. = "loosely signs"
+		else
+			. = "slurs"
 	else if(has_status_effect(/datum/status_effect/speech/stutter))
-		. = "stammers"
+		if(HAS_TRAIT(src, TRAIT_SIGN_LANG))
+			. = "shakily signs"
+		else
+			. = "stammers"
 	else if(has_status_effect(/datum/status_effect/speech/stutter/derpspeech))
-		. = "gibbers"
+		if(HAS_TRAIT(src, TRAIT_SIGN_LANG))
+			. = "incoherently signs"
+		else
+			. = "gibbers"
 	else
 		. = ..()
 

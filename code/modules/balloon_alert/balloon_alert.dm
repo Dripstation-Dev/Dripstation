@@ -9,24 +9,24 @@
 #define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN 10
 
 /// Creates text that will float from the atom upwards to the viewer.
-/atom/proc/balloon_alert(mob/viewer, text)
+/atom/proc/balloon_alert(mob/viewer, text, new_color = COLOR_WHITE)
 	SHOULD_NOT_SLEEP(TRUE)
 
-	INVOKE_ASYNC(src, PROC_REF(balloon_alert_perform), viewer, text)
+	INVOKE_ASYNC(src, PROC_REF(balloon_alert_perform), viewer, text, new_color)
 
 /// Creates a balloon alert, or sends a chat message dependant on client preferences. 
 /// Args: viewer -  mob that gets message/alert, alert - balloon alert text, message - text message that the mob gets if the preference is toggled, equals to alert message if not passed in the proc
-/atom/proc/balloon_or_message(mob/viewer, alert, message)
+/atom/proc/balloon_or_message(mob/viewer, alert, message, new_color = COLOR_WHITE)
 	SHOULD_NOT_SLEEP(TRUE)
 	
 	if(viewer.client.prefs.read_preference(/datum/preference/toggle/disable_balloon_alerts))
 		INVOKE_ASYNC(PROC_REF(to_chat), viewer, message)
 	else
-		INVOKE_ASYNC(src, PROC_REF(balloon_alert_perform), viewer, message ? message : alert)
+		INVOKE_ASYNC(src, PROC_REF(balloon_alert_perform), viewer, message ? message : alert, new_color)
 
 /// Create balloon alerts (text that floats up) to everything within range.
 /// Will only display to people who can see.
-/atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
+/atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, new_color = COLOR_WHITE)
 	SHOULD_NOT_SLEEP(TRUE)
 
 	var/list/hearers = get_hearers_in_view(vision_distance, src)
@@ -36,13 +36,13 @@
 		if (is_blind(hearer))
 			continue
 
-		balloon_alert(hearer, (hearer == src && self_message) || message)
+		balloon_alert(hearer, (hearer == src && self_message) || message, "", "", new_color)
 
 // Do not use.
 // MeasureText blocks. I have no idea for how long.
 // I would've made the maptext_height update on its own, but I don't know
 // if this would look bad on laggy clients.
-/atom/proc/balloon_alert_perform(mob/viewer, text)
+/atom/proc/balloon_alert_perform(mob/viewer, text, new_color = COLOR_WHITE)
 	
 	var/client/viewer_client = viewer.client
 	if (isnull(viewer_client))
@@ -56,8 +56,9 @@
 	var/image/balloon_alert = image(loc = isturf(src) ? src : get_atom_on_turf(src), layer = ABOVE_MOB_LAYER)
 	SET_PLANE_EXPLICIT(balloon_alert, BALLOON_CHAT_PLANE, src)
 	balloon_alert.alpha = 0
-	balloon_alert.appearance_flags = RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM
-	balloon_alert.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005'>[text]</span>")
+	balloon_alert.appearance_flags = RESET_ALPHA|RESET_TRANSFORM//RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM
+	balloon_alert.maptext = MAPTEXT("<span style='text-color:[new_color]; text-align: center; -dm-text-outline: 1px #0005'>[text]</span>")
+	//balloon_alert.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005'>[text]</span>")
 	balloon_alert.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
 	WXH_TO_HEIGHT(viewer_client?.MeasureText(text, null, BALLOON_TEXT_WIDTH), balloon_alert.maptext_height)
 	balloon_alert.maptext_width = BALLOON_TEXT_WIDTH

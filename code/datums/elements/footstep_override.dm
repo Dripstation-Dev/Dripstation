@@ -77,5 +77,6 @@
 	steps[FOOTSTEP_MOB_BAREFOOT] = barefootstep
 	steps[FOOTSTEP_MOB_HEAVY] = heavyfootstep
 	steps[FOOTSTEP_MOB_CLAW] = clawfootstep
+	steps[FOOTSTEP_MOB_PAW] = clawfootstep
 	steps[STEP_SOUND_PRIORITY] = priority
 	return FOOTSTEP_OVERRIDDEN

@@ -640,6 +640,7 @@
 	category = list("initial", "Medical", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/* Dripstation edit
 /datum/design/beanbag_slug
 	name = "Beanbag Slug"
 	id = "beanbag_slug"
@@ -655,6 +656,7 @@
 	materials = list(/datum/material/iron = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("initial", "Security")
+*/
 
 /datum/design/recorder
 	name = "Universal Recorder"
@@ -893,6 +895,8 @@
 	category = list("hacked", "Security", "Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_ARMORY
 
+
+/* Dripstation edit
 /datum/design/shotgun_slug
 	name = "Shotgun Slug"
 	id = "shotgun_slug"
@@ -924,6 +928,7 @@
 	materials = list(/datum/material/iron = 4000)
 	build_path = /obj/item/ammo_casing/shotgun/incendiary
 	category = list("hacked", "Security")
+*/
 
 /datum/design/riot_dart
 	name = "Foam Riot Dart"
@@ -941,6 +946,7 @@
 	build_path = /obj/item/ammo_box/foambox/riot
 	category = list("hacked", "Security")
 
+/* Dripstation edit
 /datum/design/c38_rubber
 	name = ".38 Rubber Speedloader"
 	id = "c38_rubber"
@@ -1106,6 +1112,7 @@
 	materials = list (/datum/material/iron = 60000)
 	build_path = /obj/item/ammo_box/no_direct/a357/wallstake
 	category = list ("Security")
+*/
 
 /datum/design/cleaver
 	name = "Butcher's Cleaver"

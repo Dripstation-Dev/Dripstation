@@ -5,7 +5,9 @@
 /datum/game_mode/traitor/bros
 	name = "traitor+brothers"
 	config_tag = "traitorbro"
+	/*Dripastation edit
 	restricted_jobs = list("AI", "Cyborg", "Synthetic")
+	*/
 	required_players = 15
 	title_icon = "ss13"
 

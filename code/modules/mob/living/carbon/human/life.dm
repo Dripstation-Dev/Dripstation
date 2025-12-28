@@ -54,14 +54,15 @@
 			var/datum/wound/iter_wound = i
 			iter_wound.on_stasis()
 
-		//yogs start - bandage memes
-		if(stat != DEAD)
-			handle_bandaged_limbs()
-		//yogs end
+	//yogs start - bandage memes
+	if(stat != DEAD)
+		handle_bandaged_limbs()
+	//yogs end
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 
+/* Dripstation edit - regeneration component
 	if(stat != DEAD)// heal 0.2hp per second to organic limbs (they are self repairing by virtue of being organic)
 		if(HAS_TRAIT(src, TRAIT_NOHUNGER) || HAS_TRAIT(src, TRAIT_POWERHUNGRY) || (nutrition > NUTRITION_LEVEL_FED && satiety > 80))//either if they don't have hunger at all, or if they're fed enough
 			if(prob(50) && bruteloss)//50/50 to heal brute or burn, but won't heal a damage type if you don't have it
@@ -71,7 +72,8 @@
 			else
 				heal_bodypart_damage(0.2, 0, 0, TRUE, BODYPART_ORGANIC)
 		return 1
-
+*/
+	return 1
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/obj/item/clothing/CS = wear_suit
@@ -329,6 +331,11 @@
 	// Tissues die without blood circulation
 	adjustBruteLoss(2)
 
+/mob/living/carbon/human/get_body_temp_heat_damage_limit()
+	return dna.species.bodytemp_heat_damage_limit
+
+/mob/living/carbon/human/get_body_temp_cold_damage_limit()
+	return dna.species.bodytemp_cold_damage_limit
 
 #undef THERMAL_PROTECTION_HEAD
 #undef THERMAL_PROTECTION_CHEST

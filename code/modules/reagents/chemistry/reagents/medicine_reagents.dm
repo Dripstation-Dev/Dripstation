@@ -175,10 +175,10 @@
 	taste_description = "spicy jelly"
 
 /datum/reagent/medicine/pyroxadone/on_mob_life(mob/living/carbon/M)
-	if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
-		var/power = 0
+	if(M.bodytemperature > M.dna.species.bodytemp_heat_damage_limit)
+		var/power = 1
 		switch(M.bodytemperature)
-			if(BODYTEMP_HEAT_DAMAGE_LIMIT to 400)
+			if(BODYTEMP_HEAT_DAMAGE_LIMIT  to 400)
 				power = 2
 			if(400 to 460)
 				power = 3
@@ -246,7 +246,7 @@
 			M.adjustFireLoss(-heal_amt)
 			if(show_message)
 				to_chat(M, span_danger("You feel your burns healing! It stings like hell!"))
-			M.emote("scream")
+			M.flick_pain(100, TRUE)
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 			if(methods & TOUCH)
 				M.reagents.add_reagent(/datum/reagent/medicine/silver_sulfadiazine, reac_volume * permeability)
@@ -297,7 +297,7 @@
 			M.adjustBruteLoss(-heal_amt)
 			if(show_message)
 				to_chat(M, span_danger("You feel your bruises healing! It stings like hell!"))
-			M.emote("scream")
+			M.flick_pain(100, TRUE)
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 			if(methods & TOUCH)
 				M.reagents.add_reagent(/datum/reagent/medicine/styptic_powder, reac_volume * permeability)
@@ -375,10 +375,12 @@
 				to_chat(M, span_warning("Your stomach feels empty and cramps!"))
 		else
 			var/mob/living/carbon/C = M
-			for(var/s in C.surgeries)
+			for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
 				var/datum/surgery/S = s
-				S.success_multiplier = max(0.1, S.success_multiplier)
+				S.operated_bodypart.sanitization += 0.07 * reac_volume
 				// +10% success propability on each step, useful while operating in less-than-perfect conditions
+			for(var/datum/wound/W in C.all_wounds)
+				W.applySanitization(0.07 * reac_volume)
 
 			if(show_message)
 				to_chat(M, span_danger("You feel your injuries fade away to nothing!") )
@@ -395,6 +397,7 @@
 	description = "Has a 100% chance of instantly healing brute and burn damage on corpses. The chemical will heal up to 120 points of damage at 60 units applied. Touch application only."
 	reagent_state = LIQUID
 	color = "#FFEBEB"
+	compatible_biotypes = ALL_NON_ROBOTIC
 
 /datum/reagent/medicine/synthflesh/on_mob_add(mob/living/L)
 	if(ishuman(L))
@@ -410,6 +413,8 @@
 		var/mob/living/carbon/C = M
 		if (M.stat == DEAD)
 			can_heal = TRUE
+		if(isreplica(M))	//corpses, that replicates people
+			can_heal = TRUE	//dripstation edit
 		if((methods & (PATCH|TOUCH)) && can_heal)
 			for(var/i in C.all_wounds)
 				var/datum/wound/iter_wound = i
@@ -422,6 +427,9 @@
 				var/heal_amt = clamp(reac_volume, 0, TOUCH_CHEM_MAX - S?.volume)
 				M.adjustBruteLoss(-2*heal_amt)
 				M.adjustFireLoss(-2*heal_amt)
+				if(isreplica(M))	//dripstation edit
+					M.adjustBruteLoss(-1*heal_amt, FALSE, FALSE, required_status = BODYPART_ROBOTIC)	//dripstation edit
+					M.adjustFireLoss(-1*heal_amt, FALSE, FALSE, required_status = BODYPART_ROBOTIC)		//dripstation edit
 				if(methods & TOUCH)
 					M.reagents.add_reagent(/datum/reagent/medicine/synthflesh, reac_volume) // no permeability modifier because it only works on dead bodies anyway and would just be an inconvenience
 				if(HAS_TRAIT_FROM(M, TRAIT_HUSK, BURN) && (S?.volume + reac_volume >= SYNTHFLESH_UNHUSK_AMOUNT && M.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD) && M.cure_husk(BURN)) //cure husk will return true if it cures the final husking source
@@ -505,6 +513,8 @@
 	. = 1
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
 	M.adjustToxLoss(1.5*REM, 0)
 	M.adjustOxyLoss(1.5*REM, 0)
 	M.adjustBruteLoss(1.5*REM, FALSE, FALSE, BODYPART_ORGANIC)
@@ -758,11 +768,12 @@
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/carbon/M)
 	switch(current_cycle)
-		if(11)
+		if(15)
 			to_chat(M, span_warning("You start to feel tired...") )
-		if(12 to 24)
+		if(16 to 67)
 			M.adjust_drowsiness(1 SECONDS)
-		if(24 to INFINITY)
+			to_chat(M, span_warning("You start to feel very tired...") )
+		if(68 to INFINITY)
 			M.Sleeping(40, 0)
 			. = 1
 	if(M.stat > CONSCIOUS)
@@ -957,6 +968,7 @@
 	..()
 	. = 1
 
+/* Dripstation edit
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	description = "Efficiently restores brain damage."
@@ -965,6 +977,7 @@
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
 	C.adjustOrganLoss(ORGAN_SLOT_BRAIN, (holder.has_reagent(/datum/reagent/drug/methamphetamine) ? 0 : -2)*REM)
 	..()
+*/
 
 /datum/reagent/medicine/neurine
 	name = "Neurine"
@@ -1019,32 +1032,56 @@
 	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
 	color = "#78008C"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
-	overdose_threshold = 60
+	overdose_threshold = 45	//dripstation edit
+	var/trippy = TRUE		//dripstation edit
+	var/started_tripping = FALSE		//dripstation edit
 
 /datum/reagent/medicine/stimulants/on_mob_metabolize(mob/living/L)
 	..()
+	addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, overlay_fullscreen),"eyestatic", /atom/movable/screen/fullscreen/flash/static/stim), 2 SECONDS)//dripstation edit
+	addtimer(CALLBACK(L, TYPE_PROC_REF(/mob/living/carbon, clear_fullscreen), "eyestatic"), 8 SECONDS)//dripstation edit
+	if(trippy && !started_tripping)//dripstation edit
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/reagent/medicine/stimulants, apply_tripping_effect), L), 8 SECONDS)//dripstation edit
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.physiology.brute_mod *= 0.8
+		H.physiology.burn_mod *= 0.8
+		H.physiology.do_after_speed *= 0.8
+
+/datum/reagent/medicine/stimulants/proc/apply_tripping_effect(mob/living/M)	//Dripstation edit
+	M.adjust_tripping_up_to(10 SECONDS * REM, 20 SECONDS)//dripstation edit
+	started_tripping = TRUE
 
 /datum/reagent/medicine/stimulants/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
+	started_tripping = FALSE		//dripstation edit
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.physiology.brute_mod /= 0.8
+		H.physiology.burn_mod /= 0.8
+		H.physiology.do_after_speed /= 0.8
 	..()
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/carbon/M)
-	/*	//dripstation edit
-	if(M.health < 50 && M.health > 0)
-	*/
-	if(M.health < 50 && M.health > M.crit_threshold)	//dripstation edit
-	/*	//dripstation edit
+	if(started_tripping)										//dripstation edit
+		M.adjust_tripping_up_to(10 SECONDS * REM, 20 SECONDS)	//dripstation edit
+	if(!overdosed)
+		if(M.health < 50 && M.health > M.crit_threshold)		//dripstation edit
+			M.adjustToxLoss(-1*REM, 0)
+			M.adjustBruteLoss(-1*REM, 0)
+			M.adjustFireLoss(-1*REM, 0)
 		M.adjustOxyLoss(-1*REM, 0)
-	*/
-		M.adjustToxLoss(-1*REM, 0)
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-	M.adjustOxyLoss(-1*REM, 0)
-	M.AdjustAllImmobility(-60, FALSE)
-	M.adjustStaminaLoss(-30*REM, 0)
+		M.AdjustAllImmobility(-60, FALSE)
+		M.adjustStaminaLoss(-30*REM, 0)
 	..()
 	. = 1
+
+datum/reagent/medicine/stimulants/overdose_start(mob/living/M)	//dripstation edit
+	M.set_confusion_if_lower(10 SECONDS)						//dripstation edit
+	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation), 1.5 SECONDS), 0.5 SECONDS)//dripstation edit
+	addtimer(CALLBACK(M, TYPE_PROC_REF(/mob/living/carbon, apply_stun_effect)), 2 SECONDS)					//dripstation edit
+	..()
 
 /datum/reagent/medicine/stimulants/overdose_process(mob/living/M)
 	if(prob(33))
@@ -1057,7 +1094,10 @@
 /datum/reagent/medicine/stimulants/nanite
 	name = "Nano-Stimulants"
 	description = "Nanite synthesized muscle stimulation mix that temporarily increases speed and stun resistance slightly. Overdose causes weakness and toxin damage."
+	trippy = FALSE	//Dripstation edit
+	metabolization_rate = REAGENTS_METABOLISM	//x2 faster metabolization
 
+/* Dripstation edit
 /datum/reagent/medicine/stimulants/nanite/on_mob_metabolize(mob/living/L)
 	..()
 	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.25, blacklisted_movetypes=(FLYING|FLOATING))
@@ -1078,6 +1118,7 @@
 	M.adjustStaminaLoss(-15*REM, 0)
 	..()
 	. = 1
+*/
 
 /datum/reagent/medicine/insulin
 	name = "Insulin"

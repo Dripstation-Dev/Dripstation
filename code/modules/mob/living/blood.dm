@@ -12,7 +12,7 @@
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
 		temp_bleed += BP.get_bleed_rate()
-		BP.generic_bleedstacks = max(0, BP.generic_bleedstacks - 1)
+		BP.adjustBleedStacks(-1)
 	if(temp_bleed)
 		bleed(temp_bleed)
 
@@ -58,20 +58,33 @@
 			adjust_nutrition(-nutrition_ratio * HUNGER_FACTOR)
 			blood_volume = min(BLOOD_VOLUME_NORMAL(src), blood_volume + 0.5 * nutrition_ratio)
 
+		var/temp_bleed = 0
+		//Bleeding out
+		for(var/X in bodyparts)
+			var/obj/item/bodypart/BP = X
+			temp_bleed += BP.get_bleed_rate()
+			BP.adjustBleedStacks(-1)
+
+		if(bodytemperature < BODYTEMP_NORMAL)
+			temp_bleed *= round(bodytemperature/BODYTEMP_NORMAL, 0.1)
+
 		//Effects of bloodloss
 		var/word = pick("dizzy","woozy","faint")
 		switch(get_blood_state())
 			if(BLOOD_OKAY)
+				temp_bleed *= 0.9
 				if(prob(5))
 					to_chat(src, span_warning("You feel [word]."))
 				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL(src) - blood_volume) * 0.01, 1))
 			if(BLOOD_BAD)
 				adjustOxyLoss(round((BLOOD_VOLUME_NORMAL(src) - blood_volume) * 0.02, 1))
+				temp_bleed *= 0.7
 				if(prob(5))
 					adjust_eye_blur(6)
 					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_SURVIVE)
 				adjustOxyLoss(5)
+				temp_bleed *= 0.5
 				if(prob(15))
 					Unconscious(rand(20,60))
 					to_chat(src, span_warning("You feel extremely [word]."))
@@ -79,26 +92,19 @@
 				if(!HAS_TRAIT(src, TRAIT_NODEATH))
 					death()
 
-		var/temp_bleed = 0
-		//Bleeding out
-		for(var/X in bodyparts)
-			var/obj/item/bodypart/BP = X
-			temp_bleed += BP.get_bleed_rate()
-			BP.generic_bleedstacks = max(0, BP.generic_bleedstacks - 1)
-
 		if(temp_bleed)
 			bleed(temp_bleed)
 			bleed_warn(temp_bleed)
 
 
 //Makes a blood drop, leaking amt units of blood from the mob
-/mob/living/carbon/proc/bleed(amt)
+/mob/living/carbon/proc/bleed(amt, make_splatter = TRUE)
 	if(!blood_volume)
 		return
 	blood_volume = max(blood_volume - amt, 0)
 
 	//Blood loss still happens in locker, floor stays clean
-	if(isturf(loc) && prob(sqrt(amt)*BLOOD_DRIP_RATE_MOD))
+	if(isturf(loc) && make_splatter && prob(sqrt(amt)*BLOOD_DRIP_RATE_MOD))
 		add_splatter_floor(loc, (amt <= 10))
 
 /mob/living/carbon/human/bleed(amt)

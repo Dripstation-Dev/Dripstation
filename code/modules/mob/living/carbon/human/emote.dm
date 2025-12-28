@@ -71,9 +71,9 @@
 	if(istype(T, /obj/item/organ/tongue/lizard))
 		return 'sound/voice/lizard/hiss.ogg'
 	if(istype(T, /obj/item/organ/tongue/polysmorph))
-		return pick('sound/voice/hiss1.ogg','sound/voice/hiss2.ogg','sound/voice/hiss3.ogg','sound/voice/hiss4.ogg')
+		return SFX_HISS
 	if(iscatperson(user))//yogs: catpeople can hiss!
-		return pick('sound/voice/feline/hiss1.ogg', 'sound/voice/feline/hiss2.ogg', 'sound/voice/feline/hiss3.ogg')
+		return SFX_FELINE_HISS
 
 /datum/emote/living/carbon/hiss/can_run_emote(mob/living/user, status_check = TRUE, intentional)
 	if(!ishuman(user))
@@ -273,7 +273,7 @@
 	var/mob/living/carbon/human/H = user
 	if(!istype(H) || !H.dna || !H.dna.species) // Here to prevent a runtime when a silicon does *help.
 		return FALSE
-	return (H.dna.species["wings"] != "None")
+	return (H.dna.features["wings"] != "None")
 
 /mob/living/carbon/human/proc/OpenWings()
 	if(!dna || !dna.species)

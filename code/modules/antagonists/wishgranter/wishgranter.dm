@@ -3,6 +3,7 @@
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
 	can_hijack = HIJACK_HIJACKER
+	hijack_speed = 0.5
 
 /datum/antagonist/wishgranter/proc/forge_objectives()
 	var/datum/objective/hijack/hijack = new
@@ -25,5 +26,7 @@
 		return
 	H.dna.add_mutation(HULK)
 	H.dna.add_mutation(XRAY)
-	H.dna.add_mutation(SPACEMUT)
+	H.dna.add_mutation(COLDMUT)
 	H.dna.add_mutation(TK)
+	ADD_TRAIT(H, TRAIT_RESISTLOWPRESSURE, "wishgranter")
+	ADD_TRAIT(H, TRAIT_RESISTHIGHPRESSURE, "wishgranter")

@@ -99,13 +99,13 @@
 				apply_damage(damage, BRUTE, affecting)
 
 			else
-				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
+				playsound(loc, get_sfx(SFX_SLASHMISS), 25, 1, -1)
 				visible_message(span_danger("[M] has attempted to lunge at [name]!"), \
 						span_userdanger("[M] has attempted to lunge at [name]!"), null, COMBAT_MESSAGE_RANGE)
 
 		if (M.a_intent == INTENT_DISARM)
 			var/obj/item/I = null
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			playsound(loc, SFX_STAB, 25, 1, -1)
 			if(prob(95))
 				Paralyze(20)
 				visible_message(span_danger("[M] has tackled down [name]!"), \

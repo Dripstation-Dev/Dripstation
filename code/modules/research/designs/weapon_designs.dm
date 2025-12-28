@@ -2,6 +2,7 @@
 /////////////////Weapons/////////////////
 /////////////////////////////////////////
 
+/* Dripstation edit
 /datum/design/c38_sec
 	name = "Speed Loader (.38 rubber)"
 	desc = "Designed to quickly reload revolvers."
@@ -29,6 +30,7 @@
 	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+*/
 
 /datum/design/shotgun_slug/sec
 	id = "sec_slug"

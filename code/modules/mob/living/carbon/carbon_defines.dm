@@ -59,7 +59,7 @@
 
 	var/tinttotal = 0	// Total level of visualy impairing items
 
-	var/list/bodyparts = list(/obj/item/bodypart/chest, /obj/item/bodypart/head, /obj/item/bodypart/l_arm,
+	var/list/bodyparts = list(/obj/item/bodypart/chest, /obj/item/bodypart/groin, /obj/item/bodypart/head, /obj/item/bodypart/l_arm,
 					 /obj/item/bodypart/r_arm, /obj/item/bodypart/r_leg, /obj/item/bodypart/l_leg)
 	//Gets filled up in create_bodyparts()
 
@@ -88,5 +88,6 @@
 	var/visual_only_organs = FALSE
 
 	COOLDOWN_DECLARE(bleeding_message_cd)
+	COOLDOWN_DECLARE(holding_breath_cd)	//stop spam
 
 	var/list/image/infra_images

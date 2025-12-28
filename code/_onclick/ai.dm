@@ -48,6 +48,7 @@
 		return
 
 	var/list/modifiers = params2list(params)
+	/*Dripstation edit
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
@@ -56,14 +57,31 @@
 			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.
 		return
 	if(modifiers["shift"])
+	*/
+	if(LAZYACCESS(modifiers, SHIFT_CLICK))		//Dripstation edit
+		if(LAZYACCESS(modifiers, CTRL_CLICK))	//Dripstation edit
+			CtrlShiftClickOn(A)					//Dripstation edit
+			return								//Dripstation edit
 		ShiftClickOn(A)
 		return
+	/*	Dripstation edit
 	if(modifiers["alt"]) // alt and alt-gr (rightalt)
+	*/
+	if(LAZYACCESS(modifiers, ALT_CLICK)) // alt and alt-gr (rightalt)	//Dripstation edit
 		AltClickOn(A)
 		return
+	/*	Dripstation edit
 	if(modifiers["ctrl"])
+	*/
+	if(LAZYACCESS(modifiers, CTRL_CLICK))	//Dripstation edit
 		CtrlClickOn(A)
 		return
+	if(LAZYACCESS(modifiers, MIDDLE_CLICK))	//Dripstation edit
+		if(controlled_mech) //Are we piloting a mech? Placed here so the modifiers are not overridden.	//Dripstation edit
+			controlled_mech.click_action(A, src, params) //Override AI normal click behavior.	//Dripstation edit
+			return					//Dripstation edit
+		MiddleClickOn(A, params)	//Dripstation edit
+		return						//Dripstation edit
 
 	if(world.time <= next_move)
 		return

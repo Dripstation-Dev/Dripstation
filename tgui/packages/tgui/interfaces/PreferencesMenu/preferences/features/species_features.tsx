@@ -50,6 +50,16 @@ export const feature_mcolor: Feature<string> = {
   component: FeatureColorInput,
 };
 
+export const feature_body_markings_color: Feature<string> = {
+  name: "Secondary color",
+  component: FeatureColorInput,
+};
+
+export const feature_lizard_frills_color: Feature<string> = {
+  name: "Frills color",
+  component: FeatureColorInput,
+};
+
 export const feature_ipc_screen: FeatureChoiced = {
   name: "Screen",
   component: FeatureDropdownInput,

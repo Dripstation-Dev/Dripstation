@@ -121,7 +121,7 @@
 		log_combat(A, D, "prone-kicked(CQC)")
 		D.visible_message(span_warning("[A] firmly kicks [D] in the abdomen!"), \
 					  		span_userdanger("[A] kicks you in the abdomen!"))
-		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
+		playsound(get_turf(A), SFX_BLUNT, 50, 1, -1)
 		var/kickdamage = A.get_punchdamagehigh() * 2 + 20	//40 damage
 		D.Paralyze(5)
 		D.apply_damage(kickdamage, STAMINA)
@@ -162,6 +162,7 @@
   * attack that puts the target into a restraining position, stunning and muting them for a short period
   * used to set up a chokehold attack
   */
+/* Dripstation edit
 /datum/martial_art/cqc/proc/Restrain(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(restraining)
 		return
@@ -200,7 +201,6 @@
 		D.apply_damage(consecutivedamage, STAMINA)
 	return TRUE
 
-/*
 ///CQC grab, stuns for 1.5 seconds on use
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(A.a_intent == INTENT_GRAB && A!=D && (can_use(A) && can_use(D))) // A!=D prevents grabbing yourself
@@ -244,6 +244,7 @@
 		log_combat(A, D, "sweeped (CQC)")
 	return TRUE
 
+/*Drisptation edit
 ///CQC disarm, 65% chance to instantly pick up the opponent's weapon and deal 5 stamina damage, also used for choke attack
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(can_use(A) || can_use(D)))
@@ -295,6 +296,7 @@
 	chokehold_active = FALSE
 	restraining = FALSE
 	return TRUE
+*/
 
 /**
   * CQC chokehold handle

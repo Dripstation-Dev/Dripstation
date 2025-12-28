@@ -89,7 +89,7 @@
 	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/syndicate
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode
 	mask_type = /obj/item/clothing/mask/gas/syndicate
 	storage_type = /obj/item/tank/jetpack/oxygen/harness
 

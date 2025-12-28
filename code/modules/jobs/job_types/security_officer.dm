@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(available_depts_sec, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICA
 /datum/job/officer/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()
 	// Assign department security
+	/* No departments - this breaks secs stuff, dripstation edit
 	var/department
 	if(M && M.client && M.client.prefs)
 		department = M.client?.prefs?.read_preference(/datum/preference/choiced/security_department)
@@ -132,6 +133,7 @@ GLOBAL_LIST_INIT(available_depts_sec, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICA
 					continue
 				else
 					break
+	*/ //dripstation edit end
 
 	if(M?.client?.prefs)
 		var/obj/item/badge/security/badge
@@ -146,10 +148,12 @@ GLOBAL_LIST_INIT(available_depts_sec, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICA
 		var/obj/item/clothing/suit/my_suit = H.wear_suit
 		my_suit.attach_badge(badge)
 
+	/* dripstation edit
 	if(department)
 		to_chat(M, "<b>You have been assigned to [department]!</b>")
 	else
 		to_chat(M, "<b>You have not been assigned to any department. Patrol the halls and help where needed.</b>")
+	*/ //dripstation edit end
 
 
 

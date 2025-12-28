@@ -95,8 +95,10 @@
 
 /datum/status_effect/hallucination/sanity/tick(delta_time, times_fired)
 	// Using psicodine / happiness / whatever to become fearless will stop sanity based hallucinations
-	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	if(!owner.check_fear(ABNORMAL_FEAR_SOURCE))	//Dripstation edit
 		return
+	//if(HAS_TRAIT(owner, TRAIT_FEARLESS))
+	//	return
 
 	return ..()
 

@@ -15,6 +15,7 @@
 			to_chat(user, span_warning("You crush the [src]! [capitalize(DisplayTimeText(det_time))]!"))
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
+	SEND_SIGNAL(src, COMSIG_GRENADE_ARMED, det_time, delayoverride)
 	playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', volume, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(prime)), isnull(delayoverride)? det_time : delayoverride)
 
@@ -62,7 +63,7 @@
 	///Amount of Oxygen gas released (close to the grenade)
 	var/o2_gas_amount = 30
 
-/obj/item/grenade/gas_crystal/pluonium_crystal/prime()
+/obj/item/grenade/gas_crystal/pluonium_crystal/prime(mob/lanced_by)
 	. = ..()
 	update_mob()
 	playsound(src, 'sound/effects/spray2.ogg', 100, TRUE)
@@ -83,7 +84,7 @@
 	///Amount of n2o gas released (close to the grenade)
 	var/n2o_gas_amount = 10
 
-/obj/item/grenade/gas_crystal/nitrous_oxide_crystal/prime()
+/obj/item/grenade/gas_crystal/nitrous_oxide_crystal/prime(mob/lanced_by)
 	. = ..()
 	update_mob()
 	playsound(src, 'sound/effects/spray2.ogg', 100, TRUE)

@@ -13,7 +13,7 @@
 /turf/closed/wall,
 /area/template_noop)
 "e" = (
-/obj/structure/grille/broken,
+/obj/effect/spawner/lootdrop/grille,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (
@@ -41,7 +41,14 @@
 /area/template_noop)
 "k" = (
 /obj/structure/bed,
-/obj/item/toy/plush/beeplushie,
+/obj/item/toy/plush/dakimakura/vulpa{
+	pixel_x = -7;
+	pixel_y = 0
+	},
+/obj/structure/sign/poster/erotic/v17{
+	pixel_x = 0;
+	pixel_y = 31
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "l" = (
@@ -74,8 +81,17 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "q" = (
-/obj/structure/grille,
-/turf/open/floor/plating,
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "pawprint";
+	pixel_x = -8;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/crayon{
+	icon_state = "pawprint";
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel,
 /area/template_noop)
 "s" = (
 /obj/machinery/light/small{
@@ -225,7 +241,7 @@ v
 V
 K
 Y
-v
+e
 v
 v
 v
@@ -256,7 +272,7 @@ v
 v
 "}
 (4,1,1) = {"
-v
+e
 d
 H
 l
@@ -283,7 +299,7 @@ v
 z
 d
 k
-W
+q
 d
 n
 F
@@ -313,13 +329,13 @@ S
 W
 d
 d
-E
+e
 "}
 (9,1,1) = {"
 v
 e
 m
-q
+e
 E
 v
 W
@@ -329,13 +345,13 @@ v
 "}
 (10,1,1) = {"
 v
-v
+e
 Y
 v
 v
 v
 v
-E
+e
 Y
 v
 "}

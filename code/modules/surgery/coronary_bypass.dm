@@ -9,6 +9,8 @@
 				/datum/surgery_step/clamp_bleeders,
 				/datum/surgery_step/incise_heart, 
 				/datum/surgery_step/coronary_bypass, 
+				/datum/surgery_step/repair_bone,
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 
@@ -57,7 +59,7 @@
 				"Blood pools around the incision in [H]'s heart.",
 				"")
 			var/obj/item/bodypart/BP = H.get_bodypart(target_zone)
-			BP.generic_bleedstacks += 10
+			BP.adjustBleedStacks(10)
 			H.adjustBruteLoss(10)
 	return TRUE
 
@@ -68,7 +70,7 @@
 			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest!"),
 			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest!"))
 		var/obj/item/bodypart/BP = H.get_bodypart(target_zone)
-		BP.generic_bleedstacks += 10
+		BP.adjustBleedStacks(10)
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 10)
 		H.adjustBruteLoss(10)
 
@@ -105,5 +107,5 @@
 		span_warning("[user] screws up, causing blood to spurt out of [target]'s chest profusely!"),
 		span_warning("[user] screws up, causing blood to spurt out of [target]'s chest profusely!"))
 	var/obj/item/bodypart/BP = target.get_bodypart(target_zone)
-	BP.generic_bleedstacks += 30
+	BP.adjustBleedStacks(30)
 	return TRUE

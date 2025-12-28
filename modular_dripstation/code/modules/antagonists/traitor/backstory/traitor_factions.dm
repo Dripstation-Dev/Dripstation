@@ -4,11 +4,11 @@
 
 /datum/traitor_faction/independent
 	description = "Maybe you are a solo merk or survived agent of the decommissioned Syndicate cell. \n\
-	Maybe you are a radical member of ACLF, GEC or other group with left-wing politics. \n\
+	Maybe you are a radical member of ACLF, GEC or other group with left-wing politics. Maybe you are alligned with S`Sarsĥs cult. \n\
 	You are a person who holds grudges, and has been hurt greatly by Nanotrasen. Remember that for the Syndicate you are expendable.\n\
 	You probably have nothing left to lose. Don`t expect any backup. You will have no allies."
 	faction_theme = PDA_THEME_INDEPENDENT
-	corporation_allighment = /datum/corporation/traitor/independent
+	corporation_allighment = /datum/corporation/independent/traitor
 	allies = "If the anyone learns of your plan, they're going to kill you and take your uplink. Take no chances."
 
 /datum/traitor_faction/donk_co
@@ -44,7 +44,7 @@
 
 /datum/traitor_faction/vostok
 	name = "Vostok"
-	employer_name = "Mr. Komarov"
+	employer_name = "Vostok Agent Curator: Mr. Komarov"
 	description = "You're employed by a company with brave ideas and experimental technology. \n\
 	Probably it also represents interests of USSP. You answer directly to retired major. \n\
 	Ruin the Terragov economy using their own capitalistic tools.  Make sure to remember: Actions speak louder than words."
@@ -52,3 +52,15 @@
 	key = TRAITOR_FACTION_VOSTOK
 	faction_theme = PDA_THEME_BOSYN
 	allies = "You are the only operative we are sending, any others are fake. All other syndicate operatives are not to be trusted."
+
+/datum/traitor_faction/isd
+	name = "Internal Security Devision"
+	employer_name = "The SpecOps Agent Curator: Blundir"
+	description = "You have been sanctioned to operate on this station with both Nanotrasen brand arms and recovered Syndicate tools. Your curator has provided you flashed uplink for your mission. \n\
+	Use Nanotrasen brand tools wisely, you should not blow your cover of syndicate agent. If you will ever be captured, Nanotrasen officials will deny everything. \n\
+	You are tasked to avoid unnasessary casualties within station`s command ranks and other Nanotrasen employees. Feel free to terminate their contracts only if you has real life threat or their actions blows your cover.\n\
+	For the bright future of your company, for the Nanotrasen!"
+	corporation_allighment = /datum/corporation/nanotrasen/isd
+	key = TRAITOR_FACTION_ISD
+	faction_theme = PDA_THEME_NTOS
+	allies = "You are the only operative we are sending, any others are fake. All syndicate operatives are to be terminated on sight or used and then terminated. If Internal Affairs Representative or NT Emergency Responce Members are present you can cooperate with them."

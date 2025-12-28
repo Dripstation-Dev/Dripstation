@@ -127,9 +127,11 @@
 
 /obj/structure/closet/secure_closet/security/sec
 
+/*
 /obj/structure/closet/secure_closet/security/sec/PopulateContents()
 	..()
 	new /obj/item/storage/belt/security/full(src)
+*/
 
 /obj/structure/closet/secure_closet/security/cargo
 
@@ -288,11 +290,11 @@
 		new /obj/item/gun/energy/laser(src)
 
 /obj/structure/closet/secure_closet/tac
-	name = "armory tac locker"
+	name = "militech armory locker"
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "tac"
 
-/obj/structure/closet/secure_closet/tac/PopulateContents()
+/obj/structure/closet/secure_closet/tac/full/PopulateContents()
 	..()
 	new /obj/item/gun/ballistic/automatic/wt550(src)
 	new /obj/item/clothing/head/helmet/alt(src)
@@ -304,10 +306,12 @@
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "tac"
 
+/*Dripstation edit
 /obj/structure/closet/secure_closet/lethalshots/PopulateContents()
 	..()
 	for(var/i in 1 to 3)
 		new /obj/item/storage/box/lethalshot(src)
+*/
 
 //Yogs Start: Brig Pysh Closet
 /obj/structure/closet/secure_closet/physician

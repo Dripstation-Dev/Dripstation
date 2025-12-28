@@ -35,7 +35,8 @@ GLOBAL_LIST_EMPTY(FrozenAccounts)
 		"buy" = list("buy!", "buy, buy, buy!", "get in now!", "ride the share value to the stars!"), \
 		"company" = list("company", "corporation", "conglomerate", "enterprise", "venture"), \
 		"complete" = list("complete", "total", "absolute", "incredible"), \
-		"country" = list("Uncharted Space", "Terra Government", "United Soviet Convention", "Slav Anarchic Space", "Trader Emergency Coalition", "The Wizard Federation", "Mars Rebel Government in exile", "Allied Colonies of Jupiter", "Saturn's Ring", "Fringe Republic of Formerly Planet Pluto", "Nanotrasen Strategic Investment Company", "Gorlex Planets Cooperative", "S.E.L.F. Autonomy", "Waffle&Donk Co High Management", "Vahlen Incorporated", "Cybersun Industries"), \
+		"country" = list("Uncharted Space", "Terra Government", "United Soviet Convention", "Slav Anarchic Space", "Trader Emergency Coalition", "The Wizard Federation", "Mars Rebel Government in exile", "Allied Colonies of Jupiter", "Saturn's Ring", "Fringe Republic of Formerly Planet Pluto", "Gorlex Planets Cooperative", "S.E.L.F. Autonomy"), \
+		"investment_company" = list("Nanotrasen Strategic Investment Company", "Waffle&Donk Co High Management", "Hephaestus Asset Management", "Cybersun Holdings Limited"), \
 		"development" = list("development", "unfolding of events", "turn of events", "new shit"), \
 		"dip" = list("dip", "fall", "plunge", "decrease"), \
 		"excited" = list("excited", "euphoric", "exhilarated", "thrilled", "stimulated"), \
@@ -111,7 +112,7 @@ GLOBAL_LIST_EMPTY(FrozenAccounts)
 /datum/article/proc/formatArticle()
 	if (spacetime == "")
 		formatSpacetime()
-	var/output = "<div class='article'><div class='headline'>[headline]</div><div class='subtitle'>[subtitle]</div><div class='article-body'>[article]</div><div class='author'>[author]</div><div class='timestamp'>[spacetime]</div></div>"
+	var/output = "<div class='article'</div><div class='headline'>[headline]</div><div class='subtitle'>[subtitle]</div><div class='article-body'>[article]</div><div class='author'>[author]</div><div class='timestamp'>[spacetime]</div>"
 	return output
 
 /datum/article/proc/detokenize(var/token_string, var/list/industry_tokens, var/list/product_tokens = list())

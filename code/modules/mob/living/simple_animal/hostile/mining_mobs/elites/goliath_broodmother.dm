@@ -33,7 +33,7 @@
 	armour_penetration = 30
 	attacktext = "beats down on"
 	//attack_verb_simple = "beat down on"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
 	move_to_delay = 5
@@ -178,7 +178,7 @@
 	melee_damage_upper = 5
 	attacktext = "bashes against"
 	//attack_verb_simple = "bash against"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	throw_message = "does nothing to the rocky hide of the"
 	speed = 2
 	move_to_delay = 5

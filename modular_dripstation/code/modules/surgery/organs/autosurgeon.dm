@@ -2,6 +2,15 @@
 	icon = 'modular_dripstation/icons/obj/device.dmi'
 	icon_state = "autoimplanter"
 
+/obj/item/autosurgeon/cmo
+	icon_state = "autoimplanter_nt"
+
+/obj/item/autosurgeon/rd
+	desc = "A single-use autosurgeon that contains a diagnostic heads-up display augment. A screwdriver can be used to remove it, but implants can't be placed back in."
+	uses = 1
+	starting_organ = /obj/item/organ/cyberimp/eyes/hud/diagnostic
+	icon_state = "autoimplanter_nt"
+
 /obj/item/autosurgeon/xray_eyes
 	icon_state = "autoimplanter_red"
 
@@ -13,6 +22,11 @@
 
 /obj/item/autosurgeon/reviver/syndicate
 	icon_state = "autoimplanter_red"
+
+/obj/item/autosurgeon/arm/surgery
+	uses = 1
+	icon_state = "autoimplanter_nt"
+	starting_organ = /obj/item/organ/cyberimp/arm/toolset/surgery
 
 /obj/item/autosurgeon/arm/syndicate/syndie_mantis
 	icon_state = "autoimplanter_red"

@@ -1,3 +1,4 @@
+/* Dripstation edit
 /obj/item/ammo_casing/caseless/rocket
 	name = "\improper PM-9HE"
 	desc = "An 84mm High Explosive rocket. Fire at people and pray."
@@ -11,6 +12,7 @@
 	caliber = CALIBER_84HE
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/a84mm
+*/
 
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."

@@ -82,7 +82,9 @@
 /obj/projectile/bullet/c46x30mm/airburst/on_range()
 	var/obj/item/ammo_casing/c46x30mm/airburst_pellet/P = new(get_turf(src))
 	var/mob/living/L = new (get_turf(src))//it's jank, but casings can only be shot via a mob's location
-	P.fire_casing(get_edge_target_turf(firer, get_dir(firer, original)), L)
+	if(!P.fire_casing(get_edge_target_turf(firer, get_dir(firer, original)), L, null, null, null, ran_zone(), 0, L))
+		stack_trace("Airburst pellets failed to fire")
 	playsound(L, 'sound/weapons/shotgunshot.ogg', 40, 0, 2)
 	qdel(L)
+	qdel(P)
 	..()

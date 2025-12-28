@@ -424,7 +424,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.real_name = record_found.fields["name"]
 		new_character.gender = record_found.fields["gender"]
 		new_character.age = record_found.fields["age"]
-		new_character.hardset_dna(record_found.fields["identity"], record_found.fields["enzymes"], null, record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"])
+		new_character.hardset_dna(null, record_found.fields["identity"], record_found.fields["enzymes"], null, record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"])
 	else
 		new_character.randomize_human_appearance(~(RANDOMIZE_NAME|RANDOMIZE_SPECIES))
 		new_character.name = G_found.real_name
@@ -886,7 +886,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
+	/* Dripstation edit start
 	var/level = input("Select security level to change to","Set Security Level") as null|anything in list("green","blue","red","gamma","epsilon","delta")
+	*/
+	var/level = input("Select security level to change to","Set Security Level") as null|anything in list("green","blue","red","gamma","amber","epsilon","delta")	//dripstation edit end
 	if(level)
 		SSsecurity_level.set_level(level)
 
@@ -1148,7 +1151,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 									ADMIN_PUNISHMENT_SCARIFY,
 									ADMIN_PUNISHMENT_SMSPIDER,
 									ADMIN_PUNISHMENT_FLASHBANG,
-									ADMIN_PUNISHMENT_WIBBLY)
+									ADMIN_PUNISHMENT_WIBBLY,
+									ADMIN_PUNISHMENT_BACKROOMS)
 
 	var/punishment = input("Choose a punishment", "DIVINE SMITING") as null|anything in punishment_list
 
@@ -1329,12 +1333,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			to_chat(chucklenuts, span_warning("Think Fast!"))
 			sleep(1.5 SECONDS)
 			var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(target.loc)
-			CB.prime()
+			CB.prime(chucklenuts)
 			chucklenuts.flash_act()
 
 		if(ADMIN_PUNISHMENT_WIBBLY)
 			apply_wibbly_filters(target, 888)
 			to_chat(target, span_warning("Something feels very... wibbly!"))
+
+		if(ADMIN_PUNISHMENT_BACKROOMS)
+			INVOKE_ASYNC(target, TYPE_PROC_REF(/mob/living, clip_into_backrooms))
 
 	punish_log(target, punishment)
 

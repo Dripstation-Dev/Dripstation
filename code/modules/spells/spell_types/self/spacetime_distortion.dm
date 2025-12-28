@@ -134,12 +134,14 @@
 			return
 	if(linked_dist && walks_left > 0)
 		flick("purplesparkles", src)
+		play_fov_effect(src, 5, "sparkles", ignore_self = TRUE)
 		linked_dist.get_walker(AM)
 		walks_left--
 
 /obj/effect/cross_action/spacetime_dist/proc/get_walker(atom/movable/AM)
 	busy = TRUE
 	flick("purplesparkles", src)
+	play_fov_effect(src, 5, "sparkles", ignore_self = TRUE)
 	AM.forceMove(get_turf(src))
 	playsound(get_turf(src),sound,70,FALSE)
 	busy = FALSE

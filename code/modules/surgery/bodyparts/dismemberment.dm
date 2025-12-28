@@ -13,11 +13,17 @@
 	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
 		return FALSE
 
-	var/obj/item/bodypart/affecting = C.get_bodypart(BODY_ZONE_CHEST)
+	var/obj/item/bodypart/affecting
+	if(src.body_zone == BODY_ZONE_L_LEG || src.body_zone == BODY_ZONE_R_LEG)
+		affecting = C.get_bodypart(BODY_ZONE_PRECISE_GROIN)
+	if(!affecting)	//not legs or no groin 
+		affecting = C.get_bodypart(BODY_ZONE_CHEST)
 	affecting.receive_damage(clamp(brute_dam/2 * affecting.body_damage_coeff, 15, 50), clamp(burn_dam/2 * affecting.body_damage_coeff, 0, 50), wound_bonus=CANT_WOUND) //Damage the chest based on limb's existing damage
+	var/datum/wound/blood_vessel/artery/A = new
+	A.apply_wound(affecting, silent = TRUE, attack_direction = owner.dir)
 	if(!silent)
 		C.visible_message(span_danger("<B>[C]'s [name] is violently dismembered!</B>"))
-	INVOKE_ASYNC(C, TYPE_PROC_REF(/mob, emote), "scream")
+	INVOKE_ASYNC(C, TYPE_PROC_REF(/mob/living, flick_pain), 100, TRUE, TRUE)
 	playsound(get_turf(C), 'sound/effects/dismember.ogg', 80, TRUE)
 	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "dismembered", /datum/mood_event/dismembered)
 	var/should_disintegrate = !HAS_TRAIT(owner, TRAIT_EASYDISMEMBER) // if their limb falls off easily it should just fall off instead
@@ -70,6 +76,26 @@
 		. += cavity_item
 		cavity_item = null
 
+/obj/item/bodypart/groin/dismember()
+	if(!owner)
+		return FALSE
+	var/mob/living/carbon/C = owner
+	if(!dismemberable)
+		return FALSE
+	if(HAS_TRAIT(C, TRAIT_NODISMEMBER))
+		return FALSE
+	. = list()
+	var/turf/T = get_turf(C)
+	C.add_splatter_floor(T)
+	playsound(get_turf(C), 'sound/misc/splort.ogg', 80, 1)
+	for(var/X in C.internal_organs)
+		var/obj/item/organ/O = X
+		var/org_zone = check_zone(O.zone)
+		if(org_zone != BODY_ZONE_PRECISE_GROIN)
+			continue
+		O.Remove(C)
+		O.forceMove(T)
+		. += X
 
 
 ///limb removal. The "special" argument is used for swapping a limb with a new one without the effects of losing a limb kicking in.
@@ -108,9 +134,9 @@
 
 	for(var/obj/item/I in embedded_objects)
 		phantom_owner.remove_embedded_object(I, src, TRUE, TRUE)
-	if(!phantom_owner.has_embedded_objects())
-		phantom_owner.clear_alert("embeddedobject")
-		SEND_SIGNAL(phantom_owner, COMSIG_CLEAR_MOOD_EVENT, "embedded")
+	//if(!phantom_owner.has_embedded_objects())
+		//phantom_owner.clear_alert("embeddedobject")
+		//SEND_SIGNAL(phantom_owner, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
 	if(!special)
 		if(phantom_owner.dna)
@@ -216,6 +242,10 @@
 	..()
 
 /obj/item/bodypart/chest/drop_limb(special)
+	if(special)
+		..()
+
+/obj/item/bodypart/groin/drop_limb(special)
 	if(special)
 		..()
 
@@ -373,6 +403,18 @@
 	C.update_hair()
 	C.update_damage_overlays()
 	C.update_mobility()
+
+/obj/item/bodypart/chest/attach_limb(mob/living/carbon/C, special)
+	var/obj/item/bodypart/groin/G = C.get_bodypart(BODY_ZONE_PRECISE_GROIN)
+	G.change_bodypart_status(src.status)
+	G.body_damage_coeff = src.body_damage_coeff
+	G.stam_damage_coeff = src.stam_damage_coeff
+	G.max_stamina_damage = src.max_stamina_damage/2
+	G.max_damage = src.max_damage/2
+	G.brute_reduction = src.brute_reduction
+	G.burn_reduction = src.burn_reduction
+	G.emp_reduction = src.emp_reduction
+	..()
 
 /obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special)
 	//Transfer some head appearance vars over

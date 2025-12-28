@@ -1,3 +1,4 @@
+/* Dripstation edit
 /datum/map_generator/cave_generator/icemoon
 	weighted_open_turf_types = list(/turf/open/floor/plating/asteroid/snow/icemoon = 19, /turf/open/floor/plating/ice/icemoon = 1)
 	weighted_closed_turf_types = list(/turf/closed/mineral/random/snow = 1)
@@ -34,6 +35,7 @@
 	smoothing_iterations = 10
 	weighted_open_turf_types = list(/turf/open/floor/plating/asteroid/snow/icemoon/top_layer = 19, /turf/open/floor/plating/ice/icemoon/top_layer = 1)
 	weighted_closed_turf_types = list(/turf/closed/mineral/random/snow/top_layer = 1)
+*/
 
 /* WE DONT HAVE A LOT OF THIS STUFF SO IT SHOULD BE PORTED WHEN WE DECIDE TO DO ICEMOON AGAIN
 /datum/map_generator/cave_generator/icemoon/deep

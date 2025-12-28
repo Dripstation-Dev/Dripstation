@@ -15,6 +15,9 @@
 	var/obj/item/bodypart/chest = C.get_bodypart(BODY_ZONE_CHEST)
 	if(!chest || !(chest.status == BODYPART_ORGANIC))
 		return FALSE
+	var/obj/item/bodypart/groin = C.get_bodypart(BODY_ZONE_PRECISE_GROIN)
+	if(!groin || !(groin.status == BODYPART_ORGANIC))
+		return FALSE
 	if(!C.get_bodypart(user.zone_selected)) //can only start if limb is missing
 		return TRUE
 
@@ -30,6 +33,9 @@
 	var/mob/living/carbon/C = target
 	var/obj/item/bodypart/chest = C.get_bodypart(BODY_ZONE_CHEST)
 	if(!chest || !(chest.status == BODYPART_ROBOTIC))
+		return FALSE
+	var/obj/item/bodypart/groin = C.get_bodypart(BODY_ZONE_PRECISE_GROIN)
+	if(!groin || !(groin.status == BODYPART_ROBOTIC))
 		return FALSE
 	return !C.get_bodypart(user.zone_selected) //can only start if limb is missing
 

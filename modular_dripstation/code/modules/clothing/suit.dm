@@ -1,11 +1,27 @@
+/obj/item/clothing/suit/mob_can_equip(M as mob, slot)
+
+	//if we can't equip the item anyway, don't bother with species_restricted (also cuts down on spam)
+	if(!..())
+		return FALSE
+
+	// Skip species restriction checks on non-equipment slots
+	if(slot in list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK, ITEM_SLOT_SUITSTORE))
+		return TRUE
+
+	var/mob/living/carbon/human/H = M
+	if(istype(H) && HAS_TRAIT(H, NO_SUIT_TRAIT))
+		to_chat(M, "<span class='warning'>You can`t wear [src]!</span>")
+		return FALSE
+
+	return TRUE
+
 /obj/item/clothing/suit/bio_suit
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 	icon_state = "hazmat_suit"
 	slowdown = 0.33
-	body_parts_covered = HEAD|CHEST|GROIN
-	flags_inv = HIDEJUMPSUIT|HIDEHAIR|HIDEEARS
-	dynamic_hair_suffix = ""
+	body_parts_covered = CHEST|GROIN
+	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/bio_suit/general
 	icon_state = "hazmat_suit_general"
@@ -34,6 +50,18 @@
 /obj/item/clothing/suit/bio_suit/plaguedoctorsuit
 	icon = 'icons/obj/clothing/suits/suits.dmi'
 	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
+
+/obj/item/clothing/suit/bomb_suit/security
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	icon_state = "blastsuit_sec"
+	body_parts_covered = CHEST|GROIN|ARMS|HANDS
+	heat_protection = CHEST|GROIN|ARMS|HANDS
+	cold_protection = CHEST|GROIN|ARMS|HANDS
+
+/obj/item/clothing/suit/jacket/leather/overcoat
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
 
 /obj/item/clothing/suit/poncho
 	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
@@ -143,3 +171,118 @@
 /obj/item/clothing/suit/apron/maid/yellow
 	name = "yellow apron"
 	icon_state = "apron_yellow"
+
+
+
+/////HOODIE//////
+GLOBAL_LIST_INIT(hoodie_style_list, list(
+	"None" = "hoodie",
+	"Cropped" = "croppedhoodie",
+	"Croppier" = "croppierhoodie",
+	"Highcroped" = "highcrophoodie",
+	"Supercropped" = "supercroppedhoodie",
+))
+
+/obj/item/clothing/suit/hoodie
+	dying_key = DYE_REGISTRY_HOODIE
+	icon_state = "hoodie"
+	item_state = "hoodie"
+	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'	
+	worn_icon = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_righthand.dmi'
+	greyscale_colors = "#2d2d33"
+	greyscale_config = /datum/greyscale_config/hoodie
+	greyscale_config_worn = /datum/greyscale_config/hoodie_worn
+	greyscale_config_inhand_left = /datum/greyscale_config/hoodie_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/hoodie_inhand_right
+	flags_1 = IS_PLAYER_COLORABLE_1
+	actions_types = list(/datum/action/item_action/adjust_style)
+	var/list/toggled_type = list("None", "Cropped", "Croppier", "Highcroped", "Supercropped")
+	custom_price = 20
+
+/datum/action/item_action/adjust_style
+	name = "Adjust Hoodie Style"
+
+/datum/action/item_action/adjust_style/New(Target)
+	..()
+	var/obj/item/item_target = target
+	name = "Adjust [item_target.name] style"
+
+/datum/greyscale_config/hoodie
+	name = "hoodie"
+	icon_file = 'modular_dripstation/icons/obj/clothing/suits.dmi'	
+	json_config = 'code/datums/greyscale/json_configs/hoodie.json'
+
+/datum/greyscale_config/hoodie_worn
+	name = "Worn hoodie"
+	icon_file = 'modular_dripstation/icons/mob/clothing/suits.dmi'
+	json_config = 'code/datums/greyscale/json_configs/hoodie_worn.json'
+
+/datum/greyscale_config/hoodie_inhand_left
+	name = "Held hoodie, Left"
+	icon_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/hoodie_inhand.json'
+
+/datum/greyscale_config/hoodie_inhand_right
+	name = "Held hoodie, Right"
+	icon_file = 'modular_dripstation/icons/mob/inhands/clothing/suits_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/hoodie_inhand.json'
+
+/obj/item/clothing/suit/hoodie/verb/toggle_hoodie()
+	set name = "Toggle Hoodie"
+	set category = "Object"
+	set src in view(1)
+
+	try_toggle_hoodie(usr)
+
+/obj/item/clothing/suit/hoodie/AltClick(mob/user)
+	try_toggle_hoodie(user)
+
+/obj/item/clothing/suit/hoodie/ui_action_click(mob/user, actiontype)
+	if(!istype(user) || user.incapacitated())
+		return
+	if(istype(actiontype, /datum/action/item_action/adjust_style))	
+		try_toggle_hoodie(user)
+
+/obj/item/clothing/suit/hoodie/proc/try_toggle_hoodie(mob/user)
+	if(!istype(user) || user.incapacitated())
+		return
+	var/list/options = list()
+	var/list/radial_display = list()
+	for(var/check_style as anything in toggled_type)
+		options[check_style] = check_style
+		var/datum/radial_menu_choice/option = new
+		option.image = image(icon = icon, icon_state = GLOB.hoodie_style_list[check_style])
+		//option.info = "[check_style]"
+		radial_display[check_style] = option
+
+	var/choice = show_radial_menu(user, user, radial_display)
+	var/chosen_style = options[choice]
+	if(QDELETED(src) || QDELETED(user))
+		return FALSE
+	if(!chosen_style || !(chosen_style in GLOB.hoodie_style_list))
+		to_chat(user, span_announce("You choose not to choose."))
+		return
+	if(src && chosen_style && !user.incapacitated() && in_range(user,src))
+		icon_state = GLOB.hoodie_style_list[chosen_style]
+		user.update_inv_wear_suit()
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.build_all_button_icons()
+		to_chat(user, span_notice("You toggled your hoodie stile!"))
+		return TRUE
+
+/obj/item/clothing/suit/hoodie/black
+	name = "black hoodie"
+	desc = "Just a black hoodie."
+
+/obj/item/clothing/suit/hoodie/white
+	name = "white hoodie"
+	desc = "Just a white hoodie."
+	greyscale_colors = "#ffffff"	
+
+/obj/item/clothing/suit/hoodie/red
+	name = "red hoodie"
+	desc = "Stylish red hoodie."
+	greyscale_colors = "#a52f29"	

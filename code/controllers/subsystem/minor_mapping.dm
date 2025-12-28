@@ -1,5 +1,5 @@
 #define REGAL_RAT_CHANCE 2
-#define PLAGUE_RAT_CHANCE 0
+#define PLAGUE_RAT_CHANCE 1
 SUBSYSTEM_DEF(minor_mapping)
 	name = "Minor Mapping"
 	init_order = INIT_ORDER_MINOR_MAPPING
@@ -11,6 +11,7 @@ SUBSYSTEM_DEF(minor_mapping)
 #else
 	trigger_migration(CONFIG_GET(number/mice_roundstart))
 	place_satchels()
+	//unsafe_doors()
 	return SS_INIT_SUCCESS
 #endif // the mice are easily the bigger problem, but let's just avoid anything that could cause some bullshit.
 
@@ -53,6 +54,35 @@ SUBSYSTEM_DEF(minor_mapping)
 		SEND_SIGNAL(flat_satchel, COMSIG_OBJ_HIDE, turf.underfloor_accessibility)
 		satchel_amount--
 
+/*
+/datum/controller/subsystem/minor_mapping/proc/unsafe_doors(door_amount = 10)
+	var/list/doors = find_suitable_doors()
+	///List of areas where unsafe wiring should not be placed.
+	var/list/blacklisted_area_types = list(
+		/area/bridge,
+		)
+
+	while(doors.len && door_amount > 0)
+		var/obj/machinery/door/airlock/D = pick_n_take(doors)
+		if(is_type_in_list(get_area(D.loc), blacklisted_area_types))
+			continue
+		D.wires.cut(WIRE_SAFETY)
+		door_amount--
+
+/proc/find_suitable_doors()
+	var/list/suitable = list()
+
+	var/list/all_turfs
+	for(var/z in SSmapping.levels_by_trait(ZTRAIT_STATION))
+		all_turfs += block(locate(1,1,z), locate(world.maxx,world.maxy,z))
+	for(var/turf/open/floor/plating/T in all_turfs)
+		if(T.is_blocked_turf())
+			continue
+		for(var/obj/machinery/door/airlock/D in T)
+			suitable += D
+
+	return shuffle(suitable)
+*/
 
 /proc/find_exposed_wires()
 	var/list/exposed_wires = list()

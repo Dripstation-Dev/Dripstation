@@ -12,7 +12,8 @@
 #define BONE (1<<8)
 #define MOTH (1<<9)
 #define CAT (1<<10)
-#define ENGLISH (1<<11)
+#define TERRAN (1<<11)	//dripstation edit
+#define SLAVIC (1<<12)	//dripstation edit
 
 ///Span classes that players are allowed to set in a radio transmission.
 GLOBAL_LIST_INIT(allowed_custom_spans, list(
@@ -145,7 +146,8 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 		"bonespeak" = BONE,
 		"mothian" = MOTH,
 		"cat" = CAT,
-		"english" = ENGLISH,
+		"terran" = TERRAN,
+		"slavic" = SLAVIC,
 	)))
 
 	interpreter.Run() // run the thing
@@ -193,7 +195,9 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 		if(/datum/language/felinid)
 			oldlangbits = CAT
 		if(/datum/language/english)
-			oldlangbits = ENGLISH
+			oldlangbits = TERRAN	//dripstation edit
+		if(/datum/language/slavic)	//dripstation edit
+			oldlangbits = SLAVIC	//dripstation edit
 
 	// Signal data
 	var/datum/n_struct/signal/script_signal = new(list(
@@ -334,8 +338,10 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 			return /datum/language/mothian
 		if(CAT)
 			return /datum/language/felinid
-		if(ENGLISH)
+		if(TERRAN)	//dripstation edit
 			return /datum/language/english
+		if(SLAVIC)	//dripstation edit
+			return /datum/language/slavic	//dripstation edit
 
 /datum/n_function/default/mem
 	name = "mem"
@@ -515,4 +521,5 @@ GLOBAL_LIST_INIT(allowed_translations, list(
 #undef BONE
 #undef MOTH
 #undef CAT
-#undef ENGLISH
+#undef TERRAN	//dripstation edit
+#undef SLAVIC	//dripstation edit

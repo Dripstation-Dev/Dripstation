@@ -19,7 +19,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	attack_vis_effect = ATTACK_EFFECT_CLAW
 	attacktext = "slashes"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_CLAWS
 	ventcrawler = VENTCRAWLER_ALWAYS
 	unique_name = TRUE
 	faction = list("rat")

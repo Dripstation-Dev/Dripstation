@@ -1042,7 +1042,7 @@
 	limbs_id = "c_golem" //special sprites
 	attack_verbs = list("whips")
 	attack_sound = 'sound/weapons/whip.ogg'
-	miss_sound = 'sound/weapons/etherealmiss.ogg'
+	miss_sound = SFX_ETHERIALMISS
 	fixed_mut_color = null
 	armor = 25
 	burnmod = 1.25

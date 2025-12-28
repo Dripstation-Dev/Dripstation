@@ -377,6 +377,9 @@
 		return
 	var/obj/item/thing = get_active_held_item()
 	var/obj/item/equipped_belt = get_item_by_slot(ITEM_SLOT_BELT)
+	var/locked = FALSE	//dripstation edit, errata fix
+	if(equipped_belt)	//dripstation edit, errata fix
+		locked = SEND_SIGNAL(equipped_belt, COMSIG_IS_STORAGE_LOCKED)	//dripstation edit, errata fix
 	if(!equipped_belt) // We also let you equip a belt like this
 		if(!thing)
 			to_chat(src, "<span class='warning'>You have no belt to take something out of!</span>")
@@ -398,7 +401,7 @@
 		to_chat(src, "<span class='warning'>There's nothing in your belt to take out!</span>")
 		return
 	var/obj/item/stored = equipped_belt.contents[equipped_belt.contents.len]
-	if(!stored || stored.on_found(src))
+	if(!stored || locked || stored.on_found(src))	//dripstation edit, errata fix
 		return
 	stored.attack_hand(src) // take out thing from belt
 	return

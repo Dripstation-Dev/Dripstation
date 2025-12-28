@@ -50,6 +50,8 @@
 			. += "alert-level-red"
 		if(SEC_LEVEL_GAMMA)
 			. += "alert-level-gamma"
+		if(SEC_LEVEL_AMBER)				//Dripstation edit
+			. += "alert-level-gamma"	//Dripstation edit
 		if(SEC_LEVEL_EPSILON)
 			. += "alert-level-epsilon"
 		if(SEC_LEVEL_DELTA)

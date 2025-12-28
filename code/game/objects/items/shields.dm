@@ -28,8 +28,14 @@
 	transparent = TRUE
 	max_integrity = 75
 	var/obj/item/stack/sheet/mineral/repair_material = /obj/item/stack/sheet/mineral/titanium
+	var/static/list/list_of_bashed = typecacheof(list(
+			/obj/item/melee/baton,
+			/obj/item/melee/ntrep_cane,
+			/obj/item/melee/transforming/vib_blade,
+			/obj/item/melee/classic_baton)
+			)	//dripstation edit
 
-/*
+/* Dripstation edit
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(transparent && (hitby.pass_flags & PASSGLASS))
 		return FALSE
@@ -41,7 +47,10 @@
 */
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
+/* Dripstation edit
 	if(istype(W, /obj/item/melee/baton))
+*/
+	if(is_type_in_typecache(W, list_of_bashed))	//dripstation edit, cool bashing with things
 		if(cooldown < world.time - 25)
 			user.visible_message(span_warning("[user] bashes [src] with [W]!"))
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
@@ -61,6 +70,7 @@
 	playsound(owner, 'sound/effects/glassbr3.ogg', 100)
 	new /obj/item/shard((get_turf(src)))
 
+/*Dripstation edit
 /obj/item/shield/riot/on_shield_block(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	if(!damage)
 		return ..()
@@ -72,6 +82,7 @@
 		return FALSE
 	take_damage(damage)
 	return ..()
+*/
 
 /obj/item/shield/riot/roman
 	name = "\improper Roman shield"

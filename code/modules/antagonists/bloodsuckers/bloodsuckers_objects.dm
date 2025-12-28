@@ -104,7 +104,7 @@
 	attack_verb = list("staked", "stabbed", "tore into")
 	/// Embedding
 	sharpness = SHARP_EDGED
-	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 20, "embedded_fall_chance" = 10)
+	embedding = list("pain_multiplier" = 4, "embed_chance" = 20, "fall_chance" = 10)
 	force = 6
 	throwforce = 10
 	max_integrity = 30

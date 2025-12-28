@@ -256,8 +256,11 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 		var/mob/living/carbon/C = usr
 		if (C.incapacitated())
 			to_chat(C, span_warning("You can't do that while disabled!"))
+		else if(ishuman(C))	//dripstation edit
+			INVOKE_ASYNC(C, /mob/living/carbon/human.proc/check_self_for_injuries)	//dripstation edit
+			return	//dripstation edit
 		else
-			return C.try_remove_embedded_object(C)
+			return	//dripstation edit
 
 /atom/movable/screen/alert/weightless
 	name = "Weightless"
@@ -730,8 +733,12 @@ so as to remain in compliance with the most up-to-date laws."
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
 		return
+	/* Dripstation edit
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
+	*/
+	var/list/modifiers = params2list(params)	//Dripstation edit
+	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat, Dripstation edit
 		to_chat(usr, "[span_boldnotice("[name]")] - [span_info("[desc]")]")
 		return
 	var/datum/our_master = master_ref?.resolve()

@@ -2,6 +2,7 @@
 	supervisor_corporation = /datum/corporation/nanotrasen/arq_tek
 	alt_supervisor_corporations = list(/datum/corporation/shellguard,
 										/datum/corporation/hephaestus/industrial)
+	loyalties = LOYALTY_CORP_SLAVE
 
 /datum/outfit/job/roboticist
 	backpack = /obj/item/storage/backpack/science/robo

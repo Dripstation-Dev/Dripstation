@@ -7,7 +7,8 @@
 	var/spawner_type = null // must be an object path
 	var/deliveryamt = 1 // amount of type to deliver
 
-/obj/item/grenade/spawnergrenade/prime()			// Prime now just handles the two loops that query for people in lockers and people who can see it.
+/obj/item/grenade/spawnergrenade/prime(mob/lanced_by)	// Prime now just handles the two loops that query for people in lockers and people who can see it.
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	update_mob()
 	if(spawner_type && deliveryamt)
 		// Make a quick flash
@@ -73,7 +74,8 @@
 	spawner_type = /mob/living/simple_animal/hostile/feral_cat
 	deliveryamt = 5
 
-/obj/item/grenade/spawnergrenade/feral_cats/prime()			///Own proc for this because the regular one would flash people which was dumb.
+/obj/item/grenade/spawnergrenade/feral_cats/prime(mob/lanced_by)			///Own proc for this because the regular one would flash people which was dumb.
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, lanced_by)
 	update_mob()
 	if(spawner_type && deliveryamt)
 		var/turf/T = get_turf(src)

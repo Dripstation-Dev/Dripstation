@@ -1,6 +1,6 @@
 /mob/living/carbon/get_eye_protection()
 	. = ..()
-	if(is_blind() && !HAS_TRAIT_FROM(src, TRAIT_BLIND, UNCONSCIOUS_TRAIT) && !HAS_TRAIT_FROM(src, TRAIT_BLIND, HYPNOCHAIR_TRAIT))	//dripstation edit
+	if(is_blind(src) && !HAS_TRAIT_FROM(src, TRAIT_BLIND, UNCONSCIOUS_TRAIT) && !HAS_TRAIT_FROM(src, TRAIT_BLIND, HYPNOCHAIR_TRAIT))	//dripstation edit
 		return INFINITY //For all my homies that can not see in the world
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(!E)
@@ -38,11 +38,11 @@
 	var/obj/item/bodypart/affecting = get_bodypart(def_zone)
 	if(P.damtype == BRUTE)	// dripstation edit start
 		var/brute_armor = getarmor(affecting, BULLET)	// so here we hardblocking projectile-based dismemberment if the armor protection is 60 and more. On station it`s only bulletproof helmet, that protects head from violent falling
-		if(brute_armor >= BULLET_DISMEMBER_THRESHOLD)
+		if(brute_armor - P.armour_penetration >= BULLET_DISMEMBER_THRESHOLD)
 			return ..()
 	if(P.damtype == BURN)
 		var/burn_armor = getarmor(affecting, LASER)
-		if(burn_armor >= LASER_DISMEMBER_THRESHOLD)
+		if(burn_armor - P.armour_penetration >= LASER_DISMEMBER_THRESHOLD)
 			return ..()	// dripstation edit end
 	if(affecting && affecting.dismemberable && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		affecting.dismember(P.damtype)
@@ -59,6 +59,7 @@
 		return
 	return TRUE
 
+/* Dripstation edit
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	var/obj/item/I = AM
 	if(istype(I, /obj/item))
@@ -88,10 +89,30 @@
 							throw_mode_off(THROW_MODE_TOGGLE)	//dripstation edit
 						return TRUE
 	..()
+*/
+
+/mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	if(!skipcatch && can_catch_item() && isitem(AM) && isturf(AM.loc))	//HAS_TRAIT(AM, TRAIT_UNCATCHABLE)
+		var/obj/item/I = AM
+		if((I.item_flags & UNCATCHABLE))
+			return
+		I.attack_hand(src)
+		if(get_active_held_item() == I) //if our attack_hand() picks up the item...
+			visible_message(span_warning("[src] catches [I]!"), \
+							span_userdanger("You catch [I] in mid-air!"))
+			update_inv_hands()
+			I.pixel_x = initial(I.pixel_x)
+			I.pixel_y = initial(I.pixel_y)
+			I.transform = initial(I.transform)
+			if(!(mind && mind.martial_art && mind.martial_art.can_use(src) && (mind.martial_art.deflection_chance || mind.martial_art.block_chance || mind.martial_art.id == "sleeping carp")))
+				throw_mode_off(THROW_MODE_TOGGLE)
+			return TRUE
+	return ..()
 
 /**
   *	Embeds an object into this carbon
   */
+/* Dripstation edit start
 /mob/living/carbon/proc/embed_object(obj/item/embedding, part, deal_damage, silent, forced)
 	if(!(forced || (can_embed(embedding) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))) || get_embedded_part(embedding))
 		return FALSE
@@ -172,7 +193,7 @@
 		user.put_in_hands(choice)
 		user.visible_message("[user] successfully rips [choice] out of [user == src? p_their() : "[src]'s"] [body_part.name]!", span_notice("You successfully remove [choice] from your [body_part.name]."))
 	return TRUE
-
+*///Dripstation edit end
 /**
   *	Returns the bodypart that the item is embedded in or returns false if it is not currently embedded
   */
@@ -185,15 +206,16 @@
 			body_part = part
 	if(!body_part)
 		return FALSE
-
+	/*Dripstation edit start
 	if(embedded.loc != src)
 		LAZYREMOVE(body_part.embedded_objects, embedded)
 		if(!has_embedded_objects())
 			clear_alert("embeddedobject")
 			SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 		return FALSE
+	*/  //Dripstation edit end
 	return body_part
-
+/*Dripstation edit start
 /**
   *	Returns a list of all embedded objects
   */
@@ -201,6 +223,7 @@
 	for(var/obj/item/bodypart/part in bodyparts)
 		if(part.embedded_objects)
 			LAZYADD(., part.embedded_objects)
+*/  //Dripstation edit end
 
 /mob/living/carbon/proc/get_interaction_efficiency(zone)
 	var/obj/item/bodypart/limb = get_bodypart(zone)
@@ -359,7 +382,7 @@
 		var/list/things_to_ruin = shuffle(bodyparts.Copy())
 		for(var/B in things_to_ruin)
 			var/obj/item/bodypart/bodypart = B
-			if(bodypart.body_zone == BODY_ZONE_HEAD || bodypart.body_zone == BODY_ZONE_CHEST)
+			if(bodypart.body_zone == BODY_ZONE_HEAD || bodypart.body_zone == BODY_ZONE_CHEST || bodypart.body_zone == BODY_ZONE_PRECISE_GROIN)
 				continue
 			if(!affecting || ((affecting.get_damage() / affecting.max_damage) < (bodypart.get_damage() / bodypart.max_damage)))
 				affecting = bodypart
@@ -439,11 +462,12 @@
 		if(!illusion && (shock_damage >= 1) && prob(80))	//dripstation fix, shock damage multiplies by siemens_coeff a bit higher
 			set_heartattack(FALSE)
 			adjustOxyLoss(-50)
-			adjustToxLoss(-50)
+			updatehealth() // Previous "adjust" procs don't update health, so we do it manually.
+			//adjustToxLoss(-50)	no toxloss adjustments on revive
 			revive()
 			INVOKE_ASYNC(src, PROC_REF(emote), "gasp")
 			adjust_jitter(10 SECONDS)
-			adjustOrganLoss(ORGAN_SLOT_BRAIN, 100, 199)
+			adjustOrganLoss(ORGAN_SLOT_BRAIN, 50, 199)	//100 damage, the fuck
 
 	if(gib && siemens_coeff > 0 && stat >= SOFT_CRIT)
 		visible_message(
@@ -461,7 +485,11 @@
 				to_chat(src, span_notice("You feel your heart beating again!"))
 
 	else if(stat != DEAD && can_heartattack() && shock_damage >= 1 && prob(shock_damage/5))	//dripstation edit: HARD ZZZZAP
-		set_heartattack(TRUE)	//dripstation edit
+		//set_heartattack(TRUE)	//dripstation edit
+		var/datum/disease/heart_failure/heart_attack = new(src)	//dripstation edit
+		heart_attack.stage = 3 	//dripstation edit
+		heart_attack.stage_prob = 4 //Advances twice as fast
+		ForceContractDisease(heart_attack)	//dripstation edit
 
 	if(override)
 		return override
@@ -473,8 +501,53 @@
 	if(should_stun)
 		Paralyze(stuntime)
 
+/mob/living/carbon/proc/try_remove_embedded_object(mob/living/carbon/M)
+	var/list/choice_list = list()
+	var/obj/item/bodypart/body_part
+	for(var/obj/item/bodypart/part in bodyparts)
+		for(var/obj/item/embedded in part.embedded_objects)
+			if(embedded.embedding["rip_time"] >= 0)
+				continue
+			choice_list[embedded] = image(embedded)
+	var/obj/item/choice = show_radial_menu(M, src, choice_list, tooltips = TRUE)
+	body_part = get_embedded_part(choice)
+	if(!istype(choice) || !(choice in choice_list))
+		return FALSE
+	var/time_mod = 0.5
+	if (stat == DEAD)
+		time_mod = 0.1 //we don`t care
+	M.visible_message(span_warning("[M] attempts to remove [choice] from [M.p_their()] [body_part.name]."),span_notice("You attempt to remove [choice] from your [body_part.name]...)"))
+	SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, choice, body_part, M, time_mod)
+	return TRUE
+
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
 	if(try_extinguish(M))
+		return
+
+	/*
+	if(has_embedded_objects(TRUE))
+		var/obj/item/bodypart/affecting = locate(href_list["embedded_limb"]) in bodyparts
+		var/obj/item/I = locate(href_list["embedded_object"]) in affecting.embedded_objects
+		var/time_mod = 0.5
+		if (stat == DEAD)
+			time_mod = 0 //we don`t care, just grab shit already
+		if(I && I.loc == src)
+			SEND_SIGNAL(M, COMSIG_CARBON_EMBED_RIP, I, affecting, time_mod)
+			return	//since we have this, we don`t care about headpats and etc
+	
+	if(has_embedded_objects())
+		var/obj/item/bodypart/affecting = get_bodypart(check_zone(M.zone_selected))
+		var/time_mod = 0.5
+		if (stat == DEAD)
+			time_mod = 0 //we don`t care
+		if(affecting.embedded_objects.len) 
+			var/obj/item/I = pick(affecting.embedded_objects)
+			SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, affecting, M, time_mod)
+	*/
+	if(try_remove_embedded_object(M))
+		return
+
+	if(SEND_SIGNAL(src, COMSIG_CARBON_PRE_MISC_HELP, M) & COMPONENT_BLOCK_MISC_HELP)
 		return
 
 	if(!(mobility_flags & MOBILITY_STAND))

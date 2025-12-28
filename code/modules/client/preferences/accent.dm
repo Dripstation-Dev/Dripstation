@@ -1,3 +1,4 @@
+/* Since for now they don`t work, this code will be commented
 /datum/preference/choiced/accent
 	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
 	savefile_key = "accent"
@@ -17,3 +18,4 @@
 
 /datum/preference/choiced/accent/apply_to_human(mob/living/carbon/human/target, value)
 	return
+*/

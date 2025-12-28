@@ -22,3 +22,6 @@
 	. = ..()
 	pixel_x = rand(-12, 12)
 	pixel_y = rand(-9, 0)
+
+/obj/effect/temp_visual/gib_animation/human
+	icon = 'modular_dripstation/icons/mob/simple_human.dmi'

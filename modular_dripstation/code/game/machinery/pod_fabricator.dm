@@ -16,7 +16,7 @@
 	category = list("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/wires/tesla_coil
+/datum/wires/mecha_part_fabricator/spacepod_fab
 	proper_name = "Spacepod Fabricator"
 	randomize = TRUE	//Only one wire don't need blueprints
 	holder_type = /obj/machinery/pod_fabricator
@@ -84,7 +84,7 @@
 	stored_research = SSresearch.science_tech
 	rmat = AddComponent(/datum/component/remote_materials, "mechfab", mapload && link_on_init)
 	RefreshParts() //Recalculating local material sizes if the fab isn't linked
-	wires = new /datum/wires/mecha_part_fabricator(src)
+	wires = new /datum/wires/mecha_part_fabricator/spacepod_fab(src)
 	return ..()
 
 /obj/machinery/pod_fabricator/Destroy()

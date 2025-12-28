@@ -26,6 +26,10 @@
 "g" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/ash,
+/obj/item/clothing/under/syndicate/soviet/gorka/black{
+	pixel_x = -8;
+	pixel_y = 0
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
 	},
@@ -105,7 +109,7 @@
 /area/template_noop)
 "Q" = (
 /obj/structure/table,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/syndicate/soviet/pants,
 /obj/item/clothing/head/ushanka{
 	pixel_y = 10
 	},

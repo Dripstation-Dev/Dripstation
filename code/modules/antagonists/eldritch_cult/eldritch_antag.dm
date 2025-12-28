@@ -7,6 +7,7 @@
 	antag_hud_name = "heretic"
 	ui_name = "AntagInfoHeretic"
 	can_hijack = HIJACK_HIJACKER
+	hijack_speed = 0.5
 	show_to_ghosts = TRUE
 	preview_outfit = /datum/outfit/heretic
 	var/give_equipment = TRUE
@@ -22,7 +23,15 @@
 ///tracks the number of knowledges to next tier, currently 3
 	var/tier_counter = 0
 ///order these from main path ability (will choose the color in the UI) to minor abilities below them (will once again, make sense if you look at the in game UI)
-	
+	//Dripstation edit start
+	/// Whether we're drawing a rune or not
+	var/drawing_rune = FALSE
+	/// A static typecache of all tools we can scribe with.
+	var/static/list/scribing_tools = typecacheof(list(/obj/item/pen, /obj/item/toy/crayon))
+	/// A blacklist of turfs we cannot scribe on.
+	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/open/space, /turf/open/openspace, /turf/open/lava, /turf/open/chasm))
+	//Dripstation edit end
+
 	var/static/list/path_to_ui_color = list(
 		PATH_START = "grey",
 		PATH_SIDE = "green",
@@ -35,15 +44,26 @@
 		PATH_COSMIC = "purple",
 		PATH_KNOCK = "yellow",
 	)
+	var/static/list/path_to_rune_color = list(
+		PATH_START = COLOR_LIME,
+		PATH_RUST = COLOR_CARGO_BROWN,
+		PATH_FLESH = COLOR_SOFT_RED,
+		PATH_ASH = COLOR_VIVID_RED,
+		PATH_VOID = COLOR_CYAN,
+		PATH_MIND = COLOR_PINK,
+		PATH_BLADE = COLOR_SILVER,
+		PATH_COSMIC = COLOR_PURPLE,
+		PATH_KNOCK = COLOR_VIVID_YELLOW,
+	)
 
 /datum/antagonist/heretic/ui_data(mob/user)
 	var/list/data = list()
-	
+
 	data["charges"] = charge
 	data["total_sacrifices"] = total_sacrifices
 	data["ascended"] = ascended
 	data["path"] = lore
-	
+
 	for(var/datum/eldritch_knowledge/knowledge as anything in get_researchable_knowledge())
 		var/list/knowledge_data = list()
 		knowledge_data["name"] = initial(knowledge.name)
@@ -60,7 +80,7 @@
 		knowledge_data["color"] = path_to_ui_color[initial(knowledge.route)] || "grey"
 
 		data["learnableKnowledge"] += list(knowledge_data)
-	
+
 	for(var/path in researched_knowledge)
 		var/list/knowledge_data = list()
 		var/datum/eldritch_knowledge/found_knowledge = researched_knowledge[path]
@@ -229,18 +249,18 @@
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	var/mob/living/current = owner.current
-	if(mob_override)
-		current = mob_override
-	handle_clown_mutation(current, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-	current.faction |= "heretics"
+	var/mob/living/our_mob = mob_override || owner.current
+	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_afterattack))//dripstation edit
+	handle_clown_mutation(our_mob, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+	our_mob.faction |= "heretics"
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
-	var/mob/living/current = owner.current
-	if(mob_override)
-		current = mob_override
-	current.faction -= "heretics"
+	var/mob/living/our_mob = mob_override || owner.current
+	UnregisterSignal(our_mob, list(
+		COMSIG_MOB_ITEM_AFTERATTACK
+	))			//dripstation edit
+	our_mob.faction -= "heretics"
 
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
@@ -327,9 +347,9 @@
 
 	flavor += "<div><font color='#6d6dff'>Epilogue: </font>"
 	var/message_color = "#ef2f3c"
-	
+
 	//Stolen from chubby's bloodsucker code, but without support for lists
-	
+
 	if(is_ash()) //Ash epilogues
 
 		if(ascended)
@@ -479,7 +499,7 @@
 									present. Your spirit flies into the Mansus, yet it is not dragged down from the Glory. Instead, you float to the Mecurial Lake, where your \
 									consciousness extends into the waters. It is difficult to recognize the heightening of awareness until you set your eyes upon the galaxy. \
 									You rumble with Nature's fury as your mind becomes primordial. You will not grow old. Everything else will. Their time will come. And so will yours."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"The shuttle creaks as you arrive, and you make your way through Centcom briefly. The ship away creaks louder, and you decide to \
@@ -524,7 +544,7 @@
 			if(escaped)
 				flavor_message += 	"Sitting tight in your seat, as you hear the hiss of the shuttle doors open everything begins to grow dark, you hear the crying of a baby and the smell of salt. \
 									Travelling to the Mansus, you find yourself once more upon the moonlit beach, though what you find is not what you expect. \
-									The child of the bloated corpse has risen from it's mother's dead womb, and turns to you with a sickly smile. Your hunt is not yet over."	
+									The child of the bloated corpse has risen from it's mother's dead womb, and turns to you with a sickly smile. Your hunt is not yet over."
 			else if(alive)
 				flavor_message += 	"As you watch the escape shuttle leave with dull eyes, you turn to the others left behind, the sickly smell of blood fills the station's corridors. \
 									You fall quickly into a dream, Mansus calls and the beach is empty, though you see your way out from this nightmare, floating above the sky, a cracked moon. \
@@ -535,7 +555,7 @@
 									you feel yourself dragged ever towards a familiar beach, scores of dead fish and crabs litter the shoreline, you step closer to the water's edge inch by inch. \
 									As you make it to the water, you do not slow, and more and more corpses float through the waters of the murky ocean. Those you've killed stare back at you, sacrificed to the endless tide. \
 									You simply look back at them and smile, not quite sure where you're going, or where you'll end up, until finally you arrive at the end of it all, and you're finally ready to wake."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"Sitting tight in your seat, as you hear the hiss of the shuttle doors open everything begins to grow dark, you hear the crying of a baby and the smell of salt. \
@@ -567,7 +587,7 @@
 			else //Dead
 				flavor_message += 	"Your beaten and battered body lays there, your consciousness still trapped in it like a prison of flesh. \
 									You rally against the cage, fists pounding at the inside of your brain as you beat your fists bloody raw. \
-									Unfortunately, despite all your rage you're still just a rat in a cage. Doomed to be nothing more than a rotten corpse added to the beach at the end of time." 
+									Unfortunately, despite all your rage you're still just a rat in a cage. Doomed to be nothing more than a rotten corpse added to the beach at the end of time."
 	else if(is_void()) //Void epilogues
 
 		if(ascended)
@@ -578,7 +598,7 @@
 				flavor_message += 	"You watch as the shuttle leaves, smirking, you turn your gaze to the planet below, planning your next moves carefully, ready to expand your domain of Ice."
 			else //Dead
 				flavor_message += 	"Your body freezes and shatters, but it is not the end. Your eternal spirit will live on, and the storm you called will never stop in this sector. You have won the war."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"The mission is done, the stage is set, though you did not reach the peak of power, you achieved what many thought impossible."
@@ -598,7 +618,7 @@
 				flavor_message += 	"Stepping through the empty halls of the station, you look towards the empty space, and contemplate your failures."
 			else //Dead
 				flavor_message += 	"As your body shatters, the last pieces of your consciousness wonder what you could have done differently, before the spark of life dissipates."
-	
+
 	else if(is_blade()) //blade epilogues
 
 		if(ascended)
@@ -609,7 +629,7 @@
 				flavor_message += 	"Watching the shuttle as it jumps to warp puts a smile on your face, you ready your blade to cut through space and time. They won't escape."
 			else //Dead
 				flavor_message += 	"As your blade falls from your hand, it hits the ground and shatters, splintering into an uncountable amount of smaller blades. As long as one survives, your soul will exist, and you will return to cut again."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"You've crafted an impossible amount of blades, and made a mountain of corpses doing so. Victory is yours today!"
@@ -629,7 +649,7 @@
 				flavor_message += 	"Your bloodied hand pounds on the nearest wall, a failure of a smith you turned out to be. You pray someone finds your emergency beacon on this abandoned station."
 			else //Dead
 				flavor_message += 	"You lay there, life draining from your body onto the station around you. The last thing you see is your reflection in your own blade, and then it all goes dark."
-	
+
 	else if(is_cosmic()) //Cosmic epilogues
 
 		if(ascended)
@@ -640,7 +660,7 @@
 				flavor_message += 	"You turn to watch the escape shuttle leave, waving a small goodbye before beginning your new duty: Remaking the cosmos in your image."
 			else //Dead
 				flavor_message += 	"A loud scream is heard around the cosmos, your death cry will awaken your brothers and sisters, you will be remembered as a martyr."
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"You completed everything you had set out to do and more on this station, now you must take the art of the cosmos to the rest of humanity."
@@ -671,7 +691,7 @@
 				flavor_message += 	"You've opened the door, unlocked the lock, became the key. Crack open the rest of reality, door by door."
 			else //Dead
 				flavor_message += 	"For a fleeting moment, you opened a portal to the end of days. Nothing could have brought you greater satisfaction, and you pass in peace"
-	
+
 		else if(cultiewin) //Completed objectives
 			if(escaped)
 				flavor_message += 	"With each gleeful step you take through the station, you look at the passing airlocks, knowing the truth that you will bring."
@@ -723,7 +743,7 @@
 			else //Dead
 				flavor_message += 	"Perhaps it is better this way. You chose not to make a plunge into the Mansus, yet your soul returns to it. \
 									You will drift down, deeper, further, until you are forgotten to nothingness."
-				
+
 
 
 	flavor += "<font color=[message_color]>[flavor_message]</font></div>"
@@ -839,3 +859,142 @@
 	hooded.MakeHood() // This is usually created on Initialize, but we run before atoms
 	hooded.ToggleHood()
 
+
+///Dripstation edit start
+/*
+ * Signal proc for [COMSIG_MOB_ITEM_AFTERATTACK].
+ *
+ * If a heretic is holding a pen in their main hand,
+ * and have mansus grasp active in their offhand,
+ * they're able to draw a transmutation rune.
+ */
+/datum/antagonist/heretic/proc/on_item_afterattack(mob/living/source, atom/target, obj/item/weapon, proximity_flag, click_parameters)
+	SIGNAL_HANDLER
+
+	if(!is_type_in_typecache(weapon, scribing_tools))
+		return
+	if(!isturf(target) || !isliving(source) || !proximity_flag)
+		return
+
+	var/obj/item/offhand = source.get_inactive_held_item()
+	if(QDELETED(offhand) || !istype(offhand, /obj/item/melee/touch_attack/mansus_fist))
+		return
+
+	try_draw_rune(source, target, additional_checks = CALLBACK(src, PROC_REF(check_mansus_grasp_offhand), source))
+	return //COMPONENT_CANCEL_ATTACK_CHAIN
+
+/**
+ * Attempt to draw a rune on [target_turf].
+ *
+ * Arguments
+ * * user - the mob drawing the rune
+ * * target_turf - the place the rune's being drawn
+ * * drawing_time - how long the do_after takes to make the rune
+ * * additional checks - optional callbacks to be ran while drawing the rune
+ */
+/datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
+	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
+		if(!isopenturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
+			target_turf.balloon_alert(user, "invalid placement for rune!")
+			return
+
+	if(locate(/obj/effect/eldritch/big) in range(3, target_turf))
+		target_turf.balloon_alert(user, "to close to another rune!")
+		return
+
+	if(drawing_rune)
+		target_turf.balloon_alert(user, "already drawing a rune!")
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(draw_rune), user, target_turf, drawing_time, additional_checks)
+
+/**
+ * The actual process of drawing a rune.
+ *
+ * Arguments
+ * * user - the mob drawing the rune
+ * * target_turf - the place the rune's being drawn
+ * * drawing_time - how long the do_after takes to make the rune
+ * * additional checks - optional callbacks to be ran while drawing the rune
+ */
+/datum/antagonist/heretic/proc/draw_rune(mob/living/user, turf/target_turf, drawing_time = 30 SECONDS, additional_checks)
+	drawing_rune = TRUE
+
+	var/rune_colour = path_to_rune_color[lore]
+	target_turf.balloon_alert(user, "drawing rune...")
+	var/obj/effect/temp_visual/drawing_eldritch/drawing_effect
+	if (drawing_time >= (30 SECONDS))
+		drawing_effect = new(target_turf, rune_colour)
+	else
+		drawing_effect = new /obj/effect/temp_visual/drawing_eldritch/fast(target_turf, rune_colour)
+
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
+		target_turf.balloon_alert(user, "interrupted!")
+		new /obj/effect/temp_visual/drawing_eldritch/fail(target_turf, rune_colour)
+		qdel(drawing_effect)
+		drawing_rune = FALSE
+		return
+
+	qdel(drawing_effect)
+	target_turf.balloon_alert(user, "rune created")
+	new /obj/effect/eldritch/big(target_turf, rune_colour)
+	drawing_rune = FALSE
+
+/**
+ * Callback to check that the user's still got their Mansus Grasp out when drawing a rune.
+ *
+ * Arguments
+ * * user - the mob drawing the rune
+ */
+/datum/antagonist/heretic/proc/check_mansus_grasp_offhand(mob/living/user)
+	var/obj/item/offhand = user.get_inactive_held_item()
+	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
+
+/// A 3x3 heretic rune. The kind heretics actually draw in game.
+/obj/effect/eldritch/big
+	name = "forbidden rune"
+	icon = 'modular_dripstation/icons/effects/96x96.dmi'
+	icon_state = "transmutation_rune"
+	pixel_x = -33 //So the big ol' 96x96 sprite shows up right
+	pixel_y = -32
+	greyscale_config = /datum/greyscale_config/eldritch
+
+/obj/effect/eldritch/big/Initialize(mapload, path_colour)
+	. = ..()
+	if (path_colour)
+		set_greyscale(colors = list(path_colour))
+
+/obj/effect/temp_visual/drawing_eldritch
+	duration = 30 SECONDS
+	icon = 'modular_dripstation/icons/effects/96x96.dmi'
+	icon_state = "transmutation_rune"
+	pixel_x = -33
+	pixel_y = -32
+	plane = GAME_PLANE
+	layer = SIGIL_LAYER
+	greyscale_config = /datum/greyscale_config/eldritch
+	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
+	var/animation_state = "transmutation_rune_draw"
+
+/obj/effect/temp_visual/drawing_eldritch/Initialize(mapload, path_colour = COLOR_WHITE)
+	. = ..()
+	set_greyscale(colors = list(path_colour))
+	icon_state = animation_state
+	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
+	silicon_image.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "eldritch", silicon_image)
+
+/obj/effect/temp_visual/drawing_eldritch/fast
+	duration = 12 SECONDS
+	animation_state = "transmutation_rune_fast"
+
+/obj/effect/temp_visual/drawing_eldritch/fail
+	duration = 0.25 SECONDS
+	animation_state = "transmutation_rune_fail"
+
+/datum/greyscale_config/eldritch
+	name = "Transmutation Rune"
+	icon_file = 'modular_dripstation/icons/effects/96x96.dmi'
+	json_config = 'code/datums/greyscale/json_configs/eldritch.json'
+
+///Dripstation edit end

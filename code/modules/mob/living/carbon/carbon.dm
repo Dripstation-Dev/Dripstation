@@ -123,7 +123,7 @@
 			Knockdown(20)
 			visible_message(span_danger("[src] crashes into [victim][extra_speed ? "really hard" : ""], knocking them both over!"),\
 				span_userdanger("You violently crash into [victim][extra_speed ? "extra hard" : ""]!"))
-		playsound(src,'sound/weapons/punch1.ogg',50,1)
+		playsound(src,SFX_PUNCH,50,1)
 
 
 /*
@@ -290,16 +290,7 @@
 		var/obj/item/I = locate(href_list["embedded_object"]) in L.embedded_objects
 		if(!I || I.loc != src) //no item, no limb, or item is not in limb or in the person anymore
 			return
-		var/time_taken = I.embedding.embedded_unsafe_removal_time*I.w_class
-		usr.visible_message(span_warning("[usr] attempts to remove [I] from [usr.p_their()] [L.name]."),span_notice("You attempt to remove [I] from your [L.name]... (It will take [DisplayTimeText(time_taken)].)"))
-		if(do_after(usr, time_taken, target = src))
-			if(!I || !L || I.loc != src)
-				return
-			var/damage_amount = I.embedding.embedded_unsafe_removal_pain_multiplier * I.w_class
-			L.receive_damage(damage_amount, sharpness = SHARP_EDGED)//It hurts to rip it out, get surgery you dingus.
-			if(remove_embedded_object(I, get_turf(src), (damage_amount == 0)))
-				usr.put_in_hands(I)
-				usr.visible_message("[usr] successfully rips [I] out of [usr.p_their()] [L.name]!", span_notice("You successfully remove [I] from your [L.name]."))
+		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
 
 /mob/living/carbon/on_fall()
@@ -327,7 +318,7 @@
 			if(src && buckled)
 				to_chat(src, span_warning("You fail to unbuckle yourself!"))
 	else
-		buckled.user_unbuckle_mob(src,src)
+		buckled?.user_unbuckle_mob(src,src) //if we mash it after we get unbuckled before the alert dissapears we'll resist and runtime
 
 /mob/living/carbon/resist_fire()
 	adjust_fire_stacks(-5)
@@ -688,9 +679,9 @@
 	tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
 		become_blind(EYES_COVERED)
-	else if(tinttotal >= TINT_DARKENED)
+	else if(tinttotal > 0)
 		cure_blind(EYES_COVERED)
-		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
+		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, tinttotal)
 	else
 		cure_blind(EYES_COVERED)
 		clear_fullscreen("tint", 0)
@@ -855,6 +846,8 @@
 				hud_used.healths.icon_state = "health5"
 			else
 				hud_used.healths.icon_state = "health6"
+			if(stat == UNCONSCIOUS)
+				hud_used.healths.icon_state = "health_numb"
 		else
 			hud_used.healths.icon_state = "health7"
 
@@ -1045,6 +1038,7 @@
 				limb_list += B.body_zone
 			if(edit_action == "remove")
 				limb_list -= BODY_ZONE_CHEST
+				limb_list -= BODY_ZONE_PRECISE_GROIN
 		else
 			limb_list = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 			for(var/obj/item/bodypart/B in bodyparts)

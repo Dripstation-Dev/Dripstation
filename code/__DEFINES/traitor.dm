@@ -7,6 +7,7 @@
 #define TRAITOR_FACTION_VAHLEN "vahlen_pharmaceuticals"
 #define TRAITOR_FACTION_GORLEX "gorlex marauders"
 #define TRAITOR_FACTION_SELF "self"
+#define TRAITOR_FACTION_ISD "internal_security_devision"
 #define TRAITOR_FACTION_BOSYN "bosyn_powell_front"
 #define TRAITOR_FACTION_VOSTOK "vostok"
 

@@ -19,7 +19,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	attacktext = "punches"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_PUNCH
 	a_intent = INTENT_HARM
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian,
 				/obj/item/kitchen/knife)

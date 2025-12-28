@@ -46,6 +46,70 @@
 #define RADIO_KEY_CENTCOM "y"
 #define RADIO_TOKEN_CENTCOM ":y"
 
+//Dripstation edit start
+//#define MODE_DEPARTMENT "department"
+#define ALTMODE_KEY_DEPARTMENT "р"
+
+//#define RADIO_CHANNEL_SECURITY "Security"
+#define ALTRADIO_KEY_SECURITY "ы"
+
+//#define RADIO_CHANNEL_ENGINEERING "Engineering"
+#define ALTRADIO_KEY_ENGINEERING "у"
+
+//#define RADIO_CHANNEL_COMMAND "Command"
+#define ALTRADIO_KEY_COMMAND "с"
+
+//#define RADIO_CHANNEL_SCIENCE "Science"
+#define ALTRADIO_KEY_SCIENCE "т"
+
+//#define RADIO_CHANNEL_MEDICAL "Medical"
+#define ALTRADIO_KEY_MEDICAL "ь"
+
+//#define RADIO_CHANNEL_SUPPLY "Supply"
+#define ALTRADIO_KEY_SUPPLY "г"
+
+//#define RADIO_CHANNEL_SERVICE "Service"
+#define ALTRADIO_KEY_SERVICE "м"
+
+//#define RADIO_CHANNEL_AI_PRIVATE "AI Private"
+#define ALTRADIO_KEY_AI_PRIVATE "щ"
+
+//#define RADIO_CHANNEL_SYNDICATE "Syndicate"
+#define ALTRADIO_KEY_SYNDICATE "е"
+
+//#define RADIO_CHANNEL_CENTCOM "CentCom"
+#define ALTRADIO_KEY_CENTCOM "н"
+
+//#define MODE_BINARY "binary"
+#define ALTMODE_KEY_BINARY "и"
+
+//#define MODE_ALIEN "alientalk"
+#define ALTMODE_KEY_ALIEN "ф"
+
+//#define MODE_HOLOPAD "holopad"
+#define ALTMODE_KEY_HOLOPAD "р"
+
+//#define MODE_RADIO "radio"
+#define ALTMODE_KEY_RADIO "к"
+
+//#define MODE_INTERCOM "intercom"
+#define ALTMODE_KEY_INTERCOM "ш"
+
+//#define MODE_CHANGELING "changeling"
+#define ALTMODE_KEY_CHANGELING "п"	//don`t work
+
+#define ALTMODE_KEY_VOCALCORDS "ч"
+
+#define ALTMODE_KEY_MONKEY "л"
+
+#define ALTMODE_KEY_DARKSPAWN "ц"
+
+//#define MODE_ADMIN "admin"
+#define ALTMODE_KEY_ADMIN "з"
+
+//#define MODE_DEADMIN "deadmin"
+#define ALTMODE_KEY_DEADMIN "в"
+
 #define RADIO_CHANNEL_CTF_RED "Red Team"
 #define RADIO_CHANNEL_CTF_BLUE "Blue Team"
 

@@ -1,17 +1,59 @@
 /obj/item/gun/energy/e_gun
+	cell_type = /obj/item/stock_parts/cell/gun
 	icon = 'modular_dripstation/icons/obj/weapons/energy.dmi'
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hitscan, /obj/item/ammo_casing/energy/laser/hitscan)
+
+/obj/item/gun/energy/e_gun/select_fire(mob/living/user)
+	select++
+	if (select > ammo_type.len)
+		select = 1
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	fire_sound = shot.fire_sound
+	fire_delay = shot.delay
+	if (shot.select_name)
+		to_chat(user, span_notice("[src] is now set to [shot.select_name]."))
+
+	if(istype(shot, /obj/item/ammo_casing/energy/laser))
+		muzzleflash_iconstate = "muzzle_flash_laser"
+		muzzle_flash_color = COLOR_LASER_RED
+
+	else if(istype(shot, /obj/item/ammo_casing/energy/electrode))
+		muzzleflash_iconstate = "muzzle_flash_light"
+		muzzle_flash_color = COLOR_VERY_SOFT_YELLOW
+
+	else
+		muzzleflash_iconstate = "muzzle_flash_disabler"
+		muzzle_flash_color = COLOR_DISABLER_BLUE
+
+	chambered = null
+	recharge_newshot(TRUE)
+	update_appearance(UPDATE_ICON)
+	return
+
+
+/obj/item/gun/energy/e_gun/secure
+	icon_state = "energyalt"
+	can_cell = TRUE ///if the gun's cell can be replaced
+	pin = /obj/item/firing_pin/implant/centcom_mindshield
 
 /obj/item/gun/energy/e_gun/ancient
 	name = "NT-E1 gun"
 	desc = "The NT-E2 is a basic energy gun that has only one mode. Kill."
 	icon_state = "energyold"
-	ammo_type = list(/obj/item/ammo_casing/energy/laser)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/hitscan)
 
 /obj/item/gun/energy/e_gun/nuclear
 	ammo_x_offset = 2
 
 /obj/item/gun/energy/e_gun/stun
-	cell_type = /obj/item/stock_parts/cell/pulse/pistol	//specops grade cell
+	desc = "NT-ME5 Hybrid Energy Gun"
+	desc = "The NT-ME5 hybrid energy gun is the newest generation of standardized energy equipment for use by NT private military forces. This hybrid energy gun comes equipped with two settings: disable and kill."
+	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	can_cell = TRUE ///if the gun's cell can be replaced
+	cell_type = /obj/item/stock_parts/cell/gun/pulse/pistol	//specops grade cell
+
+/obj/item/gun/energy/e_gun/stun/mindshield
+	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/e_gun/energyrevolver
 	name = "\improper NT-S02 Revolver Energy Gun"
@@ -21,13 +63,13 @@
 	item_state = "gun"
 	ammo_x_offset = 2
 	force = 10
-	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hitscan, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser/hitscan)
 
 /obj/item/gun/energy/e_gun/hos
 	name = "\improper NT-S03 MultiPhase Energy Gun"
 	desc = "An expensive recreation of the antique laser gun, and the third of the 'S' or personal defense weapons meant for the use of high ranking Nanotrasen`s Special Operations Department personnel. Like the standard energy gun, it has a stun and kill setting, but due to the increase in demand of portable EMP-based weaponry, this weapon is equipped with an ion mode. Lacks the ability to recharge on its own but provides military grade taser setting."
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/ion/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hitscan, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/hitscan, /obj/item/ammo_casing/energy/ion/hos)
 
 /obj/item/gun/energy/e_gun/pdwpistol
 	name = "\improper NT-S04 MultiPhase Energy Gun"
@@ -37,9 +79,10 @@
 	force = 15
 	ammo_x_offset = 2
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
-	cell_type = /obj/item/stock_parts/cell/pulse/pistol
+	can_cell = TRUE ///if the gun's cell can be replaced
+	cell_type = /obj/item/stock_parts/cell/gun/pulse/pistol
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser_spec, /obj/item/ammo_casing/energy/ion)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hitscan, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser/hitscan/spec, /obj/item/ammo_casing/energy/ion)
 
 /obj/item/gun/energy/sniperrifle
 	name = "L.W.A.P. Sniper Rifle"
@@ -56,38 +99,59 @@
 	charge_sections = 3
 	pin = /obj/item/firing_pin/implant/mindshield
 
-/obj/item/gun/energy/sniperrifle
+/obj/item/gun/energy/sniperrifle/secure
 	icon_state = "esniper_black"
+	pin = /obj/item/firing_pin/implant/centcom_mindshield
 
 /obj/item/gun/energy/plasmarifle
 	name = "Plasma Assault Rifle"
-	desc = "A plasma rifle constructed of lightweight materials, Cybersun Armory. Slowly fires powerful plasma projectiles."
+	desc = "A plasma rifle constructed of lightweight materials, Cyber-Tech Armory. Slowly fires powerful plasma projectiles."
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
 	icon_state = "cybersun_plasmarifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/combat)
+	manufacturer = /datum/corporation/traitor/cybersun/weapons
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	pin = /obj/item/firing_pin/fucked
 	charge_sections = 1
 	shaded_charge = 1
 
+/obj/item/gun/energy/plasmarifle/unsecure
+	pin = null
+
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
 	desc = "A small, pistol-sized version of the energy gun with a built-in flashlight. The NT-E4 functions as a popular self defense weapon among the elite due to its small size and cheap price. It has three settings: disable, stun and kill."
 	icon_state = "mini"
-	item_state = "gun"
+	item_state = null
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	cell_type = /obj/item/stock_parts/cell/mini_egun
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
+	cell_type = /obj/item/stock_parts/cell/gun/mini
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hitscan, /obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/hitscan)
 
 /obj/item/gun/energy/e_gun/mini/secure
 	icon_state = "minialt"
 	pin = /obj/item/firing_pin/implant/mindshield
 
 /obj/item/gun/energy/e_gun/mini/specops	//easy concealable gun for NT special operations department
-	cell_type = /obj/item/stock_parts/cell/pulse/pistol	//specops grade cell
+	cell_type = /obj/item/stock_parts/cell/gun/pulse/pistol	//specops grade cell
 	pin = /obj/item/firing_pin/implant/centcom_mindshield
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser_spec)
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hitscan, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser/hitscan/spec)
+
+/obj/item/gun/energy/e_gun/flash
+	name = "\improper 'Flash' energy gun"
+	desc = "A small, pistol-sized version of the energy gun. The Flash functions as a popular self defense weapon among UNN corporate stuff due to its small size and cheap price. It has three settings: disable, stun and kill."
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	icon_state = "unn_flash"
+	item_state = "nt_ancile"
+	pin = /obj/item/firing_pin/dna/secure
+	automatic_charge_overlays = FALSE
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hitscan, /obj/item/ammo_casing/energy/electrode/spec, /obj/item/ammo_casing/energy/laser/hitscan/spec)
+	w_class = WEIGHT_CLASS_SMALL
+	cell_type = /obj/item/stock_parts/cell/gun/pulse/pistol	//specops grade cell
+	manufacturer = /datum/corporation/unn
 
 /obj/item/gun/energy/e_gun/mini/practice_phaser
 	icon = 'icons/obj/guns/energy.dmi'
@@ -101,7 +165,8 @@
 /obj/item/gun/energy/e_gun/turret
 	icon = 'icons/obj/guns/energy.dmi'
 
-/obj/item/gun/energy/e_gun/stun
-	desc = "NT-ME5 Hybrid Energy Gun"
-	desc = "The NT-ME5 hybrid energy gun is the newest generation of standardized energy equipment for use by NT private military forces. This hybrid energy gun comes equipped with two settings: disable and kill."
-	pin = /obj/item/firing_pin/implant/mindshield
+/obj/item/gun/energy/e_gun/advtaser/secure
+	icon_state = "advtaser_alt"
+	pin = /obj/item/firing_pin/implant/centcom_mindshield
+	can_cell = TRUE ///if the gun's cell can be replaced
+	charge_sections = 1

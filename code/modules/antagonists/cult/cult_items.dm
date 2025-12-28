@@ -46,7 +46,7 @@
 	throwforce = 10
 	wound_bonus = -80
 	bare_wound_bonus = 30
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'modular_dripstation/sound/weapons/cult_slash.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 
 /obj/item/melee/cultblade/Initialize(mapload)
@@ -85,7 +85,7 @@
 		else
 			to_chat(user, span_cultlarge("\"One of Ratvar's toys is trying to play with things [user.p_they()] shouldn't. Cute.\""))
 			to_chat(user, span_userdanger("A horrible force yanks at your arm!"))
-			user.emote("scream")
+			user.flick_pain(100, TRUE)
 			user.apply_damage(30, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 			user.dropItemToGround(src)
 
@@ -107,7 +107,7 @@
 	icon = 'icons/obj/weapons/swords.dmi'
 	icon_state = "cultbastard"
 	item_state = "cultbastard"
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'modular_dripstation/sound/weapons/cult_slash.ogg'
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
@@ -156,7 +156,7 @@
 		else
 			to_chat(user, span_cultlarge("\"One of Ratvar's toys is trying to play with things [user.p_they()] shouldn't. Cute.\""))
 			to_chat(user, span_userdanger("A horrible force yanks at your arm!"))
-			user.emote("scream")
+			user.flick_pain(100, TRUE)
 			user.apply_damage(30, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 			user.dropItemToGround(src, TRUE)
 			user.Paralyze(50)
@@ -423,7 +423,7 @@
 		else
 			to_chat(user, span_cultlarge("\"Trying to use things you don't own is bad, you know.\""))
 			to_chat(user, span_userdanger("The armor squeezes at your body!"))
-			user.emote("scream")
+			user.flick_pain(100, TRUE)
 			user.adjustBruteLoss(25)
 			user.dropItemToGround(src, TRUE)
 
@@ -482,7 +482,7 @@
 		else
 			to_chat(user, span_cultlarge("\"Trying to use things you don't own is bad, you know.\""))
 			to_chat(user, span_userdanger("The robes squeeze at your body!"))
-			user.emote("scream")
+			user.flick_pain(100, TRUE)
 			user.adjustBruteLoss(25)
 			user.dropItemToGround(src, TRUE)
 
@@ -689,7 +689,7 @@ GLOBAL_VAR_INIT(curselimit, 0)
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = SHARP_POINTY
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'modular_dripstation/sound/weapons/cult_stab.ogg'
 	var/datum/action/innate/cult/spear/spear_act
 
 /obj/item/cult_spear/Initialize(mapload)
@@ -924,7 +924,7 @@ GLOBAL_VAR_INIT(curselimit, 0)
 						L.Paralyze(20)
 						L.adjustBruteLoss(45)
 						playsound(L, 'sound/hallucinations/wail.ogg', 50, 1)
-						L.emote("scream")
+						L.flick_pain(100, TRUE)
 		user.Beam(temp_target, icon_state="blood_beam", time = 7, beam_type = /obj/effect/ebeam/blood)
 
 
@@ -943,7 +943,7 @@ GLOBAL_VAR_INIT(curselimit, 0)
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bumped", "prodded")
-	hitsound = 'sound/weapons/smash.ogg'
+	hitsound = SFX_BLUNT
 	var/illusions = 4
 
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

@@ -380,13 +380,23 @@
 
 /mob/living/verb/succumb(whispered as num|null)
 	set hidden = TRUE
-	if (InCritical())
-		log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
-		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
-		updatehealth()
-		if(!whispered)
-			to_chat(src, span_notice("You have given up life and succumbed to death."))
-		death()
+	set name = "Succumb"
+	set category = "IC"
+	if (!CAN_SUCCUMB(src))
+		if(HAS_TRAIT(src, TRAIT_SUCCUMB_OVERRIDE))
+			if(whispered)
+				to_chat(src, span_notice("Your immortal body is keeping you alive! Unless you just press the UI button."), type=MESSAGE_TYPE_INFO)
+				return
+		else
+			to_chat(src, span_warning("You are unable to succumb to death! This life continues."), type=MESSAGE_TYPE_INFO)
+			return
+	log_message("Has [whispered ? "whispered his final words" : "succumbed to death"] with [round(health, 0.1)] points of health!", LOG_ATTACK)
+	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	updatehealth()
+	if(!whispered)
+		to_chat(src, span_notice("You have given up life and succumbed to death."))
+	investigate_log("has succumbed to death.", INVESTIGATE_DEATHS)
+	death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_stasis = FALSE)
 	if(HAS_TRAIT(src, TRAIT_INCAPACITATED))
@@ -415,6 +425,14 @@
 //affects them once clothing is factored in. ~Errorage
 /mob/living/proc/calculate_affecting_pressure(pressure)
 	return pressure
+
+///Returns the body temperature at which this mob will start taking heat damage.
+/mob/living/proc/get_body_temp_heat_damage_limit()
+	return BODYTEMP_HEAT_DAMAGE_LIMIT
+
+///Returns the body temperature at which this mob will start taking cold damage.
+/mob/living/proc/get_body_temp_cold_damage_limit()
+	return BODYTEMP_COLD_DAMAGE_LIMIT
 
 /mob/living/proc/adjustBodyTemp(actual, desired, incrementboost)
 	var/temperature = actual
@@ -446,12 +464,29 @@
 	set name = "Sleep"
 	set category = "IC"
 
-	if(IsSleeping())
-		to_chat(src, span_notice("You are already sleeping."))
+	var/quiet_enviromnent = TRUE
+	for(var/mob/living/loud_people in view(3, src))
+		if(loud_people != src && loud_people.stat < CONSCIOUS)
+			quiet_enviromnent = FALSE
+			break
+
+	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+	if(S && S.duration == -1)
+		to_chat(src, span_notice("You try to wake up!"))
+		SetSleeping(10)
 		return
-	else
+	else if(!quiet_enviromnent)
+		to_chat(src, span_notice("Too loud to sleep."))
+		return
+	else if(!S)
 		if(tgui_alert(usr, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
-			SetSleeping(400) //Short nap
+			//SetSleeping(400) //Short nap
+			if(!resting)
+				set_resting(TRUE, FALSE)
+			addtimer(CALLBACK(src, PROC_REF(PermaSleeping)), 0.3 SECONDS)
+	else
+		to_chat(src, span_notice("You can`t wake up."))
+		return
 	update_mobility()
 
 /mob/proc/get_contents()
@@ -666,7 +701,7 @@
 	if(active_storage && !(CanReach(active_storage.parent,view_only = TRUE)))
 		active_storage.close(src)
 
-	if(!(mobility_flags & MOBILITY_STAND) && !buckled && prob(getBruteLoss()*200/maxHealth))
+	if(!(mobility_flags & MOBILITY_STAND) && !buckled /*&& prob(getBruteLoss()*200/maxHealth)*/)	//dripstation edit, we don`t need prob here
 		makeTrail(newloc, T, old_direction)
 
 /mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
@@ -679,6 +714,7 @@
 		return
 
 	var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
+	SEND_SIGNAL(src, COMSIG_CARBON_FLATLINE_INFECT, amount = 0.05)	//dripstation edit
 	if(blood_volume < max(BLOOD_VOLUME_NORMAL(src)*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
 		return
 
@@ -733,7 +769,7 @@
 	if(buckled)
 		return
 	if(client && client.move_delay >= world.time + world.tick_lag*2)
-		pressure_resistance_prob_delta -= 10
+		pressure_resistance_prob_delta -= 30
 
 	var/list/turfs_to_check = list()
 
@@ -749,11 +785,11 @@
 		for(var/t in turfs_to_check)
 			T = t
 			if(T.density)
-				pressure_resistance_prob_delta -= 5
+				pressure_resistance_prob_delta -= 10
 				continue
 			for (var/atom/movable/AM in T)
 				if (AM.density && AM.anchored)
-					pressure_resistance_prob_delta -= 5
+					pressure_resistance_prob_delta -= 20
 					break
 	if(!force_moving)
 		..(pressure_difference, direction, pressure_resistance_prob_delta)
@@ -1712,3 +1748,24 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 		var/ERROR_ERROR_LANDMARK_ERROR = "ERROR-ERROR: ERROR landmark missing!"
 		log_mapping(ERROR_ERROR_LANDMARK_ERROR)
 		CRASH(ERROR_ERROR_LANDMARK_ERROR)
+
+//plays a short clipping animation then send the mob into the backrooms
+
+
+/mob/living/proc/clip_into_backrooms()
+	playsound(get_turf(src), 'yogstation/sound/effects/backrooms_clipping.ogg', 80, FALSE)
+	set_resting(FALSE)
+	Immobilize(1.9 SECONDS, TRUE, TRUE)
+	var/x_diff = 4
+	var/y_diff = 1
+	var/rotation = 40
+	if(prob(50))
+		rotation *= -1
+	animate(src, pixel_x = x_diff, pixel_y = y_diff, time = 0.5, transform = matrix(rotation + x_diff, MATRIX_ROTATE), loop = 18, flags = ANIMATION_RELATIVE|ANIMATION_PARALLEL)
+	animate(pixel_x = -x_diff , pixel_y = -y_diff, transform = matrix(rotation - x_diff, MATRIX_ROTATE), time = 0.5, flags = ANIMATION_RELATIVE)
+	sleep(1.8 SECONDS)
+	pixel_x = 0
+	pixel_y = 0
+	set_resting(FALSE)
+	transform = matrix()
+	sendToBackrooms()

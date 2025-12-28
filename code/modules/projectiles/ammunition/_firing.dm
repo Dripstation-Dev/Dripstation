@@ -1,3 +1,4 @@
+/* dripstation edit
 /obj/item/ammo_casing/proc/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/fired_from, cd_override_arg = FALSE)
 	distro += variance
 	for (var/i = max(1, pellets), i > 0, i--)
@@ -28,6 +29,9 @@
 	BB.original = target
 	BB.firer = user
 	BB.fired_from = fired_from
+	if(istype(fired_from, /obj/item/gun))		//Dripstation edit, iff and weapon mods
+		var/obj/item/gun/G = fired_from			//Dripstation edit, iff and weapon mods
+		G.apply_gun_modifiers(BB, target, user)	//Dripstation edit, iff and weapon mods
 	if (zone_override)
 		BB.def_zone = zone_override
 	else
@@ -37,17 +41,20 @@
 	if(reagents && BB.reagents)
 		reagents.trans_to(BB, reagents.total_volume, transfered_by = user) //For chemical darts/bullets
 		qdel(reagents)
+*/
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
 	if (!istype(targloc) || !istype(curloc) || !BB)
 		return FALSE
 
+	/* Dripstation edit
 	var/firing_dir
 	if(BB.firer)
 		firing_dir = BB.firer.dir
 	if(!BB.suppressed && firing_effect_type)
 		new firing_effect_type(get_turf(src), firing_dir)
+	*/
 
 	var/direct_target
 	if(targloc == curloc)

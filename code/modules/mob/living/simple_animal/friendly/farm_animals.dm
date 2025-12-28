@@ -18,7 +18,7 @@
 	faction = list("goat")
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	attacktext = "kicks"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	health = 40
 	maxHealth = 40
 	minbodytemp = 180
@@ -131,7 +131,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	attacktext = "kicks"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	health = 50
 	maxHealth = 50
 	var/obj/item/udder/udder = null
@@ -352,7 +352,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	attacktext = "kicks"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	health = 40
 	maxHealth = 40
 	var/obj/item/udder/sheep/udder = null

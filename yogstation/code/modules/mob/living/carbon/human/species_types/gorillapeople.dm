@@ -11,7 +11,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	attack_verbs = list("maul")
 	attack_sound = 'sound/creatures/gorilla.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
+	miss_sound = SFX_SLASHMISS
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/gorilla
 	skinned_type = /obj/item/stack/sheet/animalhide/gorilla
 	exotic_bloodtype = "G"

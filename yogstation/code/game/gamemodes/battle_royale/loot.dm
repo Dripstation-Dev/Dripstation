@@ -111,8 +111,8 @@ GLOBAL_LIST_INIT(battleroyale_armour, list(
 		/obj/item/clothing/suit/space/hardsuit/powerarmor_advanced = -2,
 		/obj/item/clothing/suit/space/hardsuit/powerarmor_t45b = -2,
 		/obj/item/clothing/suit/space/hardsuit/elder_atmosian = -2,
-		/obj/item/clothing/suit/space/hardsuit/syndi = -2,
-		/obj/item/clothing/suit/space/hardsuit/syndi/owl = -2,
+		/obj/item/clothing/suit/space/hardsuit/dualmode = -2,
+		/obj/item/clothing/suit/space/hardsuit/owl = -2,
 		/obj/item/clothing/suit/space/hardsuit/swat = -2,
 		/obj/item/clothing/head/helmet/space/hostile_environment = -2,
 		/obj/item/clothing/suit/space/hostile_environment = -2,
@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(battleroyale_armour, list(
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi = -3,
 		//Weight of -4 - nukie level shit
 		/obj/item/shield/energy = -4,
-		/obj/item/clothing/suit/space/hardsuit/syndi/elite = -4,
+		/obj/item/clothing/suit/space/hardsuit/dualmode/elite = -4,
 		/obj/item/clothing/suit/space/hardsuit/carp/dragon = -4,
 
 		/obj/item/shield/energy/bananium = -5,
@@ -208,7 +208,7 @@ GLOBAL_LIST_INIT(battleroyale_weapon, list(
 		/obj/item/melee/chainsaw = 1,
 		/obj/item/fireaxe/metal_h2_axe = 1,
 		/obj/item/nullrod/whip = 1,
-		/obj/item/katana/basalt = 1,
+		/obj/item/melee/katana/basalt = 1,
 
 		/obj/item/melee/spear/bonespear/stalwartpike = 0,
 		/obj/item/fireaxe = 0,
@@ -299,6 +299,7 @@ GLOBAL_LIST_INIT(battleroyale_healing, list(//this one doesn't scale because max
 		/obj/item/stack/medical/mesh/advanced = 4,
 		/obj/item/stack/medical/aloe = 4,
 		/obj/item/stack/medical/poultice = 4,
+		/obj/item/stack/medical/tourniquet/tactical = 3,
 		/obj/item/storage/firstaid = 3,
 		/obj/item/storage/firstaid/fire = 3,
 		/obj/item/organ/regenerative_core/legion = 3, //These expire after a bit, and take some time to use
@@ -306,6 +307,7 @@ GLOBAL_LIST_INIT(battleroyale_healing, list(//this one doesn't scale because max
 		/obj/item/reagent_containers/autoinjector/medipen/stimpack = 3,
 		/obj/item/clothing/mask/cigarette/syndicate = 3,
 		/obj/item/bonesetter = 3,
+		/obj/item/stack/medical/tourniquet/tactical/three = 2,
 		/obj/item/storage/firstaid/advanced = 2,
 		/obj/item/reagent_containers/autoinjector/medipen/survival = 2,
 		/obj/item/organ/heart/cursed/wizard = 2, //Rarely used, albiet the healing is incredibly strong
@@ -646,7 +648,7 @@ GLOBAL_LIST_INIT(battleroyale_utility, list(//bombs, explosives, anything that's
 		/obj/item/dnainjector/hulkmut,
 		/obj/item/dnainjector/shock,
 		/obj/item/dnainjector/lasereyesmut,
-		/obj/item/dnainjector/spacemut,
+		/obj/item/dnainjector/coldmut,
 		/obj/item/dnainjector/chameleonmut,
 		/obj/item/dnainjector/thickskin,
 		/obj/item/dnainjector/densebones,

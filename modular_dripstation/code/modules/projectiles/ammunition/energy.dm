@@ -3,6 +3,10 @@
 	select_name = "kill"
 	e_cost = 83
 
+/obj/item/ammo_casing/energy/laser/hitscan/spec
+	projectile_type = /obj/projectile/beam/laser/hitscan/spec
+	e_cost = 100
+
 /obj/item/ammo_casing/energy/laser/hitscan/sniper
 	projectile_type = /obj/projectile/beam/laser/hitscan/sniper
 	e_cost = 200
@@ -35,3 +39,6 @@
 
 /obj/item/ammo_casing/energy/laser/pulse/pistol
 	projectile_type = /obj/projectile/beam/pulse/pistol
+
+/obj/item/ammo_casing/energy/disabler/hitscan
+	projectile_type = /obj/projectile/beam/disabler/hitscan

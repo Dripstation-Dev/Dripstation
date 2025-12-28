@@ -23,6 +23,7 @@
 #define SOUND_RANGE 17
 ///default extra range for sounds considered to be quieter
 #define SHORT_RANGE_SOUND_EXTRARANGE -9
+#define MEDIUM_RANGE_SOUND_EXTRARANGE -5
 ///The range deducted from sound range for things that are considered silent / sneaky
 #define SILENCED_SOUND_EXTRARANGE -11
 ///Percentage of sound's range where no falloff is applied
@@ -181,3 +182,21 @@ GLOBAL_LIST_INIT(announcer_keys, list(
 #define SFX_STAMPING "stamp_sounds"
 #define SFX_WRITING "writing_sounds"
 #define SFX_POURING "pouring_sounds"
+#define SFX_700EJECT "eject_700"
+#define SFX_SLICE "slice"
+#define SFX_SLASH "slash"
+#define SFX_CLAWS "claws"
+#define SFX_PIERCE "pierce"
+#define SFX_STAB "stab"
+#define SFX_BLUNT "blunt"
+#define SFX_PUNCH "punch"
+#define SFX_EVADE "evade"
+#define SFX_COMBAT_KNIFE "combat_knife"
+#define SFX_ETHERIALPUNCH "etherialpunch"
+#define SFX_SLASHMISS "slashmiss"
+#define SFX_KATANA_SWING "katana_swing"
+#define SFX_SWORD_SWING "sword_swing"
+#define SFX_FELINE_HISS "feline_hiss"
+#define SFX_VENDING_SHAKE "vend_shake"
+#define SFX_GENERICMISS "generic_miss"
+#define SFX_ETHERIALMISS "etherial_miss"

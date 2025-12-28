@@ -260,6 +260,7 @@
 	master.crit_threshold = (master.crit_threshold - insanity_effect) + newval
 	insanity_effect = newval
 
+/*
 /datum/component/mood/proc/add_event(datum/source, category, type, param) //Category will override any events in the same category, should be unique unless the event is based on the same thing like hunger.
 	var/datum/mood_event/the_event
 	if(mood_events[category])
@@ -280,6 +281,7 @@
 
 	if(the_event.timeout)
 		addtimer(CALLBACK(src, PROC_REF(clear_event), null, category), the_event.timeout, TIMER_UNIQUE|TIMER_OVERRIDE)
+*/
 
 /datum/component/mood/proc/clear_event(datum/source, category)
 	var/datum/mood_event/event = mood_events[category]

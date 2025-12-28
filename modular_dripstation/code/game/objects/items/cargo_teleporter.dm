@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(cargo_marks)
 	righthand_file = 'modular_dripstation/icons/mob/inhands/equipment/cargo_teleporter_righthand.dmi'
 	icon_state = "cargo_tele"
 	item_state = "cargo_tele"
-	materials = list(MAT_METAL=10000)
+	//materials = list(MAT_METAL=10000) probably you should not incert it
 	slot_flags = ITEM_SLOT_BELT
 	cryo_preserve = TRUE
 	flags_1 = CONDUCT_1
@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(cargo_marks)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/marker_children = list()		//the list of markers spawned by this item
 	var/choice 								//storing marker of choice
-	var/cooldown_in_seconds = 16 SECONDS	//cooldown, made for upgrades
+	var/cooldown_in_seconds = 14 SECONDS	//cooldown, made for upgrades
 	var/emagged = FALSE						//emagged?
 	var/emped = FALSE						//emped?
 	verb_say = "beeps"
@@ -41,11 +41,10 @@ GLOBAL_LIST_EMPTY(cargo_marks)
 			/obj/item/tank/jetpack/oxygen/captain,
 			/obj/item/aicard,
 			/obj/item/hypospray/deluxe/cmo,
-			/obj/item/clothing/suit/armor/reactive/teleport,
-			/obj/item/clothing/suit/armor/laserproof,
+			/obj/item/clothing/suit/hooded/ablative,
 			/obj/item/blackbox,
 			/obj/item/holotool,
-			/obj/item/areaeditor/blueprints)
+			/obj/item/areaeditor/blueprints), only_root_path = TRUE
 			)
 	var/static/list/blacklisted_turfs = typecacheof(list(
 			/turf/closed,

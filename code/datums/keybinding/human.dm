@@ -17,6 +17,7 @@
 	return TRUE
 
 
+/* Dripstation edit start
 /datum/keybinding/human/bag_equip
 	hotkey_keys = list("ShiftB")
 	name = "bag_equip"
@@ -27,6 +28,7 @@
 	var/mob/living/carbon/human/H = user.mob
 	H.smart_equipbag()
 	return TRUE
+*/	//dripstation edit end
 
 /datum/keybinding/human/suit_equip
 	hotkey_keys = list("ShiftQ")

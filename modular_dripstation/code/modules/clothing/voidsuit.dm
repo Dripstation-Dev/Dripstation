@@ -9,11 +9,58 @@
 
 /obj/item/clothing/suit/space
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 40, ACID = 70, WOUND = 0, ELECTRIC = 50)
+	body_parts_covered = CHEST|GROIN
+	body_parts_partial_covered = LEGS|FEET|ARMS|HANDS	//somebody will kill me for this, but i should do it
+	partial_armor_coeff = 0.5	//can be tweaked
+	//equip_delay_self = 20		//Ok, so it`s heavy suit that should not be equiped like jacket, but bugged af
 	icon_state = "spaceold"
 	//item_state = "spaceold"
 	desc = "A suit that protects against low pressure environments. Has a big 13 on the back."
 	icon = 'modular_dripstation/icons/obj/clothing/suits.dmi'
 	worn_icon = 'modular_dripstation/icons/mob/clothing/spacesuits/suits.dmi'
+	species_restricted = list("exclude", "lizard", "polysmorph")
+
+/obj/item/clothing/suit/space/examine(mob/user)
+	. = ..()
+	if(!in_range(user, src) && !isobserver(user))
+		return
+	if(body_parts_covered || body_parts_partial_covered)
+		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_parts=1'>tag</a> listing its protected parts.</span>"
+
+/obj/item/clothing/suit/space/Topic(href, href_list)
+	. = ..()
+	if(href_list["list_parts"])
+		var/list/readout = list("<span class='notice'><u><b>COVERAGE</u></b>")
+		if(body_parts_covered || body_parts_partial_covered)
+			if((body_parts_covered & CHEST) || (body_parts_partial_covered & CHEST))
+				readout += "\nIt has <b>CHEST</b> [(body_parts_partial_covered & CHEST) ? "partial " : ""]covered."
+			if((body_parts_covered & GROIN) || (body_parts_partial_covered & GROIN))
+				readout += "\nIt has <b>CHEST</b> [(body_parts_partial_covered & GROIN) ? "partial " : ""]covered."
+			if((body_parts_covered & ARMS) || (body_parts_partial_covered & ARMS))
+				readout += "\nIt has <b>ARMS</b> [(body_parts_partial_covered & ARMS) ? "partial " : ""]covered."
+			if((body_parts_covered & LEGS) || (body_parts_partial_covered & LEGS))
+				readout += "\nIt has <b>LEGS</b> [(body_parts_partial_covered & LEGS) ? "partial " : ""]covered."
+			if(body_parts_partial_covered && partial_armor_coeff)
+				readout += "\nIt has [partial_armor_coeff] partial armoring rating."
+		readout += "</span>"
+		to_chat(usr, "[readout.Join()]")
+
+//////CHANGELING//////
+/obj/item/clothing/suit/space/changeling
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
+	partial_armor_coeff = 1	//10 melee armor on your hands, oh nooo
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, WOUND = 10, ELECTRIC = 100)
+	slowdown = 0	//it`s bulky, but you are changeling after all
+
+/obj/item/clothing/suit/space/changeling/process(delta_time)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.reagents.add_reagent(/datum/reagent/medicine/salbutamol, REAGENTS_METABOLISM * (delta_time / SSMOBS_DT))
+		if(H.reagents?.get_reagent(/datum/reagent/medicine/tramadol)?.amount < 5)
+			H.reagents.add_reagent(/datum/reagent/medicine/tramadol, REAGENTS_METABOLISM * (delta_time / SSMOBS_DT))	//run like you have never run
+
+/obj/item/clothing/head/helmet/space/changeling
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 30, BOMB = 100, BIO = 100, RAD = 100, FIRE = 90, ACID = 90, WOUND = 10, ELECTRIC = 100)
 
 //////STANDART NT//////
 /obj/item/clothing/head/helmet/space/eva
@@ -153,7 +200,7 @@
 		name = "torn [src]."
 		desc = "A bulky suit meant to protect the user during emergency situations, at least until someone tore a hole in the suit."
 		torn = TRUE
-		playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1)
+		playsound(loc, get_sfx(SFX_SLASHMISS), 50, 1)
 		playsound(loc, 'sound/effects/refill.ogg', 50, 1)
 
 //////Syndicate//////
@@ -251,3 +298,11 @@
 /obj/item/clothing/suit/space/eva/plasmaman
 	icon = 'icons/obj/clothing/suits/suits.dmi'
 	worn_icon = 'icons/mob/clothing/suit/suit.dmi'
+
+/obj/item/clothing/suit/space/space_ninja
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0
+
+/obj/item/clothing/suit/space/chronos
+	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS //finally, some normal armoring
+	body_parts_partial_covered = 0

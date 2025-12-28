@@ -51,7 +51,7 @@
 	if(iscultist(victim))
 		to_chat(victim, "[span_heavy_brass("\"It looks like Nar'sie's dogs really don't value their eyes.\"")]")
 		to_chat(victim, span_userdanger("Your eyes explode with horrific pain!"))
-		victim.emote("scream")
+		victim.flick_pain(100, TRUE)
 		eyes.applyOrganDamage(eyes.maxHealth)
 		victim.adjust_eye_blur(30)
 		victim.adjust_blindness(30)

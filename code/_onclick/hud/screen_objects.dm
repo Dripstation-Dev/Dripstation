@@ -329,15 +329,19 @@
 
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
+			usr.face_mouse = TRUE	//dripstation edit
 
 		else if(_x<=16 && _y>=17)
 			usr.a_intent_change(INTENT_HELP)
+			usr.face_mouse = FALSE	//dripstation edit
 
 		else if(_x>=17 && _y<=16)
 			usr.a_intent_change(INTENT_GRAB)
+			usr.face_mouse = FALSE	//dripstation edit
 
 		else if(_x>=17 && _y>=17)
 			usr.a_intent_change(INTENT_DISARM)
+			usr.face_mouse = FALSE	//dripstation edit
 	else
 		return ..()
 
@@ -462,9 +466,14 @@
 	if(isobserver(usr))
 		return
 
+	/*	Dripstation edit
 	var/list/PL = params2list(params)
 	var/icon_x = text2num(PL["icon-x"])
 	var/icon_y = text2num(PL["icon-y"])
+	*/
+	var/list/modifiers = params2list(params)				//Dripstation edit
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))	//Dripstation edit
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))	//Dripstation edit
 	var/choice = get_zone_at(icon_x, icon_y)
 	if (!choice)
 		return 1
@@ -479,9 +488,14 @@
 	if(isobserver(usr))
 		return
 
+	/*	Dripstation edit
 	var/list/PL = params2list(params)
 	var/icon_x = text2num(PL["icon-x"])
 	var/icon_y = text2num(PL["icon-y"])
+	*/
+	var/list/modifiers = params2list(params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
 	var/choice = get_zone_at(icon_x, icon_y)
 
 	if(hovering == choice)

@@ -96,8 +96,10 @@
 	if(!digitaldisguise)
 		src.digitaldisguise = image(loc = src)
 	src.digitaldisguise.override = 1
-	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
-		AI.client.images |= src.digitaldisguise
+	for(var/mob/living/machine in GLOB.player_list)
+		if(!isreplica(machine) &&!isipc(machine) && !isandroid(machine) && !issilicon(machine))	//ugh, they just don`t see it, sorry
+			return FALSE
+		machine.client.images |= src.digitaldisguise
 
 
 /mob/living/proc/handle_random_events()

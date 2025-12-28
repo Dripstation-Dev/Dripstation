@@ -238,8 +238,12 @@
 /area/icemoon/underground/unexplored // mobs and megafauna and ruins spawn here
 	name = "Icemoon Caves"
 	icon_state = "unexplored"
+/*	// dripstation edit start
 	area_flags = CAVES_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED
 	map_generator = /datum/map_generator/cave_generator/icemoon
+*/
+	area_flags = CAVES_ALLOWED | FLORA_ALLOWED | MOB_SPAWN_ALLOWED | MEGAFAUNA_SPAWN_ALLOWED
+	map_generator = /datum/map_generator/cave_generator/icemoon/deep	// dripstation edit end
 	
 /area/icemoon/underground/explored
 	name = "Icemoon Underground"

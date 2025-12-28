@@ -44,29 +44,30 @@
 	)
 
 /** Performs a complex check for toe stubbing as people would scream "IMPROVE DONT REMOVE" if I had my way.
-  * Uses an early probability based return for to save cycles which is perfectly valid since the highest probability is 20 anyway.
-  * Chance of getting your toe stubbed: (regular = 0.033%, running = 0.1%, blind = 20%, blurry_eyes = 2%, congenitally blind = 1%  )
+  * Uses an early probability based return for to save cycles which is perfectly valid since the highest probability is 40 anyway.
+  * Chance of getting your toe stubbed: (regular = 0.132%, running = 0.4%, blind = 40%, blurry_eyes = 20%, congenitally blind = 4%  )
   * Chance goes up if you go fast, such as with meth. So does damage.
   */
 /obj/structure/table/Bumped(mob/living/carbon/human/H)
 	. = ..()
-	if(prob(80))
+	if(prob(60))
 		return
 	if(!istype(H) || H.shoes || !(H.mobility_flags & MOBILITY_STAND) || !H.dna.species.has_toes())
 		return
-	var/speed_multiplier = 2/H.cached_multiplicative_slowdown
+	var/speed_multiplier = 4/H.cached_multiplicative_slowdown
 	var/blindness_multiplier = 1
 	if(H.eye_blurry)
-		blindness_multiplier = 4
+		blindness_multiplier = 100
 	if(H.eye_blind)
 		blindness_multiplier = 200
 	if(HAS_TRAIT_FROM(H, "blind", ROUNDSTART_TRAIT))
-		blindness_multiplier = 2
+		blindness_multiplier = 4
 	var/chance = 0.5*blindness_multiplier*speed_multiplier
 	if(prob(chance))
 		to_chat(H, span_warning("You stub your toe on the [name]!"))
 		H.visible_message("[H] stubs their toe on the [name].")
-		H.emote("scream")
+		balloon_alert(H, "stubbed toe")
+		H.flick_pain(100, TRUE)
 		var/shiddedleg = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 		H.apply_damage(2*speed_multiplier, BRUTE, def_zone = shiddedleg)
 		H.apply_damage(30*speed_multiplier, STAMINA, def_zone = shiddedleg)
@@ -228,13 +229,22 @@
 
 	if((user.a_intent != INTENT_HARM && !HAS_TRAIT(I, TRAIT_NODROP)) && !(I.item_flags & ABSTRACT)) // if you can't drop it, you can't place it on the table
 		if(user.transferItemToLoc(I, drop_location()))
+			/*	Dripstation edit
 			var/list/click_params = params2list(params)
+			*/
+			var/list/modifiers = params2list(params)	//Dripstation edit
 			//Center the icon where the user clicked.
+			/*	Dripstation edit	
 			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			*/
+			if(!(LAZYACCESS(modifiers, ICON_X)) || !(LAZYACCESS(modifiers, ICON_Y)))//Dripstation edit	
+				return																//Dripstation edit
+			I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
+			I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
 			return 1
 	else
 		return ..()

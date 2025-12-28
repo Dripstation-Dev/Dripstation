@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			for(var/i in 1 to rand(3, 6))
 				target.playsound_local(source, "sound/weapons/gunshot.ogg", 25, TRUE)
 				if(prob(60))
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, 'sound/weapons/pierce.ogg', 25, 1), rand(5,10))
+					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, SFX_PIERCE, 25, 1), rand(5,10))
 					hits++
 				else
 					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, "ricochet", 25, 1), rand(5,10))
@@ -776,11 +776,14 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /datum/hallucination/sounds
 	random_hallucination_weight = 5
+	var/sound_name	//dripstation edit
 
 /datum/hallucination/sounds/New(mob/living/carbon/C, forced = TRUE, sound_type)
 	set waitfor = FALSE
 	..()
 	var/turf/source = random_far_turf()
+	if(sound_name)	//dripstation edit
+		sound_type = sound_name	//dripstation edit
 	if(!sound_type)
 		sound_type = pick("airlock","airlock pry","console","explosion","far explosion","mech","glass","alarm","beepsky","mech","wall decon","door hack")
 	feedback_details += "Type: [sound_type]"

@@ -22,6 +22,7 @@
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	faction = list("rat")
+	var/chew_probability = 40	//fucking eat the wires already FUCK
 	var/body_color
 
 /mob/living/simple_animal/hostile/rat/loan
@@ -77,9 +78,9 @@
 /mob/living/simple_animal/hostile/rat/handle_automated_action()
 	. = ..()
 	if (!mind)
-		if(prob(40))
+		if(prob(chew_probability))
 			var/turf/open/floor/F = get_turf(src)
-			if(istype(F) && F.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
+			if(istype(F) && F.underfloor_accessibility == UNDERFLOOR_INTERACTABLE)
 				var/obj/structure/cable/C = locate() in F
 				if(C && prob(15))
 					if(C.avail())

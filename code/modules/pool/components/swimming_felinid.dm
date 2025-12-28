@@ -1,6 +1,6 @@
 /datum/component/swimming/felinid/enter_pool()
 	var/mob/living/L = parent
-	L.emote("scream")
+	L.flick_pain(100, TRUE)
 	to_chat(parent, "<span class='userdanger'>You get covered in water and start panicking!</span>")
 
 /datum/component/swimming/felinid/process()
@@ -12,7 +12,7 @@
 	switch(rand(1, 100))
 		if(1 to 4)
 			to_chat(parent, "<span class='userdanger'>You can't touch the bottom!</span>")
-			L.emote("scream")
+			L.flick_pain(100, TRUE)
 		if(5 to 7)
 			L.adjust_confusion_up_to(1 SECONDS, 5 SECONDS)
 		if(8 to 12)

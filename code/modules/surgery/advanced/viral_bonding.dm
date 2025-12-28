@@ -7,6 +7,7 @@
 				/datum/surgery_step/clamp_bleeders,
 				/datum/surgery_step/incise,
 				/datum/surgery_step/viral_bond,
+				/datum/surgery_step/patch_incise,
 				/datum/surgery_step/close)
 
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)

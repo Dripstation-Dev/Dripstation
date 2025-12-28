@@ -62,8 +62,10 @@
 	id = /obj/item/card/id
 	roundstart = FALSE
 	death = FALSE
+/* Dripstation edit
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper_s"
+*/
 
 ///Gas Station Clerk
 /obj/effect/mob_spawn/human/gasstation_clerk

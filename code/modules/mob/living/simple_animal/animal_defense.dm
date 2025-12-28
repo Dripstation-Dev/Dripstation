@@ -71,7 +71,7 @@
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.
 		if(M.a_intent == INTENT_DISARM)
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			playsound(loc, SFX_STAB, 25, 1, -1)
 			visible_message(span_danger("[M] [response_disarm] [name]!"), \
 					span_userdanger("[M] [response_disarm] [name]!"), null, COMBAT_MESSAGE_RANGE)
 			log_combat(M, src, "disarmed")

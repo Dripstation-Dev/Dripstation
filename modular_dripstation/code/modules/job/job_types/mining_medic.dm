@@ -1,12 +1,13 @@
 /datum/job/miningmedic
 	department_head = list("Chief Medical Officer", "Quartermaster")
 	supervisor_corporation = /datum/corporation/nanotrasen/kompac
+	loyalties = LOYALTY_CORP_SLAVE
 
 /datum/outfit/job/miningmedic
 	gloves = /obj/item/clothing/gloves/color/latex
 	belt = null
-	uniform = /obj/item/clothing/under/rank/miner/mmedic
-	uniform_skirt = /obj/item/clothing/under/rank/miner/mmedic/skirt
+	uniform = /obj/item/clothing/under/rank/cargo/miner/mmedic
+	uniform_skirt = /obj/item/clothing/under/rank/cargo/miner/mmedic/skirt
 	head = /obj/item/clothing/head/soft/emt/mining
 	l_hand = /obj/item/storage/firstaid/emergency
 	backpack = /obj/item/storage/backpack/explorer

@@ -573,7 +573,10 @@ SUBSYSTEM_DEF(job)
 	if(living_mob.mind)
 		living_mob.mind.assigned_role = rank
 		alt_title = living_mob.mind.role_alt_title
+	/*Dripstation edit
 	to_chat(M, "<b>You are the [alt_title ? alt_title : rank].</b>")
+	*/
+	to_chat(M, "<h2>You are the [alt_title ? alt_title : rank].</h2>")
 	if(job)
 		var/new_mob = job.equip(living_mob, null, null, joined_late , null, M.client)
 		if(ismob(new_mob))
@@ -590,14 +593,24 @@ SUBSYSTEM_DEF(job)
 				M.client.holder.auto_deadmin()
 			else
 				handle_auto_deadmin_roles(M.client, rank)
+		/* 					Dripstation edit start
 		to_chat(M, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
+		*/
+		if(job.supervisors)
+			to_chat(M, "<b>You answer directly to [job.supervisors]. Special circumstances may change this.</b>")
+		if(job.loyalties)
+			to_chat(M, "<b>[job.loyalties]</b>")	// Dripstation edit end
+		/* 	Dripstation edit 
 		job.radio_help_message(M)
+		*/
 		if((GLOB.admin_event && GLOB.admin_event.greet_role(M, job.type)) || job.req_admin_notify)
 			to_chat(M, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
+		/* Dripstation edit
 		//YOGS start
 		if(job.space_law_notify)
 			to_chat(M, "<FONT color='red'><b>Space Law has been updated! </font><a href='https://wiki.yogstation.net/wiki/Space_Law'>Click here to view the updates.</a></b>")
 		//YOGS end
+		*/
 		if(CONFIG_GET(number/minimal_access_threshold))
 			to_chat(M, span_notice("<B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B>"))
 	var/related_policy = get_policy(rank)
@@ -608,6 +621,15 @@ SUBSYSTEM_DEF(job)
 		living_mob.add_memory("Your account ID is [wageslave.account_id].")
 	if(job && living_mob)
 		job.after_spawn(living_mob, M, joined_late) // note: this happens before the mob has a key! M will always have a client, H might not.
+		var/datum/corporation/company_aligment = living_mob.mind.get_nontraitor_company()														// Dripstation edit
+		var/comp_name = "Corporation"																											// Dripstation edit
+		if(company_aligment)																													// Dripstation edit
+			comp_name = company_aligment.name																									// Dripstation edit
+		var/ingame_desc = job.GetIngameDesc(comp_name, station_name())																			// Dripstation edit
+		var/rank_aligm = "<h2>As the [alt_title ? alt_title : rank] of the [station_name()] you [job.contracted_words] [comp_name].</h2>"		// Dripstation edit																	// Dripstation edit
+		to_chat(M, examine_block("<center>[rank_aligm]</center><br>\
+								[ingame_desc]"))	// Dripstation edit
+		job.radio_help_message(M)					// Dripstation edit
 
 	job.give_donor_stuff(living_mob, M) // yogs - Donor Features
 	job.give_cape(living_mob, M)
@@ -892,7 +914,7 @@ SUBSYSTEM_DEF(job)
 /obj/structure/chair/JoinPlayerHere(mob/M, buckle)
 	. = ..()
 	// Placing a mob in a chair will attempt to buckle it, or else fall back to default.
-	if (buckle && isliving(M) && buckle_mob(M, FALSE, FALSE))
+	if (buckle && isliving(M) && buckle_mob(M, FALSE, FALSE, TRUE))
 		return
 
 /obj/machinery/cryopod/JoinPlayerHere(mob/M, buckle)

@@ -17,6 +17,7 @@
 	return ..()
 
 /obj/item/grenade/smokebomb/prime()
+	. = ..()
 	update_mob()
 	playsound(src, 'sound/effects/smoke.ogg', 50, 1, -3)
 	smoke.set_up(4, location = src)

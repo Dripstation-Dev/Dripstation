@@ -130,7 +130,7 @@
 	speed = -1
 	density = FALSE
 	projectiletype = /obj/projectile/doppshot
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_PIERCE
 	ranged = TRUE
 	ranged_message = "fires at"
 	ranged_cooldown_time = 25

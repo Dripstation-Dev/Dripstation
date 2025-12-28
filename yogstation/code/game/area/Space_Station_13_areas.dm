@@ -18,6 +18,7 @@
 	name = "Brig Physician's Office"
 	icon_state = "physician"
 
+/* Dripstation edit
 /area/maintenance
 	ambientsounds = list('sound/ambience/ambimaint1.ogg',
 						 'sound/ambience/ambimaint2.ogg',
@@ -28,6 +29,7 @@
 						 'sound/voice/lowHiss3.ogg',
 						 'sound/voice/lowHiss4.ogg',
 						 'yogstation/sound/misc/honk_echo_distant.ogg')
+*/
 
 /area/bluespace_locker
 	name = "Bluespace Locker"

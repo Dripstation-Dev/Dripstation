@@ -738,7 +738,7 @@ GLOBAL_LIST_EMPTY(aide_list)
 			ADD_TRAIT(C, TRAIT_HOLY, SPECIES_TRAIT)
 		playsound(C.loc, 'sound/items/poster_ripped.ogg', 50, TRUE, -1)
 		C.adjustBruteLoss(20)
-		C.emote("scream")
+		C.flick_pain(100, TRUE)
 	..()
 
 

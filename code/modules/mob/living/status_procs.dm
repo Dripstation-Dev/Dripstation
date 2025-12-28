@@ -391,6 +391,18 @@
 			S = apply_status_effect(STATUS_EFFECT_SLEEPING, amount, updating)
 		return S
 
+///Allows us to set a permanent sleep on a player (use with caution and remember to unset it with SetSleeping() after the effect is over)
+/mob/living/proc/PermaSleeping()
+	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, -1) & COMPONENT_NO_STUN)
+		return
+	if(!HAS_TRAIT(src, TRAIT_SLEEPIMMUNE))
+		var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
+		if(S)
+			S.duration = -1
+		else
+			S = apply_status_effect(/datum/status_effect/incapacitating/sleeping, -1)
+		return S
+
 ///////////////////////// CLEAR STATUS /////////////////////////
 
 /mob/living/proc/adjust_status_effects_on_shake_up()
@@ -491,7 +503,7 @@
 
 /mob/living/proc/become_nearsighted(source)
 	if(!HAS_TRAIT(src, TRAIT_NEARSIGHT))
-		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
+		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 4)
 	ADD_TRAIT(src, TRAIT_NEARSIGHT, source)
 
 /mob/living/proc/cure_husk(list/sources)

@@ -451,15 +451,18 @@
 			if(H.age < J?.minimal_character_age)
 				to_chat(client,span_warning("Your character is too young to play your assigned job. Their age has been corrected to the minimum possible."))
 				H.age = J.minimal_character_age
+			//H.apply_prefs_job(client, J)	//since we do not run get_spawn_mob, we run this here
 		if(transfer_after)
 			mind.late_joiner = TRUE
 		mind.active = FALSE					//we wish to transfer the key manually
 		mind.original_character_slot_index = client.prefs.default_slot
+		/* Dripstation edit - uncomment if i redone accents
 		if(!HAS_TRAIT(H, TRAIT_RANDOM_ACCENT))
 			var/accent_name = client.prefs.read_preference(/datum/preference/choiced/accent)
 			if (accent_name == ACCENT_NONE)
 				accent_name = null
 			mind.accent_name = accent_name
+		*/
 		mind.transfer_to(H)					//won't transfer key since the mind is not active
 		mind.set_original_character(H)
 

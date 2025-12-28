@@ -39,7 +39,8 @@
 #define UNCATCHABLE				(1<<13) // Makes any item uncatchable if it is thrown at them
 #define MEDRESIST				(1<<14) // This item will block medical sprays when worn
 #define HAND_ITEM 				(1<<15) // If an item is just your hand (circled hand, slapper) and shouldn't block things like riding
-#define AUTOLATHED				(1<<16) // Autolathed item innit
+#define EXAMINE_SKIP 			(1<<16) // Makes the Examine proc not read out this item.
+#define AUTOLATHED				(1<<17) // Autolathed item innit
 
 
 // Flags for the open_flags var on /obj/structure/closet
@@ -92,6 +93,7 @@
 #define ORGAN_FAILING			(1<<2)	//Failing organs perform damaging effects until replaced or fixed
 #define ORGAN_EXTERNAL			(1<<3)	//Was this organ implanted/inserted/etc, if true will not be removed during species change.
 #define ORGAN_VITAL				(1<<4)	//Currently only the brain
+#define ORGAN_EMP				(1<<5)	//EMPied
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 #define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode

@@ -111,8 +111,15 @@
 /* Dripstation edit start - russian cyrillic support
 			if(127 to INFINITY)
 */
-			if(127 to 1039)
-				return
+			if(127)	
+				if(ascii_only)
+					return
+			if(176 to 223)	
+				if(ascii_only)
+					return
+			if(242 to 1039)
+				if(ascii_only)
+					return
 			if(1104 to INFINITY)	
 //Dripstation edit end		
 				if(ascii_only)

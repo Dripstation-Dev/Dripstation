@@ -33,13 +33,24 @@
 
 		if(stat != DEAD)
 			handle_brain_damage()
+			SEND_SIGNAL(src, COMSIG_CARBON_SANITISATION)	//dripstation sanitise
 
+		/*
 		if(stat != DEAD)
 			handle_liver()
+			//handle_bodyparts_sanitisation()	//dripstation sanitise
+		*/
 
+		//dripstation start - pain memes
+		if(stat < UNCONSCIOUS)
+			handle_pain()
+		//dripstation end
+
+		/* Dripstation edit
 		if(stat != DEAD)
 			//Stuff jammed in your limbs hurts
 			handle_embedded_objects()
+		*/
 
 	else
 		. = ..()
@@ -55,12 +66,62 @@
 // BREATHING //
 ///////////////
 
+///Dripstation edit start
+/mob/living/carbon/verb/hold_breath()
+	set name = "Hold Breath"
+	set desc = "Remember how not to breath."
+	set category = "IC"
+	set instant = TRUE
+
+	if(!COOLDOWN_FINISHED(src, holding_breath_cd))
+		balloon_alert(usr, "busy catching breath")
+		return
+
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
+		to_chat(usr, span_warning("You can`t hold breath!"))
+
+	else if(HAS_TRAIT_FROM(src, TRAIT_MUTE, "hold_breath"))
+		UnregisterSignal(src, COMSIG_CARBON_ATTEMPT_BREATHE)
+		REMOVE_TRAIT(src, TRAIT_MUTE, "hold_breath")
+		balloon_alert(usr, "you stop holding breath")
+		failed_last_breath = 1	//try immidiately gasp some air
+		INVOKE_ASYNC(src, PROC_REF(emote), "gasp")
+		COOLDOWN_START(src, holding_breath_cd, 5 SECONDS)
+
+	else
+		ADD_TRAIT(src, TRAIT_MUTE, "hold_breath")
+		RegisterSignal(src, COMSIG_CARBON_ATTEMPT_BREATHE, PROC_REF(block_breath))
+		addtimer(CALLBACK(src, PROC_REF(start_losing_breath)), (HAS_TRAIT(src, TRAIT_DIVER) ? 15 SECONDS : 5 SECONDS))
+		balloon_alert(usr, "you hold breath")
+
+/mob/living/carbon/proc/start_losing_breath()
+	if(HAS_TRAIT_FROM(src, TRAIT_MUTE, "hold_breath"))
+		balloon_alert(usr, "you starting sufficate")
+		UnregisterSignal(src, COMSIG_CARBON_ATTEMPT_BREATHE)
+		RegisterSignal(src, COMSIG_CARBON_ATTEMPT_BREATHE, PROC_REF(losing_breath_while_blocked))
+
+/mob/living/carbon/proc/losing_breath_while_blocked(mob/living/source)
+	SIGNAL_HANDLER
+	losebreath++
+	adjustOxyLoss(2, 0)
+	if(getOxyLoss() > 50)
+		balloon_alert(usr, "can`t hold breath any longer")
+		UnregisterSignal(src, COMSIG_CARBON_ATTEMPT_BREATHE)
+		REMOVE_TRAIT(src, TRAIT_MUTE, "hold_breath")
+	return COMSIG_CARBON_BLOCK_BREATH
+
+/mob/living/carbon/proc/block_breath(mob/living/source)
+	SIGNAL_HANDLER
+	return COMSIG_CARBON_BLOCK_BREATH
+///Dripstation edit end
+
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
-	var/next_breath = 4
 	var/obj/item/organ/lungs/L = getorganslot(ORGAN_SLOT_LUNGS)
-	if(L?.damage)
-		next_breath = max(next_breath * L.get_organ_efficiency(), 1)
+	var/organ_efficiency = 0
+	if(L)
+		organ_efficiency = L.get_organ_efficiency()
+	var/next_breath = max(4 * organ_efficiency, 1)
 
 	if((times_fired % next_breath) == 0 || failed_last_breath || isipc(src)) //IPCs breathe every tick to stabilize cooling
 		breathe() //Breathe per 4 ticks if healthy, down to 1 based on lung damage, unless suffocating
@@ -79,6 +140,8 @@
 	if(reagents.has_reagent(/datum/reagent/toxin/lexorin, needs_metabolizing = TRUE))
 		return
 	if(istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+		return
+	if(SEND_SIGNAL(src, COMSIG_CARBON_ATTEMPT_BREATHE) & COMSIG_CARBON_BLOCK_BREATH)
 		return
 
 	var/datum/gas_mixture/environment
@@ -336,6 +399,12 @@
 /mob/living/carbon/proc/handle_blood()
 	return
 
+/mob/living/carbon/proc/handle_bodyparts_sanitisation()
+	for(var/I in bodyparts)
+		var/obj/item/bodypart/BP = I
+		if(BP.status != BODYPART_ROBOTIC)
+			BP.process_infection_status()
+
 /mob/living/carbon/proc/handle_bodyparts()
 	var/stam_regen = FALSE
 	if(stam_regen_start_time <= world.time)
@@ -455,20 +524,24 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	var/body_temperature_difference = BODYTEMP_NORMAL - bodytemperature
 	if(HAS_TRAIT(src, TRAIT_COLDBLOODED)) // Return 0 as your natural temperature. Species proc handle_environment() will adjust your temperature based on this.
 		return 0
-	switch(bodytemperature)
-		if(-INFINITY to BODYTEMP_COLD_DAMAGE_LIMIT) //Cold damage limit is 50 below the default, the temperature where you start to feel effects.
+
+	if(body_temperature_difference < 0)
+		if(bodytemperature < get_body_temp_cold_damage_limit())	//cold started damaging us
 			return max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
-		if(BODYTEMP_COLD_DAMAGE_LIMIT to BODYTEMP_NORMAL)
+		if(bodytemperature > get_body_temp_cold_damage_limit())
 			return max(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, min(body_temperature_difference, BODYTEMP_AUTORECOVERY_MINIMUM/4))
-		if(BODYTEMP_NORMAL to BODYTEMP_HEAT_DAMAGE_LIMIT) // Heat damage limit is 50 above the default, the temperature where you start to feel effects.
-			return min(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, max(body_temperature_difference, -BODYTEMP_AUTORECOVERY_MINIMUM/4))
-		if(BODYTEMP_HEAT_DAMAGE_LIMIT to INFINITY)
+
+	if(body_temperature_difference > 0)
+		if(bodytemperature > get_body_temp_heat_damage_limit())	//heat started damaging us
 			return min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
+		if(bodytemperature < get_body_temp_heat_damage_limit())  // Heat damage limit is 50 above the default, the temperature where you start to feel effects.
+			return min(body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR, max(body_temperature_difference, -BODYTEMP_AUTORECOVERY_MINIMUM/4))
 
 /////////
 //LIVER//
 /////////
 
+/* i don`t know why this exists, while it handles itself with actual liver
 ///Decides if the liver is failing or not.
 /mob/living/carbon/proc/handle_liver()
 	if(!dna)
@@ -493,6 +566,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 	adjustToxLoss(4, TRUE,  TRUE)
 	if(prob(30))
 		to_chat(src, span_warning("You feel a stabbing pain in your abdomen!"))
+*/
 
 
 ////////////////
@@ -509,6 +583,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 // EMBEDS //
 ////////////
 
+/* Dripstation edit start
 /mob/living/carbon/proc/handle_embedded_objects()
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
@@ -533,6 +608,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 				BP.receive_damage(I.w_class*I.embedding.embedded_fall_pain_multiplier, wound_bonus = CANT_WOUND) // can wound
 				remove_embedded_object(I, drop_location(), FALSE)
 				visible_message(span_danger("[I] falls out of [name]'s [BP.name]!"), span_userdanger("[I] falls out of your [BP.name]!"))
+*/ // Dripstation edit end
 
 /////////////////////////////////////
 //MONKEYS WITH TOO MUCH CHOLOESTROL//

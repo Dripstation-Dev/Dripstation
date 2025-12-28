@@ -201,15 +201,15 @@
 	desc = "Fixes that speaking impairment."
 	remove_mutations = list(NERVOUS)
 
-/obj/item/dnainjector/antispace
-	name = "\improper DNA injector (Anti-Space Adaptation)"
-	desc = "Cures space adaptation."
-	remove_mutations = list(SPACEMUT)
+/obj/item/dnainjector/anticold
+	name = "\improper DNA injector (Anti-Cold Adaptation)"
+	desc = "Cures Cold Adaptation."
+	remove_mutations = list(COLDMUT)
 
-/obj/item/dnainjector/spacemut
-	name = "\improper DNA injector (Space Adaptation)"
-	desc = "Gives you space adaptation."
-	add_mutations = list(SPACEMUT)
+/obj/item/dnainjector/coldmut
+	name = "\improper DNA injector (Cold Adaptation)"
+	desc = "Gives you Cold Adaptation."
+	add_mutations = list(COLDMUT)
 
 /obj/item/dnainjector/antiradiant
 	name = "\improper DNA injector (Anti-Radiant Burst)"

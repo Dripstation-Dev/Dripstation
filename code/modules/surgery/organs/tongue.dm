@@ -12,6 +12,8 @@
 	var/modifies_speech = TRUE // set to TRUE now because otherwise default tongues can't be honked. Not even sure why this would ever be set to false since it doesn't do anything.
 	var/honked = FALSE // This tongue has a bike horn jammed inside of it and will honk every time something is spoken.
 	var/honkednoise = 'sound/items/bikehorn.ogg'
+	var/list/speech_sounds = list()	//dripstation edit
+	var/speech_sound_prob = 100	//dripstation edit
 	var/static/list/languages_possible_base = typecacheof(list(
 		/datum/language/common,
 		/datum/language/draconic,
@@ -32,6 +34,7 @@
 		/datum/language/encrypted,
 		/datum/language/felinid,
 		/datum/language/english,
+		/datum/language/slavic,
 		/datum/language/french
 	))
 
@@ -48,6 +51,8 @@
 	if(honked) // you have a bike horn inside of your tongue. Time to honk
 		playsound(source, honkednoise, 50, TRUE)
 		say_mod = "honks" // overrides original tongue here 
+	else if(speech_sounds.len && prob(speech_sound_prob))	//dripstation edit
+		playsound(source, speech_sounds, 30, TRUE)			//dripstation edit
 
 /obj/item/organ/tongue/Insert(mob/living/carbon/M, special = 0)
 	..()
@@ -89,15 +94,29 @@
 	say_mod = "hisses"
 	taste_sensitivity = 10 // combined nose + tongue, extra sensitive
 	modifies_speech = TRUE
+	speech_sounds = list('modular_dripstation/sound/voice/unathitalk1.mp3', 'modular_dripstation/sound/voice/unathitalk2.mp3', 'modular_dripstation/sound/voice/unathitalk3.mp3')	//dripstation edit
+	speech_sound_prob = 33	//dripstation edit
 
 /obj/item/organ/tongue/lizard/handle_speech(datum/source, list/speech_args)
 	..()
 	var/static/regex/lizard_hiss = new("s+", "g")
 	var/static/regex/lizard_hiSS = new("S+", "g")
+	var/static/regex/lizard_hissru = new("с+", "g")		//dripstation edit
+	var/static/regex/lizard_hiSSru = new("С+", "g")		//dripstation edit
+	var/static/regex/lizard_hiss1ru = new("ш+", "g")	//dripstation edit
+	var/static/regex/lizard_hiSS1ru = new("Ш+", "g")	//dripstation edit
+	var/static/regex/lizard_hiss2ru = new("щ+", "g")	//dripstation edit
+	var/static/regex/lizard_hiSS2ru = new("Щ+", "g")	//dripstation edit
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = lizard_hiss.Replace(message, "sss")
 		message = lizard_hiSS.Replace(message, "SSS")
+		message = lizard_hissru.Replace(message, pick("сс","ссс"))		//dripstation edit
+		message = lizard_hiSSru.Replace(message, "С[pick("с","сс")]")	//dripstation edit
+		message = lizard_hiss1ru.Replace(message, pick("шш","шшш"))		//dripstation edit
+		message = lizard_hiSS1ru.Replace(message, "Ш[pick("ш","шш")]")	//dripstation edit
+		message = lizard_hiss2ru.Replace(message, pick("щщ","щщщ"))		//dripstation edit
+		message = lizard_hiSS2ru.Replace(message, "Щ[pick("щ","щщ")]")	//dripstation edit
 	speech_args[SPEECH_MESSAGE] = message
 
 /obj/item/organ/tongue/fly
@@ -267,7 +286,7 @@
 	if(prob(5))
 		return 
 	owner.apply_effect(EFFECT_STUTTER, rand(1, severity) * 6 SECONDS)
-	owner.emote("scream")
+	owner.flick_pain(100, TRUE)
 	to_chat(owner, "<span class='warning'>Alert: Voice synthesizer is malfunctioning.</span>")
 
 /obj/item/organ/tongue/robot/can_speak_language(language)

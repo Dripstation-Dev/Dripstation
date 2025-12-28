@@ -96,6 +96,16 @@
 			qdel(oldC)
 		var/obj/effect/temp_visual/mining_overlay/C = new /obj/effect/temp_visual/mining_overlay(JG)
 		C.icon_state = state
+	for(var/turf/open/floor/plating/asteroid/snow/icemoon/IT in range(range, T))
+		if(IT.ore_present == ORE_EMPTY)
+			continue
+		var/datum/ore_patch/ore = GLOB.icemoon_ores[IT.ore_present]
+		var/state = initial(ore.overlay_state)
+		var/obj/effect/temp_visual/mining_overlay/oldC = locate(/obj/effect/temp_visual/mining_overlay) in IT
+		if(oldC)
+			qdel(oldC)
+		var/obj/effect/temp_visual/mining_overlay/C = new /obj/effect/temp_visual/mining_overlay(IT)
+		C.icon_state = state
 	//yogs end
 	if(LAZYLEN(minerals))
 		for(var/turf/closed/mineral/M in minerals)

@@ -1,3 +1,4 @@
+/* dripstation edit - modular
 // amber task force clothing
 /obj/item/clothing/under/rank/security/officer/grey/amber
 	name = "amber task force jumpsuit"
@@ -108,4 +109,5 @@
 	back = /obj/item/defibrillator/loaded
 	r_pocket = /obj/item/tank/internals/emergency_oxygen/engi
 	head = /obj/item/clothing/head/beret/sec/amber_medic
+*/
 	

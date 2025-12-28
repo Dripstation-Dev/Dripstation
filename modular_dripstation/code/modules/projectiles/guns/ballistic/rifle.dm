@@ -1,27 +1,329 @@
 ///Sniper///
+/obj/item/gun/ballistic/rifle
+	muzzleflash_iconstate = "muzzle_flash_medium"
+
 /obj/item/gun/ballistic/rifle/sniper_rifle
-	name = "\improper anti-material sniper rifle"
-	icon_state = "antimaterial_rifle"
+	name = "SA-91R anti-materiel rifle"
+	desc = "A devastating Scarborough Arms heavy sniper rifle, fitted with a modern scope."
 	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+	icon_state = "antimaterial_rifle"
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_HEAVY
+	fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper.ogg'
+	dry_fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_empty.ogg'
+	zoom_amt = 0
+	zoom_out_amt = 0
+	available_attachments = list(
+		/obj/item/attachment/scope/sniper,
+	)
+	zoomable = FALSE
+	manufacturer = /datum/corporation/scarborough
 
 /obj/item/gun/ballistic/rifle/sniper_rifle/syndicate
+	name = "\improper 'Caracal' SA-91M anti-materiel rifle"
+	desc = "A sleek .50 sniper rifle with a reciprocating barrel, nicknamed 'Caracal' by Scarborough Arms. Its compact folding parts make it able to fit into a backpack, and its modular barrel can have a suppressor installed within it rather than as a muzzle extension. Its advanced scope accounts for all ballistic inaccuracies of a reciprocating barrel."
 	icon_state = "antimaterial_rifle_blc"
+	rack_delay = 0.7 SECONDS //Delay reduced thanks to recoil absorption
+	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_MEDIUM
+
+/obj/item/gun/ballistic/rifle/sniper_rifle/syndicate/nt
+	pin = /obj/item/firing_pin/implant/centcom_mindshield
 
 /obj/item/gun/ballistic/rifle/sniper_rifle/ultrasecure
+	name = "\improper 'Caracal' SA-91M anti-materiel rifle"
+	desc = "A sleek .50 sniper rifle with a reciprocating barrel, nicknamed 'Caracal' by Scarborough Arms. Its compact folding parts make it able to fit into a backpack, and its modular barrel can have a suppressor installed within it rather than as a muzzle extension. Its advanced scope accounts for all ballistic inaccuracies of a reciprocating barrel."
 	icon_state = "antimaterial_rifle_blc"
+	rack_delay = 0.7 SECONDS //Delay reduced thanks to recoil absorption
+	w_class = WEIGHT_CLASS_NORMAL
+	weapon_weight = WEAPON_MEDIUM
+	can_suppress = TRUE
+	can_unsuppress = TRUE
 
 /obj/item/gun/ballistic/rifle/sniper_rifle/waffle
-	name = "\improper anti-material sniper rifle W-7"
+	name = "\improper WA-7 anti-material sniper rifle"
+	desc = "An Waffle Armory rendition of an Scarborough Arms sniper rifle. This one has been fitted with a sturdier stock and has a removable muzzle brake that allows easy attachment of suppressors."
 	icon_state = "waffle_sniper"
 	item_state = "waffle_sniper"
+	can_suppress = TRUE
+	can_unsuppress = TRUE
+	recoil = 1.8
+	rack_delay = 0.6 SECONDS //Slightly smaller than standard sniper
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	eject_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
+	eject_empty_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
+	load_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_reload.ogg'
 	pin = /obj/item/firing_pin/fucked
+	manufacturer = /datum/corporation/traitor/waffleco
 
 /obj/item/gun/ballistic/rifle/sniper_rifle/waffle/unrestricted
 	pin = /obj/item/firing_pin
 
+/obj/item/gun/ballistic/rifle/sniper_rifle/militech
+	name = "\improper 'Catalyst' MR-5 anti-material sniper rifle"
+	desc = "An Militech legal copy of SA-91R Scarborough Arms sniper rifle. This one has been fitted with a heavy duty scope and a sturdier stock."
+	icon_state = "militech_catalyst"
+	rack_delay = 0.7 SECONDS //Smaller than standard sniper
+	eject_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
+	eject_empty_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_unload.ogg'
+	load_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_reload.ogg'
+	pin = /obj/item/firing_pin/dna/secure
+	manufacturer = /datum/corporation/hephaestus/militech
+
+/obj/item/gun/ballistic/rifle/sniper_rifle/sv98
+	name = "\improper SV-98 anti-material sniper rifle"
+	desc = "A Vostok-manufactured anti-material sniper rifle. Robust, presise."
+	icon_state = "sv-98"
+	rack_delay = 0.4 SECONDS //360 no scope
+	pin = /obj/item/firing_pin/dna/secure
+	fire_sound = 'modular_dripstation/sound/weapons/tgmc/svd.ogg'
+	dry_fire_sound = 'modular_dripstation/sound/weapons/tgmc/sniper_empty.ogg'
+	fire_sound_volume = 90
+	vary_fire_sound = FALSE
+	zoom_amt = 0
+	zoom_out_amt = 0
+	zoomable = FALSE
+	available_attachments = list(
+		/obj/item/attachment/scope/sniper_slav,
+	)
+	eject_sound = 'modular_dripstation/sound/weapons/tgmc/svd_unload.ogg'
+	eject_empty_sound = 'modular_dripstation/sound/weapons/tgmc/svd_unload.ogg'
+	load_sound = 'modular_dripstation/sound/weapons/tgmc/svd_reload.ogg'
+	rack_sound = 'modular_dripstation/sound/weapons/tgmc/svd_rack.ogg'
+	mag_type = /obj/item/ammo_box/magazine/svd
+	manufacturer = /datum/corporation/vostok
+
+///Nitro Express///
+/obj/item/gun/ballistic/nitro_express
+	name = "\improper BW-5 Nitro Express Rifle"
+	desc = "A large-bore double-barelled break-action hunting rifle. Fires armor-piercing .700 'Nitro Express' ammunition. The recoil feels strong enough to break your shoulder."
+	icon_state = "nitro_express"
+	mag_type = /obj/item/ammo_box/magazine/internal/nitro_express
+	fire_sound = 'modular_dripstation/sound/weapons/rifle/700_nitro_express.ogg'
+	var/open_sound = 'modular_dripstation/sound/weapons/rifle/700N-Open.wav'
+	var/close_sound = 'modular_dripstation/sound/weapons/rifle/700N-Close.wav'
+	eject_sound = SFX_700EJECT
+	fire_sound_volume = 80
+	can_suppress = FALSE
+	var/select
+	var/second_casing
+	internal_magazine = TRUE
+	casing_ejector = FALSE
+	w_class = WEIGHT_CLASS_BULKY
+	weapon_weight = WEAPON_MEDIUM
+	recoil = 4
+	randomspread = 0
+	fire_delay = 0
+	burst_size = 2
+	//bolt_wording = "barell"
+	bolt_type = BOLT_TYPE_NO_BOLT
+	show_bolt_icon = FALSE
+	fire_sound_volume = 100
+	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+	var/locked = TRUE
+	manufacturer = /datum/corporation/wardtakhashi
+
+	available_attachments = list(
+		/obj/item/attachment/laser_sight,
+	)
+
+/obj/item/gun/ballistic/nitro_express/examine_more(mob/user)
+	. = ..()
+	var/msg = "BW-5 Nitro Express\
+		Very high damage. Easily penetrates armor plating, ballistic shields and enemies."
+
+	return list(span_notice("<i>[msg]</i>"))
+
+/obj/item/gun/ballistic/nitro_express/update_icon_state()
+	. = ..()
+	if(!locked)
+		icon_state = "[initial(icon_state)]_open"
+	else
+		icon_state = initial(icon_state)
+
+/obj/item/gun/ballistic/nitro_express/can_shoot()
+	if(!locked)
+		return FALSE
+	return ..()
+
+/obj/item/gun/ballistic/nitro_express/attack_self(mob/living/user)
+	if(locked)
+		to_chat(user, span_notice("You open the barell of \the [src]."))
+		playsound(user, open_sound, 60, FALSE)
+	else
+		to_chat(user, span_notice("You return the barell of \the [src] back."))
+		playsound(user, close_sound, 60, FALSE)
+		chamber_round()
+	locked = !locked
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
+
+/obj/item/gun/ballistic/nitro_express/attackby(obj/item/A, mob/user, params)
+	if((istype(A, /obj/item/ammo_casing)) && locked)
+		to_chat(user, span_notice("You can`t load rounds while the gun is locked!"))
+		return
+	return ..()
+
+/obj/item/gun/ballistic/nitro_express/AltClick(mob/user)
+	if(!locked)
+		chambered = null
+		var/num_unloaded = 0
+		for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
+			CB.forceMove(drop_location())
+			CB.bounce_away(FALSE, NONE)
+			num_unloaded++
+		if (num_unloaded)
+			to_chat(user, span_notice("You unload [num_unloaded] [cartridge_wording]\s from [src]."))
+			playsound(user, eject_sound, eject_sound_volume, eject_sound_vary)
+			update_appearance(UPDATE_ICON|UPDATE_DESC)
+		else
+			to_chat(user, span_warning("[src] is empty!"))
+		return
+	else
+		to_chat(user, span_notice("You can`t unload rounds while the gun is locked!"))
+
+/obj/item/gun/ballistic/nitro_express/attack_hand(mob/user)
+	if(user.is_holding(src))
+		chambered = null
+		if(!locked)
+			for(var/obj/item/ammo_casing/CB in get_ammo_list(TRUE, FALSE))
+				if(CB.BB == null && istype(magazine, /obj/item/ammo_box/magazine/internal/nitro_express))
+					var/obj/item/ammo_box/magazine/internal/nitro_express/ne = magazine
+					CB.forceMove(drop_location())
+					user.put_in_hands(CB)
+					ne.remove_casing(CB)
+					to_chat(user, span_notice("You unload [cartridge_wording] from [src]."))
+					playsound(user, eject_sound, eject_sound_volume, eject_sound_vary)
+					update_appearance(UPDATE_ICON|UPDATE_DESC)
+					return
+			for(var/obj/item/ammo_casing/CB in get_ammo_list(TRUE, FALSE))
+				if(istype(magazine, /obj/item/ammo_box/magazine/internal/nitro_express))
+					var/obj/item/ammo_box/magazine/internal/nitro_express/ne = magazine
+					CB.forceMove(drop_location())
+					user.put_in_hands(CB)
+					ne.remove_casing(CB)
+					to_chat(user, span_notice("You unload [cartridge_wording] from [src]."))
+					playsound(user, eject_sound, eject_sound_volume, eject_sound_vary)
+					update_appearance(UPDATE_ICON|UPDATE_DESC)
+					return
+		else
+			to_chat(user, span_notice("You can`t unload rounds while the gun is locked!"))
+	return ..()
+
+/*
+/obj/item/gun/ballistic/nitro_express/ui_action_click(mob/user, actiontype)
+	if(istype(actiontype, /datum/action/item_action/toggle_firemode))
+		burst_select()
+	else
+		..()
+
+/obj/item/gun/ballistic/nitro_express/proc/burst_select()
+	var/mob/living/carbon/human/user = usr
+	select = !select
+	if(!select)
+		burst_size = 1
+		to_chat(user, span_notice("You switch to one shot."))
+	else
+		burst_size = initial(burst_size)
+		to_chat(user, span_notice("You switch to double shot."))
+
+	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	update_appearance(UPDATE_ICON)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.build_all_button_icons()
+*/
+
+/obj/item/gun/ballistic/nitro_express/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.dna?.check_mutation(STRONG) && !isreplica(H))	//hidden strong mut buff
+			H.adjustStaminaLoss(20)
+			if(H.active_hand_index == 1)
+				H.apply_damage(15, BRUTE, BODY_ZONE_L_ARM, wound_bonus = 0, bare_wound_bonus = 30, sharpness = SHARP_NONE)
+			else
+				H.apply_damage(15, BRUTE, BODY_ZONE_R_ARM, wound_bonus = 0, bare_wound_bonus = 30, sharpness = SHARP_NONE)
+			var/atom/throw_user = get_edge_target_turf(pbtarget, REVERSE_DIR(get_dir(src, get_step_away(pbtarget, src))))
+			H.throw_at(throw_user, 1, 3)
+			to_chat(H, span_danger("Recoil of \the [src] hits you very hard and throws you back!"))
+			H.apply_effects(knockdown = 40)
+/*
+/obj/item/gun/ballistic/nitro_express/update_icon_state()
+	. = ..()
+	if(bolt_locked)
+		icon_state = "[initial(icon_state)]_open"
+	else
+		icon_state = initial(icon_state)
+
+/obj/item/gun/ballistic/nitro_express/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	var/obj/item/ammo_casing/AC = chambered //Find chambered round
+	if(from_firing)
+		if(istype(AC) && !second_casing) //there's a chambered round and no casing in second barell
+			second_casing = AC
+			chambered = null
+	if (chamber_next_round && (magazine?.max_ammo > 0))
+		chamber_round()
+
+/obj/item/gun/ballistic/nitro_express/attack_hand(mob/user)
+	if(user.is_holding(src))
+		if(internal_magazine && !bolt_locked)
+			to_chat(user, span_notice("The gun is locked!"))
+			return
+		var/obj/item/ammo_casing/AC = chambered //Find chambered round
+		var/obj/item/ammo_casing/AC2 = second_casing
+		if(istype(AC2))	//check second barel for spent casing
+			AC2.forceMove(drop_location())
+			user.put_in_hands(AC2)
+			second_casing = null
+			AC2.update_appearance(UPDATE_ICON)
+			return
+		else if(istype(AC))
+			AC.forceMove(drop_location())
+			user.put_in_hands(AC)
+			chambered = null
+			AC.update_appearance(UPDATE_ICON)
+			//if (magazine?.max_ammo > 1)
+			//	chamber_round()
+			return
+	return ..()
+
+/obj/item/gun/ballistic/nitro_express/rack(mob/user = null)
+	if (weapon_weight != WEAPON_LIGHT) //Can't rack it if the weapon doesn't permit dual-wielding and your off-hand is full
+		if (user.get_inactive_held_item())
+			to_chat(user, span_warning("You cannot open \the [src] while your other hand is full!"))
+			return
+	if (!bolt_locked)
+		to_chat(user, span_notice("You open the barell of \the [src]."))
+	else
+		to_chat(user, span_notice("You return the barell of \the [src] back."))
+		chamber_round()
+	bolt_locked = !bolt_locked
+	playsound(src, lock_back_sound, lock_back_sound_volume, lock_back_sound_vary)
+	update_appearance(UPDATE_ICON)
+
+/obj/item/gun/ballistic/nitro_express/can_shoot()
+	if (bolt_locked)
+		return FALSE
+	return ..()
+
+/obj/item/gun/ballistic/nitro_express/attackby(obj/item/A, mob/user, params)
+	if(internal_magazine && !bolt_locked)
+		to_chat(user, span_notice("The [src] is closed!"))
+		return
+	if(chambered && second_casing)
+		to_chat(user, span_notice("The [src] is full!"))
+		return
+	return ..()
+*/
+
 ///Boltaction///
+/obj/item/gun/ballistic/rifle/boltaction
+	available_attachments = list(
+		/obj/item/attachment/scope/sniper_slav,
+	)
+	manufacturer = /datum/corporation/vostok
+
 /obj/item/gun/ballistic/rifle/boltaction/brand_new
 	desc = "A brand new Mosin Nagant issued by Nanotrasen for their interns. You would rather not to damage it."
 	icon_state = "mosinprime"
@@ -37,6 +339,7 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	zoom_out_amt = 2
 	actions_types = list()
+	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/rifle/boltaction/brand_new/sawoff(mob/user)
 	. = ..()
@@ -56,6 +359,7 @@
 	icon_state = "mosintactical"
 	item_state = "mosintactical"
 	can_be_sawn_off = FALSE
+	manufacturer = /datum/corporation/independent
 
 // The Lionhunter, a gun for heretics
 // The ammo it uses takes time to "charge" before firing,
@@ -67,3 +371,78 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/guns_on_back.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+
+/obj/item/gun/ballistic/rifle/atelier
+	name = "Atelier Logic"
+	desc = "Some kind of rare bizarre gun, chambered in .45 ACP."
+	icon_state = "atelier"
+	item_state = "pistol"
+	icon = 'modular_dripstation/icons/obj/weapons/ballistic.dmi'
+	lefthand_file = 'modular_dripstation/icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
+	fire_sound = "sound/weapons/leverfire.ogg"
+	fire_sound_volume = 50
+	rack_sound = "sound/weapons/leverrack.ogg"
+	load_sound = "sound/weapons/leverload.ogg"
+	muzzleflash_iconstate = "muzzle_flash_medium"
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/atelier
+	var/guns_left = 2
+	var/started_to_vanish = FALSE
+
+/obj/item/ammo_box/magazine/internal/boltaction/enchanted/atelier
+	max_ammo = 1
+	ammo_type = /obj/item/ammo_casing/m4570
+	caliber = CALIBER_4570
+
+/obj/item/gun/ballistic/rifle/atelier/Destroy()
+	do_sparks(1, TRUE, src)
+	return ..()
+
+// /obj/item/gun/ballistic/rifle/atelier/equipped(mob/user, slot)
+// 	. = ..()
+// 	starting_to_vanish(user, 3 SECONDS)
+
+/obj/item/gun/ballistic/rifle/atelier/dropped(mob/user, slot)
+	. = ..()
+	guns_left = 0
+	starting_to_vanish(user, 2 SECONDS)
+
+/obj/item/gun/ballistic/rifle/atelier/proc/discard_gun(mob/living/user)
+	user.throw_item(pick(oview(7,get_turf(user))))
+	starting_to_vanish(user, 2 SECONDS)
+
+/obj/item/gun/ballistic/rifle/atelier/attack_self()
+	return
+	
+/obj/item/gun/ballistic/rifle/atelier/proc/starting_to_vanish(mob/user, time)
+	if(started_to_vanish)
+		return
+	if(user)
+		to_chat(user, span_danger("Starting to vanish!"))
+	started_to_vanish = TRUE
+	do_sparks(1, TRUE, src)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item, vanish_fact)), time)
+
+/obj/item/gun/ballistic/rifle/atelier/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	. = ..()
+	if(!.)
+		return
+	if(guns_left)
+		var/obj/item/gun/ballistic/rifle/atelier/gun
+		if(guns_left == 1)
+			gun = new /obj/item/gun/ballistic/rifle/atelier/long
+		else
+			gun = new type
+			gun.guns_left = guns_left - 1
+		discard_gun(user)
+		user.swap_hand()
+		user.put_in_hands(gun)
+	else
+		user.dropItemToGround(src, TRUE)
+
+/obj/item/gun/ballistic/rifle/atelier/long
+	desc = "Some kind of rare bizarre gun, chambered in .45-70 Government."
+	icon_state = "atelier_long"
+	item_state = "oldrifle"
+	icon = 'modular_dripstation/icons/obj/weapons/48x32.dmi'
+	guns_left = 0

@@ -208,7 +208,7 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		replacementmode.restricted_jobs += "Assistant"
 
-	message_admins("The roundtype will be converted. If you have other plans for the station or feel the station is too messed up to inhabit <A HREF='?_src_=holder;[HrefToken()];toggle_midround_antag=[REF(usr)]'>stop the creation of antags</A> or <A HREF='?_src_=holder;[HrefToken()];end_round=[REF(usr)]'>end the round now</A>.")
+	message_admins("The roundtype will be converted. If you have other plans for the station or feel the station is too messed up to inhabit <A HREF='byond://?_src_=holder;[HrefToken()];toggle_midround_antag=[REF(usr)]'>stop the creation of antags</A> or <A HREF='byond://?_src_=holder;[HrefToken()];end_round=[REF(usr)]'>end the round now</A>.")
 	log_game("Roundtype converted to [replacementmode.name]")
 
 	. = 1
@@ -346,11 +346,13 @@
 /datum/game_mode/proc/generate_station_trait_announcement()
 	if(!SSstation.station_traits.len)
 		return
-	. = "Identified shift divergencies:\n"
+	//. = "Identified shift divergencies:\n"
+	var/list/trait_list_strings = list()
 	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
 		if(!station_trait.show_in_report)
 			continue
-		. += "[station_trait.get_report()]\n"
+		trait_list_strings += "[station_trait.get_report()]\n"
+	. += "Identified shift divergencies:\n" + trait_list_strings.Join()
 	return
 
 /* This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to

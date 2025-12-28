@@ -322,7 +322,10 @@
 			return
 		if(2)
 			visibility_flags = NONE 
-			affected_mob.adjust_bodytemperature(30, 0, BODYTEMP_HEAT_DAMAGE_LIMIT - 1) //slowly rising fever that is no lethal *yet*
+			var/temp = BODYTEMP_HEAT_DAMAGE_LIMIT
+			if(ishuman(affected_mob))
+				temp = affected_mob.dna.species.bodytemp_heat_damage_limit
+			affected_mob.adjust_bodytemperature(30, 0, temp - 1) //slowly rising fever that is no lethal *yet*
 			if(prob(10))
 				to_chat(affected_mob, span_warning("[pick("You feel hot.", "You feel like you're burning.")]"))
 
@@ -331,7 +334,10 @@
 			return
 		if(3)
 			affected_mob.blood_volume -= 0.5
-			affected_mob.adjust_bodytemperature(50, 0, BODYTEMP_HEAT_DAMAGE_LIMIT - 1) //fast rising not deadly fever
+			var/temp = BODYTEMP_HEAT_DAMAGE_LIMIT
+			if(ishuman(affected_mob))
+				temp = affected_mob.dna.species.bodytemp_heat_damage_limit
+			affected_mob.adjust_bodytemperature(50, 0, temp - 1) //fast rising not deadly fever
 			if(prob(20))
 				to_chat(affected_mob, span_warning("[pick("You feel hot.", "You feel like you're burning.")]"))
 

@@ -7,8 +7,10 @@
 		zone = BODY_ZONE_CHEST
 	if(zone == BODY_ZONE_PRECISE_MOUTH || zone == BODY_ZONE_PRECISE_EYES) //yes this is required.
 		zone = BODY_ZONE_HEAD
+	/* Dripstation edit
 	if(zone == BODY_ZONE_PRECISE_GROIN)
 		zone = BODY_ZONE_CHEST
+	*/
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/L = X
 		if(L.body_zone == zone)
@@ -148,17 +150,22 @@
 			disabled += zone
 	return disabled
 
-//Remove all embedded objects from all limbs on the carbon mob
-/mob/living/carbon/proc/remove_all_embedded_objects(silent = TRUE, forced = TRUE)
-	var/turf/T = get_turf(src)
-	for(var/obj/item/I in get_embedded_objects())
-		remove_embedded_object(I, T, silent, forced)
+//Dripstation edit - ebedded element
+///Remove a specific embedded item from the carbon mob
+/mob/living/carbon/proc/remove_embedded_object(obj/item/embedded)
+	SEND_SIGNAL(src, COMSIG_CARBON_EMBED_REMOVAL, embedded)
 
-/mob/living/carbon/proc/has_embedded_objects()
-	. = FALSE
-	for(var/X in bodyparts)
-		var/obj/item/bodypart/L = X
-		for(var/obj/item/I in L.embedded_objects)
+///Remove all embedded objects from all limbs on the carbon mob
+/mob/living/carbon/proc/remove_all_embedded_objects()
+	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
+		for(var/obj/item/embedded in bodypart.embedded_objects)
+			remove_embedded_object(embedded)
+
+/mob/living/carbon/proc/has_embedded_objects(include_harmless=FALSE)
+	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
+		for(var/obj/item/embedded in bodypart.embedded_objects)
+			if(!include_harmless && embedded.isEmbedHarmless())
+				continue
 			return TRUE
 
 
@@ -178,6 +185,8 @@
 			L = new /obj/item/bodypart/r_leg()
 		if(BODY_ZONE_CHEST)
 			L = new /obj/item/bodypart/chest()
+		if(BODY_ZONE_PRECISE_GROIN)
+			L = new /obj/item/bodypart/groin()
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)
@@ -199,6 +208,8 @@
 			L = new /obj/item/bodypart/r_leg/monkey()
 		if(BODY_ZONE_CHEST)
 			L = new /obj/item/bodypart/chest/monkey()
+		if(BODY_ZONE_PRECISE_GROIN)
+			L = new /obj/item/bodypart/groin/monkey()
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)
@@ -233,6 +244,8 @@
 			L = new /obj/item/bodypart/r_leg/alien()
 		if(BODY_ZONE_CHEST)
 			L = new /obj/item/bodypart/chest/alien()
+		if(BODY_ZONE_PRECISE_GROIN)
+			L = new /obj/item/bodypart/groin/alien()
 	if(L)
 		L.update_limb(fixed_icon, src)
 		if(robotic)

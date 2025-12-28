@@ -127,6 +127,36 @@
 	if(burn_stuff(AM))
 		START_PROCESSING(SSobj, src)
 
+/turf/open/lava/attackby(obj/item/C, mob/user, params, area/area_restriction)
+	..()
+	if(istype(C, /obj/item/stack/rods/lava))
+		var/obj/item/stack/rods/lava/R = C
+		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+		if(!L)
+			if(R.use(1))
+				to_chat(user, span_notice("You construct a lattice."))
+				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+				// Create a lattice, without reverting to our baseturf
+				new /obj/structure/lattice/lava(src)
+			else
+				to_chat(user, span_warning("You need one rod to build a lattice."))
+			return
+	if(istype(C, /obj/item/stack/tile/plasteel))
+		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+		if(L)
+			var/obj/item/stack/tile/plasteel/S = C
+			if(S.use(1))
+				qdel(L)
+				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+				to_chat(user, span_notice("You build a floor."))
+				// Create a floor, which has this chasm underneath it
+				place_on_top(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
+			else
+				to_chat(user, span_warning("You need one floor tile to build a floor!"))
+		else
+			to_chat(user, span_warning("The plating is going to need some support! Place metal rods first."))
+
+
 /turf/open/lava/process(delta_time)
 	if(!burn_stuff(null, delta_time))
 		STOP_PROCESSING(SSobj, src)
@@ -170,7 +200,7 @@
 
 /turf/open/lava/proc/is_safe()
 	//if anything matching this typecache is found in the lava, we don't burn things
-	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
+	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/lattice/lava, /obj/structure/stone_tile))
 	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
 	for(var/obj/structure/stone_tile/S in found_safeties)
 		if(S.fallen)
@@ -199,7 +229,7 @@
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
 			if(O.resistance_flags & FIRE_PROOF)
 				O.resistance_flags &= ~FIRE_PROOF
-			if(O.armor.fire > 50) //obj with 100% fire armor still get slowly burned away.
+			if(O.armor?.fire > 50) //obj with 100% fire armor still get slowly burned away.
 				O.armor = O.armor.setRating(fire = 50)
 			O.fire_act(10000, 1000 * delta_time)
 

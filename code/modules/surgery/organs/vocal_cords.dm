@@ -274,7 +274,7 @@
 			if(is_servant_of_ratvar(L) && ishuman(L))
 				var/mob/living/carbon/human/H = L
 				var/obj/item/bodypart/BP = pick(H.bodyparts)
-				BP.generic_bleedstacks += 5 * power_multiplier
+				BP.adjustBleedStacks(5 * power_multiplier)
 
 	//HAIL RATVAR
 	else if(findtext(message, narsian_words) && is_servant_of_ratvar(user))
@@ -345,7 +345,7 @@
 		cooldown = COOLDOWN_DAMAGE
 		for(var/mob/living/carbon/human/H in listeners)
 			var/obj/item/bodypart/BP = pick(H.bodyparts)
-			BP.generic_bleedstacks += 5 * power_multiplier
+			BP.adjustBleedStacks(5 * power_multiplier)
 
 	//FIRE
 	else if((findtext(message, burn_words)))

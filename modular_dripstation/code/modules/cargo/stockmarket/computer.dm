@@ -1,6 +1,6 @@
 /obj/item/circuitboard/computer/stockexchange
 	name = "Stock Exchange Console (Computer Board)"
-	icon_state = "supply"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/stockexchange
 
 /obj/machinery/computer/stockexchange

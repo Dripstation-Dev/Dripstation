@@ -14,10 +14,10 @@
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 20
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 3)
+	embedding = list("impact_pain_multiplier" = 3)
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = SFX_STAB
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = SHARP_EDGED
 	max_integrity = 200
@@ -107,7 +107,7 @@
 	user.visible_message(span_suicide("[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.say("[war_cry]", forced = "spear warcry")
 	explosive.forceMove(user)
-	explosive.prime()
+	explosive.prime(user)
 	user.gib()
 	qdel(src)
 	return BRUTELOSS
@@ -132,7 +132,7 @@
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.say("[war_cry]", forced = "spear warcry")
 		explosive.forceMove(AM)
-		explosive.prime()
+		explosive.prime(user)
 		qdel(src)
 
 /**
@@ -191,9 +191,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 22
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 3)
+	embedding = list("impact_pain_multiplier" = 3)
 	armour_penetration = 15 //Enhanced armor piercing
-	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = SHARP_EDGED
 
@@ -233,9 +232,8 @@
 	slot_flags = ITEM_SLOT_BACK
 	throwforce = 22
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 2)
+	embedding = list("impact_pain_multiplier" = 2)
 	armour_penetration = 10
-	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = SHARP_EDGED
 

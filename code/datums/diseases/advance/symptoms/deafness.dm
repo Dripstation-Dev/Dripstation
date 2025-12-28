@@ -59,7 +59,7 @@ Bonus
 				if(istype(ears) && ears.damage < ears.maxHealth)
 					to_chat(M, span_userdanger("Your ears pop painfully and start bleeding!"))
 					ears.damage = max(ears.damage, ears.maxHealth)
-					M.emote("scream")
+					M.flick_pain(100, TRUE)
 			else
 				to_chat(M, span_userdanger("Your ears pop and begin ringing loudly!"))
 				M.minimumDeafTicks(20)

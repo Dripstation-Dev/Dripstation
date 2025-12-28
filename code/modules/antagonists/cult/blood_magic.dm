@@ -440,6 +440,26 @@
 			else
 				target.visible_message(span_warning("[L] starts to glow in a halo of light!"), \
 									   span_userdanger("A feeling of warmth washes over you, rays of holy light surround your body and protect you from the flash of light!"))
+	//Dripstation edit
+	// Heretics are momentarily disoriented by the stunning aura. Enough for both parties to go 'oh shit' but only a mild combat ability.
+	// Heretics have an identical effect on their grasp. The cultist's worse spell preparation is offset by their extra gear and teammates.
+		else if(IS_HERETIC(L))	//Dripstation edit
+			L.AdjustKnockdown(0.5 SECONDS)	//Dripstation edit
+			L.adjust_confusion_up_to(1.5 SECONDS, 3 SECONDS)	//Dripstation edit
+			L.adjust_dizzy_up_to(1.5 SECONDS, 3 SECONDS)		//Dripstation edit
+			//ADD_TRAIT(target, TRAIT_NO_SIDE_KICK, REF(src)) // We don't want this to be a good stunning tool, just minor disorientation
+			//addtimer(TRAIT_CALLBACK_REMOVE(target, TRAIT_NO_SIDE_KICK, REF(src)), 1 SECONDS)
+
+			var/old_color = L.color		//Dripstation edit
+			L.color = COLOR_VERY_PALE_LIME_GREEN	//Dripstation edit
+			animate(L, color = old_color, time = 4 SECONDS, easing = EASE_IN)	//Dripstation edit
+			L.mob_light(range = 1.5, power = 2.5, color = COLOR_VERY_PALE_LIME_GREEN, duration = 0.5 SECONDS)	//Dripstation edit
+			playsound(L, 'modular_dripstation/sound/effects/magic_block_mind.ogg', 150, TRUE) // insanely quiet
+
+			to_chat(user, span_warning("An eldritch force intervenes as you touch [target], absorbing most of the effects!"))	//Dripstation edit
+			to_chat(L, span_warning("As [user] touches you with vile magicks, the Mansus absorbs most of the effects!"))	//Dripstation edit
+			L.balloon_alert_to_viewers("absorbed!")	//Dripstation edit
+
 		else if(!HAS_TRAIT(target, TRAIT_MINDSHIELD)) //&& !istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(cult.cult_ascendent)
 				to_chat(user, span_cultitalic("[L] is dazed by a flash of red light!"))
@@ -464,7 +484,9 @@
 					S.emp_act(EMP_LIGHT)
 				else if(iscarbon(target))
 					var/mob/living/carbon/C = L
+					/* no silence to u at this stage, Dripstation edit
 					C.silent += 3
+					*/
 					C.adjust_stutter(7 SECONDS)
 					C.cultslurring += 7
 					C.adjust_jitter(7 SECONDS)
@@ -486,6 +508,11 @@
 				if(is_servant_of_ratvar(L))
 					L.adjustBruteLoss(15)
 		else
+			L.AdjustKnockdown(0.5 SECONDS)	//Dripstation edit
+			L.flash_act(1,1)
+			L.adjust_confusion_up_to(1.5 SECONDS, 3 SECONDS)	//Dripstation edit
+			L.adjust_dizzy_up_to(1.5 SECONDS, 3 SECONDS)		//Dripstation edit
+			L.balloon_alert_to_viewers("absorbed!")				//Dripstation edit
 			target.visible_message("<span class='warning'>[target] winces slightly as a red flash eminates from [user]'s hand</span>", \
 									   "<span class='userdanger'>You get a small headache as a red flash eminates from [user]'s hand!</span>")
 		uses--

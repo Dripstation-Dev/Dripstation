@@ -1,13 +1,22 @@
 /mob/living/carbon/human/say_mod(input, message_mode)
-	var/rare_verb = LAZYLEN(dna.species.rare_say_mod) ? pick(dna.species.rare_say_mod) : null
-	if (rare_verb && prob(dna.species.rare_say_mod[rare_verb]))
-		verb_say = rare_verb
+	if(HAS_TRAIT(src, TRAIT_SIGN_LANG))
+		verb_say = "signs"
 	else
-		verb_say = dna.species.say_mod
+		var/obj/item/organ/tongue/tongue = getorganslot(ORGAN_SLOT_TONGUE)
+		if(!tongue)
+			verb_say = "gurgles"
+		else
+			var/rare_verb = LAZYLEN(dna.species.rare_say_mod) ? pick(dna.species.rare_say_mod) : null
+			if (rare_verb && prob(dna.species.rare_say_mod[rare_verb]))
+				verb_say = rare_verb
+			else
+				verb_say = dna.species.say_mod
 	
 	. = ..()
 
 /mob/living/carbon/human/GetVoice()
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return ("Unknown")
 	if(istype(wear_mask, /obj/item/clothing/mask/chameleon))
 		var/obj/item/clothing/mask/chameleon/V = wear_mask
 		if(V.vchange && wear_id)

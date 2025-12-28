@@ -24,6 +24,7 @@
 	. = ..()
 	name = initial(name)
 
+/*
 /obj/item/storage/box/syndicate/bundle_A/PopulateContents()
 	switch (pickweight(list("recon" = 2, "bloodyspai" = 3, "stealth" = 2, "guns" = 2, "murder" = 2, "implant" = 1, "hacker" = 3, "sabotage" = 3, "sniper" = 1, "metaops" = 1)))
 		if("recon") //28ish TC
@@ -128,7 +129,7 @@
 			new /obj/item/clothing/under/suit/really_black(src) //Free?
 
 		if("metaops") //30 TC
-			new /obj/item/clothing/suit/space/hardsuit/syndi(src) //8 TC
+			new /obj/item/clothing/suit/space/hardsuit/dualmode(src) //8 TC
 			new /obj/item/gun/ballistic/shotgun/bulldog/unrestricted(src) //8 TC, nukies only
 			new /obj/item/implanter/explosive(src) //2 TC, nukies only
 			new /obj/item/ammo_box/magazine/m12g(src) //2 TC, nukies only
@@ -164,7 +165,7 @@
 			new /obj/item/dnainjector/dwarf(src) //Gives you dwarfism (smaller hitbox, instantly climb tables), would argue 2-3 TC. The only other core item to this kit
 
 		if("ninja")
-			new /obj/item/katana(src) // Unique , hard to tell how much tc this is worth. 8 tc?
+			new /obj/item/melee/katana(src) // Unique , hard to tell how much tc this is worth. 8 tc?
 			new /obj/item/implanter/adrenalin(src) // 8 tc
 			for(var/i in 1 to 6)
 				new /obj/item/throwing_star(src) // ~5 tc for all 6
@@ -278,6 +279,7 @@
 			new /obj/item/autosurgeon/arm/syndicate/syndie_mantis(src) //6 tc
 			new /obj/item/autosurgeon/upgraded_cyberlungs(src) //this is to remain true to the source material ok
 			new /obj/item/storage/pill_bottle/synaptizine(src) //take your drugs david, this and the lungs make up 1 tc
+*/	
 			
 
 #undef CARP_CARP_CARP
@@ -420,6 +422,7 @@
 	new /obj/item/clothing/head/helmet/space/syndicate/contract(src)
 	new /obj/item/clothing/suit/space/syndicate/contract(src)
 	new /obj/item/clothing/under/chameleon/syndicate(src)
+	new /obj/item/storage/wallet/passport/agent(src)
 	new /obj/item/clothing/mask/chameleon/syndicate(src)
 	new /obj/item/card/id/syndicate(src)
 	new /obj/item/clothing/gloves/fingerless/bigboss(src)
@@ -772,6 +775,7 @@
 	new /obj/item/storage/backpack/chameleon/syndicate(src)
 	new /obj/item/radio/headset/chameleon/syndicate(src)
 	new /obj/item/stamp/chameleon/syndicate(src)
+	new /obj/item/storage/wallet/passport/agent(src)
 
 /obj/item/storage/box/syndie_kit/chameleon/plasmaman
 	real_name = "chameleon kit"
@@ -787,6 +791,7 @@
 	new /obj/item/storage/backpack/chameleon/syndicate(src)
 	new /obj/item/radio/headset/chameleon/syndicate(src)
 	new /obj/item/stamp/chameleon/syndicate(src)
+	new /obj/item/storage/wallet/passport/agent(src)
 
 //5*(2*4) = 5*8 = 45, 45 damage if you hit one person with all 5 stars.
 //Not counting the damage it will do while embedded (2*4 = 8, at 15% chance)

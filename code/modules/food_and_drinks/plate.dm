@@ -24,6 +24,7 @@
 		to_chat(user, span_notice("[src] can't fit more items!"))
 		return
 	if(user.transferItemToLoc(I, src))
+		/*
 		var/list/click_params = params2list(params)
 		//Center the icon where the user clicked.
 		if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
@@ -31,6 +32,12 @@
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 		I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -max_x_offset, max_x_offset)
 		I.pixel_y = min(text2num(click_params["icon-y"]) - 16, -placement_offset, max_height_offset)
+		*/
+		var/list/modifiers = params2list(params)	//Dripstation edit
+		if(!(LAZYACCESS(modifiers, ICON_X)) || !(LAZYACCESS(modifiers, ICON_Y)))	//Dripstation edit	
+			return																	//Dripstation edit
+		I.pixel_x = clamp(text2num(LAZYACCESS(modifiers, ICON_X)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
+		I.pixel_y = clamp(text2num(LAZYACCESS(modifiers, ICON_Y)) - 16, -(world.icon_size/2), world.icon_size/2)	//Dripstation edit
 		to_chat(user, span_notice("You place [I] on [src]."))
 		AddToPlate(I, user)
 		update_appearance(UPDATE_ICON)

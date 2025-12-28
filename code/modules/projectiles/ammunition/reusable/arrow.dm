@@ -12,7 +12,7 @@
 	throwforce = 5 //If, if you want to throw the arrow since you don't have a bow?
 	throw_speed = 3
 	sharpness = SHARP_POINTY
-	embedding = list("embed_chance" = 25, "embedded_fall_chance" = 0)
+	embedding = list("embed_chance" = 25, "fall_chance" = 0)
 
 	// Arrow
 	/// List of all attached parts to move to the projectile when fired
@@ -171,7 +171,7 @@
 	item_state = "ashenarrow"
 	force = 7
 	throwforce = 7
-	embedding = list("embed_chance" = 15, "embedded_fall_chance" = 0)
+	embedding = list("embed_chance" = 15, "fall_chance" = 0)
 	projectile_type = /obj/projectile/bullet/reusable/arrow/ash
 
 /obj/item/ammo_casing/reusable/arrow/bone_tipped
@@ -190,7 +190,7 @@
 	item_state = "bonearrow"
 	force = 4
 	throwforce = 4
-	embedding = list("embed_chance" = 20, "embedded_fall_chance" = 0)
+	embedding = list("embed_chance" = 20, "fall_chance" = 0)
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
 
 /obj/item/ammo_casing/reusable/arrow/chitin
@@ -209,7 +209,7 @@
 	force = 3
 	throwforce = 3
 	armour_penetration = -10
-	embedding = list("embed_chance" = 35, "embedded_fall_chance" = 0)
+	embedding = list("embed_chance" = 35, "fall_chance" = 0)
 	variance = 10
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bamboo
 
@@ -228,7 +228,7 @@
 	item_state = "glassarrow"
 	force = 4
 	throwforce = 4
-	embedding = list("embed_chance" = 15, "embedded_fall_chance" = 0)
+	embedding = list("embed_chance" = 15, "fall_chance" = 0)
 	variance = 5
 	projectile_type = /obj/projectile/bullet/reusable/arrow/glass
 
@@ -238,7 +238,7 @@
 	icon_state = "plasmaglassarrow"
 	item_state = "plasmaglassarrow"
 	armour_penetration = 40 //Ah yes the 40 AP on a 4 force hit
-	embedding = list("embed_chance" = 25, "embedded_fall_chance" = 0)
+	embedding = list("embed_chance" = 25, "fall_chance" = 0)
 	variance = 5
 	projectile_type = /obj/projectile/bullet/reusable/arrow/glass/plasma
 
@@ -250,7 +250,7 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow/magic
 	force = 12
 	throwforce = 20
-	embedding = list("embed_chance" = 50, "embedded_fall_chance" = 0)
+	embedding = list("embed_chance" = 50, "fall_chance" = 0)
 	/// Causes the arrow to become weaker, as I was told to prevent it from being used against wizards
 	var/dulled = FALSE
 
@@ -269,7 +269,8 @@
 		BB.armour_penetration = -25
 		var/obj/projectile/bullet/reusable/arrow/arrow = BB
 		if(!istype(arrow))
-			arrow.embed_chance = 0
+			//arrow.embed_chance = 0	//dripstation edit
+			arrow.embedding = list("embed_chance" = 0)
 	else
 		BB.set_homing_target(target)
 		var/mob/M = target
@@ -412,7 +413,7 @@
 	item_state = "singuloarrow"
 	force = 4
 	throwforce = 4
-	embedding = list("embed_chance" = 15, "embedded_fall_chance" = 0)
+	embedding = list("embed_chance" = 15, "fall_chance" = 0)
 	variance = 5
 	projectile_type = /obj/projectile/bullet/reusable/arrow/singulo
 	/// The shard currently in the arrow
@@ -507,7 +508,7 @@
 	desc = "An arrow made from hardlight. This one burns the victim."
 	icon_state = "arrow_energy"
 	item_flags = DROPDEL
-	embedding = list("embedded_pain_chance" = 0, "embedded_pain_multiplier" = 0, "embedded_unsafe_removal_pain_multiplier" = 0, "embedded_fall_chance" = 0, "embedded_bleed_rate" = 0)
+	embedding = list("embedded_pain_chance" = 0, "pain_multiplier" = 0, "remove_pain_mult" = 0, "fall_chance" = 0)
 	projectile_type = /obj/projectile/energy/arrow
 
 	// Embed tick damage vars //
@@ -534,7 +535,7 @@
 
 /obj/item/ammo_casing/reusable/arrow/energy/embed_tick(target, mob/living/carbon/human/embedde, obj/item/bodypart/part)
 	if(ticks >= tick_max)
-		embedde.remove_embedded_object(src, null, TRUE, TRUE)
+		embedde.remove_embedded_object(src)
 		return
 	ticks++
 	playsound(embedde, tick_sound , 10, 0)

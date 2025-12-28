@@ -218,8 +218,10 @@
 	desc = "You're currently pointing a gun at someone."
 	icon_state = "aimed"
 
+/*
 /datum/status_effect/notscared
 	id = "notscared"
 	duration = 600
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
+*/

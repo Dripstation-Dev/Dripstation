@@ -281,7 +281,7 @@
 		D.visible_message(span_danger("[A] violently grabs [D]'s neck!"), \
 						span_userdanger("[A] violently grabs your neck!"))
 		log_combat(A, D, "grabs by the neck(Explosive Fist)")
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+		playsound(get_turf(D), SFX_PUNCH, 50, TRUE, -1)
 		streak = ""
 		A.adjust_fire_stacks(3)
 		D.adjust_fire_stacks(3)
@@ -301,7 +301,7 @@
 		var/message = pick("You feel your life force being drained!", "It hurts!", "You stare into [A]'s expressionless skull and see only fire and death.")
 		to_chat(D, span_userdanger(message))
 	if(prob(25))
-		D.emote("scream")
+		D.flick_pain(100, TRUE)
 	D.adjustFireLoss(succ_damage)
 	D.adjustStaminaLoss(succ_damage * 2)		//YOU ARE HELPLESS TO RESIST THE SPOOKY SKELETON
 	A.heal_overall_damage(succ_damage/2, succ_damage/2, 0, CONSCIOUS, TRUE)
@@ -318,7 +318,7 @@
 	if(!can_use(A))
 		return
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+	playsound(get_turf(D), SFX_PUNCH, 50, 1, -1)
 
 	var/selected_zone = A.zone_selected
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
@@ -366,7 +366,7 @@
 		var/obj/item/bodypart/hed = D.get_bodypart(BODY_ZONE_HEAD)
 		var/armor_block = D.run_armor_check(hed, BOMB)
 		D.apply_damage(A.get_punchdamagehigh() + 3, BURN, BODY_ZONE_HEAD, armor_block) 		//10 burn (vs bomb armor)
-		D.emote("scream")
+		D.flick_pain(100, TRUE)
 		D.adjust_eye_blur(4)
 
 		A.apply_damage(10, BURN, BODY_ZONE_CHEST, 0) 	//Take some unblockable damage since you're using your inner flame or something

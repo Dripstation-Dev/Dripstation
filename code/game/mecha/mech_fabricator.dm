@@ -57,6 +57,7 @@
 
 	/// A list of categories that valid MECHFAB design datums will broadly categorise themselves under.
 	var/list/part_sets = list(
+								"RIG and RIG Modules",
 								"Cyborg",
 								"Ripley",
 								"Odysseus",

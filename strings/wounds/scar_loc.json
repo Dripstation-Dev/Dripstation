@@ -13,10 +13,15 @@
 
 	"chest": [
 		"upper chest",
-		"@pick(upper_lower)abdomen",
+		"back",
 		"midsection",
-		"collarbone",
-		"lower back"
+		"collarbone"
+	],
+
+	"groin": [
+		"@pick(upper_lower)abdomen",
+		"lower back",
+		"buttcheek"
 	],
 
 	"l_arm": [

@@ -100,9 +100,11 @@
 	switch(pattern)
 		if(PATTERN_RANDOM)
 			return "#[random_short_color()]"
+		/* Dripstation edit
 		if(PATTERN_RAINBOW)
 			var/datum/holiday/pride_week/rainbow_datum = new()
 			return rainbow_datum.get_holiday_colors(thing_to_color, PATTERN_DEFAULT)
+		*/ 
 	if(!length(GLOB.holidays))
 		return
 	for(var/holiday_key in GLOB.holidays)
@@ -333,6 +335,7 @@
 /datum/holiday/summersolstice/greet()
 	return "Happy Summer Solstice!"
 
+/* Dripstation edit
 /datum/holiday/pride_week
 	name = PRIDE_WEEK
 	begin_month = JUNE
@@ -347,6 +350,7 @@
 		COLOR_PRIDE_ORANGE,
 		COLOR_PRIDE_RED,
 	)
+*/
 
 /datum/holiday/doctor
 	name = "Doctor's Day"

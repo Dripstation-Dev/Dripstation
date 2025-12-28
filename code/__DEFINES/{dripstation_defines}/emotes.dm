@@ -13,7 +13,7 @@
 //10.moan
 //11.yawn
 
-//################ HUMAN(DEFAUL) ################
+//################ HUMAN(DEFAULT) ################
 
 #define SPECIES_DEFAULT_LAUGH_SOUND(user) user.gender == FEMALE ? pick(\
 		'modular_dripstation/sound/emotes/human/female/laugh_female_1.ogg',\
@@ -87,9 +87,56 @@
 		'modular_dripstation/sound/emotes/human/male/moan_male_2.ogg',\
 		'modular_dripstation/sound/emotes/human/male/moan_male_3.ogg')
 
+#define SPECIES_DEFAULT_LEWD_MOAN_SOUND(user) pick(\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_1.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_2.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_3.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_4.ogg')
+
 #define SPECIES_DEFAULT_YAWN_SOUND(user) user.gender == FEMALE ? pick(\
 		'modular_dripstation/sound/emotes/human/female/yawn_female_1.ogg',\
 		'modular_dripstation/sound/emotes/human/female/yawn_female_2.ogg',\
 		'modular_dripstation/sound/emotes/human/female/yawn_female_3.ogg') : pick(\
 		'modular_dripstation/sound/emotes/human/male/yawn_male_1.ogg',\
 		'modular_dripstation/sound/emotes/human/male/yawn_male_2.ogg')
+
+
+//################ UNATHI(NOISES) ################
+#define UNATHI_DEFAULT_SCREAM_SOUND(user) user.gender == FEMALE ? pick(\
+		'modular_dripstation/sound/emotes/unathi/female/scream_female_1.ogg',\
+		'modular_dripstation/sound/emotes/unathi/female/scream_female_2.ogg') : pick(\
+		'modular_dripstation/sound/emotes/unathi/male/scream_male_1.ogg',\
+		'modular_dripstation/sound/emotes/unathi/male/scream_male_2.ogg')
+
+#define UNATHI_DEFAULT_CRY_SOUND(user) pick(\
+		'modular_dripstation/sound/emotes/unathi/cry_1.ogg',\
+		'modular_dripstation/sound/emotes/unathi/cry_2.ogg',\
+		'modular_dripstation/sound/emotes/unathi/cry_3.ogg',\
+		'modular_dripstation/sound/emotes/unathi/cry_4.ogg',\
+		'modular_dripstation/sound/emotes/unathi/cry_5.ogg')
+
+#define UNATHI_DEFAULT_MOAN_SOUND(user) pick(\
+		'modular_dripstation/sound/emotes/unathi/call_1.ogg',\
+		'modular_dripstation/sound/emotes/unathi/call_2.ogg',\
+		'modular_dripstation/sound/emotes/unathi/call_3.ogg',\
+		'modular_dripstation/sound/emotes/unathi/call_4.ogg',\
+		'modular_dripstation/sound/emotes/unathi/call_5.ogg')
+
+#define UNATHI_DEFAULT_LEWD_MOAN_SOUND(user) pick(\
+		'modular_dripstation/sound/emotes/unathi/lewd_hiss.ogg')
+
+#define UNATHI_DEFAULT_SNEEZE_SOUND(user) user.gender == FEMALE ? pick(\
+		'modular_dripstation/sound/emotes/unathi/female/sneeze_female.ogg') : pick(\
+		'modular_dripstation/sound/emotes/unathi/male/sneeze_male.ogg')
+
+//################ CAT(NOISES) ################
+#define CAT_DEFAULT_CRY_SOUND(user) user.gender == FEMALE ? pick(\
+		'modular_dripstation/sound/emotes/cat/merowr.ogg') : pick(\
+		'modular_dripstation/sound/emotes/cat/merowr.ogg')
+
+#define CAT_DEFAULT_LEWD_MOAN_SOUND(user) pick(\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_1.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_2.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_3.ogg',\
+		'modular_dripstation/sound/emotes/human/female/lewd_moan_female_4.ogg',\
+		'modular_dripstation/sound/emotes/cat/purr.ogg')

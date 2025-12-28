@@ -530,7 +530,7 @@
 	user.do_attack_animation(target, ATTACK_EFFECT_CLAW)
 	if(iscarbon(target))
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
-		playsound(get_turf(target), 'sound/weapons/slash.ogg', 60, TRUE, -1)
+		playsound(get_turf(target), SFX_CLAWS, 60, TRUE, -1)
 		target.apply_damage(15, BRUTE, affecting, target.run_armor_check(affecting, MELEE, armour_penetration = 10), sharpness = SHARP_EDGED)
 		user.visible_message(span_danger("[user] slashes wildly at [target]!"), span_warning("You tear into [target]!"))
 	mauled = target
@@ -548,7 +548,7 @@
 			break
 		var/obj/item/bodypart/affecting = target.get_bodypart(ran_zone(user.zone_selected))
 		user.do_attack_animation(target, ATTACK_EFFECT_CLAW)
-		playsound(get_turf(target), 'sound/weapons/slash.ogg', 60, TRUE, -1)
+		playsound(get_turf(target), SFX_CLAWS, 60, TRUE, -1)
 		target.apply_damage(5, BRUTE, affecting, target.run_armor_check(affecting, MELEE, armour_penetration = 10), sharpness = SHARP_EDGED)
 		user.visible_message(span_danger("[user] slashes wildly at [target]!"), span_warning("You continue to eviscerate [target]..."))
 		if(!B)

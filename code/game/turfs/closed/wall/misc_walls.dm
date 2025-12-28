@@ -150,7 +150,8 @@
 
 /turf/closed/wall/ice
 	icon = 'icons/turf/walls/icedmetal_wall.dmi'
-	icon_state = "iced"
+	icon_state = "icedmetal_wall-0"	//dripstation edit
+	base_icon_state = "icedmetal_wall"	//dripstation edit
 	desc = "A wall covered in a thick sheet of ice."
 	canSmoothWith = null
 	hardness = 35

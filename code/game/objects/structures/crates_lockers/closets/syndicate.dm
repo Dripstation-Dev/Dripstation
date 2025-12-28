@@ -22,12 +22,14 @@
 	desc = "It's a storage unit for a Syndicate boarding party."
 
 /obj/structure/closet/syndicate/nuclear/PopulateContents()
+	/*
 	for(var/i in 1 to 5)
 		new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/box/teargas(src)
 	new /obj/item/storage/backpack/duffelbag/syndie/med(src)
 	new /obj/item/modular_computer/tablet/pda/preset/syndicate(src)
+	*/
 
 /obj/structure/closet/syndicate/resources
 	desc = "An old, dusty locker."

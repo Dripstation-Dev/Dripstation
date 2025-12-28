@@ -47,6 +47,7 @@
 	typing_overlay = get_bubble_icon(bubble_icon)
 	for(var/client/C in speech_bubble_recipients)
 		C.images += typing_overlay
+		play_fov_effect(src, 6, "talk", ignore_self = TRUE, override_list = list(C.mob))
 
 /mob/proc/get_bubble_icon(bubble)
 	bubble = bubble_icon

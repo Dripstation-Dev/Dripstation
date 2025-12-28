@@ -20,8 +20,8 @@
 	attack_verbs = list("slash", "scratch", "claw")
 	attack_effect = ATTACK_EFFECT_CLAW
 	barefoot_step_sound = FOOTSTEP_MOB_CLAW
-	attack_sound = 'sound/weapons/slash.ogg'
-	miss_sound = 'sound/weapons/slashmiss.ogg'
+	attack_sound = SFX_CLAWS
+	miss_sound = SFX_SLASHMISS
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	exotic_bloodtype = "L"
@@ -52,11 +52,11 @@
 /datum/species/lizard/handle_environment(datum/gas_mixture/environment, mob/living/carbon/human/H)
 	..()
 	last_heat_stunmod = heat_stunmod  //Saves previous mod
-	if(H.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+	if(H.bodytemperature > (BODYTEMP_NORMAL + 70))	//so they has gap between BODYTEMP_HEAT_DAMAGE_LIMIT and their real bodytemp_heat_damage_limit
 		heat_stunmod = 1		//lizard gets faster when warm
-	else if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
+	else if(H.bodytemperature < bodytemp_cold_damage_limit && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
 		switch(H.bodytemperature)
-			if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)	//but slower
+			if(200 to (BODYTEMP_NORMAL - 30))	//but slower
 				heat_stunmod = -1
 			if(120 to 200)
 				heat_stunmod = -2		//and slower
@@ -220,10 +220,12 @@
 	. = ..()	
 	lizard_touch = new(C)
 	lizard_touch.Grant(C)
+	ADD_TRAIT(C, TRAIT_MEDIC, id)
 
 //removes the heal spell
 /datum/species/lizard/ashwalker/shaman/on_species_loss(mob/living/carbon/C)
 	. = ..()
+	REMOVE_TRAIT(C, TRAIT_MEDIC, id)
 	QDEL_NULL(lizard_touch)
 
 ///Adds up to a total of 40 assuming they're hurt by both brute and burn

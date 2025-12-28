@@ -18,7 +18,7 @@
 	melee_damage_lower = 8
 	melee_damage_upper = 12
 	attacktext = "attacks"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	emote_taunt = list("growls")
 	speak_emote = list("creaks")
 	taunt_chance = 30

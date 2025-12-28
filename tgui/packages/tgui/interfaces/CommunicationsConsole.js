@@ -6,6 +6,7 @@ import { Window } from "../layouts";
 import { sanitizeText } from "../sanitize";
 
 const STATE_BUYING_SHUTTLE = "buying_shuttle";
+const STATE_BUYING_MERCENARIES = "buying_mercenaries";
 const STATE_CHANGING_STATUS = "changing_status";
 const STATE_MAIN = "main";
 const STATE_MESSAGES = "messages";
@@ -16,9 +17,17 @@ const SWIPE_NEEDED = "SWIPE_NEEDED";
 const EMAG_SHUTTLE_NOTICE =
   'This shuttle is deemed significantly dangerous to the crew, and is only supplied by the Syndicate.';
 
+  const EMAG_MERC_NOTICE =
+  'This merc team is deemed significantly dangerous to the crew, and is only supplied by the Syndicate.';
+
 const sortShuttles = sortBy(
   (shuttle) => !shuttle.emagOnly,
   (shuttle) => shuttle.initial_cost,
+);
+
+const sortMercs = sortBy(
+  (mercs_type) => !mercs_type.emagOnly,
+  (mercs_type) => mercs_type.initial_cost,
 );
 
 const AlertButton = (props, context) => {
@@ -169,6 +178,63 @@ const PageBuyingShuttle = (props, context) => {
   );
 };
 
+const PageBuyingMercs = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  return (
+    <Box>
+      <Section>
+        <Button
+          icon="chevron-left"
+          content="Back"
+          onClick={() => act("setState", { state: STATE_MAIN })}
+        />
+      </Section>
+
+      <Section>
+        Budget: <b>{data.budget.toLocaleString()}</b> credits
+      </Section>
+
+      {sortMercs(data.mercs).map(mercs_type => (
+        <Section
+          title={
+            <span
+              style={{
+                display: 'inline-block',
+                width: '70%',
+              }}
+            >
+              {mercs_type.name}
+            </span>
+          }
+          key={mercs_type.ref}
+          buttons={(
+            <Button
+              content={`${mercs_type.creditCost.toLocaleString()} credits`}
+              disabled={data.budget < mercs_type.creditCost}
+              onClick={() => act("purchaseMercenaries", {
+                mercs_type: mercs_type.ref,
+              })}
+              tooltip={
+                data.budget < mercs_type.creditCost
+                  ? `You need ${mercs_type.creditCost - data.budget} more credits.`
+                  : undefined
+              }
+              tooltipPosition="left"
+            />
+          )}>
+          <Box>{mercs_type.description}</Box>
+          {
+            mercs_type.prerequisites
+              ? <b>Prerequisites: {mercs_type.prerequisites}</b>
+              : null
+          }
+        </Section>
+      ))}
+    </Box>
+  );
+};
+
 const PageChangingStatus = (props, context) => {
   const { act, data } = useBackend(context);
   const { maxStatusLineLength } = data;
@@ -275,6 +341,7 @@ const PageMain = (props, context) => {
     aprilFools,
     callShuttleReasonMinLength,
     canBuyShuttles,
+    canBuyMercs,
     canMakeAnnouncement,
     canMakeVoiceAnnouncement,
     canMessageAssociates,
@@ -440,6 +507,17 @@ const PageMain = (props, context) => {
             onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
           />}
 
+          {(canBuyMercs !== 0) && <Button
+            icon="shopping-cart"
+            content="Purchase Mercenaries"
+            disabled={canBuyMercs !== 1}
+            // canBuyMercs is a string detailing the fail reason
+            // if one can be given
+            tooltip={canBuyMercs !== 1 ? canBuyMercs : undefined}
+            tooltipPosition="right"
+            onClick={() => act("setState", { state: STATE_BUYING_MERCENARIES })}
+          />}
+
           {!!canMessageAssociates && <Button
             icon="comment-o"
             content={`Send message to ${emagged ? "[UNKNOWN]" : "CentCom"}`}
@@ -459,6 +537,26 @@ const PageMain = (props, context) => {
             content="Restore Backup Routing Data"
             onClick={() => act("restoreBackupRoutingData")}
           />}
+          {!!canMakeAnnouncement && <Button
+              icon="bullhorn"
+              content="Call Terra Government 911: Marshals Response"
+              onClick={() => act('callThePolice')}
+            />}
+          {!!canMakeAnnouncement && <Button
+              icon="bullhorn"
+              content="Call Terra Government 811: Breach Control Response"
+              onClick={() => act('callBreachControl')}
+            />}
+          {!!canMakeAnnouncement && <Button
+              icon="bullhorn"
+              content="Call Terra Government 911: Medical Response"
+              onClick={() => act('callTheParameds')}
+            />}
+          {!!emagged && <Button
+              icon="bullhorn"
+              content="Place an Order with Dogginos Pizza"
+              onClick={() => act('callThePizza')}
+            />}
         </Flex>
       </Section>
 
@@ -703,6 +801,7 @@ export const CommunicationsConsole = (props, context) => {
 
         {!!authenticated && (
           page === STATE_BUYING_SHUTTLE && <PageBuyingShuttle />
+          || page === STATE_BUYING_MERCENARIES && <PageBuyingMercs />
           || page === STATE_CHANGING_STATUS && <PageChangingStatus />
           || page === STATE_MAIN && <PageMain />
           || page === STATE_MESSAGES && <PageMessages />

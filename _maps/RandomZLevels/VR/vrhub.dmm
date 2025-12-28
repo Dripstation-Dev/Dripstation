@@ -1707,7 +1707,7 @@
 /turf/open/indestructible,
 /area/awaymission/vr/syndicate)
 "xx" = (
-/obj/item/katana,
+/obj/item/melee/katana,
 /turf/open/floor/bronze{
 	initial_gas_mix = "o2=14;n2=23;TEMP=300"
 	},

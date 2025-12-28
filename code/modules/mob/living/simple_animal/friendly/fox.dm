@@ -19,7 +19,7 @@
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
-	footstep_type = FOOTSTEP_MOB_CLAW
+	footstep_type = FOOTSTEP_MOB_PAW
 	wuv_happy = "screams happily!"
 	wuv_angy = "screams angrily!"
 

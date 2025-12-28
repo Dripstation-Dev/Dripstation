@@ -7546,9 +7546,8 @@
 /area/awaymission/snowdin/post/cavern2)
 "qn" = (
 /obj/structure/guncase/shotgun,
-/obj/item/gun/ballistic/shotgun/automatic,
-/obj/item/gun/ballistic/shotgun/automatic,
-/obj/item/gun/ballistic/shotgun/automatic,
+/obj/item/gun/ballistic/shotgun/automatic/lethal,
+/obj/item/gun/ballistic/shotgun/automatic/lethal,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/snowdin/post/secpost)
 "qo" = (
@@ -12284,7 +12283,6 @@
 	desc = "It's a storage unit for a Syndicate boarding party."
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/item/gun/ballistic/automatic/pistol,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -13218,7 +13216,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow,
-/obj/machinery/suit_storage_unit/syndicate,
+/obj/machinery/suit_storage_unit/syndicateeva,
 /turf/open/floor/mineral/plastitanium{
 	initial_gas_mix = "o2=22;n2=82;TEMP=180";
 	planetary_atmos = 1;
@@ -15839,6 +15837,12 @@
 "Ys" = (
 /turf/open/floor/plasteel/elevatorshaft,
 /area/awaymission/snowdin/post/mining_dock)
+"YN" = (
+/obj/structure/guncase/shotgun,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/obj/item/gun/ballistic/shotgun/automatic/combat,
+/turf/open/floor/plasteel/dark,
+/area/awaymission/snowdin/post/secpost)
 
 (1,1,1) = {"
 aa
@@ -24106,7 +24110,7 @@ oc
 oz
 pi
 pH
-qn
+YN
 qn
 pH
 af
@@ -36087,7 +36091,7 @@ CC
 El
 an
 an
-EE
+EF
 CC
 ae
 ae

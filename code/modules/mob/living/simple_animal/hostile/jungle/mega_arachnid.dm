@@ -21,7 +21,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	ranged_cooldown_time = 60
 	projectiletype = /obj/projectile/mega_arachnid
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_PIERCE
 	alpha = 50
 	footstep_type = FOOTSTEP_MOB_CLAW
 

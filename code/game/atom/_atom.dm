@@ -424,7 +424,8 @@
 	. = P.on_hit(src, 0, def_zone)
 	if(uses_integrity)
 		playsound(src, P.hitsound, 50, 1)
-		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
+		if(P.suppressed != SUPPRESSED_VERY)
+			visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
 		if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 			var/demolition_mult = P.demolition_mod
 			if(istype(src, /obj/mecha) && P.demolition_mod != 1)	//snowflake damage checks for mechs
@@ -459,6 +460,9 @@
 /atom/proc/get_examine_string(mob/user, thats = FALSE)
 	return "[icon2html(src, user)] [thats? "That's ":""][get_examine_name(user)]"
 
+/atom/proc/get_examine_desc_string(mob/user)
+	return "[desc]"
+
 /**
   * Called when a mob examines (shift click or verb) this atom
   *
@@ -475,7 +479,7 @@
 		. = list()
 
 	if(desc)
-		. += desc
+		. += get_examine_desc_string(user)
 
 	if(uses_integrity && atom_integrity < max_integrity)
 		if(resistance_flags & ON_FIRE)
@@ -494,7 +498,7 @@
 			var/datum/material/M = i
 			. += "<u>It is made out of [M.name]</u>."
 
-	if(reagents)
+	if(reagents && (can_see(user, src, 2) || isobserver(user)))
 		if(reagents.flags & TRANSPARENT)
 			. += "It contains:"
 			if(length(reagents.reagent_list))
@@ -1293,11 +1297,20 @@
 	var/client/usr_client = usr.client
 	var/list/paramslist = list()
 	if(href_list["statpanel_item_shiftclick"])
+		/*	Dripstation edit
 		paramslist["shift"] = "1"
+		*/
+		paramslist[SHIFT_CLICK] = "1"	//Dripstation edit
 	if(href_list["statpanel_item_ctrlclick"])
+		/*	Dripstation edit
 		paramslist["ctrl"] = "1"
+		*/
+		paramslist[CTRL_CLICK] = "1"	//Dripstation edit
 	if(href_list["statpanel_item_altclick"])
+		/*	Dripstation edit
 		paramslist["alt"] = "1"
+		*/
+		paramslist[ALT_CLICK] = "1"	//Dripstation edit
 	if(href_list["statpanel_item_click"])
 		// first of all make sure we valid
 		var/mouseparams = list2params(paramslist)

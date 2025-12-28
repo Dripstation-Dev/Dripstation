@@ -19,11 +19,15 @@
 	/// If *chems_needed* requires all chems in the list or one chem in the list.
 	var/require_all_chems = TRUE    
 	/// Chems that will modify the chance for fuckups while operating on conscious patients, stacks.
-	var/list/ouchie_modifying_chems = list(/datum/reagent/consumable/ethanol/painkiller = 0.5, /datum/reagent/consumable/ethanol/inocybeshine = 0.5, /datum/reagent/medicine/morphine = 0.5) 
+	//var/list/ouchie_modifying_chems = list(/datum/reagent/consumable/ethanol/painkiller = 0.5, /datum/reagent/consumable/ethanol/inocybeshine = 0.5, /datum/reagent/medicine/morphine = 0.5, /datum/reagent/medicine/tramadol = 0.75) 
 	/// Base damage dealt on a surgery being done without anesthetics on SURGERY_FUCKUP_CHANCE percent chance
 	var/fuckup_damage = 10			
 	/// Damage type fuckup_damage is dealt as
 	var/fuckup_damage_type = BRUTE
+	/// Is wound dealt on a surgery
+	var/fuckup_wound_mult = 0	//dripstation edit
+	/// Wound type fuckup_wound_sharpness is dealt as
+	var/fuckup_wound_sharpness = SHARP_EDGED	//dripstation edit
 	/// If silicons have to deal with success chance
 	var/silicons_obey_prob = FALSE
 	/// If this step causes blood to get on the user
@@ -35,6 +39,9 @@
 	var/success_sound 
 	/// Sound played if the step fails
 	var/failure_sound 
+
+	//check if this surgery is mechanical one
+	var/mechanical_surgery = FALSE
 
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	var/success = FALSE
@@ -88,13 +95,21 @@
 				surgery.status--
 	return FALSE
 
+/datum/surgery_step/proc/skip_surgery_step(mob/user, mob/living/target)
+	return FALSE
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	surgery.step_in_progress = TRUE
 	var/advance = FALSE
 
+	var/obj/item/bodypart/TBP = target.get_bodypart(check_zone(target_zone))
+	if(TBP?.status == BODYPART_ROBOTIC)
+		mechanical_surgery = TRUE
+
 	var/speed_mod = 1
-	if(user == target)
+	var/self_surgery = (user == target) ? TRUE : FALSE
+
+	if(self_surgery)
 		speed_mod *= 1.5 // harder to do on yourself, but not "wait 15 seconds for a single step" hard
 
 	if(preop(user, target, target_zone, tool, surgery) == -1)
@@ -102,7 +117,7 @@
 		return FALSE
 	play_preop_sound(user, target, target_zone, tool, surgery)
 
-	if(is_species(user, /datum/species/lizard/ashwalker/shaman))//shaman is slightly better at surgeries
+	if(HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user, TRAIT_MEDIC))	//proffesionals are slightly faster
 		speed_mod *= 0.9
 
 	if(istype(user.get_item_by_slot(ITEM_SLOT_GLOVES), /obj/item/clothing/gloves/color/latex))
@@ -111,14 +126,31 @@
 
 	var/previous_loc = user.loc
 
+	if(HAS_TRAIT(target, TRAIT_SURGERY_PREPARED) && HAS_TRAIT(target, TRAIT_NUMBED))	//dripstation edit start - calm and peacefull work environment
+		speed_mod *= 0.7
+		to_chat(user, span_notice("You are able to work faster due to the patient's calm attitude!"))
+	var/quiet_enviromnent = TRUE
+	for(var/mob/living/carbon/human/loud_people in view(2, user))
+		if(loud_people != user && loud_people != target)
+			if(HAS_TRAIT(loud_people, TRAIT_SURGEON) || HAS_TRAIT(loud_people, TRAIT_MEDIC))
+				speed_mod *= 0.9
+				continue
+			quiet_enviromnent = FALSE
+			continue
+	if(quiet_enviromnent && !self_surgery)
+		speed_mod *= 0.7
+		to_chat(user, span_notice("You are able to work faster due to the quiet environment!"))	//dripstation edit end
+
 	// If we have a tool, use it
 	if((tool && tool.use_tool(target, user, time * speed_mod, robo_check = TRUE)) || do_after(user, time * speed_mod, target))
-		var/prob_chance = 100
+		var/prob_chance = self_surgery ? 100 : 90		//dripstation edit
 
 		if(implement_type)	//this means it isn't a require hand or any item step.
 			prob_chance = implements[implement_type]
-		if(!issilicon(user) && !HAS_TRAIT(user, TRAIT_SURGEON) && !HAS_TRAIT(user, TRAIT_MEDIC))	//dripstation edit
-			prob_chance *= 0.7																		//dripstation edit
+		if(!HAS_TRAIT(user, TRAIT_SURGEON) && !HAS_TRAIT(user, TRAIT_MEDIC))	//dripstation edit
+			prob_chance *= 0.7													//dripstation edit
+			if(target.stat == DEAD || IS_IN_STASIS(target))						//dripstation edit
+				prob_chance += 0.1
 		prob_chance *= surgery.get_probability_multiplier()
 
 		// Blood splatters on tools and user
@@ -139,8 +171,9 @@
 				advance = TRUE
 			target.balloon_alert(user, "Failure!")
 			play_failure_sound(user, target, target_zone, tool, surgery)
+		op_apply_infection(user, target, target_zone, tool)
 		if(iscarbon(target) && !HAS_TRAIT(target, TRAIT_SURGERY_PREPARED) && target.stat != DEAD && !IS_IN_STASIS(target) && fuckup_damage) //not under the effects of anaesthetics or a strong painkiller, harsh penalty to success chance
-			if(!issilicon(user) && !HAS_TRAIT(user, TRAIT_SURGEON)) //borgs and abductors are immune to this
+			if(!HAS_TRAIT(user, TRAIT_SURGEON)) //borgs and abductors are immune to this
 				var/obj/item/bodypart/operated_bodypart = target.get_bodypart(target_zone)
 				if(!operated_bodypart || operated_bodypart?.status == BODYPART_ORGANIC) //robot limbs don't feel pain
 					cause_ouchie(user, target, target_zone, tool, advance)
@@ -148,6 +181,8 @@
 			surgery.status++
 			if(surgery.status > surgery.steps.len)
 				surgery.complete()
+			else if(surgery?.get_surgery_step().skip_surgery_step(user, target))
+				surgery.status++
 	else
 		if(!(previous_loc == user.loc))
 			move_ouchie(user, target, target_zone, tool, advance)
@@ -158,6 +193,7 @@
 	display_results(user, target, span_notice("You begin to perform surgery on [target]..."),
 		"[user] begins to perform surgery on [target].",
 		"[user] begins to perform surgery on [target].")
+	target.balloon_alert_to_viewers("started...")
 
 /datum/surgery_step/proc/play_preop_sound(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!preop_sound)
@@ -178,6 +214,7 @@
 	display_results(user, target, span_notice("You succeed."),
 		"[user] succeeds!",
 		"[user] finishes.")
+	//target.balloon_alert_to_viewers("finished!")
 	return TRUE
 
 /datum/surgery_step/proc/play_success_sound(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -199,6 +236,7 @@
 	display_results(user, target, span_warning("You screw up!"),
 		span_warning("[user] screws up!"),
 		"[user] finishes.", TRUE) //By default the patient will notice if the wrong thing has been cut
+	//target.balloon_alert_to_viewers("finished!")
 	return FALSE
 
 /datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -252,6 +290,7 @@
 			chems += chemname
 	return english_list(chems, and_text = require_all_chems ? " and " : " or ")
 
+/* dripstation edit start - probably fixing uncontious target checking in chat what is going on
 //Replaces visible_message during operations so only people looking over the surgeon can tell what they're doing, allowing for shenanigans.
 /datum/surgery_step/proc/display_results(mob/user, mob/living/carbon/target, self_message, detailed_message, vague_message, target_detailed = FALSE)
 	var/list/detailed_mobs = get_hearers_in_view(1, user) //Only the surgeon and people looking over his shoulder can see the operation clearly
@@ -259,13 +298,33 @@
 		detailed_mobs -= target //The patient can't see well what's going on, unless it's something like getting cut
 	user.visible_message(detailed_message, self_message, vision_distance = 1, ignored_mobs = target_detailed ? null : target)
 	user.visible_message(vague_message, "", ignored_mobs = detailed_mobs)
+*/
+
+//Replaces visible_message during operations so only people looking over the surgeon can see them.
+/datum/surgery_step/proc/display_results(mob/user, mob/living/target, self_message, detailed_message, vague_message, target_detailed = FALSE)
+	user.visible_message(detailed_message, self_message, vision_distance = 1, ignored_mobs = target_detailed ? null : target)
+	if(!target_detailed)
+		var/you_feel = pick("a brief pain", "your body tense up", "an unnerving sensation")
+		if(!vague_message)
+			if(detailed_message)
+				stack_trace("DIDN'T GET PASSED A VAGUE MESSAGE.")
+				vague_message = detailed_message
+			else
+				stack_trace("NO MESSAGES TO SEND TO TARGET!")
+				vague_message = span_notice("You feel [you_feel] as you are operated on.")
+		target.show_message(vague_message, MSG_VISUAL, span_notice("You feel [you_feel] as you are operated on."))
+//dripstation edit end
 
 ///Attempts to deal damage if the patient isn't sedated or under painkillers
 /datum/surgery_step/proc/cause_ouchie(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, success)
 	var/ouchie_mod = 1
-	for(var/datum/reagent/R in ouchie_modifying_chems)
-		if(target.reagents?.has_reagent(R))
-			ouchie_mod *= ouchie_modifying_chems[R]
+	//for(var/datum/reagent/R in ouchie_modifying_chems)
+	//	if(target.reagents?.has_reagent(R))
+	//		ouchie_mod *= ouchie_modifying_chems[R]
+	if(HAS_TRAIT(target, TRAIT_SURGERY_PREPARED))
+		ouchie_mod *= 0.5
+	else if(HAS_TRAIT(target, TRAIT_NUMBED))
+		ouchie_mod *= 0.75
 	if(target.stat == UNCONSCIOUS)
 		ouchie_mod *= 0.8
 	ouchie_mod *= clamp(1 - target.get_drunk_amount() / 100, 0, 1)
@@ -275,12 +334,43 @@
 	if(!prob(final_ouchie_chance))
 		return
 	user.visible_message(span_boldwarning("[target] flinches, bumping [user]'s [tool ? tool.name : "hand"] into something important!"), span_boldwarning("[target] flinches, bumping your [tool ? tool.name : "hand"] into something important!"))
-	target.apply_damage(fuckup_damage, fuckup_damage_type, target_zone)
+	//target.balloon_alert_to_viewers("slipped!")
+	ouchie_fact(user, target, target_zone)
 
 ///Deal damage if the user moved during the op
 /datum/surgery_step/proc/move_ouchie(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, success)
 	user.visible_message(span_boldwarning("[user] bumps [p_their(FALSE, user)] [tool ? tool.name : "hand"] into something important!"), span_boldwarning("You move, bumping your [tool ? tool.name : "hand"] into something important!"))
-	target.apply_damage(fuckup_damage, fuckup_damage_type, target_zone)
+	target.balloon_alert_to_viewers("Moved!")
+	ouchie_fact(user, target, target_zone)
+
+/datum/surgery_step/proc/ouchie_fact(mob/user, mob/living/carbon/target, target_zone)
+	target.apply_damage(fuckup_damage, fuckup_damage_type, target_zone, wound_bonus = fuckup_wound_mult, sharpness = fuckup_wound_sharpness)
+
+/datum/surgery_step/proc/op_apply_infection(mob/user, mob/living/carbon/target, target_zone, obj/item/tool)
+	if(mechanical_surgery)
+		return
+	var/obj/item/bodypart/check_op_zone = target.get_bodypart(check_zone(target_zone))
+	var/obj/item/bodypart/check_arm = user.get_active_hand()
+	var/obj/item/clothing/gloves/color/latex/glove = user.get_item_by_slot(ITEM_SLOT_GLOVES)
+	var/datum/component/forensics/glove_forensics = glove.GetComponent(/datum/component/forensics)
+	var/datum/component/forensics/tool_forensics = tool.GetComponent(/datum/component/forensics)
+	var/unsterility = 2.5
+	if(check_op_zone?.sanitization > 0)
+		unsterility -= 0.5
+	if((istype(glove) && !glove_forensics && !LAZYLEN(glove_forensics?.scents)) || check_arm?.sanitization > 0)
+		unsterility -= 0.5
+	if(!tool_forensics || !LAZYLEN(tool_forensics?.scents))
+		unsterility -= 0.5
+	var/turf/T = get_turf(target)
+	for(var/obj/op_table in T.get_all_contents())
+		var/datum/component/surgery_bed/SB = op_table?.GetComponent(/datum/component/surgery_bed)
+		if(SB)
+			unsterility -= SB.success_chance
+			break
+	for(var/obj/effect/decal/cleanable/CL in view(2, target))
+		unsterility += 0.5
+	if(prob(unsterility*10))
+		check_op_zone?.infestation += max(0.2 * unsterility, 0)
 
 /**
  * Sends a pain message to the target, including a chance of screaming.
@@ -290,8 +380,15 @@
  * * pain_message - The message to be displayed
  * * mechanical_surgery - Boolean flag that represents if a surgery step is done on a mechanical limb (therefore does not force scream)
  */
-/datum/surgery_step/proc/display_pain(mob/living/target, pain_message, mechanical_surgery = FALSE)
+/datum/surgery_step/proc/display_flick_pain(mob/living/target, pain_message)
 	if(!HAS_TRAIT(target, TRAIT_SURGERY_PREPARED))
 		to_chat(target, span_userdanger(pain_message))
-		if(prob(30) && !mechanical_surgery)
-			target.emote("scream")
+		if(!mechanical_surgery)
+			if(iscarbon(target))
+				var/mob/living/carbon/C = target
+				var/hard = TRUE
+				if(HAS_TRAIT(target, TRAIT_NUMBED))
+					hard = FALSE
+				C.flick_pain(30, hard)
+			else if(prob(30))
+				target.emote("scream")

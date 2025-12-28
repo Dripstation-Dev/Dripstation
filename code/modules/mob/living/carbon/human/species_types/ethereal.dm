@@ -2,8 +2,8 @@
 	name = "Ethereal"
 	id = "ethereal"
 	attack_verbs = list("burn", "sear")
-	attack_sound = 'sound/weapons/etherealhit.ogg'
-	miss_sound = 'sound/weapons/etherealmiss.ogg'
+	attack_sound = SFX_ETHERIALPUNCH
+	miss_sound = SFX_ETHERIALMISS
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ethereal
 	mutantlungs = /obj/item/organ/lungs/ethereal
 	mutantstomach = /obj/item/organ/stomach/cell/ethereal

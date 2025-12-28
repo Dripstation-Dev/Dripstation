@@ -127,22 +127,28 @@
 /// The natural temperature for a body
 #define BODYTEMP_NORMAL						310.15
 /// This is the divisor which handles how much of the temperature difference between the current body temperature and 310.15K (optimal temperature) humans auto-regenerate each tick. The higher the number, the slower the recovery. This is applied each tick, so long as the mob is alive.
-#define BODYTEMP_AUTORECOVERY_DIVISOR		11
+#define BODYTEMP_AUTORECOVERY_DIVISOR		20 //dripstation edit, was 11
 /// Minimum amount of kelvin moved toward 310K per tick. So long as abs(310.15 - bodytemp) is more than 50.
-#define BODYTEMP_AUTORECOVERY_MINIMUM		12
+#define BODYTEMP_AUTORECOVERY_MINIMUM		3	//dripstation edit, was 12, preventing bodytemp jumping up and down
 ///Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is lower than their body temperature. Make it lower to lose bodytemp faster.
-#define BODYTEMP_COLD_DIVISOR				6
+#define BODYTEMP_COLD_DIVISOR				8	//dripstation edit, was 6
 /// Similar to the BODYTEMP_AUTORECOVERY_DIVISOR, but this is the divisor which is applied at the stage that follows autorecovery. This is the divisor which comes into play when the human's loc temperature is higher than their body temperature. Make it lower to gain bodytemp faster.
-#define BODYTEMP_HEAT_DIVISOR				15
+#define BODYTEMP_HEAT_DIVISOR				12	//dripstation edit, was 15
 /// The maximum number of degrees that your body can cool in 1 tick, due to the environment, when in a cold area.
-#define BODYTEMP_COOLING_MAX				-100
+#define BODYTEMP_COOLING_MAX				-50	//dripstation edit, was -100, less punishing cold
 /// The maximum number of degrees that your body can heat up in 1 tick, due to the environment, when in a hot area.
 #define BODYTEMP_HEATING_MAX				30
 
+/*Dripstation edit start
 /// The limit the human body can take before it starts taking damage from heat.
 #define BODYTEMP_HEAT_DAMAGE_LIMIT			(BODYTEMP_NORMAL + 50)
 /// The limit the human body can take before it starts taking damage from coldness.
 #define BODYTEMP_COLD_DAMAGE_LIMIT			(BODYTEMP_NORMAL - 50)
+*/
+/// The limit the human body can take before it starts taking damage from heat.	//dripstation edit
+#define BODYTEMP_HEAT_DAMAGE_LIMIT			(BODYTEMP_NORMAL + 40)	//dripstation edit
+/// The limit the human body can take before it starts taking damage from coldness.	//dripstation edit
+#define BODYTEMP_COLD_DAMAGE_LIMIT			(BODYTEMP_NORMAL - 30)	//dripstation edit
 
 
 /// what min_cold_protection_temperature is set to for space-helmet quality headwear. MUST NOT BE 0.
@@ -175,13 +181,15 @@
 #define ARMOR_MAX_TEMP_PROTECT				600
 
 /// For some gloves (black and)
-#define GLOVES_MIN_TEMP_PROTECT				2.0
+#define GLOVES_MIN_TEMP_PROTECT				160	//dripstation edit, was 2.0
 /// For some gloves
-#define GLOVES_MAX_TEMP_PROTECT				1500
-/// For gloves
-#define SHOES_MIN_TEMP_PROTECT				2.0
-/// For gloves
-#define SHOES_MAX_TEMP_PROTECT				1500
+#define GLOVES_MAX_TEMP_PROTECT				600	//dripstation edit, was 1500
+/// For shoes
+#define SHOES_MIN_TEMP_PROTECT				160	//dripstation edit, was 2.0
+/// For shoes
+#define SHOES_MAX_TEMP_PROTECT				600	//dripstation edit, was 1500
+/// For jackboots
+#define JACKBOOTS_MIN_TEMP_PROTECT			120	//dripstation edit
 
 /// The amount of pressure damage someone takes is equal to (pressure / HAZARD_HIGH_PRESSURE)*PRESSURE_DAMAGE_COEFFICIENT, with the maximum of MAX_PRESSURE_DAMAGE
 #define PRESSURE_DAMAGE_COEFFICIENT			4
@@ -190,7 +198,7 @@
 #define LOW_PRESSURE_DAMAGE					4
 
 /// Humans are slowed by the difference between bodytemp and BODYTEMP_COLD_DAMAGE_LIMIT divided by this, bigger numbers mean faster, smaller means slower
-#define COLD_SLOWDOWN_FACTOR				60
+#define COLD_SLOWDOWN_FACTOR				50	//dripstation edit, was 60
 
 //PIPES
 //Atmos pipe limits
@@ -265,7 +273,10 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 /// space
 #define AIRLESS_ATMOS				"TEMP=2.7"
 /// -93.15°C snow and ice turfs
+/* dripstation edit
 #define FROZEN_ATMOS				"o2=22;n2=82;TEMP=180"
+*/
+#define FROZEN_ATMOS				"o2=22;n2=82;TEMP=150"	// -123.15°C, dripstation edit
 /// -80°C kitchen coldroom; higher amount of mol to reach about 101.3 kpA
 #define KITCHEN_COLDROOM_ATMOS		"o2=33;n2=124;TEMP=193.15"
 /// used in the holodeck burn test program
@@ -301,7 +312,7 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 
 //PLANETARY ATMOS MIXES
 #define LAVALAND_DEFAULT_ATMOS "o2=14;n2=23;TEMP=300"
-#define ICEMOON_DEFAULT_ATMOS "o2=14;n2=23;TEMP=180"
+#define ICEMOON_DEFAULT_ATMOS "o2=33;n2=124;TEMP=180"	//dripstation edit, normal atmos on icemoon
 #define JUNGLELAND_DEFAULT_ATMOS "o2=44;n2=164;TEMP=300" //yogs edit
 
 //ATMOSIA GAS MONITOR TAGS

@@ -11,6 +11,7 @@
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
 	var/nukeop_outfit = /datum/outfit/syndicate
 	can_hijack = HIJACK_HIJACKER //Alternative way to wipe out the station.
+	hijack_speed = 2	//be fast in it
 
 	preview_outfit = /datum/outfit/nuclear_operative_elite
 
@@ -166,15 +167,15 @@
 	name = "Nuclear Operative (Preview only)"
 	mask = /obj/item/clothing/mask/gas/syndicate
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
-	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode
+	head = /obj/item/clothing/head/helmet/space/hardsuit/dualmode
 
 /datum/outfit/nuclear_operative_elite
 	name = "Nuclear Operative (Elite, Preview only)"
 	mask = /obj/item/clothing/mask/gas/syndicate
 	uniform = /obj/item/clothing/under/syndicate 
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
-	head = /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
+	suit = /obj/item/clothing/suit/space/hardsuit/dualmode/elite
+	head = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/elite
 	r_hand = /obj/item/shield/energy
 
 /datum/outfit/nuclear_operative_elite/post_equip(mob/living/carbon/human/H, visualsOnly)

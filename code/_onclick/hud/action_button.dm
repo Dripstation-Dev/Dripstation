@@ -19,6 +19,9 @@
 	/// God I hate how dragging works
 	var/datum/weakref/last_hovored_ref
 
+	/// overlay for keybind maptext, dripstation edit
+	var/mutable_appearance/keybind_maptext	//dripstation edit
+
 /atom/movable/screen/movable/action_button/Destroy()
 	if(our_hud)
 		var/mob/viewer = our_hud.mymob
@@ -52,6 +55,9 @@
 		return FALSE
 
 	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, ALT_CLICK))	//dripstation edit
+		begin_creating_bind(usr)			//dripstation edit
+		return TRUE							//dripstation edit
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		var/datum/hud/our_hud = usr.hud_used
 		our_hud.position_action(src, SCRN_OBJ_DEFAULT)
@@ -69,6 +75,14 @@
 	animate(src, transform = matrix(), time=0.4 SECONDS, alpha=255)
 
 	return TRUE
+
+/atom/movable/screen/movable/action_button/proc/begin_creating_bind(mob/user)				//Dripstation edit
+	if(!isnull(linked_action.full_key))						//Dripstation edit
+		linked_action.full_key = null						//Dripstation edit
+		linked_action.update_button_status(src)				//Dripstation edit
+		return												//Dripstation edit
+	linked_action.full_key = tgui_input_keycombo(user, "Please bind a key for this action.")//Dripstation edit
+	linked_action.update_button_status(src)									//Dripstation edit
 
 // Entered and Exited won't fire while you're dragging something, because you're still "holding" it
 // Very much byond logic, but I want nice behavior, so we fake it with drag
@@ -90,7 +104,7 @@
 		old_object.MouseExited(over_location, over_control, params)
 
 	last_hovored_ref = WEAKREF(over_object)
-	over_object.MouseEntered(over_location, over_control, params)
+	over_object?.MouseEntered(over_location, over_control, params)
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
 	. = ..()
@@ -157,6 +171,16 @@
 	if(!user?.client)
 		return
 	user.client.prefs.action_buttons_screen_locs -= "[name]_[id]"
+
+
+/atom/movable/screen/movable/action_button/proc/update_keybind_maptext(key)		//dripstation edit
+	cut_overlay(keybind_maptext)												//dripstation edit
+	if(!key)															//dripstation edit
+		return															//dripstation edit
+	keybind_maptext = new												//dripstation edit
+	keybind_maptext.maptext = MAPTEXT("<span style='text-align: right'>[key]</span>")					//dripstation edit
+	keybind_maptext.transform = keybind_maptext.transform.Translate(-4, length(key) > 1 ? -6 : 2) //with modifiers, its placed lower so cooldown is visible
+	add_overlay(keybind_maptext)												//dripstation edit
 
 /datum/hud/proc/get_action_buttons_icons()
 	. = list()
@@ -244,7 +268,10 @@
 	action.HideFrom(src)
 
 /atom/movable/screen/button_palette
+	/*	dripstation edit
 	desc = "<b>Drag</b> buttons to move them<br><b>Shift-click</b> any button to reset it<br><b>Alt-click</b> this to reset all buttons"
+	*/
+	desc = "<b>Drag</b> buttons to move them<br><b>Shift-click</b> any button to reset it<br><b>Alt-click any button</b> to begin binding it to a key<br><b>Alt-click this</b> to reset all buttons"//dripstation edit
 	icon = 'icons/hud/64x16_actions.dmi'
 	icon_state = "screen_gen_palette"
 	screen_loc = ui_action_palette

@@ -22,7 +22,7 @@
 			loadout[ITEM_SLOT_HEAD] = /obj/item/clothing/head/wizard
 			ruins_spaceworthiness = 1
 		if("swords")
-			loadout[ITEM_SLOT_HANDS] = /obj/item/katana/cursed
+			loadout[ITEM_SLOT_HANDS] = /obj/item/melee/katana/cursed
 		if("bigfatdoobie")
 			loadout[ITEM_SLOT_MASK] = /obj/item/clothing/mask/cigarette/rollie/trippy
 			ruins_spaceworthiness = 1

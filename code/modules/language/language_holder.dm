@@ -426,4 +426,10 @@ Key procs
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 								/datum/language/english = list(LANGUAGE_ATOM),)
 	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
-							/datum/language/english = list(LANGUAGE_ATOM),)
+							/datum/language/english = list(LANGUAGE_ATOM),)		//dripstation edit
+
+/datum/language_holder/slavic//dripstation edit
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+								/datum/language/slavic = list(LANGUAGE_ATOM),)
+	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+							/datum/language/slavic = list(LANGUAGE_ATOM),)		//dripstation edit

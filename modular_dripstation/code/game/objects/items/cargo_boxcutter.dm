@@ -13,9 +13,9 @@
 	force = 0
 	bare_wound_bonus = 20
 	/// Used on Initialize, how much time to cut cable restraints and zipties.
-	//var/snap_time_weak_handcuffs = 0 SECONDS
+	var/snap_time_weak_handcuffs = 0 SECONDS
 	/// Used on Initialize, how much time to cut real handcuffs. Null means it can't.
-	//var/snap_time_strong_handcuffs = null
+	var/snap_time_strong_handcuffs = null
 
 /obj/item/boxcutter/Initialize(mapload)
 	. = ..()
@@ -39,8 +39,23 @@
 
 	playsound(src, 'modular_dripstation/sound/item/boxcutter_activate.ogg', 50)
 	//tool_behaviour = (active ? TOOL_KNIFE : NONE)
-	//if(active)
-	//	AddElement(/datum/element/cuffsnapping, snap_time_weak_handcuffs, snap_time_strong_handcuffs)
-	//else
-	//	RemoveElement(/datum/element/cuffsnapping, snap_time_weak_handcuffs, snap_time_strong_handcuffs)
-	//return COMPONENT_NO_DEFAULT_MESSAGE
+	if(active)
+		AddElement(/datum/element/cuffsnapping, snap_time_weak_handcuffs, snap_time_strong_handcuffs)
+		AddElement(/datum/element/tourniquetsnapping, snap_time_weak_handcuffs)
+	else
+		RemoveElement(/datum/element/cuffsnapping, snap_time_weak_handcuffs, snap_time_strong_handcuffs)
+		RemoveElement(/datum/element/tourniquetsnapping, snap_time_weak_handcuffs)
+	return COMPONENT_NO_DEFAULT_MESSAGE
+
+/obj/item/boxcutter/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!istype(M))
+		return ..()
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_PRESURGERY_ATTACK, M, user)	//Dripstation edit
+	if(signal_return & COMPONENT_SKIP_ATTACK)
+		return		//Dripstation edit end
+	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+			M = user
+		return eyestab(M,user)
+	else
+		return ..()

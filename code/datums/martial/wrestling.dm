@@ -136,7 +136,7 @@
 
 	D.Stun(80)
 	A.visible_message("<span class = 'danger'><B>[A] starts spinning around with [D]!</B></span>")
-	A.emote("scream")
+	A.flick_pain(100, TRUE)
 
 	for (var/i = 0, i < 20, i++)
 		var/delay = 5
@@ -191,7 +191,7 @@
 		var/turf/T = get_edge_target_turf(A, A.dir)
 		if (T && isturf(T))
 			if (!D.stat)
-				D.emote("scream")
+				D.flick_pain(100, TRUE)
 			D.throw_at(T, 10, 4, A, TRUE, TRUE, callback = CALLBACK(D, TYPE_PROC_REF(/mob/living/carbon/human, Paralyze), 20))
 	log_combat(A, D, "has thrown with wrestling")
 	return 0
@@ -288,7 +288,7 @@
 		playsound(A.loc, "swing_hit", 50, 1)
 		var/bodyslam_damage = A.get_punchdamagehigh() * 1.5 + 5 //base damage of the slam, 20
 		if (!D.stat)
-			D.emote("scream")
+			D.flick_pain(100, TRUE)
 			D.Paralyze(40)
 
 			switch(rand(1,3))

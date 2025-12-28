@@ -85,6 +85,7 @@
 	var/static/list/vassal_banned_antags = list(
 		/datum/antagonist/bloodsucker,
 		/datum/antagonist/monsterhunter,
+		/datum/antagonist/mindslave, /* Dripstation edit, mindslave resists*/
 	)
 	///Default Bloodsucker traits
 	var/static/list/bloodsucker_traits = list(
@@ -105,6 +106,13 @@
 		TRAIT_HARDLY_WOUNDED,
 		TRAIT_RESISTDAMAGESLOWDOWN,
 	)
+	/// Traits applied while inside of a coffin.
+	var/static/list/coffin_traits = list(
+		TRAIT_RESISTCOLD,
+		TRAIT_RESISTHEAT,
+		TRAIT_RESISTHIGHPRESSURE,
+		TRAIT_RESISTLOWPRESSURE,
+	)
 
 /**
  * Apply innate effects is everything given to the mob
@@ -117,6 +125,8 @@
 	RegisterSignal(current_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(current_mob, COMSIG_LIVING_LIFE, PROC_REF(LifeTick))
 	RegisterSignal(current_mob, COMSIG_LIVING_DEATH, PROC_REF(on_death))
+	RegisterSignal(current_mob, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	RegisterSignal(current_mob, SIGNAL_REMOVETRAIT(TRAIT_SHADED), PROC_REF(handle_sol))
 	handle_clown_mutation(current_mob, mob_override ? null : "As a vampiric clown, you are no longer a danger to yourself. Your clownish nature has been subdued by your thirst for blood.")
 	add_team_hud(current_mob)
 
@@ -139,7 +149,7 @@
 /datum/antagonist/bloodsucker/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/current_mob = mob_override || owner.current
-	UnregisterSignal(current_mob, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_EXAMINE, COMSIG_LIVING_DEATH))
+	UnregisterSignal(current_mob, list(COMSIG_LIVING_LIFE, COMSIG_ATOM_EXAMINE, COMSIG_LIVING_DEATH, COMSIG_MOVABLE_MOVED, SIGNAL_REMOVETRAIT(TRAIT_SHADED)))
 
 	if(current_mob.hud_used)
 		var/datum/hud/hud_used = current_mob.hud_used
@@ -151,6 +161,16 @@
 		QDEL_NULL(blood_display)
 		QDEL_NULL(vamprank_display)
 		QDEL_NULL(sunlight_display)
+
+/datum/antagonist/bloodsucker/proc/on_moved(datum/source)
+	SIGNAL_HANDLER
+	var/mob/living/current = owner?.current
+	if(QDELETED(current))
+		return
+	if(istype(current.loc, /obj/structure/closet/crate/coffin))
+		current.add_traits(coffin_traits, BLOODSUCKER_COFFIN_TRAIT)
+	else
+		REMOVE_TRAITS_IN(current, BLOODSUCKER_COFFIN_TRAIT)
 
 /datum/antagonist/bloodsucker/proc/on_hud_created(datum/source)
 	SIGNAL_HANDLER
@@ -283,6 +303,20 @@
 		old_body.remove_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 	new_body.add_traits(bloodsucker_traits, BLOODSUCKER_TRAIT)
 
+
+/datum/antagonist/bloodsucker/process()	//dripstation edit start
+	addtimer(CALLBACK(src, PROC_REF(bloodsucker_process)), 10 SECONDS, TIMER_UNIQUE)
+
+/datum/antagonist/bloodsucker/proc/bloodsucker_process()
+	if(owner && owner.current && owner.current.stat!=DEAD)
+		for(var/objective_ in objectives)
+			if(!istype(objective_, /datum/objective/vassal))
+				continue
+			var/datum/objective/vassal/objective = objective_
+			if(!objective.target)
+				continue
+			if(objective.target.current && ishuman(objective.target.current) && !objective.check_mindshield_we_cant_remove(objective.target.current))	//finding new target if this shits somehow
+				objective.find_target()		//dripstation edit end
 
 /datum/antagonist/bloodsucker/greet()
 	. = ..()

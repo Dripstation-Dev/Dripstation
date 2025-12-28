@@ -1059,10 +1059,13 @@
 
 /datum/reagent/consumable/buzz_fuzz/reaction_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(iscarbon(M) && (methods & (TOUCH|VAPOR|PATCH)))
-		var/mob/living/carbon/C = M
-		for(var/s in C.surgeries)
+		var/mob/living/carbon/C = M	//dripstation edit - remove success_multipliers
+		for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
 			var/datum/surgery/S = s
-			S.success_multiplier = max(0.1, S.success_multiplier) // +10% success probability on each step, compared to bacchus' blessing's ~46%
+			S.operated_bodypart.sanitization += 0.04 * reac_volume
+			//S.success_multiplier = max(0.1, S.success_multiplier) // +10% success probability on each step, compared to bacchus' blessing's ~46%
+		for(var/datum/wound/W in C.all_wounds)
+			W.applySanitization(0.04 * reac_volume)
 	..()
 
 /datum/reagent/consumable/buzz_fuzz/addiction_act_stage1(mob/living/M)

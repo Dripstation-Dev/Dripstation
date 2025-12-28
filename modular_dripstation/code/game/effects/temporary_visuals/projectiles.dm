@@ -13,6 +13,21 @@
 	icon_state = "muzzle_laser_red"
 	icon = 'modular_dripstation/icons/effects/projectiles/muzzle.dmi'
 
+/obj/effect/projectile/impact/disabler/hitscan
+	name = "disabler impact"
+	icon_state = "impact_pulse"
+	icon = 'modular_dripstation/icons/effects/projectiles/impact.dmi'
+
+/obj/effect/projectile/tracer/disabler/hitscan
+	name = "disabler tracer"
+	icon_state = "beam_blue"
+	icon = 'modular_dripstation/icons/effects/projectiles/tracer.dmi'
+
+/obj/effect/projectile/muzzle/disabler/hitscan
+	name = "disabler muzzle"
+	icon_state = "muzzle_pulse"
+	icon = 'modular_dripstation/icons/effects/projectiles/muzzle.dmi'
+
 /obj/effect/projectile/impact/laser/hitscan/sniper
 	name = "sniper laser impact"
 	icon_state = "impact_scc"
@@ -42,3 +57,16 @@
 	name = "bfg muzzle"
 	icon_state = "bfg"
 	icon = 'modular_dripstation/icons/effects/projectiles/muzzle.dmi'
+
+
+/obj/effect/muzzle_flash
+	icon = 'modular_dripstation/icons/effects/projectiles/muzzle.dmi'
+	icon_state = "muzzle_flash"
+	layer = VEHICLE_LAYER
+	plane = GAME_PLANE
+	var/applied = FALSE
+
+/obj/effect/muzzle_flash/Initialize(mapload, new_icon_state)
+	. = ..()
+	if(new_icon_state)
+		icon_state = new_icon_state

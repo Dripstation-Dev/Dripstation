@@ -50,6 +50,7 @@
 		mood.mood_modifier -= 0.2
 
 /datum/quirk/apathetic/remove()
+	. = ..()
 	if(quirk_holder)
 		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
 		if(mood)
@@ -187,7 +188,7 @@
 	name = "Skittish"
 	desc = "You can conceal yourself in danger. Ctrl-shift-click a closed locker to jump into it, as long as you have access."
 	icon = "trash"
-	value = 4
+	value = 2
 	mob_trait = TRAIT_SKITTISH
 	medical_record_text = "Patient demonstrates a high aversion to danger and has described hiding in containers out of fear."
 
@@ -223,6 +224,7 @@
 	species.toxic_food = null //removes toxic foods
 
 /datum/quirk/toxic_tastes/remove()
+	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
 		var/datum/species/species = H.dna.species
@@ -325,6 +327,7 @@
 	H.regenerate_icons()
 
 /datum/quirk/cyberorgan/post_add()
+	. = ..()
 	to_chat(quirk_holder, span_boldannounce("Your [slot_string] has been replaced with an [quality] variant."))
 
 /datum/quirk/cyberorgan/check_quirk(datum/preferences/prefs)
@@ -414,12 +417,14 @@
 			return "You are incapable of understanding [L.name]!"
 	return FALSE
 
+/* Dripstation edit
 /datum/quirk/multilingual/english
 	name = "Multilingual (English)"
 	desc = "You spent a portion of your life learning to understand English. You may or may not be able to speak it based on your anatomy."
 	specific = /datum/language/english
 	gain_text = span_notice("You have learned to understand English.")
 	lose_text = span_notice("You have forgotten how to understand English.")
+*/
 
 /datum/quirk/multilingual/etherean
 	name = "Multilingual (Etherean)"
@@ -435,12 +440,14 @@
 	gain_text = span_notice("You have learned to understand Mothian.")
 	lose_text = span_notice("You have forgotten how to understand Mothian.")
 
+/* Dripstation edit
 /datum/quirk/multilingual/draconic
 	name = "Multilingual (Draconic)"
 	desc = "You spent a portion of your life learning to understand Draconic. You may or may not be able to speak it based on your anatomy."
 	specific = /datum/language/draconic
 	gain_text = span_notice("You have learned to understand Draconic.")
-	lose_text = span_notice("You have forgotten how to understand Draconic.")
+	lose_text = span_notice("You have forgotten how to understand Draconic."
+*/
 
 /datum/quirk/multilingual/felinid
 	name = "Multilingual (Felinid)"

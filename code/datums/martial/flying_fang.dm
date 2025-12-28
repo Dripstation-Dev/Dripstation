@@ -64,7 +64,7 @@
 		A.visible_message(span_danger("[A] spins around."), \
 						  span_userdanger("You spin around like a doofus."))
 		return
-	playsound(get_turf(A), 'sound/weapons/slap.ogg', 50, TRUE, -1)
+	playsound(get_turf(A), 'modular_dripstation/sound/effects/slap.ogg', 50, TRUE, -1)
 	for(var/obj/item/I in D.held_items)
 		if(I.block_chance)
 			D.visible_message(span_danger("[A] tail slaps [I] out of [D]'s hands!"), \
@@ -121,8 +121,8 @@
 //headbutt, deals moderate brute and stamina damage with an eye blur, causes poor aim for a few seconds to the target if they have no helmet on
 /datum/martial_art/flyingfang/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!(A.mobility_flags & MOBILITY_STAND))	//No fancy tail slaps whe you're prone
-		return harm_act(A, D)
 		add_to_streak("H",D)	//dripstation edit
+		return harm_act(A, D)
 	add_to_streak("D",D)
 	if(!can_use(A))
 		return
@@ -135,7 +135,7 @@
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 	var/disarm_damage = A.get_punchdamagehigh() / 2 	//5 damage
 	A.do_attack_animation(D, ATTACK_EFFECT_SMASH)
-	playsound(D, 'sound/weapons/genhit1.ogg', 50, TRUE, -1)
+	playsound(D, SFX_BLUNT, 50, TRUE, -1)
 	D.apply_damage(disarm_damage, STAMINA, BODY_ZONE_HEAD, armor_block)
 	D.apply_damage(disarm_damage, A.dna.species.attack_type, BODY_ZONE_HEAD, armor_block)
 	D.adjust_eye_blur(4)
@@ -163,7 +163,7 @@
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, MELEE, armour_penetration = 10)
 	A.do_attack_animation(D, ATTACK_EFFECT_CLAW)
-	playsound(D, 'sound/weapons/slash.ogg', 50, TRUE, -1)
+	playsound(D, SFX_CLAWS, 50, TRUE, -1)
 	D.apply_damage(A.get_punchdamagehigh() + 2, A.dna.species.attack_type, selected_zone, armor_block, sharpness = SHARP_EDGED) //+2 unarmed damage and sharp
 	var/atk_verb = pick("rends", "claws", "slices", "tears at")
 	D.visible_message(span_danger("[A] [atk_verb] [D]!"), \
