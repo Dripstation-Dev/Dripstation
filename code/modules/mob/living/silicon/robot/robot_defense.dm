@@ -26,7 +26,7 @@
 				log_combat(M, src, "pushed")
 				visible_message(span_danger("[M] has forced back [src]!"), \
 					span_userdanger("[M] has forced back [src]!"), null, COMBAT_MESSAGE_RANGE)
-			playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
+			playsound(loc, SFX_STAB, 50, 1, -1)
 	else
 		..()
 	return

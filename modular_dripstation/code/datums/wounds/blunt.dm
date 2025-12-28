@@ -108,3 +108,10 @@
 /datum/status_effect/wound/blunt/flesh/nextmove_modifier()
 	return 1
 */
+
+/datum/wound/blunt/applySanitization(amount)	//can`t sanitize closed wounds
+	return
+
+/datum/wound/blunt/critical/applySanitization(amount)
+	limb.sanitization += amount
+	return

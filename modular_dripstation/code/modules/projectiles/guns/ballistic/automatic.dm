@@ -142,6 +142,7 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	fire_delay = 0.2 SECONDS
 	auto_fire_delay = 0.18 SECONDS
+	spread_per_shot = 2
 	manufacturer = /datum/corporation/wardtakhashi
 
 /obj/item/gun/ballistic/automatic/wt550/armory
@@ -325,12 +326,11 @@
 	righthand_file = 'modular_dripstation/icons/mob/inhands/guns_righthand.dmi'
 	fire_sound = 'modular_dripstation/sound/weapons/tgmc/autorifle-1.ogg'
 	item_state = "arifle"
-	fire_delay = 0.28 SECONDS
-	auto_fire_delay = 0.12 SECONDS
-	//fire_delay = 0.19 SECONDS
-	//auto_fire_delay = 0.08 SECONDS
+	fire_delay = 0.35 SECONDS
+	auto_fire_delay = 0.3 SECONDS 
 	recoil = 0.4
 	spread = 10
+	semi_auto_spread = 4
 	fire_sound_volume = 80
 	vary_fire_sound = 0
 	burst_size = 3
@@ -430,7 +430,9 @@
 	burst_size = 1
 	can_suppress = FALSE
 	w_class = WEIGHT_CLASS_NORMAL
-	auto_fire_delay = 0.07 SECONDS
+	fire_delay = 0.25 SECONDS
+	auto_fire_delay = 0.2 SECONDS
+	spread_per_shot = 2
 	pin = /obj/item/firing_pin
 	manufacturer = /datum/corporation/vostok
 
@@ -449,6 +451,7 @@
 	recoil = 1.5
 	spread = 30
 	semi_auto_spread = 5
+	spread_per_shot = 2
 	burst_size = 1
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin
@@ -469,6 +472,7 @@
 	recoil = 1.2
 	spread = 25
 	semi_auto_spread = 5
+	spread_per_shot = 2
 	burst_size = 1
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin

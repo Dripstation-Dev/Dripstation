@@ -25,4 +25,4 @@
 		var/mind_fortified_rating = target.check_fear_protection(NORMAL_FEAR_SOURCE)
 		if(!mind_fortified_rating)
 			return
-		target.apply_status_effect(/datum/status_effect/terrified, fear_value = 30/mind_fortified_rating)
+		target.adjust_fear(30/mind_fortified_rating)

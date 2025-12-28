@@ -73,7 +73,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/projectile/neurotox
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_STAB
 
 
 /mob/living/simple_animal/hostile/alien/queen
@@ -92,7 +92,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno = 4,
 							/obj/item/stack/sheet/animalhide/xeno = 1)
 	projectiletype = /obj/projectile/neurotox
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_STAB
 	status_flags = 0
 	unique_name = 0
 	var/sterile = 1

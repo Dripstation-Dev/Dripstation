@@ -167,7 +167,7 @@
 /obj/item/bodypart/proc/applyInfestation(amount)
 	if(status == BODYPART_ROBOTIC)
 		return
-	infestation = max(0, infestation - amount)
+	infestation = max(0, infestation + amount)
 
 /obj/item/bodypart/proc/process_infection_status()
 	if(infestation <= 0 && sanitization <= 0)
@@ -184,7 +184,7 @@
 	// sanitization is checked after the clearing check but before the actual ill-effects, because we freeze the effects of infection while we have sanitization
 	if(sanitization > 0)
 		var/bandage_factor = (current_gauze ? current_gauze.splint_factor : 1)
-		infestation = applyInfestation(-WOUND_BURN_SANITIZATION_RATE)
+		applyInfestation(-WOUND_BURN_SANITIZATION_RATE)
 		sanitization = max(0, sanitization - (WOUND_BURN_SANITIZATION_RATE * bandage_factor))
 		return
 	//if(infestation && prob(33))

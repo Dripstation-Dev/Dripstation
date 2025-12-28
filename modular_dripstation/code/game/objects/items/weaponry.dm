@@ -3,7 +3,7 @@
 
 /obj/item/vibro_weapon
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/blade_reflect.ogg'
 	/// The color of the slash we create
 	var/slash_color = COLOR_BLUE
 	/// Previous x position of where we clicked on the target's icon
@@ -129,7 +129,7 @@
 
 /obj/item/melee/transforming/vib_blade
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/blade_heavy.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	w_class_on = WEIGHT_CLASS_NORMAL
 	hitsound = SFX_KATANA_SWING
@@ -224,7 +224,7 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_block_blade.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/lightsaber.ogg'
 	block_color = COLOR_GREEN
 	hitsound = SFX_KATANA_SWING
 	drop_sound = 'modular_dripstation/sound/weapons/metal_drop.ogg'
@@ -253,23 +253,22 @@
 	drop_sound = 'modular_dripstation/sound/weapons/metal_drop.ogg'
 	var/block_projectile_mod = 0.5
 	var/skill_issue_effect = 1
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/blade_heavy.ogg'
 
 	var/parry_window_id 
 	var/parry_window_time = 1.5 SECONDS
 	var/parry_cd = 3 SECONDS
 	var/parry_effect_mult = 1
 
-/obj/item/melee/katana/proc/on_mouse_down(client/source, atom/_target, turf/location, control, params)
+/obj/item/melee/katana/attack_self(mob/user)
 	SIGNAL_HANDLER
-	var/list/modifiers = params2list(params) //If they're shift+clicking, for example, let's not have them accidentally shoot.
-	var/mob/living/parry_man = source.mob
-	if(!LAZYACCESS(modifiers, MIDDLE_CLICK) || !parry_man || !parry_man.loc)
+	var/mob/living/parry_man = user
+	if(!parry_man || !parry_man.loc)
 		return
 	if(!isliving(parry_man) || parry_man.stat != CONSCIOUS || parry_man.get_active_held_item() != src)
 		return
 
-	if(parry_window_id || parry_man.next_click < world.time || parry_man.get_timed_status_effect_duration(/datum/status_effect/staggered))
+	if(parry_window_id || parry_man.next_click > world.time || parry_man.get_timed_status_effect_duration(/datum/status_effect/staggered))
 		to_chat(parry_man, span_warning("Your muscles seize, you can`t parry now!"))
 		return
 	
@@ -277,6 +276,7 @@
 	parry_man.adjustStaminaLoss(stamina_cost_to_attack*2)
 	parry_window_id = addtimer(CALLBACK(src, PROC_REF(parry_down), parry_man), parry_window_time, TIMER_UNIQUE|TIMER_DELETE_ME|TIMER_STOPPABLE)
 	to_chat(parry_man, span_warning("Your muscles prepare to counter your oponent!"))
+	playsound(user, 'sound/items/unsheath.ogg', 25, vary = TRUE)
 
 	return COMSIG_MOB_CANCEL_CLICKON
 
@@ -304,11 +304,15 @@
 		if(istype(hitby, /obj/projectile/bullet))
 			owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], while he cuts the air, splitting the bullet in half!"))
 			to_chat(owner, "You split [hitby] in half with [src]!")
+			playsound(src, 'modular_dripstation/sound/weapons/block/blade_deflect.ogg', 70, vary = TRUE)
+			owner.adjustStaminaLoss(stamina_cost_to_attack*2)
 		else if(istype(hitby, /obj/projectile))
 			var/obj/projectile/hit = hitby
 			if(hit.hitscan)
 				owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], and he mirrors it back!"))
 				to_chat(owner, "You mirror [attack_text] back with [src]!")
+				playsound(src, 'modular_dripstation/sound/weapons/block/blade_reflect.ogg', 70, vary = TRUE)
+				owner.adjustStaminaLoss(stamina_cost_to_attack*2)
 		else
 			var/mob/living/attacker = hitby.loc
 			if(parry_window_id && istype(attacker))
@@ -319,17 +323,19 @@
 				)
 				balloon_alert(owner, "parry used!")
 				owner.next_click = world.time
+				owner.adjustStaminaLoss(-stamina_cost_to_attack*2)	//get stamina back
+				owner.balloon_alert_to_viewers("parried!")
 				deltimer(parry_window_id)
 				to_chat(attacker, span_userdanger("You have been staggered by the parry!"))
 				attacker.AdjustImmobilized(0.7 SECONDS * parry_effect_mult)
 				attacker.adjust_staggered_up_to(2.5 SECONDS * parry_effect_mult, 6 SECONDS)
 				attacker.next_click = attacker.next_click + (3 SECONDS * parry_effect_mult)
-				attacker.balloon_alert_to_viewers("parried!")
+				playsound(src, 'modular_dripstation/sound/weapons/block/blade_heavy_stagger.ogg', 70, vary = TRUE)
 			else
 				owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 				to_chat(owner, "You block [attack_text] with [src]!")
-		owner.adjustStaminaLoss(stamina_cost_to_attack*2)
-		playsound(src, block_sound, 70, vary = TRUE)
+				playsound(src, block_sound, 70, vary = TRUE)
+				owner.adjustStaminaLoss(stamina_cost_to_attack*2)
 		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
 		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
 		return 1
@@ -337,12 +343,9 @@
 
 /obj/item/melee/katana/equipped(mob/user, slot)
 	. = ..()
-	UnregisterSignal(user, COMSIG_CLIENT_MOUSEDOWN)
 	if(parry_window_id)
 		balloon_alert(user, "parry lowered!")
 		deltimer(parry_window_id)
-	if(slot == ITEM_SLOT_HANDS)
-		RegisterSignal(user, COMSIG_CLIENT_MOUSEDOWN, .proc/on_mouse_down)
 	if(slot == ITEM_SLOT_BELT)
 		worn_icon = 'modular_dripstation/icons/mob/clothing/weapons_on_belt.dmi'
 	if(slot == ITEM_SLOT_BACK)
@@ -353,7 +356,6 @@
 
 /obj/item/melee/katana/dropped(mob/user)
 	. = ..()
-	UnregisterSignal(user, COMSIG_CLIENT_MOUSEDOWN)
 	if(parry_window_id)
 		balloon_alert(user, "parry lowered!")
 		deltimer(parry_window_id)
@@ -396,10 +398,10 @@
 	block_projectile_mod = 0.2	//curse uppon ya
 
 /obj/item/melee/katana/monomolecular
-	name = "molecular katana"
+	name = "\improper molecular katana (NT Brand)"
 	icon_state = "monomolecular"
 	item_state = "monomolecular"
-	desc = "An elegant weapon, its molecular edge is capable of cutting through flesh and bone with ease."
+	desc = "An elegant weapon, its molecular edge is capable of cutting through flesh and bone with ease. NT Brand, all rights reserved."
 	block_chance = 50
 	block_color = COLOR_PRISONER_BLACK
 	force = 25 	//not too deadly though
@@ -407,16 +409,27 @@
 	armour_penetration = 75
 	wound_bonus = 15	//since it is very sharp
 	bare_wound_bonus = 5	//a little bit of this
+	hitsound = 'modular_dripstation/sound/weapons/mook.ogg'
+	COOLDOWN_DECLARE(mono_second_attack_cd)
+
+/obj/item/melee/katana/monomolecular/afterattack(atom/target, blocked)
+	. = ..()
+	var/mob/living/carbon/owner = src.loc
+	if((blocked != 100) && iscarbon(target) && istype(owner) && owner.get_active_held_item() == src && COOLDOWN_FINISHED(src, mono_second_attack_cd))
+		var/mob/living/carbon/victim = target
+		owner.next_click = world.time
+		melee_attack_chain(owner, victim)
+		COOLDOWN_START(src, mono_second_attack_cd, 0.8 SECONDS)
 
 /obj/item/melee/katana/monomolecular/mook
 	name = "\improper molecular katana (Mook Workshop)"
 	desc = "An elegant weapon, its molecular edge is capable of cutting through flesh and bone with ease. Mook Workshop`s original design."
-	armour_penetration = 40	//50 for traitor is enough
+	armour_penetration = 40	//40 for traitor is enough
 	block_chance = 60
 	block_projectile_mod = 0.5	//30% projectile block
 	skill_issue_effect = 2.5	//90% projectile block in throwmode
 	wound_bonus = 0	//less sharp
-	force = 30 	//traiding wounds for damage
+	force = 30 	//traiding wounds for pure damage
 
 /obj/item/melee/katana/murasame
 	name = "\improper Murasame"
@@ -440,8 +453,12 @@
 		victim.reagents.add_reagent(/datum/reagent/toxin/venom, 5)
 		victim.reagents.add_reagent(/datum/reagent/toxin/acid/fluacid, 5)
 
-/obj/item/melee/katana/murasame/attack_self(mob/living/user)
-	if(world.time > next_blow && (istype(user, death_wisher)|| !death_wisher))
+/obj/item/melee/katana/murasame/CtrlClick(mob/living/user)
+	if(!user || !user.loc)
+		return
+	if(!user.stat != CONSCIOUS || user.get_active_held_item() != src)
+		return
+	if(world.time > next_blow && istype(user, death_wisher || !death_wisher))
 		balloon_alert(user, "you starting to cut yourself with [src]!")
 		if(do_after(user, 0.5 SECONDS, src))
 			to_chat(user, span_notice("You feel a sudden surge of energy!"))
@@ -452,7 +469,7 @@
 			if (!death_imminent)
 				death_imminent = TRUE
 				death_wisher = user
-				addtimer(CALLBACK(src, PROC_REF(user_death), death_wisher), 30 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(user_death), death_wisher), 60 SECONDS)
 				return
 			else
 				next_blow = world.time + 5 SECONDS
@@ -493,7 +510,7 @@
 /obj/item/melee/sabre
 	name = "officer's rapier"
 	desc = "An elegant weapon, for a more civilized age. Ceremonial version issued to NanoTrasen finest."
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/blade_light.ogg'
 	icon = 'modular_dripstation/icons/obj/weapons/blades.dmi'
 	icon_state = "rapier"
 	item_state = "rapier"
@@ -520,8 +537,8 @@
 		final_block_chance = final_block_chance + 40	//80% parry chance
 	if(prob(final_block_chance))
 		var/mob/living/attacker = hitby.loc
-		if(owner.in_throw_mode && istype(attacker))
-			balloon_alert(owner, "riposte used")
+		if(owner.in_throw_mode && istype(attacker) && owner.Adjacent(attacker))
+			balloon_alert(owner, "riposte used", 100, TRUE)
 			owner.visible_message(
 				span_warning("[owner] leans into [attack_text] and delivers a sudden riposte back at [attacker]!"),
 				span_warning("You lean into [attack_text] and deliver a sudden riposte back at [attacker]!"),
@@ -530,10 +547,11 @@
 			attacker.AdjustImmobilized(0.7 SECONDS)
 			attacker.adjust_staggered_up_to(2.5 SECONDS, 6 SECONDS)
 			attacker.next_click = attacker.next_click + (3 SECONDS)
-			melee_attack_chain(owner, A)
+			melee_attack_chain(owner, attacker)
+			playsound(src, 'sound/weapons/parry.ogg', 100)
 		else
 			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
-		playsound(src, block_sound, 70, vary = TRUE)
+			playsound(src, block_sound, 70, vary = TRUE)
 		owner.adjustStaminaLoss(stamina_cost_to_attack*2)
 		owner.overlay_fullscreen("projectile_parry", /atom/movable/screen/fullscreen/crit/projectile_parry, 2)
 		addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, clear_fullscreen), "projectile_parry"), 0.25 SECONDS)
@@ -550,7 +568,7 @@
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/melee_righthand.dmi'
 	hit_reaction_chance = 20
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/shield.ogg'
 
 /obj/item/storage/belt/sabre/examine(mob/user)
 	. = ..()
@@ -614,6 +632,16 @@
 	force = 30
 	block_chance = 30
 	armour_penetration = 30
+
+/obj/item/melee/sabre/syndie/on_exit_storage(datum/component/storage/concrete/S)
+	var/obj/item/storage/belt/sabre/B = S.real_location()
+	if(istype(B))
+		playsound(B, 'modular_dripstation/sound/weapons/blade_unsheath.ogg', 25, TRUE)
+
+/obj/item/melee/sabre/syndie/on_enter_storage(datum/component/storage/concrete/S)
+	var/obj/item/storage/belt/sabre/B = S.real_location()
+	if(istype(B))
+		playsound(B, 'modular_dripstation/sound/weapons/blade_sheath.ogg', 25, TRUE)
 
 /obj/item/storage/belt/sabre/syndie
 	name = "sabre sheath"
@@ -1211,7 +1239,7 @@
 	sharpness = SHARP_EDGED
 	block_chance = 0
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/blade_reflect.ogg'
 	attack_verb = list("slashed", "cleaved", "chopped")
 	hitsound = 'modular_dripstation/sound/weapons/swordhitheavy.ogg'
 	/// How much damage the sword does when wielded

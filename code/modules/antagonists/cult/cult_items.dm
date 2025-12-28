@@ -46,7 +46,7 @@
 	throwforce = 10
 	wound_bonus = -80
 	bare_wound_bonus = 30
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'modular_dripstation/sound/weapons/cult_slash.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
 
 /obj/item/melee/cultblade/Initialize(mapload)
@@ -107,7 +107,7 @@
 	icon = 'icons/obj/weapons/swords.dmi'
 	icon_state = "cultbastard"
 	item_state = "cultbastard"
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'modular_dripstation/sound/weapons/cult_slash.ogg'
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
@@ -689,7 +689,7 @@ GLOBAL_VAR_INIT(curselimit, 0)
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	w_class = WEIGHT_CLASS_HUGE
 	sharpness = SHARP_POINTY
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'modular_dripstation/sound/weapons/cult_stab.ogg'
 	var/datum/action/innate/cult/spear/spear_act
 
 /obj/item/cult_spear/Initialize(mapload)
@@ -943,7 +943,7 @@ GLOBAL_VAR_INIT(curselimit, 0)
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bumped", "prodded")
-	hitsound = 'sound/weapons/smash.ogg'
+	hitsound = SFX_BLUNT
 	var/illusions = 4
 
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

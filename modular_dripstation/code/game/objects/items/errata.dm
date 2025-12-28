@@ -22,8 +22,6 @@
 	block_chance = 40
 	block_projectile_mod = 1
 	armour_penetration = 50
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
 	block_color = COLOR_RED
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "diced", "cut")
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -71,7 +69,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 3
 	hit_reaction_chance = 20
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_parry.ogg'
+	block_sound = 'sound/weapons/parry.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/primed = FALSE
 	var/dash_sound = 'modular_dripstation/sound/weapons/unsheathed_blade.ogg'

@@ -25,7 +25,7 @@
 	melee_damage_upper = 0
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	attacktext = "chomps"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_PUNCH
 	throw_message = "is avoided by the"
 	vision_range = 5
 	aggro_vision_range = 9

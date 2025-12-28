@@ -566,6 +566,7 @@
 #include "code\modules\research\designs\biogenerator_designs.dm"
 #include "code\modules\research\designs\bluespace_designs.dm"
 #include "code\modules\research\designs\limbgrower_designs.dm"
+#include "code\modules\research\designs\mechfab_designs.dm"
 #include "code\modules\research\designs\sec_designs.dm"
 #include "code\modules\research\experimentor.dm"
 #include "code\modules\research\machinery\techfab.dm"

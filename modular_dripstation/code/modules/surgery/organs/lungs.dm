@@ -24,7 +24,7 @@
 			)
 			owner.bleed(3, TRUE)
 			if(!owner.losebreath)
-				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "cough")
+				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "coughinblood")
 		else if(prob(2))
 			owner.visible_message(span_danger(
 				"<B>\the [owner]'s</B> chockes with their own blood!"),

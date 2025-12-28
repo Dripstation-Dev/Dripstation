@@ -105,7 +105,7 @@
 
 		if (M.a_intent == INTENT_DISARM)
 			var/obj/item/I = null
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			playsound(loc, SFX_STAB, 25, 1, -1)
 			if(prob(95))
 				Paralyze(20)
 				visible_message(span_danger("[M] has tackled down [name]!"), \

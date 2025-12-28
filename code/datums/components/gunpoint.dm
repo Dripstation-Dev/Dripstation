@@ -95,7 +95,8 @@
 
 /datum/component/gunpoint/proc/on_dir_change()
 	SIGNAL_HANDLER
-	if(parent.in_fow(target, TRUE))
+	var/mob/living/shooter = parent
+	if(shooter.in_fow(target, TRUE))
 		cancel()
 
 ///Update the damage multiplier for whatever stage we're entering into

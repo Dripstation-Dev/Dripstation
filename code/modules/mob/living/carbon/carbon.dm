@@ -123,7 +123,7 @@
 			Knockdown(20)
 			visible_message(span_danger("[src] crashes into [victim][extra_speed ? "really hard" : ""], knocking them both over!"),\
 				span_userdanger("You violently crash into [victim][extra_speed ? "extra hard" : ""]!"))
-		playsound(src,'sound/weapons/punch1.ogg',50,1)
+		playsound(src,SFX_PUNCH,50,1)
 
 
 /*

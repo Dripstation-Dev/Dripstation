@@ -286,7 +286,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	force = 9 // Not as good as a stun baton.
 	light_range = 5 // A little better than the standard flashlight.
-	hitsound = 'sound/weapons/genhit1.ogg'
+	hitsound = SFX_BLUNT
 
 // the desk lamps are a bit special
 /obj/item/flashlight/lamp

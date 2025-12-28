@@ -5,3 +5,5 @@
 #define STAGGERED_SLOWDOWN_LENGTH 30
 #define STAGGERED_SLOWDOWN_STRENGTH 0.85
 #define MOVESPEED_ID_STAGGERED                        "STAGGERED"
+
+#define adjust_fear(duration) adjust_timed_status_effect(duration, /datum/status_effect/terrified)

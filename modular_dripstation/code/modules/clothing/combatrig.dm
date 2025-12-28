@@ -156,7 +156,7 @@
 	var/list/inserted_modules = list()
 	var/list/starting_modules = list()
 	var/starting_core = /obj/item/core/standard
-	var/starting_cell = /obj/item/stock_parts/cell/upgraded
+	var/starting_cell = /obj/item/stock_parts/cell/high
 	var/list/starting_pins = list()
 	var/mobility = TRUE
 	var/seal_time = 2.4 SECONDS
@@ -393,7 +393,7 @@
 		module.on_unequip()
 	//UnregisterSignal(wearer, COMSIG_ATOM_EXITED)
 	UnregisterSignal(wearer, COMSIG_SPECIES_GAIN)
-	//wearer.clear_alert(ALERT_RIG_CHARGE)
+	wearer.clear_alert(ALERT_RIG_CHARGE)
 	SEND_SIGNAL(src, COMSIG_RIG_WEARER_UNSET, wearer)
 	regenerate_button_icons()
 	REMOVE_TRAIT(wearer, NO_BACKPACK_TRAIT, RIG_TRAIT)
@@ -541,12 +541,14 @@
 			active = !active
 		
 		if(active)
-			playsound(src, 'sound/machines/synth_yes.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
+			//playsound(src, 'sound/machines/synth_yes.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
+			playsound(src, 'modular_dripstation/sound/effects/rig_start.ogg', 50, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
 			if(!malfunctioning)
 				wearer.playsound_local(get_turf(src), 'sound/mecha/nominal.ogg', 50)
 			START_PROCESSING(SSobj, src)
 		else
-			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
+			//playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
+			playsound(src, 'modular_dripstation/sound/effects/rig_off.ogg', 50, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
 			STOP_PROCESSING(SSobj, src)
 		SEND_SIGNAL(src, COMSIG_RIG_TRIGGER_POWER)
 	activating = FALSE		
@@ -736,7 +738,7 @@
 	//helmettype = /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/unathi
 	//mutantrace_variation = DIGITIGRADE_VARIATION
 	//species_restricted = list("lizard", "polysmorph")
-	starting_modules = list(/obj/item/module/welding, /obj/item/module/digitagrade)
+	starting_modules = list(/obj/item/module/welding, /obj/item/module/storage, /obj/item/module/digitagrade)
 
 //mechanic
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/engineering/mechanic
@@ -1601,7 +1603,7 @@ D*/
 	toggled_for_heat_protecting = FALSE
 	combat_slowdown = 0
 	starting_modules = list(/obj/item/module/armor_booster, /obj/item/module/holster, /obj/item/module/storage/large_capacity, /obj/item/module/dna_lock)
-	starting_cell = /obj/item/stock_parts/cell/high
+	starting_cell = /obj/item/stock_parts/cell/high/plus
 
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/merk/blue
 	name = "blue mercenary RIG helmet"
@@ -1642,7 +1644,7 @@ D*/
 	lightweight = TRUE
 	starting_modules = list(/obj/item/module/holster, /obj/item/module/storage/large_capacity, /obj/item/module/dna_lock)
 	max_complexity = PLUS_ONE_MAX_COMPLEXITY
-	starting_cell = /obj/item/stock_parts/cell/high
+	starting_cell = /obj/item/stock_parts/cell/high/plus
 
 //////Emergency Response Team suits//////
 /obj/item/clothing/head/helmet/space/hardsuit/dualmode/military/ert

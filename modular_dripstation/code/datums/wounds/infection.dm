@@ -2,7 +2,7 @@
 	id = "infested flesh"
 
 /datum/wound/infected
-	name = "flesh infection"
+	name = "Flesh Infection"
 	desc = "Patient's flesh is infected and rotting. Immidiate intervention is recomended."
 	treat_text = "Recommended immediate disinfection and excision of any infected skin, followed by bandaging."
 	examine_desc = ""
@@ -64,7 +64,7 @@
 			else if(prob(4))
 				victim.adjustToxLoss(1)
 		if(WOUND_INFECTION_SEPTIC to INFINITY)
-			victim.adjustToxLoss(0.5)
+			victim.adjustToxLoss(0.3)
 			if(prob(0.5 * limb.infestation))
 				strikes_to_lose_limb--
 				switch(strikes_to_lose_limb)

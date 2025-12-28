@@ -74,8 +74,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			var/mob/living/carbon/C = M
 			var/power_multiplier = boozepwr / 65 // Weak alcohol has less sterilizing power
 
-			//for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
-				//var/datum/surgery/S = s
+			for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
+				var/datum/surgery/S = s
+				S.operated_bodypart.sanitization += 0.04*power_multiplier * reac_volume
 				//S.success_multiplier = max(0.1*power_multiplier, S.success_multiplier)
 				// +10% success propability on each step, useful while operating in less-than-perfect conditions
 			for(var/datum/wound/W in C.all_wounds)

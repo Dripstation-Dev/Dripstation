@@ -193,7 +193,7 @@
 	)
 	to_chat(A, span_danger("You [atk_verb] [D]!"))
 	D.apply_damage(harm_damage, BRUTE, affecting, wound_bonus = CANT_WOUND)
-	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
+	playsound(get_turf(D), SFX_PUNCH, 25, TRUE, -1)
 	log_combat(A, D, "harmed (Hunter-Fu)")
 	return TRUE
 

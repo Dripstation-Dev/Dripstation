@@ -281,7 +281,7 @@
 		D.visible_message(span_danger("[A] violently grabs [D]'s neck!"), \
 						span_userdanger("[A] violently grabs your neck!"))
 		log_combat(A, D, "grabs by the neck(Explosive Fist)")
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+		playsound(get_turf(D), SFX_PUNCH, 50, TRUE, -1)
 		streak = ""
 		A.adjust_fire_stacks(3)
 		D.adjust_fire_stacks(3)
@@ -318,7 +318,7 @@
 	if(!can_use(A))
 		return
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+	playsound(get_turf(D), SFX_PUNCH, 50, 1, -1)
 
 	var/selected_zone = A.zone_selected
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))

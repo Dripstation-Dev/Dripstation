@@ -14,6 +14,7 @@
 	/// if i`1t has an icon for a selector switch indicating current firemode.
 	var/selector_switch_icon = FALSE
 	var/auto_fire_delay = 0.3 SECONDS
+	var/spread_per_shot = 1
 
 	var/projectile_damage_multiplier = 1
 	var/projectile_stamina_multiplier = 1
@@ -305,7 +306,7 @@
 		add_item_action(firemode_action)
 
 	if(SELECT_FULLY_AUTOMATIC in fire_select_modes)
-		AddComponent(/datum/component/automatic_fire, auto_fire_delay)
+		AddComponent(/datum/component/automatic_fire, auto_fire_delay, spread_per_shot)
 
 	if(initial_attachments.len > 0)
 		for(var/att in initial_attachments)

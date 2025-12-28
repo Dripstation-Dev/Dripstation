@@ -95,7 +95,7 @@
 				surgery.status--
 	return FALSE
 
-/datum/surgery_step/proc/skip_surgery_step(mob/user)
+/datum/surgery_step/proc/skip_surgery_step(mob/user, mob/living/target)
 	return FALSE
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
@@ -103,7 +103,7 @@
 	var/advance = FALSE
 
 	var/obj/item/bodypart/TBP = target.get_bodypart(check_zone(target_zone))
-	if(TBP.status == BODYPART_ROBOTIC)
+	if(TBP?.status == BODYPART_ROBOTIC)
 		mechanical_surgery = TRUE
 
 	var/speed_mod = 1
@@ -181,7 +181,7 @@
 			surgery.status++
 			if(surgery.status > surgery.steps.len)
 				surgery.complete()
-			else if(surgery?.get_surgery_step().skip_surgery_step(user))
+			else if(surgery?.get_surgery_step().skip_surgery_step(user, target))
 				surgery.status++
 	else
 		if(!(previous_loc == user.loc))
@@ -363,14 +363,14 @@
 		unsterility -= 0.5
 	var/turf/T = get_turf(target)
 	for(var/obj/op_table in T.get_all_contents())
-		var/datum/component/surgery_bed/SB = op_table.GetComponent(/datum/component/surgery_bed)
+		var/datum/component/surgery_bed/SB = op_table?.GetComponent(/datum/component/surgery_bed)
 		if(SB)
 			unsterility -= SB.success_chance
 			break
 	for(var/obj/effect/decal/cleanable/CL in view(2, target))
 		unsterility += 0.5
 	if(prob(unsterility*10))
-		check_op_zone.infestation += max(0.2 * unsterility, 0)
+		check_op_zone?.infestation += max(0.2 * unsterility, 0)
 
 /**
  * Sends a pain message to the target, including a chance of screaming.

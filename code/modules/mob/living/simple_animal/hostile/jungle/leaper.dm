@@ -15,7 +15,7 @@
 	health = 300
 	ranged = TRUE
 	projectiletype = /obj/projectile/leaper
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_PIERCE
 	ranged_cooldown_time = 30
 	pixel_x = -16
 	layer = LARGE_MOB_LAYER

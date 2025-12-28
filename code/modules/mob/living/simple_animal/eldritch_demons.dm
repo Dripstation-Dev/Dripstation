@@ -14,7 +14,7 @@
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	AIStatus = AI_OFF
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	// Sort of greenish brown, to match the vibeTM
 	lighting_cutoff_red = 20
 	lighting_cutoff_green = 25

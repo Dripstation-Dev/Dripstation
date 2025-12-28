@@ -21,7 +21,7 @@
 	melee_damage_upper = 0
 	attacktext = "lashes out at"
 	speak_emote = list("telepathically cries")
-	attack_sound = 'sound/weapons/pierce.ogg'
+	attack_sound = SFX_PIERCE
 	throw_message = "falls right through the strange body of the"
 	ranged_cooldown = 0
 	ranged_cooldown_time = 20
@@ -78,7 +78,7 @@
 	attack_vis_effect = ATTACK_EFFECT_SLASH
 	attacktext = "slashes"
 	speak_emote = list("telepathically cries")
-	attack_sound = 'sound/weapons/pierce.ogg'
+	attack_sound = SFX_PIERCE
 	throw_message = "falls right through the strange body of the"
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
@@ -114,7 +114,7 @@
 	attack_vis_effect = ATTACK_EFFECT_BITE
 	attacktext = "lashes out at"
 	speak_emote = list("echoes")
-	attack_sound = 'sound/weapons/pierce.ogg'
+	attack_sound = SFX_PIERCE
 	throw_message = "bounces harmlessly off of"
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	crusher_drop_mod = 10
@@ -182,7 +182,7 @@
 	melee_damage_upper = 12
 	attacktext = "bites"
 	speak_emote = list("echoes")
-	attack_sound = 'sound/weapons/pierce.ogg'
+	attack_sound = SFX_PIERCE
 	throw_message = "is shrugged off by"
 	pass_flags = PASSTABLE
 	del_on_death = TRUE

@@ -15,7 +15,7 @@
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 15
 	attack_verb = list("robusted")
-	hitsound = 'sound/weapons/smash.ogg'
+	hitsound = SFX_BLUNT
 	var/awakened = FALSE
 	var/bloodthirst = HIS_GRACE_SATIATED
 	var/prev_bloodthirst = HIS_GRACE_SATIATED
@@ -126,7 +126,7 @@
 		if(!L.stat)
 			L.visible_message(span_warning("[src] lunges at [L]!"), "<span class='his_grace big bold'>[src] lunges at you!</span>")
 			do_attack_animation(L, null, src)
-			playsound(L, 'sound/weapons/smash.ogg', 50, 1)
+			playsound(L, SFX_BLUNT, 50, 1)
 			playsound(L, 'sound/misc/desceration-01.ogg', 50, 1)
 			L.adjustBruteLoss(force)
 			adjust_bloodthirst(-5) //Don't stop attacking they're right there!

@@ -38,7 +38,7 @@ Slimecrossing Weapons
 			hitsound = 'sound/weapons/sear.ogg'
 			attack_verb = list("burned","singed","heated")
 		if(TOX)
-			hitsound = 'sound/weapons/pierce.ogg'
+			hitsound = SFX_PIERCE
 			attack_verb = list("poisoned","dosed","toxified")
 		if(OXY)
 			hitsound = 'sound/effects/space_wind.ogg'

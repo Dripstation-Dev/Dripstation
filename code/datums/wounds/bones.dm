@@ -107,6 +107,8 @@
 /datum/wound/blunt/proc/handle_internal_bleed()
 	if(!prob(internal_bleeding_chance))
 		return
+	if(victim.stat == DEAD)
+		return
 	var/blood_bled = rand(1, internal_bleeding_processed)
 	if(limb.body_zone == BODY_ZONE_CHEST)
 		switch(blood_bled)

@@ -193,6 +193,7 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 	bayonet = TRUE
 	wound_bonus = 10
+	hitsound = SFX_COMBAT_KNIFE
 
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"

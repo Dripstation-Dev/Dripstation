@@ -135,7 +135,7 @@
 	var/armor_block = D.run_armor_check(affecting, MELEE)
 	var/disarm_damage = A.get_punchdamagehigh() / 2 	//5 damage
 	A.do_attack_animation(D, ATTACK_EFFECT_SMASH)
-	playsound(D, 'sound/weapons/genhit1.ogg', 50, TRUE, -1)
+	playsound(D, SFX_BLUNT, 50, TRUE, -1)
 	D.apply_damage(disarm_damage, STAMINA, BODY_ZONE_HEAD, armor_block)
 	D.apply_damage(disarm_damage, A.dna.species.attack_type, BODY_ZONE_HEAD, armor_block)
 	D.adjust_eye_blur(4)

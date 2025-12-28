@@ -139,8 +139,9 @@
 	D.Knockdown(12 SECONDS) //+5 seconds to punch him in his guts
 	D.apply_damage(A.get_punchdamagehigh() + 5, STAMINA)	//15 damage
 	A.Move(get_turf(D))
-	D.grabbedby(A, FALSE, TRUE) //Instant neck grab if already grabbed
-	A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//grants free 0.2 seconds, swag
+	D.grabbedby(A, TRUE, TRUE) //give grab back
+	D.grabbedby(A, TRUE, TRUE) //give grab back
+	A.changeNext_move(CLICK_CD_RAPID)	//grants free 0.2 seconds, swag
 	D.visible_message(
 		span_danger("[A] successfully armlocks [D]!"),
 		span_userdanger("[A] successfully armlocks you!")
@@ -157,18 +158,15 @@
 		add_to_streak("G", D)
 		if(check_streak(A, D)) //if a combo is made no grab upgrade is done
 			return TRUE
-		var/instantg = FALSE
 		if(A.grab_state == GRAB_AGGRESSIVE)
-			instantg = TRUE
 			log_combat(A, D, "aggressively grabbed neck")
 			D.visible_message(span_warning("[A] violently grabs [D]`s neck!"), \
 							span_userdanger("You're neck grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
 			to_chat(A, span_danger("You violently grab [D]`s neck!"))
-		D.grabbedby(A, instantg, instantg) //Instant neck grab if already grabbed
-		A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.2 Seconds instead of 1, less frustrating
-		return TRUE
-	else
-		return FALSE
+			D.grabbedby(A, TRUE, TRUE) //Instant neck grab if already grabbed
+			A.changeNext_move(CLICK_CD_RAPID)	//0.2 Seconds instead of 1, less frustrating
+			return TRUE
+	return FALSE
 
 ///CQC-like counter: attacker's weapon is placed in the defender's offhand and they are knocked down
 /datum/martial_art/trained/handle_counter(mob/living/carbon/human/user, mob/living/carbon/human/attacker)
@@ -178,6 +176,11 @@
 		return
 	if(user.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to counter
 		to_chat(user, span_warning("You're too off balance to counter this!"))
+		return
+	var/l_hand = user.get_empty_held_index_for_side("l")
+	var/r_hand =  user.get_empty_held_index_for_side("r")
+	if(!l_hand && !r_hand)
+		to_chat(user, span_danger("You need an empty hand to deflect [attacker]'s attack with [name]!"))
 		return
 	user.adjustStaminaLoss(35)	//Can't block forever. Not so effective as real CQC, can do it only a few times before screw up
 	user.do_attack_animation(attacker, ATTACK_EFFECT_DISARM)
@@ -193,7 +196,14 @@
 			return
 		INVOKE_ASYNC(touch_spell, /datum/action/cooldown/spell/touch.proc/do_hand_hit, touch_weapon, attacker, attacker)
 		return COMPONENT_NO_AFTERATTACK
-	else
+	else if(user.a_intent == INTENT_HELP)	//chill bro
+		attacker.visible_message(span_warning("[user] carefully dodges [attacker]'s attack!"), \
+						span_userdanger("[user] reflects your arm as you attack and evades your attack!"))
+		to_chat(user, span_danger("You take great care to remain untouched by [attacker]'s attack!"))
+		cool_dash_effect(user, attacker, I)
+		user.adjustStaminaLoss(-50)	//you feel like on morality high ground of the fight and can chill
+		return
+	else if(I)
 		attacker.visible_message(span_warning("[user] grabs [attacker]'s arm as they attack and throws them to the ground!"), \
 							span_userdanger("[user] grabs your arm as you attack and throws you to the ground!"))
 		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_1.ogg', 50, 1, -1)
@@ -203,14 +213,16 @@
 				if(!user.put_in_hand(I, hand))
 					I.forceMove(get_turf(attacker))
 		attacker.Knockdown(60)
-	if(!I)
+		return
+	else
 		attacker.visible_message(span_warning("[user] grabs [attacker]'s arm as they attack and twists it!"), \
 							span_userdanger("[user] grabs your arm as you attack and twists it, you feel staggered!"))
 		attacker.adjust_staggered_up_to(2 SECONDS, 4 SECONDS)
 		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_2.ogg', 50, 1, -1)
-	if(attacker.a_intent == INTENT_GRAB)
-		user.start_pulling(attacker, TRUE)
-		attacker.grabbedby(user, FALSE, TRUE)
+		if(attacker.a_intent == INTENT_GRAB)
+			user.start_pulling(attacker, TRUE)
+			attacker.grabbedby(user, FALSE, TRUE)
+		return
 
 /mob/living/carbon/human/proc/trained_help()
 	set name = "Remember The Basics"

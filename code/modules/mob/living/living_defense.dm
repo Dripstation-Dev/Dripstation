@@ -220,10 +220,10 @@
 	if(user.grab_state >= GRAB_AGGRESSIVE && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_notice("You don't want to risk hurting [src]!"))
 		return FALSE
-	return grippedby(user, instant)
+	return grippedby(user, supress_message, instant)
 
 //proc to upgrade a simple pull into a more aggressive grab.
-/mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
+/mob/living/proc/grippedby(mob/living/carbon/user, supress_message = FALSE, instant = FALSE)
 	if(user.grab_state >= user.max_grab)
 		return
 	user.changeNext_move(CLICK_CD_GRABBING)
@@ -241,8 +241,9 @@
 	if(!user.grab_state)
 		grab_upgrade_time = 0.7 SECONDS
 		Immobilize(0.7 SECONDS)
-	visible_message(span_danger("[user] starts to tighten [user.p_their()] grip on [src]!"), \
-		span_userdanger("[user] starts to tighten [user.p_their()] grip on you!"))
+	if(!supress_message)
+		visible_message(span_danger("[user] starts to tighten [user.p_their()] grip on [src]!"), \
+			span_userdanger("[user] starts to tighten [user.p_their()] grip on you!"))
 	switch(user.grab_state)
 		if(GRAB_PASSIVE)
 			log_combat(user, src, "attempted to agressive grab", addition="agressive grab")
@@ -265,27 +266,31 @@
 		if(GRAB_AGGRESSIVE)
 			var/add_log = ""
 			if(HAS_TRAIT(user, TRAIT_PACIFISM))
-				visible_message(span_danger("[user] has firmly gripped [src]!"),
-					span_danger("[user] has firmly gripped you!"))
+				if(!supress_message)
+					visible_message(span_danger("[user] has firmly gripped [src]!"),
+						span_danger("[user] has firmly gripped you!"))
 				add_log = " (pacifist)"
 			else
-				visible_message(span_danger("[user] has grabbed [src] aggressively!"), \
-								span_userdanger("[user] has grabbed you aggressively!"))
+				if(!supress_message)
+					visible_message(span_danger("[user] has grabbed [src] aggressively!"), \
+									span_userdanger("[user] has grabbed you aggressively!"))
 			stop_pulling()
 			log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
 		if(GRAB_NECK)
 			log_combat(user, src, "grabbed", addition="neck grab")
-			visible_message(span_danger("[user] grabs [src] by the neck!"),\
-							span_userdanger("[user] grabs you by the neck!"), span_hear("You hear aggressive shuffling!"), null, user)
-			to_chat(user, span_danger("You grab [src] by the neck!"))
+			if(!supress_message)
+				visible_message(span_danger("[user] grabs [src] by the neck!"),\
+								span_userdanger("[user] grabs you by the neck!"), span_hear("You hear aggressive shuffling!"), null, user)
+				to_chat(user, span_danger("You grab [src] by the neck!"))
 			update_mobility() //we fall down
 			if(!buckled && !density)
 				Move(user.loc)
 		if(GRAB_KILL)
 			last_damage = "grip marks on the neck"
 			log_combat(user, src, "strangled", addition="kill grab")
-			visible_message(span_danger("[user] is strangling [src]!"), \
-							span_userdanger("[user] is strangling you!"))
+			if(!supress_message)
+				visible_message(span_danger("[user] is strangling [src]!"), \
+								span_userdanger("[user] is strangling you!"))
 			update_mobility() //we fall down
 			if(!buckled && !density)
 				Move(user.loc)

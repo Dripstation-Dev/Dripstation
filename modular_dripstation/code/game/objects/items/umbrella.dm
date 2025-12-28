@@ -22,7 +22,7 @@
 	attack_verb = list("bludgeon", "whack", "discipline", "pummel")
 	drop_sound = 'modular_dripstation/sound/drop/wooden.ogg'
 	pickup_sound = 'modular_dripstation/sound/pickup/wooden.ogg'
-	hitsound = 'sound/weapons/genhit1.ogg'
+	hitsound = SFX_BLUNT
 
 	//open umbrella offsets for the inhands
 	var/open_x_offset = 2
@@ -63,7 +63,7 @@
 	AddComponent( \
 		/datum/component/transforming, \
 		force_on = 7, \
-		hitsound_on = "sound/weapons/genhit1.ogg", \
+		hitsound_on = SFX_BLUNT, \
 		w_class_on = WEIGHT_CLASS_BULKY, \
 		clumsy_check = FALSE, \
 		attack_verb_on = list("swoosh", "whack", "fwump"), \

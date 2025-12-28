@@ -1267,10 +1267,10 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/fore)
 "asN" = (
-/obj/machinery/suit_storage_unit/engine,
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
+/obj/machinery/suit_storage_unit/engine/dualmode,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "asR" = (
@@ -3947,6 +3947,11 @@
 	department = "Patient Room B";
 	name = "Medbay Storage RC";
 	pixel_x = -32
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
@@ -7820,7 +7825,6 @@
 	},
 /obj/structure/cable/yellow,
 /obj/structure/table,
-/obj/item/clothing/suit/space/hardsuit/dualmode/engineering/unathi,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "chk" = (
@@ -8993,6 +8997,7 @@
 /turf/open/floor/catwalk_floor,
 /area/maintenance/starboard/fore)
 "czm" = (
+/obj/machinery/portable_atmospherics/canister/dump_canister,
 /turf/open/floor/plating,
 /area/engine/engineering)
 "czo" = (
@@ -17224,7 +17229,7 @@
 	},
 /area/security/courtroom)
 "eNN" = (
-/obj/machinery/sleeper{
+/obj/machinery/stasis{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white{
@@ -22272,7 +22277,10 @@
 	outdoors = 1
 	})
 "ggN" = (
-/obj/structure/flora/tree/jungle/small,
+/obj/structure/flora/tree/jungle/small{
+	pixel_x = -43;
+	pixel_y = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 4;
 	layer = 5.1
@@ -22898,9 +22906,7 @@
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/delivery,
 /obj/item/clothing/glasses/meson/engine,
-/obj/effect/landmark/stationroom/meta/engine{
-	template_names = list("Meta SM" = 60, "Meta Nuclear Reactor" = 40)
-	},
+/obj/effect/landmark/stationroom/meta/engine,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "goF" = (
@@ -29962,6 +29968,10 @@
 	name = "emergency shower";
 	pixel_x = 14;
 	pixel_y = 21
+	},
+/obj/structure/sink{
+	pixel_y = 23;
+	pixel_x = 0
 	},
 /turf/open/floor/plasteel/white{
 	icon_state = "textured_white_half"
@@ -62903,6 +62913,11 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "qKv" = (
+/obj/structure/sink{
+	pixel_x = 11;
+	pixel_y = 2;
+	dir = 4
+	},
 /turf/open/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 4
@@ -68277,7 +68292,6 @@
 	dir = 1;
 	pixel_y = 1
 	},
-/obj/structure/window/reinforced,
 /obj/structure/flora/junglebush/b,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -87613,11 +87627,6 @@
 	},
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
 	},
 /turf/open/floor/plasteel{
 	icon_state = "whiteblue";
@@ -240992,7 +241001,7 @@ hcl
 hcl
 hcl
 tRh
-ozK
+hEG
 ozK
 hfT
 ozK
@@ -241252,7 +241261,7 @@ tRh
 ozK
 ozK
 jaw
-hEG
+ozK
 tRh
 tRh
 tRh
@@ -244190,9 +244199,9 @@ gJe
 mYw
 dlg
 ear
-mYp
-mYp
 tpD
+tpD
+mYp
 kkI
 bhV
 qCS

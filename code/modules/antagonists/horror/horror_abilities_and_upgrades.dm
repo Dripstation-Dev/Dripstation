@@ -429,7 +429,7 @@
 
 /datum/horror_upgrade/dmg_up/apply_effects()
 	B.attacktext = "crushes"
-	B.attack_sound = 'sound/weapons/pierce_slow.ogg' //chunky
+	B.attack_sound = SFX_STAB //chunky
 	B.melee_damage_lower += 5
 	B.melee_damage_upper += 5
 

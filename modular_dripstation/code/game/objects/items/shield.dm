@@ -1,7 +1,7 @@
 /obj/item/shield
 	var/antithrow_bonus = 30
 	var/leap_block = TRUE
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_block_shield.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/shield.ogg'
 	attack_verb = list("shielded", "bashed")
 	var/bash = FALSE
 	var/bash_sound 
@@ -59,7 +59,7 @@
 	worn_icon = 'modular_dripstation/icons/mob/clothing/back.dmi'
 	lefthand_file = 'modular_dripstation/icons/mob/inhands/shield_lefthand.dmi'
 	righthand_file = 'modular_dripstation/icons/mob/inhands/shield_righthand.dmi'
-	block_sound = 'modular_dripstation/sound/weapons/block/sound_weapons_block_shield.ogg'
+	block_sound = 'modular_dripstation/sound/weapons/block/shield.ogg'
 	bash_sound = 'modular_dripstation/sound/weapons/wpn_bash_shield_light.wav'
 	bash = TRUE
 

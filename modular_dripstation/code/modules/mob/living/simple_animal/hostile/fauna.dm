@@ -176,7 +176,7 @@
 	speed = 7
 	move_to_delay = 7
 	projectiletype = /obj/projectile/temp/basilisk/ice
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_PIERCE
 	ranged = TRUE
 	ranged_message = "manifests ice"
 	ranged_cooldown_time = 30
@@ -255,7 +255,7 @@
 	speed = 2
 	move_to_delay = 2
 	projectiletype = /obj/projectile/temp/basilisk/ice
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_PIERCE
 	ranged = TRUE
 	ranged_message = "manifests ice"
 	ranged_cooldown_time = 15

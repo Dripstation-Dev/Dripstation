@@ -7,6 +7,7 @@
 /obj/item/reagent_containers/autoinjector/combat
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
 	icon_state = "hypo_nt_combat"
+	inject_sound = 'sound/items/hypospray.ogg'
 
 /obj/item/reagent_containers/autoinjector/combat/nanites
 	icon_state = "hypo_nt_quantum"
@@ -17,18 +18,25 @@
 /obj/item/reagent_containers/autoinjector/medipen/resurrector
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
 	icon_state = "hypo_nt_combat"
+	inject_sound = 'sound/items/hypospray.ogg'
 
 /obj/item/reagent_containers/autoinjector/magillitis
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
 	icon_state = "hypo_vahlen"
+	inject_sound = 'sound/items/hypospray.ogg'
 
 /obj/item/reagent_containers/autoinjector/mixi
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "hypo_vahlen"
+	inject_sound = 'sound/items/hypospray.ogg'
 
 /obj/item/reagent_containers/autoinjector/derm
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "hypo_vahlen"
+	inject_sound = 'sound/items/hypospray.ogg'
+
+/obj/item/reagent_containers/autoinjector/medipen/stimpack
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/stimpack/large
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
@@ -46,6 +54,7 @@
 /obj/item/reagent_containers/autoinjector/medipen/stimpack/large/redpill
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
 	icon_state = "hypo_redpill"
+	inject_sound = 'sound/items/hypospray.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/stimpack/large/redpill/update_icon_state()
 	. = ..()
@@ -69,6 +78,7 @@
 	volume = 40
 	amount_per_transfer_from_this = 40
 	list_reagents = list(/datum/reagent/drug/red_eye = 5, /datum/reagent/medicine/morphine = 5, /datum/reagent/medicine/oxandrolone = 4, /datum/reagent/medicine/sal_acid = 4, /datum/reagent/drug/methamphetamine = 3, /datum/reagent/medicine/atropine = 10, /datum/reagent/medicine/coagulant/blood_restoring_nanites = 2.5, /datum/reagent/medicine/spaceacillin = 0.5, /datum/reagent/iron = 3, /datum/reagent/medicine/salglu_solution = 3)
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/ekit/traitor/export
 	name = "emergency autoinjector RE-7 'Vahlen Pharma'"
@@ -81,6 +91,7 @@
 	volume = 40
 	amount_per_transfer_from_this = 40
 	list_reagents = list(/datum/reagent/medicine/stimulants = 5, /datum/reagent/medicine/morphine = 5, /datum/reagent/medicine/salbutamol = 5, /datum/reagent/medicine/tricordrazine = 5, /datum/reagent/medicine/omnizine = 10, /datum/reagent/medicine/coagulant/blood_restoring_nanites = 2.5, /datum/reagent/iron = 3.5, /datum/reagent/medicine/salglu_solution = 4)
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/stimpack/traitor/export
 	name = "combat autoinjector S-7 'Vahlen Pharma'"
@@ -95,6 +106,7 @@
 	volume = 30
 	amount_per_transfer_from_this = 30
 	list_reagents = list(/datum/reagent/medicine/neurine = 5, /datum/reagent/medicine/morphine = 5, /datum/reagent/medicine/bone_restoring_nanites = 10, /datum/reagent/medicine/coagulant/blood_restoring_nanites = 2.5, /datum/reagent/iron = 3.5, /datum/reagent/medicine/salglu_solution = 4)
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/syndicate_trauma_repairer/export
 	name = "anti-trauma autoinjector R-4 'Vahlen Pharma'"
@@ -108,6 +120,7 @@
 	volume = 15
 	amount_per_transfer_from_this = 15
 	list_reagents = list(/datum/reagent/medicine/cellular_restoring_nanites = 15)
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/propithal
 	name = "propithal autoinjector"
@@ -117,10 +130,12 @@
 	volume = 30
 	amount_per_transfer_from_this = 30
 	list_reagents = list(/datum/reagent/medicine/morphine = 5,  /datum/reagent/iron = 5, /datum/reagent/medicine/omnizine/protozine = 10, /datum/reagent/medicine/atropine = 10)
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/morphine
 	icon_state = "morphine"
 	icon = 'modular_dripstation/icons/obj/syringe.dmi'
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/tramadol
 	name = "tramadol autoinjector"
@@ -130,6 +145,7 @@
 	volume = 30
 	amount_per_transfer_from_this = 30
 	list_reagents = list(/datum/reagent/medicine/tramadol = 30)
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'
 
 /obj/item/reagent_containers/autoinjector/medipen/pen_acid
 	name = "pentetic acid autoinjector"
@@ -148,3 +164,4 @@
 	volume = 30
 	amount_per_transfer_from_this = 30
 	list_reagents = list(/datum/reagent/medicine/meldonin = 20)
+	inject_sound = 'modular_dripstation/sound/item/stimulator.ogg'

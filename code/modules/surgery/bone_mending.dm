@@ -57,7 +57,8 @@
 	time = 4 SECONDS
 
 /datum/surgery_step/repair_bone/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(locate(/datum/wound/blunt/critical) in parse_zone(user.zone_selected)?.wounds || locate(/datum/wound/blunt/severe) in parse_zone(user.zone_selected)?.wounds)
+	var/obj/item/bodypart/limb_to_op = target.get_bodypart(user.zone_selected)
+	if(locate(/datum/wound/blunt/critical) in limb_to_op?.wounds || locate(/datum/wound/blunt/severe) in limb_to_op?.wounds)
 		display_results(user, target, span_notice("You begin to repair the bone damage in [target]'s [parse_zone(user.zone_selected)]..."),
 			span_notice("[user] begins to repair the bone damage in [target]'s [parse_zone(user.zone_selected)] with [tool]."),
 			span_notice("[user] begins to repair the bone damage in [target]'s [parse_zone(user.zone_selected)]."))
@@ -65,16 +66,17 @@
 		user.visible_message(span_notice("[user] looks for [target]'s [parse_zone(user.zone_selected)]."), span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
 /datum/surgery_step/repair_bone/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, default_display_results = FALSE)
-	if(locate(/datum/wound/blunt/critical) in parse_zone(user.zone_selected)?.wounds || locate(/datum/wound/blunt/severe) in parse_zone(user.zone_selected)?.wounds)
+	var/obj/item/bodypart/limb_to_op = target.get_bodypart(user.zone_selected)
+	if(locate(/datum/wound/blunt/critical) in limb_to_op?.wounds || locate(/datum/wound/blunt/severe) in limb_to_op?.wounds)
 		if(istype(tool, /obj/item/stack))
 			var/obj/item/stack/used_stack = tool
 			used_stack.use(1)
 		var/datum/wound/W
-		W = parse_zone(user.zone_selected).get_wound_type(/datum/wound/blunt/critical)
+		W = limb_to_op.get_wound_type(/datum/wound/blunt/critical)
 		if(W)
 			W.remove_wound()
 		else 
-			W = parse_zone(user.zone_selected).get_wound_type(/datum/wound/blunt/severe)
+			W = limb_to_op.get_wound_type(/datum/wound/blunt/severe)
 			W.remove_wound()
 		display_results(user, target, span_notice("You successfully repair the [W.name] in [target]'s [parse_zone(target_zone)]."),
 			span_notice("[user] successfully repairs the [W.name] in [target]'s [parse_zone(target_zone)] with [tool]!"),

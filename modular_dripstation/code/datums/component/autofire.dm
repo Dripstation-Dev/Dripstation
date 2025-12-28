@@ -9,11 +9,13 @@
 	var/autofire_stat = AUTOFIRE_STAT_IDLE
 	var/mouse_parameters
 	var/autofire_shot_delay = 0.3 SECONDS //Time between individual shots.
+	var/shot_count = 0
+	var/spread_per_shot = 1
 	var/mouse_status = AUTOFIRE_MOUSEUP //This seems hacky but there can be two MouseDown() without a MouseUp() in between if the user holds click and uses alt+tab, printscreen or similar.
 
 	COOLDOWN_DECLARE(next_shot_cd)
 
-/datum/component/automatic_fire/Initialize(_autofire_shot_delay)
+/datum/component/automatic_fire/Initialize(_autofire_shot_delay, _spread_per_shot)
 	. = ..()
 	if(!isgun(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -23,6 +25,8 @@
 	RegisterSignals(parent, list(COMSIG_QDELETING, COMSIG_ITEM_DROPPED, COMSIG_GUN_AUTOFIRE_DESELECTED), .proc/autofire_off)
 	if(_autofire_shot_delay)
 		autofire_shot_delay = _autofire_shot_delay
+	if(_spread_per_shot)
+		spread_per_shot = _spread_per_shot
 	if(ismob(gun.loc))
 		var/mob/user = gun.loc
 		wake_up(src, user)
@@ -203,6 +207,7 @@
 	target = null
 	target_loc = null
 	mouse_parameters = null
+	shot_count = 0
 
 /datum/component/automatic_fire/proc/on_mouse_drag(client/source, atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 	SIGNAL_HANDLER
@@ -240,7 +245,8 @@
 		return FALSE
 	shooter.face_atom(target)
 	COOLDOWN_START(src, next_shot_cd, autofire_shot_delay)
-	if(SEND_SIGNAL(parent, COMSIG_AUTOFIRE_SHOT, target, shooter, mouse_parameters) & COMPONENT_AUTOFIRE_SHOT_SUCCESS)
+	if(SEND_SIGNAL(parent, COMSIG_AUTOFIRE_SHOT, target, shooter, mouse_parameters, shot_count, spread_per_shot) & COMPONENT_AUTOFIRE_SHOT_SUCCESS)
+		shot_count += 1
 		return TRUE
 	stop_autofiring()
 	return FALSE
@@ -266,23 +272,23 @@
 		return COMPONENT_AUTOFIRE_ONMOUSEDOWN_BYPASS
 
 
-/obj/item/gun/proc/do_autofire(datum/source, atom/target, mob/living/shooter, params)
+/obj/item/gun/proc/do_autofire(datum/source, atom/target, mob/living/shooter, params, shot_count, spread_per_shot)
 	SIGNAL_HANDLER
 	if(semicd || shooter.incapacitated())
 		return NONE
 	if(!can_shoot())
 		shoot_with_empty_chamber(shooter)
 		return NONE
-	INVOKE_ASYNC(src, .proc/do_autofire_shot, source, target, shooter, params)
+	INVOKE_ASYNC(src, .proc/do_autofire_shot, source, target, shooter, params, shot_count, spread_per_shot)
 	return COMPONENT_AUTOFIRE_SHOT_SUCCESS //All is well, we can continue shooting.
 
 
-/obj/item/gun/proc/do_autofire_shot(datum/source, atom/target, mob/living/shooter, params)
+/obj/item/gun/proc/do_autofire_shot(datum/source, atom/target, mob/living/shooter, params, shot_count, spread_per_shot)
 	var/obj/item/gun/akimbo_gun = shooter.get_inactive_held_item()
-	var/bonus_spread = 0
+	var/bonus_spread = 0 + shot_count * spread_per_shot
 	if(istype(akimbo_gun) && (weapon_weight < WEAPON_MEDIUM || HAS_TRAIT(shooter, TRAIT_BADASS)))
 		if((akimbo_gun.weapon_weight < WEAPON_MEDIUM|| HAS_TRAIT(shooter, TRAIT_BADASS)) && akimbo_gun.can_trigger_gun(shooter))
-			bonus_spread = dual_wield_spread
+			bonus_spread += dual_wield_spread
 			addtimer(CALLBACK(akimbo_gun, /obj/item/gun.proc/process_fire, target, shooter, TRUE, params, null, bonus_spread), 1)
 	process_fire(target, shooter, TRUE, params, null, bonus_spread)
 

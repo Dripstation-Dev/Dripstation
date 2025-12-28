@@ -56,6 +56,9 @@
 	magboots_type = /obj/item/clothing/shoes/magboots //yogs
 	department = "engie"
 
+/obj/machinery/suit_storage_unit/engine/dualmode
+	suit_type = /obj/item/clothing/suit/space/hardsuit/dualmode/engineering
+
 /obj/machinery/suit_storage_unit/ce
 	suit_type = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	mask_type = /obj/item/clothing/mask/breath

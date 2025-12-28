@@ -184,7 +184,7 @@
 	. = ..()
 	AddComponent(/datum/component/butchering, 80 * toolspeed, 100, 0)
 
-/obj/item/scalpel/attack(mob/living/M, mob/user)
+/obj/item/scalpel/attack(mob/living/carbon/M, mob/user)
 	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_PRESURGERY_ATTACK, M, user)	//Dripstation edit
 	if(signal_return & COMPONENT_SKIP_ATTACK)
 		return		//Dripstation edit end
@@ -227,7 +227,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	hitsound = 'sound/weapons/circsawhit.ogg'
-	mob_throw_hit_sound =  'sound/weapons/pierce.ogg'
+	mob_throw_hit_sound =  SFX_PIERCE
 	flags_1 = CONDUCT_1
 	item_flags = SURGICAL_TOOL
 	tool_behaviour = TOOL_SAW

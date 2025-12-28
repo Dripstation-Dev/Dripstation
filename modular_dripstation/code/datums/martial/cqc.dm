@@ -34,30 +34,35 @@
 	return ..()
 
 ///CQC grab, stun & disarm
+
 /datum/martial_art/cqc/grab_act(mob/living/A, mob/living/D)
 	if(A != D && can_use(A)) // A != D prevents grabbing yourself
 		add_to_streak("G", D)
 		if(check_streak(A, D)) //if a combo is made no grab upgrade is done
 			return TRUE
-		var/instantg = FALSE
+		D.Immobilize(3 SECONDS)
 		if(A.grab_state == GRAB_AGGRESSIVE)
-			instantg = TRUE
 			log_combat(A, D, "aggressively grabbed neck")
 			D.visible_message(span_warning("[A] violently grabs [D]`s neck!"), \
 							span_userdanger("You're neck grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
 			to_chat(A, span_danger("You violently grab [D]`s neck!"))
-		else if(A.grab_state)
-			D.Immobilize(3 SECONDS)
-		D.drop_all_held_items()	
-		D.grabbedby(A, instantg, instantg) //Instant neck grab if already grabbed
-		A.changeNext_move(CLICK_CD_CLICK_ABILITY)	//0.2 Seconds instead of 1, less frustrating
-		return TRUE
-	else
-		return FALSE
+			D.drop_all_held_items()	
+			D.grabbedby(A, TRUE, TRUE) //Instant neck grab if already grabbed
+			A.changeNext_move(CLICK_CD_RAPID)	//0.2 Seconds instead of 1, less frustrating
+			return TRUE
+	return FALSE
 
 ///CQC counter: attacker's weapon is placed in the defender's offhand and they are knocked down
 /datum/martial_art/cqc/handle_counter(mob/living/carbon/human/user, mob/living/carbon/human/attacker)
 	if(!can_use(user))
+		return
+	if(user.get_timed_status_effect_duration(/datum/status_effect/staggered))	//gloves counters your pathetic attempts to counter
+		to_chat(user, span_warning("You're too off balance to counter this!"))
+		return
+	var/l_hand = user.get_empty_held_index_for_side("l")
+	var/r_hand =  user.get_empty_held_index_for_side("r")
+	if(!l_hand && !r_hand)
+		to_chat(user, span_danger("You need an empty hand to deflect [attacker]'s attack with [name]!"))
 		return
 	user.adjustStaminaLoss(10)	//Can't block forever. Really, if this becomes a problem you're already screwed.
 	var/obj/item/I = attacker.get_active_held_item()
@@ -72,7 +77,14 @@
 			return
 		INVOKE_ASYNC(touch_spell, /datum/action/cooldown/spell/touch.proc/do_hand_hit, touch_weapon, attacker, attacker)
 		return COMPONENT_NO_AFTERATTACK
-	else
+	else if(user.a_intent == INTENT_HELP)	//chill bro
+		attacker.visible_message(span_warning("[user] carefully dodges [attacker]'s attack!"), \
+						span_userdanger("[user] reflects your arm as you attack and evades your attack!"))
+		to_chat(user, span_danger("You take great care to remain untouched by [attacker]'s attack!"))
+		cool_dash_effect(user, attacker, I)
+		user.adjustStaminaLoss(-25)	//you feel like on morality high ground of the fight and can chill
+		return
+	else if(I)
 		user.do_attack_animation(attacker, ATTACK_EFFECT_DISARM)
 		attacker.visible_message(span_warning("[user] grabs [attacker]'s arm as they attack and throws them to the ground!"), \
 							span_userdanger("[user] grabs your arm as you attack and throws you to the ground!"))
@@ -83,14 +95,42 @@
 				if(!user.put_in_hand(I, hand))
 					I.forceMove(get_turf(attacker))
 		attacker.Knockdown(60)
-	if(!I)
+		return
+	else
 		attacker.visible_message(span_warning("[user] grabs [attacker]'s arm as they attack and twists it!"), \
 							span_userdanger("[user] grabs your arm as you attack and twists it, you feel staggered!"))
 		attacker.adjust_staggered_up_to(2 SECONDS, 4 SECONDS)
 		playsound(get_turf(attacker), 'modular_dripstation/sound/sweep_2.ogg', 50, 1, -1)
-	if(user.a_intent == INTENT_GRAB || attacker.a_intent == INTENT_GRAB)
-		user.start_pulling(attacker, TRUE)
-		attacker.grabbedby(user, FALSE, TRUE)
+		if(attacker.a_intent == INTENT_GRAB)
+			user.start_pulling(attacker, TRUE)
+			attacker.grabbedby(user, FALSE, TRUE)
+		return
+
+/datum/martial_art/proc/cool_dash_effect(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I)
+	var/turf/owner_turf = get_turf(defender)
+	var/turf/attacker_turf = get_turf(attacker)
+	var/turf/step_back_turf = get_step(owner_turf, get_cardinal_dir(attacker_turf, owner_turf))
+	var/turf/step_forward_turf = owner_turf
+	playsound(owner_turf, SFX_EVADE, 50, 1, -1)	//just casually dodge
+	var/should_step = TRUE
+	if(isclosedturf(step_back_turf) || isgroundlessturf(step_back_turf))
+		should_step = FALSE
+	for(var/atom/A in step_back_turf)
+		if(!A.CanPass(defender, step_back_turf))
+			should_step = FALSE
+			break
+	if(should_step)
+		//new /obj/effect/temp_visual/small_smoke/halfsecond(step_back_turf)
+		//new /obj/effect/temp_visual/small_smoke/halfsecond(step_forward_turf)
+		defender.AddComponent(/datum/component/after_image, 2, 0.5, FALSE)
+		defender.Moved(owner_turf, step_back_turf, TRUE)
+		attacker.Moved(attacker_turf, step_forward_turf, TRUE)
+		var/datum/component/after_image = defender.GetComponent(/datum/component/after_image)
+		qdel(after_image)
+	if(I)
+		playsound(attacker_turf, SFX_SLASHMISS, 40, 1, -1)
+	else
+		playsound(attacker_turf, SFX_GENERICMISS, 40, 1, -1)
 
 /datum/martial_art/cqc/proc/Restrain(mob/living/A, mob/living/D)
 	if(restraining_mob)

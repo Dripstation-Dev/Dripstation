@@ -38,6 +38,21 @@
 	if(!.)
 		return ..()
 
+/datum/emote/living/carbon/coughinblood
+	key = "coughinblood"
+	message = "coughs with sprays of blood!"
+	emote_type = EMOTE_AUDIBLE
+	emote_length = 2 SECONDS
+	cooldown = 1 SECONDS
+	stat_allowed = SOFT_CRIT
+
+/datum/emote/living/carbon/coughinblood/get_sound(mob/living/carbon/human/user)
+	if(ishuman(user) && user?.dna?.species)
+		return 'modular_dripstation/sound/emotes/cough_blood.ogg'
+
+/datum/emote/living/snap/get_sound(mob/living/user)
+	return pick('sound/misc/fingersnap1.ogg', 'sound/misc/fingersnap2.ogg', 'modular_dripstation/sound/emotes/finger_snap.ogg')
+
 /datum/emote/living/sigh
 	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
 	emote_length = 3 SECONDS 

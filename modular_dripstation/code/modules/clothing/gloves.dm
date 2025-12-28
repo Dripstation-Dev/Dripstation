@@ -1,5 +1,5 @@
 /obj/item/clothing/gloves
-	//equip_sound = 'modular_dripstation/sound/item/latex_equip.ogg'
+	equip_sound = 'modular_dripstation/sound/item/glove_equip.ogg'
 
 /obj/item/clothing/gloves/cargo_gauntlet
 	name = "\improper cargo gauntlets"

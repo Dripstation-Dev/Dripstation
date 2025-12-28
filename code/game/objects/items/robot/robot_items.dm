@@ -157,7 +157,7 @@
 					else
 						user.visible_message(span_userdanger("[user] crushes [M]!"), \
 								span_danger("You crush [M]!"))
-					playsound(loc, 'sound/weapons/smash.ogg', 50, 1, -1)
+					playsound(loc, SFX_BLUNT, 50, 1, -1)
 					M.adjustBruteLoss(15)
 					user.cell.charge -= 300
 					ccooldown = world.time + 10

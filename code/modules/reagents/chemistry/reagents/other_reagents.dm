@@ -994,9 +994,9 @@
 
 /datum/reagent/space_cleaner/sterilizine/reaction_mob(mob/living/carbon/C, methods=TOUCH, reac_volume)
 	if(methods & (TOUCH|VAPOR|PATCH))
-		//for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
-		//	var/datum/surgery/S = s
-		//	S.success_multiplier = max(0.2, S.success_multiplier)
+		for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
+			var/datum/surgery/S = s
+			S.operated_bodypart.sanitization += 0.12 * reac_volume
 			// +20% success propability on each step, useful while operating in less-than-perfect conditions
 		for(var/datum/wound/W in C.all_wounds)
 			W.applySanitization(0.12 * reac_volume)

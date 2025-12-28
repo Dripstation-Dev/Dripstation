@@ -20,7 +20,7 @@
 /mob/living/carbon/human/proc/apply_deathwitness_penalty(gibbed)
 	var/list/mob/living/carbon/human/viewers = viewers(src)
 	for(var/mob/living/carbon/human/V as anything in viewers)
-		if(!ishuman(V))
+		if(!V.mind || !istype(V))
 			continue
 		if(V.in_fow(src, TRUE))
 			continue
@@ -29,7 +29,7 @@
 			return
 		if(gibbed)
 			SEND_SIGNAL(V, COMSIG_ADD_MOOD_EVENT, "witnessgib_[mind_fortified_rating]", /datum/mood_event/seengib, mind_fortified_rating)
-			V.apply_status_effect(/datum/status_effect/terrified, fear_value = 30/mind_fortified_rating)
+			V.adjust_fear(30/mind_fortified_rating)
 		else
 			SEND_SIGNAL(V, COMSIG_ADD_MOOD_EVENT, "witnessdeath_[mind_fortified_rating]", /datum/mood_event/seendeath, mind_fortified_rating)
 

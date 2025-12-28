@@ -16,7 +16,7 @@
 	sharpness = SHARP_NONE
 	demolition_mod = 3 // BREAK THINGS
 	armour_penetration = -20
-	hitsound = 'sound/weapons/smash.ogg' /// Hitsound when thrown at someone
+	hitsound = SFX_BLUNT /// Hitsound when thrown at someone
 	attack_verb = list("attacked", "hit", "struck", "bludgeoned", "bashed", "smashed")
 	materials = list(/datum/material/iron=6000)
 	w_class = WEIGHT_CLASS_HUGE

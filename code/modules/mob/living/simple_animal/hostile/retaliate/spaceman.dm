@@ -19,7 +19,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attacktext = "hits"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_PUNCH
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	footstep_type = FOOTSTEP_MOB_SHOE
@@ -47,7 +47,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	attacktext = "punches"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_PUNCH
 	faction = list("nanotrasenprivate")
 	a_intent = INTENT_HARM
 	loot = list(/obj/effect/mob_spawn/human/corpse/nanotrasensoldier)

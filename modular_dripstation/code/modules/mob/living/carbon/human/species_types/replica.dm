@@ -397,6 +397,7 @@
 	var/unit_specialisation = SPECIALIST_STARLING
 	///Original synth number designation for when this shell becomes uninhabited
 	var/original_numbers
+	COOLDOWN_DECLARE(emag_cd)
 
 	mutant_bodyparts = list()
 	default_features = list("wings" = "None")
@@ -530,10 +531,12 @@
 
 /datum/species/replica/spec_emag_act(mob/living/carbon/human/H, mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(emag_lvl == 2)
+	if(emag_lvl == 2 || !COOLDOWN_FINISHED(src, emag_cd))
 		return FALSE
 	emag_lvl = min(emag_lvl + 1,2)
 	playsound(H.loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
+	H.playsound_local(get_turf(H), 'modular_dripstation/sound/effects/pain_fuck.ogg', 30, FALSE)
+	COOLDOWN_START(src, emag_cd, 5 SECONDS)
 	H.Paralyze(60)
 	switch(emag_lvl)
 		if(1)

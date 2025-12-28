@@ -738,7 +738,7 @@
 	var/mind_fortified_rating = H.check_fear_protection(ABNORMAL_FEAR_SOURCE)
 	if(!mind_fortified_rating)
 		return
-	H.apply_status_effect(/datum/status_effect/terrified, fear_value = 50/mind_fortified_rating)
+	H.adjust_fear(50/mind_fortified_rating)
 
 /*
  * Applies a role-based mood if you can see the parent.
@@ -1030,7 +1030,7 @@
 		This can draw incredible amounts of power from the suit's charge to create edible organic matter in the \
 		palm of the wearer's glove; however, research seemed to have entirely stopped at burgers. \
 		Notably, all attempts to get it to dispense Earl Grey tea have failed."
-	icon_state = "dispenser"
+	icon_state = "module"//"dispenser"
 	module_type = MODULE_USABLE
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
@@ -1417,6 +1417,104 @@
 	else
 		icon_state = "stamp-ok"
 	balloon_alert(user, "switched mode")
+
+///Power kick - Lets the user launch themselves at someone to kick them.
+/obj/item/module/power_kick
+	name = "MOD power kick module"
+	desc = "This module uses high-power myomer to generate an incredible amount of energy, transferred into the power of a kick."
+	icon_state = "power_kick"
+	module_type = MODULE_ACTIVE
+	removable = FALSE
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	incompatible_modules = list(/obj/item/module/power_kick)
+	cooldown_time = 5 SECONDS
+	//required_slots = list(ITEM_SLOT_FEET)
+	/// Damage on kick.
+	var/damage = 20
+	/// The wound bonus of the kick.
+	var/wounding_power = 35
+	/// How long we knockdown for on the kick.
+	var/knockdown_time = 2 SECONDS
+
+/obj/item/module/power_kick/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	rig.wearer.visible_message(span_warning("[rig.wearer] starts charging a kick!"), \
+		blind_message = span_hear("You hear a charging sound."))
+	playsound(src, 'modular_dripstation/sound/item/loader_charge.ogg', 75, TRUE)
+	balloon_alert(rig.wearer, "you start charging...")
+	animate(rig.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
+	addtimer(CALLBACK(rig.wearer, TYPE_PROC_REF(/atom, SpinAnimation), 3, 2), 0.3 SECONDS)
+	if(!do_after(rig.wearer, 1 SECONDS, target = rig))
+		animate(rig.wearer, 0.2 SECONDS, pixel_z = -16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
+		return
+	animate(rig.wearer)
+	drain_power(use_power_cost)
+	playsound(src, 'modular_dripstation/sound/item/loader_launch.ogg', 75, TRUE)
+	var/angle = get_angle(rig.wearer, target) + 180
+	rig.wearer.transform = rig.wearer.transform.Turn(angle)
+	RegisterSignal(rig.wearer, COMSIG_MOVABLE_IMPACT, PROC_REF(on_throw_impact))
+	rig.wearer.throw_at(target, range = 7, speed = 2, thrower = rig.wearer, spin = FALSE, /*gentle = TRUE,*/ callback = CALLBACK(src, PROC_REF(on_throw_end), rig.wearer, -angle))
+
+/obj/item/module/power_kick/proc/on_throw_end(mob/user, angle)
+	if(!user)
+		return
+	user.transform = user.transform.Turn(angle)
+	animate(user, 0.2 SECONDS, pixel_z = -16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
+
+/obj/item/module/power_kick/proc/on_throw_impact(mob/living/source, atom/target, datum/thrownthing/thrownthing)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, COMSIG_MOVABLE_IMPACT)
+	if(!rig?.wearer)
+		return
+	if(isliving(target))
+		var/mob/living/living_target = target
+		living_target.apply_damage(damage, BRUTE, rig.wearer.zone_selected, wound_bonus = wounding_power)
+		living_target.Knockdown(knockdown_time)
+	else if(target.uses_integrity)
+		target.take_damage(damage, BRUTE, MELEE)
+	else
+		return
+	rig.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+
+///Microwave Beam - Microwaves items instantly.
+/obj/item/module/microwave_beam
+	name = "MOD microwave beam module"
+	desc = "An oddly domestic device, this module is installed into the user's palm, \
+		hooking up with culinary scanners located in the helmet to blast food with precise microwave radiation, \
+		allowing them to cook food from a distance, with the greatest of ease. Not recommended for use against grapes."
+	icon_state = "microwave_beam"
+	module_type = MODULE_ACTIVE
+	complexity = 1
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	incompatible_modules = list(/obj/item/module/microwave_beam)
+	cooldown_time = 4 SECONDS
+	//required_slots = list(ITEM_SLOT_GLOVES)
+
+/obj/item/module/microwave_beam/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	if(!isitem(target))
+		return
+	if(!isturf(target.loc))
+		balloon_alert(rig.wearer, "not in storage!")
+		return
+	var/obj/item/microwave_target = target
+	var/datum/effect_system/spark_spread/spark_effect = new()
+	spark_effect.set_up(2, 1, rig.wearer)
+	spark_effect.start()
+	rig.wearer.Beam(target,icon_state="lightning[rand(1,12)]", time = 5)
+	if(microwave_target.microwave_act(microwaver = rig.wearer) & COMPONENT_MICROWAVE_SUCCESS)
+		playsound(src, 'sound/machines/microwave/microwave-end.ogg', 50, FALSE)
+	else
+		balloon_alert(rig.wearer, "can't be microwaved!")
+	var/datum/effect_system/spark_spread/spark_effect_two = new()
+	spark_effect_two.set_up(2, 1, microwave_target)
+	spark_effect_two.start()
+	drain_power(use_power_cost)
 
 ///Cloaking - Lowers the user's visibility, can be interrupted by being touched or attacked.
 /obj/item/module/stealth

@@ -1,5 +1,5 @@
 /// Amount of terror passively removed on every tick.
-#define REGULAR_TERROR_CALM_DOWN 2
+#define REGULAR_TERROR_CALM_DOWN 1
 /// How much terror a random panic attack will give the victim.
 #define START_TERROR_AMOUNT 15
 /// How much terror a random panic attack will give the victim.
@@ -38,12 +38,12 @@
 	///A value that represents how much "terror" the victim has built up. Higher amounts cause more averse effects.
 	var/terror_buildup = START_TERROR_AMOUNT
 
-/datum/status_effect/terrified/refresh(effect, fear_value) //Don't call parent, just add to the current amount
-	freak_out(fear_value)
+/datum/status_effect/terrified/refresh(effect, amount) //Don't call parent, just add to the current amount
+	freak_out(amount)
 
-/datum/status_effect/terrified/on_creation(mob/living/new_owner, fear_value = START_TERROR_AMOUNT)
+/datum/status_effect/terrified/on_creation(mob/living/new_owner, amount = START_TERROR_AMOUNT)
 	. = ..()
-	freak_out(fear_value)
+	freak_out(amount)
 
 /datum/status_effect/terrified/on_apply()
 	RegisterSignal(owner, COMSIG_CARBON_PRE_MISC_HELP, PROC_REF(comfort_owner))
@@ -154,7 +154,7 @@
 		to_chat(owner, span_alert("THEY GONNA KILL ME! RUN, HIDE!"))
 	owner.flick_pain(50, TRUE)	//fantom pain
 	if(prob(50))
-		CONSCIOUSAY(owner.say(pick("Fuck, fuck, fuck, fuck!!.", "AAAAAAA!!", "FUCK OFF, JUST FUCK OFF!!.", "STOP, PLEASE STOP!!.", "FOR THE LOVE OF GODDESS, PLEASE STOP!!.")))
+		CONSCIOUSAY(owner.say(pick("Fuck, fuck, fuck, fuck!!", "AAAAAAA!!", "FUCK OFF, JUST FUCK OFF!!", "STOP, PLEASE STOP!!", "FOR THE LOVE OF GODDESS, PLEASE STOP!!")))
 	else
 		owner.emote("gasphock")
 	if(ishuman(owner))

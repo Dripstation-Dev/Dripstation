@@ -26,7 +26,7 @@
 	ranged = TRUE
 	ranged_cooldown_time = 10
 	projectiletype = /obj/projectile/seedling
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_PIERCE
 	robust_searching = TRUE
 	stat_attack = UNCONSCIOUS
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG

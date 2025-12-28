@@ -46,6 +46,9 @@
 	BB.original = target
 	BB.firer = user
 	BB.fired_from = fired_from
+	BB.light_system = BB.fired_light_system
+	BB.light_range = BB.fired_light_range
+	BB.light_color = BB.fired_light_color
 	if(user.a_intent == INTENT_DISARM)
 		BB.hit_prone_targets = TRUE
 	if (zone_override)

@@ -585,9 +585,9 @@
 					/obj/item/ammo_box/magazine/toy/paintball/orange)
 	crate_name = "paintball ammo crate"
 
-/datum/supply_pack/service/replica_rationpacks
-	name = "Replika rationpacks crate"
-	desc = "Plenty of rations for your replika."
+/datum/supply_pack/organic/replica_rationpacks
+	name = "MRE supply kit (replika rations)"
+	desc = "Plenty of rations for your replika. Inedible for other biotypes."
 	cost = 2000
 	contains = list(/obj/item/reagent_containers/food/snacks/synthrationpack,
 					/obj/item/reagent_containers/food/snacks/synthrationpack,

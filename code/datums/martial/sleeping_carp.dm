@@ -61,7 +61,7 @@
 								span_userdanger("[A] kicks you in the back, making you stumble and fall!"))
 			step_to(D,get_step(D,D.dir),1)
 			D.Paralyze(80)
-			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+			playsound(get_turf(D), SFX_PUNCH, 50, 1, -1)
 			return TRUE
 		else
 			log_combat(A, D, "missed a back-kick (Sleeping Carp) on")
@@ -78,7 +78,7 @@
 		D.audible_message("<b>[D]</b> gags!")
 		D.losebreath += 3
 		D.Stun(40)
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(get_turf(D), SFX_PUNCH, 50, 1, -1)
 		return TRUE
 	return basic_hit(A,D)	
 
@@ -90,7 +90,7 @@
 						  span_userdanger("[A] kicks you in the jaw!"))
 		D.apply_damage(A.get_punchdamagehigh() + 10, A.dna.species.attack_type, BODY_ZONE_HEAD, wound_bonus = CANT_WOUND)	//20 damage
 		D.drop_all_held_items()
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		playsound(get_turf(D), SFX_PUNCH, 50, 1, -1)
 		D.Stun(80)
 		return TRUE
 	return basic_hit(A,D)
@@ -105,7 +105,7 @@
 		if(D.stat)
 			D.death() //FINISH HIM!
 		D.apply_damage(dunk_damage, A.dna.species.attack_type, BODY_ZONE_CHEST, wound_bonus = CANT_WOUND)
-		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
+		playsound(get_turf(D), SFX_PUNCH, 75, 1, -1)
 		return TRUE
 	return basic_hit(A,D)
 
@@ -136,7 +136,7 @@
 	D.visible_message(span_danger("[A] [atk_verb] [D]!"), \
 					  span_userdanger("[A] [atk_verb] you!"))
 	D.apply_damage(harm_damage, BRUTE, wound_bonus = CANT_WOUND)
-	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, 1, -1)
+	playsound(get_turf(D), SFX_PUNCH, 25, 1, -1)
 	if(prob(D.getBruteLoss()) && (D.mobility_flags & MOBILITY_STAND))
 		D.visible_message(span_warning("[D] stumbles and falls!"), span_userdanger("The blow sends you to the ground!"))
 		D.Paralyze(80)

@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(guardian_projectile_damage, list(
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
 	movement_type = FLYING // Immunity to chasms and landmines, etc.
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_BLUNT
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -820,5 +820,5 @@ GLOBAL_LIST_INIT(guardian_projectile_damage, list(
 	damage = 10
 	damage_type = BRUTE
 	armor_flag = ENERGY
-	hitsound = 'sound/weapons/pierce_slow.ogg'
+	hitsound = SFX_STAB
 	var/datum/mind/guardian_master

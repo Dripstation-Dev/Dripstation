@@ -1,3 +1,7 @@
+/obj/projectile
+	var/fired_light_system = STATIC_LIGHT
+	var/fired_light_range = 0
+	var/fired_light_color = COLOR_WHITE
 
 /obj/projectile/bullet
 	speed = 2
@@ -7,10 +11,15 @@
 	embedding = list("pain_multiplier" = 0, "embed_chance" = 35, "jostle_chance" = 2, "rip_time" = -1, "fall_chance" = 0, "ignore_throwspeed_threshold" = TRUE, "pain_stam_pct" = 0.5, "remove_pain_mult" = 3)
 	ap_falloff_tile = 5
 	embed_falloff_tile = 2
-	light_system = MOVABLE_LIGHT
-	light_range = 0.6
-	light_color = LIGHT_COLOR_YELLOW
+	fired_light_system = MOVABLE_LIGHT
+	fired_light_range = 0.6
+	fired_light_color = LIGHT_COLOR_YELLOW
 	//var/terrify_prob = 10
+
+/obj/projectile/bullet/reusable
+	fired_light_system = STATIC_LIGHT
+	fired_light_range = 0
+	fired_light_color = COLOR_WHITE
 
 /obj/projectile/bullet/Initialize(mapload)
 	. = ..()

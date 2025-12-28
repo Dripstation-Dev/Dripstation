@@ -39,7 +39,7 @@
 			myhead.dismember()
 	else
 		user.visible_message(span_suicide("[user] smashes [src] into [user.p_their()] neck, destroying [user.p_their()] esophagus! It looks like [user.p_theyre()] trying to commit suicide!"))
-		playsound(src, 'sound/weapons/genhit1.ogg', 100, 1)
+		playsound(src, SFX_BLUNT, 100, 1)
 	return(BRUTELOSS)
 
 /obj/item/melee/chainsaw/attack_self(mob/user)

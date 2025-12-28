@@ -50,6 +50,9 @@
 /obj/item/boxcutter/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M))
 		return ..()
+	var/signal_return = SEND_SIGNAL(src, COMSIG_ITEM_PRESURGERY_ATTACK, M, user)	//Dripstation edit
+	if(signal_return & COMPONENT_SKIP_ATTACK)
+		return		//Dripstation edit end
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 			M = user

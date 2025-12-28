@@ -375,9 +375,9 @@
 				to_chat(M, span_warning("Your stomach feels empty and cramps!"))
 		else
 			var/mob/living/carbon/C = M
-			//for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
-				//var/datum/surgery/S = s
-				//S.success_multiplier = max(0.1, S.success_multiplier)
+			for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
+				var/datum/surgery/S = s
+				S.operated_bodypart.sanitization += 0.07 * reac_volume
 				// +10% success propability on each step, useful while operating in less-than-perfect conditions
 			for(var/datum/wound/W in C.all_wounds)
 				W.applySanitization(0.07 * reac_volume)

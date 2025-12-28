@@ -26,7 +26,7 @@
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attacktext = "pummels"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_PUNCH
 	dextrous = TRUE
 	held_items = list(null, null)
 	possible_a_intents = list(INTENT_HELP, INTENT_GRAB, INTENT_DISARM, INTENT_HARM)

@@ -165,8 +165,9 @@
 	target.balloon_alert_to_viewers("finished!")
 	return TRUE
 
-/datum/surgery_step/saw/skip_surgery_step(mob/user)	//	dripstation edit
-	if(locate(/datum/wound/blunt/critical) in parse_zone(user.zone_selected)?.wounds || locate(/datum/wound/blunt/severe) in parse_zone(user.zone_selected)?.wounds)
+/datum/surgery_step/saw/skip_surgery_step(mob/user, mob/living/carbon/target)	//	dripstation edit
+	var/obj/item/bodypart/limb_to_saw = target.get_bodypart(user.zone_selected)
+	if(locate(/datum/wound/blunt/critical) in limb_to_saw?.wounds || locate(/datum/wound/blunt/severe) in limb_to_saw?.wounds)
 		return TRUE
 	return FALSE
 

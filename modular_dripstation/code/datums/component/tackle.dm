@@ -593,7 +593,7 @@
 			user.Knockdown(2 SECONDS)
 			shake_camera(user, 2, 2)
 
-	playsound(user, 'sound/weapons/smash.ogg', 70, TRUE)
+	playsound(user, SFX_BLUNT, 70, TRUE)
 
 
 /datum/component/tackler/proc/resetTackle()
@@ -684,7 +684,7 @@
 
 	var/datum/thrownthing/tackle = tackle_ref?.resolve()
 
-	playsound(owner, 'sound/weapons/smash.ogg', 70, TRUE)
+	playsound(owner, SFX_BLUNT, 70, TRUE)
 	if(tackle)
 		tackle.finalize(hit=TRUE)
 	resetTackle()

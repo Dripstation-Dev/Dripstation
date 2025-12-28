@@ -7,6 +7,7 @@
 								"Power Designs",
 								"Medical Designs",
 								"Bluespace Designs",
+								"RIG Designs",
 								"Stock Parts",
 								"Equipment",
 								"Tool Designs",

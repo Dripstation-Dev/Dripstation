@@ -19,7 +19,7 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 8
 	attacktext = "punches"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_PUNCH
 	a_intent = INTENT_HARM
 	loot = list(/obj/effect/mob_spawn/human/corpse/scav)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -129,7 +129,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attacktext = "punches"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = SFX_PUNCH
 	a_intent = INTENT_HARM
 	loot = list(/obj/effect/mob_spawn/human/corpse/bandit)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -289,7 +289,7 @@
 	armour_penetration = -10
 	icon_state = "tagilla"
 	icon_living = "tagilla"
-	attack_sound = 'sound/weapons/smash.ogg'
+	attack_sound = SFX_BLUNT
 	armor = list(MELEE = 20, BULLET = 75, LASER = 10, ENERGY = 10, BOMB = 50)
 	loot = list(/obj/effect/mob_spawn/human/corpse/bandit/tagilla, /obj/item/melee/sledgehammer/security)
 

@@ -149,13 +149,13 @@
 
 	src.snap_time_weak = snap_time_weak
 
-	RegisterSignal(target, COMSIG_ITEM_ATTACK, PROC_REF(try_toursnap_target))
+	//RegisterSignal(target, COMSIG_ITEM_ATTACK, PROC_REF(try_toursnap_target))
 	RegisterSignal(target, COMSIG_ITEM_PRESURGERY_ATTACK, PROC_REF(try_toursnap_target))
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(toursnap_examine))
 
 /datum/element/tourniquetsnapping/Detach(datum/target)
 	. = ..()
-	UnregisterSignal(target, COMSIG_ITEM_ATTACK)
+	//UnregisterSignal(target, COMSIG_ITEM_ATTACK)
 	UnregisterSignal(target, COMSIG_ITEM_PRESURGERY_ATTACK)
 	UnregisterSignal(target, COMSIG_ATOM_EXAMINE)
 

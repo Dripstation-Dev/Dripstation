@@ -121,7 +121,7 @@
 		log_combat(A, D, "prone-kicked(CQC)")
 		D.visible_message(span_warning("[A] firmly kicks [D] in the abdomen!"), \
 					  		span_userdanger("[A] kicks you in the abdomen!"))
-		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
+		playsound(get_turf(A), SFX_BLUNT, 50, 1, -1)
 		var/kickdamage = A.get_punchdamagehigh() * 2 + 20	//40 damage
 		D.Paralyze(5)
 		D.apply_damage(kickdamage, STAMINA)

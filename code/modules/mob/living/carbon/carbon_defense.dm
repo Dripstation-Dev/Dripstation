@@ -92,13 +92,20 @@
 */
 
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(!skipcatch && can_catch_item() && isitem(AM) && !HAS_TRAIT(AM, TRAIT_UNCATCHABLE) && isturf(AM.loc))
+	if(!skipcatch && can_catch_item() && isitem(AM) && isturf(AM.loc))	//HAS_TRAIT(AM, TRAIT_UNCATCHABLE)
 		var/obj/item/I = AM
+		if((I.item_flags & UNCATCHABLE))
+			return
 		I.attack_hand(src)
 		if(get_active_held_item() == I) //if our attack_hand() picks up the item...
 			visible_message(span_warning("[src] catches [I]!"), \
 							span_userdanger("You catch [I] in mid-air!"))
-			throw_mode_off(THROW_MODE_TOGGLE)
+			update_inv_hands()
+			I.pixel_x = initial(I.pixel_x)
+			I.pixel_y = initial(I.pixel_y)
+			I.transform = initial(I.transform)
+			if(!(mind && mind.martial_art && mind.martial_art.can_use(src) && (mind.martial_art.deflection_chance || mind.martial_art.block_chance || mind.martial_art.id == "sleeping carp")))
+				throw_mode_off(THROW_MODE_TOGGLE)
 			return TRUE
 	return ..()
 

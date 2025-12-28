@@ -192,7 +192,7 @@
 		blocked = TRUE
 	return ..()
 
-/mob/living/carbon/human/grippedby(mob/living/user, instant = FALSE)
+/mob/living/carbon/human/grippedby(mob/living/user, supress_message = FALSE, instant = FALSE)
 	if(w_uniform)
 		w_uniform.add_fingerprint(user)
 	. = ..()
@@ -265,7 +265,7 @@
 			visible_message(span_danger("[M] disarmed [src]!"), \
 					span_userdanger("[M] disarmed [src]!"))
 		else if(!M.client || prob(5)) // only natural monkeys get to stun reliably, (they only do it occasionaly)
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			playsound(loc, SFX_STAB, 25, 1, -1)
 			if (src.IsKnockdown() && !src.IsParalyzed())
 				Paralyze(40)
 				log_combat(M, src, "pinned")
@@ -332,7 +332,7 @@
 				if(prob(armour))
 					to_chat(M, span_notice("[src]'s armour shields the blow!"))
 					return
-				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+				playsound(loc, SFX_STAB, 25, 1, -1)
 				if(armour > 0)
 					Paralyze(50 + armour)
 				else

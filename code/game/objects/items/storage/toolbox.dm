@@ -13,7 +13,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	custom_materials = list(/datum/material/iron = 500) //Toolboxes by default use iron as their core, custom material.
 	attack_verb = list("robusted")
-	hitsound = 'sound/weapons/smash.ogg'
+	hitsound = SFX_BLUNT
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
 	material_flags = MATERIAL_EFFECTS

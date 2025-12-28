@@ -32,9 +32,9 @@
 	success_sound = 'sound/surgery/retractor2.ogg'
 	failure_sound = 'sound/surgery/organ1.ogg'
 	/// How much sanitization is added per step - no sanitization added
-	//var/sanitization_added = 0.5
+	var/sanitization_added = 0.5
 	/// How much infestation is removed per step (positive number)
-	var/infestation_removed = 4
+	var/infestation_removed = 8
 
 /datum/surgery_step/debride_infected/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(surgery.operated_wound)
@@ -70,9 +70,9 @@
 			span_notice("[user] successfully excises some of the infected flesh from [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully excises some of the infected flesh from [target]'s [parse_zone(target_zone)]!"))
 		log_combat(user, target, "excised infected flesh in", addition="INTENT: [uppertext(user.a_intent)]")
-		surgery.operated_bodypart.receive_damage(brute=3, wound_bonus=CANT_WOUND)
+		/*surgery.operated_bodypart.*/BP.receive_damage(brute=3, wound_bonus=CANT_WOUND)
 		BP.applyInfestation(-infestation_removed)
-		//target_wound.sanitization += sanitization_added
+		//BP.sanitization += sanitization_added
 		if(BP.infestation <= 0)
 			repeatable = FALSE
 	else
@@ -92,7 +92,7 @@
 	display_results(user, target, span_notice("You carve away some of the healthy flesh from [target]'s [parse_zone(target_zone)]."),
 		span_notice("[user] carves away some of the healthy flesh from [target]'s [parse_zone(target_zone)] with [tool]!"),
 		span_notice("[user] carves away some of the healthy flesh from [target]'s [parse_zone(target_zone)]!"))
-	surgery.operated_bodypart.receive_damage(brute=rand(2,5), sharpness=TRUE)
+	/*surgery.operated_bodypart.*/BP.receive_damage(brute=rand(2,5), sharpness=TRUE)
 
 /datum/surgery_step/debride_infected/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(!..())

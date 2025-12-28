@@ -387,7 +387,7 @@
 	name = "bamboo stool"
 	icon_state = "bamboo_stool_toppled"
 	item_state = "stool_bamboo"
-	hitsound = 'sound/weapons/genhit1.ogg'
+	hitsound = SFX_BLUNT
 	origin_type = /obj/structure/chair/stool/bamboo
 	materials = null
 	break_chance = 50	//Submissive and breakable unlike the chad iron stool
@@ -410,7 +410,7 @@
 	item_state = "woodenchair"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
-	hitsound = 'sound/weapons/genhit1.ogg'
+	hitsound = SFX_BLUNT
 	origin_type = /obj/structure/chair/wood
 	materials = null
 	break_chance = 50

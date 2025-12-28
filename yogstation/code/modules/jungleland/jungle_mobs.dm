@@ -552,7 +552,7 @@
 	ventcrawler = 2
 	ranged_cooldown_time = 80
 	projectiletype = /obj/projectile/websling
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_PIERCE
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/weapons/bite.ogg'
 	deathmessage = "rolls over, frothing at the mouth before stilling."

@@ -239,7 +239,7 @@
 		COMBAT_MESSAGE_RANGE, A,
 	)
 	to_chat(A, span_danger("You [picked_hit_type] [D]!"))
-	playsound(D, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+	playsound(D, SFX_PUNCH, 50, TRUE, -1)
 	return TRUE
 
 /datum/martial_art/velvetfu/grab_act(mob/living/A, mob/living/D)
@@ -262,7 +262,7 @@
 		COMBAT_MESSAGE_RANGE, A,
 	)
 	to_chat(A, span_danger("You [picked_hit_type] [D]!"))
-	playsound(D, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+	playsound(D, SFX_PUNCH, 50, TRUE, -1)
 	return TRUE
 
 /datum/martial_art/velvetfu/harm_act(mob/living/A, mob/living/D)
@@ -282,7 +282,7 @@
 		COMBAT_MESSAGE_RANGE, A,
 	)
 	to_chat(A, span_danger("You silken wrist [D]!"))
-	playsound(D, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+	playsound(D, SFX_PUNCH, 50, TRUE, -1)
 	return TRUE
 
 /mob/living/proc/velvetfu_help()

@@ -53,7 +53,7 @@
 			atk_verb = "headbutts"
 			D.visible_message(span_danger("[A] [atk_verb] [D]!"), \
 					  span_userdanger("[A] [atk_verb] you!"))
-			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 40, 1, -1)
+			playsound(get_turf(D), SFX_BLUNT, 40, 1, -1)
 			var/headbutt_damage = rand(A.get_punchdamagehigh() + rand(-5,5))	//5-15 damage
 			armor_block = D.run_armor_check(BODY_ZONE_HEAD, MELEE, armour_penetration = 20)		//20 AP
 			var/user_armor_block = A.run_armor_check(BODY_ZONE_HEAD, MELEE, armour_penetration = 20)	//for fairness

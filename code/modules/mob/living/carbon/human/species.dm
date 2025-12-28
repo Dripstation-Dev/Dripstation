@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 	/// punch-specific attack verbs
 	var/list/attack_verbs = list("punch")
 	///the melee attack sound
-	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
+	var/sound/attack_sound = SFX_PUNCH
 	///the swing and miss sound
 	var/sound/miss_sound = SFX_GENERICMISS
 
@@ -1927,7 +1927,7 @@ GLOBAL_LIST_EMPTY(features_by_species)
 			if(M.dna)
 				playsound(H.loc, M.dna.species.attack_sound, 25, 1, -1)
 			else
-				playsound(H.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
+				playsound(H.loc, SFX_PUNCH, 25, 1, -1)
 			log_combat(M, H, "hulk punched a shield held by")
 			return FALSE
 		if(istype(attacker_style, /datum/martial_art/flyingfang) && M.a_intent == INTENT_DISARM)

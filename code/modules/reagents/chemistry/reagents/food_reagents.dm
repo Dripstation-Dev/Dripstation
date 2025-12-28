@@ -609,8 +609,9 @@
 /datum/reagent/consumable/honey/reaction_mob(mob/living/M, methods=TOUCH, reac_volume)
 	if(iscarbon(M) && (methods & (TOUCH|VAPOR|PATCH)))
 		var/mob/living/carbon/C = M
-		//for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
-			//var/datum/surgery/S = s
+		for(var/s in C.surgeries)	//dripstation edit - remove success_multipliers
+			var/datum/surgery/S = s
+			S.operated_bodypart.sanitization += 0.5 * reac_volume
 			//S.success_multiplier = max(0.6, S.success_multiplier) // +60% success probability on each step, compared to bacchus' blessing's ~46%
 		for(var/datum/wound/W in C.all_wounds)
 			W.applySanitization(0.5 * reac_volume)

@@ -11,7 +11,7 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	move_to_delay = 20
 	projectiletype = /obj/projectile/temp/basilisk
-	projectilesound = 'sound/weapons/pierce.ogg'
+	projectilesound = SFX_PIERCE
 	ranged = 1
 	ranged_message = "stares"
 	ranged_cooldown_time = 30
